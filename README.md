@@ -67,11 +67,11 @@ After making a few changes, verify that the changes appear as expected by re-mak
 
     make all
 
-Once satisfied, clean adn push the branch to Github origin.
+Once satisfied, clean and push the branch to Github origin.
 
     make clean
     git push origin branchname
 
-## Pull request
+## 4. Pull request
 On the Github web interface, create a new pull request for the branch, assign the current maintainers for review, apply relevant labels, and set the milestone to the current release target.
 
