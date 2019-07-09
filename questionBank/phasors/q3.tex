@@ -1,0 +1,149 @@
+\qns{Phasor-domain circuit analysis}
+\qcontributor{Yuxun Zhou}
+
+The analysis techniques you learned previously for resistive circuits
+are equally applicable for analyzing AC circuits (circuits driven by
+sinusoidal inputs) in the phasor domain. In this problem, we will walk
+you through the steps with a  concrete example. Consider the circuit
+below. 
+
+	\begin{center}
+		\begin{circuitikz}[scale=0.8]
+			\draw node[ground] {} (0,0)	
+			to[short] (5,0)
+			(5,2) to[V = $v(t)$] (5,0)
+			(5,2) to[R = $R_2$,i<=$i_{R2}$] (5,4)
+			to[short] (5,6)
+			to[R = $R_1$,i=$i_{R1}$] (0,6)
+			to[short] (0,3)
+			to[C = $C_1$] (0,2)
+			to[short,i = $i_c$] (0,1.5)
+			to[short] (0,0);			
+		
+			\draw (0,4)
+			to[L = $L_1$,i<=$i_{L1}$, *-*] (5,4)
+			to[L = $L_2$,i=$i_{L2}$] (10,4)
+			to[R = $R_3$] (10,0)
+			to[short] (5,0);
+			
+			\draw (0,4) node[label={left:$N_1$}] {}	;
+			\draw (5,4) node[label={45:$N_2$}] {}	;
+
+		\end{circuitikz}
+	\end{center}
+
+The components in this circuit are given by:
+
+Voltage source:
+$$v(t) = 20\cos (50t-\frac{\pi}{3})$$ 
+Resistors:
+$$R_1 = 8\Omega,\quad R_2 = 8\Omega, \quad R_3 = 8\Omega$$
+Inductors: 
+$$L_1 = 40 \; \text{mH},\quad L_2 = 40 \; \text{mH}$$
+Capacitor:
+$$C_1 = 5 \;\text{mF}$$
+
+\begin{enumerate}
+
+\qitem To begin with, transform the given circuit to the phasor domain. 
+
+\sol{
+\begin{align*}
+Z_L &= j\omega L = j50\times 40 \times 10^{-3} = j2\; \Omega \\
+Z_C &= \frac{1}{j\omega C} =\frac{1}{j50\times 5 \times 10^{-3}}= -j4\; \Omega \\
+\widetilde{v} &=|v|e^{j\angle v} = 20e^{-j\frac{\pi}{3}}
+\end{align*}
+ }
+
+\qitem Write out KCL for node $N_1$ and $N_2$ in the phasor domain.
+
+\sol{
+\begin{align*}
+\intertext{At node 1}
+i_{L1}+i_{R1} &= i_c \\
+\intertext{At node 2}
+i_{R1}+i_{L1}+i_{R2}+i_{L2}&=0 \\
+\end{align*}
+}
+
+\qitem Use KVL to express the currents in terms of node voltages in the phasor domain. The node voltages $\widetilde{V}_1$ and $\widetilde{V}_2$ are the voltage drops from $N_1$ and $N_2$ to the ground.
+
+\sol{We have
+\begin{align*}
+\frac{\widetilde{V}_2-\widetilde{V}_1}{Z_L} + \frac{\widetilde{V}_2-\widetilde{V}_1}{R}  &=\frac{\widetilde{V}_1}{Z_C}   \\
+\frac{\widetilde{V}_2-\widetilde{V}_1}{R} + \frac{\widetilde{V}_2-\widetilde{V}_1}{Z_L} + \frac{\widetilde{V}_2-\widetilde{v}}{R} + \frac{\widetilde{V}_2}{R+Z_L}&=0 
+\intertext{Plugging in values from part (a), we get}
+\frac{\widetilde{V}_2-\widetilde{V}_1}{j2} + \frac{\widetilde{V}_2-\widetilde{V}_1}{8}  &=\frac{\widetilde{V}_1}{-j4}  \\
+\frac{\widetilde{V}_2-\widetilde{V}_1}{8} + \frac{\widetilde{V}_2-\widetilde{V}_1}{j2} + \frac{\widetilde{V}_2-20e^{-j\frac{\pi}{3}}}{8} + \frac{\widetilde{V}_2}{8+j2}&=0
+\intertext{For future parts, we want the denominators of each current to be either purely real or purely imaginary. To put $i_{L2}$ in this form, we can manipulate the expression by multiplying the denominator by its conjugate:}
+\frac{\widetilde{V}_2}{8+j2}\bigg(\frac{8-j2}{8-j2}\bigg)=\frac{\widetilde{V}_2(8-j2)}{8^2-(-4)} &= \frac{\widetilde{V}_2(8-j2)}{68} 
+\intertext{Our final KCL equations at nodes $N_1$ and $N_2$ are}
+\frac{\widetilde{V}_2-\widetilde{V}_1}{j2} + \frac{\widetilde{V}_2-\widetilde{V}_1}{8}  &=\frac{\widetilde{V}_1}{-j4}  \\
+\frac{\widetilde{V}_2-\widetilde{V}_1}{8} + \frac{\widetilde{V}_2-\widetilde{V}_1}{j2} + \frac{\widetilde{V}_2-20e^{-j\frac{\pi}{3}}}{8} + \frac{\widetilde{V}_2(8-j2)}{68}&=0
+\end{align*}
+}
+
+\qitem Write the equations you derived in part (b) and (c) in a matrix form, i.e., $A\begin{bmatrix}
+\widetilde{V}_1\\\widetilde{V}_2
+\end{bmatrix} = b$ Solve for $A$ and $b$ in numerical form.
+
+\sol{ From the above two equations, we have
+\begin{align*}
+ A = \begin{bmatrix}
+\frac{1}{8} - j\frac{1}{4} & -\frac{1}{8} + j\frac{1}{2} \\
+-\frac{1}{8} + j\frac{1}{2} & \frac{1}{4} + \frac{8}{68} - j\frac{1}{2} - j\frac{2}{68}
+\end{bmatrix} &= 
+\begin{bmatrix}
+   0.125 - j0.25 & -0.125 + j0.5\\
+  -0.125 + j0.5 & 0.3676 + j0.5294
+\end{bmatrix} \\
+b = \begin{bmatrix}
+0\\ \frac{20e^{-j\frac{\pi}{3}}}{8}
+\end{bmatrix} &= 
+\begin{bmatrix}
+0\\ 1.25 - j2.165
+\end{bmatrix}
+\end{align*}
+ }
+
+\qitem Solve the systems of linear equations you derived in part (d) with any method you prefer, and then find $i_c(t)$.
+
+\sol{ 2 by 2 matrix is easy to be inverted, .i.e.,
+$$
+\begin{bmatrix}
+a & b\\ c &d
+\end{bmatrix}^{-1}
+= \frac{1}{ad-bc}  \begin{bmatrix}
+d & -b \\ -c & a
+\end{bmatrix} $$
+$$
+A^{-1} =
+\begin{bmatrix}
+  3.1280 - j2.8782 &  1.5240 - j3.0381 \\
+  1.5240 - j3.0381 &  1.1643 - j1.4291
+\end{bmatrix} \\
+$$
+
+With that we find
+$$
+\begin{bmatrix}
+\widetilde{V}_1\\ \widetilde{V}_2
+\end{bmatrix} = A^{-1} b =
+\begin{bmatrix}
+-4.6726 - j7.0973 \\ -1.6388 - j4.3071
+\end{bmatrix}
+=\begin{bmatrix}
+8.4973e^{-j2.1530}\\4.6083e^{-j1.9344}
+\end{bmatrix}
+$$
+Then $$I_C = \frac{\widetilde{V}_1}{-j4} = \frac{j}{4} \widetilde{V}_1 = 2.1243e^{-j0.5822}$$
+transform back to time domain we have
+$$i_C(t) = 2.1243\cos (50t-0.5822)$$
+}
+
+
+\end{enumerate}
+
+\begin{comment}
+Other analysis techniques?
+\end{comment}

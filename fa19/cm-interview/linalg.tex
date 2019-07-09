@@ -1,0 +1,91 @@
+\qns{SVD / Linear Algebra}
+\qcontributor{Taejin Hwang}
+\qcontributor{Ramsey Mardini}
+
+\begin{enumerate}
+
+\qitem \textbf{Conceptual Question:} Explain why is the SVD used for PCA?
+
+\meta{
+	Testing meta here
+}
+
+\sol{
+\begin{align*}
+\intertext{When the swtich is open, we denote the voltage to the left of resistor to be $y$. We obtain the following differential equations. KCL at node between the resistor and capacitor gives}
+\frac{y - V_{\text{C}}}{R} = C\frac{dV_{\text{C}}}{dt} \\
+\intertext{Since the current going into the resistor and the voltage source is zero, KCL gives:}
+\frac{y - V_{\text{C}}}{R} = 0 \\
+\intertext{and}
+i_{\text{Vs}} = 0\\
+\intertext{When the switch is closed, the following still holds:}
+\frac{y - V_{\text{C}}}{R} = C\frac{dV_{\text{C}}}{dt} \\
+\intertext{Additionally, KCL at the node between the resistor and voltage sources gives:}
+\frac{V_{\text{S}} - V_{\text{C}}}{R} +  i_{\text{Vs}} = 0
+\end{align*}
+}
+
+
+
+\qitem \textbf{Conceptual Question:} Explain why it is optimal to pick the $k$ largest singular values of the SVD to create a low rank approximation for PCA?
+
+\sol{
+\begin{align*}
+\intertext{From the previous problem we know that when the switch is closed,}
+\frac{V_{\text{S}}- V_{\text{C}}}{R} = C\frac{dV_{\text{C}}}{dt} \\
+\intertext{Thus we obtain}
+C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0
+\end{align*}
+}
+
+
+
+\qitem Let $A = \{u_1, \dots, u_k\}$ and $B = \{w_1, \dots, w_l\}$ be two sets of vectors in some vector space $V.$ \\
+Now consider the two following subspaces of $V: U = \text{span}\{A\} \text{ and } W = \text{span}\{B\}.$ \\
+Show that if $U \, \cap \, W \neq \{0\},$ then the set of vectors: $A \, \cup \, B$ is linearly dependent.
+
+\sol{
+
+\begin{align*}
+\intertext{No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{\text{c}}=\SI{0}{\volt}$ before $t=0$.} 
+\intertext{At $t=0$, the switch closes. Since voltage across the capacitor cannot change instantaneously,}
+V_{\text{c}}(t=0)&=0. \\
+\intertext{As $t$ goes to infinity, the capacitor will become fully charged and the current goes to zero. Therefore, the voltage of the capacitor equals the voltage source:}
+V_{\text{c}}(t \to \infty)&=V_{\text{S}}.
+\end{align*}
+}
+
+
+
+
+\qitem Let $V$ be a vector space, and $T: V \to V$ be a linear operator. Suppose $x \in V$ such that $T^{m}(x) = 0$ but $T^{m-1}(x) \neq 0$ for some positive integer $m.$ Show that $\{x, T(x), T^{2}(x), \dots, T^{m-1}(x)\}$ is a linearly independent set. 
+
+\sol{
+	\begin{align*}
+		\intertext{The general solution to the equation}
+		\frac{dy}{dt}&=\lambda y \\
+		\intertext{is}
+		y(t)&=Ke^{\lambda t}, \\
+		\intertext{where $K$ is a constant and $\lambda$ is the eigenvalue of the equation. In our case, we know}
+		C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0,\\
+		\intertext{which can be written as}
+		\frac{dV_{\text{C}}}{dt} = - \frac{V_{\text{C}}}{RC} + \frac{V_{\text{S}}}{RC}.\\
+		\intertext{The solution will be in the form}
+		V_{\text{c}}(t)&=Ke^{-\frac{t}{RC}} + V_{\text{S}}. \\
+		\intertext{To find $K$, we can plug in our initial condition at $t=0$:}
+		V_{\text{c}}(t=0)&=K + V_{\text{S}} = 0.\\
+		\intertext{So our overall equation ends up being}
+		V_{\text{c}}(t)&=-V_{\text{S}} e^{-\frac{t}{RC}} + V_{\text{S}}. \\
+		% % I_{\text{c}}(t=0)&=Ke^{-\frac{0}{RC}}=\frac{V_{\text{s}}}{R} \\
+		% % \intertext{From this we can see}
+		% % K&=\frac{V_{\text{s}}}{R} \\
+		% % \intertext{So our overall equation ends up being}
+		% % I_{\text{c}}(t)&=\frac{V_{\text{s}}}{R}e^{-\frac{t}{RC}} \\
+		\intertext{We can also double check our answer by looking at the state for t $\to \infty$:}
+		V_{\text{c}}(t \to \infty)&=-V_{\text{S}} e^{-\infty} + V_{\text{S}} =  V_{\text{S}},\\
+		\intertext{which agrees with our answer from previous part.}
+	\end{align*}
+}
+
+
+\end{enumerate}

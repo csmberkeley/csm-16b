@@ -1,0 +1,98 @@
+\qns{Fun with Inductors}
+\qcontributor{Arda Sahiner}
+
+\begin{enumerate}
+
+\begin{figure}[H]
+ \centering
+ \input{\bank/ode/figures/inductor_1}
+ \caption{Circuit A}
+\end{figure}
+
+\qitem Consider circuit A. Assuming that for $t<0$, switch $S_1$ is on and switch $S_2$ is off (and both switches have been in these states indefinitely), what is $i_L(0)$?
+
+\sol{
+When $S_1$ is on and $S_2$ is off for a long period of time, $\frac{di_L}{dt} = 0$ because the circuit will have reached a steady state, and the current through $R_1$ will be equal to $i_L$. We find
+$$V_{in} - V_L - V_{R_1} = 0$$
+$$V_{in} - L\frac{di_L}{dt}(0) - i_L(0)R_1 = 0$$
+$$V_{in} - i_L(0)R_1 = 0$$
+$$i_L(0) = \frac{V_{in}}{R_1}$$
+}
+
+\qitem Now let's assume that for $t \geq 0$, $S_1$ is off and $S_2$ is on. Solve for $V_{out}(t)$ for $t \geq 0$.
+
+\sol {
+$$V_{in} - V_L - V_{out} = 0$$
+$$V_{in} - L\frac{di_L}{dt} - i_LR_2 = 0$$
+$$\frac{di_L}{dt} + \frac{R_2}{L}i_L = \frac{V_{in}}{L}$$
+
+This is a non-homogenous first order differential equation in $i_L$. We can solve for $i_L(t)$ and then use Ohm's law to find $V_{out}(t)$ after this has been solved.
+$$\frac{di_L}{dt} + \frac{R_2}{L}(i_L - \frac{V_{in}}{R_2}) = 0$$
+Let $\tilde{i_L} = i_L - \frac{V_{in}}{R_2}$. We now have:
+$$\frac{d\tilde{i}_L}{dt} + \frac{R_2}{L}\tilde{i}_L = 0$$
+
+The general solution is given by:
+$$\tilde{i}_L(t) = c_1 e^{-\frac{R_2}{L}t}$$
+Resubstituting back $i_L$, we have:
+$$i_L(t) = \frac{V_{in}}{R_2} + c_1 e^{-\frac{R_2}{L}t}$$
+
+Applying initial conditions, we know:
+$$i_L(0) = \frac{V_{in}}{R_2} + c_1 = \frac{V_{in}}{R_1}$$
+$$c_1 = \frac{V_{in}}{R_1} - \frac{V_{in}}{R_2}$$
+
+Our solution for $i_L(t)$ thus becomes:
+$$i_L(t) = \frac{V_{in}}{R_2} + (\frac{V_{in}}{R_1} - \frac{V_{in}}{R_2})e^{-\frac{R_2}{L}t}$$
+Since $V_{out}(t) = i_L(t)R_2$, 
+$$V_{out}(t) = V_{in}(1 + (\frac{R_2}{R_1} - 1)e^{-\frac{R_2}{L}t})$$
+}
+
+\qitem If $V_{in} = 1 V$, $L = 1 nH$, $R_1 = 1 k\Omega$, and $R_2 =10 k\Omega$, what is the maximum value of $V_{out}(t)$ for $t \geq 0$?
+
+\sol{
+Since the coefficient in front of our time-varying component $e^{-\frac{R_2}{L}t}$, given by $\frac{R_2}{R_1} - 1 = 9$, is positive, $V_{out}(t)$ undergoes decay over time. Therefore, the maximum value is achieved at $t=0$:
+$$\max V_{out} (t) = V_{out}(0) = \frac{R_2}{R_1}V_{in} = 10V$$
+
+}
+
+\qitem In general, if we want $\max{V_{out}(t)}$ to be greater than $V_{in}$, what relationship needs to be maintained between the values of $R_1$ and $R_2$?
+
+\sol{
+As long as the coefficient on our exponential term, given by $\frac{R_2}{R_1} - 1$, is greater than $0$ (i.e. when $\frac{R_2}{R_1} > 1$) then the maximum value of $V_{out}(t)$ will be achieved at $t = 0$ and will have a value of $\frac{R_2}{R_1} V_{in} > V_{in}$. Otherwise, if $\frac{R_2}{R_1} \leq 1$, the maximum value of $V_{out}(t)$ is reached at $t=\infty$, where $V_{out} = V_{in}$ regardless of $R_2$ and $R_1$. Therefore, our necessary condition for the maximum of $V_{out}$ to be greater than $V_{in}$ is:
+$$R_2 > R_1$$
+}
+
+%\begin{figure}[H]
+% \centering
+% \input{figures/inductor_2}
+% \caption{Circuit B}
+%\end{figure}
+
+\qitem Now assume that at time $t = t_1$, switch $S_2$ was turned off, and switch $S_1$ was turned back on.  Solve for $i_L(t)$ for $t > t_1$.  If $R_2 > R_1$, how does this $i_L(t)$ for $t>t_1$ compare with the initial condition $i_L(0)$ you found in part (a)?
+
+\sol {
+Our new initial condition for $t > t_1$ is given by plugging in $t = t_1$ into the equation for $i_L(t)$ we found in part (b). Thus, $i_L(t_1) = \frac{V_{in}}{R_2} + (\frac{V_{in}}{R_1} - \frac{V_{in}}{R_2})e^{-\frac{R_2}{L}t_1}$. \\
+We can write the relationship between the current through the inductor and the current through $R_1$:
+$$i_L = i_{R_1}$$
+$$i_L = \frac{V_{R_1}}{R_1}$$
+$$i_L = \frac{V_{in} - V_L}{R_1}$$
+$$i_L = \frac{V_{in}}{R_1} - \frac{L\frac{di_L}{dt}}{R_1}$$
+$$\frac{di_L}{dt} + \frac{R_1}{L}i_L = \frac{V_{in}}{L}$$
+This is a first order non-homogeneous differential equation similar to that found in part (b), except with $R_1$ in place of $R_2$. Following those steps in part (b), we find the general solution:
+$$i_L(t) = \frac{V_{in}}{R_1} + c_1e^{-\frac{R_1}{L}t}$$
+To find $c_1$ we apply our initial condition:
+$$i_L(t_1) = \frac{V_{in}}{R_1} + c_1e^{-\frac{R_1}{L}t_1} = \frac{V_{in}}{R_2} + (\frac{V_{in}}{R_1} - \frac{V_{in}}{R_2})e^{-\frac{R_2}{L}t_1}$$
+$$c_1e^{-\frac{R_1}{L}t_1} = (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(1 - e^{-\frac{R_2}{L}t_1})$$
+$$c_1 = \frac{ (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(1 - e^{-\frac{R_2}{L}t_1})}{e^{-\frac{R_1}{L}t_1}}$$
+$$c_1 = (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})$$
+Thus, we have
+$$i_L(t) = \frac{V_{in}}{R_1} + (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})e^{-\frac{R_1}{L}t}$$
+for $t>t_1$. 
+We also see that as $t \to \infty$, $i_L(t)$ for $t > t_1$ becomes:
+$$i_L(t=\infty) = \frac{V_{in}}{R_1} + (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})e^{-\frac{R_1}{L}\infty}$$
+$$i_L(t=\infty) = \frac{V_{in}}{R_1} + (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})(0)$$
+$$i_L(t=\infty) = \frac{V_{in}}{R_1} = i_L(0)$$
+
+Thus, if we turn $S_2$ back off and $S_1$ back on as was described in this part, we will eventually revert back to the initial state from which we started! Specifically, if $R_2 > R_1$, $i_L(t)$ at $t = t_1$ will be less than our initial condition $i_L(0)$, and $i_L(t)$ will rise to $i_L(0)$ over time. 
+}
+
+\end{enumerate}

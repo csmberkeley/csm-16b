@@ -1,0 +1,36 @@
+% {\Large \textbf{Mechanical:}}
+\qns{Circuits}
+\qcontributor{Ramsey Mardini}
+
+
+
+\begin{enumerate}
+
+\qitem \textbf{Conceptual Question:} When can you use phasor transforms to solve a circuit?
+
+\begin{circuitikz}
+  \draw
+  (0, 0) node[op amp] (opamp) {}
+  (-3.6, 0.1) node[label=$v_\text{in}$] {} 
+  (2.125, -0.4) node[label=$v_\text{out}$] {}
+  (-3.25, 0.5) to[short,o-] (-3, 0.5)
+  (opamp.-) to[R=$R_1$] (-3, 0.5)
+  (opamp.-) to[short,*-] ++(0,1.5) coordinate (leftC)
+            to[R=$R_2$]           (leftC -| opamp.out)
+            to[short,-*]    (opamp.out)
+            to[short,-o] ++ (0.5,0) coordinate (out)     
+  (leftC)   to[short,*-] ++ (0,1.5)  coordinate (leftR) 
+            to[C=$C$]           (leftR -| opamp.out)
+            to[short,-*]    (leftC -| opamp.out)
+   (opamp.+) -- ++ (0,-0.5) node[ground] {};
+ \end{circuitikz}
+
+\qitem The circuit above is a first order low-pass filter.
+
+	\begin{enumerate}
+		\item What is its transfer function?
+		\item What is its DC gain?
+		\item Show that the 3-dB frequency is $\omega = 1 / R_2 C$
+	\end{enumerate}
+
+\end{enumerate}

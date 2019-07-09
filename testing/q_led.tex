@@ -1,0 +1,71 @@
+\qns{LED Colors [OPTIONAL]}
+\qcontributor{Regina Eckert}
+
+Some common semiconductors are silicon and germanium, which are mainly used in electronics, and indium arsenide, indium phosphide, gallium phosphide, and gallium arsenide, which can be used for LEDs. Silicon and germanium are not used for LEDs because they do not have the property that makes electron recombination primarily emit energy as photons rather than as heat.
+
+The energy of the band-gap $E_G$ is given below for these semiconductors in terms of electron-volts (eV).
+
+\begin{center}
+	\begin{tabular}{c|c}
+		Semiconductor & $E_G$ (eV) \\
+		\hline
+		Si	& 1.11 \\
+		Ge & 0.66 \\
+		InAs & 0.36 \\
+		InP & 1.27 \\
+		GaP	& 2.25 \\
+		GaAs & 1.43 \\
+	\end{tabular}
+\end{center}
+
+\begin{enumerate}
+	\qitem What is the frequency $\nu$ and wavelength $\lambda$ of the photon that would be emitted for each of these semiconductors? Round $\nu$ to the nearest THz and $\lambda$ to the nearest nm.
+	
+\ans{The energy of a photon is $E_{photon} = h\nu$, where $h=4.136\times10^{-15} eV/Hz$ is Planck's constant. When an electron from the conduction band recombines with a hole and drops to the valence band, it emits its excess energy $E_{emitted} = E_C-E_V = E_G$, which is the band-gap energy. We can therefore set the band-gap energy equal to the energy of a photon to calculate the frequency of light that is emitted when this recombination event occurs.
+	
+	\begin{equation}
+	\nu = \frac{E_G}{h}
+	\end{equation}
+	
+	Since we have a relationship for $\nu$ and $\lambda$ ($\nu = c/\lambda, c = 2.99\times10^8 m/s$), we can also write this in terms of the wavelength.
+	
+	\begin{equation}
+	\lambda = \frac{hc}{E_G}
+	\end{equation}
+	
+	Plugging in for the semiconductor energies, we get the following:
+	
+	\begin{center}
+		\begin{tabular}{c|c|c|c}
+			Semiconductor & $E_G$ (eV) & $\nu$ (THz) & $\lambda$ (nm) \\
+			\hline
+			Si	& 1.11 & 268 & 1114 \\
+			Ge & 0.66 & 160 & 1874 \\
+			InAs & 0.36 & 87 & 3435\\
+			InP & 1.27 & 307 & 974\\
+			GaP	& 2.25 & 544 & 550\\
+			GaAs & 1.43 & 346 & 865\\
+		\end{tabular}
+	\end{center}
+	
+}
+	
+	\qitem Which of these semiconductors would emit light in the visible range?
+	
+	\ans{ The visible range is frequency $\nu$ between 430 and 790 \si{\tera\hertz}, or equivalently wavelength $\lambda$ between 380 ~\si{\nano\meter} and 700 ~\si{\nano\meter}. Only GaP (gallium phosphide) emits in the visible range here. The rest of the semiconductors have lower energy, longer wavelength photons that are emitted, in the infra-red region of the electromagnetic spectrum.		
+	}
+
+	\qitem Can there be a single LED that emits white light? Discuss the design of a white-light LED, given what you know. (\textit{Reminder: White light contains all visible frequencies of light.})
+	
+	\ans{No, there cannot be a single LED that simply emits white light. Each LED only emits in a narrow band of frequencies at energy $E_G$. 
+		
+		The most common "white" LED is actually a blue LED inside glass that is coated with a yellow phosphor. The blue LED causes the phosphor to emit yellow light. Fluorescent light has a much broader spread of frequencies than an LED. The blue and yellow light combines to create a white-like light. This is why "white" LED's often cast a very blue-hued light.
+		
+		We can also shine LEDs of multiple colors at the same time to have this same effect. The LEDs' relative powers have to be tuned appropriately so that the combination appears white to the human eye. 
+		
+		For more information, see https://www.lrc.rpi.edu/programs/nlpip/lightinganswers/led/whitelight.asp.
+	}
+		
+		\sol{That the photons aren't all at exactly the same frequency $\nu$, but instead in a narrow band around $\nu$ is for a few different reasons. The electron can be excited slightly above and below the band-gap energy, so the photon it emits can be of slightly different frequency than what we calculated. There is also a Doppler linewidth broadening that occurs because atoms are moving relative to the observer.}
+	
+\end{enumerate}

@@ -1,0 +1,232 @@
+%\newcommand{\ddt}[2]{{\frac{d}{d #2}\left. #1 \right.}}
+\newcommand{\ddt}[2]{{\frac{d #1}{d #2}}}
+\newcommand{\dddt}[2]{{\frac{d^2 #1}{d #2 ^2}}}
+\newcommand{\ddx}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\Ddx}[2]{{\frac{D}{d{#2}}\left[ #1 \right]}}
+\newcommand{\qhat}{\hat{q}}
+\newcommand{\Qhat}{\hat{Q}}
+\newcommand{\fhat}{\hat{f}}
+\newcommand{\Fhat}{\hat{F}}
+\newcommand{\deq}{\triangleq}
+%\newcommand{\I}{I\left[\right]}
+\newcommand{\ELL}[1]{L\left[#1\right]}
+\newcommand{\w}{\omega}
+\newcommand{\calD}{{\cal D}}
+\renewcommand{\jmath}{j}
+\newcommand{\Pinvt}{{P(t)}^{-1}}
+\newcommand{\halmos}{\hskip\textwidth minus\textwidth \rule{6pt}{6pt}}
+\newcommand{\calA}{{\cal A}}
+\newcommand{\calAT}{{\cal A}^T}
+\newcommand{\calL}{{\cal L}}
+\newcommand{\calLadj}{\calL^\dagger}
+\newcommand{\calR}{{\cal R}}
+\newcommand{\Reals}{\Bbb{R}}
+\newcommand{\Real}{\Bbb{R}}
+\newcommand{\Safe}{\ensuremath{{\bf S}}}
+\newcommand{\Pade}{{Pad\'e}}
+\newcommand{\Complexes}{\Bbb{C}}
+\newcommand{\HvecqLanc}{\Hvec^{(L)}_q}
+\newcommand{\HvecqArn}{\Hvec^{(A)}_q}
+\newcommand{\Fvec}{\vec{F}}
+\newcommand{\calDT}{{\cal D}^T}
+\newcommand{\calCtil}{\tilde{\cal C}}
+\newcommand{\calJtil}{\tilde{\cal J}}
+\newcommand{\calDtil}{\tilde{\cal D}}
+\newcommand{\JstarDphi}{J_{\Delta \phi}^*}
+\newcommand{\Jstarphi}{J_{\phi}^*}
+\newcommand{\vecbphi}{\vec b_{\phi}}
+\newcommand{\vecbext}{\vec b_{\text{ext}}}
+\newcommand{\phistarIdeal}{\phi_{\text{ideal}}^*}
+\newcommand{\apdx}[1]{\appref{#1}} 
+\newcommand{\delbydel}[2]{\ensuremath{\frac{\partial {#1}}{\partial {#2}}}}
+\newcommand{\delbydeln}[3]{\ensuremath{\frac{\partial^{{#1}}
+{#2}}{\partial{#3}^{{#1}}}}}
+\newcommand{\delbydelat}[3]{\ensuremath{\left. \frac{\partial
+{#1}}{\partial {#2}} \right|_{{#3}}}}
+\newcommand{\dee}{\ensuremath{\mathrm{d}}}
+\newcommand{\dbyd}[2]{\ensuremath{\frac{\mathrm{d} {#1}}{\mathrm{d}
+{#2}}}}
+\newcommand{\dbydn}[3]{\ensuremath{\frac{\mathrm{d}^{{#1}}{#2}}
+{\mathrm{d}{#3}^{{#1}}}}}
+\newcommand {\dist}[1] {{{\rm dist}\left({#1}\right)}}
+\def\Matrix#1{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\textdiag}{{\text{diag}}}
+\newcommand{\ihat}{\hat{\imath}}
+\newcommand{\jhat}{\hat{\jmath}}
+\newcommand{\khat}{\hat{k}}
+%\newcommand{\del}{\nabla}
+\newcommand{\Rxx}{R_{\vec x \vec x}}
+\newcommand{\Sxx}{S_{\vec x \vec x}}
+\newcommand{\Snn}{S_{\vec n \vec n}}
+\newcommand{\vecphi}{\vec \phi}
+\newcommand{\Dphi}{\Delta \phi}
+\newcommand{\vecDphi}{\vv{\Delta \phi}}
+\newcommand{\dphi}{\delta \phi}
+\newcommand{\vecdphi}{\vv{\delta \phi}}
+\newcommand{\ah}{\alpha_g} % g for group
+%\newcommand{\tDagger}{{\tilde t}}
+\newcommand{\tDagger}{{t^{\!\dagger}}}
+%\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+%\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\texthyphen}{\text{--}}
+
+%The substack command can be used to produce a multi-line subscripts or superscripts:
+%\sum_{\substack{0\le i\le m\\ 0<j<n}} P(i,j) produces a two-line subscript underneath the sum.
+%A slightly more general form is the subarray environment which allows you to specify that each line should be left-aligned instead of centered, as here:
+% \sum_{\begin{subarray}{l} i\in\Lambda\\ 0<j<n \end{subarray}} P(i,j) 
+
+%\newcommand{\be}[1]{\begin{equation}\eqnlabel{#1}} % now moved to cleveref
+\newcommand{\be}[1]{\begin{equation}\label{#1}}
+\def\ee{\end{equation}}
+
+\def\endproofmark{$\Box$}
+\newenvironment{proof}{\par{\bf Proof}:}{\endproofmark}
+\newenvironment{proofof}{\par{\bf Proof }}{\endproofmark}
+
+
+\newcounter{axiomnumber}
+\setcounter{axiomnumber}{0}
+\renewcommand\theaxiomnumber{\the\lecturenumber.\arabic{axiomnumber}}
+\newenvironment{axiom}[1]{\par\refstepcounter{axiomnumber}
+{\bf Axiom \theaxiomnumber\ (#1)}:
+\begingroup}%
+{\endgroup}
+
+\newcounter{defnnumber}
+\setcounter{defnnumber}{0}
+\renewcommand\thedefnnumber{\the\lecturenumber.\arabic{defnnumber}}
+\newenvironment{defn}[1]{\par\refstepcounter{defnnumber}
+{\bf Definition \thedefnnumber\ (#1)}:
+\begingroup}%
+{\endgroup}
+
+\newcounter{theoremnumber}
+\setcounter{theoremnumber}{0}
+\renewcommand\thetheoremnumber{\the\lecturenumber.\arabic{theoremnumber}}
+\newenvironment{theorem}{\par\refstepcounter{theoremnumber}
+{\bf Theorem \thetheoremnumber}:
+\begingroup}%
+{\endgroup}
+
+\newcounter{lemmanumber}
+\setcounter{lemmanumber}{0}
+\renewcommand\thelemmanumber{\the\lecturenumber.\arabic{lemmanumber}}
+\newenvironment{lemma}{\par\refstepcounter{lemmanumber}
+{\bf Lemma \thelemmanumber}:
+\begingroup}%
+{\endgroup}
+
+\newenvironment{corollary}{\par\refstepcounter{theoremnumber}
+{\bf Corollary \thetheoremnumber}:
+\begingroup}%
+{\endgroup}
+
+%%%%%% additional symbols or names for them
+
+%\newcommand{\implies}{\:\;{\Rightarrow}\:\;}
+\newcommand{\impliessymbol}{\Rightarrow}
+\newcommand{\entails}{\models}
+\newcommand{\lequiv}{\;\;{\Leftrightarrow}\;\;}
+\newcommand{\lequivsymbol}{\Leftrightarrow}
+\newcommand{\xor}{\not\lequiv}
+\newcommand{\All}[1]{\forall\,#1\;\;}
+\newcommand{\Exi}[1]{\exists\,#1\;\;}
+\newcommand{\Exii}[1]{\exists!\,#1\;\;}% -pnorvig
+\newcommand{\Iot}[2]{\iota\,#1\,#2}
+\newcommand{\Lam}[2]{\lambda #1\;#2}
+\newcommand{\Qua}[3]{[#1\,#2\;#3]}
+
+\def\<{\langle}
+\def\>{\rangle}
+
+\newcommand{\union}{{\,{\cup}\,}}
+\newcommand{\elt}{{\,{\in}\,}}  %%%cuts down on spacing
+\newcommand{\eq}{{\,{=}\,}}     %%%cuts down on spacing
+\def\stimes{{\,\times\,}}       %%%cuts down on spacing
+
+%\def\ceil#1{\lceil #1 \rceil}
+%\def\floor#1{\lfloor #1 \rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiterX{\innp}[2]{\langle}{\rangle}{#1, #2}
+%\DeclareMathOperator*{\argmin}{argmin}
+\newcommand*{\argmin}{\operatornamewithlimits{argmin}\limits} % moved to ee16.sty
+\newcommand*{\argmax}{\operatornamewithlimits{argmax}\limits} % moved to ee16.sty
+
+%\def\cents{\mbox{c}}
+%\AtBeginDocument{\def\cents{\hbox{\rm\rlap{\hspace{.07ex}$/$}c}}}
+\newcommand{\cents}{\text{\textcent{}}}
+\def\cons{{}\bullet{}}
+
+%%%%%% bold font in math mode; this sucks but is simplest for now
+\newcommand{\mbf}[1]{\mbox{{\bfseries #1}}}
+\newcommand{\smbf}[1]{\mbox{{\scriptsize\bfseries #1}}}
+
+\def\N{\mathbb{N}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\X{\mbf{X}}
+\def\x{\mbf{x}}
+\def\sx{\smbf{x}}
+\def\Y{\mbf{Y}}
+\def\y{\mbf{y}}
+\def\sy{\smbf{y}}
+\def\E{\mbf{E}}
+\def\e{\mbf{e}}
+\def\T{\mbf{T}}
+\def\O{\textrm{O}}  % repeated below because it gets redefined by some package?
+\def\Q{\mathbb{Q}}
+\def\se{\smbf{e}}
+\def\Z{\mathbb{Z}}
+\def\z{\mbf{z}}
+\def\sz{\smbf{z}}
+\def\F{\mathbb{F}}
+\def\f{\mbf{f}}
+\def\A{\mbf{A}}
+\def\P{\mbf{P}}
+\def\B{\mbf{B}}
+\def\b{\mbf{b}}
+\def\m{\mbf{m}}
+\def\I{\mbf{I}}
+\def\ones{\mbf{1}}
+\def\ev{\mbf{ev}}
+\def\fv{\mbf{ev}}
+\def\sv{\mbf{sv}}
+\def\e{\mathop{\mathrm{e}}\nolimits}  % for e = 2.718...
+
+\def\third{{\textstyle{1\over 3}}}
+\def\half{{\textstyle{1\over 2}}}
+\def\quarter{{\textstyle{1\over 4}}}
+\def\VarOmega{\mathchar"10A }
+\def\Ex#1{{\mathbb E}(#1)}
+\def\Var#1{{\rm Var}(#1)}
+\def\Aset{{\cal A}}
+\def\Bset{{\cal B}}
+
+\def\Bin{\text{Bin}}
+\def\Geom{\text{Geom}}
+\def\Poiss{\text{Poiss}}
+\def\Exp{\text{Exp}}
+\def\Norm{N}
+
+\newcommand{\mymod}{\textup{mod}}
+
+\def\mdw@dots#1{\ensuremath{\mathpalette\mdw@dots@i{#1}}}
+\def\mdw@dots@i#1#2{%
+  \setbox\z@\hbox{$#1\mskip1.8mu$}%
+  \dimen@\wd\z@%
+  \setbox\z@\hbox{$#1.$}%
+  #2%
+}
+\def\Ddots{%
+  \mdw@dots{\mathinner{%
+    \mkern1mu%
+    \raise\dimen@\vbox{\kern7\dimen@\copy\z@}%
+    \mkern2mu%
+    \raise4\dimen@\copy\z@%
+    \mkern2mu%
+    \raise7\dimen@\box\z@%
+    \mkern1mu%
+  }}%
+}
+

@@ -1,0 +1,80 @@
+\qns{Design a Digital Camera Pixel}
+\qcontributor{Regina Eckert}
+
+Digital camera pixel detectors are called photodiodes. They are p-n junction diodes that use the photovoltaic effect to measure the amount of energy from light that is hitting the pixel.
+
+\begin{enumerate}
+	\qitem Should a photodiode be forward-biased (positive voltage at the anode, negative voltage at the cathode) or reverse-biased (negative voltage at the anode, positive voltage at the cathode) to generate current when a photon is absorbed? 
+	
+	\ans{We want to reverse-bias the photodiode. When a photon is absorbed, it creates an electron-hole pair. We want to get the electron out of the p-n junction to create current flow. 
+		
+	If the p-n junction is forward-biased, the negatively charged electron will be attracted to the positive voltage at the anode on the p-type side of the device. The electron will move toward the anode, but is very likely to recombine with a hole in the p-type region. In this case, the electron doesn't leave the diode and no current flows, so we cannot measure that we've collected.
+
+However, if we reverse-bias the p-n junction, the negatively charged electron will be attracted to the positive voltage at the cathode at the n-type side of the device. Since there are very few holes in this region, the electron will not recombine inside the device. It will be able to reach the cathode, where it can be conducted away as current in the wire. Converting the photon to flowing current in the circuit means we can measure electrically how many photons have hit our photondiode!
+}
+
+	\qitem What is the minimum frequency $\nu$ that can be absorbed by a silicon photodiode? (Silicon's band-gap energy $E_G = 1.11~eV$.)
+	
+	\ans{The energy of a photon is $E_{photon} = h\nu$, where $h=4.136\times10^{-15} eV/Hz$ is Planck's constant. The minimum energy that can be absorbed by the solar cell is equal to the band-gap energy, $E_G$. We can therefore set the band-gap energy equal to the energy of a photon to calculate the frequency of light that is at this energy.
+	
+	\begin{equation}
+	\nu = \frac{E_G}{h}
+	\end{equation}
+	
+	For silicon, $E_G = 1.11~eV$, so:
+	\begin{equation}
+	\nu = \frac{1.11~eV}{4.136\times10^{-15} eV/Hz} = 2.684\times10^{14}~Hz = 268 ~THz.
+	\end{equation}
+	
+	Light at this frequency is in the infrared region of the electromagnetic spectrum.
+	
+}
+	
+	\qitem If the photodiode is hit by $7\times10^{19}$ photons each second  and all of them are converted into electrons with 100\% efficiency, what is the power in Watts absorbed by the photodiode? Assume the photons are at frequency $\nu$ calculated in part (b). ($1~eV = 1.602\times10^{-19}~J$)
+	
+	\ans{Assuming 100\% efficiency, the energy absorbed per photon is the the photon energy, which is $E_G$ in this case.
+	
+	Power is given by energy/time and is in units [J/s]. To make sure our units are correct, we convert $E_G$ to units of Joules. $E_G = 1.11~eV *\frac{1.602\times10^{-19}~J}{1~eV} = 1.7782 \times 10^{-19}~J$.
+	
+	To calculate the power absorbed, we must multiply the energy per photon by the rate that photons hit the photodiode:
+	\begin{equation}
+	P = E_G * rate_{photon} = (1.7782 \times 10^{-19}~J/photon)*(7\times 10^{19}~photons/s)= 12.45 W
+	\end{equation}
+}
+
+	\qitem Irradiance is the power received per unit area and has units $[W/m^2]$. If the photodiode's area $A_{diode} = 0.1~m^2$, what is the irradiance incident on the photodiode for photons at frequency $\nu$ at a $rate_{photon} = 7\times10^{19}$ photons/second?
+	
+	\ans{ From the description, we can write the irradiance $Irr$ as:
+		
+		\begin{equation}
+		Irr = \frac{P}{A_{diode}}.
+		\end{equation} 
+		
+		Using the power calculated in part (c),
+		
+		\begin{equation}
+		Irr = \frac{E_G * rate_{photon}}{A_{diode}}=(1.7782 \times 10^{-19}~J/photon)*(7\times 10^{19}~photons/s)/0.1~m^2 = 124.5 W/m^2
+		\end{equation} 
+	}
+	
+	\iffalse
+	\qitem If we apply a voltage $V = 10V$ across the solar cell p-n junction to bias it, and it is generating the power $P$ we calculated in (c), what current $I$ is flowing from the solar cell?
+	
+	\ans{We know that $P=IV$. Therefore, $I = P/V$. Plugging in with the power from part (c), we find:
+	
+	\begin{equation}
+	I = \frac{12.45~W}{10V} = 1.245~A.
+	\end{equation}
+
+}
+	
+	\qitem Since the solar cell has a voltage $V$ across it and a current $I$ through it, we might think of modeling it as a resistive load. What resistance $R$ would this solar cell have if $V = 10V$?
+	
+	\ans{ We know that $V = IR$, or $R = V/I$. Plugging in the current from part (e), we find:
+	\begin{equation}
+	R = \frac{10~V}{1.245~A} = 8.03 \si{\ohm}
+	\end{equation}
+}
+\fi
+	
+\end{enumerate}

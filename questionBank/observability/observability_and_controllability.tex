@@ -1,0 +1,69 @@
+% {\Large \textbf{Mechanical:}}
+\qns{Observability and Controllability}
+
+
+\begin{enumerate}
+
+
+
+
+\qitem We are given a system 
+\[
+\begin{split}
+{\vec{x}}(t+1) &= \begin{bmatrix} -3 & 3 \\ \gamma & -4 \end{bmatrix} \vec{x}(t) + \begin{bmatrix} 1 \\ 0 \end{bmatrix} u(t) \\
+y(t) &= \begin{bmatrix} 1 & 1 \end{bmatrix} \vec x(t) + \begin{bmatrix} 0 \end{bmatrix} u(t)
+\end{split} 
+\]
+with tuneable parameter $\gamma$. How should we tune $\gamma$ to make the system controllable but not observable? 
+
+\sol{
+The controllability matrix is 
+\[
+\mathcal C = \begin{bmatrix} B & AB \end{bmatrix} = \begin{bmatrix} 1 & -3 \\ 0 & \gamma \end{bmatrix} 
+\]
+and the observability matrix is 
+\[
+\mathcal O = \begin{bmatrix} C \\ CA \end{bmatrix} = \begin{bmatrix} 1 & 1 \\ \gamma-3 & -1 \end{bmatrix}. 
+\]
+Thus to make the system controllable but not observable we should choose $\gamma = 2$. 
+}
+
+
+
+\qitem For the system above, how should we tune $\gamma$ to make the system observable but not controllable? 
+
+\sol{
+To make the system observable but not controllable we should choose $\gamma = 0$. 
+}
+
+
+
+
+\qitem Given a new system 
+\[
+\dot{\vec x}(t) = \begin{bmatrix} 1 & 0 \\ -1 & -2 \end{bmatrix} \vec x(t). 
+\]
+along with only one sensor and one actuator to control and observe the system. Which state should we control with the actuator to make the system controllable? 
+
+\sol{
+We should control the state $x_1$. This makes the control matrix $B = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ hence
+\[
+ \mathcal C = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix}. 
+\]
+}
+
+
+
+\qitem Which state should we measure with the sensor to make the system observable? 
+
+\sol{
+We should measure the state $x_2$. This makes the measurement matrix $C = \begin{bmatrix} 0 & 1 \end{bmatrix}$ hence
+\[
+ \mathcal O = \begin{bmatrix} 0 & 1 \\ -1 & -2 \end{bmatrix}. 
+\]
+}
+
+
+
+
+\end{enumerate}

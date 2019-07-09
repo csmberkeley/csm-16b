@@ -1,0 +1,75 @@
+% {\Large \textbf{Mechanical:}}
+\qns{State Space Basic Practice}
+\qcontributor{Sirej Dua}
+
+
+\begin{enumerate}
+
+\qitem Explain why the system 
+    \begin{align*}
+        \dot{x} &= ax + by \\
+        \dot{y} &= cx + dy
+    \end{align*}
+    can be equivalently formulated as
+    \[
+        \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
+    \]
+
+
+\qitem Write the state space formulation of:
+    \begin{align*}
+        \dot{x} &= 3x \\
+        \dot{y} &= 5y+\pi x
+    \end{align*}
+
+   \sol{
+       \[
+        \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = \begin{bmatrix} 3 & 0 \\ \pi & 5 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
+    \]
+
+   }
+
+
+\qitem Write the state space formulation of:
+    \begin{align*}
+        \dot{x} &= x \\
+        \dot{y} &= y
+    \end{align*}
+
+   \sol{
+   \[
+        \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
+    \]
+   }
+
+
+
+
+\qitem Given intial conditions $x(0) = x_0,\ y(0) = y_0$, solve
+    \begin{align*}
+        \dot{x} &= x \\
+        \dot{y} &= y
+    \end{align*}
+\sol{
+	$x(t)= x_0 e^t$.
+	$y(t)= y_0 e^t$.
+}
+
+
+\qitem Given intial conditions $x(0) = x_0,\ y(0) = y_0$, solve
+    \begin{align*}
+        \dot{x} &= ax \\
+        \dot{y} &= by
+    \end{align*}
+
+\sol {
+    $x(t)= x_0 e^{at}$.
+    $y(t)= y_0 e^{bt}$.
+    }
+
+
+
+
+
+
+\end{enumerate}

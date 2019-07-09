@@ -1,0 +1,178 @@
+\qns{Phasor analysis}
+\qcontributor{Yen-Sheng Ho}
+
+Any sinusoidal time-varying function $x(t)$,
+representing a voltage or a current,
+can be expressed in the form
+\begin{align}
+x(t) = \mathfrak{Re} [Xe^{j\omega t}],
+\end{align} 
+where $X$ is a time-independent function called the phasor counterpart of $x(t)$.
+Thus, $x(t)$ is defined in the time domain,
+while its counterpart $X$ is defined in the phasor domain.
+
+The phasor analysis method consists of five steps.
+Consider the RC circuit below.
+
+	\begin{center}
+		\begin{circuitikz}
+			\draw (0,3)
+			to[vsourcesin =$v_s$] (0,0)
+			(0,3) -- (2,3)
+			to[R = $R$] (3,3)
+			to[short,i>= \mbox{$i(t)$}] (6,3)
+			to[C = $C$, v=$v_C(t)$] (6,0)
+			to[short] (0,0);
+			
+		\end{circuitikz}
+	\end{center}
+
+The voltage source is given by
+\begin{align}
+v_s = 12 \sin(\omega t - \frac{\pi}{4}),
+\end{align}
+with $\omega = 10^3$ rad/s, $R = \sqrt{3}$ $k\Omega$, and $C = 1$ $\mu F$.
+
+Our goal is to obtain a solution for $i(t)$ with
+the sinusoidal voltage source $v_s$.
+
+\begin{enumerate}
+
+\qitem \textbf{Step 1: Adopt cosine references}
+
+All voltages and currents with known sinusoidal functions
+should be expressed in the standard cosine format.
+Convert $v_s$ into a cosine and write down its phasor representation $V_s$.
+
+\sol{
+\begin{align}
+v_s(t) = 12 \cos (\omega t -\frac{\pi}{4} -\frac{\pi}{2}) = 12 \cos(\omega t - \frac{3\pi}{4})
+\end{align}
+
+The phasor is given by
+\begin{align}
+V_s = 6 e^{-j\frac{3\pi}{4}}
+\end{align}
+}
+
+% \ans{
+% \begin{align}
+% v_s(t) = 12 \cos (\omega t -\frac{\pi}{4} -\frac{\pi}{2}) = 12 \cos(\omega t - \frac{3\pi}{4})
+% \end{align}
+
+% The phasor is given by
+% \begin{align}
+% V_s = 12 e^{-j\frac{3\pi}{4}}
+% \end{align}
+% }
+
+\qitem \textbf{Step 2: Transform circuits to phasor domain}
+
+The voltage source is represented by its phasor $V_s$.
+The current $i(t)$ is related to its phasor counterpart $I$. 
+% by
+% \begin{align}
+% i(t) = \mathfrak{Re}[I e^{j\omega t}].
+% \end{align}
+What are the phasor representations of $R$ and $C$?
+
+\sol{
+\begin{align}
+Z_R &= R\\
+Z_C &= \frac{1}{j\omega C}
+\end{align}
+}
+
+% \ans{
+% \begin{align}
+% Z_R &= R\\
+% Z_C &= \frac{1}{j\omega C}
+% \end{align}
+% }
+
+\qitem \textbf{Step 3: Cast KCL and/or KVL equations in phasor domain}
+
+Use Kirchhoff's laws to write down a loop equation that relates all phasors in Step 2. 
+
+\sol{
+\begin{align}
+Z_R I + Z_CI &= V_s \\
+(R + \frac{1}{j\omega C}) I &= 6 e^{-j\frac{3\pi}{4}}
+\end{align}
+}
+
+% \ans{
+% \begin{align}
+% Z_R I + Z_CI &= V_s \\
+% (R + \frac{1}{j\omega C}) I &= 12 e^{-j\frac{3\pi}{4}}
+% \end{align}
+% }
+
+
+\qitem \textbf{Step 4: Solve for unknown variables}
+
+Solve the equation you derived in Step 3 for $I$ and $V_C$.
+What is the polar form of $I$ ($Ae^{i\theta}$, where $A$ is a positive real number) and $V_C$? 
+
+\sol{
+\begin{align}
+I = \frac{6 e^{-j\frac{3\pi}{4}}}{R + \frac{1}{j\omega C}} = \frac{j6\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}
+\end{align}
+\begin{align*}
+V_C=IZ_C=\frac{j6\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}*\frac{1}{j\omega C}= \frac{6e^{-j\frac{3\pi}{4}}}{1+j\omega RC}
+\end{align*}
+
+To derive the polar form,
+\begin{align}
+I = \frac{j6e^{-j\frac{3\pi}{4}}*10^{-3}}{1+j\sqrt{3}} = \frac{6e^{-j\frac{3\pi}{4}}e^{j\frac{\pi}{2}}*10^{-3}}{2e^{j\frac{\pi}{3}}}
+= 3e^{-j\frac{7\pi}{12}} \mbox{ mA}.
+\end{align}
+\begin{align}
+V=\frac{6e^{-j\frac{3\pi}{4}}}{1+j\omega RC} = \frac{6e^{-j\frac{3\pi}{4}}}{1+j\sqrt{3}}=\frac{6e^{-j\frac{3\pi}{4}}}{2e^{j\frac{\pi}{3}}}= 3e^{-j\frac{13\pi}{12}}  \mbox{ V}
+\end{align}
+}
+
+% \ans{
+% \begin{align}
+% I = \frac{12 e^{-j\frac{3\pi}{4}}}{R + \frac{1}{j\omega C}} = \frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}
+% \end{align}
+% \begin{align*}
+% V_C=IZ_C=\frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}*\frac{1}{j\omega C}= \frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC}
+% \end{align*}
+
+% To derive the polar form,
+% \begin{align}
+% I = \frac{j12e^{-j\frac{3\pi}{4}}*10^{-3}}{1+j\sqrt{3}} = \frac{12e^{-j\frac{3\pi}{4}}e^{j\frac{\pi}{2}}*10^{-3}}{2e^{j\frac{\pi}{3}}}
+% = 6e^{-j\frac{7\pi}{12}} \mbox{ mA}.
+% \end{align}
+% \begin{align}
+% V=\frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC} = \frac{12e^{-j\frac{3\pi}{4}}}{1+j\sqrt{3}}=\frac{12e^{-j\frac{3\pi}{4}}}{2e^{j\frac{\pi}{3}}}= 6e^{-j\frac{13\pi}{12}}  \mbox{ V}
+% \end{align}
+% }
+
+\qitem \textbf{Step 5: Transform solutions back to time domain}
+
+To return to time domain, we apply the fundamental relation between a sinusoidal function and its phasor counterpart.
+What is $i(t)$ and $v_C(t)$? What is the phase difference between $i(t)$ and $v_C(t)$? 
+
+\sol{
+\begin{align}
+i(t) = Ie^{j\omega t} + \overline{I}e^{-j\omega t} = 6 \cos (\omega t - \frac{7\pi}{12})  \mbox{ mA}
+\end{align}
+\begin{align}
+v_C(t)= Ve^{j\omega t} + \overline{V}e^{-j\omega t}= 6 \cos(\omega t -\frac{13\pi}{12}) \mbox{ V}
+\end{align}
+The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
+}
+
+% \ans{
+% \begin{align}
+% i(t) = \mathfrak{Re}[Ie^{j\omega t}] = \mathfrak{Re} [6e^{-j\frac{7\pi}{12}} e^{j\omega t}] = 6 \cos (\omega t - \frac{7\pi}{12})  \mbox{ mA}
+% \end{align}
+% \begin{align}
+% v_C(t)=\mathfrak{Re}[V_Ce^{j\omega t}]=\mathfrak{Re}[6e^{-j\frac{13\pi}{12}}e^{j\omega t}]=6 \cos(\omega t -\frac{13\pi}{12}) \mbox{ V}
+% \end{align}
+% The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
+% }
+
+\end{enumerate}

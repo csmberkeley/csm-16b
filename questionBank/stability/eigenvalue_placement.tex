@@ -1,0 +1,54 @@
+\qns{Eigenvalue Placement}
+\qcontributor{Yi Zhao}
+
+\begin{enumerate}
+
+\qitem Consider the following 2 variable system in controller canonical form:
+$$
+\frac{d}{dt}\vec{x}(t) = 
+\begin{bmatrix}
+0 & 1 \\
+-5 & 4
+\end{bmatrix}
+\vec{x}(t) +
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+u(t)
+$$
+What is the characteristic polynomial of $A$?
+
+
+\sol {$\lambda^2 -4 \lambda + 5$}
+
+
+
+\qitem Is this system stable?
+
+\sol{No, it isn't stable, because one of the eigenvalues have positive real components.}
+
+
+\qitem We wish the put the system in feedback, i.e set $u(t) = K\vec{x}(t)$, then our system becomes:
+$$
+\frac{d}{dt}\vec{x}(t) = 
+\begin{bmatrix}
+0 & 1 \\
+-5 & 4
+\end{bmatrix}
+\vec{x}(t) +
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+K
+\vec{x}(t)
+$$
+Where $K = [k_1~k_2]$. What should $k_1$ and $k_2$ be if we want our system to have eigenvalues $\{-1, -2\}$?
+
+\sol{
+	$k_1 = 3$ and $k_2 = -7$
+
+}
+
+\end{enumerate}

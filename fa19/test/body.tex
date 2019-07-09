@@ -1,0 +1,26 @@
+\begin{document}
+
+\def\title{CSM test}
+
+\newcommand{\qitem}{\qpart\item}
+\newcommand{\test}{../../testing}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+\input{\bank/ode/mech_ode.tex}
+\input{\bank/ode/rc_circuit.tex}
+\input{\bank/ode/fun_with_inductors.tex}
+\input{\test/q_moores_law.tex}		
+
+\end{qunlist}
+
+\end{document}

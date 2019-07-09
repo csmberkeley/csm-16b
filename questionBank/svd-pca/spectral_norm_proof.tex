@@ -1,0 +1,66 @@
+\qns{Spectral Norm Proof} 
+\qcontributor{Anant Sahai}
+\qcontributor{Elena Jia}
+
+
+Given a matrix $A \in \mathbb{R}^{m,n}$ of rank $r$ with singular values $\sigma_{1} \geq \sigma_{2} \geq \cdots \geq \sigma_{r} > \sigma_{r+1} = \cdots = \sigma_{n} = 0$. We want to show that $$\max_{\vec{x} \neq \vec{0}} \frac{\|A\vec{x}\|}{\|\vec{x}\|} = \sigma_{1}$$ where $\vec{x} \in \mathbb{R}^{n}$ (i.e.~that the maximum factor by which that $A$ can grow the Euclidean norm is $\sigma_1$). 
+
+
+% Since matrix $A^{T}A$ is symmetric, we know $A^{T}A$ has eigenvalue decomposition $VSV^{T}.$ Let $v_{1}, v_{2}, ..., v_{n}$ be the set of orthonormal eigenvectors of $A^{T}A$ with associated eigenvalues $\lambda_{1} \geq \lambda_{2} \geq ... \geq \lambda_{n} $ .
+
+We start by noting that since the matrix $A^{T}A$ is symmetric, we know $A^{T}A$ has eigenvalue decomposition $V \Lambda V^{T}.$ Let $\vec{v}_{1}, \vec{v}_{2}, \ldots, \vec{v}_{n}$ be a set of orthonormal eigenvectors of $A^{T}A$ with associated eigenvalues $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{n}$, where $\lambda_i = \sigma_i^2$.
+
+
+\begin{enumerate}
+
+% \qitem First, explain why matrix $A^{T}A$ is symmetric and write out the eigenvalue decomposition of $A^{T}A$.
+% \sol {
+% }
+
+\qitem For $x \in \mathbb{R}^{n}$, decompose $x$ as a linear combination of the set of orthonormal eigenvectors of $A^{T}A$. Then, \textbf{express $\|Ax\|_{2}^{2}$ in terms of $v_{i}$, $x$, and $\sigma_{i}$}, for $i \in \{1, 2, ...,n\}.$
+
+\sol {
+Since the eigenvectors are orthonormal, we have $$x = \sum_{i=1}^{n} \langle x,v_i \rangle v_i. $$
+Therefore,
+		\begin{align} \|Ax\|_{2}^2  
+			&= (Ax)^TAx \\
+			&= x^TA^TAx \\
+			&= \sum_{i=1}^n \lambda_i \langle x,v_i \rangle^2
+        \end{align}
+Since $$ A^TA = (USV^T)^T(USV^T) = VS^2V^T$$, the eigenvalues of $A^TA$ satisfy $\lambda_i = \sigma_i ^2.$
+So we can express $$\|Ax\|_{2}^{2} = \sum_{i=1}^{n} \sigma_i ^2  \langle x,v_i \rangle^2 $$
+}
+
+\qitem \textbf{Find a unit vector $x$ that maximizes $\|Ax\|_{2}^{2}.$}
+
+\sol {
+  Since $x$ is a unit vector, we know 
+  \begin{align} 1 &= \|x\|^{2} \\
+  & = \Big(\sum_{i=1}^{n} \langle x,v_i \rangle v_i\Big)^T\Big(\sum_{i=1}^{n}\langle x,v_i \rangle v_i\Big)\\
+  & = \sum_{i=1}^{n} \langle x,v_i \rangle ^2 \\
+  \end{align}
+  Thus, the maximum of $\|Ax\|_{2}^{2}$ satisfies $$ 
+  	\max \|Ax\|_{2}^{2} = \max \sum_{i=1}^{n} \sigma_i ^2  \langle x,v_i \rangle^2  = \sigma_1 ^2 $$ with the maximum reached when $\langle x,v_1 \rangle^2 = 1$ and $ \langle x,v_j \rangle^2 = 0$ for $j \neq 1$. This gives the unit vector $$ x = \sum_{i=1}^{n}\langle x,v_i\rangle v_i = \pm v_1$$
+}
+
+\qitem \textbf{Show that $\|Ax\|_{2} \leq \sigma_{1} \|x\|_{2}$ for any $x \in \mathbb{R}^{n}$.} Thus, $\max \frac{\|Ax\|_{2}}{\|x\|_{2}} = \sigma_{1}.$
+
+\sol {
+
+From previous parts, we know 
+\begin{align} \|Ax\|_{2}^{2} &= \sum_{i=1}^{n} \sigma_i ^2  \langle x,v_i \rangle^2 \\
+	&\leq \sigma_1^2  \sum_{i=1}^{n} \langle x,v_i \rangle^2 \\
+	&= \sigma_1^2 \|x\|^{2}.
+\end{align}
+Thus, $$\|Ax\|_{2} \leq \sigma_{1} \|x\|_{2}.$$ 
+
+And when $x=\pm \|x\|v_1$, the maximum of $\frac{\|Ax\|_{2}}{\|x\|_{2}}$ is reached: $$\max \frac{\|Ax\|_{2}}{\|x\|_{2}} = \sigma_{1}.$$
+  
+}
+
+
+
+
+
+
+\end{enumerate}

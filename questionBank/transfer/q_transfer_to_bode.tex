@@ -1,0 +1,25 @@
+\qns{Bode diagram of a transfer function.}
+\qcontributor{Geoffrey N\'egiar}
+
+
+\begin{enumerate}
+\qitem \textbf{Plot the magnitude and phase of the following transfer function using the Bode approximation and a numerical solver and compare the two.}
+
+\[ H(\omega) = \frac{100 \left(1 + j\frac{\omega}{1000}\right)}{\left(1 + j\frac{\omega}{10^6}\right)\left(1 + j\frac{\omega}{10^8}\right)} \]
+
+We see 1 zero at $10^3 \si{\radian\per\second}$, 2 poles at $10^6 \si{\radian\per\second}$ and $10^8 \si{\radian\per\second}$, and a constant gain of 100. We start with the constant value, and then move from lowest to highest frequency plotting the poles and zeros as we go. Finally, we add together the plots for each of the individual poles and zeros to give us the final Bode plot.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{figures/q_transfer_to_bode.png}
+\end{figure}
+
+Finally, comparing the Bode approximation and the precise value calculated via a computer, we can see the Bode approximation is very similar to the exact answer, except around the pole and zero frequencies (as expected).
+
+\begin{figure}[H]
+    \centering
+    \input{n_BodePlots/n_BodePlots_ex1c.pgf}
+\caption{A comparison of Bode vs. exact (numerically computed) answers. Note the agreement between both, except at the pole and zero frequencies.}
+\end{figure}
+\end{enumerate}

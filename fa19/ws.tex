@@ -1,0 +1,36 @@
+\documentclass[11pt]{article}
+\usepackage{../ee16}
+\usepackage{../markup}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{color,hyperref,listings,enumitem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tkz-euclide}
+\usepackage{physics}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{cancel}
+\usepackage{commath}
+\usepackage{mathdots}
+\usepackage[american,siunitx]{circuitikz}
+\sisetup{per-mode=fraction}
+\sisetup{quotient-mode=fraction}
+\DeclareSIUnit \decade {dec}
+\lstset{basicstyle=\ttfamily}
+\newcommand{\fillin}[1]{\underline{\hskip #1}}
+\newcommand{\doublehrule}{\hrule \vskip 0.02in \hrule}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+%\newcommand{\sol}[1]{{\color{blue} \textbf{Solutions: } #1}} % solutions in blue
+\newcommand{\sol}[1]{} % no solution sketches
+\newcommand{\meta}[1]{} % no meta in worksheets
+
+\input{../../newcommands/newcommands-eg-ie-etc}
+\input{../../newcommands/newcommands-labels-refs}
+\input{../../newcommands/newcommands-math}
+
+\input{body}

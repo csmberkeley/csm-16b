@@ -1,0 +1,63 @@
+\qns{SVD Practice}
+\qcontributor{Elena Jia}
+
+
+% \begin{enumerate}
+
+
+Write out a full singular value decomposition of matrix $A = \begin{bmatrix}
+    1 & 1 & 0 \\
+    0 & 1 & 1 \\
+  \end{bmatrix}$. Express the answer in the form of $USV^{T}$ where $U$ and $V$ are square matrices. 
+
+\textit{(Hint: 
+Possible eigenvectors of matrix $A^{T}A$ include $\begin{bmatrix}
+    1 \\ 0 \\ -1 \\
+  \end{bmatrix}$ and $\begin{bmatrix}
+    1 \\ 2 \\ 1 \\
+  \end{bmatrix}$.  Note that we could also use $AA^{T}$ to compute the singular value decomposion.)}
+
+\sol {
+  
+We first compute $A^{T}A$: $$A^{T}A = \begin{bmatrix}
+    1 & 1 & 0 \\
+    1 & 2 & 1 \\
+    0 & 1 & 1
+  \end{bmatrix}.$$ 
+
+Using the hint, we find unit eigenvectors and corresponding eigenvalues of $A^{T}A$ to be $$v_1 = \begin{bmatrix}
+    \frac{1}{\sqrt{6}} \\ \frac{2}{\sqrt{6}} \\ \frac{1}{\sqrt{6}} \\
+  \end{bmatrix}, v_2 = \begin{bmatrix}
+    \frac{1}{\sqrt{2}} \\ 0 \\ -\frac{1}{\sqrt{2}} \\
+  \end{bmatrix}, \lambda_{1} = 3, \lambda_{2} = 1.$$
+
+Thus, the singular values of matrix $A$ are $\sigma_1 = \sqrt{3}$ and $\sigma_2 = 1$. We could compute columns of matrix $U$ with $$u_{1} = \frac{1}{\sigma_{1}} A v_{1} = \begin{bmatrix}
+    \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\
+  \end{bmatrix}$$ and $$u_{2} = \frac{1}{\sigma_{2}} A v_{2} = \begin{bmatrix}
+    \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \\
+  \end{bmatrix}.$$ 
+
+Finally, using Gram-Schmidt, we find $v_3$ so that columns of matrix $V$ form an orthonormal basis for $\mathbb{R}^{3}$. This gives a SVD of matrix A as follows: 
+
+$$USV^{T} = \begin{bmatrix}
+    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}  \\
+  \end{bmatrix} 
+  \begin{bmatrix}
+    \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \\
+  \end{bmatrix}
+  \begin{bmatrix}
+    \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \frac{2}{\sqrt{6}} & 0  & -\frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\
+  \end{bmatrix}^T$$ 
+
+
+Similarly, we can use $AA^{T}$ to compute a singular value decomposion of $A$ as well, and the singular values and vectors $u_i$ can be found more easily since $AA^{T}$ is a $2\times2$ matrix.
+
+}
+
+
+
+
+
+
+
+% \end{enumerate}

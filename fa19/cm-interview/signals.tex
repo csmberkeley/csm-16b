@@ -1,0 +1,25 @@
+\qns{Signals / DFT}
+\qcontributor{Taejin Hwang}
+
+\begin{enumerate}
+
+\qitem \textbf{Conceptual Question:} What is the importance of the roots of unity in the DFT?
+
+\qitem \textbf{Conceptual Question:} What important property arises from the fact that the DFT basis vectors are orthogonal?
+
+\sol{
+When $S_1$ is on and $S_2$ is off for a long period of time, $\frac{di_L}{dt} = 0$ because the circuit will have reached a steady state, and the current through $R_1$ will be equal to $i_L$. We find
+$$V_{in} - V_L - V_{R_1} = 0$$
+$$V_{in} - L\frac{di_L}{dt}(0) - i_L(0)R_1 = 0$$
+$$V_{in} - i_L(0)R_1 = 0$$
+$$i_L(0) = \frac{V_{in}}{R_1}$$
+}
+
+\qitem Let $x[k]$ be a real valued signal of length $n,$ and $X[k]$ be its frequency representation.
+	\begin{enumerate}
+		\item Show that $X[0]$ is real.
+		\item Show that $X[k]$ is conjugate symmetric.
+		\item Show that if $n$ is even, $X[\frac{n}{2}]$ is real.
+	\end{enumerate}
+
+\end{enumerate}

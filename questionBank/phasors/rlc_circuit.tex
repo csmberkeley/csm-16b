@@ -1,0 +1,88 @@
+\qns{RLC circuit \#1}
+\qcontributor{Varun Mishra}
+
+In this question, we will take a look at an electrical systems described by second order differential equations and analyze it using the phasor domain. Consider the circuit below where $R=3 \text{k}\Omega$, $L=1\mbox{mH}$, $C=100$nF, and $V_{\text{s}}=5\cos(1000t+\frac{\pi}{4})$:
+
+\begin{center}
+		\begin{circuitikz}[scale=0.8]
+			\draw (0,4) 
+			to [sV, l= $V_s$] (0,0)
+			(0,4)
+			to [R = $R$,v=$V_R$] (4,4)
+			to [L = $L$,v=$V_L$,i=$i(t)$] (8,4)
+			to [short] (10,4)
+			to [C = $C$,v=$V_{\text{out}}$] (10,0)	
+			to [short] (0,0);
+		\end{circuitikz}
+	\end{center}
+\begin{enumerate}
+	
+    \qitem What are the impedances of the resistor, inductor and capacitor, $Z_R$, $Z_L$, and $Z_C$?
+    
+\sol{
+\begin{align*}
+\intertext{The impedance of a resistor is the same as its resistance}
+Z_R &= 3000\Omega 
+\intertext{We can find the frequency of the circuit by looking at $V_{\text{s}}$. The form of a cosine function is $A\cos(\omega t+\phi )$ where $A$ is amplitude, $\omega$ is frequency, and $\phi$ is phase. In this case, the frequency is $1000 \frac{\text{rad}}{\text{s}}$}
+Z_L &= j\omega L = j1000*10^{-3}= j1 \Omega \\
+Z_C &= \frac{1}{j\omega C} = \frac{1}{j1000*10^{-7}} =-j10^4 \Omega
+\end{align*}
+
+}  
+\qitem Solve for $\widetilde{V}_{\text{out}}$ in phasor form.
+
+\sol{
+\begin{align*}
+\intertext{converting $V_{\text{s}}$ into phasor form, we have}
+\widetilde{V}_{\text{s}} &= \frac{1}{2} |A|e^{j\phi} = \frac{5}{2}e^{j\frac{\pi}{4}} 
+\intertext{The circuit given is a voltage divider. Since impedances act like resistors, we can use the same equation as the resistive voltage divider.}
+\widetilde{V}_{\text{out}} = \widetilde{V}_{\text{s}}\frac{Z_C}{Z_R+Z_L+Z_C}&= \widetilde{V}_{\text{s}}*\big|\frac{Z_C}{Z_R+Z_L+Z_C}\big|e^{j*\angle\big(\frac{Z_C}{Z_R+Z_L+Z_C}\big)} \tag{1} \\ 
+\intertext{We can solve for the magnitude and angle of the divider using}
+\big|\frac{Z_C}{Z_R+Z_L+Z_C}\big|&=\frac{|Z_C|}{|Z_R+Z_L+Z_C|}=\frac{10^4}{\sqrt{3000^2+(1-10^4)^2}} = 0.958 \\
+\angle\big(\frac{Z_C}{Z_R+Z_L+Z_C}\big)&= \angle(Z_C)-\angle(Z_R+Z_L+Z_C)=\text{atan2}\Big(\frac{\mathfrak{Im}(Z_C)}{\mathfrak{Re}(Z_C)}\Big)-\text{atan2}\Big(\frac{\mathfrak{Im}(Z_R+Z_L+Z_C)}{\mathfrak{Re}(Z_R+Z_L+Z_C)}\Big) \\
+\angle\big(\frac{Z_C}{Z_R+Z_L+Z_C}\big)&=-0.2915 \text{ rad}
+\intertext{Plugging back into (1)}
+\widetilde{V}_{\text{out}}&=\frac{5}{2}e^{j\frac{\pi}{4}}*0.958e^{-j0.2915}= 2.395 e^{j0.494}
+\end{align*}
+}
+
+\qitem What is $V_{\text{out}}$ in the time domain?
+
+\sol{
+\begin{align*}
+% V_{\text{out}}(t)&= \mathfrak{Re}(\widetilde{V}_{\text{out}}e^{j\omega t})
+% \intertext{Using Euler's formula, we can say}
+% \widetilde{V}_{\text{out}}e^{j\omega t} &= |\widetilde{V}_{\text{out}}|\big(\cos(\omega t+\angle \widetilde{V}_{\text{out}})+j\sin(\omega t+\angle \widetilde{V}_{\text{out}})\big) 
+% \intertext{Taking the real part, we get}
+% \mathfrak{Re}(\widetilde{V}_{\text{out}}e^{j\omega t}) &= |\widetilde{V}_{\text{out}}|\cos(\omega t+\angle \widetilde{V}_{\text{out}}) \\
+V_{\text{out}}(t)&= 4.79\cos(1000t+0.494) \text{ V}
+\end{align*}
+}
+
+\qitem Solve for the current $i(t)$
+
+    \sol{
+    \begin{align*}
+    \widetilde{i}&=\frac{\widetilde{V}_{\text{s}}}{Z_R+Z_L+Z_C} = \frac{|\widetilde{V}_{\text{s}}|}{|Z_R+Z_L+Z_C|}e^{j\big(\angle \widetilde{V}_{\text{s}}- \angle (Z_R+Z_L+Z_C)\big)} = 2.395*10^{-4}e^{j2.0647}
+    \intertext{Going back to the time domain:}
+    i(t)&=4.790*10^{-4}\cos(1000t+2.0647) \text{ A}
+    \end{align*}
+        }
+    
+   
+     \qitem Solve for the transfer function $H(\omega)=\frac{\widetilde{V}_{\text{out}}}{\widetilde{V}_{\text{s}}}$
+     
+      Leave your answer in terms of $R$, $L$, $C$, and $\omega$.
+     
+    \sol{
+    \begin{align*}
+    \intertext{Looking back at equation (1)}
+    \widetilde{V}_{\text{out}} &= \widetilde{V}_{\text{s}}\frac{Z_C}{Z_R+Z_L+Z_C}
+    \intertext{Rearranging we get}
+    H(\omega)&=\frac{\widetilde{V}_{\text{out}}}{\widetilde{V}_{\text{s}}}= \frac{Z_C}{Z_R+Z_L+Z_C}=\frac{\frac{1}{j\omega C}}{R+j\omega L+\frac{1}{j\omega C}} \\
+    H(\omega) &= \frac{1}{LC(j\omega)^2+jRC\omega+1}
+    \end{align*}
+    }
+  
+\end{enumerate}
+

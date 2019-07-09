@@ -1,0 +1,40 @@
+\qns{Controls / Systems}
+\qcontributor{Taejin Hwang}
+
+\begin{enumerate}
+
+\qitem \textbf{Conceptual Question:} What are the advantages of a system in Controller Canonical Form? Is it possible to convert any system into Controller Canonical Form?
+
+\qitem \textbf{Conceptual Question:} What is the Cayley-Hamilton Theorem and what is its importance to explaining a system's controllability?
+
+\sol{
+When $S_1$ is on and $S_2$ is off for a long period of time, $\frac{di_L}{dt} = 0$ because the circuit will have reached a steady state, and the current through $R_1$ will be equal to $i_L$. We find
+$$V_{in} - V_L - V_{R_1} = 0$$
+$$V_{in} - L\frac{di_L}{dt}(0) - i_L(0)R_1 = 0$$
+$$V_{in} - i_L(0)R_1 = 0$$
+$$i_L(0) = \frac{V_{in}}{R_1}$$
+}
+
+
+
+\qitem Consider the following discrete time system:
+
+$$\vec{x}[n+1] = A\vec{x}[n] + Bu[n] = \begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & -j & -1 & j \\
+1 & -1 & 1 & -1 \\
+1 & j & -1 & -j \\
+\end{bmatrix} \vec{x}[n] + \begin{bmatrix}
+1 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix} \cdot u[n]
+$$
+
+\begin{enumerate}
+	\item Is the system controllable? Explain why or why not.
+	\item Is the system stable? Prove that it is or give a counterexample?
+\end{enumerate}
+
+\end{enumerate}
