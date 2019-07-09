@@ -1,2 +1,77 @@
-# csm-16b
-Worksheet and content repository for CSM 16B
+# CSM 16B Repository
+
+This directory contains all the material developed for CSM 16B.
+
+For developing, please read through [`LaTeX-best-practices.md`](./00-LaTeX-best-practices.md) for a list of guidelines for writing LaTeX, and the following guide on [`Git`](https://rogerdudler.github.io/git-guide/)
+
+The documents here are written in LaTeX by a large team. Adhering to these guidelines will help contain bitrot and needless/conflicting replication, produce a more uniform look, and make the writing process easier.
+
+# Organization of this repository
+
+    fa19/               - Content for the Fa19 semester 
+    questionBank/       - Central source for all questions
+    testing/            - Testing directory
+
+## `fa19/`
+Inside each semester's directory, there are subfolders for each week's worksheets. Inside that folder, let's say 01/, there will be multiple LaTeX files: ws01.tex, meta01.tex, and sol01.tex. Compiling each and everyone of these files will output the worksheet, meta, and solutions respectively. The body.tex file is used to pick and choose which questions will go onto the worksheet.
+
+## `questionBank/`
+Inside the `questionBank/` directory, there are subfolders for each questions by topic. Inside a topic, let's say ode, there will be multiple LaTeX files such as rc_circuit.tex and mech_ode.tex. Each individual file corresponds to a single question. If you want to see what your LaTeX output looks like, the next section will explain how to do so. The reason for keeping the worksheets and the questions separate is so that the code is maintainable for future semesters. In addition, for future semesters, we can pick and choose questions that we want to reuse or to take out questions that are no longer in scope.
+
+## `test/` and `testing/`
+The sole purpose of the testing folder is to have an environment in which you can create test question.tex files and compile them in the `test` folder. For the purposes of the repository, please do not add/commit/or push your changes in this folder or the `test` folder. The `test` folder is an identical environment as the other numbered folders. You can pick and choose which questions to compile using the appropriate commands. It will make more sense on how to test code once looking at the repository.
+
+# Compiling Instructions
+
+You can use pdflatex to compile the ws.tex, meta.tex, sol.tex, or test.tex files, or you can choose to just use the Makefiles. 
+
+The current Makefile commands are:
+
+ 1. make ws: This makes the vanilla worksheet that the students will see.
+ 2. make sol: This will make the solutions for students to see after section.
+ 3. make meta: This will create the weekly metas that contain solutions along with step by step guides and teaching tips.
+ 4. make test: This will compile your test file in the testing directory.
+ 5. make all: This will make the worksheet, solutions, and meta, and create a final build folder with all three files inside. 
+ 6. make clean: This will remove any log/out files, and pdfs that were generated.
+ 7. make cleanpdfs: This will just remove the pdfs that were generated.
+
+You can run these commands to compile your LaTeX files in an easier fashion. Remember to always run `make clean` before pushing anything to git.
+
+# Short Guide to Git
+
+## 1. Clone the Respository
+
+    git clone https://Username@github.com/csmberkeley/csm-16b.git
+
+## 2. Branch off master
+After cloning the repository and setting up LaTeX, pull in any updates from Github origin.
+
+    git checkout master
+    git pull origin master
+
+Then, create a new branch off master and give it a descriptive name.
+
+    git checkout -b branchname
+
+## 3. Making changes
+
+Make changes as you would normally and commit them incrementally. Write descriptive commit messages and break larger changes into smaller parts.
+
+Using patch mode is recommended when staging changes to ensure only that only the desired diffs are included in the commit.
+
+    git add -p 
+
+Start in the `fa19` directory and edit the content in `questionBank`. Note that the repository has split up worksheets from their questions: all questions are stored in `questionBank` under topics for version control and maintainability.
+
+After making a few changes, verify that the changes appear as expected by re-making the handouts. The handouts build to the published directory.
+
+    make all
+
+Once satisfied, clean adn push the branch to Github origin.
+
+    make clean
+    git push origin branchname
+
+## Pull request
+On the Github web interface, create a new pull request for the branch, assign the current maintainers for review, apply relevant labels, and set the milestone to the current release target.
+
