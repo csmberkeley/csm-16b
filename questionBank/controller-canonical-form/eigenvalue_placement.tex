@@ -1,0 +1,328 @@
+\qns{Controllable Canonical Form and Eigenvalue Placement}
+\qcontributor{Yen-Sheng Ho}
+
+Consider a linear discrete time system below ($\vec{x} \in
+\mathbb{R}^n$, $u \in \mathbb{R}$, and $\vec{b} \in \mathbb{R}^n$).
+\begin{align*}
+\vec{x}(t+1) = A \vec{x}(t) + \vec{b} u(t)
+\end{align*}
+
+If the system is \textit{controllable},
+then there exists a transformation $\vec{z} = T\vec{x}$ (where $T$ is an invertible $n\times n$ matrix)
+such that in the transformed coordinates, the system is in
+\textit{controllable canonical form}, which is given by
+\begin{align*}
+\vec{z}(t+1) = \widetilde{A}\vec{z}(t) + \widetilde{\vec{b}} u(t) = \begin{bmatrix}
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots  & \ddots & \vdots \\
+ 0 & 0 & 0 & \cdots & 1 \\
+ -a_0 & -a_{1} & -a_{2} & \ldots & -a_{n-1} \\
+\end{bmatrix} 
+\vec{z}(t) +
+\begin{bmatrix}
+0 \\ 0 \\ 0 \\ \vdots \\ 1
+\end{bmatrix}
+u(t)
+\end{align*}
+
+The characteristic polynomials of the matrices $A$ and $\widetilde{A}$ are the same and given by
+\begin{align}\label{eq:poly}
+\mbox{det}(\lambda I - A ) = \mbox{det}(\lambda I - \widetilde{A} )
+= \lambda^n  + a_{n-1} \lambda^{n-1} + a_{n-2} \lambda^{n-2} + \ldots + a_0
+\end{align}
+
+\begin{enumerate}
+\qitem Show that $\widetilde{A} = TAT^{-1}$ and $\widetilde{\vec{b}} = T\vec{b}$.
+
+\sol{
+
+Starting from the original system, we have 
+\begin{align*}
+\vec{x}(t+1) &= A \vec{x}(t) + \vec{b} u(t) \\
+\Rightarrow T\vec{x}(t+1) &= TA \vec{x}(t) + T\vec{b} u(t) \\
+\Rightarrow T\vec{x}(t+1) &= TA (T^{-1}T) \vec{x}(t) + T\vec{b} u(t) \\
+\Rightarrow \vec{z}(t+1) &= TAT^{-1}\vec{z}(t) + T\vec{b} u(t) 
+\end{align*}
+
+Comparing to the canonical form, we have
+\begin{align*}
+\widetilde{A} = TAT^{-1} \mbox{, and }  \widetilde{\vec{b}} = T\vec{b}
+\end{align*}
+
+}
+\qitem Show that $A$ and $\widetilde{A}$ have the same eigenvalues (\textit{Hint: let $\vec{v}$ be an eigenvector of $A$; use $T\vec{v}$ for $\widetilde{A}$})
+
+\sol{
+
+Let $\lambda$ and $\vec{v}$ be an eigenvalue and its corresponding eigenvector of $A$. That is, $A\vec{v} = \lambda \vec{v}$.
+Next we consider $\widetilde{A}T\vec{v}$:
+\begin{align*}
+\widetilde{A}(T\vec{v}) &=  TAT^{-1} T\vec{v} \\
+&= TA\vec{v}\\
+&= T(\lambda\vec{v}) \\
+&= \lambda(T\vec{v})
+\end{align*}
+We have shown that $\lambda$ is also an eigenvalue of $\widetilde{A}$ and its corresponding eigenvector is $T\vec{v}$.
+}
+\qitem Let the controllability matrices $C$ and $\widetilde{C}$ be $C = \begin{bmatrix}
+\vec{b} & A\vec{b} & \cdots & A^{n-1}\vec{b}
+\end{bmatrix}$
+and 
+$\widetilde{C} = \begin{bmatrix}
+\widetilde{\vec{b}} & \widetilde{A}\widetilde{\vec{b}} & \cdots & \widetilde{A}^{n-1}\widetilde{\vec{b}}
+\end{bmatrix}$, respectively.
+Show that $\widetilde{C} = TC$, which is equivalent to $T = \widetilde{C}C^{-1}$.
+
+\sol{
+\begin{align*}
+\widetilde{C} &= \begin{bmatrix}
+\widetilde{\vec{b}} & \widetilde{A}\widetilde{\vec{b}} & \cdots & \widetilde{A}^{n-1}\widetilde{\vec{b}}
+\end{bmatrix} \\
+&= \begin{bmatrix}
+T{\vec{b}} & (T{A}T^{-1})(T{\vec{b}}) & \cdots & (T{A}^{n-1}T^{-1})(T{\vec{b}})
+\end{bmatrix} \\
+&= \begin{bmatrix}
+T{\vec{b}} & T{A}{\vec{b}} & \cdots & T{A}^{n-1}{\vec{b}}
+\end{bmatrix} \\
+&= TC
+\end{align*}
+
+}
+\end{enumerate}
+
+Now, consider the specific system
+\begin{align} \label{eq:sys}
+\vec{x}(t+1) = A \vec{x}(t) + \vec{b} u(t) = \begin{bmatrix}
+-2 & 0 \\
+-3 & -1
+\end{bmatrix} \vec{x}(t) + 
+\begin{bmatrix}
+\frac{1}{2} \\
+\frac{1}{2}
+\end{bmatrix} u(t)
+\end{align}
+
+\begin{enumerate}[resume]
+\qitem Show that the system (\ref{eq:sys}) is controllable.
+
+\sol{
+\begin{align*}
+C = \begin{bmatrix}
+\vec{b} & A\vec{b}
+\end{bmatrix}
+ = \begin{bmatrix}
+ \frac{1}{2} & -1 \\
+ \frac{1}{2} & -2
+ \end{bmatrix}
+ \mbox{ (full rank)}
+\end{align*}
+}
+\end{enumerate}
+
+Since the system is controllable,
+there exists a transformation $\vec{z} = T\vec{x}$ such that
+\begin{align} \label{eq:canonical}
+\vec{z}(t+1) = \widetilde{A}\vec{z}(t) + \widetilde{\vec{b}} u(t) = \begin{bmatrix}
+0 & 1  \\
+ -a_0 & -a_1 \\
+\end{bmatrix} 
+\vec{z}(t) +
+\begin{bmatrix}
+0  \\ 1
+\end{bmatrix}
+u(t)
+\end{align}
+
+\begin{enumerate}[resume]
+\qitem Compute the matrix $\widetilde{A}$. 
+
+\sol{
+\begin{align*}
+\mbox{det}(\lambda I - A) = (\lambda+2)(\lambda+1) = \lambda^2 +3 \lambda + 2 = \lambda^2 + a_1 \lambda + a_0
+\end{align*}
+By inspection, we have $a_1 = 3$ and $a_0 = 2$. Thus,
+\begin{align*}
+\widetilde{A} = \begin{bmatrix}
+0 & 1 \\
+-2 & -3
+\end{bmatrix}
+\end{align*}
+}
+
+\qitem Compute the controllability matrices $C = \begin{bmatrix}
+\vec{b} & A\vec{b}
+\end{bmatrix}$
+and 
+$\widetilde{C} = \begin{bmatrix}
+\widetilde{\vec{b}} & \widetilde{A}\widetilde{\vec{b}} 
+\end{bmatrix}$.
+
+\sol{
+\begin{align*}
+C 
+ = \begin{bmatrix}
+ \frac{1}{2} & -1 \\
+ \frac{1}{2} & -2
+ \end{bmatrix}
+\end{align*}
+\begin{align*}
+\widetilde{C} = \begin{bmatrix}
+0 & 1 \\ 
+1 & -3
+\end{bmatrix}
+\end{align*}
+}
+
+\qitem Compute the transformation matrix $T = \widetilde{C}C^{-1}$.
+
+\sol{
+
+First, we compute
+\begin{align*}
+C^{-1} = 
+\frac{1}{\frac{1}{2}(-2)-\frac{1}{2}(-1)}\begin{bmatrix}
+-2 & 1 \\
+-\frac{1}{2} & \frac{1}{2}
+\end{bmatrix}
+=
+\begin{bmatrix}
+4 & -2 \\
+1 & -1
+\end{bmatrix}
+\end{align*}
+
+Then we have
+\begin{align*}
+T = \begin{bmatrix}
+0 & 1 \\ 
+1 & -3
+\end{bmatrix} \begin{bmatrix}
+4 & -2 \\
+1 & -1
+\end{bmatrix} =
+\begin{bmatrix}
+1 & -1 \\
+1 & 1
+\end{bmatrix}
+\end{align*}
+}
+
+\qitem Show that the system (\ref{eq:sys}) is \textit{unstable} in open-loop.
+
+\sol{
+
+From the characteristic polynomial $\lambda^2 +3 \lambda + 2$,
+we know it is unstable since the eigenvalues are $\lambda = -1 \mbox{ and }-2$.
+}
+\end{enumerate}
+
+Now, we want to make the system \textit{stable} by applying state feedback for the system in the canonical form (\ref{eq:canonical}).
+That is, let $u(t)$ be $u(t) = -\vec{k}^T\vec{z}(t) = \begin{bmatrix}
+-k_0 & -k_1
+\end{bmatrix}
+\vec{z}(t)$.
+After applying state feedback, the systems (\ref{eq:sys}) and (\ref{eq:canonical}) have the form
+\begin{align*}
+\vec{x}(t+1) &= A_{cl} \vec{x}(t) \\
+\vec{z}(t+1) &= \widetilde{A}_{cl} \vec{z}(t)
+\end{align*}
+
+\begin{enumerate}[resume]
+
+\qitem Compute $A_{cl}$ and $\widetilde{A}_{cl}$ in terms of $k_0$ and $k_1$.
+
+\sol{
+
+For the original system, we have (note that $u(t) = -\vec{k}^T\vec{z}(t) = -\vec{k}^T T\vec{x}(t)$)
+\begin{align*}
+\vec{x}(t+1) &= A\vec{x}(t) + \vec{b}(-\vec{k}^T T\vec{x}(t))\\
+&= (A - \vec{b}\vec{k}^T T) \vec{x}(t)
+\end{align*}
+Thus,
+\begin{align*}
+A_{cl} &= A + \vec{b}(-\vec{k}^T)T 
+= \begin{bmatrix}
+-2 & 0 \\
+-3 & -1
+\end{bmatrix}
+ + \frac{1}{2}\begin{bmatrix}
+ -k_0 -k_1 & k_0 - k_1 \\
+ -k_0 - k_1 & k_0 - k_1
+ \end{bmatrix}
+ = \begin{bmatrix}
+ -2 -\frac{1}{2}k_0 - \frac{1}{2} k_1 & 0 + \frac{1}{2}k_0 - \frac{1}{2} k_1\\
+  -3 -\frac{1}{2}k_0 - \frac{1}{2} k_1 & -1 + \frac{1}{2}k_0 - \frac{1}{2} k_1
+ \end{bmatrix}
+ \end{align*}
+
+For the canonical form, we have 
+\begin{align*}
+\vec{z}(t+1) &= \widetilde{A}\vec{z}(t) + \widetilde{\vec{b}}(-\vec{k}^T \vec{z}(t))\\
+&= (\widetilde{A} - \widetilde{\vec{b}}\vec{k}^T )\vec{z}(t)
+\end{align*}
+
+Thus,
+ \begin{align*}
+ \widetilde{A}_{cl} &= \widetilde{A} + \widetilde{\vec{b}}(-\vec{k}^T) 
+= \begin{bmatrix}
+0 & 1 \\
+-2 & -3
+\end{bmatrix}
+ + \begin{bmatrix}
+ 0 & 0 \\
+ -k_0 & -k_1
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 0 & 1 \\
+ -2 - k_0 & -3 - k_1
+ \end{bmatrix}
+\end{align*}
+}
+
+\qitem Compute $\vec{k}$ so that $\widetilde{A}_{cl}$ has eigenvalues $\lambda = \pm \frac{1}{2}$ (\textit{Hint: use Formula (\ref{eq:poly})}).
+
+\sol{
+
+First, for the given eigenvalues we have
+\begin{align*}
+(\lambda+\frac{1}{2}) (\lambda-\frac{1}{2}) = \lambda^2 -\frac{1}{4}
+\end{align*}
+
+Second, by comparison
+\begin{align*}
+-a_1 &=  0 = -3 - k_1 \\
+-a_0 &= -(-\frac{1}{4}) = -2 - k_0
+\end{align*}
+We have
+\begin{align*}
+k_1 &= -3 \\
+k_0 &= -\frac{9}{4}
+\end{align*}
+}
+
+\qitem Using the $\vec{k}$ you derived in the previous part, show that
+$A_{cl}$ also has eigenvalues $\lambda = \pm \frac{1}{2}$ by explicit calculation.
+
+\sol{
+
+\begin{align*}
+A_{cl} = 
+\begin{bmatrix}
+ -2 -\frac{1}{2}k_0 - \frac{1}{2} k_1 & 0 + \frac{1}{2}k_0 - \frac{1}{2} k_1\\
+  -3 -\frac{1}{2}k_0 - \frac{1}{2} k_1 & -1 + \frac{1}{2}k_0 - \frac{1}{2} k_1
+ \end{bmatrix}
+= \begin{bmatrix}
+\frac{5}{8} & \frac{3}{8} \\
+\frac{-3}{8} & \frac{-5}{8}
+\end{bmatrix}
+\end{align*}
+
+The characteristic polynomial is given by
+\begin{align*}
+(\frac{5}{8} - \lambda) (\frac{-5}{8}-\lambda) + \frac{9}{64} = \lambda^2 - \frac{16}{64} = \lambda^2 - \frac{1}{4}
+\end{align*}
+
+Thus, $\lambda = \pm \frac{1}{2}$.
+}
+\end{enumerate}

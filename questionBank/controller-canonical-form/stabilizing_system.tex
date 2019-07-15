@@ -1,0 +1,138 @@
+\qns{Controllable Canonical Form - Eigenvalues Placement}
+\qcontributor{John Maidens}
+
+
+Consider the following linear discrete time system
+
+\begin{align*}
+\vec{x}(t+1) &= \begin{bmatrix}
+-1 &  1 &  0 \\
+ 1 & -2 &  1 \\
+ 0 &  1 & -1
+\end{bmatrix}
+\vec{x}(t) +
+\begin{bmatrix}
+1 \\ 0 \\ 0
+\end{bmatrix} u(t)
+\end{align*}
+
+\begin{enumerate}
+
+\qitem Is this system controllable?
+
+\qsolans{We calculate
+$$\mathcal C = [B,AB,A^{2}B] =
+\begin{bmatrix}
+1 & -1 & 2 \\
+0 & 1 & -3 \\
+0 & 0 & 1
+\end{bmatrix}$$
+Observe that $\mathcal C$ matrix is full rank and hence our system is controllable.
+}
+
+
+
+
+
+
+
+
+
+
+\qitem Is the linear discrete time system stable?
+
+\qsolans{We have to calculate the eigenvalues of matrix $A$. Thus,
+\begin{align*}
+0 = \det(A - \lambda I) = \lambda^3 + 4\lambda^2 + 3\lambda = \lambda(\lambda + 3)(\lambda + 1)
+\end{align*}
+Since the eigenvalue at -3 is outside the unit circle, this system is unstable.
+}
+
+
+
+
+
+
+
+
+\qitem Bring the system to the controllable canonical form
+
+\begin{align*}
+\vec{z}(t+1) &= \begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+a_1 & a_2 & a_3
+\end{bmatrix}
+\vec{z}(t) +
+\begin{bmatrix}
+0 \\ 0 \\ 1
+\end{bmatrix} u(t)
+\end{align*}
+
+using transformation $\vec{z}(t) = T\vec{x}(t)$
+
+\qsolans{
+The characteristic polynomial for this system is $\lambda^3 + 4\lambda^2 + 3\lambda$. So putting this system in control canonical form gives
+\begin{align*}
+\vec{z}(t+1) &= \begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & -3 & -4
+\end{bmatrix}
+\vec{z}(t) +
+\begin{bmatrix}
+0 \\ 0 \\ 1
+\end{bmatrix} u(t)
+\end{align*}
+To compute the transformation $T$, we need the matrices
+\[
+\begin{split}
+R_n &= \begin{bmatrix} B & AB & \dots & A^{n-1}B \end{bmatrix} = \begin{bmatrix} 1 & -1 & 2\\ 0 & 1 & -3 \\ 0 & 0 & 1 \end{bmatrix}
+ \\
+\tilde R_n &= \begin{bmatrix}  \tilde B &  \tilde A \tilde B & \dots & \tilde A^{n-1} \tilde B \end{bmatrix}
+= \begin{bmatrix} 0 & 0 & 1\\ 0 & 1 & -4 \\ 1 & -4 & 13 \end{bmatrix}
+\end{split}
+\]
+Then $T$ is given by
+\[
+T = \tilde R_n  R_n^{-1} =
+\begin{bmatrix} 0 & 0 & 1\\ 0 & 1 & -4 \\ 1 & -4 & 13 \end{bmatrix}
+\begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 3 \\ 0 & 0 & 1 \end{bmatrix}
+=
+\begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & -1 \\ 1 & -3 & 2 \end{bmatrix}
+\].
+}
+
+
+
+
+
+
+
+
+
+\qitem Using state feedback $u(t) =  \begin{bmatrix}
+k_1 & k_2 & k_3
+\end{bmatrix} \vec{z}(t)$ place the eigenvalues at $0,1/2,-1/2$.
+
+\qsolans{
+The closed loop system in $z$ coordinates is given by
+\[
+\widetilde{A} + \widetilde{B} \widetilde{K} = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ k_1 & k_2 -3 & k_3 - 4 \end{bmatrix}
+\]
+which has characteristic polynomial $\lambda^3 + (4-k_3) \lambda^2 + (3-k_2) \lambda - k_1$. To place the eigenvalues at 0, 1/2, -1/2, the desired characteristic polynomial is $\lambda(\lambda - 1/2)(\lambda + 1/2) = \lambda^3 - 1/4 \ \lambda$. So we should choose $k_1 = 0, k_2 = 13/4, k_3 = 4$.
+If we want the feedback controller in terms of $x(t)$, we write $u(t) = K \vec{x}(t)$ where
+\[
+K = \widetilde{K} T = \begin{bmatrix} 0 & 13/4 & 4 \end{bmatrix} \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & -1 \\ 1 & -3 & 2 \end{bmatrix} =
+\begin{bmatrix} 4 &  -35/4  &  19/4 \end{bmatrix}.
+\]
+}
+
+
+
+
+
+
+
+
+\end{enumerate}
