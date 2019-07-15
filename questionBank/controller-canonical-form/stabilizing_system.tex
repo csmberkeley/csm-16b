@@ -20,7 +20,7 @@ Consider the following linear discrete time system
 
 \qitem Is this system controllable?
 
-\qsolans{We calculate
+\sol{We calculate
 $$\mathcal C = [B,AB,A^{2}B] =
 \begin{bmatrix}
 1 & -1 & 2 \\
@@ -41,7 +41,7 @@ Observe that $\mathcal C$ matrix is full rank and hence our system is controllab
 
 \qitem Is the linear discrete time system stable?
 
-\qsolans{We have to calculate the eigenvalues of matrix $A$. Thus,
+\sol{We have to calculate the eigenvalues of matrix $A$. Thus,
 \begin{align*}
 0 = \det(A - \lambda I) = \lambda^3 + 4\lambda^2 + 3\lambda = \lambda(\lambda + 3)(\lambda + 1)
 \end{align*}
@@ -71,7 +71,7 @@ a_1 & a_2 & a_3
 
 using transformation $\vec{z}(t) = T\vec{x}(t)$
 
-\qsolans{
+\sol{
 The characteristic polynomial for this system is $\lambda^3 + 4\lambda^2 + 3\lambda$. So putting this system in control canonical form gives
 \begin{align*}
 \vec{z}(t+1) &= \begin{bmatrix}
@@ -115,7 +115,7 @@ T = \tilde R_n  R_n^{-1} =
 k_1 & k_2 & k_3
 \end{bmatrix} \vec{z}(t)$ place the eigenvalues at $0,1/2,-1/2$.
 
-\qsolans{
+\sol{
 The closed loop system in $z$ coordinates is given by
 \[
 \widetilde{A} + \widetilde{B} \widetilde{K} = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ k_1 & k_2 -3 & k_3 - 4 \end{bmatrix}
