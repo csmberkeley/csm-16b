@@ -1,0 +1,62 @@
+% {\Large \textbf{Mechanical:}}
+\qns{Complex Numbers}
+
+A complex number, $z$, is composed of a real part and imaginary part.
+If $z = a + bj$, then $re(z) = a$ (the real portion equals a), and $im(z) = b$ (the imaginary portion equals b).
+Complex numbers can be expressed in two ways:
+
+\begin{center}
+Rectangular Form: $z = a + bj$ \hspace{1em} Polar Form: $z = re^{j\theta}$
+\end{center}
+
+In polar form, $r$ represents the magnitude and $\theta$ represents the angle of the complex number with respect to the origin of the complex plane.
+Rectangular form makes adding and subtracting complex numbers easier; whereas, polar form makes multiplying and dividing numbers easier.
+Some handy equations to switch between forms include:
+
+\begin{center}
+\begin{tabular}{ c c c }
+ $tan(\theta) = \frac{b}{a}$ & $r = |z| = \sqrt{a^2 + b^2}$ \\ \\
+ $sin(\theta) = \frac{b}{|z|}$ & $cos(\theta) = \frac{a}{|z|}$ \\  \\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+
+\qitem Prove algebraically that $\frac{1}{j} = -j$.
+
+\sol{
+The key is to multiply the left-hand side of the equation by $\frac{j}{j}$: \\
+$$\frac{1}{j} = \frac{1 * j}{j * j} = \frac{j}{j^2}$$
+$$= \frac{j}{-1} = -j$$
+}
+
+\end{enumerate}
+
+A complex number, $z = a + bj$ has a complex conjugate, $\overline{z} = a - bj$.
+Note that the sum of a complex number and its conjugate is always real, but the difference between a complex number and its conjugate is always imaginary.
+
+\begin{enumerate}[resume]
+
+\qitem Use a polar graph to show that the sum of any complex number and its conjugate is always real.
+
+\sol{
+
+}
+
+\qitem Recall that Euler's Formula states that $e^{j\theta} = cos(\theta) + jsin(\theta)$.
+Using Euler's identity, show that $cos(\theta) = \frac{1}{2}(e^{j\theta} + e^{-j\theta})$.
+
+\sol{
+
+  $$e^{j\theta} = cos(\theta) + jsin(\theta)$$
+
+  Note that $e^{j\theta}$ has the complex conjugate $e^{-j\theta}$, which means:
+
+  $$e^{-j\theta} = cos(\theta) - jsin(\theta)$$
+  $$e^{j\theta} +  e^{-j\theta} = cos(\theta) + jsin(\theta) + cos(\theta) - jsin(theta)$$
+  $$e^{j\theta} +  e^{-j\theta} = 2cos(\theta)$$
+  $$cos(\theta) = \frac{1}{2}(e^{j\theta} +  e^{-j\theta})$$
+
+}
+
+\end{enumerate}
