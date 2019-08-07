@@ -1,0 +1,52 @@
+% {\Large \textbf{Mechanical:}}
+\qns{Introduction to Solving Ordinary Differential Equations}
+\qcontributor{Justin Yu, Taejin Hwang}
+
+\begin{enumerate}
+
+\qitem Can you think of a function where $\ddt{y(t)}{t} = y(t)$ for all $t$?
+
+\sol{
+}
+
+\qitem Now, how can you modify the function above to solve $\ddt{y(t)}{t} + \alpha y(t) = 0$?
+This equation is known as the homogenous equation.
+
+\sol{
+}
+
+\qitem You might notice that the solution above is not unique.
+This is the reason a differential equation will often come with an initial condition such as $y(0) = 2$.
+Try using this initial condition to solve for a unique solution to the differential equation above.
+
+\sol{
+}
+
+\qitem Now, let's try solving our original equation:
+\begin{align}
+    \ddt{y(t)}{t} + \alpha y(t) = \beta
+\end{align}.
+To do this, we will use a change of variables.
+Let $\widetilde{y}(t) = y(t) - \frac{\beta}{\alpha}$.
+
+\begin{enumerate}
+\qitem Try writing the original equation as a differential equation in terms of $\widetilde{y}(t)$.
+\qitem Does this equation look familiar? How can you solve this equation?
+\qitem What is the final solution $y(t)$? Assume $y(0)$ is given.
+\end{enumerate}
+
+\sol{
+}
+
+To recap, given a first order differential equation $\ddt{y(t)}{t} + \alpha y(t) = \beta$, the solution is:
+\begin{align}
+    y(t) = y(0) e^{-\alpha t} + \frac{\beta}{\alpha} (1 - e^{-\alpha t})
+\end{align}
+
+Another form you might find useful is the steady state form:
+
+\begin{align}
+    y(t) = y(\infty) + (y(0) - y(\infty)) e^{-\alpha t}
+\end{align}
+
+\end{enumerate}
