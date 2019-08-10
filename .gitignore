@@ -17,7 +17,7 @@ testing/
 fa19/test/
 
 ## DS Store
-.DS_Store
+*.DS_Store
 
 ## Intermediate documents:
 *.dvi
