@@ -1,8 +1,8 @@
-\qns{RC Circuit}
-\qcontributor{Kyle Tanghe}
-\qcontributor{Elena Jia}
+\qns{Transistor Switch Model}
+\qcontributor{Ryan Koh}
+\qcontributor{Son Tran}
 
-Consider the circuit below, assume that when $t\leq0$, the capacitor has no charge stored $(V_{\text{c}}(t=0) = 0)$. At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$. 
+Consider the circuit below, assume that when $t\leq0$, the capacitor has no charge stored $(V_{\text{c}}(t=0) = 0)$. At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
 
 \input{\bank/ode/figures/rc_circuit}
 
@@ -49,7 +49,7 @@ C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0
 \sol{
 
 \begin{align*}
-\intertext{No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{\text{c}}=\SI{0}{\volt}$ before $t=0$.} 
+\intertext{No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{\text{c}}=\SI{0}{\volt}$ before $t=0$.}
 \intertext{At $t=0$, the switch closes. Since voltage across the capacitor cannot change instantaneously,}
 V_{\text{c}}(t=0)&=0. \\
 \intertext{As $t$ goes to infinity, the capacitor will become fully charged and the current goes to zero. Therefore, the voltage of the capacitor equals the voltage source:}
