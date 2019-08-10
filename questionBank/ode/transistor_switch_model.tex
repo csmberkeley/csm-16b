@@ -2,11 +2,58 @@
 \qcontributor{Kyle Tanghe}
 \qcontributor{Elena Jia}
 
+You have two CMOS inverters made from NMOS and PMOS devices. Both NMOS and PMOS devices
+have an "on resistance" of $R_{on}=\SI{1}{\kilo\ohm}$, and each has a gate capacitance (input capacitance) of $C=\SI{1}{\femto\farad}$
+(femto-Farads = $10^{−15}$). We assume the "off resistance" (the resistance when the transistor is off) is infinite
+(i.e., the transistor acts as an open circuit when off). The supply voltage VDD is $\SI{1}{\volt}$. The two inverters are
+connected in series, with the output of the first inverter driving the input of the second inverter.
+\begin{figure} [h!]
+	\centering
+	\includegraphics{\bank/ode/figures/transwitchmodel_cmos.png}
+	\caption{CMOS Inverter}
+	\label{fig:cmos}
+\end{figure}
+
 Consider the circuit below, assume that when $t\leq0$, the capacitor has no charge stored $(V_{\text{c}}(t=0) = 0)$. At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$. 
 
 \input{\bank/ode/figures/rc_circuit}
 
 \begin{enumerate}
+
+\qitem Assume the input to the first inverter has been low ($V_{in} = \SI{0}{\volt}$) for a long time, and then switches
+at time $t = 0$ to high ($V_{in} = V_{DD}$). \textbf{Draw a simple RC circuit and write a differential equation describing the output voltage of the first inverter for time $t \geq 0$.} Don’t forget that the second inverter is “loading” the output of the first inverter — you need to think about both of them.
+
+\sol {
+\begin{align*}
+\intertext{The input to the first inverter was low for a long time. This means the output of the
+inverter had been held at high for a long time. To analyze this circuit as an RC circuit we can recall
+the transistor switch model. Using this we can see that the first inverter’s output appears as a resistor
+connected to $V_{DD}$ when the input is low or a resistor connected to ground when the input turns high.} \\ \\
+\intertext{The second inverter "loads" the output of the first inverter. Modeling the
+gates of the transistors as capacitors, these gates together form our capacitive load. The gate of the
+PMOS acts as a capacitor to $V_{DD}$ and the gate of the NMOS acts as a capacitor to ground.} \\ \\
+\intertext{We can then draw the following RC circuit:}
+\begin{figure} [h!]
+	\centering
+	\includegraphics{\bank/ode/figures/transwitchmodel_first_inverter.png}
+	\caption{Inverter Output at 0}
+	\label{fig:inverter0}
+\end{figure}
+\intertext{To get the differential equation describing the output of the first inverter at time $t \geq 0$ let us first think about the behavior of the circuit at and after $t = 0$.} \\
+\intertext{At $t = 0$ we know that the output $V_{out} = V_{DD}$. This means that $C_{nmos}$ is charged while the $C_{pmos}$ is not as there is no voltage difference across it. When the input to the inverter changes the output goes to zero in steady state.} \\ \\
+\intertext{For this to occur the $C_{pmos}$ must start discharging and $C_{nmos}$ must start charging to $V_{DD}$. We know the
+voltage across $C_{pmos}$ is $V_{out}(t) - V_{DD}$ and the voltage across $C_{nmos}$ is $V_{out}(t)$. Using this information we can set up a differential equation to solve for $V_{out}(t)$:}
+I_{c_{pmos}} = C_{pmos} \frac{d}{dt}(V_{out}(t) - V_{DD}) \\
+I_{c_{nmos}} = C_{nmos} \frac{d}{dt}V_{out}(t) \\
+I_{R_{on}} = \frac{V_{out}(t)}{R_{on}} \\
+I_{c_{pmos}} + I_{c_{nmos}} = -I_{R_{on}} \\
+C_{pmos} \frac {d}{dt} (V_{out}(t) - V_{DD}) + C_{nmos} \frac {d}{dt} V_{out}(t) = - \frac {V_{out}(t)}{R_{on}} \\
+C_{pmos} \frac {d}{dt} V_{out}(t) + C_{nmos} \frac{d}{dt} V_{out}(t) = - \frac {V_{out} (t)} {R_{on}} \\
+(C_{pmos} + C_{nmos}) \frac {d}{dt} V_{out} (t) = - \frac {V_{out}(t)} {R_{on}} \\
+\frac {d}{dt} V_{out}(t) = - \frac {V_{out} (t)} {R_{on} (C_{pmos} + C_{nmos})} \\
+\frac {d}{dt} V_{out} (t) = - \frac {V_{out} (t)} {R_{on} (2C)}
+\end{align*}
+}
 
 \qitem Write out the KCL equations associated with the circuit when the switch is open. Then write out the differential equations for the case when the switch is closed.
 
