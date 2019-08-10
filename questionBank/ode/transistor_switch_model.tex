@@ -1,6 +1,6 @@
-\qns{RC Circuit}
-\qcontributor{Kyle Tanghe}
-\qcontributor{Elena Jia}
+\qns{Transistor Switch Model}
+\qcontributor{Ryan Koh}
+\qcontributor{Son Tran}
 
 You have two CMOS inverters made from NMOS and PMOS devices. Both NMOS and PMOS devices
 have an "on resistance" of $R_{on}=\SI{1}{\kilo\ohm}$, and each has a gate capacitance (input capacitance) of $C=\SI{1}{\femto\farad}$
@@ -96,7 +96,7 @@ C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0
 \sol{
 
 \begin{align*}
-\intertext{No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{\text{c}}=\SI{0}{\volt}$ before $t=0$.} 
+\intertext{No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{\text{c}}=\SI{0}{\volt}$ before $t=0$.}
 \intertext{At $t=0$, the switch closes. Since voltage across the capacitor cannot change instantaneously,}
 V_{\text{c}}(t=0)&=0. \\
 \intertext{As $t$ goes to infinity, the capacitor will become fully charged and the current goes to zero. Therefore, the voltage of the capacitor equals the voltage source:}
