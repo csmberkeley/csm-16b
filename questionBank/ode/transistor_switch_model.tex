@@ -31,15 +31,32 @@ i_{\text{Vs}} = 0\\
 
 
 
-\qitem Write out the differential equation for $V_{\text{c}}(t)$ after the switch closes.
+\qitem \textbf{Sketch the output voltage of the first inverter, showing clearly (1) the initial value, (2) the initial slope, (3) the asymptotic value, and (4) the time that it takes for the voltage to decay to roughly $\mathbf{\frac{1}{3}}$ of its initial value.}
 
 \sol{
-\begin{align*}
-\intertext{From the previous problem we know that when the switch is closed,}
-\frac{V_{\text{S}}- V_{\text{C}}}{R} = C\frac{dV_{\text{C}}}{dt} \\
-\intertext{Thus we obtain}
-C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0
-\end{align*}
+  (1) We know that the output of our inverter started with the initial value $V_{dd}$.
+
+  (2) Since the differential equation tells us the change in value of $V_{out}(t)$ at time $t$ we can simply plug in $t = 0$ into our differential equation to get the initial slope:
+
+  \begin{align*}
+    \frac{d}{dt}V_{out}(t) = - \frac{V_{out}(0)}{R_{on}(C_{nmos} + C_{pmos})} \\
+    \frac{d}{dt}V_{out}(t) = - \frac{V_{dd}}{R_{on}(C_{nmos} + C_{pmos})}
+  \end{align*}
+
+  Thus the initial slope is $\frac{V_{dd}}{R_{on}(C_{nmos} + C_{pmos})} = \frac{V_{dd}}{R_{on}(2C)}$
+
+  (3) Since the input to the inverter changed from high to low we know the output of the inverter is going to go to $0$ in steady state.
+
+  Another way to find this is: We know that the solution to a differential equation of the form $\frac{d}{dt}V_{out}(t) = - \frac{V_{out}}{R_{on}(C_{nmos} + C_{pmos})}$ is $V_{out} = ke^{-\frac{t}{R_{on}(2C)}}$.
+  Plugging in the initial condition $V_{out}(0) = V_{dd}$ we find that $V_{out} = V_{dd}e^{-\frac{t}{R_{on}(2C)}}$.
+
+  Plugging in $t = \infty$ we can see that the output approaches $V_{out} = V_{dd}e^{-\frac{\infty}{R_{on}(2C)}} = 0$.
+
+  \input{\bank/ode/figures/transistor_switch_model_discharging}
+
+  (4) Using the fact that $e^{-1} = \frac{1}{e} \approx \frac{1}{3}$, we know that $V_{out} = V_{dd}e^{-1}$ which occurs when $t = R_{on}(2C) = 2 * 10^{-12}$.
+
+  We know this from the solution $V_{out} = V_{dd}e^{-\frac{t}{R_{on}(2C)}}$ of the differential equation that we derived found in the previous part.
 }
 
 

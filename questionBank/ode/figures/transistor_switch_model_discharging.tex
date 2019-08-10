@@ -1,15 +1,6 @@
 \begin{figure}[H]
-	\begin{centering}
-		\begin{circuitikz}
-			\draw (0, 4)
-			to[V =$V_s$] (0, 0);
-			\draw (0, 4)
-			to[switch,l^=\mbox{$t = 0$}](4,4)
-			(4,4) to[R = $R$,v=$V_R(t)$,i>^=$I_R(t)$] (7,4)	
-			to [short] (9,4)
-			to[C = $C$, v=$V_c(t)$,i>^=$I_c(t)$] (9,0)
-			to [short] (0,0);
-		\end{circuitikz}
-		\caption{\label{fig:circuit}RC Circuit with Voltage Source}
-	\end{centering}
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{\bank/ode/figures/discharging_capacitor.png}
+  \end{center}
+  \label{fig:discharging_capacitor}
 \end{figure}
