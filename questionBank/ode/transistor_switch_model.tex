@@ -55,6 +55,50 @@ C_{pmos} \frac {d}{dt} V_{out}(t) + C_{nmos} \frac{d}{dt} V_{out}(t) = - \frac {
 \end{align*}
 }
 
+\qitem A long time later, the input to the first inverter switches low again. \textbf{Sketch the output voltage of the first inverter, showing clearly (1) the initial value, (2) the initial slope, and (3) the asymptotic value.}
+
+\sol {
+After a long time we know that the output of the first inverter has stabilized to 0. When we switch the input of the first inverter back to low again, we know that the output will move towards $V_{DD}$. Using this we establish that:
+\\ \\
+(1) The initial value of $V_{out}(t) = 0$
+(2) When the input to the inverter has flipped to low the RC circuit is:
+\begin{figure} [h!]
+	\centering
+	\includegraphics{\bank/ode/figures/transwitchmodel_second_inverter.png}
+	\caption{Inverter Output at 1}
+	\label{fig:inverter1}
+\end{figure}
+$V_{out}$ was 0 to start with and is slowly changing to $V_{DD}$. Due to this we know that $C_{pmos}$ is slowly discharging as the voltage across it drops to 0 and $C_{nmos}$ is slowly charging as the voltage across it increases to $V_{DD}$. Using this information we get the following:
+\begin{align*}
+I_{c_{pmos}} = C_{pmos} \frac{d}{dt}(V_{out}(t) - V_{DD}) \\
+I_{c_{nmos}} = C_{nmos} \frac{d}{dt}V_{out}(t) \\
+I_{R_{on}} = \frac{V_{out}(t) - $V_{DD}}{R_{on}} \\
+I_{c_{pmos}} + I_{c_{nmos}} = -I_{R_{on}} \\
+C_{pmos} \frac {d}{dt} (V_{out}(t) - V_{DD}) + C_{nmos} \frac {d}{dt} V_{out}(t) = - \frac {V_{out}(t) - V_{DD}}{R_{on}} \\
+C_{pmos} \frac {d}{dt} V_{out}(t) + C_{nmos} \frac{d}{dt} V_{out}(t) = - \frac {V_{out} (t) - V_{DD}} {R_{on}} \\
+(C_{pmos} + C_{nmos}) \frac {d}{dt} V_{out} (t) = - \frac {V_{out}(t) - V_{DD}} {R_{on}} \\
+\frac {d}{dt} V_{out}(t) = \frac {V_{DD} - V_{out} (t)} {R_{on} (C_{pmos} + C_{nmos})} \\
+\frac {d}{dt} V_{out} (t) = \frac {V_{DD} - V_{out} (t)} {R_{on} (2C)} \\
+\end{align*}
+
+To find the initial value of the slope we can plug in zero to the above differential equation:
+$\frac {d}{dt} V_{out} (t) = \frac {(V_{DD} - V_{out} (0))}{R_{on} (2C}$
+where $V_{out} (0) = 0$. Thus our initial slope is
+$\frac {V_{DD}} {R_{on} (2C}$. \\ \\
+
+(3) Since the input to the inverter changed from low to high, we know the output of the inverter is going to go to $V_{DD}$ in steady state. \\ \\
+
+The differential equation we derived above is just like the equation for a capacitor charging up to $V_{DD}$ through a resistor $R_{on}$ and capacitor where $C = 2C$. Recall that the solution to this differential equation is: 
+$V_{out}(t) = V_{DD}(1 − e^{- \frac {t}{R_{on} (2C)}})$. Plugging in $t = \infty$ we can see that the value of $V_{out}(t)$ approaches $V_{DD}$.}
+
+\begin{figure} [h!]
+	\centering
+	\includegraphics{\bank/ode/figures/transwitchmodel_dischargingC.png}
+	\label{fig:dischargingcapacitor2}
+\end{figure}
+
+}
+
 \qitem Write out the KCL equations associated with the circuit when the switch is open. Then write out the differential equations for the case when the switch is closed.
 
 \meta{
