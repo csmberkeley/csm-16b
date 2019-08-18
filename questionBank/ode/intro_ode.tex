@@ -1,52 +1,134 @@
-% {\Large \textbf{Mechanical:}}
-\qns{Introduction to Solving Ordinary Differential Equations}
-\qcontributor{Justin Yu, Taejin Hwang}
+\qns{An Introduction to Solving Differential Equations}
+\qcontributor{Justin Yu}
+\qcontributor{Taejin Hwang}
+
+In this question, we will examine the process behind solving a 
+first order differential equation and provide some motiviation for each step.
+
+Consider the following first order differential equation:
+\begin{align}
+a \cdot \ddt{y(t)}{t} + b \cdot y(t) = c
+\end{align}
+
+We can divide the equation by $a$ to make the coefficient of $\ddt{y(t)}{t},$ one.
+\begin{align}
+\ddt{y(t)}{t} + \alpha \cdot y(t) = \beta
+\end{align}
+
+Our goal is to find a function $y(t)$ such that our differential equation 
+is true for all values of $t.$
+To do this, we use a guess and check approach.
+
+\meta{
+This question is supposed to walk through the process of solving a first order 
+differential equation. While students may be familiar with the process, this 
+question was made to motivate each step of the solving process.
+}
 
 \begin{enumerate}
 
 \qitem Can you think of a function where $\ddt{y(t)}{t} = y(t)$ for all $t$?
 
 \sol{
+It can be seen either through inspection or integration that $y(t) = e^t.$
 }
 
-\qitem Now, how can you modify the function above to solve $\ddt{y(t)}{t} + \alpha y(t) = 0$?
+\qitem Now, how can you modify the function above to solve 
+$\ddt{y(t)}{t} + \alpha y(t) = 0$?
 This equation is known as the homogenous equation.
 
 \sol{
+We can notice that if $y(t) = e^{rt},$ then $\ddt{y(t)}{t} = re^{rt}.$
+Therefore if we subtract $\alpha y(t),$ we get $\ddt{y(t)}{t} = -\alpha y(t).$ 
+It follows by picking $r = -\alpha$ that $y(t) = e^{-\alpha t}$ 
+satisfies our differential equation.
 }
 
-\qitem You might notice that the solution above is not unique.
-This is the reason a differential equation will often come with an initial condition such as $y(0) = 2$.
-Try using this initial condition to solve for a unique solution to the differential equation above.
+\end{enumerate}
+
+You might notice that the solution above is not unique.
+This is the reason a differential equation will often come 
+with an initial condition such as $y(0) = 2$.
+
+\begin{enumerate}[resume]
+
+\qitem Try using this initial condition to solve for a 
+unique solution to the differential equation above.
+
+\meta{
+Students may try plugging in $t = 0$ and arrive at a contradiction that $1 = 2.$
+You may want to emphasize that $y(t) = e^{-\alpha t}$ isn't unique since 
+$y(t) = Ke^{-\alpha t}$ works for any nonzero choice of $K \in \mathbb{R}.$
+
+}
 
 \sol{
+Notice that our solution isn't unique since $y(t) = Ke^{-\alpha t}$ 
+satisfies our differential equation for any nonzero choice of $K.$
+Plugging in $t = 0,$ we get $y(0) = K = 2,$ so our solution is
+$y(t) = 2 e^{-\alpha t}.$
 }
 
 \qitem Now, let's try solving our original equation:
 \begin{align}
     \ddt{y(t)}{t} + \alpha y(t) = \beta
-\end{align}.
+\end{align}
 To do this, we will use a change of variables.
 Let $\widetilde{y}(t) = y(t) - \frac{\beta}{\alpha}$.
 
 \begin{enumerate}
-\qitem Try writing the original equation as a differential equation in terms of $\widetilde{y}(t)$.
-\qitem Does this equation look familiar? How can you solve this equation?
-\qitem What is the final solution $y(t)$? Assume $y(0)$ is given.
-\end{enumerate}
+
+\qitem Try writing the original equation as a differential 
+equation in terms of $\widetilde{y}(t)$.
 
 \sol{
+Since $y(t) = \widetilde{y}(t) + \beta / \alpha, 
+\ddt{y(t)}{t} = \ddt{\widetilde{y}(t)}{t}.$ 
+
+Substituting these values, 
+we see that $\ddt{\widetilde{y}(t)}{t} + \alpha \widetilde{y}(t) + \beta = \beta$
+or $\ddt{\widetilde{y}(t)}{t} + \alpha \widetilde{y}(t) = 0.$
 }
+
+\qitem Does this equation look familiar? How can you solve this equation?
+
+\sol{
+This is the homogenous equation in terms of $\widetilde{y}(t)!$ \\
+So by parts (b) and (c), our solution is $\widetilde{y}(t) = Ke^{-\alpha t}.$	
+}
+
+
+\qitem What is the final solution $y(t)$? Assume $y(0)$ is given.
+
+\sol{
+Converting back to $y(t),$ our solution is $y(t) = Ke^{-\alpha t} + \beta / \alpha.$
+Plugging in $t = 0,$ we get $y(0) = K + \beta / \alpha$ or $K = y(0) - \beta / \alpha.$
+Our final solution is $y(t) = y(0) e^{-\alpha t} + \beta / \alpha (1 - e^{-\alpha t}).$
+}
+
+\end{enumerate}
+
+\end{enumerate}
 
 To recap, given a first order differential equation $\ddt{y(t)}{t} + \alpha y(t) = \beta$, the solution is:
 \begin{align}
     y(t) = y(0) e^{-\alpha t} + \frac{\beta}{\alpha} (1 - e^{-\alpha t})
 \end{align}
 
-Another form you might find useful is the steady state form:
+\meta{
+You can explain that $y(0)e^{-\alpha t}$ is the decaying exponential
+of the initial condition, while \\ $\frac{\beta}{\alpha} (1 - e^{-\alpha t})$ represents
+the growth of the steady state response.
+}
 
+Another form you might find useful is the steady state form:
 \begin{align}
     y(t) = y(\infty) + (y(0) - y(\infty)) e^{-\alpha t}
 \end{align}
 
-\end{enumerate}
+\meta{
+The second equation can be broken down into $y(\infty)$ which is the steady state
+and $[y(0) - y(\infty)] e^{-\alpha t}$ which is the decaying exponential
+of the initial state, from the steady state response.
+}
+
