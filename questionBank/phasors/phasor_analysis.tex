@@ -44,6 +44,9 @@ All voltages and currents with known sinusoidal functions
 should be expressed in the standard cosine format.
 Convert $v_s$ into a cosine and write down its phasor representation $V_s$.
 
+Note: To make things clear, the standard form of phasors in 16B will use
+cosine references and include the $\frac{1}{2}$ scalar.
+
 \sol{
 \begin{align}
 v_s(t) = 12 \cos (\omega t -\frac{\pi}{4} -\frac{\pi}{2}) = 12 \cos(\omega t - \frac{3\pi}{4})
@@ -176,3 +179,6 @@ The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
 % }
 
 \end{enumerate}
+
+It's important to keep in mind that the phasor analysis above only applies to
+sinusoidal inputs. Don't make the mistake of doing phasor analysis on DC inputs!
