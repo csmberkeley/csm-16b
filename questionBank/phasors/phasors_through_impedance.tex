@@ -1,0 +1,62 @@
+% {\Large \textbf{Mechanical:}}
+
+\qns{Phasors Through Impedance}
+
+Analyzing circuits with only resistors is easy due to Ohm's Law: $V(t)=i(t) \cdot{} R$.
+When adding capacitors or inductors, however, the voltage/current relationship becomes complicated due to derivatives resulting in differential equations.
+In fact, for each capacitor/inductor added to a circuit, a higher order differential equation arises, which becomes difficult to solve.\\
+
+But let's look at the $i-v$ relationship across a capacitor when $v(t) = V_{0} \cdot{} cos(\omega{} t+\phi{})$.
+Taking a derivative and applying trig identities yields $i(t)=\omega{}C \cdot{} cos(\omega{} t + \phi{} + \frac{\pi{}}{2})$, which is still a cosine wave with frequency $\omega{}$!)\\
+
+In this question, we look at an extension of Ohm's Law for capacitors and inductors through the relationship $\widetilde{V} = \widetilde{I} \cdot{} \widetilde{Z}$.
+The quantity Z is defined as the impedance of a circuit component.
+
+\begin{enumerate}
+
+\qitem Let $V(t) = V_{0} \cdot cos(\omega{}t + \phi{})$.
+Using Euler's Formula, write V(t) as a sum of two complex exponentials.
+
+\sol{
+
+}
+
+\end{enumerate}
+
+Using these complex exponentials, we define a phasor: $\widetilde{V} = V_{0}e^{j\phi{}}$ and its complex conjugate $\overline{\widetilde{V}} = \frac{V_{0}}{2}e^{-j\phi{}}$ and it follows that $V(t) = \widetilde{V}e^{j\omega{}t} + \overline{\widetilde{V}}e^{-j\omega{}t}$.
+In the following parts, we define relationships between $\widetilde{V}$ and $\widetilde{I}$ where $i(t) = \widetilde{I}e^{j\omega{}t} + \overline{\widetilde{I}}e^{-j\omega{}t}$.
+
+\begin{enumerate}[resume]
+
+\qitem $V(t) = V_{0} \cdot{} cos(\omega{}t + \phi{})$, write an expression for $i(t)$ in the form $i(t) = A\widetilde{V}e^{j\omega{}t} + B\overline{\widetilde{V}}e^{j\omega{}t}$ for $A, B \in{} \Complexes{}$.\\ \\
+Hint: Remember that $e^{j\frac{\pi{}}{2}}$.
+
+\sol{
+
+}
+
+\qitem From the previous part, try writing the expression $\widetilde{V} = \widetilde{I} \cdot Z_{c}$, the quantity $Z_{c}$ is the impedance of a capacitor.
+
+\sol{
+
+}
+
+\qitem Now let's look at an inductor with current $i(t) = I_{0} \cdot cos(\omega{}t + \phi{})$. Write an expression for $V(t)$, similar to the previous part but in the form $v(t) = A\widetilde{I}e^{j\omega{}t} + B\overline{\widetilde{I}}e^{j\omega{}t}$.
+
+\sol{
+
+}
+
+\qitem What is the impedance of an inductor?
+
+\sol{
+
+}
+
+\qitem (Optional) Show that the impedance of a resistor $Z_{R} = R$.
+
+\sol{
+
+}
+
+\end{enumerate}
