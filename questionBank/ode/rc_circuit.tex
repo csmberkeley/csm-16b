@@ -8,12 +8,17 @@ At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$
 
 \input{\bank/ode/figures/rc_circuit}
 
+\meta{
+	This problem is meant to be an introduction to transient analysis of circuits.
+	Make sure students fully understand the concepts presented (how to get a differential equation from the circuit, how to solve the equation, and the physical intuition of what is happening in the circuit - charging up a capacitor) before moving on.
+}
+
 \begin{enumerate}
 
 \qitem Write out the KCL equations associated with the circuit when the switch is closed.
 
 \meta{
-	Testing meta here
+To simplify your circuit analysis, mark the negative end of the voltage source as ground.
 }
 
 \sol{
@@ -37,6 +42,11 @@ We obtain the following differential equations. KCL at node between the resistor
 \intertext{Thus we obtain}
 C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0
 \end{align*}
+}
+
+\meta{
+	If students are confused about how to get started, point them to equation (1) or (2) in problem 1 as a template.
+	Which KCL equation from part (a) of this problem resembles a first order differential equation (i.e. which one has a differential term)?
 }
 
 \qitem What is the initial condition for $V_{\text{c}}(t)$ (i.e. $V_{\text{c}}(t=0)$) and what is $V_{\text{c}}(t \to \infty)$?
@@ -75,6 +85,11 @@ Aside: $\tau$ is the time constant that we denote for RC circuits.
 Its definition is the time required to charge the capacitor from an initial voltage of zero to about $63.2\%$ of the value of $V_s$, 
 or to discharge the capacitor to about $36.8\%$ of its initial charge voltage. For an RC circuit it is equal to $\frac{1}{\alpha}$ 
 where $\alpha$ is the eigenvalue of the RC circuit.
+
+\meta{
+	Mentors: possibly explain that $36.8\%$ is $e^{-1}$ and $63.2\%$ is $1 - e^{-1}$.
+}
+
 \begin{figure}[!h]
   \centering
   \includegraphics[width=225px]{\bank/ode/figures/tau_curve.jpg}
@@ -100,6 +115,11 @@ $$0.05 = e^{-\frac{t}{RC}} $$
 $$ln(0.05) = -\frac{t}{RC} $$
 $$-3 = -\frac{t}{0.001} $$
 $$t = 0.003 \, \text{seconds}$$
+}
+
+\meta{
+	Students may be inclined to blindly use $\tau = RC$ to find a circuit's time constant, regardless of what the RC circuit looks like.
+	Remind students that the time constant is only $RC$ for simple RC circuits with only one resistor and one capacitor, but it may be different for different circuits (for instance, in problem 3 on this worksheet).
 }
 
 \qitem Give 2 ways to reduce the settling time of the circuit if we are allowed to change one component in the circuit.
