@@ -1,0 +1,60 @@
+\qns{Bode Plots for Filters}
+\qcontributor{Ramsey Mardini}
+\qcontributor{Naomi Sagan}
+\qcontributor{Ryan Koh}
+
+\begin{enumerate}
+
+\qitem First, consider the following transfer function of a Low-Pass Filter: $H(\omega) = \frac{1}{j\omega CR + 1}$
+    \begin{enumerate}
+        \qitem What is its cutoff frequency?
+
+        \sol{TBD}
+        \qitem Sketch its phase and magnitude.
+
+        \sol{TBD}
+    \end{enumerate}
+
+\qitem Now consider the transfer function of a High-Pass Filter: $H(\omega) = \frac{j\omega CR}{j\omega CR + 1}$
+    \begin{enumerate}
+        \qitem What is its cutoff frequency?
+
+        \sol{TBD}
+        \qitem Sketch its phase and magnitude.
+
+        \sol{TBD}
+    \end{enumerate}
+
+\qitem What happens if we cascade these two filters together with a unity-gain buffer in between them? Consider the resulting transfer function: 
+        $H(\omega) = \frac{1}{j\omega CR + 1} \cdot \frac{j\omega CR}{j\omega CR + 1}$
+    \begin{enumerate}
+        \qitem What are its cutoff frequencies?
+
+        \sol{TBD}
+        \qitem Sketch its phase and magnitude. \textit{Hint: How can we combine the plots of the individual filters together?}
+
+        \sol{TBD}
+    \end{enumerate}
+Now lets take a look at two more concepts, \textbf{bandwidth} and \textbf{Q-factor}. The bandwidth of a resonance
+circuit is the difference between its upper and lower cutoff frequencies. It can also be expressed as \textit{resonance frequency} divided by its \textit{Q-factor}:
+
+\begin{align}
+    bandwidth = \Delta \omega = f_{high} - f_{low} = \frac{\omega_n}{Q}
+\end{align}
+
+The Q-factor, or quality factor, of a circuit is the ratio of power stored to power dissipated, but can also be more simply thought of as the measure of how good a circuit is,
+where a higher Q-factor is often more desirable. This can be expressed mathematically as:
+
+\begin{align}
+    Q = \frac{\omega_{n}}{\Delta \omega}
+\end{align}
+
+    \begin{enumerate}[resume]
+        \qitem Find its bandwidth.
+
+        \sol{TBD}
+        \qitem What is its Q-factor? I.e.: $\frac{\omega_{n}}{\Delta \omega}$, where $\omega_{n}$ is the center frequency of the band.
+        
+        \sol{TBD}
+    \end{enumerate}
+\end{enumerate}
