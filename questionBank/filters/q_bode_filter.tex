@@ -37,7 +37,7 @@
         \end{tikzpicture}
         
         Phase (semi-log scale): According to our Bode plot approximation, the phase of $H(\omega)$ is 0 until $\frac{\omega_{c}}{10}$, after which it decreases linearly until $10\omega_{c}$, where it stays at $-\frac{\pi}{2}$.
-        At $\omega_{c}$, the phase is  $-\frac{\pi}{4}$.
+        At $\omega_{c}$, the phase is exactly $-\frac{\pi}{4}$.
         \newline
         \begin{tikzpicture}[
           declare function={
@@ -60,6 +60,16 @@
             \addplot [blue,very thick] {phase(x)};
           \end{semilogxaxis}
         \end{tikzpicture}
+        }
+        \newline
+        \meta{
+        \newline
+        Intuition behind the magnitude bode plot approximation: until $\omega_{c}$, the $1$ term in the denominator is larger than the $\frac{j\omega}{\omega_{c}}$ term, so $1 + \frac{j\omega}{\omega_{c}}$ can be approximated as $1$, so the entire transfer function is approximated as $1$.
+        After $\omega_{c}$, the $\frac{j\omega}{\omega_{c}}$ term in the denominator is larger, so the transfer function can be approximated as $\frac{1}{\frac{j\omega}{\omega_{c}}}$, or $\frac{\omega_{c}}{j\omega}$. \\
+        Intuition behind the phase bode plot approximation: The phase of $H(\omega)$ is $\angle(numerator) - \angle(denominator) = 0 - \angle(1 + \frac{j\omega}{\omega_{c}})$.
+        We approximate this as being equal to $-\angle(1)$, or $0$, until $\frac{\omega_{c}}{10}$ and $-\angle(\frac{j\omega}{\omega_{c}})$, or $-\frac{\pi}{2}$, after $10 \omega_{c}$.
+        Between $\frac{\omega_{c}}{10}$ and $10 \omega_{c}$, we approximate the phase with a straight line. \\
+        The same ideas apply to part (b).
         }
     \end{enumerate}
 
@@ -136,7 +146,6 @@
 
         \sol{
         For both the magnitude and the phase plots, you can "add" the high-pass filter to the low-pass filter.
-        In other words, $log(|H_{band}(\omega)|) = log(|H_{low}(\omega)|) + log(|H_{high}(\omega)|)$, and $\angle H_{band}(\omega) = \angle H_{low}(\omega) + \angle H_{high}(\omega)$
         \newline
         \newline
         Magnitude plot:
@@ -248,6 +257,11 @@
           \end{semilogxaxis}
         \end{tikzpicture}
         }
+        \newline
+        \meta{
+        We can "add" the magnitudes of the high-pass and low-pass filters together because we are graphing $log(|H(\omega)|) = log(|H_{high}(\omega)| \cdot |H_{low}(\omega)|) = log(|H_{high}(\omega)|) + log(|H_{low}(\omega)|)$.
+        We can "add" the phases because $\angle(H_{high}(\omega) * H_{low}(\omega)) = \angle(H_{high}(\omega)) + \angle(H_{low}(\omega))$.
+        }
     \end{enumerate}
 Now lets take a look at two more concepts, \textbf{bandwidth} and \textbf{Q-factor}. The bandwidth of a resonance
 circuit is the difference between its upper and lower cutoff frequencies. It can also be expressed as \textit{resonance frequency} divided by its \textit{Q-factor}:
@@ -262,6 +276,10 @@ where a higher Q-factor is often more desirable. This can be expressed mathemati
 \begin{align}
     Q = \frac{\omega_{n}}{\Delta \omega}
 \end{align}
+
+\meta{
+Circuits that have low bandwidths relative to their center frequency will have higher Q-factors.
+}
 
     \begin{enumerate}[resume]
         \qitem Find its bandwidth.
