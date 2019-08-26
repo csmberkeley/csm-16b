@@ -26,7 +26,7 @@ Consider the circuit below:
 }
 
 \sol{
-At DC, inductors act as shorts and capacitors act as opens. An equivalent circuit can be drawn:
+At DC, inductors act as shorts and capacitors act as opens. Thus, we can get rid of the middle two resistors, as well as all the inductors and capacitors, from our circuit in DC analysis. An equivalent circuit can be drawn:
 \begin{center}
 		\begin{circuitikz}[scale=0.8]
 			\draw (0,2) to [sV,l=$v_{in}(t)$](0,-2)
@@ -90,7 +90,7 @@ Using "||" to denote two impedances in parallel:
 Z_1 &= 2 + (1||j) = 2+\frac{j}{j+1} = \frac{2+3j}{1+j} \\
 Z_2 &= (1+j)||(1-j) = \frac{(1+j)(1-j)}{(1+j)+(1-j)} = \frac{2}{2} = 1 \\
 \widetilde{V}_{out} &= \frac{Z_2}{Z_1+Z_2}\widetilde{V}_{in} =\frac{1}{\frac{2+3j}{1+j}+1} \widetilde{V}_{in}= \frac{1+j}{3+4j}\widetilde{V}_{in} \\
-\intertext{converting $\frac{1+j}{3+4j}$ to phasor form:}
+\intertext{Converting $\frac{1+j}{3+4j}$ to phasor form:}
 \end{align*}
 \begin{align*}
 \frac{1+j}{3+4j} &= \frac{|1+j|}{|3+4j|}e^{j(\angle(1+j)-\angle(3+4j))} = \frac{\sqrt{1^2+1^2}}{\sqrt{3^2+4^2}}e^{j(\text{atan}(1/1)-\text{atan}(4/3))} \\
