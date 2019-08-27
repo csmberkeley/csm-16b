@@ -1,7 +1,7 @@
 \begin{center}
   \begin{circuitikz} \draw
     (0, 0) node[ground] (lground) {}
-      to [sV, l_=$V_{in}$] (0, 4)
+      to [sV, l_=$v_{in}$] (0, 4)
       to [R = $R_1$] (4, 4)
       to [C = $C_1$] (4, 0)
       node[ground] (mground) {}
@@ -18,6 +18,6 @@
 
     (12, 1) to[short, -o] (14, 1) node[anchor=west] (B) {B}
 
-    (A) to[open, l^=$V_{out}$] (B)
+    (A) to[open, l^=$v_{out}$] (B)
   ;\end{circuitikz}
 \end{center}
