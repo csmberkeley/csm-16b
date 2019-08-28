@@ -1,0 +1,13 @@
+\begin{center}
+  \begin{circuitikz}[american] \draw
+    (5, -0.5) node[op amp, yscale=-1](opamp){}
+    (0, 0) to[R, l=$R_1$] (2, 0) to[C, l=$C_1$] (2, -2) node[ground] {}
+    (2, 0) to (3, 0) node[ocirc] {} node[above] {$v_{center}$} to (opamp.+)
+    (0, 0) node[ocirc] {} node[left] {$v_{in}$}
+    (6.5, 0) to[C, C=$C_2$] (8.5, 0) to[R, l=$R_2$] (8.5, -2) node[ground] {}
+    (8.5, 0) to (9.5, 0) node[ocirc] {} node[right] {$v_{out}$}
+    (0, 0) node[ocirc] {} node[left] {$v_{in}$}
+    (opamp.-) to (3.5, -1) to (3.5, -2) to (6.5, -2) to (6.5, -0.5) to (opamp.out)
+    (6.5, -0.5) to (6.5, 0)
+  ;\end{circuitikz}
+\end{center}
