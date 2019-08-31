@@ -61,16 +61,36 @@ What equation gives the coordinates of $\vec{v}$ in the standard basis?
         3
         \end{bmatrix}
         $$
-}
+} 
 
+\bigskip
 
+\begin{adjustwidth}{-20pt}{0pt}
 
+For many problems (eg. solving a system of differential equations), it is useful to change to the eigenbasis. \\
+For instance, if we have vectors $\vec{x_1}$ and $\vec{x_2}$ that are related by $\vec{x_2} = A \vec{x_1}$, we would want to change to a basis represented by the eigenvectors of $A$.
+If $$A \vec{v_1} = \lambda_1 \vec{v_1}, A \vec{v_2} = \lambda_2 \vec{v_2}, \dots, \vec{v_n} $$
+our change of basis matrix would be
+$$ V =
+\begin{bmatrix}
+\vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
+\end{bmatrix}
+$$
 
+This process is called diagonalization because $\vec{x_1}'$ and $\vec{x_2}'$ (representations of $\vec{x_1}$ and $\vec{x_2}$ in the V-basis) are related by
+$$ \vec{x_2}' = 
+\begin{bmatrix}
+\lambda_1 & 0 & \dots & 0 \\
+0 & \lambda_2 & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \dots & \lambda_n
+\end{bmatrix} \vec{x_1}'
+$$ \\
 
+\end{adjustwidth}
 
-
-\qitem Let $\vec{x_2}$ be the result when a linear transformation, which we will refer to as $A$, is applied on $\vec{x_1}$.
-$$\vec{x_2} = 
+\qitem Let $\vec{x_2}$ be the result when a linear transformation is applied on $\vec{x_1}$.
+$$\vec{x_2} = A \vec{x_1} = 
 \begin{bmatrix}
 3 & -1 \\
 -2 & 4
