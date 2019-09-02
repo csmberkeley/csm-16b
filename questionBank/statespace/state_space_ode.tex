@@ -18,73 +18,92 @@ with initial conditions $y_1(0) = 3$ and $y_2(0) = 3$.
 
 Write out the differential equations and initial conditions in matrix/vector form.
 
-\sol{
-TA Guidance: Explain that usually they will be getting problems in this form. We are now going to work backwards to find the form that we were given in part (a), which we know from parts (b-c) underlay the equivalent equations $\breve x_i(t)$ and $y_i(t)$ in this case.
+\meta{
+TA Guidance: Explain that usually they will be getting problems in this form. 
 
-This is the more general form of how to solve the problem. First, convert to the eigenbasis. Solve the problem there. Then convert back to the problem basis to find the final solwer.
+The general procedure for solving this type of problem is: \\
+First, convert to the eigenbasis. Solve the problem there. Then convert back to the problem basis to find the final answer.
 }
 
 \sol{
-	\[\begin{bmatrix}\frac{d}{dt}y_1(t) \\ \frac{d}{dt}y_2(t)\end{bmatrix} = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix}\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix}\]
+	$$\begin{bmatrix}\frac{d}{dt}y_1(t) \\ \frac{d}{dt}y_2(t)\end{bmatrix} = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix}\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix}$$
 	
-\[\begin{bmatrix}y_1(0) \\ y_2(0)\end{bmatrix} =\begin{bmatrix}3 \\ 3\end{bmatrix} \]
+$$\begin{bmatrix}y_1(0) \\ y_2(0)\end{bmatrix} =\begin{bmatrix}3 \\ 3\end{bmatrix} $$
 
 We will define the differential matrix as $A_y$, where 
 
-\[A_y = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix} \]
+$$A_y = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix} $$
 } 
 
+\bigskip
 
+\begin{adjustwidth}{-20pt}{0pt}
+	We already know how to solve the system of differential equations if $\frac{d}{dt}y_1(t)$ only depends on $y_1(t)$ and $\frac{d}{dt}y_2(t)$ only depends on $y_2(t)$.
+	However, we can't directly solve a system of ODEs where $\frac{d}{dt}y_1(t)$ and $\frac{d}{dt}y_2(t)$ each depend on both $y_1(t)$ and $y_2(t)$. \\
+	The solution? Change coordinates to the eigenbasis to diagonalize our transformation matrix.\\
+	Then, we will have $\frac{d}{dt}z_{\lambda_1}(t) = \lambda_1 z_{\lambda_1}(t)$ and $\frac{d}{dt}z_{\lambda_2}(t) = \lambda_2 z_{\lambda_2}(t)$, which we know how to solve.
+	
+\end{adjustwidth}
 
 
 
 \qitem Find the eigenvalues $\lambda_1, ~\lambda_2$ and eigenspaces for the differential equation matrix above.
 
-\meta{TA Guidance:  The determinant is something that finds the
-  oriented volume of the matrix acting on the standard unit cube
-  (represented by the identity matrix). This is what they have been
-  taught about determinants in 16A. As a result, if a matrix has a
-  nontrivial nullspace, there are directions that it maps to zero. As
-  a result, it ``squashes'' things that have volume into pancakes or
-  lines or dots that have no volume. Consequently, the determinant of
-  a matrix with a nontrivial nullspace must be zero. 
-
- Fortunately, the
-  determinant of a matrix can be easily computed via Gaussian
-  Elimination (since every step in Gaussian elimination has an
-  interpretation in terms of what it does to oriented volume --- a
-  swap of rows negates the sign of the oriented volume (since this is
-  like looking into a mirror.); scaling a row
-  scales the oriented volume by the same amount, and adding a multiple
-  of one row to another does nothing to oriented volumes (for the
+\meta{
+TA Guidance:  The determinant is something that finds the
+oriented volume of the matrix acting on the standard unit cube
+(represented by the identity matrix). This is what they have been
+taught about determinants in 16A. As a result, if a matrix has a
+nontrivial nullspace, there are directions that it maps to zero. 
+\medskip
+As a result, it ``squashes'' things that have volume into pancakes or
+lines or dots that have no volume. Consequently, the determinant of
+a matrix with a nontrivial nullspace must be zero. 
+\medskip
+Fortunately, the
+determinant of a matrix can be easily computed via Gaussian
+Elimination (since every step in Gaussian elimination has an
+interpretation in terms of what it does to oriented volume --- a
+swap of rows negates the sign of the oriented volume (since this is
+like looking into a mirror.); scaling a row
+scales the oriented volume by the same amount, and adding a multiple
+of one row to another does nothing to oriented volumes (for the
 same reason that pushing a deck of cards does nothing to its
-volume). They also know that this Gaussian elimination approach can be
+volume).
+\medskip 
+
+They also know that this Gaussian elimination approach can be
 done directly on simple symbolic 2x2 and 3x3 matrices to give the
 simple formulas that we know. They barely know that the determinant is
 the product of its eigenvalues, although that clearly makes sense from
 this perspective. That's about all they know about determinants from
-16A. They do not know the cofactor formulas nor do they know the
+16A. 
+\medskip
+They do not know the cofactor formulas nor do they know the
 signed permutation interpretation nor the alternating linear forms
 interpretation. Those topics are viewed as voodoo at the maturity
 level of 16 students (they would just memorize them without
 understanding, so why teach something that they cannot truly
-understand) and so are not to be invoked.}
+understand) and so are not to be invoked.
+
+}
 
 \sol{
 	Eigenvalues $\lambda$ and eigenvectors $v$ of matrix $A$ are given by
 	
-	\[A_yv = \lambda v.\]
+	$$A_yv = \lambda v$$
 	In order to find the eigenvalues, we take the determinant:
 	
-\[\text{det}\left( A-\lambda I \right) = 0\]
+$$\text{det}\left( A-\lambda I \right) = 0$$
 
-\[\text{det}\left( \begin{bmatrix}5-\lambda & 2 \\ -8 & -5-\lambda\end{bmatrix} \right) = 0\]
+$$\text{det}\left( \begin{bmatrix}5-\lambda & 2 \\ -8 & -5-\lambda\end{bmatrix} \right) = 0$$
 
 We can solve this using a $2 \times 2$ determinant form seen in 16A,
 
-\[\text{det}\left( \begin{bmatrix}a & b \\ c & d\end{bmatrix} \right) = ad - bc,\]
+$$\text{det}\left( \begin{bmatrix}a & b \\ c & d\end{bmatrix} \right) = ad - bc,$$
 
-or by Gaussian elimination.
+or by Gaussian elimination. \\
+This produces the characteristic polynomial of the matrix:
 
 \begin{align*}
 (-5-\lambda)(5-\lambda) + 16 &=0 \\
@@ -95,32 +114,41 @@ or by Gaussian elimination.
 
 Giving:
 
-\[\lambda = 3, -3\]
+$$\lambda = 3, -3$$
 
-The eigenspace associated with $\lambda_1 = -3$ is given by:
+The eigenspace associated with $\lambda_1 = -3$ is given by the span of the eigenvector $\vec v_{\lambda_1}$:
 
-	% \[ \begin{bmatrix}-4 + 5 & 1 \\ 2 & -3 + 5\end{bmatrix} \vec v_{\lambda_1} = \begin{bmatrix}0 \\ 0\end{bmatrix}\]
-	% 	\[ \begin{bmatrix}1 & 1 \\ 2 & 2\end{bmatrix} \vec v_{\lambda_1} = \begin{bmatrix}0 \\ 0\end{bmatrix}\]
-	% \[\vec v_{\lambda_1}=\
-	\[ alpha \begin{bmatrix} -1 \\ 4\end{bmatrix} \]
+	 $$ \begin{bmatrix}-4 + 5 & 1 \\ 2 & -3 + 5\end{bmatrix} \vec v_{\lambda_1} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
+	 	$$ \begin{bmatrix}1 & 1 \\ 2 & 2\end{bmatrix} \vec v_{\lambda_1} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
+	 $$\vec v_{\lambda_1}=
+	 \begin{bmatrix} -1 \\ 4\end{bmatrix} $$
 
-The eigenspace associated with $\lambda_2 = 3$ is given by:
+The eigenspace associated with $\lambda_2 = 3$ is given by the span of the eigenvector $\vec v_{\lambda_2}$:
 	
-	% \[ \begin{bmatrix}-4 + 2 & 1 \\ 2 & -3 + 2\end{bmatrix} \vec v_{\lambda_2} = \begin{bmatrix}0 \\ 0\end{bmatrix}\]
-	% \[ \begin{bmatrix}-2 & 1 \\ 2 & -1\end{bmatrix} \vec v_{\lambda_2} = \begin{bmatrix}0 \\ 0\end{bmatrix}\]
-	% \[\vec v_{\lambda_2}=
-	\[\beta \begin{bmatrix} -1 \\ 1\end{bmatrix} \]
+	 $$ \begin{bmatrix} 
+	 -4 + 2 & 1 \\ 
+	 2 & -3 + 2
+	 \end{bmatrix} 
+	 \vec v_{\lambda_2} = 
+	 \begin{bmatrix}0 \\ 0\end{bmatrix}
+	 $$
+	 $$ \begin{bmatrix}
+	 	-2 & 1 \\ 
+		2 & -1
+	\end{bmatrix} 
+	\vec v_{\lambda_2} = \begin{bmatrix} 0 \\ 0\end{bmatrix}$$
+	$$\vec v_{\lambda_2}=
+	\begin{bmatrix} -1 \\ 1\end{bmatrix} $$
 
 }
 
 
-
-
-
-
 \qitem Change coordinates into the eigenbasis to re-express the
 differential equations in terms of new variables $z_{\lambda_1}(t), ~
-z_{\lambda_2}(t)$. (These variables represent eigenbasis-aligned coordinates.)
+z_{\lambda_2}(t)$. (These variables represent eigenbasis-aligned coordinates.) \\
+\textit{
+ i.e. find a matrix A' such that $\frac{d}{dt} \vec{z_{\lambda}} = A' \vec{z_{\lambda}}$
+} \\
 
 \sol{
 		\begin{centering}
@@ -140,82 +168,57 @@ z_{\lambda_2}(t)$. (These variables represent eigenbasis-aligned coordinates.)
 	
 	\end{tikzpicture}
 \end{centering}
-}
 
-\sol{
-\[\vec y =\vec v_{\lambda_1} z_{\lambda_1} + \vec v_{\lambda_2} z_{\lambda_2}\]
-\[\vec y =\begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}\begin{bmatrix}z_{\lambda_1} \\ z_{\lambda_2}\end{bmatrix}\]
+$$\vec y =\vec v_{\lambda_1} z_{\lambda_1} + \vec v_{\lambda_2} z_{\lambda_2}$$
+$$\vec y =\begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}\begin{bmatrix}z_{\lambda_1} \\ z_{\lambda_2}\end{bmatrix}$$
 
 We can define the change-of-coordinates matrix from the eigenbasis to our original basis as 
 
-\[V=\begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}\]
+$$V=\begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}$$
 
 Changing coordinates to the eigenbasis:
 
-\[\begin{bmatrix}z_{\lambda_1} \\ z_{\lambda_2}\end{bmatrix} = V^{-1}\begin{bmatrix}y_1 \\ y_2\end{bmatrix}   \]
+$$\begin{bmatrix}z_{\lambda_1} \\ z_{\lambda_2}\end{bmatrix} = V^{-1}\begin{bmatrix}y_1 \\ y_2\end{bmatrix}   $$
 
-\[V^{-1}=\begin{bmatrix}\frac{1}{3} & \frac{1}{3} \\ -\frac{4}{3} & -\frac{1}{3}\end{bmatrix}\]
+$$V^{-1}=\begin{bmatrix}\frac{1}{3} & \frac{1}{3} \\ -\frac{4}{3} & -\frac{1}{3}\end{bmatrix}$$
 
-\[A_{z_\lambda} = V^{-1} A_y V = \begin{bmatrix}\frac{1}{3} & \frac{1}{3} \\ -\frac{4}{3} & -\frac{1}{3}\end{bmatrix}\begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix}\begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}\]
-% \[A_{z_\lambda} = \begin{bmatrix}\frac{2}{3} & -\frac{1}{3} \\ \frac{1}{3} & \frac{1}{3}\end{bmatrix}\begin{bmatrix}-5 & -2 \\ 5 & -4\end{bmatrix}\]
-\[A_{z_\lambda} = \begin{bmatrix}-3 & 0 \\ 0 & 3\end{bmatrix}\]
+$$A_{z_\lambda} = V^{-1} A_y V = \begin{bmatrix}\frac{1}{3} & \frac{1}{3} \\ -\frac{4}{3} & -\frac{1}{3}\end{bmatrix}\begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix}\begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}$$
+% $$A_{z_\lambda} = \begin{bmatrix}\frac{2}{3} & -\frac{1}{3} \\ \frac{1}{3} & \frac{1}{3}\end{bmatrix}\begin{bmatrix}-5 & -2 \\ 5 & -4\end{bmatrix}$$
+$$A_{z_\lambda} = \begin{bmatrix}-3 & 0 \\ 0 & 3\end{bmatrix}$$
 
 That is:
 
-	\[\begin{bmatrix}\frac{d}{dt}z_{\lambda_1}(t) \\ \frac{d}{dt}z_{\lambda_2}(t)\end{bmatrix} = \begin{bmatrix}-3 & 0 \\ 0 & 3\end{bmatrix}\begin{bmatrix}z_{\lambda_1}(t) \\ z_{\lambda_2}(t)\end{bmatrix}\]
+	$$\begin{bmatrix}\frac{d}{dt}z_{\lambda_1}(t) \\ \frac{d}{dt}z_{\lambda_2}(t)\end{bmatrix} = \begin{bmatrix}-3 & 0 \\ 0 & 3\end{bmatrix}\begin{bmatrix}z_{\lambda_1}(t) \\ z_{\lambda_2}(t)\end{bmatrix}$$
 
 
 }
-
-
-
-
-
-
-
-
 
 \qitem Solve the differential equation for $z_{\lambda_i}(t)$ in the eigenbasis.
 
 \sol{
 First we get the initial condition:
 
-\[\vec z_{\lambda}(0) = \begin{bmatrix}\frac{1}{3} & \frac{1}{3} \\ -\frac{4}{3} & -\frac{1}{3}\end{bmatrix}\begin{bmatrix} 3 \\ 3 \end{bmatrix} = \begin{bmatrix} 2 \\ -5 \end{bmatrix} \]
+$$\vec z_{\lambda}(0) = \begin{bmatrix}\frac{1}{3} & \frac{1}{3} \\ -\frac{4}{3} & -\frac{1}{3}\end{bmatrix}\begin{bmatrix} 3 \\ 3 \end{bmatrix} = \begin{bmatrix} 2 \\ -5 \end{bmatrix} $$
 
 Then we solve based on the form of the problem and our previous differential equation experience:
 
-\[\vec z_{\lambda}(t) = \begin{bmatrix} K_1 e^{-3t} \\ K_2 e^{3t} \end{bmatrix} \]
+$$\vec z_{\lambda}(t) = \begin{bmatrix} K_1 e^{-3t} \\ K_2 e^{3t} \end{bmatrix} $$
 
 Plugging in for the initial condition gives:
 
-\[\vec z_{\lambda}(t) = \begin{bmatrix} 2 e^{-3t} \\ -5 e^{3t} \end{bmatrix} \]
+$$\vec z_{\lambda}(t) = \begin{bmatrix} 2 e^{-3t} \\ -5 e^{3t} \end{bmatrix} $$
 
 }
-
-
-
-
-
-
 
 \qitem Convert your solution back into the original coordinates to find $y_i(t)$.
 
 \sol{
-\[ \vec y(t) = V \vec z_{\lambda}(t) =  \begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}\begin{bmatrix} 2 e^{-3t} \\ -5 e^{3t}  \end{bmatrix} = \begin{bmatrix} -2e^{-3t} + 5 e^{3t}\\ 8e^{-3t}-5e^{3t} \end{bmatrix}\]
+$$ \vec y(t) = V \vec z_{\lambda}(t) =  \begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}\begin{bmatrix} 2 e^{-3t} \\ -5 e^{3t}  \end{bmatrix} = \begin{bmatrix} -2e^{-3t} + 5 e^{3t}\\ 8e^{-3t}-5e^{3t} \end{bmatrix}$$
 }
-
-% \sol{
-% We can verify this is the same as in part (c).
-% }
-
-
-
-
-
 
 
 \qitem We can solve this equation using a slightly shorter approach by observing that the solutions for $y_i(t)$ will all be of the form
-\[y_i(t) = \sum_k K_{i,k} e^{\lambda_k t}\]
+$$y_i(t) = \sum_k K_{i,k} e^{\lambda_k t}$$
 
 where $\lambda_k$ is an eigenvalue of our differential equation
 relation matrix and the $K_{i,k}$ are constants derived from our
@@ -225,59 +228,129 @@ Since we have observed that the solutions will include
 $e^{\lambda_i t}$ terms, once we have found the eigenvalues for our
 differential equation matrix, we can guess the forms of the $y_i(t)$ as
 
- 	\[\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix}
+ 	$$\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix}
         = \begin{bmatrix}\alpha e^{\lambda_1t} + \beta e^{\lambda_2t}
-          \\ \gamma e^{\lambda_1 t}  + \kappa e^{\lambda_2 t} \end{bmatrix}\]
+          \\ \gamma e^{\lambda_1 t}  + \kappa e^{\lambda_2 t} \end{bmatrix}$$
 where $\alpha, ~\beta, ~\gamma, ~\kappa$ are all constants.
 
-Take the derivative to write out 
-\[\begin{bmatrix}\frac{d}{dt}y_1(t) \\ \frac{d}{dt}y_2(t)\end{bmatrix}.\]
-and connect this to the given differential equation. 
-
-Solve for $y_i(t)$ from this form of the derivative.
-
-\sol{
- 	\[\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix} = \begin{bmatrix}\alpha e^{-3t} + \beta e^{3t}  \\ \gamma e^{-3t}  + \kappa e^{3t} \end{bmatrix}\]
- 	
- 	\[\frac{d}{dt} \vec y(t) = \begin{bmatrix}-3\alpha e^{-3t} +3 \beta e^{3t}  \\ -3\gamma e^{-3t} + 3 \kappa e^{3t} \end{bmatrix}\]
- 	We also have that:
- 	
- 	 \[\frac{d}{dt} \vec y(t)= A \vec y(t) =  \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix}\begin{bmatrix}\alpha e^{-3t} + \beta e^{3t}  \\ \gamma e^{-3t}  + \kappa e^{3t} \end{bmatrix} = \begin{bmatrix} (5\alpha+2\gamma) e^{-3t} + (5\beta + 2\kappa) e^{3t}  \\ (-8\alpha-5\gamma) e^{-3t}  + (-8\beta -5\kappa) e^{-3t} \end{bmatrix} \]
- 	 
- 	 % Equating terms:
- 	 
- 	 % \begin{align*}
- 	 % 	-5\alpha &= -4\alpha + \gamma \\
- 	 % 	-2\beta &= -4\beta + \kappa\\
- 	 % 	-5\gamma &= 2\alpha -3\gamma \\
- 	 % 	-2\kappa &= 2\beta -3\kappa
- 	 % \end{align*}
-  
-  Equating terms this gives:
-  
-  \begin{align*}
-  	\gamma &= -4 \alpha \\
-  	\kappa &= - \beta
-  \end{align*}
-
-Rewriting:
-
- 	\[\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix} = \begin{bmatrix}\alpha e^{-3t} + \beta e^{3t}  \\ -4\alpha e^{-3t}  - \beta e^{3t} \end{bmatrix}\]
- 	
- 	With initial condition
- 	
- 	\[\vec y(0) = \begin{bmatrix} 3 \\ 3 \end{bmatrix} =  \begin{bmatrix} \alpha + \beta \\ -4 \alpha -\beta \end{bmatrix},\]
- 	
- 	we get:
- 	
- 	\[\alpha=-2\]
- 	\[\beta=5\]
- 	
- 	 	\[\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix} = \begin{bmatrix} -2e^{-3t} + 5e^{3t}  \\ 8e^{-3t}  -5  e^{3t} \end{bmatrix}\]
- 	
-}
-
-% \sol{
-% We can verify this is the same result as in parts (c) }
+\begin{enumerate}
+	\qitem Take the derivative to write out 
+	$$\begin{bmatrix}\frac{d}{dt}y_1(t) \\ \frac{d}{dt}y_2(t)\end{bmatrix}.$$ in matrix-vector form.
+	
+	\sol{
+	 	$$\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix} = \begin{bmatrix}\alpha e^{-3t} + \beta e^{3t}  \\ \gamma e^{-3t}  + \kappa e^{3t} \end{bmatrix}$$
+		$$\frac{d}{dt} \vec y(t) = \begin{bmatrix}-3\alpha e^{-3t} +3 \beta e^{3t}  \\ -3\gamma e^{-3t} + 3 \kappa e^{3t} \end{bmatrix}$$
+		If we notice that the right-hand side can be written as linear combinations of $e^{-3t}$ and $e^{3t}$, we can write the previous equation as:
+		$$ \frac{d}{dt} \vec y(t) = 
+		\begin{bmatrix}
+			-3 \alpha & 3 \beta  \\ -3 \gamma & 3 \kappa
+		\end{bmatrix}
+		\begin{bmatrix}
+			e^{-3t} \\ e^{3t}
+		\end{bmatrix}
+		$$
+	}
+	
+	\qitem Connect this differential equation to the matrix-vector equation you found in part (a).\\
+	\sol{
+		$$\frac{d}{dt} \vec y(t) = 
+		\begin{bmatrix}
+			5 & 2 \\ 
+			-8 & -5
+		\end{bmatrix}
+		\vec{y}(t) = 
+		\begin{bmatrix}
+			-3 \alpha & 3 \beta  \\ -3 \gamma & 3 \kappa
+		\end{bmatrix}
+		\begin{bmatrix}
+			e^{-3t} \\ e^{3t}
+		\end{bmatrix} 
+		$$
+		Substituting
+		$$ \begin{bmatrix}
+			\alpha e^{-3t} + \beta e^{3t}  \\ \gamma e^{-3t}  + \kappa e^{3t} 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			\alpha & \beta  \\ \gamma & \kappa
+		\end{bmatrix}
+		\begin{bmatrix}
+			e^{-3t} \\ e^{3t}
+		\end{bmatrix}
+		$$
+		for $\vec{y}(t)$, we get:
+		$$
+		\begin{bmatrix}
+			5 & 2 \\ 
+			-8 & -5
+		\end{bmatrix} 
+		\begin{bmatrix}
+			\alpha & \beta  \\ \gamma & \kappa
+		\end{bmatrix}
+		\begin{bmatrix}
+			e^{-3t} \\ e^{3t}
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			-3 \alpha & 3 \beta  \\ -3 \gamma & 3 \kappa
+		\end{bmatrix}
+		\begin{bmatrix}
+			e^{-3t} \\ e^{3t}
+		\end{bmatrix} 
+		$$		
+		Doing the matrix multiplication on the left-hand side of the equation, we get:
+		$$
+		\begin{bmatrix}
+			5 \alpha + 2 \gamma & 5 \beta + 2 \kappa \\ 
+			-8 \alpha - 5 \gamma & -8 \beta - 5 \kappa
+		\end{bmatrix} 
+		\begin{bmatrix}
+			e^{-3t} \\ e^{3t}
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			-3 \alpha & 3 \beta  \\ -3 \gamma & 3 \kappa
+		\end{bmatrix}
+		\begin{bmatrix}
+			e^{-3t} \\ e^{3t}
+		\end{bmatrix} 
+		$$		
+	}
+	
+	\qitem Use what you found in the previous step to solve for $\gamma$ and $\kappa$ in terms of $\alpha$ and $\beta$, respectively. \\
+	\sol {
+		Equating terms in the matrices on the left- and right-hand sides of the equation, we get:
+		$5 \alpha + 2 \gamma = -3 \alpha$, 
+		$5 \beta + 2 \kappa = 3 \beta$,
+		$-8 \alpha - 5 \gamma = -3 \gamma$, and 
+		$-8 \beta - 5 \kappa = 3 \kappa$.
+		
+		From the first equation, we get $\gamma = -4 \alpha$. From the second, we get $\kappa = - \beta$. \\
+		We could get the same result from using the third and fourth equations. 
+	}
+	
+	\qitem Use initial conditions to finish solving for $\vec{y}(t)$. \\
+	\sol {
+		From the initial condition, we have:
+		$$\vec{y}(0) = 
+		\begin{bmatrix} 3 \\ 3 \end{bmatrix} = 
+		\begin{bmatrix}
+			\alpha & \beta  \\ \gamma & \kappa
+		\end{bmatrix}
+		\begin{bmatrix}
+			e^{-3 \cdot 0} \\ e^{3 \cdot 0}
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			\alpha & \beta  \\ \-4 \alpha & - \beta
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 \\ 1
+		\end{bmatrix}$$
+		From this, we get the equations $\alpha + \beta = 3$ and $-4 \alpha - \beta = 3$.
+		$$\alpha=-2$$
+	 	$$\beta=5$$
+		
+		We can now plug in our 4 constants to find $\vec{y}(t)$:
+		$$\begin{bmatrix}y_1(t) \\ y_2(t)\end{bmatrix} = \begin{bmatrix} -2e^{-3t} + 5e^{3t}  \\ 8e^{-3t}  -5  e^{3t} \end{bmatrix}$$
+		Note that this is the same as the answer from part (e)
+	}
+\end{enumerate}
 
 \end{enumerate}
