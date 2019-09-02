@@ -157,7 +157,7 @@ What equation gives the coordinates of $\vec{v}$ in the standard basis?
 
 For many problems (eg. solving a system of differential equations), it is useful to change to the eigenbasis. \\
 For instance, if we have vectors $\vec{x_1}$ and $\vec{x_2}$ that are related by $\vec{x_2} = A \vec{x_1}$, we would want to change to a basis represented by the eigenvectors of $A$.
-If $$A \vec{v_1} = \lambda_1 \vec{v_1}, A \vec{v_2} = \lambda_2 \vec{v_2}, \dots, \vec{v_n} $$
+If $$A \vec{v_1} = \lambda_1 \vec{v_1}, A \vec{v_2} = \lambda_2 \vec{v_2}, \dots, A\vec{v_n} = \lambda_n \vec{v_n} $$
 our change of basis matrix would be
 $$ V =
 \begin{bmatrix}
@@ -165,7 +165,7 @@ $$ V =
 \end{bmatrix}
 $$
 
-This process is called diagonalization because $\vec{x_1}'$ and $\vec{x_2}'$ (representations of $\vec{x_1}$ and $\vec{x_2}$ in the V-basis) are related by
+This change of basis is called diagonalization because $\vec{x_1}'$ and $\vec{x_2}'$ (representations of $\vec{x_1}$ and $\vec{x_2}$ in the V-basis) are related by
 $$ \vec{x_2}' =
 \begin{bmatrix}
 \lambda_1 & 0 & \dots & 0 \\
@@ -174,7 +174,7 @@ $$ \vec{x_2}' =
 0 & 0 & \dots & \lambda_n
 \end{bmatrix} \vec{x_1}'
 $$ \\
-A matrix in $\mathbb{R}^{n}$ is diagonalizable if it has $n$ linearly independent eigenvectors (i.e. if the $V$ matrix is invertible).
+A matrix in $\mathbb{R}^{n}$ is diagonalizable if it has $n$ linearly independent eigenvectors (i.e. the $V$ matrix is invertible).
 
 \end{adjustwidth}
 
@@ -199,7 +199,7 @@ $$
 \end{bmatrix},
 \vec{v_2} =
 \begin{bmatrix}
--1 \\
+1 \\
 1
 \end{bmatrix}
 $$
@@ -228,7 +228,7 @@ Given $\lambda_1 = 5$ and $\lambda_2 = 2$, what are the elements of $A'$?
 
     $$A' = V^{-1} A V =
     \begin{bmatrix}
-    1 & -1 \\
+    1 & 1 \\
     -2 & 1
     \end{bmatrix}^{-1}
     \begin{bmatrix}
@@ -236,7 +236,7 @@ Given $\lambda_1 = 5$ and $\lambda_2 = 2$, what are the elements of $A'$?
     -2 & 4
     \end{bmatrix}
     \begin{bmatrix}
-    1 & -1 \\
+    1 & 1 \\
     -2 & 1
     \end{bmatrix}
     $$
