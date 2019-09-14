@@ -1,0 +1,76 @@
+\qns{RC Circuits with Non-Constant Inputs}
+\qcontributor{Taejin Hwang}
+\qcontributor{Shreyas Krishnaswamy}
+\qcontributor{Naomi Sagan}
+\qcontributor{Justin Yu}
+
+We can recall that for a scalar first-order ODE,
+
+\begin{equation}
+    \frac{d}{dt} x(t) = \lambda{}x(t) \text{}
+\end{equation}
+
+with initial condition $x(0) = x_{0}$,
+the solution is
+
+\begin{equation*}
+    x(t) = x_{0}e^{\lambda{}t}
+\end{equation*}
+
+Recall from homework that we introduced an input $u(t)$ to this differential equation, where $u(t)$ is an independent function of $x(t)$.
+
+\begin{equation}
+    x_{p}(t) = x_{0}e^{\lambda{}t} + \int_0^\tau{} \! u(\tau{})e^{\lambda{}(t - \tau{})} \, d\tau{}
+\end{equation}
+
+\begin{enumerate}
+
+\qitem Show why $x_{0}$(t) does indeed satisfy the differential equation (2).\\
+
+Now we will take this insight and apply it to an RC circuit with non-constant input. Suppose $V_{c}(0) = 5V$.\\
+
+\begin{figure}[H]
+ \centering
+ \input{\bank/ode/figures/rc_circuit_nonconstant}
+ \caption{Circuit A}
+\end{figure}
+
+Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the "frequency" the cosine wave.
+
+\sol{
+
+}
+
+\qitem Write out the KCL equations combined with Ohm's Law and the voltage-current relation of a capacitor.
+
+\sol{
+
+}
+
+\qitem Show that your equation above can be put into the form of equation (2).
+
+\sol{
+
+}
+
+\qitem In this case, what is the value of $x(t)$, $\lambda{}$, and $x_{0}$?
+
+\sol{
+
+}
+
+\qitem Using this particular solution, write out an expression for $V_{c}(t)$.
+
+\sol{
+
+}
+
+\qitem What is the closed form solution to the voltage across the capacitor, $V_{c}(t)$.\\
+
+Hint: $\int \! e^{-t}cos(t) \, dt = \frac{1}{2}(e^{-t}sin(t) + e^{-t}cos(t)) + C$
+
+\sol{
+
+}
+
+\end{enumerate}
