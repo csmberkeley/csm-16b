@@ -4,42 +4,34 @@
 \qcontributor{Naomi Sagan}
 \qcontributor{Justin Yu}
 
-We can recall that for a scalar first-order ODE,
+In an earlier question we looked at a way to solve differential equations with a constant $\beta.$
+\par
 
+We will now generalize this to an input, $u(t),$ which is an function independent of $x(t)$.
+It was shown in homework that if we had the differential equation
 \begin{equation}
-    \frac{d}{dt} x(t) = \lambda{}x(t) \text{}
+\ddt{x(t)}{t} = \lambda x(t) + u(t)
 \end{equation}
 
-with initial condition $x(0) = x_{0}$,
-the solution is
-
-\begin{equation*}
-    x(t) = x_{0}e^{\lambda{}t}
-\end{equation*}
-
-Recall from homework that we introduced an input $u(t)$ to this differential equation, where $u(t)$ is an independent function of $x(t)$.
-
+With an initial condition $x(0) = x_0,$ the solution was uniquely determined by:
 \begin{equation}
     x_{p}(t) = x_{0}e^{\lambda{}t} + \int_0^\tau{} \! u(\tau{})e^{\lambda{}(t - \tau{})} \, d\tau{}
 \end{equation}
 
 \begin{enumerate}
 
-\qitem Show why $x_{0}$(t) does indeed satisfy the differential equation (2).\\
+\qitem Show that $x_{p}$(t) does indeed satisfy the differential equation (5).
 
-Now we will take this insight and apply it to an RC circuit with non-constant input. Suppose $V_{c}(0) = 5V$.\\
+\end{enumerate}
+
+We will now take this insight and apply it to an RC circuit with non-constant input. Suppose $V_{c}(0) = 5V$.
 
 \begin{figure}[H]
- \centering
  \input{\bank/ode/figures/rc_circuit_nonconstant}
- \caption{Circuit A}
 \end{figure}
+Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the frequency of the cosine wave.
 
-Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the "frequency" the cosine wave.
-
-\sol{
-
-}
+\begin{enumerate}[resume]
 
 \qitem Write out the KCL equations combined with Ohm's Law and the voltage-current relation of a capacitor.
 
@@ -47,13 +39,13 @@ Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the "frequency" the cosine
 
 }
 
-\qitem Show that your equation above can be put into the form of equation (2).
+\qitem Show that your equation above can be put into the form of equation (5).
 
 \sol{
 
 }
 
-\qitem In this case, what is the value of $x(t)$, $\lambda{}$, and $x_{0}$?
+\qitem In this case, what are the values of $x(t)$, $\lambda{}$, and $x_{0}$?
 
 \sol{
 
@@ -66,7 +58,6 @@ Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the "frequency" the cosine
 }
 
 \qitem What is the closed form solution to the voltage across the capacitor, $V_{c}(t)$.\\
-
 Hint: $\int \! e^{-t}cos(t) \, dt = \frac{1}{2}(e^{-t}sin(t) + e^{-t}cos(t)) + C$
 
 \sol{
