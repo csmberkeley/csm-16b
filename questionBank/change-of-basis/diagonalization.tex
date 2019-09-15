@@ -1,0 +1,154 @@
+% Author: Yannan Tuo, Varsha Ramakrishnan
+% Email: ytuo@berkeley.edu, vio@berkeley.edu
+% Edited Lydia Lee, Spring 2019
+% lydia.lee@berkeley.edu
+
+\qns{Diagonalization and Other Things Related (ish)}
+
+\begin{enumerate}
+
+\qitem{When is an $n \times n$ matrix diagonalizable, or able to be represented in the form $\mathbf{P}\mathbf{D}^n\mathbf{P}^{-1}$, where $\mathbf{D}$ is a diagonal matrix?}
+
+\meta{An $n\times n$ matrix is diagonalizable when it has $n$ linearly independent eigenvectors, or when the matrix formed by the eigenvectors is full rank. (Note that the eigenvalues do not need to be unique)}
+
+
+\qitem{Given eigenvalues $\lambda = 1, 2$, diagonalize this matrix 
+ $$ \mathbf{A = \begin{bmatrix}
+  2 & 0 & 0 \\
+  1 & 2 & 1 \\
+  -1 & 0 & 1
+ \end{bmatrix}}$$
+ \\
+}
+
+\meta{
+[Notice]: A mini lecture may be required before going over the diagonalization problem because students may not have seen this in lecture yet.
+For students interested, eigenvalues can be calculated by solving for when $det(A - \lambda I) = 0$ through cofactor expansion (which may not yet taught)
+$$det\mathbf{\begin{bmatrix}
+  2-\lambda & 0 & 0 \\
+  1 & 2-\lambda & 1 \\
+  -1 & 0 & 1-\lambda
+ \end{bmatrix}}  =  (2 - \lambda)^{2}(1-\lambda)  =  0$$
+ $$ \lambda = 1, \lambda = 2 \text{ (2 values)}$$
+ }
+
+\sol{
+
+ 
+Step 1: Find linearly independent eigenvectors of A by solving for the nullspace of $(A-\lambda I)$ for each value of $\lambda$
+ $$ \lambda=1 : \mathbf{\begin{bmatrix}
+  2-\lambda & 0 & 0 \\
+  1 & 2-\lambda & 1 \\
+  -1 & 0 & 1-\lambda
+ \end{bmatrix}} = 
+ \mathbf{\begin{bmatrix}
+  1 & 0 & 0 \\
+  1 & 1 & 1 \\
+  -1 & 0 & 0
+ \end{bmatrix}}
+ $$
+ $$ \hat{v} = \mathbf{\begin{bmatrix}
+  0\\
+  -1\\
+  1
+ \end{bmatrix}}
+ $$
+ 
+ $$ \lambda=2 : \mathbf{\begin{bmatrix}
+  2-\lambda & 0 & 0 \\
+  1 & 2-\lambda & 1 \\
+  -1 & 0 & 1-\lambda
+ \end{bmatrix}} = 
+ \mathbf{\begin{bmatrix}
+  0 & 0 & 0 \\
+  1 & 0 & 1 \\
+  -1 & 0 & -1
+ \end{bmatrix}}
+ $$
+ $$ \hat{v} = \mathbf{\begin{bmatrix}
+  0\\
+  1\\
+  0
+ \end{bmatrix}}, \mathbf{\begin{bmatrix}
+  -1\\
+  0\\
+  1
+ \end{bmatrix}}
+ $$
+ 
+ Step 2: Arrange the eigenvectors and eigenvalues into the $\mathbf{P}$ and $\mathbf{D}$ matrices. Note: Make sure to match the row and column of the eigenvalues in the $\mathbf{D}$ matrix with the column of the eigenvectors in the $\mathbf{P}$ matrix.
+
+$$ \mathbf{P = \begin{bmatrix}
+  0 & 0 & -1 \\
+  -1 & 1 & 0 \\
+  1 & 0 & 1
+ \end{bmatrix}}
+$$
+$$
+ \mathbf{D = \begin{bmatrix}
+  1 & 0 & 0 \\
+  0 & 2 & 0 \\
+  0 & 0 & 2
+ \end{bmatrix}}
+ $$
+}
+
+
+\qitem{Consider a pump system with transition matrix $\mathbf{A}$, diagonalized as $\mathbf{P}\mathbf{D}\mathbf{P}^{-1}$. Find the system state $\vec{s}[n]$ given state $\vec{s}[0]$
+}
+
+\sol{
+\\Use the formula $\vec{s}[n] = \mathbf{A}^n\vec{s}[0]$. We want to calculate $(\mathbf{P}\mathbf{D}\mathbf{P}^{-1})^n\vec{s}[0]$, or 
+        $\mathbf{P}\mathbf{D}\mathbf{P}^{-1}\mathbf{P}\mathbf{D}\mathbf{P}^{-1}...\mathbf{P}\mathbf{D}\mathbf{P}^{-1}\vec{s}[0]$. We see that the inner $\mathbf{P}^{-1}$ and $\mathbf{P}$'s cancel out to the identity matrix, leaving us with $\mathbf{P}\mathbf{D}^n\mathbf{P}^{-1}\vec{s}[0]$. 
+        \\Consider a sizable matrix $\mathbf{A}$, eg $10 \times 10$, and a large exponent $n$, eg 7. It would generally be computationally simpler to diagonalize the matrix and compute $\mathbf{P}\mathbf{D}^n\mathbf{P}^{-1}\vec{s}[0]$ than to compute $\mathbf{A}^n\vec{s}[0]$ because $\mathbf{D}^n$ involves just raising each number in the diagonal to the $n$th power.
+}
+
+
+\qitem{Is there a relationship between invertibility and diagonizability?
+    \begin{enumerate}
+        \item  First, let us consider: does invertibility imply diagonizability? Give a brief explanation or counterexample. (Hint: think about how linear independence plays a role in whether or not a matrix is invertible or diagonizable).
+    
+    \item Does diagonizability imply invertibility? (Hint: think about the invertibility of each individual matrix that constitutes the diagonalized matrix.) %(Note that can't really be used: the determinant of a matrix A is equal to the product of its eigenvalues. If not proven in class, you must prove this yourself.)
+    
+    \end{enumerate}
+}
+
+\sol{
+\begin{enumerate}
+        \item No, invertibility does not imply diagonalizability. A square matrix is invertible if and only if it has linearly independent columns. For example, take the matrix A and its inverse:
+         $$\mathbf{A} =
+            \begin{bmatrix}
+            2 & 3 \\
+            0 & 2 
+            \end{bmatrix}, \ \
+            \mathbf{A}^{-1} =
+            \begin{bmatrix}
+            \frac{1}{2} & -\frac{3}{4} \\
+            0 & \frac{1}{2}
+            \end{bmatrix}$$
+        However, when we solve for the eigenvectors, we only get one: $\begin{bmatrix}
+            1 \\
+            0
+            \end{bmatrix}$.
+        
+        We need two linearly independent vectors to form a diagonalizable matrix; hence, we have found a matrix that is invertible but not diagonalizable. 
+        
+        Note: remember that one eigenvalue can map to multiple eigenvectors that are linearly independent, so do not confuse the number of eigenvalues with the number of eigenvectors.
+        \item False again! Consider the following matrix $M$:
+        \begin{align*}
+          M &= \begin{bmatrix}1&0\\
+                              0&0\end{bmatrix}\\
+            &= \begin{bmatrix}1&0\\
+                              0&1\end{bmatrix}
+                \begin{bmatrix}1&0\\
+                               0&0\end{bmatrix}
+                \begin{bmatrix}1&0\\
+                               0&1\end{bmatrix}
+        \end{align*}
+        Because $M$ is a diagonal matrix, we can pull its eigenvalues from the diagonal elements to get $\lambda = 0, 1$, and we can compute each eigenspace respectively to get $\vec{v} = \vec{e_2}, \vec{e_1}$ where $\vec{e_i}$ refers to the vector with 1 in its $i$th element and 0 elsewhere.
+
+        However, we also see that the columns (and rows, for that matter) of $M$ are linearly dependent, and so $M$ is not invertible!
+\end{enumerate}
+}
+
+\end{enumerate}

@@ -23,6 +23,10 @@ With an initial condition $x(0) = x_0,$ the solution was uniquely determined by:
 \qitem Show that $x_{p}$(t) does indeed satisfy the differential equation \eqref{eqn:odeinput}. \\
 \textit{Hint: Is there anything you can pull out of the integral to make sure there are no terms with $t$ in the integrand?}
 
+\meta{
+	The second line of work uses the product rule of derivatives combined with the Second Fundamental Theorem of Calculus.
+}
+
 \sol{
 To show that $x_{p}$(t) satisfies equation \eqref{eqn:odeinput}, we have to show that it satisfies the the general differential equation and the initial condition. \\
 For the general differential equation, we will show that $\ddt{x_p{t}}{t} = \lambda x_p(t) + u(t)$.
@@ -62,29 +66,41 @@ Rearranging terms in out KCL equation,
   $$\ddt{V_C(t)}{t} = - \frac{V_C(t)}{RC} + \frac{cos(\omega t)}{RC}$$
 }
 
-\qitem In this case, what are the values of $x(t)$, $\lambda{}$, and $x_{0}$?
+\qitem In this case, what are the values of $\lambda{}$, $x(t)$, $u(t),$ and $x_{0}$?
+
+\meta{
+	We wrote this question to make sure students are familiar with type-checking.	
+}
 
 \sol{
-  $x(t)$ is represented in the above equation as $V_C(t)$, $\lambda$ is $-\frac{1}{RC}$, and our initial condition $x_{0} = V_C(0) = 5V$ 
+  $\lambda$ is $-\frac{1}{RC}, \, x(t)$ is $V_C(t)$, $u(t)$ is $\cos (\omega t)$ and our initial condition $x_{0} = V_C(0) = 5V$ 
 }
 
 \qitem Using this particular solution, write out an expression for $V_{C}(t)$.
 
 \sol{
   Plugging our values of $x(t)$, $\lambda{}$, and $x_{0}$ into equation \eqref{eqn:odesol}, we get
-    $$V_C(t) = 5e^{-\frac{t}{RC}} + \int_0^t \! \frac{cos(\omega \tau)}{RC} e^{-\frac{t - \tau}{RC}} \, d\tau$$
+    $$V_C(t) = 5e^{-\frac{t}{RC}} + \int_0^t \! \frac{cos(\omega \tau)}{RC} \text{exp}(-\frac{t - \tau}{RC}) \, d\tau$$
 }
 
 \qitem What is the closed form solution to the voltage across the capacitor, $V_{c}(t)$.\\
 \textit{Hint:} $\int \! e^{at}cos(bt) \, dt = \frac{e^{at} (a \cdot cos(bt) + b \cdot sin(bt))}{a^2 + b^2} + C$
 
+\meta{
+	This is an extremely nasty integral. The purpose of the question obviously isn't to understand the nastiness of the integral.
+	Most of this problem is done once they realize what the values of $a$ and $b$ are in the hint.
+	The main purpose of this part is to show students how difficult transient analysis can get, and should foreshadow phasors.	
+}
+
 \sol{
   Rearranging terms in our expression for $V_{C}(t)$, we get 
   $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \int_0^t \! cos(\omega \tau) e^{\frac{\tau}{RC}} \, d\tau$$
   Using the hint above to evaluate the integral (with $a = \frac{1}{RC}$ and $b = \omega$):
-  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \cdot \frac{e^{\frac{t}{RC}} (\frac{1}{RC} \cdot cos(\omega t) + \omega \cdot sin(\omega t))}{\frac{1}{R^2C^2} + \omega^2}$$
+  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \cdot \frac{e^{\frac{t}{RC}} (\frac{1}{RC} \cdot cos(\omega t) + \omega \cdot sin(\omega t)) - \frac{e^{0}}{RC} \cos(\omega \cdot 0)}{\frac{1}{R^2C^2} + \omega^2}$$
   Simplifying slightly,
-  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{\frac{1}{RC} \cdot cos(\omega t) + \omega \cdot sin(\omega t)}{\frac{1}{RC} + RC\omega^2}$$
+  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{1}{(RC)^2} \frac{cos(\omega t) + \omega RC \cdot sin(\omega t) - e^{-\frac{t}{RC}}}{\frac{1}{(RC)^2} + \omega^2}$$
+  So it follows that,
+  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{cos(\omega t) + \omega RC \cdot sin(\omega t) - e^{-\frac{t}{RC}}}{1 + (\omega RC)^2}$$
 }
 
 \end{enumerate}

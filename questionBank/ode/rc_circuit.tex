@@ -1,7 +1,5 @@
 \qns{RC Circuit}
-\qcontributor{Kyle Tanghe}
-\qcontributor{Elena Jia}
-\qcontributor{Ramsey Mardini}
+\qcontributor{Kyle Tanghe, Elena Jia, Ramsey Mardini}
 
 Consider the circuit below, assume that when $t\leq0$, the capacitor has no charge stored $(V_{\text{c}}(t=0) = 0)$.
 At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
@@ -35,6 +33,11 @@ We obtain the following differential equations. KCL at node between the resistor
 
 \qitem Write out the differential equation for $V_{\text{c}}(t)$ after the switch closes.
 
+\meta{
+	If students are confused about how to get started, point them to equation (4) in problem 1 as a template.
+	Which KCL equation from part (a) of this problem resembles a first order differential equation (i.e. which one has a differential term)?
+}
+
 \sol{
 \begin{align*}
 \intertext{From the previous problem we know that when the switch is closed,}
@@ -42,11 +45,6 @@ We obtain the following differential equations. KCL at node between the resistor
 \intertext{Thus we obtain}
 C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0
 \end{align*}
-}
-
-\meta{
-	If students are confused about how to get started, point them to equation (1) or (2) in problem 1 as a template.
-	Which KCL equation from part (a) of this problem resembles a first order differential equation (i.e. which one has a differential term)?
 }
 
 \qitem What is the initial condition for $V_{\text{c}}(t)$ (i.e. $V_{\text{c}}(t=0)$) and what is $V_{\text{c}}(t \to \infty)$?
@@ -60,7 +58,6 @@ Therefore, the voltage of the capacitor equals the voltage source: $V_{\text{c}}
 
 \qitem Using the initial conditions found in the previous parts, find an expression for
 $V_{\text{c}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.
-
 
 \sol{
 	To find an expression for $V_{out}(t)$:
