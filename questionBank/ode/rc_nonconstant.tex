@@ -9,18 +9,28 @@ In an earlier question we looked at a way to solve differential equations with a
 
 We will now generalize this to an input, $u(t),$ which is an function independent of $x(t)$.
 It was shown in homework that if we had the differential equation
-\begin{equation}
-\ddt{x(t)}{t} = \lambda x(t) + u(t)
+\begin{equation} \label{eqn:odeinput}
+  \ddt{x(t)}{t} = \lambda x(t) + u(t)
 \end{equation}
 
 With an initial condition $x(0) = x_0,$ the solution was uniquely determined by:
-\begin{equation}
+\begin{equation} \label{eqn:odesol}
     x_{p}(t) = x_{0}e^{\lambda{}t} + \int_0^t \! u(\tau{})e^{\lambda{}(t - \tau{})} \, d\tau{}
 \end{equation}
 
 \begin{enumerate}
 
-\qitem Show that $x_{p}$(t) does indeed satisfy the differential equation (5).
+\qitem Show that $x_{p}$(t) does indeed satisfy the differential equation \eqref{eqn:odeinput}. \\
+\textit{Hint: Is there anything you can pull out of the integral to make sure there are no terms with $t$ in the integrand?}
+
+\sol{
+To show that $x_{p}$(t) satisfies equation \eqref{eqn:odeinput}, we have to show that it satisfies the the general differential equation and the initial condition. \\
+For the general differential equation, we will show that $\ddt{x_p{t}}{t} = \lambda x_p(t) + u(t)$.
+$$\ddt{x_p{t}}{t} = \lambda x_0 e^{\lambda t} + \ddt{}{t}(e^{\lambda t} \int_0^t \! u(\tau)e^{-\lambda \tau} \, d\tau)$$
+$$\ddt{x_p{t}}{t} = \lambda x_0 e^{\lambda t} + \lambda e^{\lambda t} \int_0^t \! u(\tau)e^{-\lambda \tau} \, d\tau +  e^{\lambda t}u(t)e^{-\lambda t} = \lambda x_p(t) + u(t)$$
+We also have to show that $x_p(0) = x_0$:
+$$x_p(0) = x_0e^{\lambda \cdot 0} + \int_0^0 \! u(\tau)e^{-\lambda \tau} \, d\tau = x_0 + 0 = x_0$$
+}
 
 \end{enumerate}
 
@@ -36,32 +46,45 @@ Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the frequency of the cosin
 \qitem Write out the KCL equations combined with Ohm's Law and the voltage-current relation of a capacitor.
 
 \sol{
-
+For this solution, we labeled the currents in the circuit as the following: \\
+\begin{figure}[H]
+ \input{\bank/ode/figures/rc_circuit_nonconstant_currents}
+\end{figure}
+Applying the KCL at the $V_C$ node, we get $I_R(t) = I_C(t)$
+Substituting resistor and capacitor IV relationships, we have
+  $$\frac{u(t) - V_C(t)}{R} = C \ddt{V_C(t)}{t}$$
 }
 
-\qitem Show that your equation above can be put into the form of equation (5).
+\qitem Show that your equation above can be put into the form of equation \eqref{eqn:odeinput}.
 
 \sol{
-
+Rearranging terms in out KCL equation,
+  $$\ddt{V_C(t)}{t} = - \frac{V_C(t)}{RC} + \frac{cos(\omega t)}{RC}$$
 }
 
 \qitem In this case, what are the values of $x(t)$, $\lambda{}$, and $x_{0}$?
 
 \sol{
-
+  $x(t)$ is represented in the above equation as $V_C(t)$, $\lambda$ is $-\frac{1}{RC}$, and our initial condition $x_{0} = V_C(0) = 5V$ 
 }
 
-\qitem Using this particular solution, write out an expression for $V_{c}(t)$.
+\qitem Using this particular solution, write out an expression for $V_{C}(t)$.
 
 \sol{
-
+  Plugging our values of $x(t)$, $\lambda{}$, and $x_{0}$ into equation \eqref{eqn:odesol}, we get
+    $$V_C(t) = 5e^{-\frac{t}{RC}} + \int_0^t \! \frac{cos(\omega \tau)}{RC} e^{-\frac{t - \tau}{RC}} \, d\tau$$
 }
 
 \qitem What is the closed form solution to the voltage across the capacitor, $V_{c}(t)$.\\
-Hint: $\int \! e^{-t}cos(t) \, dt = \frac{1}{2}(e^{-t}sin(t) + e^{-t}cos(t)) + C$
+\textit{Hint:} $\int \! e^{at}cos(bt) \, dt = \frac{e^{at} (a \cdot cos(bt) + b \cdot sin(bt))}{a^2 + b^2} + C$
 
 \sol{
-
+  Rearranging terms in our expression for $V_{C}(t)$, we get 
+  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \int_0^t \! cos(\omega \tau) e^{\frac{\tau}{RC}} \, d\tau$$
+  Using the hint above to evaluate the integral (with $a = \frac{1}{RC}$ and $b = \omega$):
+  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \cdot \frac{e^{\frac{t}{RC}} (\frac{1}{RC} \cdot cos(\omega t) + \omega \cdot sin(\omega t))}{\frac{1}{R^2C^2} + \omega^2}$$
+  Simplifying slightly,
+  $$V_C(t) = 5e^{-\frac{t}{RC}} + \frac{\frac{1}{RC} \cdot cos(\omega t) + \omega \cdot sin(\omega t)}{\frac{1}{RC} + RC\omega^2}$$
 }
 
 \end{enumerate}
