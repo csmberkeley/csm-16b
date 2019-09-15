@@ -21,11 +21,11 @@ To simplify your circuit analysis, mark the negative end of the voltage source a
 
 \sol{
 \begin{align*}
-\intertext{We denote the voltage to the left of resistor to be $y$.
+\intertext{We denote the voltage to the left of resistor to be $V_s$.
 We obtain the following differential equations. KCL at node between the resistor and capacitor gives}
-\frac{y - V_{\text{C}}}{R} = C\frac{dV_{\text{C}}}{dt} \\
+\frac{V_s - V_{\text{c}}}{R} = C\frac{dV_{\text{c}}}{dt} \\
 \intertext{Additionally, KCL at the node between the resistor and voltage sources gives:}
-\frac{V_{\text{S}} - V_{\text{C}}}{R} +  i_{\text{Vs}} = 0
+\frac{V_{\text{s}} - V_{\text{c}}}{R} +  i_{\text{Vs}} = 0
 \end{align*}
 }
 
@@ -34,16 +34,16 @@ We obtain the following differential equations. KCL at node between the resistor
 \qitem Write out the differential equation for $V_{\text{c}}(t)$ after the switch closes.
 
 \meta{
-	If students are confused about how to get started, point them to equation (4) in problem 1 as a template.
+	If students are confused about how to get started, point them to equation \eqref{eq:nh} in problem 1 as a template.
 	Which KCL equation from part (a) of this problem resembles a first order differential equation (i.e. which one has a differential term)?
 }
 
 \sol{
 \begin{align*}
 \intertext{From the previous problem we know that when the switch is closed,}
-\frac{V_{\text{S}}- V_{\text{C}}}{R} = C\frac{dV_{\text{C}}}{dt} \\
+\frac{V_{\text{s}}- V_{\text{c}}}{R} = C\frac{dV_{\text{c}}}{dt} \\
 \intertext{Thus we obtain}
-C\frac{dV_{\text{C}}}{dt} + \frac{V_{\text{C}}}{R} - \frac{V_{\text{S}}}{R}=0
+C\frac{dV_{\text{c}}}{dt} + \frac{V_{\text{c}}}{R} - \frac{V_{\text{S}}}{R}=0
 \end{align*}
 }
 
@@ -59,13 +59,15 @@ Therefore, the voltage of the capacitor equals the voltage source: $V_{\text{c}}
 \qitem Using the initial conditions found in the previous parts, find an expression for
 $V_{\text{c}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.
 
+\meta{
+	You can point at equation \eqref{eq:nhs} and find the appropriate values of $\alpha$ and $\beta,$ 
+	but let them know that they are still expected to know how to do the process below. 	
+}
+
+
 \sol{
 	To find an expression for $V_{out}(t)$:
 	\[V_c(t)=V_{out}(t)\]
-
-	KCL at $V_{out}$ (note the direction of $i_R$) yields:
-	\[i_R(t)=i_c(t)\]
-	\[\frac{V_{S}-V_{out}(t)}{R}=C\frac{dV_{out}(t)}{dt}\]
 	\[\frac{dV_{out}(t)}{dt}+\frac{1}{RC}V_{out}(t)=\frac{V_{S}}{RC}\]
 
 	Using substitution of variables:
@@ -125,7 +127,7 @@ $$t = 0.003 \, \text{seconds}$$
 
 \meta{
 	Students may be inclined to blindly use $\tau = RC$ to find a circuit's time constant, regardless of what the RC circuit looks like.
-	Remind students that the time constant is only $RC$ for simple RC circuits with only one resistor and one capacitor, but it may be different for different circuits (for instance, in problem 3 on this worksheet).
+	Remind students that the time constant is only $RC$ for simple RC circuits with only one resistor and one capacitor, but it may be different for different circuits (for instance, the CMOS transistor models).
 }
 
 \qitem OPTIONAL: Give 2 ways to reduce the settling time of the circuit if we are allowed to change one component in the circuit.

@@ -1,24 +1,24 @@
 \qns{Non-homogeneous Differential Equations}
 \qcontributor{Justin Yu, Taejin Hwang}
 
-Ordinary differential equations play a key role into modeling physical and electrical systems.
+Ordinary differential equations play a key role in modeling physical and electrical systems.
 It was shown in lecture, and in homework that for a first-order, constant coefficient ordinary differential equation,
-\begin{align}
-\ddt{y(t)}{t} + \lambda \cdot y(t) = 0
-\end{align}
+\begin{equation} \label{eq:h}
+\ddt{y(t)}{t} + \lambda y(t) = 0
+\end{equation}
 
-With initial condition $y(0) = y_0,$ the solution to the equation, $y_p(t),$ was uniquely determined as:
-\begin{align}
+With initial condition $y(0) = y_0,$ the particular solution to the equation, $y_p(t),$ was uniquely determined as:
+\begin{equation} \label{eq:hs}
 y_p(t) = y_0 e^{-\lambda t}
-\end{align}
+\end{equation}
 
 For the purposes of this question, we will look at the the case in which the right hand side is no longer 0, and is a constant.
 This is referred to as the non-homogeneous differential equation.
 
-To recall, the homogeneous differntial equation is of the form:
-\begin{align}
+The non-homogeneous differntial equation can be written as:
+\begin{equation} \label{eq:nh}
     \ddt{y(t)}{t} + \alpha y(t) = \beta
-\end{align}
+\end{equation}
 To solve this, we will use a change of variables.
 Let $\widetilde{y}(t) = y(t) - \frac{\beta}{\alpha}$.
 
@@ -37,9 +37,9 @@ or $\ddt{\widetilde{y}(t)}{t} + \alpha \widetilde{y}(t) = 0.$
 \qitem Does this equation look familiar? How can you solve this equation?
 
 \sol{
-This is the homogeneous equation in terms of $\widetilde{y}(t)!$
+This is the homogeneous equation \eqref{eq:h} in terms of $\widetilde{y}(t)!$
 
-Therefore using equation (2) provided above, our solution is $\widetilde{y}(t) = \widetilde{y}_{0} e^{-\alpha t}.$	
+Therefore using equation \eqref{eq:hs} provided above, our solution is $\widetilde{y}(t) = \widetilde{y}_{0} e^{-\alpha t}.$	
 }
 
 
@@ -55,9 +55,9 @@ Then substituting this in, our final solution is $y(t) = y(0) e^{-\alpha t} + \b
 \end{enumerate}
 
 To recap, given a first order differential equation $\ddt{y(t)}{t} + \alpha y(t) = \beta$, the solution will be determined as:
-\begin{align}
+\begin{equation} \label{eq:nhs}
     y(t) = y(0) e^{-\alpha t} + \frac{\beta}{\alpha} (1 - e^{-\alpha t})
-\end{align}
+\end{equation}
 
 \meta{
 You can explain that $y(0)e^{-\alpha t}$ is the decaying exponential
