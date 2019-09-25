@@ -2,15 +2,15 @@
 	\begin{centering}
 		\begin{circuitikz}
 			\draw (0, 2)
-			to[V = $u(t)$] (0, 0)
+			to[sV, l = $u(t)$] (0, 0)
 			to node[ground]{} (0, 0);
 			\draw (0, 2)
-			to[R = $R$] (2.5, 2)
-			to node[circ, label={$V_{C}(t)$}]{} (2.5, 2);
-			\draw (2.5, 2)
-			to[C = $C$] (2.5, 0)
-			to node[ground]{} (2.5, 0);
+			to[R = $R$] (3.5, 2)
+			to node[circ, label={$V_{c}(t)$}]{} (3.5, 2);
+			\draw (3.5, 2)
+			to[C = $C$] (3.5, 0)
+			to node[ground]{} (3.5, 0);
 		\end{circuitikz}
-		\caption{\label{fig:circuit}RC Circuit with Voltage Source}
+		\caption{\label{fig:circuit}RC Circuit with Non-constant Voltage Source}
 	\end{centering}
 \end{figure}

@@ -1,0 +1,413 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{Transient analysis}
+
+We have taken a look at how to take a \textbf{system} of differential equations, convert it the following \textbf{vector} differential equation.
+
+\begin{equation}
+\ddt{}{t} \vec{x}(t) = A \vec{x}(t) + \vec{b}(t)
+\end{equation}
+
+With initial condition $\vec{x}(0) = \begin{bmatrix} x_1(0) \\ x_2(0) \end{bmatrix}$
+
+We made the observation that we could convert our differential equation from standard coordinates into coordinates using a basis entirely made up of eigenvectors, in which the linear operator of differentiation became a diagonal matrix, $D,$ where the diagonal entires are the eigenvalues of $A.$
+
+\begin{equation}
+\ddt{}{t} \vec{z}(t) = D \vec{z}(t) + \widetilde{\vec{b}}(t)
+\end{equation}
+
+With initial condition $\vec{z}(0) = \begin{bmatrix} z_1(0) \\ z_2(0) \end{bmatrix}$
+
+In this problem, we will analyze the different types of transient responses that a system can have, based on the eigenvalues of the differentiation operator.
+
+Consider the following RLC Circuit with the capacitor uncharged for $t < 0.$
+
+\input{\bank/vector-diff-eq/figures/rlc_circuit}
+
+\qitem \textbf{Step 1: Define state variables}
+
+\meta{
+  The same process can be done by defining $x_{1}(t) = V_{out}(t)$ and $x_{2}(t) = \ddt{V_{out}(t)}{t}.$ Make sure students are familiar with how to handle both cases. We choose $i(t)$ here since $i(t) = C \ddt{V_{out}(t)}{t}.$
+}
+
+When setting up a system of differential equations, it is important to always start by definining a state variable to create a vector differential equation. For the sake of this question, we will define our state variable as:
+
+\begin{equation}
+\vec{x}(t) =  \begin{bmatrix} x_{1}(t) \\ x_{2}(t) \end{bmatrix} = \begin{bmatrix} V_\text{c}(t) \\ i(t) \end{bmatrix}
+\end{equation}
+
+% \ans{
+% \begin{align}
+% v_s(t) = 12 \cos (\omega t -\frac{\pi}{4} -\frac{\pi}{2}) = 12 \cos(\omega t - \frac{3\pi}{4})
+% \end{align}
+
+% The phasor is given by
+% \begin{align}
+% V_s = 12 e^{-j\frac{3\pi}{4}}
+% \end{align}
+% }
+
+\qitem \textbf{Step 2: Write out a system of differential equations}
+
+The next step is to set up a system of differential equations using the individual state variables that you defined in the previous part.
+
+How can you write out a system of differential equations in terms of your state variables $x_{1}(t) = V_\text{c}(t)?$ and $x_{2}(t) = i(t)$
+
+\sol {
+	The voltage-current relationship of a capacitor tells us that
+	$$i(t) = C \ddt{}{t} V_\text{c}(t)$$
+	This can equivalently be written as:
+	$$\ddt{}{t} x_{1}(t) = \frac{1}{C} x_{2}(t)$$
+	The voltage-current relationship of an inductor tells us that
+	$$V_{L}(t) = L \ddt{}{t} i(t)$$
+	So we see that
+	$$\ddt{}{t} i(t) = \frac{1}{L} V_{L}(t)$$
+	However, $V_{L}(t)$ is not a state variable, meaning we must find a way to express $V_{L}(t)$ in terms of our state variables. Therefore by using KVL:
+	$$V_{s} = V_{R}(t) + V_{\text{c}}(t) + V_{L}(t)$$
+	Which implies that
+	$$V_{L}(t) = V_{s} - V_{R}(t) - V_{\text{c}}(t) = V_{s} - i(t) \cdot R - V_{\text{c}}(t)$$
+	Therefore:
+	$$\ddt{}{t} i(t) = \frac{1}{L} \big( V_{s} - i(t) \cdot R - V_{\text{c}}(t) \big)$$
+	As state variables:
+	$$\ddt{}{t} x_{2}(t) = -\frac{1}{L} x_{1}(t) - \frac{R}{L} x_{2}(t) + \frac{1}{L} V_{s}$$
+
+  The initial conditions must be:
+  \begin{gather*}
+  x_{1}(0) = 0 \\
+  x_{2}(0) = 0
+  \end{gather*}
+  Since the capacitor starts of uncharged, and the current across the capacitor cannot change instantaneously.
+}
+
+
+% The voltage source is represented by its phasor $V_s$.
+% The current $i(t)$ is related to its phasor counterpart $I$. 
+% % by
+% % \begin{align}
+% % i(t) = \mathfrak{Re}[I e^{j\omega t}].
+% % \end{align}
+% What are the phasor representations of $R$ and $C$?
+
+% \sol{
+% \begin{align}
+% Z_R &= R\\
+% Z_C &= \frac{1}{j\omega C}
+% \end{align}
+% }
+
+% % \ans{
+% % \begin{align}
+% % Z_R &= R\\
+% % Z_C &= \frac{1}{j\omega C}
+% % \end{align}
+% % }
+
+\qitem \textbf{Step 3: Turn this system of differential equations into a vector differential equation}
+
+Given the system of differential equations you wrote in the previous part, the next step is to create a vector differential equation of the form:
+
+\begin{equation}
+\ddt{}{t} \vec{x}(t) = A \vec{x}(t) + \vec{b}
+\end{equation}
+
+\sol {
+	Taking the derivative of $\vec{x}(t)$ we get:
+	$$\ddt{}{t} \vec{x}(t) = \begin{bmatrix} \ddt{}{t} x_{1}(t) \\ \ddt{}{t} x_{2}(t) \end{bmatrix} = 
+	\begin{bmatrix} \frac{1}{C} x_{2}(t) \\ \frac{1}{L} x_{1}(t) - \frac{R}{L} x_{2}(t) + \frac{V_s}{L} \end{bmatrix}$$
+	We can write this in matrix-vector form:
+	$$\ddt{}{t} \vec{x}(t) = \begin{bmatrix} 0 & \frac{1}{C} \\ -\frac{1}{L} & - \frac{R}{L} \end{bmatrix} 
+	\begin{bmatrix} x_{1}(t) \\  x_{2}(t) \end{bmatrix} + \begin{bmatrix} 0 \\ \frac{V_s}{L} \end{bmatrix} $$
+	So we can see that:
+	\begin{gather*}
+	A = \begin{bmatrix} 0 & \frac{1}{C} \\ -\frac{1}{L} & - \frac{R}{L} \end{bmatrix} 
+	\text{ and  }
+	\vec{b} = \begin{bmatrix} 0 \\ \frac{V_s}{L} \end{bmatrix}
+	\end{gather*}
+  With initial condition $\vec{x}(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$
+}
+
+\qitem \textbf{Step 4: Find the coordinate transformation to the eigenbasis}
+
+The next step is to find a change of variables to the a basis made up of eigenvectors.
+Remember that this is equivalent to finding the eigenvectors and eigenvalues of the matrix $A.$
+
+\sol{
+	To find the eigenvalues of $A,$ we try to solve for $\lambda$ such that $\text{det} (A - \lambda I) = 0.$
+	$$\text{det} (A - \lambda I) = \begin{vmatrix} - \lambda & \frac{1}{C} \\ -\frac{1}{L} & - \frac{R}{L} - \lambda \end{vmatrix} 
+	= (- \lambda) (-\frac{R}{L} - \lambda) + \frac{1}{LC} = \lambda^{2} + \frac{R}{L} \lambda + \frac{1}{LC} $$
+	We can solve for $\lambda$ by using the quadratic formula:
+	$$\lambda = -\frac{R}{2L} \pm \sqrt{\big(\frac{R}{L} \big)^2 - \frac{4}{LC}}$$
+	To find the eigenvectors of $A,$ we look at the null-space of $A - \lambda I.$
+	$$A - \lambda_{1} I = \begin{bmatrix} - \lambda_{1} & \frac{1}{C} \\ -\frac{1}{L} & - \frac{R}{L} - \lambda_{1} \end{bmatrix}$$
+	A basis for the null-space of $A - \lambda_{1} I$ is: 
+	$$\vec{v}_{1} = \begin{bmatrix} 1 \\ \lambda_1 C \end{bmatrix}$$
+	A basis for the null-space of $A - \lambda_{2} I$ can be similarly calculated as:
+	$$\vec{v}_{2} = \begin{bmatrix} 1 \\ \lambda_2 C \end{bmatrix}$$
+}
+
+% \ans{
+% \begin{align}
+% I = \frac{12 e^{-j\frac{3\pi}{4}}}{R + \frac{1}{j\omega C}} = \frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}
+% \end{align}
+% \begin{align*}
+% V_C=IZ_C=\frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}*\frac{1}{j\omega C}= \frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC}
+% \end{align*}
+
+% To derive the polar form,
+% \begin{align}
+% I = \frac{j12e^{-j\frac{3\pi}{4}}*10^{-3}}{1+j\sqrt{3}} = \frac{12e^{-j\frac{3\pi}{4}}e^{j\frac{\pi}{2}}*10^{-3}}{2e^{j\frac{\pi}{3}}}
+% = 6e^{-j\frac{7\pi}{12}} \mbox{ mA}.
+% \end{align}
+% \begin{align}
+% V=\frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC} = \frac{12e^{-j\frac{3\pi}{4}}}{1+j\sqrt{3}}=\frac{12e^{-j\frac{3\pi}{4}}}{2e^{j\frac{\pi}{3}}}= 6e^{-j\frac{13\pi}{12}}  \mbox{ V}
+% \end{align}
+% }
+
+\qitem \textbf{Step 5: Convert the system from standard to eigenbasis coordinates}
+
+Since we found our eigenbasis basis $S = \{ \vec{v_1}, \vec{v_2} \},$ we will define the change of coordinates matrix from S-coordinates to standard basis coordinates as:
+
+$$\vec{z} = \begin{bmatrix} z_1 \\ z_2 \end{bmatrix} {  ,  } \ \ \vec{x} = z_1 \vec{v_1} + z_2 \vec{v_2} \text{  and  } V = \begin{bmatrix} 1 & 1 \\ \lambda_1 C & \lambda_2 C \end{bmatrix} \text {  s.t.  } \vec{x} = V \vec{z} $$ 
+
+How can we write out the differential equation using eigenbasis coordinates, or in terms of $\vec{z}(t)?$
+
+\begin{equation}
+	\ddt{}{t} \vec{z}(t) = D \vec{z}(t) + \widetilde{\vec{b}}
+\end{equation}
+
+\sol {
+  We've defined the change of coordinates from eigenbasis to standard coordinates as $\vec{x} = V \vec{z}.$
+  The vector differential equation that we currently have is:
+
+  \begin{equation}
+  	\ddt{}{t} \vec{x}(t) = A \vec{x}(t) + \vec{b}(t)
+  \end{equation}
+
+  We can substitute $\vec{x} = V \vec{z}$ to get:
+
+  \begin{equation}
+  	\ddt{}{t} V \vec{z}(t) = A V \vec{z}(t) + \vec{b}(t)
+  \end{equation}
+
+  Since we have a derivative of a linear combination, this is the same as a linear combination of the derivatives:
+
+  \begin{equation}
+  	V \ddt{}{t} \vec{z}(t) = A V \vec{z}(t) + \vec{b}(t)
+  \end{equation}
+
+  Then after applying $V^{-1}$ to both sides, we get:
+
+  \begin{equation}
+  	\ddt{}{t} \vec{z}(t) = V^{-1} A V \vec{z}(t) + V^{-1} \vec{b}(t)
+  \end{equation}
+
+  Therefore, we see that $D = V^{-1} A V$ and $\widetilde{\vec{b}} = V^{-1} \vec{b}.$
+
+  We know the matrix $V^{-1} A V$ is diagonal with the eigenvalues of $A$ and we can compute $V^{-1}$
+  $$V^{-1} = \frac{1}{\lambda_{2} C - \lambda_{1} C} \begin{bmatrix} \lambda_{2} C & -1 \\ -\lambda_{1} C & 1 \end{bmatrix}$$
+
+  Therefore we can calculate $\widetilde{\vec{b}}$ as:
+  $$V^{-1} \vec{b}(t) = \frac{1}{\lambda_{2} C - \lambda_{1} C} \begin{bmatrix} \lambda_{2} C & -1 \\ -\lambda_{1} C & 1 \end{bmatrix} \begin{bmatrix} 0 \\ \frac{V_s}{L} \end{bmatrix} = \frac{1}{\lambda_{2} C - \lambda_{1} C} \begin{bmatrix} -\frac{V_s}{L} \\ \frac{V_s}{L} \end{bmatrix} = \begin{bmatrix} -\frac{V_s}{LC(\lambda_{2} - \lambda_{1})} \\ \frac{V_s}{LC(\lambda_{2} - \lambda_{1})} \end{bmatrix}  $$
+
+  Lastly, the initial condition will be:
+  $$\vec{z}(0) = V^{-1} \vec{x}(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
+}
+
+\qitem \textbf{Step 6: Solve the differential equation in eigenbasis coordinates}
+
+We can unroll our system of differential equations into a system of first-order differential equations:
+  \begin{gather*}
+    \ddt{}{t} z_{1}(t) = \lambda_1 z_{1}(t) - \frac{V_s}{LC(\lambda_{2} - \lambda_{1})} \\
+    \ddt{}{t} z_{2}(t) = \lambda_2 z_{2}(t) + \frac{V_s}{LC(\lambda_{2} - \lambda_{1})}
+  \end{gather*}
+
+How can we solve these differential equations?
+
+\sol{
+  They are first-order differential equations with a constant input!
+  We know the solutions will be:
+  \begin{gather*}
+    z_{1}(t) = -\frac{V_{s}}{LC(\lambda_{2} - \lambda_{1})\lambda_1} \big(e^{\lambda_{1}t} - 1 \big) \\
+    z_{2}(t) = \frac{V_{s}}{LC(\lambda_{2} - \lambda_{1})\lambda_2} \big(e^{\lambda_{2}t} - 1 \big)
+  \end{gather*}
+
+  Therefore the solution in vector form will be:
+  \begin{equation}
+  \vec{z}(t) = \begin{bmatrix} z_{1}(t) \\ z_{2}(t) \end{bmatrix} =
+  \begin{bmatrix} -\frac{V_s(e^{\lambda_{1} t} - 1)}{LC(\lambda_{2} - \lambda_{1})\lambda_{1}} \\ 
+  \frac{V_s(e^{\lambda_{2} t} - 1)}{LC(\lambda_{2} - \lambda_{1})\lambda_{2}} \end{bmatrix}
+  \end{equation}
+}
+
+\qitem \textbf{Step 7: Convert the solutions back into standard basis coordinates}
+
+We have solved our differential equation in S-basis or $z_i$ coordinates.
+However, our original differential equation was in terms of standard basis, or $x_i$ coordinates.
+Convert the solutions that are currently in $z_i$ coordinates to a solution in $x_i$ coordinates.
+
+\meta {
+  Warning: The algebra here is very nasty. You may want to ask students to do it on their own time and give them the solution.
+}
+
+\sol {
+  The relationship between $\vec{x}$ and $\vec{z}$ is $\vec{x} = V \vec{z}.$
+  Therefore we see that the solution to our differential equation in $x_i$ coordinates is:
+  $$\vec{x}(t) = \begin{bmatrix} 1 & 1 \\ \lambda_1 C & \lambda_2 C \end{bmatrix} \vec{z}(t) = 
+  \begin{bmatrix} -\frac{V_s(e^{\lambda_{1} t} - 1)}{LC(\lambda_{2} - \lambda_{1})\lambda_{1}} + 
+  \frac{V_s(e^{\lambda_{2} t} - 1)}{LC(\lambda_{2} - \lambda_{1})\lambda_{2}} \\ 
+  -\frac{V_s(e^{\lambda_{1} t} - 1)}{L(\lambda_{2} - \lambda_{1})} + 
+  \frac{V_s(e^{\lambda_{2} t} - 1)}{L(\lambda_{2} - \lambda_{1})} \end{bmatrix}   
+  = \begin{bmatrix} -\frac{\lambda_{2} V_s (e^{\lambda_{1} t} - 1)}{LC(\lambda_{2} - \lambda_{1})\lambda_{1}\lambda_{2}} + 
+  \frac{\lambda_{1} V_s (e^{\lambda_{2} t} - 1)}{LC(\lambda_{2} - \lambda_{1})\lambda_{1} \lambda_{2}} \\ 
+  \frac{V_s(e^{\lambda_{2} t} - e^{\lambda_{1} t} + 1 - 1)}{L(\lambda_{2} - \lambda_{1})} \end{bmatrix} 
+  $$
+
+\meta {
+  You can explain this by either looking at the product of the roots or by Vieta's Formulas.
+  If students don't know what Vieta's Formulas are, then try to convince them that $\lambda_1 \lambda_2 = \frac{1}{LC}$ in some other way.
+}
+
+  A crucial realization that we can make is that $\lambda_1 \lambda_2 = \frac{1}{LC}$ therefore:
+  $$\vec{x}(t) = \begin{bmatrix} \frac{-\lambda_{2} V_s (e^{\lambda_{1} t} - 1) + \lambda_{1} V_s (e^{\lambda_{2} t} - 1)}{\lambda_{2} - \lambda_{1}} \\ 
+  \frac{V_s e^{\lambda_{2} t}}{L(\lambda_{2} - \lambda_{1})} - \frac{V_s e^{\lambda_{1} t}}{L(\lambda_{2} - \lambda_{1})} \end{bmatrix}
+  = \begin{bmatrix} \frac{-\lambda_{2} V_s e^{\lambda_{1} t}}{\lambda_{2} - \lambda_{1}} + \frac{\lambda_{1} V_s e^{\lambda_{2} t}}{\lambda_{2} - \lambda_{1}} + \frac{\lambda_{2} V_s}{\lambda_{2} - \lambda_{1}} - \frac{\lambda_{1} V_s}{\lambda_{2} - \lambda_{1}} \\
+  \frac{V_s e^{\lambda_{2} t}}{L(\lambda_{2} - \lambda_{1})} - \frac{V_s e^{\lambda_{1} t}}{L(\lambda_{2} - \lambda_{1})} \end{bmatrix}
+  = \begin{bmatrix} \frac{-\lambda_{2} V_s e^{\lambda_{1} t}}{\lambda_{2} - \lambda_{1}} + \frac{\lambda_{1} V_s e^{\lambda_{2} t}}{\lambda_{2} - \lambda_{1}} + V_s \\
+  \frac{V_s e^{\lambda_{2} t}}{L(\lambda_{2} - \lambda_{1})} - \frac{V_s e^{\lambda_{1} t}}{L(\lambda_{2} - \lambda_{1})} \end{bmatrix}
+  $$ 
+
+  Since we were initially solving for $x_{1}(t) = V_{\text{c}}(t) = V_{out}(t),$ our final result is:
+  $$V_{out}(t) = \frac{-\lambda_{2} V_s e^{\lambda_{1} t}}{\lambda_{2} - \lambda_{1}} + \frac{\lambda_{1} V_s e^{\lambda_{2} t}}{\lambda_{2} - \lambda_{1}} + V_s$$
+}
+
+\qitem \textbf{Step 8: Analyze the eigenvalues}
+
+The eigenvalues in step 4 were calculated using the quadratic formula: 
+$$\lambda = -\frac{R}{2L} \pm \sqrt{\big(\frac{R}{L} \big)^2 - \frac{4}{LC}}$$
+When are the eigenvalues of $A$ real, and when are they imaginary?
+
+\sol {
+  $\lambda$ will be real.
+  When the value of $(\frac{R}{L})^2 - \frac{4}{LC}$ is negative, $\lambda$ will be real. 
+  \begin{itemize}
+  \item When the value of $(\frac{R}{L})^2 - \frac{4}{LC}$ is greater than or equal to zero, $\lambda$ must be real. 
+  This occurs when $R > 2 \sqrt{\frac{L}{C}}.$
+  \item When the value of $(\frac{R}{L})^2 - \frac{4}{LC}$ is negative, $\lambda$ must be complex. 
+  This occurs when $R < 2 \sqrt{\frac{L}{C}}.$
+  \item If the square root term is equal to 0, then there will be one distinct real eigenvalue. 
+  We will discuss this case in more depth as a special part.
+  \end{itemize}
+}
+
+\qitem \textbf{Step 9: The three different responses}
+
+The eigenvalues of the matrix $A$ determine the transient response of the RLC circuit. 
+Consider both cases for which the eigenvalues are real, and for when they are complex.
+
+\sol {
+  If the eigenvalues are real, note that they will both be negative. 
+  This means that the response will be a sum of decaying exponentials.
+
+  However, when the eigenvalues are complex, notice that the real part of the exponential will still be negative.
+  We can use the fact that for a complex number $z = a + bj,$
+  \begin{equation}
+    e^{z} = e^{a + bj} = e^{a} e^{bj} = e^{a} (\cos (b) + j \sin(b))
+  \end{equation}
+
+  Luckily, the two complex eigenvalues are complex conjugates of each other, so the final answer will be a linear combination of a decaying exponential multiplied with a cosine. The decaying exponential creates an envelope, and the cosine wave will bring out oscillations.
+}
+
+\qitem \textbf{Step 10: The critically damped response}
+
+An issue arises when we have one distinct eigenvalue. This means it is no longer possible to convert our system into a basis made up of eigenvectors, since matrix $V$ will have linearly dependent columns. Therefore, we will convert our system to a basis where the linear operator will have an upper triangular matrix representation. To do this, we let the change of coordinates matrix be:
+
+$$ V = \begin{bmatrix} 1 & 0 \\ \lambda & 1 \end{bmatrix} $$
+
+What is the solution $\vec{x}(t)$ in this case?
+
+\sol {
+  We start by computing $D = V^{-1} A V$
+  \begin{align*} 
+  D &= \begin{bmatrix} 1 & 0 \\ \lambda C & 1 \end{bmatrix}^{-1}
+  \begin{bmatrix} 0 & \frac{1}{C} \\ -\frac{1}{L} & - \frac{R}{L} \end{bmatrix}
+  \begin{bmatrix} 1 & 0 \\ \lambda C & 1 \end{bmatrix}
+  = \begin{bmatrix} 1 & 0 \\ -\lambda C & 1 \end{bmatrix}
+  \begin{bmatrix} 0 & \frac{1}{C} \\ -\frac{1}{L} & - \frac{R}{L} \end{bmatrix}
+  \begin{bmatrix} 1 & 0 \\ \lambda C & 1 \end{bmatrix} \\
+  &= \begin{bmatrix} 0 & \frac{1}{C} \\ -\frac{1}{L} & -\lambda - \frac{R}{L} \end{bmatrix}
+  \begin{bmatrix} 1 & 0 \\ \lambda C & 1 \end{bmatrix}
+  = \begin{bmatrix} \lambda & \frac{1}{C} \\ -\frac{1}{L} -\lambda^{2} C - \frac{RC}{L} & - \lambda - \frac{R}{L} \end{bmatrix}
+  \end{align*}
+  We make the observation that:
+  $$-\frac{1}{L} -\lambda^{2} C - \frac{RC}{L} = -C(\lambda^{2} + \frac{R}{L} \lambda + \frac{1}{LC}) = 0$$
+  In addition,
+  $$-\lambda - \frac{R}{L} = \frac{R}{2L} - \frac{R}{L} = -\frac{R}{2L} = \lambda$$
+  Therefore,
+  $$D = \begin{bmatrix} \lambda & \frac{1}{C} \\ 0 & \lambda \end{bmatrix}$$
+  We then calculate $\widetilde{\vec{b}}:$
+  $$\widetilde{\vec{b}} = V^{-1} \vec{b} = \begin{bmatrix} 1 & 0 \\ -\lambda C & 1 \end{bmatrix} \begin{bmatrix} 0 \\ \frac{V_s}{L} \end{bmatrix} = \begin{bmatrix} 0 \\ \frac{V_s}{L} \end{bmatrix}$$
+  Our initial condition will remain as:
+  $$\vec{z}(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
+  Therefore we can unroll our system of differential equations as:
+  \begin{gather*}
+  \ddt{}{t} z_{1}(t) = \lambda z_{1}(t) + \frac{1}{C} z_{2}(t) \\
+  \ddt{}{t} z_{2}(t) = \lambda z_{2}(t) + \frac{V_s}{L} \\
+  \end{gather*}
+  With initial conditions:
+  $$z_{1}(0) = 0, \ \  z_{2}(0) = 0$$
+  We can now solve $z_{2}(t)$ since it is a first-order differential equation with a constant input. 
+  We solve $z_{2}(t)$ first in a manner similar to back-substitution since $z_{1}(t)$ is currently in terms of both $z_{1}(t)$ and $z_{2}(t).$
+  $$z_{2}(t) = \frac{V_s}{\lambda L} (e^{\lambda t} - 1)$$
+  Now we plug our solution for $z_{2}(t)$ and try solving for $z_{1}(t).$ 
+  Notice that our differential equation for $z_{1}(t)$ is now a first-order differential equation with non-constant input.
+  $$\ddt{}{t} z_{1}(t) = \lambda z_{1}(t) + \frac{V_s}{\lambda LC} (e^{\lambda t} - 1)$$
+  We can note that $u(t) = \frac{V_s}{\lambda LC} (e^{\lambda t} - 1)$ and solve accordingly.
+  \begin{align*}
+  z_{1}(t) &= \int\limits_{0}^t \frac{V_s}{\lambda LC} (e^{\lambda \tau} - 1) e^{\lambda(t - \tau)} d\tau = 
+  e^{\lambda t} \frac{V_s}{\lambda LC} \int\limits_{0}^t (e^{\lambda \tau} - 1) e^{- \lambda \tau} d\tau 
+  = e^{\lambda t} \frac{V_s}{\lambda LC} \big(\int\limits_{0}^t d\tau + \int\limits_{0}^t -e^{-\lambda \tau} d\tau \big) \\
+  &= e^{\lambda t} \frac{V_s}{\lambda LC} (t + \frac{1}{\lambda}(e^{-\lambda t} - 1)) = \frac{V_s}{\lambda LC} t e^{\lambda t} - \frac{V_s}{\lambda^2 LC} e^{\lambda t} + \frac{V_s}{\lambda^2 LC}
+  \end{align*}
+  We make the observation that $LC = \frac{1}{\lambda^2}$ so our solution simplifies to:
+  $$z_{2}(t) = \lambda V_s t e^{\lambda t} - V_s e^{\lambda t} + V_s$$
+
+  Now that we have our solutions, we convert back into $x_i$ coordinates.
+  $$\vec{x} = V \vec{z} = \begin{bmatrix} 1 & 0 \\ \lambda C & 1 \end{bmatrix} 
+  \begin{bmatrix} \lambda V_s t e^{\lambda t} - V_s e^{\lambda t} + V_s \\ \frac{V_s}{\lambda L} (e^{\lambda t} - 1) \end{bmatrix}
+  = \begin{bmatrix} \lambda V_s t e^{\lambda t} - V_s e^{\lambda t} + V_s \\ \lambda^2 V_s C t e^{\lambda t} - \lambda V_s C e^{\lambda t} + \lambda V_s C + \frac{V_s}{\lambda L} (e^{\lambda t} - 1) \end{bmatrix}
+  $$
+  Simplifying yields:
+  $$\vec{x} = \begin{bmatrix} \lambda V_s t e^{\lambda t} - V_s e^{\lambda t} + V_s \\ \lambda^2 V_s C t e^{\lambda t} \end{bmatrix}$$
+  Our final solution as before will be $x_{1}(t) = V_{\text{c}}(t) = V_{out}(t)$
+  $$V_{out}(t) = \lambda V_s t e^{\lambda t} - V_s e^{\lambda t} + V_s$$
+  The graph of this function looks like a decaying exponential with rate of decay faster than $\lambda.$
+}
+
+
+
+
+
+
+
+% \sol{
+% \begin{align}
+% i(t) = Ie^{j\omega t} + \overline{I}e^{-j\omega t} = 6 \cos (\omega t - \frac{7\pi}{12})  \mbox{ mA}
+% \end{align}
+% \begin{align}
+% v_C(t)= Ve^{j\omega t} + \overline{V}e^{-j\omega t}= 6 \cos(\omega t -\frac{13\pi}{12}) \mbox{ V}
+% \end{align}
+% The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
+% }
+
+% \ans{
+% \begin{align}
+% i(t) = \mathfrak{Re}[Ie^{j\omega t}] = \mathfrak{Re} [6e^{-j\frac{7\pi}{12}} e^{j\omega t}] = 6 \cos (\omega t - \frac{7\pi}{12})  \mbox{ mA}
+% \end{align}
+% \begin{align}
+% v_C(t)=\mathfrak{Re}[V_Ce^{j\omega t}]=\mathfrak{Re}[6e^{-j\frac{13\pi}{12}}e^{j\omega t}]=6 \cos(\omega t -\frac{13\pi}{12}) \mbox{ V}
+% \end{align}
+% The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
+% }
+
+\end{enumerate}
