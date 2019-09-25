@@ -1,0 +1,13 @@
+\begin{center}
+		\begin{circuitikz}[scale=0.8]
+			\draw (0,4) 
+			to [V, l= $V_s$] (0,0)
+			(0,4)
+			to [R = $R$,v=$V_R$] (4,4)
+			to [L = $L$,v=$V_L$,i=$i(t)$] (8,4)
+			to [short] (10,4)
+			to [C = $C$,v=$V_{\text{out}}$] (10,0)	
+			to [short] (0,0);
+		\end{circuitikz}
+	\end{center}
+\begin{enumerate}

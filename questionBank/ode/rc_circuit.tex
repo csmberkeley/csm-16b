@@ -1,5 +1,11 @@
+% Authors: Kyle Tanghe, Elena Jia, Ramsey Mardini
+% Email: ramseymardini@berkeley.edu
+
 \qns{RC Circuit}
-\qcontributor{Kyle Tanghe, Elena Jia, Ramsey Mardini}
+
+\meta {
+	Prereqs: Circuit analysis with KCL and Ohm's Law, Voltage-Current relationship of a capacitor.
+}
 
 Consider the circuit below, assume that when $t\leq0$, the capacitor has no charge stored $(V_{\text{c}}(t=0) = 0)$.
 At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
@@ -16,16 +22,16 @@ At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$
 \qitem Write out the KCL equations associated with the circuit when the switch is closed.
 
 \meta{
-To simplify your circuit analysis, mark the negative end of the voltage source as ground.
+	To simplify your circuit analysis, mark the negative end of the voltage source as ground.
 }
 
 \sol{
 \begin{align*}
-\intertext{We denote the voltage to the left of resistor to be $V_s$.
-We obtain the following differential equations. KCL at node between the resistor and capacitor gives}
-\frac{V_s - V_{\text{c}}}{R} = C\frac{dV_{\text{c}}}{dt} \\
-\intertext{Additionally, KCL at the node between the resistor and voltage sources gives:}
-\frac{V_{\text{s}} - V_{\text{c}}}{R} +  i_{\text{Vs}} = 0
+\intertext{We denote the voltage to the left of resistor to be $V_s.$}
+\intertext{By KCL, the current through the resistor } i_R = i_{\text{C}}.
+\intertext{Ohm's law tells us that } i_R = \frac{V_s - V_{\text{c}}}{R}
+\intertext{The voltage-current relationship of a capacitor tells us that }i_\text{C} = C\ddt{V_{\text{c}}}{t}
+\intertext{Therefore, } \frac{V_s - V_{\text{c}}}{R} = C \ddt{V_{\text{c}}}{t}
 \end{align*}
 }
 
@@ -43,11 +49,16 @@ We obtain the following differential equations. KCL at node between the resistor
 \intertext{From the previous problem we know that when the switch is closed,}
 \frac{V_{\text{s}}- V_{\text{c}}}{R} = C\frac{dV_{\text{c}}}{dt} \\
 \intertext{Thus we obtain}
-C\frac{dV_{\text{c}}}{dt} + \frac{V_{\text{c}}}{R} - \frac{V_{\text{S}}}{R}=0
+\ddt{V_{\text{c}}}{t} + \frac{V_{\text{c}}}{RC} = \frac{V_{\text{S}}}{RC}
 \end{align*}
 }
 
 \qitem What is the initial condition for $V_{\text{c}}(t)$ (i.e. $V_{\text{c}}(t=0)$) and what is $V_{\text{c}}(t \to \infty)$?
+
+\meta{
+	The concepts in this question are from a previous semester. The solution is saying that we assumed $V_{\text{c}}(0^{-}) = 0$
+	and since $V_{\text{c}}(t)$ is differentiable, it must be continuous, meaning after the switch closes, $V_{\text{c}}(0^{+}) = V_{\text{c}}(0) = 0.$ 	
+}
 
 \sol{
 No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{\text{c}}=\SI{0}{\volt}$ before $t=0$.
