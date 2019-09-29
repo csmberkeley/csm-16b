@@ -1,32 +1,55 @@
 \qns{Phasors Through Impedance}
 
+\meta{Prereqs: Complex Numbers, Complex Exponentials, Euler's Formula}
+
 Analyzing circuits with only resistors is easy due to Ohm's Law: $v(t)=i(t) \cdot R$.
 When adding capacitors or inductors however, the voltage/current relationship becomes complicated due to derivatives resulting in differential equations.
 In fact, for each capacitor/inductor added to a circuit, a higher order differential equation arises, which becomes difficult to solve.
 
-But let's look at the $i-v$ relationship across a capacitor when $v(t) = V_{0} \cos(\omega{} t+\phi{})$.
-Taking a derivative and applying trig identities yields $i(t)=\omega C \cdot V_{0} \cos(\omega{} t + \phi{} + \frac{\pi{}}{2})$, 
-which is still a cosine wave with frequency $\omega{}$!
+However, let's look at the $i-v$ relationships across a capacitor when $v(t) = e^{st}$ for some scalar $s.$
+\begin{equation}
+i(t) = C\ddt{}{t} v(t) = sC e^{st}
+\end{equation}
+Notice that this is still the same exponential function multiplied by a scaling factor of $sC.$ \vskip 0.5pt
+Now if we look at a sinusoidal voltage $v(t) = V_{0} \cos(\omega{} t+\phi{}),$ we can write this voltage as a sum of complex exponentials using Euler's formula.
+\begin{equation}
+v(t) = V_{0} \cos(\omega{} t+\phi{}) = \frac{V_{0}}{2} e^{j(\omega{} t + \phi{})} + \frac{V_{0}}{2} e^{-j(\omega{} t + \phi{})}
+\end{equation}
+We can similarly look at the current across a capacitor, use trigonometric identities and see that:
+\begin{equation} 
+i(t) = \omega C \cdot V_{0} \cos(\omega{} t + \phi{} + \frac{\pi}{2})
+\end{equation}
+Which again is a cosine wave with the same frequency $\omega.$ \vskip 0pt
+Therefore, to relate the current and voltages, we will define a quantity called a phasor:
+\begin{equation}
+\widetilde{V} = \frac{1}{2} V_{0} e^{j \phi{}} \ \  \text{and} \ \ \widetilde{I} = \frac{1}{2} I_{0} e^{j \phi{}}
+\end{equation}
+We will use these phasors to create an extension of Ohm's Law for capacitors and inductors through the relationship
+\begin{equation}
+\widetilde{V} = \widetilde{I} \cdot Z
+\end{equation}
+The quantity $Z$ is defined as the \textbf{impedance} of a circuit component.
 
-In this question, we look at an extension of Ohm's Law for capacitors and inductors through the relationship $\widetilde{V} = \widetilde{I} \cdot Z$.
-The quantity $Z$ is defined as the impedance of a circuit component.
+% \begin{enumerate}
+
+% \qitem Let $v(t) = V_{0} \cos(\omega{}t + \phi{})$.
+% Using Euler's Formula, write $v(t)$ as a sum of two complex exponentials.
+
+% \sol{
+% Euler's formula says that $e^{j \theta} = \cos(\theta) + j \sin(\theta).$ \vskip 1pt
+% Since we want to write $\cos(\theta)$ as a sum of exponentials, we want to cancel the $j \sin(\theta)$ term. \vskip 1pt
+% This can be done by using $e^{-j \theta} = \cos(-\theta) + j \sin(-\theta) = \cos(\theta) - j \sin(\theta).$ \vskip 1pt
+% Adding the two equations, we see that $\cos(\theta) = \frac{1}{2} e^{j \theta} + \frac{1}{2} e^{-j \theta}.$ \vskip 1pt
+% Using this information we see that, 
+% $$v(t) = \frac{V_{0}}{2} e^{j(\omega{} t + \phi{})} + \frac{V_{0}}{2} e^{-j(\omega{} t + \phi{})}.$$
+% }
+
+% \end{enumerate}
+
+% Using these complex exponentials, we define a phasor: $\frac{\widetilde{V}}{2} = V_{0}e^{j\phi{}}$ and its complex conjugate $\overline{\widetilde{V}} = \frac{V_{0}}{2}e^{-j\phi{}}$ and it follows that $v(t) = \widetilde{V}e^{j\omega{}t} + \overline{\widetilde{V}}e^{-j\omega{}t}$. \vskip 1pt
+% In the following parts, we define relationships between $\widetilde{V}$ and $\widetilde{I}$ where $i(t) = \widetilde{I}e^{j\omega{}t} + \overline{\widetilde{I}}e^{-j\omega{}t}$.
 
 \begin{enumerate}
-
-\qitem Let $v(t) = V_{0} \cos(\omega{}t + \phi{})$.
-Using Euler's Formula, write $V(t)$ as a sum of two complex exponentials.
-
-\sol{
-Using our answer from the previous question, $v(t) = \frac{V_{0}}{2} e^{j(\omega{} t + \phi{})} + \frac{V_{0}}{2} e^{-j(\omega{} t + \phi{})}.$
-}
-
-\end{enumerate}
-
-Using these complex exponentials, we define a phasor: $\widetilde{V} = V_{0}e^{j\phi{}}$ and its complex conjugate $\overline{\widetilde{V}} = \frac{V_{0}}{2}e^{-j\phi{}}$ and it follows that $v(t) = \widetilde{V}e^{j\omega{}t} + \overline{\widetilde{V}}e^{-j\omega{}t}$.
-In the following parts, we define relationships between $\widetilde{V}$ and $\widetilde{I}$ where $i(t) = \widetilde{I}e^{j\omega{}t} + \overline{\widetilde{I}}e^{-j\omega{}t}$.
-
-\begin{enumerate}[resume]
-
 \qitem Let $v(t) = V_{0} \cos(\omega{}t + \phi{})$ be the voltage across a capacitor. Derive an expression for $i(t)$ in the form $i(t) = A\widetilde{V}e^{j\omega{}t} + B\overline{\widetilde{V}}e^{-j\omega{}t}$ for $A, B \in{} \mathbb{C}$.\\ 
 \textit{Hint: Remember that $e^{j\frac{\pi{}}{2}} = j$.}
 
