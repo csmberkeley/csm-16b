@@ -1,45 +1,42 @@
+% Author: Kyle Tanghe, Taejin Hwang
+% Email: taejin@berkeley.edu
+
 \qns{Analyzing Circuits in the Phasor Domain}
-\qcontributor{Kyle Tanghe}
 
 Consider the circuit below:
-
-	\begin{center}
-		\begin{circuitikz}[scale=0.8]
-			\draw (0,2) to [sV,l=$v_{in}(t)$](0,-2)
-			(0,2)--(0.5,2) to [R=$2\Omega$](2.5,2)--(3,2)
-			--(3,3) to [L=0.1mH](5,3)--(5,2)
-			(3,2)--(3,1) to [R=$1\Omega$](5,1)--(5,2)
-			to [short,-o](14,2)
-			(7,2) to [R=$1\Omega$](7,0) to [C=0.1mF](7,-2)
-			(10,2) to [R=$1\Omega$](10,0) to [L=0.1mH](10,-2)
-			(0,-2) to [short,-o](14,-2)
-			(14,2) to [open,v^=$v_{out}(t)$](14,-2);
-		\end{circuitikz}
-	\end{center}
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,2) to [sV,l=$v_{in}(t)$](0,-2)
+    (0,2)--(0.5,2) to [R=$2\Omega$](2.5,2)--(3,2)
+    --(3,3) to [L=0.1mH](5,3)--(5,2)
+    (3,2)--(3,1) to [R=$1\Omega$](5,1)--(5,2)
+    to [short,-o](14,2)
+    (7,2) to [R=$1\Omega$](7,0) to [C=0.1mF](7,-2)
+    (10,2) to [R=$1\Omega$](10,0) to [L=0.1mH](10,-2)
+    (0,-2) to [short,-o](14,-2)
+    (14,2) to [open,v^=$v_{out}(t)$](14,-2);
+  \end{circuitikz}
+\end{center}
 
 \begin{enumerate}
 
-\qitem Find $v_{out}(t)$ for an input voltage $v_{in}(t)=10$ V ($v_{in}$ is a DC voltage).
-
-\meta{
-	Testing meta here
-}
+\qitem Let $v_{in}(t) = 10\SI{\volt}.$ When the system is at steady state, what is $v_{out}(t)
 
 \sol{
 At DC, inductors act as shorts and capacitors act as opens. Thus, we can get rid of the middle two resistors, as well as all the inductors and capacitors, from our circuit in DC analysis. An equivalent circuit can be drawn:
 \begin{center}
-		\begin{circuitikz}[scale=0.8]
-			\draw (0,2) to [sV,l=$v_{in}(t)$](0,-2)
-			(0,2)--(4,2) to [R=$2\Omega$](6,2)
-			to [short,-o](14,2)
-			(10,2) to [R=$1\Omega$](10,-2)
-			(0,-2) to [short,-o](14,-2)
-			(14,2) to [open,v^=$v_{out}(t)$](14,-2);
-		\end{circuitikz}
-	\end{center}
-	
-	This is just a voltage divider.
-	$$v_{out}=\frac{1}{1+2}v_{in}=\frac{10}{3}\text{ V}$$
+    \begin{circuitikz}[scale=0.8]
+      \draw (0,2) to [sV,l=$v_{in}(t)$](0,-2)
+      (0,2)--(4,2) to [R=$2\Omega$](6,2)
+      to [short,-o](14,2)
+      (10,2) to [R=$1\Omega$](10,-2)
+      (0,-2) to [short,-o](14,-2)
+      (14,2) to [open,v^=$v_{out}(t)$](14,-2);
+    \end{circuitikz}
+  \end{center}
+  
+  This is just a voltage divider.
+  $$v_{out}=\frac{1}{1+2}v_{in}=\frac{10}{3}\text{ V}$$
  }
 
 \qitem Find $v_{out}(t)$ for an input $v_{in}(t) = 10\text{ sin}(10^4t+30^\circ)$ V. Your final answer should be in the time domain. (Hint: atan$(\frac{4}{3})\approx 51^\circ$).
@@ -57,34 +54,34 @@ Z_C &= \frac{1}{j\omega C} = \frac{1}{10^4*10^{-4}j} = -1j
 
 Redrawing the circuit with impedance values:
 \begin{center}
-		\begin{circuitikz}[scale=0.8]
-			\draw (0,2) to [sV,l=$10e^{-j60^\circ}$](0,-2)
-			(0,2)--(0.5,2) to [R=$2\Omega$](2.5,2)--(3,2)
-			--(3,3) to [L=1j](5,3)--(5,2)
-			(3,2)--(3,1) to [R=$1\Omega$](5,1)--(5,2)
-			to [short,-o](14,2)
-			(7,2) to [R=$1\Omega$](7,0) to [C=-1j](7,-2)
-			(10,2) to [R=$1\Omega$](10,0) to [L=1j](10,-2)
-			(0,-2) to [short,-o](14,-2)
-			(14,2) to [open,v^=$\widetilde{V}_{out}$](14,-2);
-		\end{circuitikz}
-	\end{center}
+    \begin{circuitikz}[scale=0.8]
+      \draw (0,2) to [sV,l=$10e^{-j60^\circ}$](0,-2)
+      (0,2)--(0.5,2) to [R=$2\Omega$](2.5,2)--(3,2)
+      --(3,3) to [L=1j](5,3)--(5,2)
+      (3,2)--(3,1) to [R=$1\Omega$](5,1)--(5,2)
+      to [short,-o](14,2)
+      (7,2) to [R=$1\Omega$](7,0) to [C=-1j](7,-2)
+      (10,2) to [R=$1\Omega$](10,0) to [L=1j](10,-2)
+      (0,-2) to [short,-o](14,-2)
+      (14,2) to [open,v^=$\widetilde{V}_{out}$](14,-2);
+    \end{circuitikz}
+  \end{center}
 
 
 Now that we have the impedance of each component, we can treat them as resistors. By grouping impedances together, we can form a voltage divider:
 
 
 \begin{center}
-		\begin{circuitikz}[scale=0.8]
-			\draw (0,2) to [sV,l=$10e^{-j60^\circ}$](0,-2)
-			(0,2)--(4,2) to [generic=$Z_1$](6,2)
-			to [short,-o](14,2)
-			(10,2) to [generic=$Z_2$](10,-2)
-			(0,-2) to [short,-o](14,-2)
-			(14,2) to [open,v^=$\widetilde{V}_{out}$](14,-2);
-		\end{circuitikz}
-	\end{center}
-	
+    \begin{circuitikz}[scale=0.8]
+      \draw (0,2) to [sV,l=$10e^{-j60^\circ}$](0,-2)
+      (0,2)--(4,2) to [generic=$Z_1$](6,2)
+      to [short,-o](14,2)
+      (10,2) to [generic=$Z_2$](10,-2)
+      (0,-2) to [short,-o](14,-2)
+      (14,2) to [open,v^=$\widetilde{V}_{out}$](14,-2);
+    \end{circuitikz}
+  \end{center}
+  
 Using "||" to denote two impedances in parallel:
 \begin{align*}
 Z_1 &= 2 + (1||j) = 2+\frac{j}{j+1} = \frac{2+3j}{1+j} \\

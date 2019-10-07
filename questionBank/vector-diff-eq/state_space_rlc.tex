@@ -77,18 +77,18 @@
     \sol {
         The main term that will determine whether the eigenvalues are real or complex is the $\sqrt{(\frac{1}{R_s C})^2 - \frac{4}{LC}}$ term. 
         \begin{enumerate}
-        \item If this term is greater than 0, or if $R > 2 \sqrt{\frac{L}{C}},$ then the eigenvalues must be real and distinct.
-        \item If this term less than 0, or if $R < 2 \sqrt{\frac{L}{C}},$ then the eigenvalues must be complex.
-        \item If this term is equal to 0, or if $R = 2 \sqrt{\frac{L}{C}},$ then there will be a unique real eigenvalue.
+        \item If this term is greater than 0, or if $R_s < \sqrt{\frac{L}{4C}},$ then the eigenvalues must be real and distinct.
+        \item If this term less than 0, or if $R_s > \sqrt{\frac{L}{4C}},$ then the eigenvalues must be complex.
+        \item If this term is equal to 0, or if $R_s = \sqrt{\frac{L}{4C}},$ then there will be a unique real eigenvalue.
         \end{enumerate}
     }
     \end{enumerate}
 
-Based on the eigenvalues, a lot can be described about the RLC circuit. 
+Based on the eigenvalues, we can describe the shape of the graph of $V_{out}$ from the RLC circuit.
 \begin{itemize}
 \item \textbf{Case I:} If the eigenvalues are real and distinct, the solution will look like a decaying exponential.
 \item \textbf{Case II:} If the eigenvalues are complex, the solution will have a decaying exponential envelope with oscillations inside.
-\item \textbf{Case III:} If there is a unique eigenvalue, the solution will look like a decaying exponential with rate of decay faster than that of (i).
+\item \textbf{Case III:} If there is a unique real eigenvalue, the solution will look like a decaying exponential with rate of decay faster than that of (i).
 \end{itemize}
 
 %     Solve the differential equation. Considering all of these cases.

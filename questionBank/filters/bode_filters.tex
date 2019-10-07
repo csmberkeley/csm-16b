@@ -1,8 +1,11 @@
+% Authors: Ramsey Mardini, Naomi Sagan, Ryan Koh
+
 \qns{Bode Plots for Filters}
-\qcontributor{Ramsey Mardini, Naomi Sagan, Ryan Koh}
+% \qcontributor{Ramsey Mardini, Naomi Sagan, Ryan Koh}
 \begin{enumerate}
 
-\qitem First, consider the following transfer function of a Low-Pass Filter: $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C_{1} = 100 pF$
+\qitem First, consider the following transfer function of a Low-Pass Filter: \vskip 1pt
+$H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C_{1} = 100 pF$
 
     \begin{enumerate}
         \qitem What is its cutoff frequency?
@@ -27,7 +30,8 @@
             domain=10^5:10^11,
             grid=both, grid style={line width=.1pt, draw=gray!30},
             width=\textwidth * 0.8,
-            height=\textwidth / 3
+            height=\textwidth / 3,
+            samples=500
           ]
             \addplot [blue,very thick] {mag(x)};
           \end{loglogaxis}
@@ -51,7 +55,8 @@
             domain=10^5:10^11,
             grid=both, grid style={line width=.1pt, draw=gray!30},
             width=\textwidth * 0.8,
-            height=\textwidth / 3
+            height=\textwidth / 3,
+            samples=500
           ]
             \addplot [blue,very thick] {phase(x)};
           \end{semilogxaxis}
@@ -74,14 +79,14 @@
   \end{figure}
 }
 
-        \meta{
-        Intuition behind the magnitude bode plot approximation: until $\omega_{c}$, the $1$ term in the denominator is larger than the $\frac{j\omega}{\omega_{c}}$ term, so $1 + \frac{j\omega}{\omega_{c}}$ can be approximated as $1$, so the entire transfer function is approximated as $1$.
-        After $\omega_{c}$, the $\frac{j\omega}{\omega_{c}}$ term in the denominator is larger, so the transfer function can be approximated as $\frac{1}{\frac{j\omega}{\omega_{c}}}$, or $\frac{\omega_{c}}{j\omega}$. \\
-        Intuition behind the phase bode plot approximation: The phase of $H(\omega)$ is $\angle(numerator) - \angle(denominator) = 0 - \angle(1 + \frac{j\omega}{\omega_{c}})$.
-        We approximate this as being equal to $-\angle(1)$, or $0$, until $\frac{\omega_{c}}{10}$ and $-\angle(\frac{j\omega}{\omega_{c}})$, or $-\frac{\pi}{2}$, after $10 \omega_{c}$.
-        Between $\frac{\omega_{c}}{10}$ and $10 \omega_{c}$, we approximate the phase with a straight line. \\
-        The same ideas apply to part (b).
-        }
+  \meta{
+  Intuition behind the magnitude bode plot approximation: until $\omega_{c}$, the $1$ term in the denominator is larger than the $\frac{j\omega}{\omega_{c}}$ term, so $1 + \frac{j\omega}{\omega_{c}}$ can be approximated as $1$, so the entire transfer function is approximated as $1$.
+  After $\omega_{c}$, the $\frac{j\omega}{\omega_{c}}$ term in the denominator is larger, so the transfer function can be approximated as $\frac{1}{\frac{j\omega}{\omega_{c}}}$, or $\frac{\omega_{c}}{j\omega}$. \\
+  Intuition behind the phase bode plot approximation: The phase of $H(\omega)$ is $\angle(numerator) - \angle(denominator) = 0 - \angle(1 + \frac{j\omega}{\omega_{c}})$.
+  We approximate this as being equal to $-\angle(1)$, or $0$, until $\frac{\omega_{c}}{10}$ and $-\angle(\frac{j\omega}{\omega_{c}})$, or $-\frac{\pi}{2}$, after $10 \omega_{c}$.
+  Between $\frac{\omega_{c}}{10}$ and $10 \omega_{c}$, we approximate the phase with a straight line. \\
+  The same ideas apply to part (b).
+  }
     \end{enumerate}
 
 \qitem Now consider the transfer function of a High-Pass Filter: $H(\omega) = \frac{j\omega C_{2}R_{2}}{j\omega C_{2}R_{2} + 1}$ where $R_{2} = 1 k\Omega$ and $C_{1} = 10 nF$
@@ -108,7 +113,8 @@
             domain=10^2:10^9,
             grid=both, grid style={line width=.1pt, draw=gray!30},
             width=\textwidth * 0.8,
-            height=\textwidth / 3
+            height=\textwidth / 3,
+            samples=500
           ]
             \addplot [blue,very thick] {mag(x)};
           \end{loglogaxis}
@@ -132,7 +138,8 @@
             domain=10^2:10^9,
             grid=both, grid style={line width=.1pt, draw=gray!30},
             width=\textwidth * 0.8,
-            height=\textwidth / 3
+            height=\textwidth / 3,
+            samples=500
           ]
             \addplot [blue,very thick] {phase(x)};
           \end{semilogxaxis}
@@ -156,114 +163,117 @@
 }
 
 \qitem What happens if we cascade these two filters together with a unity-gain buffer in between them? Consider the resulting transfer function: 
-        $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1} \cdot \frac{j\omega C_{2}R_{2}}{j\omega C_{2}R_{2} + 1}$
-    \begin{enumerate}
-        \qitem What are its cutoff frequencies?
+  $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1} \cdot \frac{j\omega C_{2}R_{2}}{j\omega C_{2}R_{2} + 1}$
+\begin{enumerate}
+  \qitem What are its cutoff frequencies?
 
-        \sol{
-        The lower cutoff is the cutoff frequency of the high-pass filter:
-        $$\omega_{c,l} = \frac{1}{R_{2}C_{2}} = 10^{5}$$
-        The upper cutoff is the cutoff frequency of the low-pass filter:
-        $$\omega_{c,u} = \frac{1}{R_{1}C_{1}} = 10^{8}$$
-        }
-        \qitem Sketch its phase and magnitude. \textit{Hint: How can we combine the plots of the individual filters together?}
+  \sol{
+  The lower cutoff is the cutoff frequency of the high-pass filter:
+  $$\omega_{c,l} = \frac{1}{R_{2}C_{2}} = 10^{5}$$
+  The upper cutoff is the cutoff frequency of the low-pass filter:
+  $$\omega_{c,u} = \frac{1}{R_{1}C_{1}} = 10^{8}$$
+  }
+  \qitem Sketch its phase and magnitude. \textit{Hint: How can we combine the plots of the individual filters together?}
 
-        \sol{
-        For both the magnitude and the phase plots, you can "add" the high-pass filter to the low-pass filter.
+  \sol{
+  For both the magnitude and the phase plots, you can "add" the high-pass filter to the low-pass filter.
+  
+  \begin{figure}[h]
+  \textbf{Magnitude plot:}
+  \centering
+    \begin{tikzpicture}[
+      declare function={
+        highpass(\omega)= (\omega < 10^5) * (\omega / 10^5) +
+                  (\omega >= 10^5) * (1)
+       ;
+       lowpass(\omega)= (\omega < 10^8) * (1) +
+                 (\omega >= 10^8) * (10^8 / \omega)
+      ;
+      }
+    ]
+      \begin{loglogaxis}[
+        ymin=0.0001, ymax=11, ylabel=$|H(\omega)|$,
+        xmin=10^2, xmax=10^11, xlabel=$\omega$,
+        domain=10^2:10^11,
+        grid=both, grid style={line width=.1pt, draw=gray!30},
+        width=\textwidth * 0.8,
+        height=\textwidth / 3.1,
+        samples=500
+      ]
+        \addplot [red,very thick] {lowpass(x)};
+        \addlegendentry{low-pass}
+        \addplot [green,very thick] {highpass(x)};
+        \addlegendentry{high-pass}
+      \end{loglogaxis}
+    \end{tikzpicture}
+  \end{figure}
+
+  \begin{figure}
+  \centering
+    \begin{tikzpicture}[
+      declare function={
+        highpass(\omega)= (\omega < 10^5) * (\omega / 10^5) +
+                  (\omega >= 10^5) * (1)
+       ;
+       lowpass(\omega)= (\omega < 10^8) * (1) +
+                 (\omega >= 10^8) * (10^8 / \omega)
+      ;
+      }
+    ]
+      \begin{loglogaxis}[
+        ymin=0.0001, ymax=10, ylabel=$|H(\omega)|$,
+        xmin=10^2, xmax=10^11, xlabel=$\omega$,
+        domain=10^2:10^11,
+        grid=both, grid style={line width=.1pt, draw=gray!30},
+        width=\textwidth * 0.8,
+        height=\textwidth / 3.1,
+        samples=500
+      ]
+        \addplot [blue,very thick] {lowpass(x) * highpass(x)};
+        \addlegendentry{band-pass}
         
-        \begin{figure}[h]
-        \textbf{Magnitude plot:}
-        \centering
-          \begin{tikzpicture}[
-            declare function={
-              highpass(\omega)= (\omega < 10^5) * (\omega / 10^5) +
-                        (\omega >= 10^5) * (1)
-             ;
-             lowpass(\omega)= (\omega < 10^8) * (1) +
-                       (\omega >= 10^8) * (10^8 / \omega)
-            ;
-            }
-          ]
-            \begin{loglogaxis}[
-              ymin=0.0001, ymax=11, ylabel=$|H(\omega)|$,
-              xmin=10^2, xmax=10^11, xlabel=$\omega$,
-              domain=10^2:10^11,
-              grid=both, grid style={line width=.1pt, draw=gray!30},
-              width=\textwidth * 0.8,
-              height=\textwidth / 3.1
-            ]
-              \addplot [red,very thick] {lowpass(x)};
-              \addlegendentry{low-pass}
-              \addplot [green,very thick] {highpass(x)};
-              \addlegendentry{high-pass}
-            \end{loglogaxis}
-          \end{tikzpicture}
-        \end{figure}
+      \end{loglogaxis}
+    \end{tikzpicture}
+  \end{figure}
 
-        \begin{figure}
-        \centering
-          \begin{tikzpicture}[
-            declare function={
-              highpass(\omega)= (\omega < 10^5) * (\omega / 10^5) +
-                        (\omega >= 10^5) * (1)
-             ;
-             lowpass(\omega)= (\omega < 10^8) * (1) +
-                       (\omega >= 10^8) * (10^8 / \omega)
-            ;
-            }
-          ]
-            \begin{loglogaxis}[
-              ymin=0.0001, ymax=10, ylabel=$|H(\omega)|$,
-              xmin=10^2, xmax=10^11, xlabel=$\omega$,
-              domain=10^2:10^11,
-              grid=both, grid style={line width=.1pt, draw=gray!30},
-              width=\textwidth * 0.8,
-              height=\textwidth / 3.1
-            ]
-              \addplot [blue,very thick] {lowpass(x) * highpass(x)};
-              \addlegendentry{band-pass}
-              
-            \end{loglogaxis}
-          \end{tikzpicture}
-        \end{figure}
+  \begin{figure}[!h]
+  \textbf{Phase plot:}
+  \centering
 
-        \begin{figure}[!h]
-        \textbf{Phase plot:}
-        \centering
+    \begin{tikzpicture}[
+      declare function={
+        lowpass(\omega)= (\omega < 10^7) * (0) +
+                  and(\omega >= 10^7, \omega < 10^9) * (-pi / 4 * (log10(\omega) - 7)) +
+                  (\omega >= 10^9) * (-pi / 2)
+       ;
+       highpass(\omega)= (\omega < 10^4) * (pi / 2) +
+                 and(\omega >= 10^4, \omega < 10^6) * (-pi / 4 * (log10(\omega) - 4) + pi / 2) +
+                 (\omega >= 10^6) * (0)
+      ;
+      }
+    ]
 
-          \begin{tikzpicture}[
-            declare function={
-              lowpass(\omega)= (\omega < 10^7) * (0) +
-                        and(\omega >= 10^7, \omega < 10^9) * (-pi / 4 * (log10(\omega) - 7)) +
-                        (\omega >= 10^9) * (-pi / 2)
-             ;
-             highpass(\omega)= (\omega < 10^4) * (pi / 2) +
-                       and(\omega >= 10^4, \omega < 10^6) * (-pi / 4 * (log10(\omega) - 4) + pi / 2) +
-                       (\omega >= 10^6) * (0)
-            ;
-            }
-          ]
+      \begin{semilogxaxis}[
+        ymin= -1.7, ymax=1.7, ylabel=$\angle H(\omega)$,
+        ytick={-pi/2, -pi/4, 0, pi/4, pi/2},
+        yticklabels={$-\frac{\pi}{2}$,$-\frac{\pi}{4}$,$0$,$\frac{\pi}{4}$,$\frac{\pi}{2}$},
+        xmin=10^2, xmax=10^11, xlabel=$\omega$,
+        domain=10^2:10^11,
+        grid=both, grid style={line width=.1pt, draw=gray!30},
+        width=\textwidth * 0.78,
+        height=\textwidth / 3.1,
+        samples=500
+      ]
+        \addplot [red,very thick] {lowpass(x)};
+        \addlegendentry{low-pass}
+        \addplot [green,very thick] {highpass(x)};
+        \addlegendentry{high-pass}
+      \end{semilogxaxis}
+  \end{tikzpicture}
+\end{figure}
 
-            \begin{semilogxaxis}[
-              ymin= -1.7, ymax=1.7, ylabel=$\angle H(\omega)$,
-              ytick={-pi/2, -pi/4, 0, pi/4, pi/2},
-              yticklabels={$-\frac{\pi}{2}$,$-\frac{\pi}{4}$,$0$,$\frac{\pi}{4}$,$\frac{\pi}{2}$},
-              xmin=10^2, xmax=10^11, xlabel=$\omega$,
-              domain=10^2:10^11,
-              grid=both, grid style={line width=.1pt, draw=gray!30},
-              width=\textwidth * 0.78,
-              height=\textwidth / 3.1
-            ]
-              \addplot [red,very thick] {lowpass(x)};
-              \addlegendentry{low-pass}
-              \addplot [green,very thick] {highpass(x)};
-              \addlegendentry{high-pass}
-            \end{semilogxaxis}
-        \end{tikzpicture}
-      \end{figure}
-
-      \begin{figure}[!h]
-      \centering
+\begin{figure}[!h]
+\centering
 
         \begin{tikzpicture}[
           declare function={
@@ -286,7 +296,8 @@
             domain=10^2:10^11,
             grid=both, grid style={line width=.1pt, draw=gray!30},
             width=\textwidth * 0.8,
-            height=\textwidth / 3.1
+            height=\textwidth / 3.1,
+            samples=500
           ]
           \addplot [blue,very thick] {lowpass(x) + highpass(x)};
           \addlegendentry{band-pass}

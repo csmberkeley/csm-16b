@@ -262,8 +262,8 @@ Try to sketch the solution $V_{out}(t)$ as well.
   $$V_{out}(t) = \frac{-\lambda_{2} V_s e^{\lambda_{1} t}}{\lambda_{2} - \lambda_{1}} + \frac{\lambda_{1} V_s e^{\lambda_{2} t}}{\lambda_{2} - \lambda_{1}} + V_s$$
 
   Numerically, it will look like:
-  $$\vec{x}(t) = \begin{bmatrix} 1 & 1 \\ -3 & -1 \end{bmatrix} \vec{z}(t) = 
-  \begin{bmatrix} 2e^{-3t} - 6e^{-t} + 4 \\  -6e^{-3t} + 6e^{-t} \end{bmatrix}$$
+  $$\vec{x}(t) = \begin{bmatrix} 1 & 1 \\ -1 & -\frac{1}{3} \end{bmatrix} \vec{z}(t) = 
+  \begin{bmatrix} 2e^{-3t} - 6e^{-t} + 4 \\  -2e^{-3t} + 2e^{-t} \end{bmatrix}$$
 
   So $x_{1}(t) = V_{\text{c}}(t) = V_{out}(t)$
   $$V_{out}(t) = 2e^{-3t} - 6e^{-t} + 4$$
@@ -293,12 +293,11 @@ Try to sketch the solution $V_{out}(t)$ as well.
 \qitem \textbf{Step 8: Analyze the eigenvalues}
 
 The eigenvalues in step 4 were calculated using the quadratic formula: 
-$$\lambda = -\frac{R}{2L} \pm \sqrt{\big(\frac{R}{L} \big)^2 - \frac{4}{LC}}$$
+$$\lambda = -\frac{R}{2L} \pm \sqrt{\big(\frac{R}{2L} \big)^2 - \frac{1}{LC}}$$
 When are the eigenvalues of $A$ real, and when are they imaginary?
 
 \sol {
-  $\lambda$ will be real.
-  When the value of $(\frac{R}{L})^2 - \frac{4}{LC}$ is negative, $\lambda$ will be real. 
+  The value of $(\frac{R}{L})^2 - \frac{4}{LC}$ will determine whether $\lambda$ is real or complex. 
   \begin{itemize}
   \item When the value of $(\frac{R}{L})^2 - \frac{4}{LC}$ is greater than or equal to zero, $\lambda$ must be real. 
   This occurs when $R > 2 \sqrt{\frac{L}{C}}.$

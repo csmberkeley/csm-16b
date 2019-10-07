@@ -21,7 +21,7 @@ For the purposes of this question, we will consider various filter configuration
 
 \qitem Given the following filter, with $R = 100 \Omega$ and $C = 100 pF,$
 
-\input{\bank/transfer/filter_transfer/fig_low_pass}
+\input{\bank/filters/filter_transfer/fig_low_pass}
 
 \begin{enumerate}[label=(\roman*)]
   \item \textbf{Write out the transfer function $H(j\omega)$.}
@@ -35,7 +35,7 @@ For the purposes of this question, we will consider various filter configuration
 
 \begin{enumerate}[label=(\roman*)]
   \item The circuit can be simplified as:
-    \input{\bank/transfer/filter_transfer/fig_simplified_low_pass}
+    \input{\bank/filters/filter_transfer/fig_simplified_low_pass}
 
     We recognize the circuit is a voltage divider.
     Let $\widetilde{V}_{out}$ and $\widetilde{V}_{in}$ be voltage phasors.
@@ -119,9 +119,9 @@ For the purposes of this question, we will consider various filter configuration
 \end{enumerate}
 }
 
-\qitem Given the following filter with same resistor and capacitor values,
+\qitem Given the following filter, with $R = \SI{1}{\kilo\ohm}$ and $C = \SI{10}{\nano\farad},$
 
-\input{\bank/transfer/filter_transfer/fig_high_pass}
+\input{\bank/filters/filter_transfer/fig_high_pass}
 
 \begin{enumerate}[label=(\roman*)]
   \item \textbf{Write out the transfer function $H(j\omega)$.}
@@ -135,7 +135,7 @@ For the purposes of this question, we will consider various filter configuration
 \begin{enumerate}[label=(\roman*)]
    \item The circuit can be simplified as:
 
-    \input{\bank/transfer/filter_transfer/fig_simplified_high_pass}
+    \input{\bank/filters/filter_transfer/fig_simplified_high_pass}
 
     Using the voltage divider equation with impedance, we have
     \[
@@ -221,9 +221,9 @@ For the purposes of this question, we will consider various filter configuration
 \end{enumerate}
 }
 
-\qitem Given the following filter
+\qitem Given the following filter, with $R_{1} = \SI{100}{\ohm}, R_{2} = \SI{1}{\kilo\ohm}$ and $C_{1} = \SI{100}{\pico\farad}, C_{2} = \SI{10}{\nano\farad},$
 
-\input{\bank/transfer/filter_transfer/fig_band_pass}
+\input{\bank/filters/filter_transfer/fig_band_pass}
 
 \begin{enumerate}[label=(\roman*)]
   \item \textbf{Write out the transfer function $H(j\omega)$.}
@@ -238,7 +238,7 @@ For the purposes of this question, we will consider various filter configuration
 \begin{enumerate}[label=(\roman*)]
 \item The circuit can be simplified as:
 
-    \input{\bank/transfer/filter_transfer/fig_simplified_band_pass}
+    \input{\bank/filters/filter_transfer/fig_simplified_band_pass}
 
     In this circuit, the op-amp acts as a unity gain buffer which connects the two filters together.
     On the left of the op-amp is a low-pass filter, and on the right of the op-amp is a high-pass filter.
@@ -279,7 +279,6 @@ For the purposes of this question, we will consider various filter configuration
 
     For both the magnitude and the phase plots, you can "add" the plots of the high-pass filter and the low-pass filter.
     This can be done since both are on a log-log scale.
-    
     \begin{figure}[h]
     \textbf{Magnitude plot:}
     \centering
@@ -341,7 +340,7 @@ For the purposes of this question, we will consider various filter configuration
         \end{loglogaxis}
       \end{tikzpicture}
     \end{figure}
-
+    \newpage
     \begin{figure}[!h]
     \textbf{Phase plot:}
     \centering
@@ -418,5 +417,7 @@ For the purposes of this question, we will consider various filter configuration
     We can add the magnitudes of the high-pass and low-pass filter graphs together because we are graphing $\log(|H(j \omega)|) = \log(|H_{high}(j \omega)| \cdot |H_{low}(j \omega)|) = \log(|H_{high}(j \omega)|) + \log(|H_{low}(j \omega)|)$.
     We can add the phases because $\angle(H_{high}(j \omega) \cdot H_{low}(j \omega)) = \angle(H_{high}(j \omega)) + \angle(H_{low}(j \omega))$.
 \end{enumerate}
+
 }
+
 \end{enumerate}

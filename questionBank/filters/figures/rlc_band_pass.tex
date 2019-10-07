@@ -1,0 +1,16 @@
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+      \draw (0,4) 
+      to [sV, l= $V_s$] (0,0)
+      (0,4)
+      to [C = $C$] (3,4)
+      to [L = $L$,] (6,4)
+      to [short] (8,4)
+      to [R = $R$] (8,0)  
+      to [short] (0,0)
+      (8, 4) to[short, -o] (9, 4) node[anchor=west] (+) {+}
+      (8, 0) to[short, -o] (9, 0) node[anchor=west] (-) {-}
+      (+) to[open, l^=$\widetilde{V}_{\text{out}}$] (-)
+      ;
+  \end{circuitikz}
+\end{center}

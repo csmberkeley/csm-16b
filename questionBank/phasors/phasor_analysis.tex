@@ -34,7 +34,7 @@ The voltage source is given by
 \begin{align}
 v_s(t) = 8 \cos(\omega t - \frac{\pi}{4}),
 \end{align}
-with $\omega = 10^3$ rad/s, $R = $ $\text{k}\Omega$, and $C = 1$ $\mu\text{F}$.
+with $\omega = 10^3$ rad/s, $R = 1$ $\text{k}\Omega$, and $C = 1$ $\mu\text{F}$.
 
 Our goal is to obtain a solution for $v_{\text{c}}(t)$ and $i(t)$ with the sinusoidal voltage source $v_s(t)$.
 
@@ -85,7 +85,7 @@ The phasor is given by
 \qitem \textbf{Step 2: Transform circuits to phasor domain}
 
 The voltage source is represented by its phasor $\widetilde{V}_s$.
-The current $i(t)$ is related to its phasor counterpart $I$. 
+The current $i(t)$ is related to its phasor counterpart $\widetilde{I}$. 
 % by
 % \begin{align}
 % i(t) = \mathfrak{Re}[I e^{j\omega t}].
@@ -122,13 +122,13 @@ $$\widetilde{V}_s = \widetilde{I} \frac{1}{j \omega C} + \widetilde{I} R = \wide
 \qitem \textbf{Step 4: Solve for unknown variables}
 
 Solve the equation you derived in Step 3 for $\widetilde{I}$ and $\widetilde{V_{\text{c}}}$.
-What is the polar form of $I$ ($Ae^{i\theta}$, where $A$ is a positive real number)? 
+What is the polar form of $\widetilde{I}$ ($Ae^{i\theta}$, where $A$ is a positive real number)? 
 
 \sol{
 We first solve for the current $\widetilde{I}:$
 $$\widetilde{I} = \frac{\widetilde{V}_s}{R + \frac{1}{j \omega C}}$$
 We plug in for $\omega = 10^3, R = 10^3 \Omega, C = 10^{-6} \mu$F
-$$\widetilde{I} = \frac{4 e^{-j \frac{\pi}{4}}}{10^3 + \frac{1}{j 10^{3} 10^{-6}}} = \frac{4 e^{j \frac{\pi}{4}}}{10^3 - 10^3 j} = \frac{4 e^{j \frac{\pi}{4}}}{10^{3} \sqrt{2} e^{j \frac{\pi}{4}.}} = \frac{2 \sqrt{2}}{10^{3}} \mbox{ A} = 2 \sqrt{2} \mbox{ mA}$$
+$$\widetilde{I} = \frac{4 e^{-j \frac{\pi}{4}}}{10^3 + \frac{1}{j 10^{3} 10^{-6}}} = \frac{4 e^{-j \frac{\pi}{4}}}{10^3 - 10^3 j} = \frac{4 e^{-j \frac{\pi}{4}}}{10^{3} \sqrt{2} e^{-j \frac{\pi}{4}.}} = \frac{2 \sqrt{2}}{10^{3}} \mbox{ A} = 2 \sqrt{2} \mbox{ mA}$$
 
 To solve for $\widetilde{V}_{\text{c}}$ we use the voltage-current relationship $\widetilde{V} = \widetilde{I} \frac{1}{j \omega C}$
 $$\widetilde{V}_{\text{c}} = \frac{1}{10^{-3} j} \frac{2 \sqrt{2}}{10^{3}} = 2 \sqrt{2} e^{-j \frac{\pi}{2}} \mbox{ V}$$
