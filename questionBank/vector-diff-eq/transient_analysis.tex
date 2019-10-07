@@ -300,14 +300,18 @@ When are the eigenvalues of $A$ real, and when are they imaginary?
   \end{itemize}
 }
 
-\qitem \textbf{Step 9: The three different responses}
+\qitem \textbf{Step 9: The Real and Complex Responses}
 
 The eigenvalues of the matrix $A$ determine the transient response of the RLC circuit. 
 Consider both cases for which the eigenvalues are real, and for when they are complex.
 
 \sol {
   If the eigenvalues are real, note that they will both be negative. 
-  This means that the response will be a sum of decaying exponentials.
+  You can show this rigorously by observing that $-\frac{R}{2L}$ is negative, and
+  $$\frac{1}{2} \sqrt{\big(\frac{R}{L}\big)^2 - \frac{4}{LC}} = \sqrt{\big(\frac{R}{2L}\big)^2 - \frac{1}{LC}} < \frac{R}{2L}$$
+  Since $L$ and $C$ must be positive values. \\
+
+  This means that the response will be a sum of decaying exponentials. \\
 
   However, when the eigenvalues are complex, notice that the real part of the exponential will still be negative.
   We can use the fact that for a complex number $z = a + bj,$
@@ -315,12 +319,23 @@ Consider both cases for which the eigenvalues are real, and for when they are co
     e^{z} = e^{a + bj} = e^{a} e^{bj} = e^{a} (\cos (b) + j \sin(b))
   \end{equation}
 
+  
+
   Luckily, the two complex eigenvalues are complex conjugates of each other, so the final answer will be a linear combination of a decaying exponential multiplied with a cosine. The decaying exponential creates an envelope, and the cosine wave will bring out oscillations.
 }
 
 \qitem \textbf{Step 10: The critically damped response}
 
-An issue arises when we have one distinct eigenvalue. This means it is no longer possible to convert our system into a basis made up of eigenvectors, since matrix $V$ will have linearly dependent columns. Therefore, we will convert our system to a basis where the linear operator will have an upper triangular matrix representation. To do this, we let the change of coordinates matrix be:
+\meta {
+  If students ask why we pick $\vec{v_2} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ explain to them why this vector must be linearly independent to $\vec{v_1} = \begin{bmatrix} 1 \\ \lambda \end{bmatrix}.$ 
+  Beyond that, $\vec{v_2}$ is considered a "generalized" eigenvector that makes the linear operator have upper triangular "Jordan" form, in this new basis.
+  However, this is way out of scope of 16B, and it is enough to understand why $\vec{v_1}$ and $\vec{v_2}$ are linearly independent.
+}
+
+An issue arises when we have one distinct eigenvalue. This means it is no longer possible to convert our system into a basis made up of eigenvectors, since the eigenspace of $A$ is one dimensional. This can be seen by observing that the columns of $V$ will be linearly dependent. 
+
+Therefore, we will convert our system to a basis where the linear operator will have an upper triangular matrix representation. To do this, we pick $\vec{v_2} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ as our second basis vector. Therefore, 
+the change of coordinates matrix will be:
 
 $$ V = \begin{bmatrix} 1 & 0 \\ \lambda & 1 \end{bmatrix} $$
 

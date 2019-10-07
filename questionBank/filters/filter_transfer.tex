@@ -162,36 +162,33 @@ For the purposes of this question, we will consider various filter configuration
 
   \item The circuit can be simplified as:
 
-    \input{\bank/transfer/filter_transfer/fig_simplified_band_pass}
+     \input{\bank/transfer/filter_transfer/fig_simplified_band_pass}
 
     In this circuit, the op-amp acts as a unity gain buffer which connects the two filters together.
     On the left of the op-amp is a low-pass filter, and on the right of the op-amp is a high-pass filter.
-    Let $H_1(\omega)$ and $H_2(\omega)$ be transfer functions for the low-pass and high-pass filters respectively.
-    We can write $\widetilde{V}_{out}$ in terms of $H_1(\omega)$, $H_2(\omega)$, and $\widetilde{V}_{in}$
+    Let $H_1(j \omega)$ and $H_2(j \omega)$ be transfer functions for the low-pass and high-pass filters respectively.
+    We can write $\widetilde{V}_{out}$ in terms of $H_1(j \omega)$, $H_2(j \omega)$, and $\widetilde{V}_{in}$
     \[
-      \widetilde{V}_{out} = H_2(\omega)H_1(\omega)\widetilde{V}_{in}
+      \widetilde{V}_{out} = H_1(j \omega)H_2(j \omega)\widetilde{V}_{in}
     .\]
 
     Thus, the circuit has the transfer function
 
     \[
-      H(j \omega) = H_2(\omega)H_1(\omega)
+      H(j \omega) = H_1(j \omega)H_2(j \omega) = \frac{1}{1 + j \omega R_{1}C_{1}} \frac{j \omega R_{2}C_{2}}{1 + j \omega R_{2}C_{2}}
     .\]
 
 
   \item Using the above transfer function, we have
-    \[
-      \abs{H(j \omega)} = \abs{H_2(\omega)H_1(\omega)}
-      = \abs{H_2(\omega)}\abs{H_1(\omega)}
+     \[
+      \abs{H(j \omega)} = \abs{H_1(j \omega)H_2(j \omega)}
+      = \abs{H_1(j \omega)}\abs{H_2(j \omega)}
     .\]
-    Since $H_1(\omega)$ is a transfer function of a low-pass filter and $H_2(\omega)$ is a transfer function of a high-pass filter, for values of $\omega$ approaches $0$, $\abs{H(j \omega)}$ approaches $0$.
-    Therefore, $\widetilde{V}_{out} = 0$, it means that low frequencies are blocked by this filter.
+    Since $H_1(j \omega)$ is a transfer function of a low-pass filter and $H_2(j \omega)$ is a transfer function of a high-pass filter, for values of $\omega$ approaching $0$, $\abs{H(j \omega)}$ approaches $0$.
+    Therefore, $\widetilde{V}_{out} = 0$, meaning low frequencies are attenuated by this filter.
 
-  \item For values of $\omega$ approaches $\infty$, $\abs{H(j \omega)}$ also approaches $0$.
-    Therefore, $\widetilde{V}_{out} = 0$; it means that high frequencies are blocked by this filter. 
-
-    \vspace{0.1 cm} 
-    
+  \item For values of $\omega$ approaching $\infty$, $\abs{H(j \omega)}$ also approaches $0$.
+    Therefore, $\widetilde{V}_{out} = 0$; meaning high frequencies are also attenuated by this filter. \vskip 1pt
     Since this filter blocks both low and high frequencies, and it allows signals of a certain frequency range (a band of frequencies) to pass through, it is called a \emph{band-pass filter}.
 
 \end{enumerate}

@@ -2,13 +2,13 @@
 	\begin{centering}
 		\begin{circuitikz}
 			\draw (0, 2)
-			to[V = $u(t)$] (0, 0)
+			to[V = $v(t)$] (0, 0)
 			to node[ground]{} (0, 0);
 			\draw (2.5, 2)
 			to node[circ, label={$V_{c}(t)$}]{} (2.5, 2)
-			to[R = $R$, i^<=$i_R$] (0, 2);
+			to[R = $R$, i^<=$i_{r}$] (0, 2);
 			\draw (2.5, 2)
-			to[C = $C$, i=$i_C$] (2.5, 0)
+			to[C = $C$, i=$i_{c}$] (2.5, 0)
 			to node[ground]{} (2.5, 0);
 		\end{circuitikz}
 		\caption{\label{fig:circuit}RC Circuit with Voltage Source}

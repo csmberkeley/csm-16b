@@ -8,14 +8,13 @@ In fact, for each capacitor/inductor added to a circuit, a higher order differen
 
 However, let's look at the $i-v$ relationships across a capacitor when $v(t) = e^{st}$ for some scalar $s.$
 \begin{equation}
-i(t) = C\ddt{}{t} v(t) = sC e^{st}
+i(t) = C\ddt{}{t} v(t) = sC e^{st} = sC v(t)
 \end{equation}
-Notice that this is still the same exponential function multiplied by a scaling factor of $sC.$ \vskip 0.5pt
-Now if we look at a sinusoidal voltage $v(t) = V_{0} \cos(\omega{} t+\phi{}),$ we can write this voltage as a sum of complex exponentials using Euler's formula.
+Notice the similarity to Ohm's law, and that this is still the same exponential function multiplied by a scaling factor of $sC.$ Now if we look at a sinusoidal voltage $v(t) = V_{0} \cos(\omega{} t+\phi{}),$ we can write this voltage as a sum of complex exponentials using Euler's formula.
 \begin{equation}
 v(t) = V_{0} \cos(\omega{} t+\phi{}) = \frac{V_{0}}{2} e^{j(\omega{} t + \phi{})} + \frac{V_{0}}{2} e^{-j(\omega{} t + \phi{})}
 \end{equation}
-We can similarly look at the current across a capacitor, use trigonometric identities and see that:
+We can again look at the current across a capacitor, by taking a derivative and using Euler's formulas to get:
 \begin{equation} 
 i(t) = \omega C \cdot V_{0} \cos(\omega{} t + \phi{} + \frac{\pi}{2})
 \end{equation}

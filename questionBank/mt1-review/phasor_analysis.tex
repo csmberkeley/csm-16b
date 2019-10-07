@@ -45,7 +45,7 @@ Our goal is to obtain a solution for $v_{\text{c}}(t)$ and $i(t)$ with the sinus
 All voltages and currents with known sinusoidal functions should be expressed in the standard exponential format.
 Convert $v_s(t)$ into an exponential and write down its phasor representation $\widetilde{V}_s$.
 
-Note: To make things clear, the standard form of phasors in 16B will include the $\frac{1}{2}$ scalar.
+Note: To make things clear, the standard form of phasors in 16B will include the $\frac{1}{2}$ that comes from the cosine.
 
 \sol{
 \begin{align}
@@ -90,9 +90,10 @@ The current $i(t)$ is related to its phasor counterpart $\widetilde{I}$.
 % \begin{align}
 % i(t) = \mathfrak{Re}[I e^{j\omega t}].
 % \end{align}
-What are the phasor representations of $R$ and $C$?
+What are the phasor domain representations of $R$ and $C$?
 
 \sol{
+The phasor domain representations of $R$ and $C$ will be the complex impedances:
 \begin{align}
 Z_R &= R\\
 Z_C &= \frac{1}{j\omega C}
@@ -108,7 +109,7 @@ Z_C &= \frac{1}{j\omega C}
 
 \qitem \textbf{Step 3: Cast KCL and/or KVL equations in phasor domain}
 
-Use Kirchhoff's laws to write down a loop equation that relates all phasors in Step 2. 
+Use Kirchhoff's laws to write down an equation that relates all phasors in Step 2. 
 
 \sol{
 By KCL, the current through the resistor is equal to the current through the capacitor.
@@ -159,10 +160,10 @@ What is $i(t)$ and $v_{\text{c}}(t)$? What is the phase difference between $i(t)
 
 \sol{
 \begin{align}
-i(t) = Ie^{j\omega t} + \overline{I}e^{-j\omega t} = 4 \sqrt{2} \cos (\omega t)  \mbox{ mA}
+i(t) = Ie^{j\omega t} + \widetilde{I}e^{-j\omega t} = 4 \sqrt{2} \cos (\omega t)  \mbox{ mA}
 \end{align}
 \begin{align}
-v_C(t)= Ve^{j\omega t} + \overline{V}e^{-j\omega t}= 4 \sqrt{2} \cos(\omega t - \frac{\pi}{2}) \mbox{ V}
+v_C(t)= Ve^{j\omega t} + \widetilde{V}e^{-j\omega t}= 4 \sqrt{2} \cos(\omega t - \frac{\pi}{2}) \mbox{ V}
 \end{align}
 The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
 }
@@ -177,7 +178,15 @@ The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
 % The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
 % }
 
-\end{enumerate}
+\qitem It's important to keep in mind that the phasor analysis above only applies to sinusoidal inputs. 
+We make the observation that DC inputs however, are not sinusoidal. 
+That being said, what would happen if we tried doing phasor analysis on DC inputs?
 
-It's important to keep in mind that the phasor analysis above only applies to
-sinusoidal inputs. Don't make the mistake of doing phasor analysis on DC inputs!
+\sol {
+	We can actually see DC inputs as a special case of sinusoidal inputs where $\omega = 0.$
+	The capacitors will have impedance $Z_{c} = \frac{1}{0} \to \infty$ meaning capacitors will turn into open circuits.
+	The inductors will have impedance $Z_{L} = 0$ meaning inductors will turn into short circuits.
+	The results of the phasor analysis will be the steady state behavior of the circuit.
+}
+
+\end{enumerate}
