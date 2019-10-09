@@ -1,0 +1,300 @@
+% Authors: Son Tran, Naomi Sagan, Taejin Hwang
+% Emails: sontran@berkeley.edu, naomi.sagan@berkeley.edu, taejin@berkeley.edu
+
+\qns{Coordinate Change Practice}
+Many engineering problems can be difficult to solve in its standard xyz coordinates, but may be much easier in a different coordinate system.
+In this set, we will review the process of \textbf{change of basis} between coordinate systems.
+Remember that a \emph{change of basis} can be represented by a invertible, square matrix. \\
+
+Let's first start with an example.
+Consider the vector $\vec{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}.$ \\
+When we write a vector in this form, we are implicitly representing it with the \textbf{standard basis} for $\R^{2}$, $\vec{e_1} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $\vec{e_2} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.$ 
+
+This means that we can write $\vec{x}$ as a linear combination using standard basis vectors $\vec{x} = x_1\vec{e_1} + x_2\vec{e_2}$.\\
+
+Now, what if we want to represent $\vec{x}$ as a linear combination of another set of basis vectors, say $\vec{v_1} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ and $\vec{v_2} = \begin{bmatrix} 0 \\ -1 \end{bmatrix}?$ \\
+
+This means that we need to find scalars $\alpha_{1}$ and $\alpha_{2}$ such that $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$.
+We can write this equation in matrix form:
+\[
+  \begin{bmatrix}
+    | & | \\
+    \vec{v_1} & \vec{v_2} \\
+    | & |
+  \end{bmatrix}
+  \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+.\]
+
+Or equivalently:
+\[
+  \begin{bmatrix}
+    1 & 0 \\
+    1 & -1
+  \end{bmatrix}
+  \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+.\]
+Thus we can find $\alpha_1$ and $\alpha_2$ by solving a system of linear equations as seen in 16A. \\
+These scalars $\alpha_1$ and $\alpha_2$ are called the coordinates of $\vec{x}$ \textbf{in the basis} $S = \{\vec{v_1}, \vec{v_2} \}.$
+
+For the following problems, we will look at a vector $\vec{x}$ currently in the standard basis 
+and its representation in a different basis: $S = \{\vec{v_1}, \vec{v_2} \}.$ \vskip 4pt
+We will refer to the vector $\vec{x}$ using coordinates from the basis $S$ as $[\vec{x}]_S.$ In other words, \vskip 3pt 
+if $\vec{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix},$ and $[\vec{x}]_S = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix},$ then $\vec{x} = x_1 \vec{e_1} + x_2 \vec{e_2}$ and $[\vec{x}]_S = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}.$
+
+\begin{enumerate}
+  % Part(a)
+  \qitem Now let's say we have a vector that is originally using coordinates from the basis S. 
+  That is $[\vec{x}]_S = \begin{bmatrix} 3 \\ 3 \end{bmatrix}.$ We are told that the basis S is:
+  \begin{gather*}
+    \vec{v_1} =
+    \begin{bmatrix}
+      1 \\
+      1
+    \end{bmatrix},
+    \vec{v_2} = \begin{bmatrix}
+      1 \\
+      -1
+    \end{bmatrix}
+  \end{gather*}
+  What equation gives the coordinates of $\vec{x}$ in the standard basis?
+
+  % Part(a) solution
+  \sol{
+    Since the vector $\vec{x}$ is currently written in coordinates using the basis, $S = \{\vec{v_1}, \vec{v_2} \},$
+    we know that $\vec{x} = 3 \begin{bmatrix} 1 \\ 1 \end{bmatrix} + 3 \begin{bmatrix} 1 \\ -1 \end{bmatrix} = V [\vec{x}]_S$
+    where $V$ is the matrix $\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.$ Therefore,
+    $$
+    \vec{x} =
+    \begin{bmatrix}
+      1 & 1 \\
+      1 & -1
+    \end{bmatrix}
+    \begin{bmatrix}
+      3 \\
+      3
+    \end{bmatrix}
+    $$
+  }
+
+  % Part(b)
+  \qitem Let $\vec{x} = \begin{bmatrix} 2 \\ -1 \end{bmatrix}$. What equation gives the coordinates of $\vec{x}$ in the basis S? 
+  Try to express your answer in matrix-vector form. No need to do the full calculation.
+  \begin{gather*}
+    \vec{v_1} =
+    \begin{bmatrix}
+      4 \\
+      -2
+    \end{bmatrix},
+    \vec{v_2} = \begin{bmatrix}
+      -3 \\
+      -3
+    \end{bmatrix}
+  \end{gather*}
+  What equation gives the coordinates of $\vec{v}$ in the standard basis?
+
+  % Part(b) solution
+  \sol {
+    If we denote the vector in the new basis as $[\vec{x}]_S = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$, then we can write out the following equation: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} = V [\vec{x}]_S$ where V is the same matrix used in the previous part. Then it follows that $[\vec{x}]_S = V^{-1} \vec{x}.$
+  }
+
+  \end{enumerate}
+
+  Now that we've had some mechanical practice, we'll look at the representation of linear operators through different bases. \vskip 2pt
+  For a linear transformation, we can represent the input-output relationship with the matrix vector equation:
+  $\vec{y} = A \vec{x}$ where $\vec{x}$ is the input, and $\vec{y}$ is the output vector. \vskip 2pt
+  In this question we will look at how the linear operator represented by the matrix $A$ looks in a \textit{different basis} $S.$ \vskip 2pt
+  Remember that the vector $\vec{x}$ is implicitly written in the \textbf{standard basis} while the vector $[\vec{x}]_S$ is a vector using coordinates from the \textbf{S-basis.}
+
+  \begin{enumerate}[resume]
+  \qitem Let $[\vec{x}]_S$ be a vector using $S$ coordinates, and $V$ be a change of coordinates matrix from the $S$-basis to the standard basis. \\
+  How can we represent $\vec{x}$ in terms of $[\vec{x}]_S$ and $V?$
+  \sol {
+    We are given a matrix $V$ that converts standard coordinates to $\beta$ coordinates. 
+    This means that $V^{-1}$ will be the matrix that converts $\beta$ coordinates to standard coordinates.
+    Therefore, in order to get $\vec{x},$ we multiply $V^{-1}$ with $[\vec{x}]_\beta$ to get
+    $V^{-1} [\vec{x}]_\beta = [\vec{x}]_S = \vec{x}.$
+  }
+
+  \qitem Now suppose we have another basis $R = \{w_1, .. , w_n\}$ and the change of basis from $R$ to $S$ is represented by the matrix $W.$ This means that if we have a vector $[\vec{x}]_R$ in R-coordinates, to get the coordinate representation in S-coordinates, $[\vec{x}]_S = W[\vec{x}]_R.$ What would the change of basis matrix that takes a vector in $R$ coordinates and outputs a vector in standard coordinates look like?
+  \sol {
+    We want to get represent the vector $\vec{x}$ in standard coordinates.
+    We are looking for a matrix $U$ such that
+    $$\vec{x} = U [\vec{x}]_R.$$
+    We currently know that in order to go from S-coordinates to standard, we must multiply by the matrix $V.$
+    $$\vec{x} = V [\vec{x}]_S.$$
+    We also know that to go from R-coordinates to S-coordinates, we must multiply by the matrix $W.$
+    $$[\vec{x}]_S = W [\vec{x}]_R.$$
+    Therefore, by substituting $[\vec{x}]_S,$ we see that
+    $$\vec{x} = V W [\vec{x}]_R.$$
+    It follows that the matrix $U = VW.$
+  }
+
+  % \bigskip
+
+  % \begin{adjustwidth}{-20pt}{0pt}
+
+  %   For many problems (eg. solving a system of differential equations), it is useful to change to the eigenbasis. \\
+  %   For instance, if we have vectors $\vec{x_1}$ and $\vec{x_2}$ that are related by $\vec{x_2} = A \vec{x_1}$, we would want to change to a basis represented by the eigenvectors of $A$.
+  %   If $$A \vec{v_1} = \lambda_1 \vec{v_1}, A \vec{v_2} = \lambda_2 \vec{v_2}, \dots, A\vec{v_n} = \lambda_n \vec{v_n} $$
+  %   our change of basis matrix would be
+  %   $$ V =
+  %   \begin{bmatrix}
+  %     \vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
+  %   \end{bmatrix}
+  %   $$
+
+  %   This change of basis is called diagonalization because $\vec{x_1}'$ and $\vec{x_2}'$ (representations of $\vec{x_1}$ and $\vec{x_2}$ in the V-basis) are related by
+  %   $$ \vec{x_2}' =
+  %   \begin{bmatrix}
+  %     \lambda_1 & 0 & \dots & 0 \\
+  %     0 & \lambda_2 & \dots & 0 \\
+  %     \vdots & \vdots & \ddots & \vdots \\
+  %     0 & 0 & \dots & \lambda_n
+  %   \end{bmatrix} \vec{x_1}'
+  %   $$ \\
+  %   A matrix in $\mathbb{R}^{n}$ is diagonalizable if it has $n$ linearly independent eigenvectors (i.e. the $V$ matrix is invertible).
+
+  % \end{adjustwidth}
+
+  % \bigskip
+
+  % % Part(c)
+  % \qitem Let $\vec{x_2}$ be the result when a linear transformation is applied on $\vec{x_1}$.
+  % $$\vec{x_2} = A \vec{x_1} =
+  % \begin{bmatrix}
+  %   3 & -1 \\
+  %   -2 & 4
+  % \end{bmatrix}
+  % \vec{x_1}
+  % $$
+
+  % where $x_1$ and $x_2$ are in the standard basis. \\
+  % Now, let us change to the eigenbasis of $A$, represented by $\vec{v_1}$ and $\vec{v_2}$
+  % $$
+  % \vec{v_1} =
+  % \begin{bmatrix}
+  %   1 \\
+  %   -2
+  % \end{bmatrix},
+  % \vec{v_2} =
+  % \begin{bmatrix}
+  %   1 \\
+  %   1
+  % \end{bmatrix}
+  % $$
+
+  % $$ V =
+  % \begin{bmatrix}
+  %   \vec{v_1} & \vec{v_2}
+  % \end{bmatrix}
+  % $$
+
+  % Suppose $\vec{z_1}$ and $\vec{z_2}$ are the representations of $\vec{x_1}$ and $\vec{x_2}$ in the eigenbasis.
+  % So, $\vec{z_1} = V^{-1}\vec{x_1}$ and $\vec{z_2} = V^{-1}x_2$.
+  % We see that $\vec{z_1}$ and $\vec{z_2}$ are related by $\vec{z_2} = A'\vec{z_1}$.
+  % What is the matrix $A'$? \\
+  % \textit{
+  %   Write your answer in terms of matrix multiplications.
+  %   Given $\lambda_1 = 5$ and $\lambda_2 = 2$, what are the elements of $A'$?
+  % } \\
+
+
+  % % Part(c) solution
+  % \sol{
+  %   Start by writing $\vec{x_1}$ in terms of $\vec{z_1}$:
+  %   $$ \vec{x_1} = V \vec{z_1} $$
+  %   Then, apply the transformation $A$ to $\vec{x_1}$, substituting $V \vec{z_1}$ for $\vec{x_1}$:
+  %   $$ \vec{x_2} = A V \vec{x_1} $$
+  %   Finally, left-multiply both sides by $V^{-1}$ to change $\vec{x_2}$ to the eigenbasis:
+  %   $$ \vec{z_2} = V^{-1} \vec{x_2} = V^{-1} A V \vec{z_1} $$
+
+  %   $$A' = V^{-1} A V =
+  %   \begin{bmatrix}
+  %     1 & 1 \\
+  %     -2 & 1
+  %   \end{bmatrix}^{-1}
+  %   \begin{bmatrix}
+  %     3 & -1 \\
+  %     -2 & 4
+  %   \end{bmatrix}
+  %   \begin{bmatrix}
+  %     1 & 1 \\
+  %     -2 & 1
+  %   \end{bmatrix}
+  %   $$
+
+  %   $A'$ represents the transformation $A$ in the eigenbasis of $A$, so we know that $A'$ is the diagonal matrix:
+  %   $$ A' =
+  %   \begin{bmatrix}
+  %     \lambda_1 & 0 \\
+  %     0 & \lambda_2
+  %   \end{bmatrix} =
+  %   \begin{bmatrix}
+  %     5 & 0 \\
+  %     0 & 2
+  %   \end{bmatrix} $$
+
+  %   In general, suppose we have a linear transformation $T$ represented by a $n \times n$ matrix that transforms $\vec{u} \in \R^{n}$ to $\vec{v} \in \R^{n}$:
+  %   \[
+  %     \vec{v} = T\vec{u}
+  %   .\]
+  %   Suppose we have a basis vectors $\vec{a_1}, \cdots, \vec{a_n} \in \R^{n}$, and the vectors $\vec{u}, \vec{v}$ above are represented in this basis:
+  %   \[
+  %     \begin{aligned}
+  %       \vec{u_a} &= u_{a_1}\vec{a_1} + \cdots + u_{a_n}\vec{a_n} \\
+  %       \vec{v_a} &= v_{a_1}\vec{a_1} + \cdots + v_{a_n}\vec{a_n}.
+  %     \end{aligned}
+  %   \]
+  %   Thus we have
+  %   \[
+  %     \begin{aligned}
+  %       T\vec{u}          &= \vec{v} \\
+  %       TA\vec{u_a}       &= A\vec{v_a} \\
+  %       A^{-1}TA\vec{u_a} &= \vec{v_a}.
+  %     \end{aligned}
+  %   \]
+  %   By pattern matching, we see that if we set $T_a = A^{-1}TA$, we get the relationship $T_a\vec{u_a} = \vec{v_a}$ in the new basis.
+  %   The correspondences stated above are all represented in the following diagram:
+  %   % \begin{figure}[H]
+  %   %   \centering
+  %   %   \includegraphics[scale=0.1]{\bank/statespace/figures/change_of_basis.jpg}
+  %   % \end{figure}
+
+  %   \begin{figure}[H]
+  %     \centering
+  %     \begin{tikzpicture}[node distance = 2cm, thick]%
+  %       \node (1) {$\vec{u}$};
+  %       \node (2) [right=of 1] {$\vec{v}$};
+  %       \node (3) [below=of 2] {$\vec{v_a}$};
+  %       \node (4) [below=of 1] {$\vec{u_a}$};
+  %       \draw[->] (1) -- node [midway,above] {$T$} (2);
+  %       \draw[->] (1.240) -- node [midway,left]{$A^{-1}$} (4.120);
+  %       \draw[->] (4.60) -- node [midway,right]{$A$} (1.300);
+  %       \draw[->] (2.300) -- node [midway,right]{$A^{-1}$} (3.60);
+  %       \draw[->] (3.120) -- node [midway,left]{$A$} (2.240);
+  %       \draw[->] (4) -- node [midway,below] {$T_a$} (3);
+  %     \end{tikzpicture}%
+  %   \end{figure}
+  % }
+
+
+
+  % % Part(d)
+  % \qitem \textbf{True or False}: If a matrix is invertible, it can be diagonalized. \\
+
+  % % Part(d) solution
+  % \sol{ False, there are some matrices that are invertible but not diagonalizable.
+
+  % }
+
+
+
+  % % Part(e)
+  % \qitem \textbf{True or False} There is a unique eigenvalue decomposition for any matrix. \\
+
+  % % Part(e) solution
+  % \sol{False, you can always find a different basis that diagonalizes the matrix.}
+
+
+
+\end{enumerate}

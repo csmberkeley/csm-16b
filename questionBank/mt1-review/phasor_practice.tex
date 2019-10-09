@@ -20,7 +20,7 @@ Consider the circuit below:
 
 \begin{enumerate}
 
-\qitem Let $v_{in}(t) = 10\SI{\volt}.$ When the system is at steady state, what is $v_{out}(t)
+\qitem Let $v_{in}(t) = \SI{10}{\volt}.$ When the circuit reaches steady state, what is $v_{out}(t)?$
 
 \sol{
 At DC, inductors act as shorts and capacitors act as opens. Thus, we can get rid of the middle two resistors, as well as all the inductors and capacitors, from our circuit in DC analysis. An equivalent circuit can be drawn:
@@ -44,10 +44,11 @@ At DC, inductors act as shorts and capacitors act as opens. Thus, we can get rid
 \sol{
 Since our input is purely sinusoidal, we can convert everything to the frequency domain.
 \begin{align*}
-v_{in} &= 10\text{ sin}(10^4t+30^\circ)=10\text{ cos}(10^4t+30^\circ-90^\circ)=10\text{ cos}(10^4t-60^\circ) \\
+v_{in}(t) &= 10\text{ sin}(10^4t+30^\circ)=10\text{ cos}(10^4t+30^\circ-90^\circ)=10\text{ cos}(10^4t-60^\circ) \\
 \widetilde{V}_{in} &= 5e^{-j60^\circ} \\
-\omega &= 10^4
+\omega &= \SI{e4}{\radian}
 \intertext{The impedance of a resistor is the same as its resistance}
+Z_R &= R = 2 \\
 Z_L &= j\omega L = 10^4*10^{-4}j = 1j \\
 Z_C &= \frac{1}{j\omega C} = \frac{1}{10^4*10^{-4}j} = -1j
 \end{align*}
@@ -55,7 +56,7 @@ Z_C &= \frac{1}{j\omega C} = \frac{1}{10^4*10^{-4}j} = -1j
 Redrawing the circuit with impedance values:
 \begin{center}
     \begin{circuitikz}[scale=0.8]
-      \draw (0,2) to [sV,l=$10e^{-j60^\circ}$](0,-2)
+      \draw (0,2) to [sV,l=$5e^{-j60^\circ}$](0,-2)
       (0,2)--(0.5,2) to [R=$2\Omega$](2.5,2)--(3,2)
       --(3,3) to [L=1j](5,3)--(5,2)
       (3,2)--(3,1) to [R=$1\Omega$](5,1)--(5,2)
@@ -67,13 +68,11 @@ Redrawing the circuit with impedance values:
     \end{circuitikz}
   \end{center}
 
-
 Now that we have the impedance of each component, we can treat them as resistors. By grouping impedances together, we can form a voltage divider:
-
 
 \begin{center}
     \begin{circuitikz}[scale=0.8]
-      \draw (0,2) to [sV,l=$10e^{-j60^\circ}$](0,-2)
+      \draw (0,2) to [sV,l=$5e^{-j60^\circ}$](0,-2)
       (0,2)--(4,2) to [generic=$Z_1$](6,2)
       to [short,-o](14,2)
       (10,2) to [generic=$Z_2$](10,-2)
@@ -86,10 +85,8 @@ Using "||" to denote two impedances in parallel:
 \begin{align*}
 Z_1 &= 2 + (1||j) = 2+\frac{j}{j+1} = \frac{2+3j}{1+j} \\
 Z_2 &= (1+j)||(1-j) = \frac{(1+j)(1-j)}{(1+j)+(1-j)} = \frac{2}{2} = 1 \\
-\widetilde{V}_{out} &= \frac{Z_2}{Z_1+Z_2}\widetilde{V}_{in} =\frac{1}{\frac{2+3j}{1+j}+1} \widetilde{V}_{in}= \frac{1+j}{3+4j}\widetilde{V}_{in} \\
+\widetilde{V}_{out} &= \frac{Z_2}{Z_1+Z_2}\widetilde{V}_{in} =\frac{1}{\frac{2+3j}{1+j}+1} \widetilde{V}_{in}= \frac{1+j}{3+4j}\widetilde{V}_{in} 
 \intertext{Converting $\frac{1+j}{3+4j}$ to phasor form:}
-\end{align*}
-\begin{align*}
 \frac{1+j}{3+4j} &= \frac{|1+j|}{|3+4j|}e^{j(\angle(1+j)-\angle(3+4j))} = \frac{\sqrt{1^2+1^2}}{\sqrt{3^2+4^2}}e^{j(\text{atan}(1/1)-\text{atan}(4/3))} \\
 \frac{1+j}{3+4j} &= \frac{\sqrt{2}}{5}e^{j(45^\circ-51^\circ)} = \frac{\sqrt{2}}{5}e^{-j6^\circ} \\
 \widetilde{V}_{out} &=\frac{\sqrt{2}}{5}e^{-j6^\circ} \widetilde{V}_{in}=\frac{\sqrt{2}}{5}e^{-j6^\circ}5e^{-j60^\circ}=\sqrt{2}e^{-j66^\circ} \\
