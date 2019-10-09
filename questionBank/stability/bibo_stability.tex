@@ -1,0 +1,77 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{BIBO Stability}
+
+We say that a system is BIBO stable, if for every bounded input $u(t),$ the output $x(t)$ is bounded as well. \vskip 1pt
+A function $f(t)$ is bounded by a constant $B$ if: $\abs{f(t)} \leq B < \infty$ for all values of $t.$
+
+Let's take a look at the following scalar differential equation with zero input $u(t) = 0.$
+
+\begin{equation} \label{eq:h}
+\ddt{}{t} x(t) = \lambda x(t) 
+\end{equation}
+
+With initial condition $x(0) = x_{0}.$ 
+We know that the particular solution to this differential equation $x_{p}(t),$ was uniquely determined for $t \geq 0$ as:
+
+\begin{equation} \label{eq:h}
+x_{p}(t) = x_{0} e^{\lambda t}
+\end{equation}
+
+For the purposes of this question, let $\lambda \in \mathbb{R},$ although we could show all of these properties for $\lambda \in \mathbb{C}.$
+
+\begin{enumerate}
+  \qitem We can confirm that the input $u(t)$ is bounded since it is $0$ for all values of $t.$ \vskip 1pt 
+  Check if $x_{p}(t)$ is bounded for the three following cases:
+  \begin{enumerate}[label=(\roman*)]
+    \item $\lambda > 0$
+    \item $\lambda = 0$
+    \item $\lambda < 0$
+  \end{enumerate}
+
+  \sol {
+  Remember that in order for a function, $f(t),$ to be bounded, it must be less than a constant B \textbf{for all} values of $t.$ We will first consider what happens when $\lambda > 0.$ \vskip 1pt
+  \begin{enumerate}[label=(\roman*)]
+    \item If $\lambda > 0,$ then $x_{p}(t) = x_{0} e^{\lambda t},$ which is a strictly increasing function. As $t \to \infty, x_{p}(t) \to \infty$ which implies that $x_{p}(t)$ is unbounded. 
+    \item If $\lambda = 0,$ then $x_{p}(t) = x_{0} e^{0 \cdot t} = x_{0}.$ Therefore, $x_{p}(t)$ is bounded by $x_{0}.$
+    \item If $\lambda < 0,$ then $x_{p}(t) =  x_{0} e^{\lambda t}$ which is a strictly decreasing function. As $t \to \infty, x_{p}(t) \to x_{0}$ so this function is bounded by $x_{0}$ as well.
+  \end{enumerate} 
+  }
+
+  \qitem Based on the conditions from the previous part, can you say anything about the BIBO stability for the three cases?
+
+  \sol {
+    We've shown that for $\lambda > 0,$ a bounded input $u(t) = 0,$ gave an unbounded output. 
+    Therefore, this system is not BIBO stable for $\lambda > 0.$ \vskip 1pt
+    We however, cannot say that the other two are BIBO stable, since we must show that \textbf{every} bounded input gives rise to an unbounded output. 
+  }
+
+  \qitem Now let's consider an input $u(t) = e^{\lambda t},$ can you say anything about the BIBO stability for $\lambda = 0?$
+
+  \sol {
+
+    If $u(t) = e^{\lambda t},$ then 
+    $$x_{p}(t) = x(0) e^{\lambda t} + \int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau =  x(0) e^{\lambda t} + \int\limits_{0}^{t} e^{\lambda \tau} e^{\lambda(t - \tau)} d \tau = x(0) e^{\lambda t} + \int\limits_{0}^{t} \tau d \tau = x(0) e^{\lambda t} + t$$
+
+    As $t \to \infty, \ x_{p}(t) \to \infty$ so we in fact see that for $\lambda = 0,$ the system is \textbf{not} BIBO stable.
+
+  }
+
+  \qitem How can we show that when $\lambda < 0,$ the system is indeed BIBO stable? 
+  You should start by assuming you have a bounded input $\abs{u(t)} \leq B.$ \textit{Hint: $\abs{\int x(t) dt} \leq \int \abs{x(t)}.$}
+
+  \sol {
+    Suppose we have a bounded input $u(t)$ such that $\abs{u(t)} \leq B.$ 
+    We know our solution is: 
+    $$x_{p}(t) = x(0) e^{\lambda t} + \int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau.$$
+    We already know that $x(0) e^{\lambda t}$ is stable for $\lambda < 0,$ so it remains to show the integral is stable as well. \vskip 1pt
+    Using our hint, 
+    $$\abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau} = 
+    \abs{e^{\lambda t}} \abs{\int\limits_{0}^{t} u(\tau) e^{-\lambda(\tau)} d \tau}
+    \leq \abs{e^{\lambda t}}  \int\limits_{0}^{t} \abs{u(\tau) e^{-\lambda \tau}} d \tau $$
+
+  }
+
+
+\end{enumerate}

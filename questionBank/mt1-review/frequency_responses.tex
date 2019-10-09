@@ -28,7 +28,7 @@ For the purposes of this question, we will consider various filter configuration
   \item \textbf{For values of $\omega$ approaching $0$, find $\abs{H(j\omega)}$.}
   \item \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j\omega)}$.}
   \item \textbf{What is the cutoff frequency of this filter?}
-  \item \textbf{Sketch its phase and magnitude.}
+  \item \textbf{Use a computer to sketch the phase and magnitude of $H(j \omega).$}
 \end{enumerate}
 
 \sol {
@@ -65,7 +65,8 @@ For the purposes of this question, we will consider various filter configuration
   The reason for this values is since it is the "half-power" point. Since $H(j \omega) = \frac{1}{1 + j \omega RC},$ and noting that $\frac{1}{1 + j}$ has magnitude $\frac{1}{\sqrt{2}},$ we can solve for $\omega$ and get $\omega_{c} = \frac{1}{RC} = \frac{1}{10^{2} \cdot 10^{-10}} = 10^{8}$
 
   \item {
-  Magnitude (log-log scale): The magnitude of $H(j \omega)$ is close to 1 until $\omega_{c}$, after which it starts decreasing at a quick rate.
+  Magnitude (log-log scale): 
+  Recall that the magnitude of $H(j \omega) = \frac{1}{\sqrt{1 + (\omega RC)^2}}.$ For small values of $\omega$ much less than $\omega_{c},$ the magnitude is close to 1. After this, the magnitude will start dropping off at a quick rate and reach $0$ at higher frequencies.
 
   \begin{tikzpicture}[
     declare function={
@@ -89,7 +90,7 @@ For the purposes of this question, we will consider various filter configuration
     \end{loglogaxis}
   \end{tikzpicture}
   
-  Phase (semi-log scale): The phase of $H(j \omega)$ can be approximated using the three points from the previous parts. When $\omega << \omega_{c}, \angle H(j \omega) = 0,$ when $\omega = \omega_{c}, \angle H(j \omega) = \frac{\pi}{4},$ and when $\omega >> \omega_{c}, \angle H(j \omega) = \frac{\pi}{2}.$
+  Phase (semi-log scale): The phase of $H(j \omega)$ is $-\text{atan2}(\omega RC, 1).$ We can approximate $\angle{H (j \omega)}$ by considering the three cases: When $\omega << \omega_{c}, \angle H(j \omega) = -\omega RC,$ when $\omega = \omega_{c}, \angle H(j \omega) = -\frac{\pi}{4},$ and when $\omega >> \omega_{c}, \angle H(j \omega) = -\frac{\pi}{2}.$
 
   \begin{tikzpicture}[
     declare function={
@@ -128,7 +129,7 @@ For the purposes of this question, we will consider various filter configuration
   \item \textbf{For values of $\omega$ approaching $0$, find $\abs{H(j\omega)}$.}
   \item \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j\omega)}$.}
   \item \textbf{What is the cutoff frequency of this filter?}
-  \item \textbf{Sketch its phase and magnitude.}
+  \item \textbf{Use a computer to sketch the phase and magnitude of $H(j \omega).$}
 \end{enumerate}
 
 \sol {
@@ -163,9 +164,7 @@ For the purposes of this question, we will consider various filter configuration
   \item Doing a similar analysis as before, we can calculate $\omega_{c} = \frac{1}{RC} = \frac{1}{10^{3} \cdot 10^{-8}} = 10^{5}$
 
   \item 
-  Magnitude (log-log scale): The magnitude of $H(j \omega)$ is close to 0 for $\omega$ close to 0. It will increase at a very slow rate
-
-  until $\omega_{c}$, after which it starts increasing at a quick rate, but will asymptotically reach $1$ as $\omega >> \omega_{c}.$
+  Magnitude (log-log scale): The magnitude of $H(j \omega) = \frac{\omega RC}{\sqrt{1 + (\omega RC)^2}}.$ For small values of $\omega << \omega_{c},$ the magnitude is close to 0, but is increasing at a slow rate. At $\omega = \omega_{c}, \abs{H(j \omega)} = \frac{1}{\sqrt{2}},$ and it continually increases until it is approximately $1$ as $\omega >> \omega_{c}.$
 
   \begin{tikzpicture}[
     declare function={
@@ -191,7 +190,7 @@ For the purposes of this question, we will consider various filter configuration
     \vspace{0.3 cm}
   \end{tikzpicture}
   
-  Phase (semi-log scale): The phase of $H(j \omega)$ is $\frac{\pi}{2}$ for $\omega << \omega_{c}.$ When $\omega = \omega_{c}, \angle H(j \omega) = \frac{\pi}{4},$ for larger values of $\omega,$ it will continue to decreases until it asymptotically reaches $0$ as $\omega >> \omega_{c}.$
+  Phase (semi-log scale): The phase of $H(j \omega)$ is $\angle{H(j\omega)} = \text{atan2}(\omega RC,0) - \text{atan2}(\omega RC, 1) = \frac{\pi}{2} - \text{atan2}(\omega RC, 1).$ Therefore, for small values of $\omega << \omega_{c}, \angle{H(j\omega)} = \frac{\pi}{2} - \omega RC$ and it will continue to decrease. At $\omega = \omega_{c}, \angle H(j \omega) = \frac{\pi}{4},$ and for much larger values of $\omega,$ it will continue to decreases until it asymptotically reaches $0$ as $\omega >> \omega_{c}.$
 
   \begin{tikzpicture}[
     declare function={
@@ -230,7 +229,7 @@ For the purposes of this question, we will consider various filter configuration
   \item \textbf{For values of $\omega$ approaching $0$, find $\abs{H(j\omega)}$.}
   \item \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j\omega)}$.}
   \item \textbf{What is the cutoff frequency of this filter?}
-  \item \textbf{Sketch its phase and magnitude.}
+  \item \textbf{Use a computer to sketch the phase and magnitude of $H(j \omega).$}
 \end{enumerate}
 
 \sol {

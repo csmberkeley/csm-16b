@@ -1,0 +1,96 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{Controllability Theory}
+
+We are given a discrete time state space system, where $\vec{x}$ is our \textbf{state vector,} $A$ is the state space \textbf{model}, $B$ is the input \textbf{matrix}, and $\vec{u}$ is the control input \textbf{vector.}
+\begin{equation}
+\vec{x}(t + 1) = A \vec{x}(t) + B\vec{u}(t)
+\end{equation}
+We want to know if this system is “controllable”; if given set of inputs, we can get the system from any initial state to any final state. This has an important physical meaning; if a physical system is controllable, that means that we can get anywhere in the state space. If a robot is controllable, it is able to travel anywhere in the system it is living in (given enough control inputs).
+
+We will start with the assumption that the system started at rest: $\vec{x}(0) = \vec{0},$ and our state space will be $\mathbb{R}^{n}.$ 
+
+\begin{enumerate}
+
+\qitem How can you write out $\vec{x}(1)$ using the state space equation? How about $\vec{x}(2)?$
+
+\sol {
+  Using the state space model $\vec{x}(t + 1) = A \vec{x}(t) + B \vec{u}(t),$
+  $$\vec{x}(1) = A \vec{x}(0) + B \vec{u}(0) = A \vec{0} + B \vec{u}(0) = B \vec{u}(0)$$
+  At time step $t = 2,$
+  $$\vec{x}(2) = A \vec{x}(1) + B \vec{u}(1) = A (B \vec{u}(0)) + B \vec{u}(1)$$
+}
+
+\qitem Given these two observations, where in our state space can $\vec{x}$ reach at time $t = 2?$
+
+\sol {
+  From the previous part, we know that
+  $$\vec{x}(2) = A (B \vec{u}(0)) + B \vec{u}(1) = AB \vec{u}(0) + B \vec{u}(1)$$
+  Let's say $B$ has two columns, although we can generalize this for any number of columns. \vskip 1pt
+  We can then equivalently write out our equation as:
+  $$\vec{x}(2) = \begin{bmatrix} A \vec{b}_{1} & A \vec{b}_{2} \end{bmatrix} \begin{bmatrix} u_{1}(0) \\ u_{2}(0) \end{bmatrix} + 
+  \begin{bmatrix} \vec{b}_{1} & \vec{b}_{2} \end{bmatrix} \begin{bmatrix} u_{1}(1) \\ u_{2}(1) \end{bmatrix} = 
+  u_{1}(0) A \vec{b}_{1} + u_{2}(0) A \vec{b}_{2} + u_{1}(1) \vec{b}_{1} + u_{2}(1) \vec{b}_{2}.$$
+  Since $\vec{u}$ is a vector we have full control over, we can reach anywhere in:
+  $$\text{span}(A \vec{b}_{1}, A \vec{b}_{2}, \vec{b}_{1}, \vec{b}_{2})$$
+  In general, we could reach anywhere in the span of the columns of $B$ and $AB.$
+}
+
+\qitem Given these $n$ observations, where in our state space can $\vec{x}$ reach at time $t = n?$
+
+\sol {
+  We will start off in a similar manner by writing out $\vec{x}(3)$ in terms of $\vec{x}(2)$ and $\vec{u}(2).$
+  $$\vec{x}(3) = A \vec{x}(2) + B \vec{u}(2) =  A (AB \vec{u}(0) + B \vec{u}(1)) + B \vec{u}(2) = A^2 B \vec{u}(0) + AB \vec{u}(1) + B \vec{u}(2).$$
+  Using a similar argument as the previous part, we will see that we can reach anywhere in the span of the columns of $B, \ AB, \ A^{2} B.$ We can continue doing this, and see that after $n$ time steps,
+  \begin{align*}
+  \vec{x}(n) &= A \vec{x}(n - 1) + B \vec{u}(n - 1) \\
+  &= A^{n - 1}B \vec{u}(0) + A^{n - 2}B \vec{u}(1) + A^{n - 3}B \vec{u}(2) + \cdots + AB \vec{u}(n - 2) + B \vec{u}(n - 1)
+  \end{align*}
+  Therefore, after $n$ timesteps, we can reach anywhere in the span of the columns of $\{ B, \ AB, \ A^2 B, \cdots, A^{n-1} B \}.$
+}
+
+\qitem Show that if the columns of $A^{k} B$ are linearly dependent, then the columns of $A^{k + 1} B$ are also linearly dependent.
+
+\sol {
+  We first make the observation that the columns of $A^{k} B$ are:
+  $$A^{k} B = \begin{bmatrix} A^{k} \vec{b_1} & A^{k} \vec{b_2} & \cdots & A^{k} \vec{b_m} \end{bmatrix}$$
+  Where $\vec{b}_{i}$ is the $i^{th}$ column of the matrix $B.$ \vskip 1pt
+  Now let's suppose that the columns of $A^{k} B$ are linearly independent, then we can say that if we have scalars $\alpha_i$ such that 
+  $$\alpha_{1} A^{k} \vec{b_1} + \cdots + \alpha_{m} A^{k} \vec{b_m} = \vec{0},$$
+  then at least one of the $\alpha_i$ must be nonzero. Now if we left multiply by $A,$ we see that:
+  $$A(\alpha_{1} A^{k} \vec{b_1} + \cdots + \alpha_{m} A^{k} \vec{b_m}) = \alpha_{1} A^{k+1} \vec{b_1} + \cdots + \alpha_{m} A^{k+1} \vec{b_m} = \vec{0}.$$ 
+  As a result, we observe that if we have a linear combination of the columns of $A^{k + 1} B$ equal to the zero vector, at least one of the scalars is nonzero, meaning the columns of $A^{k + 1} B$ must be linearly dependent.
+}
+
+\qitem To summarize our work from the previous parts, we now define a controllability matrix
+
+\meta {
+  This is definitely the most difficult part of the question, the previous parts were more or less intuitive, but here students will have to think about how part (d) relates to "redundant" measurements.
+}
+
+\begin{equation}
+\mathcal{C} = \begin{bmatrix} B & AB & A^2B & \cdots & A^{n-2}B & A^{n-1}B \end{bmatrix}
+\end{equation}
+Based on the previous parts, when can we say our system is "controllable," it can reach anywhere in our state space? 
+
+\sol {
+  Using our knowledge from part (c), we can say that $\vec{x}$ can reach anywhere in the span of the columns of $\mathcal{C}$ after $n$ time steps. 
+  We also saw in part (d), that if $A^{k}B$ had linearly dependent columns, then $A^{k + 1}B$ will also have linearly dependent columns. \vskip 1pt
+  Therefore, if one of our measurements at time $t = k,$ were linearly dependent from our previous measurements, then the future measurements $t = k + 1$ onward, will also be linearly dependent from the previous ones. \vskip 1pt
+  We must take at least $n$ measurements, since we want to span all of $\mathbb{R}^n,$ and we have shown that every measurement taken after a redundant one will continue to be redundant. Therefore, we conclude by saying that our system can reach anywhere in our state-space $\mathbb{R}^{n}$ if $\mathcal{C}$ is a matrix of rank $n.$
+}
+
+\qitem PRACTICE: Consider the following discrete-time system with the given initial state:
+\[\vec{x}(i + 1) = \begin{bmatrix}2 & 0 & 0 \\ -3 & 0 & 1 \\ 0 & 1 & 0\end{bmatrix}\vec{x}(i) + \begin{bmatrix}0 \\ 0 \\ 2\end{bmatrix}u(t), \ \ \vec{x}(0) = \begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix}\]
+
+Is the system controllable?
+
+\sol {
+  \[\mathcal{C} = \begin{bmatrix}B & AB & A^2B\end{bmatrix} = \begin{bmatrix}0 & 0 & 0 \\ 0 & 2 & 0 \\ 2 & 0 & 2\end{bmatrix}\]
+  Since the controllability matrix $\mathcal{C}$ only has rank 2, the system is not controllable. \vskip 1pt
+  Note that the initial state has no affect on whether or not a given system is controllable.
+}
+
+
+\end{enumerate}
