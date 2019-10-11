@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{../ee16}
 \usepackage{../markup}
+\usepackage{changepage}
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usepackage{graphicx}
@@ -24,7 +25,7 @@
 \newcommand{\doublehrule}{\hrule \vskip 0.02in \hrule}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
   \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
-
+\newcommand{\ws}[1]{#1}
 %\newcommand{\sol}[1]{{\color{blue} \textbf{Solutions: } #1}} % solutions in blue
 \newcommand{\sol}[1]{} % no solution sketches
 \newcommand{\meta}[1]{} % no meta in worksheets

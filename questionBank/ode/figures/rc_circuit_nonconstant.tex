@@ -1,0 +1,16 @@
+\begin{figure}[H]
+	\begin{centering}
+		\begin{circuitikz}
+			\draw (0, 2)
+			to[sV, l = $v(t)$] (0, 0)
+			to node[ground]{} (0, 0);
+			\draw (0, 2)
+			to[R = $R$] (3.5, 2)
+			to node[circ, label={$V_{c}(t)$}]{} (3.5, 2);
+			\draw (3.5, 2)
+			to[C = $C$] (3.5, 0)
+			to node[ground]{} (3.5, 0);
+		\end{circuitikz}
+		\caption{\label{fig:circuit}RC Circuit with Non-constant Voltage Source}
+	\end{centering}
+\end{figure}

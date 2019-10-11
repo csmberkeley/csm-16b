@@ -1,0 +1,212 @@
+\qns{Controllability Practice}
+
+Consider the system 
+\[\vec{x}(t + 1) = 
+\begin{bmatrix}
+    0 & 1 & -2 \\
+    0 & 2 & 0 \\
+    -1 & 1 & 0
+\end{bmatrix} \vec{x}(t) + 
+\begin{bmatrix}
+    2 \\ 0 \\ 0
+\end{bmatrix} u(t)\]
+
+\begin{enumerate}
+    \qitem What is the controllability matrix, $\mathcal{C}$, for this system? What is its column space?
+
+    \sol{
+        For a 3-dimensional system,
+        \[\mathcal{C} = 
+        \begin{bmatrix}
+            \vec{b} & A\vec{b} & A^2 \vec{b}
+        \end{bmatrix}\]
+        Plugging in this system's $A$ and $\vec{b}$, we have
+        \[\mathcal{C} = 
+        \begin{bmatrix}
+            2 & 0 & 4 \\
+            0 & 0 & 0 \\
+            0 & -2 & 0
+        \end{bmatrix}\]
+        The column space of $\mathcal{C}$ is the span of its column vectors. 
+        The third column is linearily dependent, so $\text{col}(\mathcal{C})$ is equivalent to the span of its first two columns.
+        \[\text{col}(\mathcal{C}) = \text{span}\{ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}\}\]
+    }
+
+    \qitem What is the rank of the controllability matrix? Is the system controllable?
+
+    \sol{
+        The controllability matrix has rank 2, so this system is not controllable.
+        Note that the initial state $\vec{x}(0)$ has no effect on whether a system is controllable.
+    }
+
+    \qitem Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? 
+    Two timesteps? Three?
+
+    \sol{
+        For one timestep,
+        \[\vec{x}(1) = 
+        \begin{bmatrix}
+            0 & 1 & -2 \\
+            0 & 2 & 0 \\
+            -1 & 1 & 0
+        \end{bmatrix} 
+        \begin{bmatrix} 
+            1 \\ 0 \\ 0 
+        \end{bmatrix}
+        + \begin{bmatrix}
+            2 \\ 0 \\ 0
+        \end{bmatrix} u(0)\]
+
+        Simplifying, we get
+        \[\vec{x}(1) =
+        \begin{bmatrix} 
+            0 \\ 0 \\ -1 
+        \end{bmatrix} + 
+        \begin{bmatrix} 
+            2u(0) \\ 0 \\ 0 
+        \end{bmatrix} = 
+        \begin{bmatrix} 
+            2u(0) \\ 0 \\ -1 
+        \end{bmatrix}\]
+
+        Since $u(0)$ is an input we have control over, we can set it arbitrarily, and reach any state of the form 
+        \[ \begin{bmatrix} c_1 \\ 0 \\ -1\end{bmatrix}. \]
+        For two timesteps,
+        \[\vec{x}(2) = 
+        \begin{bmatrix}
+            0 & 1 & -2 \\
+            0 & 2 & 0 \\
+            -1 & 1 & 0
+        \end{bmatrix} 
+        \begin{bmatrix} 
+            2u(0) \\ 0 \\ -1
+        \end{bmatrix}
+        + \begin{bmatrix}
+            2 \\ 0 \\ 0
+        \end{bmatrix} u(1) = 
+        \begin{bmatrix} 
+            2 + 2u(1) \\ 0 \\ -2u(0)
+        \end{bmatrix}\]
+        Again, since we have control over $u(0)$ and $u(1)$, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$. \\
+        \newline
+        For 3 timesteps,
+        \[\vec{x}(3) = 
+        \begin{bmatrix}
+            0 & 1 & -2 \\
+            0 & 2 & 0 \\
+            -1 & 1 & 0
+        \end{bmatrix} 
+        \begin{bmatrix} 
+            2 + 2u(1) \\ 0 \\ -2u(0)
+        \end{bmatrix}
+        + \begin{bmatrix}
+            2 \\ 0 \\ 0
+        \end{bmatrix} u(2) = 
+        \begin{bmatrix} 
+            4u(0) + 2u(2) \\ 0 \\ -2 - 2u(0)
+        \end{bmatrix}\]
+        As with 2 timesteps, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$.
+    }
+
+    \qitem What is the minimum number of timesteps it takes to reach $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$? 
+    What about $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$?
+
+    \sol{
+        It takes two timesteps to reach $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$. \\
+        $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$ is in the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$, but not in the form $\begin{bmatrix} c_1 \\ 0 \\ -1 \end{bmatrix}$, so it can be reached in at least two timesteps. \\
+        \newline
+        It is impossible to reach $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ in any amount of timesteps.
+        The system is not controllable, and we can only reach states of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$.
+    }
+\end{enumerate}
+
+Now answer the same questions for the following system. What differences do you notice?
+\[\vec{x}(t + 1) = 
+\begin{bmatrix}
+    0 & 1 & 0 \\
+    0 & 2 & -2 \\
+    -1 & 1 & 0
+\end{bmatrix} \vec{x}(t) + 
+\begin{bmatrix}
+    2 \\ 0 \\ 0
+\end{bmatrix} u(t)\]
+
+\sol {
+    \begin{enumerate}
+        \qitem  
+        \[\mathcal{C} = 
+        \begin{bmatrix}
+            \vec{b} & A\vec{b} & A^2 \vec{b}
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            2 & 0 & 0 \\
+            0 & 0 & 4 \\
+            0 & -2 & 0
+        \end{bmatrix}\]
+        The column space of this matrix spans $\mathbb{R}^3$.
+
+        \qitem The controllability matrix has rank 3, so the system is controllable.
+
+        \qitem 
+        For one timestep, 
+        \[\vec{x}(1) = 
+        \begin{bmatrix}
+            0 & 1 & 0 \\
+            0 & 2 & -2 \\
+            -1 & 1 & 0
+        \end{bmatrix} 
+        \begin{bmatrix} 
+            1 \\ 0 \\ 0 
+        \end{bmatrix}
+        + \begin{bmatrix}
+            2 \\ 0 \\ 0
+        \end{bmatrix} u(0) =
+        \begin{bmatrix} 
+            2u(0) \\ 0 \\ -1 
+        \end{bmatrix}\]
+        So, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ -1 \end{bmatrix}$. \\
+        \newline
+
+        For two timesteps,
+        \[\vec{x}(2) = 
+        \begin{bmatrix}
+            0 & 1 & 0 \\
+            0 & 2 & -2 \\
+            -1 & 1 & 0
+        \end{bmatrix} 
+        \begin{bmatrix} 
+            2u(0) \\ 0 \\ -1 
+        \end{bmatrix}
+        + \begin{bmatrix}
+            2 \\ 0 \\ 0
+        \end{bmatrix} u(1) =
+        \begin{bmatrix} 
+            2u(1) \\ 2 \\ -2u(0) 
+        \end{bmatrix}\]
+        We can reach any state of the form $\begin{bmatrix} c_1 \\ 2 \\ c_2 \end{bmatrix}$. \\
+        \newline
+
+        For three timesteps,
+        \[\vec{x}(3) = 
+        \begin{bmatrix}
+            0 & 1 & 0 \\
+            0 & 2 & -2 \\
+            -1 & 1 & 0
+        \end{bmatrix} 
+        \begin{bmatrix} 
+            2u(1) \\ 2 \\ -2u(0) 
+        \end{bmatrix}
+        + \begin{bmatrix}
+            2 \\ 0 \\ 0
+        \end{bmatrix} u(2) =
+        \begin{bmatrix} 
+            2 + 2u(2) \\ 4 + 4u(0) \\ 2 - 2u(1) 
+        \end{bmatrix}\] 
+        We can reach any state in $\mathbb{R}^3$ in three timesteps.
+
+        \qitem
+        The system is controllable, so we can reach any state in three timesteps.
+        We cannot reach either state in fewer timesteps because neither $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$ nor $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ are in the form $\begin{bmatrix} c_1 \\ 0 \\ -1 \end{bmatrix}$ or $\begin{bmatrix} c_1 \\ 2 \\ c_2 \end{bmatrix}$.
+    
+    \end{enumerate}
+}

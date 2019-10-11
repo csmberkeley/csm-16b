@@ -1,0 +1,192 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{Phasor analysis}
+
+\meta{Prereqs: An understanding of what a phasor is, and what impedances are in a circuit.}
+
+Any sinusoidal time-varying function $v(t)$, representing a voltage or a current, can be expressed in the form
+\begin{align}
+v(t) = \widetilde{V}e^{j\omega t} + \overline{\widetilde{V}}e^{-j\omega t},
+\end{align} 
+For a sinusoidal cosine wave $v(t) = V_{0} \cos(\omega t + \phi),$ a phasor is defined as:
+$$\widetilde{V} = \frac{V_{0}}{2}e^{j\phi{}} \ \  \text{and its complex conjugate}  \ \ \overline{\widetilde{V}} = \frac{V_{0}}{2}e^{-j\phi{}}$$
+
+$\widetilde{V}$ is a time-independent function, and is referred to as the phasor representation of $v(t).$
+
+The phasor analysis method consists of five steps.
+Consider the RC circuit below.
+
+	\begin{center}
+		\begin{circuitikz}
+			\draw (0,3)
+			to[vsourcesin =$v_s$] (0,0)
+			(0,3) -- (2,3)
+			to[R = $R$] (3,3)
+			to[short,i>= \mbox{$i(t)$}] (6,3)
+			to[C = $C$, v=$v_\text{c}(t)$] (6,0)
+			to[short] (0,0);
+			
+		\end{circuitikz}
+	\end{center}
+
+The voltage source is given by
+\begin{align}
+v_s(t) = 8 \cos(\omega t - \frac{\pi}{4}),
+\end{align}
+with $\omega = 10^3$ rad/s, $R = 1$ $\text{k}\Omega$, and $C = 1$ $\mu\text{F}$.
+
+Our goal is to obtain a solution for $v_{\text{c}}(t)$ and $i(t)$ with the sinusoidal voltage source $v_s(t)$.
+
+\begin{enumerate}
+
+\qitem \textbf{Step 1: Convert $v(t)$ as a sum of complex exponentials}
+
+All voltages and currents with known sinusoidal functions should be expressed in the standard exponential format.
+Convert $v_s(t)$ into an exponential and write down its phasor representation $\widetilde{V}_s$.
+
+Note: To make things clear, the standard form of phasors in 16B will include the $\frac{1}{2}$ that comes from the cosine.
+
+\sol{
+\begin{align}
+v_s(t) = 8 \cos(\omega t - \frac{\pi}{4})
+\end{align}
+
+The two formulas below will help us convert a sinusoid into a sum of exponentials:
+\begin{gather*}
+\cos(\theta) = \frac{1}{2} e^{j \theta} + \frac{1}{2} e^{-j \theta} \ \ \text{and} \ \ 
+\sin(\theta) = \frac{1}{2j} e^{j \theta} - \frac{1}{2j} e^{-j \theta}
+\end{gather*}
+
+
+Using the fact that $\cos(\theta) = \frac{1}{2} e^{j \theta} + \frac{1}{2} e^{-j\theta},$
+\begin{align*}
+v_s(t) &= 8 \big( \frac{1}{2} e^{j(\omega t - \frac{\pi}{4})} + \frac{1}{2} e^{-j(\omega t - \frac{\pi}{4})} \big) = 4e^{j(\omega t - \frac{\pi}{4})} + 4e^{-j(\omega t - \frac{\pi}{4})} \\
+&= 4e^{j \omega t} \cdot e^{-j \frac{\pi}{4}} + 4e^{-j \omega t} e^{j \frac{\pi}{4}}
+\end{align*}
+
+The phasor is given by
+\begin{align}
+\widetilde{V}_s = 4 e^{-j\frac{\pi}{4}}
+\end{align}
+}
+
+% \ans{
+% \begin{align}
+% v_s(t) = 12 \cos (\omega t -\frac{\pi}{4} -\frac{\pi}{2}) = 12 \cos(\omega t - \frac{3\pi}{4})
+% \end{align}
+
+% The phasor is given by
+% \begin{align}
+% V_s = 12 e^{-j\frac{3\pi}{4}}
+% \end{align}
+% }
+
+\qitem \textbf{Step 2: Transform circuits to phasor domain}
+
+The voltage source is represented by its phasor $\widetilde{V}_s$.
+The current $i(t)$ is related to its phasor counterpart $\widetilde{I}$. 
+% by
+% \begin{align}
+% i(t) = \mathfrak{Re}[I e^{j\omega t}].
+% \end{align}
+What are the phasor domain representations of $R$ and $C$?
+
+\sol{
+The phasor domain representations of $R$ and $C$ will be the complex impedances:
+\begin{align}
+Z_R &= R\\
+Z_C &= \frac{1}{j\omega C}
+\end{align}
+}
+
+% \ans{
+% \begin{align}
+% Z_R &= R\\
+% Z_C &= \frac{1}{j\omega C}
+% \end{align}
+% }
+
+\qitem \textbf{Step 3: Cast KCL and/or KVL equations in phasor domain}
+
+Use Kirchhoff's laws to write down an equation that relates all phasors in Step 2. 
+
+\sol{
+By KCL, the current through the resistor is equal to the current through the capacitor.
+$$i(t) = i_{r}(t) = i_{\text{c}}(t) \rightarrow \widetilde{I} = \widetilde{I}_R = \widetilde{I}_C $$
+By KVL, the sum of the voltages across the resistor and capacitor is equal to that of the source.
+$$v_{s}(t) = v_{\text{c}}(t) + v_{r}(t) \rightarrow \widetilde{V}_s = \widetilde{V}_{\text{c}} + \widetilde{V}_{R}$$
+Substituting the impedances in, we get:
+$$\widetilde{V}_s = \widetilde{I} \frac{1}{j \omega C} + \widetilde{I} R = \widetilde{I} (R + \frac{1}{j\omega C})$$
+}
+
+\qitem \textbf{Step 4: Solve for unknown variables}
+
+Solve the equation you derived in Step 3 for $\widetilde{I}$ and $\widetilde{V_{\text{c}}}$.
+What is the polar form of $\widetilde{I}$ ($Ae^{i\theta}$, where $A$ is a positive real number)? 
+
+\sol{
+We first solve for the current $\widetilde{I}:$
+$$\widetilde{I} = \frac{\widetilde{V}_s}{R + \frac{1}{j \omega C}}$$
+We plug in for $\omega = 10^3, R = 10^3 \Omega, C = 10^{-6} \mu$F
+$$\widetilde{I} = \frac{4 e^{-j \frac{\pi}{4}}}{10^3 + \frac{1}{j 10^{3} 10^{-6}}} = \frac{4 e^{-j \frac{\pi}{4}}}{10^3 - 10^3 j} = \frac{4 e^{-j \frac{\pi}{4}}}{10^{3} \sqrt{2} e^{-j \frac{\pi}{4}.}} = \frac{2 \sqrt{2}}{10^{3}} \mbox{ A} = 2 \sqrt{2} \mbox{ mA}$$
+
+To solve for $\widetilde{V}_{\text{c}}$ we use the voltage-current relationship $\widetilde{V} = \widetilde{I} \frac{1}{j \omega C}$
+$$\widetilde{V}_{\text{c}} = \frac{1}{10^{-3} j} \frac{2 \sqrt{2}}{10^{3}} = 2 \sqrt{2} e^{-j \frac{\pi}{2}} \mbox{ V}$$
+}
+
+% \ans{
+% \begin{align}
+% I = \frac{12 e^{-j\frac{3\pi}{4}}}{R + \frac{1}{j\omega C}} = \frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}
+% \end{align}
+% \begin{align*}
+% V_C=IZ_C=\frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}*\frac{1}{j\omega C}= \frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC}
+% \end{align*}
+
+% To derive the polar form,
+% \begin{align}
+% I = \frac{j12e^{-j\frac{3\pi}{4}}*10^{-3}}{1+j\sqrt{3}} = \frac{12e^{-j\frac{3\pi}{4}}e^{j\frac{\pi}{2}}*10^{-3}}{2e^{j\frac{\pi}{3}}}
+% = 6e^{-j\frac{7\pi}{12}} \mbox{ mA}.
+% \end{align}
+% \begin{align}
+% V=\frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC} = \frac{12e^{-j\frac{3\pi}{4}}}{1+j\sqrt{3}}=\frac{12e^{-j\frac{3\pi}{4}}}{2e^{j\frac{\pi}{3}}}= 6e^{-j\frac{13\pi}{12}}  \mbox{ V}
+% \end{align}
+% }
+
+\qitem \textbf{Step 5: Transform solutions back to time domain}
+
+To return to time domain, we apply the fundamental relation between a sinusoidal function and its phasor counterpart.
+What is $i(t)$ and $v_{\text{c}}(t)$? What is the phase difference between $i(t)$ and $v_{\text{c}}(t)$? 
+
+\sol{
+\begin{align}
+i(t) = \widetilde{I}e^{j\omega t} + \overline{\widetilde{I}}e^{-j\omega t} = 4 \sqrt{2} \cos (\omega t)  \mbox{ mA}
+\end{align}
+\begin{align}
+v_C(t)= \widetilde{V}e^{j\omega t} + \overline{\widetilde{V}}e^{-j\omega t}= 4 \sqrt{2} \cos(\omega t - \frac{\pi}{2}) \mbox{ V}
+\end{align}
+The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
+}
+
+% \ans{
+% \begin{align}
+% i(t) = \mathfrak{Re}[Ie^{j\omega t}] = \mathfrak{Re} [6e^{-j\frac{7\pi}{12}} e^{j\omega t}] = 6 \cos (\omega t - \frac{7\pi}{12})  \mbox{ mA}
+% \end{align}
+% \begin{align}
+% v_C(t)=\mathfrak{Re}[V_Ce^{j\omega t}]=\mathfrak{Re}[6e^{-j\frac{13\pi}{12}}e^{j\omega t}]=6 \cos(\omega t -\frac{13\pi}{12}) \mbox{ V}
+% \end{align}
+% The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
+% }
+
+\qitem It's important to keep in mind that the phasor analysis above only applies to sinusoidal inputs. 
+We make the observation that DC inputs however, are not sinusoidal. 
+That being said, what would happen if we tried doing phasor analysis on DC inputs?
+
+\sol {
+	We can actually see DC inputs as a special case of sinusoidal inputs where $\omega = 0.$
+	The capacitors will have impedance $Z_{c} = \frac{1}{0} \to \infty$ meaning capacitors will turn into open circuits.
+	The inductors will have impedance $Z_{L} = 0$ meaning inductors will turn into short circuits.
+	The results of the phasor analysis will be the steady state behavior of the circuit.
+}
+
+\end{enumerate}

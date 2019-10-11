@@ -21,6 +21,11 @@ Inside the `questionBank/` directory, there are subfolders for each questions by
 ## `test/` and `testing/`
 The sole purpose of the testing folder is to have an environment in which you can create test question.tex files and compile them in the `test` folder. For the purposes of the repository, please do not add/commit/or push your changes in this folder or the `test` folder. The `test` folder is an identical environment as the other numbered folders. You can pick and choose which questions to compile using the appropriate commands. It will make more sense on how to test code once looking at the repository.
 
+# Installation Requirements
+    git               - https://git-scm.com/downloads
+    LaTeX             - https://www.latex-project.org/get/
+    make              - You can download make through XCode on Mac, or through cygwin / cmake on Windows.
+
 # Compiling Instructions
 
 You can use pdflatex to compile the ws.tex, meta.tex, sol.tex, or test.tex files, or you can choose to just use the Makefiles. 
@@ -51,15 +56,11 @@ After cloning the repository and setting up LaTeX, pull in any updates from Gith
 
 Then, create a new branch off master and give it a descriptive name.
 
-    git checkout -b branchname
+    git checkout -b taejin
 
 ## 3. Making changes
 
 Make changes as you would normally and commit them incrementally. Write descriptive commit messages and break larger changes into smaller parts.
-
-Using patch mode is recommended when staging changes to ensure only that only the desired diffs are included in the commit.
-
-    git add -p 
 
 Start in the `fa19` directory and edit the content in `questionBank`. Note that the repository has split up worksheets from their questions: all questions are stored in `questionBank` under topics for version control and maintainability.
 
@@ -67,11 +68,32 @@ After making a few changes, verify that the changes appear as expected by re-mak
 
     make all
 
-Once satisfied, clean and push the branch to Github origin.
+Once you've made some changes, add them to the staging area using `git add`
+
+    git add file.tex or git add folder/
+    
+You can also add everything, but be careful you don't add binaries. You can configure these in `.gitignore`
+    
+    git add .
+    
+If you added something, but made a mistake, you can always remove it.
+
+    git rm file.tex
+
+Using patch mode is recommended when staging changes to ensure only that only the desired diffs are included in the commit.
+
+    git add -p 
+
+Once satisfied, you can commit your changes and give it a descriptive but short message.
+
+    git commit -m "Finished RLC Circuit question"
+
+clean and push the branch to Github origin.
 
     make clean
-    git push origin branchname
+    git push origin taejin
 
 ## 4. Pull request
-On the Github web interface, create a new pull request for the branch, assign the current maintainers for review, apply relevant labels, and set the milestone to the current release target.
+To integrate your changes into the codebase, come back to this online repo and create a new pull request for the branch. Then assign the current maintainers for review, apply relevant labels, and set the milestone to the current release target.
+To avoid merge conflicts, it is important to make sure you are working a piece separate from someone else.
 
