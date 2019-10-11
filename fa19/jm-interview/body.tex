@@ -1,9 +1,8 @@
 \begin{document}
 
-\def\title{CSM Test}
+\def\title{Technical Questions}
 
 \newcommand{\qitem}{\qpart\item}
-\newcommand{\test}{../../testing}
 
 \renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
 \renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
@@ -14,17 +13,12 @@
 
 \vspace{0.5em}
 
+% \input{n_led}
+% \newpage
+
 \begin{qunlist}
-
-\input{\bank/observability/system_id}
-\newpage
-\input{\bank/controllability/system_control}
-\newpage
-\input{\bank/controllability/controllability_practice}
-\newpage	
-\input{\bank/inner-products/orthogonality}
-
-
+\input{rlc_circuit}
+\input{systems_diff_eq}
 \end{qunlist}
 
 \end{document}
