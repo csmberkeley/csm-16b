@@ -20,7 +20,7 @@ Now let's say we have an \textbf{unknown} linear system in which we can give an 
 \end{tikzpicture}
 \end{center}
 
-Recall from discussion that if we put a \textbf{constant} input $u(t) = u(i)$ for $t \in [i, i+1),$ then we can observe the output $\vec{x}(t)$ at time $t = i + 1,$ and form a discretized model of the observation. 
+Recall from discussion that if we put a \textbf{piecewise constant} input $u(t) = u(i)$ for $t \in [i, i+1),$ then we can observe the output $\vec{x}(t)$ at time $t = i + 1,$ and form a discretized model of the observation. 
 
 \begin{center}
 \begin{tikzpicture}
@@ -189,28 +189,3 @@ For the purposes of this question, we will be in the space $\mathbb{R}^2.$
   }
 \end{enumerate}
 
-% \qitem Explain why the system 
-%     \begin{align*}
-%         \ddt{x}{t} &= ax + by \\
-%         \ddt{y}{t} &= cx + dy
-%     \end{align*}
-%     can be equivalently formulated as
-%     \[
-%         \ddt{}{t} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
-%     \]
-
-
-% \qitem Given the following system:
-%     \begin{align*}
-%         \ddt{x}{t} &= x \\
-%         \ddt{y}{t} &= y
-%     \end{align*}
-
-%     With initial conditions $x(0) = x_0, \ y(0) = y_0,$
-
-%     \begin{enumerate}
-%         \qitem What is an appropriate state vector for this system?
-%         \qitem What is the initial condition of this system?
-%         \qitem Convert this system into its State-space representation.
-%         \qitem How can you solve for $x(t)$ and $y(t)?$
-%     \end{enumerate}

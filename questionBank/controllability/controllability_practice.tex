@@ -28,7 +28,7 @@ Consider the system
             0 & -2 & 0
         \end{bmatrix}\]
         The column space of $\mathcal{C}$ is the span of its column vectors. 
-        The third column is linearily dependendent, so $\text{col}(\mathcal{C})$ is equivalent to the span of its first two columns.
+        The third column is linearily dependent, so $\text{col}(\mathcal{C})$ is equivalent to the span of its first two columns.
         \[\text{col}(\mathcal{C}) = \text{span}\{ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}\}\]
     }
 
@@ -36,6 +36,7 @@ Consider the system
 
     \sol{
         The controllability matrix has rank 2, so this system is not controllable.
+        Note that the initial state $\vec{x}(0)$ has no effect on whether a system is controllable.
     }
 
     \qitem Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? 
@@ -68,10 +69,10 @@ Consider the system
             2u(0) \\ 0 \\ -1 
         \end{bmatrix}\]
 
-        Setting $u(0)$ arbitrarily, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ -1\end{bmatrix}$. \\
-        \newline
+        Since $u(0)$ is an input we have control over, we can set it arbitrarily, and reach any state of the form 
+        \[ \begin{bmatrix} c_1 \\ 0 \\ -1\end{bmatrix}. \]
         For two timesteps,
-        \[vec{x}(2) = 
+        \[\vec{x}(2) = 
         \begin{bmatrix}
             0 & 1 & -2 \\
             0 & 2 & 0 \\
@@ -86,10 +87,10 @@ Consider the system
         \begin{bmatrix} 
             2 + 2u(1) \\ 0 \\ -2u(0)
         \end{bmatrix}\]
-        With arbitrary $u(0)$ and $u(1)$, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$. \\
+        Again, since we have control over $u(0)$ and $u(1)$, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$. \\
         \newline
         For 3 timesteps,
-        \[vec{x}(3) = 
+        \[\vec{x}(3) = 
         \begin{bmatrix}
             0 & 1 & -2 \\
             0 & 2 & 0 \\

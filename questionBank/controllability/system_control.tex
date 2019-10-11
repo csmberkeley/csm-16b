@@ -1,7 +1,7 @@
 % Author: Taejin Hwang
 % Email: taejin@berkeley.edu
 
-\qns{Controllability Theory}
+\qns{Controlling a System}
 
 We are given a discrete time state space system, where $\vec{x}$ is our \textbf{state vector,} $A$ is the state space \textbf{model}, $B$ is the input \textbf{matrix}, and $\vec{u}$ is the control input \textbf{vector.}
 \begin{equation}
@@ -77,20 +77,10 @@ Based on the previous parts, when can we say our system is "controllable," it ca
 \sol {
   Using our knowledge from part (c), we can say that $\vec{x}$ can reach anywhere in the span of the columns of $\mathcal{C}$ after $n$ time steps. 
   We also saw in part (d), that if $A^{k}B$ had linearly dependent columns, then $A^{k + 1}B$ will also have linearly dependent columns. \vskip 1pt
-  Therefore, if one of our measurements at time $t = k,$ were linearly dependent from our previous measurements, then the future measurements $t = k + 1$ onward, will also be linearly dependent from the previous ones. \vskip 1pt
-  We must take at least $n$ measurements, since we want to span all of $\mathbb{R}^n,$ and we have shown that every measurement taken after a redundant one will continue to be redundant. Therefore, we conclude by saying that our system can reach anywhere in our state-space $\mathbb{R}^{n}$ if $\mathcal{C}$ is a matrix of rank $n.$
+  This means if one of our measurements at time $t = k,$ were linearly dependent from our previous measurements, then the future measurements $t = k + 1$ onward, will also be linearly dependent from the previous ones. In other words, every redundant measurement taken after a redundant one will continue to be redundant. \vskip 1pt
+  We must take at least $n$ measurements, since we want to span all of $\mathbb{R}^n,$ and $B$ may just be a single vector.
+  Therefore, we conclude by saying that our system can reach anywhere in our state-space, $\mathbb{R}^{n},$ if $\mathcal{C}$ is a matrix of rank $n.$ \vskip 1pt
+  This does not mean that $\mathcal{C}$ has to be invertible, it just means that $\mathcal{C}$ must have $n$ linearly independent columns for the system to be controllable.
 }
-
-\qitem PRACTICE: Consider the following discrete-time system with the given initial state:
-\[\vec{x}(i + 1) = \begin{bmatrix}2 & 0 & 0 \\ -3 & 0 & 1 \\ 0 & 1 & 0\end{bmatrix}\vec{x}(i) + \begin{bmatrix}0 \\ 0 \\ 2\end{bmatrix}u(t), \ \ \vec{x}(0) = \begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix}\]
-
-Is the system controllable?
-
-\sol {
-  \[\mathcal{C} = \begin{bmatrix}B & AB & A^2B\end{bmatrix} = \begin{bmatrix}0 & 0 & 0 \\ 0 & 2 & 0 \\ 2 & 0 & 2\end{bmatrix}\]
-  Since the controllability matrix $\mathcal{C}$ only has rank 2, the system is not controllable. \vskip 1pt
-  Note that the initial state has no affect on whether or not a given system is controllable.
-}
-
 
 \end{enumerate}
