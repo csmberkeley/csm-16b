@@ -3,17 +3,16 @@
 
 \qns{BIBO Stability}
 
-We say that a system is BIBO stable, if for every bounded input $u(t),$ the output $x(t)$ is bounded as well. \vskip 1pt
-A function $f(t)$ is bounded by a constant $B$ if: $\abs{f(t)} \leq B < \infty$ for all values of $t.$
-
-Let's take a look at the following scalar differential equation with an input $u(t).$
+In this question, we will investigate into the definitions of stability for a scalar system modeled by a first order differential equation of the form with the initial condition $x(0) = x_{0}.$ 
 
 \begin{equation} \label{eq:h}
 \ddt{}{t} x(t) = \lambda x(t) + u(t)
 \end{equation}
 
-With initial condition $x(0) = x_{0}.$ 
-We know that the particular solution to this differential equation $x_{p}(t),$ was uniquely determined for $t \geq 0$ as:
+We say that this system is BIBO stable, if for every bounded input $u(t),$ the output $x(t)$ is bounded as well. \vskip 1pt
+A function $f(t)$ is bounded by a constant $B$ if: $\abs{f(t)} \leq B < \infty$ for all values of $t.$
+
+Recall that the particular solution to this differential equation $x_{p}(t),$ was uniquely determined for $t \geq 0$ as:
 
 \begin{equation} \label{eq:h}
 x_{p}(t) = x_{0} e^{\lambda t} + \int_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d\tau

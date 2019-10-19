@@ -1,0 +1,63 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{QR Factorization} 
+
+While we have this amazing speedup through Gram-Schmidt, it is important to realize that our current signals $\vec{u}_{i}$ were modified to be orthonormal, when the actual signals $\vec{s}_{i}$ were not necessarily orthogonal. Our current solution $\hat{x}$ is in $U$ basis coordinates as opposed to standard basis coordinates. Therefore, to tackle this, we will use a concept called \textbf{QR Decomposition}. 
+
+\begin{enumerate}
+
+  \item The $Q_{i}$ matrix in the previous question was constructed by performing Gram-Schmidt on the columns of $S_{i}.$
+  We also know that the columns of the $Q_{i}$ matrix form a basis for the $\text{Col}(S_{i}).$ How can you represent the columns of $S_{i}$ using the basis $\{\vec{u}_{1}, \cdots, \vec{u}_{i} \}?$
+
+  \sol {
+    Since the columns of $Q_{i}$ form a basis for the $\text{Col}(S_{i}),$ any vector in $\text{Col}(S_{i}),$ can be represented as a linear combination of $\{\vec{q}_{1}, \cdots, \vec{q}_{i}\}.$
+    $$\vec{s}_{1} = \alpha_{1} \vec{q}_{1} + \cdots \alpha_{i} \vec{q}_{i}$$
+    We can solve for these $\alpha$ coefficients by taking the inner product of both sides with $\vec{q}_{1}.$
+    \begin{align*}
+    \innp{\vec{q}_{1}}{\vec{s}_{1}} &= \innp{\vec{q}_{1}}{\alpha_{1} \vec{q}_{1} + \cdots \alpha_{i} \vec{q}_{i}} \\
+    &= \alpha_{1} \innp{\vec{q}_{1}}{\vec{q}_{1}} + \cdots + \alpha_{i} \innp{\vec{q}_{1}}{\vec{q}_{i}} \\
+    &= \alpha_{1} \innp{\vec{q}_{1}}{\vec{q}_{1}} = \alpha_{1}
+    \end{align*}
+    We can do this similarly to solve for any $\vec{s}_{j}$ to say that
+    $$\vec{s}_{j} = \innp{\vec{q}_{1}}{\vec{q}_{1}} \vec{s}_{1} + \cdots + \innp{\vec{q}_{j}}{\vec{s}_{j}} \vec{q}_{j}$$
+  }
+
+  \item Using the expression derived from the previous part, how can you represent the vector $\vec{s}_{j}$ as a matrix-vector equation $\vec{s}_{j} = Q \vec{r}_{j}$
+
+  \sol {
+    Rewriting out the expression for $\vec{s}_{j},$ we get:
+    $$\vec{s}_{j} = \innp{\vec{q}_{1}}{\vec{q}_{1}} \vec{s}_{1} + \cdots + \innp{\vec{q}_{j}}{\vec{s}_{j}} \vec{q}_{j}$$
+    Remember that for any matrix-vector equation can be written as a linear combination of the columns and vice versa.
+    $$\vec{s}_{j} = \begin{bmatrix}
+    | & | & | \\
+    \vec{q}_{1} & \cdots & \vec{q}_{i} \\
+    | & | & |
+    \end{bmatrix} \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{q}_{1}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \end{bmatrix}$$
+    Therefore, $\vec{r}_{j}$ can be represented as the following:
+    $$\vec{r}_{j} = \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{q}_{1}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \end{bmatrix}$$
+  }
+
+
+  \item What are the reprsentations of $\hat{y}$ using U-basis coordinates and standard basis coordinates?
+
+  \sol {
+    The estimate $\hat{y}$ using coordinates from the $U$ basis can be represented as:
+    $$ \hat{y} = U [\hat{x}]_{U} = \begin{bmatrix}
+    | & | & | \\
+    \vec{u}_{1} & \cdots & \vec{u}_{m} \\
+    | & | & |
+    \end{bmatrix} \begin{bmatrix} x_{u_{1}} \\ \vdots \\ x_{u_{m}} \end{bmatrix} $$
+    In standard basis coordinates, it will be: 
+    $$ \hat{y} = S \hat{x} = \begin{bmatrix}
+    | & | & | \\
+    \vec{s}_{1} & \cdots & \vec{s}_{m} \\
+    | & | & |
+    \end{bmatrix} \begin{bmatrix} x_{1} \\ \vdots \\ x_{m} \end{bmatrix} $$
+    Equating the two, we see that:
+    $$U [\hat{x}]_{U} = S \hat{x}$$
+  }
+
+
+
+\end{enumerate}
