@@ -1,0 +1,86 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{OMP Notebook}
+
+This question will walk through the following Jupyter Notebook on Orthogonal Matching Pursuit at the following link:
+\url{https://tinyurl.com/omp-notebook}
+
+You can also view the result of the Jupyter Notebook here:
+\url{https://tinyurl.com/omp-result}
+
+It is based on the OMP example in the following note: \\
+ \url{https://inst.eecs.berkeley.edu/~ee16a/sp19/lecture/Note24.pdf}
+
+The process of Orthogonal Matching Pursuit, or OMP, is an algorithm in which we take a received signal $\vec{y} \in \mathbb{R}^{n}$ that is a linear combination of a large number $m >> n$ signals. In general our model will be:
+\begin{equation}
+  \vec{y} = a_{1} \vec{s}_{1}^{\ (\tau_{1})} + \dotsc + a_{m} \vec{s}_{m}^{\ (\tau_{m})}
+\end{equation}
+Where $\vec{s}_{i}^{\ (\tau_{i})}$ is the signal that satellite $i$ is transmitting time delayed by $\tau_{i}$
+
+For the sake of the notebook, we will assume $m = 3$ and $n = 10,$ but know that this can be done for much larger values of $m.$
+
+\begin{enumerate}
+  \qitem Let's take a look at Step 1 where we cross correlate all of our signals $\vec{s}_{i}$ with $\vec{y}.$ Which signal does $\vec{y}$ have the highest correlation with, and what is the time delay $\tau_{i}?$
+
+  \sol {
+    $\vec{y}$ has the highest correlation with $\vec{s}_{2}$ with a time delay of $7.$ 
+  }
+
+  \qitem Now that we've found the signal with highest correlation, what is the np.roll function doing?
+
+  \sol {
+    We found the signal $\vec{s}_{2}$ with the highest correlation. Our goal now is to solve for $a_{2}$ to give an estimate of $\vec{y}$ as 
+    $\hat{y}_{1} = a_{2} \vec{s}_{2}^{\ (\tau_{2})}.$ We know what the signal $\vec{s}_{2}$ is and have shown that it is most likely that $\vec{y}$ contains $\vec{s}_{2}$ shifted by $7.$ Therefore, np.roll is delaying $\vec{s}_{2}$ by 7 time steps and we do this to compute $a_{2}$ using a Least-Squares estimate.
+  }
+
+  \qitem We subtract $\hat{y}_{1} = a_{2} \vec{s}_{2}$ from our original signal $\vec{y}$ to obtain the residual $\vec{r}.$ Can we say that our received signal $\vec{y}$ consists of only $\vec{s}_{2}?$
+
+  \sol {
+    If we take a look at the residual, we see that it has a norm of around $10$ which is quite large. Therefore, we continue cross correlating since we suspect that there is at least one more signal that is influencing $\vec{y}.$
+  }
+
+  \qitem We run cross correlation on all of the signals on more time. Why are we cross correlating $\vec{r}$ with all of the signals instead of $\vec{y}?$ Also,
+  what do you notice about the cross correlations of $\vec{r}$ and $\vec{s}_{2}?$
+
+  \sol {
+    We cross correlate with $\vec{r}$ since we have subtracted the influence of $\vec{s}_{2}$ that was $\vec{y}.$
+    As a result, we notice that once we cross-correlate $\vec{r}$ with $\vec{s}_{2},$ the magnitudes of the cross correlation are rather low.
+  }
+
+  \qitem From the results of our cross correlation, we see that $\vec{s}_{3}$ has the highest cross correlation at $t = 4$ but we choose $\vec{s}_{1}$ with cross correlation $-76$ at $t = 3.$ Why is this?
+
+  \sol {
+    When cross correlating signals, for removal in OMP, we always want to pick the signal with the highest \textbf{magnitude} of cross correlation. Since the two signals have negative cross correlation, this means that $\vec{r}$ is most similar to $-\vec{s}_{1}$ and the coefficient $a_{1}$ will be negative.
+  }
+
+  \qitem When performing Least-Squares to compute a new estimate $\hat{y}_{2} = a_{1} \vec{s}_{1}^{\ (\tau_{1})} + a_{2} \vec{s}_{2}^{\ (\tau_{2})}$ why does the coefficient $a_{1}$ change?
+
+  \sol {
+    When performing Least-Squares regression, for the model $A \hat{x} = \vec{b} + \epsilon$ we make the crucial assumption that $\epsilon$ has mean 0.
+    However, when we performed Least-Squares in Step 1, we assumed $\epsilon$ has mean $0$ when it clearly did not, since $\vec{s}_{1}$ is a part of $\epsilon$ and definitely does not have mean $0.$ This why the coefficients of $\hat{x}$ will change when we do the regression with two variables now. \\
+    This is called Omitted Variable Bias, you can read more about OVB here: \\
+    \url{https://en.wikipedia.org/wiki/Omitted-variable_bias}
+  }
+
+  \qitem Is the residual small enough after 2 iterations?
+
+  \sol {
+    No, the residual still has norm $4.89.$ We will have to do at least one more iteration.
+  }
+
+  \qitem We perform one more iteration of OMP on $\vec{r}$ and see that $\vec{s}_{3}$ has the highest correlation as expected. Is the norm $\norm{\vec{r}} = 0?$ If not, can we do one more iteration of OMP to get a better estimate?
+
+  \sol {
+    We take a look at the output and notice that the norm of the residual $\norm{\vec{r}} = 3.6 \cdot 10^{-15}$ which is basically zero. 
+    It can in fact be shown that the residual does indeed have norm $0$ by taking the linear combination $\hat{y} = - \vec{s}_{1}^{\ (3)} + 2 \vec{s}_{2}^{\ (7)} + 0.5 \vec{s}_{3}^{\ (4)}$ and seeing that it equals $\vec{y}.$ 
+
+    However, due to numerical instabilities, numpy is outputting a very small number.
+    This is why we set some small threshhold for OMP to stop, since it will be almost impossible to numerically get a residual with norm $0.$
+    In addition to this, since we have used up all 3 satellites, it would not be possible for us to do one more iteration of OMP to get a better estimate.
+  }
+
+
+
+
+\end{enumerate}

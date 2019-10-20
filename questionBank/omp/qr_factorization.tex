@@ -3,31 +3,50 @@
 
 \qns{QR Factorization} 
 
-While we have this amazing speedup through Gram-Schmidt, it is important to realize that our current signals $\vec{u}_{i}$ were modified to be orthonormal, when the actual signals $\vec{s}_{i}$ were not necessarily orthogonal. Our current solution $\hat{x}$ is in $U$ basis coordinates as opposed to standard basis coordinates. Therefore, to tackle this, we will use a concept called \textbf{QR Decomposition}. 
+While we have this amazing speedup through Gram-Schmidt, it is important to realize that our current signals $\vec{q}_{i}$ were modified to be orthonormal, when the actual signals $\vec{s}_{i}$ were not necessarily orthogonal. Our current solution $\hat{x}$ is in $Q$ basis coordinates as opposed to standard basis coordinates. Therefore, to tackle this, we will use a concept called \textbf{QR Decomposition}. 
 
 \begin{enumerate}
 
   \item The $Q_{i}$ matrix in the previous question was constructed by performing Gram-Schmidt on the columns of $S_{i}.$
-  We also know that the columns of the $Q_{i}$ matrix form a basis for the $\text{Col}(S_{i}).$ How can you represent the columns of $S_{i}$ using the basis $\{\vec{u}_{1}, \cdots, \vec{u}_{i} \}?$
+  We also know that the columns of the $Q_{i}$ matrix form a basis for the $\text{Col}(S_{i}).$ How can you represent the columns of $S_{i}$ using the basis $\{\vec{q}_{1}, \cdots, \vec{q}_{i} \}?$
 
   \sol {
     Since the columns of $Q_{i}$ form a basis for the $\text{Col}(S_{i}),$ any vector in $\text{Col}(S_{i}),$ can be represented as a linear combination of $\{\vec{q}_{1}, \cdots, \vec{q}_{i}\}.$
-    $$\vec{s}_{1} = \alpha_{1} \vec{q}_{1} + \cdots \alpha_{i} \vec{q}_{i}$$
+    $$\vec{s}_{1} = \alpha_{1} \vec{q}_{1} + \dotsc + \alpha_{i} \vec{q}_{i}$$
     We can solve for these $\alpha$ coefficients by taking the inner product of both sides with $\vec{q}_{1}.$
     \begin{align*}
-    \innp{\vec{q}_{1}}{\vec{s}_{1}} &= \innp{\vec{q}_{1}}{\alpha_{1} \vec{q}_{1} + \cdots \alpha_{i} \vec{q}_{i}} \\
-    &= \alpha_{1} \innp{\vec{q}_{1}}{\vec{q}_{1}} + \cdots + \alpha_{i} \innp{\vec{q}_{1}}{\vec{q}_{i}} \\
+    \innp{\vec{q}_{1}}{\vec{s}_{1}} &= \innp{\vec{q}_{1}}{\alpha_{1} \vec{q}_{1} + \dotsc + \alpha_{i} \vec{q}_{i}} \\
+    &= \alpha_{1} \innp{\vec{q}_{1}}{\vec{q}_{1}} + \dotsc + \alpha_{i} \innp{\vec{q}_{1}}{\vec{q}_{i}} \\
     &= \alpha_{1} \innp{\vec{q}_{1}}{\vec{q}_{1}} = \alpha_{1}
     \end{align*}
     We can do this similarly to solve for any $\vec{s}_{j}$ to say that
-    $$\vec{s}_{j} = \innp{\vec{q}_{1}}{\vec{q}_{1}} \vec{s}_{1} + \cdots + \innp{\vec{q}_{j}}{\vec{s}_{j}} \vec{q}_{j}$$
+    $$\vec{s}_{j} = \innp{\vec{q}_{1}}{\vec{s}_{j}} \vec{q}_{1} + \dotsc + \innp{\vec{q}_{j}}{\vec{s}_{j}} \vec{q}_{j}$$
+  }
+
+  \item While we have derived an expression for the coefficients $\alpha_{j},$ we can realize that most of the coefficients will be zero due to the way $q_{j}$ was constructed from $S.$ Try writing out the vectors $\vec{q}_{1}, \vec{q}_{2}, \vec{q}_{3}$ using the Gram-Schmidt algorithm, to conclude which coefficients will be zero.
+
+  \sol {
+    Let's first look at the vector $\vec{q}_{1}.$ We notice that $\vec{s}_{1}$ only depends on $\vec{q}_{1}.$
+    $$\vec{q}_{1} = \frac{\vec{s}_{1}}{\norm{\vec{s}_{1}}}$$
+    Therefore, only $\alpha_{1}$ will be nonzero, and all of the other $\alpha_{j}$ will be zero, due to the orthogonality of $\vec{q}_{j}.$ \\
+    Now let's look at the vector $\vec{q}_{2}.$
+    $$\vec{q}_{2} = \vec{s}_{2} - \innp{\vec{s}_{2}}{\vec{q}_{1}} \vec{q}_{1}$$
+    Solving for $\vec{s}_{2},$ we see that it is only in terms of $\vec{q}_{1}$ and $\vec{q}_{2}$
+    $$\vec{s}_{2} = \innp{\vec{s}_{2}}{\vec{q}_{1}} \vec{q}_{1} + \vec{q}_{2}$$
+    Again, we conclude that $\alpha_{1}$ and $\alpha_{2}$ will be nonzero, but all other $\alpha_{j}$ will be zero.
+    Now we look at $\vec{q}_{3}.$ We can again solve for $\vec{s}_{3}$ and conclude that it is only in terms of $\vec{s}_{1}, \vec{s}_{2}, \vec{s}_{3}.$
+    \begin{align*}
+    \vec{q}_{3} &= \vec{s}_{3} - \innp{\vec{s}_{3}}{\vec{q}_{1}} \vec{q}_{1} - \innp{\vec{s}_{3}}{\vec{q}_{2}} \vec{q}_{2} \\
+    \vec{s}_{3} &= \innp{\vec{s}_{3}}{\vec{q}_{1}} \vec{q}_{1} + \innp{\vec{s}_{3}}{\vec{q}_{2}} \vec{q}_{2} + \vec{q}_{3} 
+    \end{align*}
+    We can continue doing this, and will continue noticing that for $\vec{s}_{j},$ all of the $\alpha_{1}, \cdots, \alpha_{j}$ will be nonzero, and $\alpha_{j+1}, \cdots, \alpha_{i}$ will be zero.
   }
 
   \item Using the expression derived from the previous part, how can you represent the vector $\vec{s}_{j}$ as a matrix-vector equation $\vec{s}_{j} = Q \vec{r}_{j}$
 
   \sol {
     Rewriting out the expression for $\vec{s}_{j},$ we get:
-    $$\vec{s}_{j} = \innp{\vec{q}_{1}}{\vec{q}_{1}} \vec{s}_{1} + \cdots + \innp{\vec{q}_{j}}{\vec{s}_{j}} \vec{q}_{j}$$
+    $$\vec{s}_{j} = \innp{\vec{q}_{1}}{\vec{s}_{j}} \vec{q}_{1} + \dotsc + \innp{\vec{q}_{j}}{\vec{s}_{j}} \vec{q}_{j}$$
     Remember that for any matrix-vector equation can be written as a linear combination of the columns and vice versa.
     $$\vec{s}_{j} = \begin{bmatrix}
     | & | & | \\
@@ -36,18 +55,39 @@ While we have this amazing speedup through Gram-Schmidt, it is important to real
     \end{bmatrix} \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{q}_{1}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \end{bmatrix}$$
     Therefore, $\vec{r}_{j}$ can be represented as the following:
     $$\vec{r}_{j} = \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{q}_{1}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \end{bmatrix}$$
+    Using the fact that all of the $\alpha$ values past $j + 1$ are zero, we conclude by saying
+    $$\vec{r}_{j} = \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{s}_{j}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \\ 0 \\ \vdots \\ 0 \end{bmatrix}$$
+  }
+
+  \item Let's assume that the matrix $Q_{j}$ was constructed to have orthonormal columns. Using the $\vec{r}_{j}$s derived from the previous part, how can you write out the matrix equation $S_{i} = Q_{i} R$ where $R$ is an upper triangular matrix.
+
+  \sol {
+    We can aggregate the vectors $\vec{s}_{j}$ into the matrix $S_{i}$ and since all of the $\vec{s}_{j}$ were written as a linear combination of vectors in the $Q_{i}$ matrix, the $R$ matrix can be constructed by aggregating the $\vec{r}_{j}$ vectors.
+    $$S_{i} = \begin{bmatrix}
+    | & | & | \\
+    \vec{s}_{1} & \cdots & \vec{s}_{i} \\
+    | & | & |
+    \end{bmatrix} = \begin{bmatrix}
+    | & | & | \\
+    \vec{q}_{1} & \cdots & \vec{q}_{i} \\
+    | & | & |
+    \end{bmatrix} \cdot \begin{bmatrix}
+    \innp{\vec{q}_{1}}{\vec{s}_{1}} & \cdots & \innp{\vec{q}_{1}}{\vec{s}_{i}} \\
+    \vdots & \ddots & \vdots \\
+    0 & 0 & \innp{\vec{q}_{i}}{\vec{s}_{i}}
+    \end{bmatrix}$$
   }
 
 
-  \item What are the reprsentations of $\hat{y}$ using U-basis coordinates and standard basis coordinates?
+  \item What are the reprsentations of $\hat{y}$ using Q-basis coordinates and standard basis coordinates?
 
   \sol {
-    The estimate $\hat{y}$ using coordinates from the $U$ basis can be represented as:
-    $$ \hat{y} = U [\hat{x}]_{U} = \begin{bmatrix}
+    The estimate $\hat{y}$ using coordinates from the $Q$ basis can be represented as:
+    $$ \hat{y} = Q_{i} [\hat{x}]_{Q} = \begin{bmatrix}
     | & | & | \\
-    \vec{u}_{1} & \cdots & \vec{u}_{m} \\
+    \vec{q}_{1} & \cdots & \vec{q}_{m} \\
     | & | & |
-    \end{bmatrix} \begin{bmatrix} x_{u_{1}} \\ \vdots \\ x_{u_{m}} \end{bmatrix} $$
+    \end{bmatrix} \begin{bmatrix} x_{q_{1}} \\ \vdots \\ x_{q_{m}} \end{bmatrix} $$
     In standard basis coordinates, it will be: 
     $$ \hat{y} = S \hat{x} = \begin{bmatrix}
     | & | & | \\
@@ -55,9 +95,26 @@ While we have this amazing speedup through Gram-Schmidt, it is important to real
     | & | & |
     \end{bmatrix} \begin{bmatrix} x_{1} \\ \vdots \\ x_{m} \end{bmatrix} $$
     Equating the two, we see that:
-    $$U [\hat{x}]_{U} = S \hat{x}$$
+    $$S \hat{x} = Q_{i} [\hat{x}]_{Q}$$
   }
 
+  \item How can we use our relation $S_{i} = Q_{i} R$ to solve for $\hat{x}?$
 
+  \sol {
+    Substituting $S_{i} = Q_{i} R,$ we see that
+    $$Q_{i} R \hat{x} = Q_{i} [\hat{x}]_{Q}$$
+    Since $Q_{i}$ has orthonormal columns, we know that $Q_{i}^{T} Q_{i} = I.$ Therefore, if we left multiply by $Q_{i}^{T}$
+    $$Q_{i}^{T} Q_{i} R \hat{x} = R \hat{x} = Q_{i}^{T} Q_{i} [\hat{x}]_{Q} = [\hat{x}]_{Q}$$
+    Therefore, taking the $R^{-1}$ we see that
+    $$\hat{x} = R^{-1} [\hat{x}]_{Q}$$
+  }
+
+  \item How can we use the fact that $R$ is upper triangular to solve for $\hat{x}$ efficiently?
+
+  \sol {
+    Since $R$ is upper triangular, it is already in reduced echlon form. That means we can back-substitute to solve for $\hat{x}$ which is much more efficient than taking the inverse of $R.$ If $R$ is an $n \times n$ matrix, taking the inverse will require $O(n^{3})$ operations while back-substitution will only require $O(n^{2})$ operations. \\
+    You can read more about the comparison of matrix inversion vs back-substitution here: \\
+    \url{https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations}
+  }
 
 \end{enumerate}
