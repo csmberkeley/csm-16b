@@ -2,41 +2,41 @@
 
 \qns{SVD Intuition}
 
-In this question, we will investigate into some of the intuition behind the "Swiss-Army Knife" of Linear Algebra, the \textbf{Singular Value Decomposition.} You may have seen the following forms of the SVD of an $m \times n$ matrix $A$ from lecture, homework, and discussion:
+Now that we've taken a look at symmetric matrices, specifically $A^{T} A,$ we will investigate into some of the intuition behind the "Swiss-Army Knife" of Linear Algebra, the \textbf{Singular Value Decomposition.} You may have seen the following forms of the SVD of an $m \times n$ matrix $A$ from lecture, homework, and discussion:
 \begin{equation}
   A = U \Sigma V^{T} = \sum\limits_{i} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^T
 \end{equation}
 Where $\sigma_{i}$ are referred to as the \textbf{singular values} and $\vec{u}_{i}, \vec{v}_{i}$ are the $i^{th}$ column of $U$ and $V$ respectively.
 
-The Spectral Theorem which says that any \textbf{symmetric} matrix is orthogonally diagonalizable, will play a huge part in this questoin. 
+The Spectral Theorem which says that any \textbf{symmetric} matrix is orthogonally diagonalizable, will play a huge part in this question. 
 This means that a symmetric matrix will always have $n$ linearly independent eigenvectors that are all mutually orthogonal.
 
 We will start our investigation by looking at the eigenvectors of the matrix $A^{T} A.$
 
-\begin{enumerate}[resume]
-  \qitem Let $\vec{v}$ be a nonzero vector in $\mathbb{R}^m$ that is also in $\text{Col}(A).$ 
+\begin{enumerate}
+  \qitem Let $\vec{v}$ be a nonzero vector in $\mathbb{R}^n$ that is not in the $\text{Nul}(A).$ 
   Show that if $\vec{v}$ is an eigenvector of $A^{T} A,$ with eigenvalue $\lambda,$ there must also be an eigenvector $\vec{u}$ of $AA^{T}$ with eigenvalue $\lambda.$
 
   \sol {
     Since $\vec{v}$ is an eigenvector of $A^{T} A,$ we know that $A^{T}A \vec{v} = \lambda \vec{v}.$ \vskip 1pt
     If we left multiply by $A$ we see that 
     \begin{equation}
-      A A^{T}A \vec{v} = A (\lambda \vec{v}) = \lambda A \vec{v} 
+      A A^{T}A \vec{v} = A (\lambda \vec{v}) = \lambda (A \vec{v}) 
     \end{equation}
-    Since $A \vec{v} \in \text{Col}(A),$ it must be nonzero. 
+    We assumed that $\vec{v}$ is not in the $\text{Nul}(A).$ This means that $A \vec{v}$ will be nonzero, and will in fact be in the $\text{Col}(A).$
     Therefore, we can say that $\vec{u} = A \vec{v}$ is an eigenvector of $AA^{T}$ with eigenvalue $\lambda.$
   }
 
-  \qitem Let $\vec{u}$ be a nonzero vector in $\mathbb{R}^n$ that is also in $\text{Row}(A).$
+  \qitem Let $\vec{u}$ be a nonzero vector in $\mathbb{R}^m$ that is not in the $\text{Nul}(A^{T}).$ 
   Show that if $\vec{u}$ is an eigenvector of $AA^{T},$ with eigenvalue $\lambda,$ there must also be an eigenvector $\vec{v}$ of $A^{T} A$ with eigenvalue $\lambda.$
 
   \sol {
     We proceed in a similar manner: Since $\vec{v}$ is an eigenvector of $AA^{T},$ we know that $AA^{T} \vec{u} = \lambda \vec{u}.$ \vskip 1pt
     If we left multiply by $A^{T}$ we see that 
     \begin{equation}
-      A^{T}AA^{T} \vec{u} = A^{T} (\lambda \vec{u}) = \lambda A^{T} \vec{u} 
+      A^{T}AA^{T} \vec{u} = A^{T} (\lambda \vec{u}) = \lambda (A^{T} \vec{u})
     \end{equation}
-    Since $A \vec{u} \in \text{Row}(A),$ it must be nonzero. 
+    We again assumed $\vec{u}$ is not in the $\text{Nul}(A^{T})$ so $A^{T} \vec{u}$ will be nonzero and in $\text{Col}(A^{T}).$
     Therefore, we can say that $\vec{v} = A^{T} \vec{u}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$
   }
 
@@ -47,15 +47,15 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
     \begin{equation} 
       \norm{A \vec{v}}_{2} = \sqrt{(A \vec{v})^{T} (A \vec{v})} = \sqrt{\vec{v}^{T} A^{T} A \vec{v}} = \sqrt{\vec{v}^{T} \lambda \vec{v}} = \sqrt{\lambda \vec{v}^{T} \vec{v}} = \sqrt{\lambda \norm{v}_2} = \sqrt{\lambda}
     \end{equation}
-    Note that $\norm{A \vec{v}}_{2}$ cannot be imaginary since we already showed that $\lambda \geq 0$ in part (b).
+    Note that $\norm{A \vec{v}}_{2}$ cannot be imaginary since we showed that $\lambda \geq 0$ in the previous question in part(b).
   }
 
-  \qitem Going back to part (d), let's normalize $\vec{u}$ and $\vec{v}$ to have unit norm.
+  \qitem Going back to part (a), let's normalize $\vec{u}$ and $\vec{v}$ to have unit norm.
   Can you give a relationship between $\vec{u}$ and $\vec{v}$ using the fact that they have unit norm?
 
   \sol {
-    We showed in part (e) that if $\vec{v}$ had unit norm, $\norm{A \vec{v}} = \sqrt{\lambda}.$ \vskip 1pt
-    In part (d) we showed that $A \vec{v}$ is an eigenvector of $A A^{T}.$ 
+    We showed in part (c) that if $\vec{v}$ had unit norm, $\norm{A \vec{v}} = \sqrt{\lambda}.$ \vskip 1pt
+    In part (a) we showed that $A \vec{v}$ is an eigenvector of $A A^{T}.$ 
     Therefore, we can say that $A \vec{v} = \sigma \vec{u}$ for some scalar $\sigma.$ 
     Taking the norm of both sides, we will see that:
     \begin{equation}
@@ -129,6 +129,40 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
     \begin{equation}
       A = U \Sigma V^{T}
     \end{equation}
+  }
+
+  \qitem \textbf{OPTIONAL:} The Singular Value Decomposition will compute the eigenvectors of $A^{T} A$ and $AA^{T}.$ 
+  Based on the previous parts, we can make the realization that each of these eigenvectors are part of one of the four fundamental subspaces of $A: \text{Col}(A), \text{Nul}(A), \text{Col}(A^{T}), \text{Nul}(A^{T}).$
+  Show which eigenvectors of $A^{T} A$ and $AA^{T}$ belong to which subspaces of $\mathbb{R}^{n}$ and $\mathbb{R}^{m}.$ 
+
+  \sol {
+
+    The matrix $AA^{T}$ is an $m \times m$ matrix. \\
+    We showed in part (a) that there are eigenvectors $\vec{u}$ of $AA^{T}$ that are in $\text{Col}(A).$ \\
+    We also showed in part (f) that there are eigenvectors $\vec{u}$ of $AA^{T}$ with eigenvalue $0,$ that are in $\text{Nul}(A^{T}).$ 
+
+    The matrix $A^{T}A$ is an $n \times n$ matrix. \\
+    We showed in part (b) that there are eigenvectors $\vec{v}$ of $A^{T}A$ that are in $\text{Col}(A^{T}).$ \\
+    We also showed in part (e) that there are eigenvectors $\vec{v}$ of $A^{T}A$ with eigenvalue $0,$ that are in $\text{Nul}(A).$ 
+  }
+
+  \qitem \textbf{OPTIONAL:} The Fundamental Theorem of Linear Algebra states that:
+  \begin{align*}
+    \text{Col}(A) &\perp \text{Nul}(A^{T}) \\
+    \text{Col}(A^{T}) &\perp \text{Nul}(A)
+  \end{align*}  
+  Confirm that the Fundamental Theorem of Linear Algebra is true using the eigenvectors of $A^{T}A$ and $AA^{T},$ and that they are in fact basis vectors for these fundamental subspaces.
+
+  \sol {
+    We know from the Spectral Theorem that the eigenvectors $\vec{v}_{i}$ of $A^{T}A$ are all mutually orthogonal.
+    This confirms that the eigenvectors in $\text{Col}(A^{T})$ will be orthogonal to those in $\text{Nul}(A).$
+    We also know from the Spectral Theorem, that $A^{T}A$ has $n$ linealry independent eigenvectors, so the $\vec{v}_i$ must form a basis for $\mathbb{R}^{n}.$ 
+    Every eigenvector $\vec{v}_{i}$ will either be in the $\text{Col}(A^{T})$ or $\text{Nul}(A)$ since the dimensions of these two spaces sum to $n$ by the Rank-Nullity Theorem.
+    Therefore, the eigenvectors in $\text{Col}(A^{T})$ span the entirety of the space, and are linearly independent by construction. 
+    Similarly, the eigenvectors in $\text{Nul}(A)$ also span the entirety of the space, and are linearly independent. 
+    We conclude by saying that the eigenvectors of $A^{T}A$ in $\text{Col}(A^{T})$ are a basis for $\text{Col}(A^{T}),$ and the eigenvectors of $A^{T}A$ in $\text{Nul}(A)$ are also a basis for $\text{Nul}(A).$ \\
+    The exact same argument can be made for the eigenvectors of $AA^{T}$ using the Spectral Theorem, and the Rank-Nullity Theorem.
+
   }
 
 \end{enumerate}

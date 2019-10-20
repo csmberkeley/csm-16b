@@ -1,0 +1,88 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{System Stability}
+
+In the previous question, we took a look at BIBO stability for systems modeled by a \textbf{scalar} differential equation. 
+We will now extend this to systems modeled as a \textbf{matrix/vector} differential equation of the form:
+\begin{equation}\label{eqn:std}
+  \ddt{}{t} \vec{x}(t) = A \vec{x}(t) + B \vec{u}(t)
+\end{equation}
+To do this, we will use a technique called \textbf{Schur-Decomposition} which says that for any linear operator, we can pick a basis in which the linear operator has an upper triangular matrix representation:
+\begin{equation}\label{eqn:schur}
+  \ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \widetilde{B} \vec{u}(t)
+\end{equation}
+Since $\widetilde{B}$ is a matrix of scalars, we can redefine $\vec{\widetilde{{u}}}(t)$ as a new input vector.
+\begin{equation}\label{eqn:input}
+  \ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{{u}}}(t)
+\end{equation}
+Also, in this case, $R$ will be an upper triangular matrix, and we say that $A = VRV^{T}$ where $V$ is the change of coordinates matrix from $z_{i}$ coordinates to $x_{i}$ coordinates. 
+In addition to this, we can choose an orthonormal basis $S,$ such that $V$ will have orthonormal columns.
+
+\begin{enumerate}
+  \qitem Show that if the system represented by equation \eqref{eqn:schur} is stable in $z_i$ coordinates, then it must also be stable in $x_i$ coordinates.
+
+  \sol {
+    If equation \eqref{eqn:schur} is stable in $z_i$ coordinates, then for any bounded input $\vec{\widetilde{{u}}}(t),$
+    $\vec{z}(t)$ must be bounded as well.
+    To show that this system is stable in $x_i$ coordinates, as well, we must show for any bounded input $\vec{u}(t),$ the output $\vec{x}$ must be bounded as well. \vskip 1pt
+    We can take any bounded input $u(t)$ and convert it to $\vec{\widetilde{u}}(t)$ by using the change of coordinates matrix from $x_i$ to $z_i$ coordinates, $V^{-1}.$
+    \begin{align*}
+      \ddt{}{t} \vec{x}(t) &= A \vec{x}(t) + B \vec{u}(t) \\
+      V \ddt{}{t} \vec{z}(t) &= A V\vec{z}(t) + B \vec{u}(t) \\
+      \ddt{}{t} \vec{z}(t) &= V^{-1}AV \vec{z}(t) + V^{-1} B \vec{u}(t) \\
+      \ddt{}{t} \vec{z}(t) &= V^{-1}AV \vec{z}(t) + \widetilde{B} \vec{u}(t) \\
+      \ddt{}{t} \vec{z}(t) &= V^{-1}AV \vec{z}(t) + \vec{\widetilde{{u}}}(t)
+    \end{align*}
+    We know that the system represented by equation \eqref{eqn:schur} is stable in $z_i$ coordinates, so $\vec{z}(t)$ is bounded as well.
+    We conclude by converting $\vec{z}(t)$ back into standard coordinates through the matrix $V:$
+    \begin{equation}
+      \vec{x}(t) = V \vec{z}(t)
+    \end{equation}
+    Since $\vec{z}(t)$ is bounded, $\vec{x}(t)$ must be bounded as well.
+  }
+
+  \qitem Uncouple the system in equation \eqref{eqn:input} into first order scalar differential equations.
+
+  \sol {
+    Since the $R$ matrix is upper triangular, we can uncouple the system into $n$ first order scalar differential equations.
+    The $r_{i,j}$ represents the entry in the $i^{th}$ row and $j^{th}$ column. 
+    \begin{align*}
+      \ddt{}{t} \vec{z}(t) = \ddt{}{t} \begin{bmatrix} z_{1}(t) \\ \vdots \\ z_{n}(t) \end{bmatrix} &= R \vec{z}(t) + \vec{\widetilde{{u}}}(t) = 
+      \begin{bmatrix} 
+      \lambda_{1} & r_{1,2} & \cdots & r_{1,n} \\ 
+      0 & \lambda_{2} & \cdots & r_{2,n} \\ 
+      \vdots & \ddots & \cdots & \vdots \\
+      0 & \cdots & 0 & \lambda_{n}
+      \end{bmatrix} 
+      \begin{bmatrix} z_{1}(t) \\ \vdots \\ z_{n}(t) \end{bmatrix} + \begin{bmatrix} \widetilde{u}_{1}(t) \\ \vdots \\ \widetilde{u}_{n}(t) \end{bmatrix}
+    \end{align*}
+    Individually, the equations will be:
+    \begin{align*}
+    \ddt{}{t} z_{1}(t) &= \lambda_{1} z_{1}(t) + r_{1,2} z_{2}(t) + \cdots + r_{1,n} z_{n}(t) + \widetilde{u}_{1}(t) \\
+    \ddt{}{t} z_{2}(t) &= \lambda_{2} z_{2}(t) + r_{2,3} z_{3}(t) + \cdots + r_{2,n} z_{n}(t) + \widetilde{u}_{2}(t)\\
+    \vdots \ \  \ \ \ &= \ \ \ \ \ \vdots \\
+    \ddt{}{t} z_{n}(t) &= \lambda_{n} z_{n}(t) + \widetilde{u}_{n}(t)
+    \end{align*}
+  }
+
+  \qitem When will the differential equation $\ddt{}{t} z_{n}(t) = \lambda_{n} z_{n} + \widetilde{u}_{n}(t)$ be stable?
+
+  \sol {
+    This scalar differential equation will only be stable when $\mathfrak{Re}(\lambda_{n}) < 0$ by the criterion we defined for BIBO stability in the previous question.
+  }
+
+  \qitem Using back-substitution, confirm that $\ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{u}}(t)$ is stable only when $\mathfrak{Re}(\lambda_i) < 0$ for all $i.$
+
+  \sol {
+    The differential equation for $z_{n-1}(t)$ will be:
+    \begin{equation}
+      \ddt{}{t} z_{n-1}(t) = \lambda_{n-1} z_{n-1}(t) + r_{n-1, n} \ z_{n}(t) + \widetilde{u}_{n-1}(t)
+    \end{equation}
+    We've shown that $z_{n}(t)$ is stable only when $\mathfrak{Re}(\lambda_{n}) < 0,$ so we will now only have to consider the stability of $z_{n-1}(t).$ \vskip 1pt
+    We can treat $w_{n-1}(t) = r_{n-1, n} \ z_{n}(t) + \widetilde{u}_{n-1}(t)$ as an input to the differential equation for $z_{n-1},$ and again reapply the definition of BIBO stability to claim that $z_{n-1}$ is stable when $\mathfrak{Re}(\lambda_{n-1}) < 0.$ \vskip 1pt
+    Continuing this back-substitution, we will eventually see that all of the $z_i$ are stable only when $\mathfrak{Re}(\lambda_{i}) < 0$ for all $i.$
+
+  }
+
+\end{enumerate}

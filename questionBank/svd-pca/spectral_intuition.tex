@@ -6,14 +6,14 @@
 An amazing result in Linear Algebra is the Spectral Theorem which says that any \textbf{symmetric} matrix is orthogonally diagonalizable. 
 This means that a symmetric matrix will always have $n$ linearly independent eigenvectors that are all mutually orthogonal.
 
-We show that some of these properties are true for the matrix $A^{T} A$ to help motivate the SVD.
+We will show that some of these properties are true for the symmetric matrix $A^{T} A$ to help motivate the SVD.
 
 \begin{enumerate}
   \qitem Show that $A^{T}A$ is a symmetric matrix.
 
   \sol {
     Remember that matrix $M$ is symmetric, if $M^{T} = M,$ therefore it remains to show that $(A^{T}A)^{T} = A^{T}A.$
-    We can also remember that for two matrices, $A, B, (AB)^{T} = B^{T} A^{T}.$ \vskip 1pt
+    We can also remember that for two matrices, $A, B, (AB)^{T} = B^{T} A^{T}.$ \\
     Applying the fact above, we see that $(A^{T}A)^{T} = A^{T} (A^{T})^{T} = A^{T} A.$
   }
 
@@ -54,14 +54,15 @@ We show that some of these properties are true for the matrix $A^{T} A$ to help 
     Since we assumed $\lambda_{i} \neq \lambda_{j}, \vec{v}_{j}^{T} \vec{v}_{i}$ must be zero, but this implies that $\vec{v}_{i}$ and $\vec{v}_{j}$ are orthogonal.
   }
 
-  \qitem It can be shown through induction that the matrix $A^{T} A$ is has $n$ linearly independent eigenvectors.
-  Show that if $A^{T}A$ has a repeated eigenvalue, $\lambda,$ meaning the eigenspace of $\lambda$ has dimension greater than or equal to two, we can pick an orthonormal basis for the eigenspace.
+  \qitem Show that if $A^{T}A$ has a repeated eigenvalue, $\lambda,$ meaning the eigenspace of $\lambda$ has dimension greater than or equal to two, we can pick an orthonormal basis for the eigenspace.
 
   \sol {
   	We can pick an orthonormal basis for the eigenspace of $\lambda,$ by using Gram-Schmidt.
   }
 
-  \qitem Conclude by showing that we can pick $n$ mutually orthonormal eigenvectors for the matrix $A^{T} A$?
+  \qitem It can be shown through induction that the matrix $A^{T} A$ is has $n$ linearly independent eigenvectors. \\
+  Conclude by showing that we can pick $n$ mutually orthonormal eigenvectors for the matrix $A^{T} A.$
+
   \sol {
   	We've shown that eigenvectors with distinct eigenvalues are orthogonal. \\
   	We've also shown that for repeated eigenvalues, we can pick an orthogonal eigenbasis. \\

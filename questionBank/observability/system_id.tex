@@ -31,18 +31,18 @@ Recall from discussion that if we put a \textbf{piecewise constant} input $u(t) 
 \end{tikzpicture}
 \end{center}
 
-\textbf{If} we knew the system, the relationship between $\vec{x}(i+1), \vec{x}(i),$ and $u(i)$ would be:
+\textbf{If} we knew the system, the relationship between $\vec{x}(i+1), \ \vec{x}(i), $ and $u(i)$ would be:
 \begin{equation}
 \vec{x}(i + 1) = A \vec{x}(i) + \vec{b} u(i)
 \end{equation}
 
 While this relation is useful, we currently do not know what the $A$ matrix or $\vec{b}$ vector are.
 
+For the purposes of this question, our state space will be $\mathbb{R}^2.$ \vskip 1pt
 Therefore, we will start by creating unknown variables for the $A$ matrix, and $\vec{b}$ vector:
 \begin{equation}
 A = \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix} \ \ \text{and} \ \ \vec{b} = \begin{bmatrix} b_{1} \\ b_{2} \end{bmatrix}
 \end{equation}
-For the purposes of this question, we will be in the space $\mathbb{R}^2.$
 
 \begin{enumerate}
   \qitem Let's say the system initially started at $\vec{x}(0) = \begin{bmatrix} x_{1}(0) \\ x_{2}(0) \end{bmatrix},$ and we gave an input at time $t = 0, \ u(0).$ 
@@ -74,7 +74,7 @@ For the purposes of this question, we will be in the space $\mathbb{R}^2.$
 
   \qitem We now give another input at $t = 1, \ u(1),$ and observe $\vec{x}(2).$ \vskip 1pt 
   \textbf{How many more equations do we get from this observation?}
-  Also, how many more inputs will we need to observe until we have enough equations?
+  Also, how many more observations will we need to make until we have enough equations?
 
   \sol {
     We can write out a similar observation as the one made in part(a):
@@ -91,8 +91,8 @@ For the purposes of this question, we will be in the space $\mathbb{R}^2.$
     x_{2}(2) = a_{21} x_{1}(1) + a_{22} x_{2}(1) + b_{2} u(1)
     \end{gather*}
     Notice that for every observation we make at a given time step, we will get $2$ more equations. 
-    This means we will have to look at a total of $3$ time steps to get $6$ equations.
-    Taking the initial condition $\vec{x}(0)$ into account, we will have to observe a total of $4$ inputs.
+    Taking the initial condition $\vec{x}(0)$ into account, we will have to make $4$ observations total, to get $6$ equations.
+    In other words, we will have to start observing $\vec{x}(0)$ and continue up until $\vec{x}(3),$ to solve our system.
   }
 
   \qitem Assuming we have taken all of the necessary measurements of $x(t)$ at time $t = 0, 1, 2, ...$ \vskip 1pt
@@ -161,7 +161,7 @@ For the purposes of this question, we will be in the space $\mathbb{R}^2.$
     0 & 0 & 0 & x_{1}(4) & x_{2}(4) & u(4) 
     \end{bmatrix} 
     \begin{bmatrix} a_{11} \\ a_{12} \\ b_{1} \\ a_{21} \\ a_{22} \\ b_{2} \end{bmatrix}
-    + \begin{bmatrix} w(0) \\ w(1) \\ w(2) \\ w(0) \\ w(1) \\ w(2) \end{bmatrix} $$
+    + \begin{bmatrix} w(0) \\ w(1) \\ w(2) \\ w(3) \\ w(4) \\ w(0) \\ w(1) \\ w(2) \\ w(3) \\ w(4) \end{bmatrix} $$
 
     Which can equivalently be written as:
     \begin{equation}
@@ -170,7 +170,11 @@ For the purposes of this question, we will be in the space $\mathbb{R}^2.$
     For the least squares problem, we will want to minimize $\norm{\vec{w}}_{2} = \norm{y - D \vec{s}}_{2}$
     }
 
-  \qitem How would we solve this least squares problem?
+  \qitem How would we solve this least squares problem? Are there any concerns we should make?
+
+  \meta {
+    You can show that $D$ and $D^{T}D$ have the same null spaces, to claim that if $D$ is full rank, then $D^{T}D$ will be invertible.
+  }
 
   \sol {
     Recall from 16A that if we are given the least squares problem:
@@ -185,7 +189,9 @@ For the purposes of this question, we will be in the space $\mathbb{R}^2.$
     \begin{equation}
       \vec{\hat{s}} = (D^{T} D)^{-1} D^{T} \vec{y}
     \end{equation}
-    The $\vec{\hat{s}}$ will give the best possible estimate for the $A$ and $\vec{b}.$
+    The $\vec{\hat{s}}$ will give the best possible estimate for the $A$ and $\vec{b}.$ \vskip 1pt
+    A concern we shoud make is whether or not $D^{T} D$ is an invertible matrix.
+    Remember that is $D$ is full rank, then $D^{T} D$ will be invertible.
   }
 \end{enumerate}
 

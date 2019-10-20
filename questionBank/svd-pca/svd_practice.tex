@@ -1,57 +1,72 @@
-\qns{SVD Practice}
-\qcontributor{Elena Jia}
+% Author: Elena Jia
 
+\qns{SVD Practice}
 
 % \begin{enumerate}
+In this question, we will go through the indivudal steps of finding the Singular Value Decomposition of an $m \times n$ matrix $A.$
 
-Write out a full singular value decomposition of matrix $A = \begin{bmatrix}
+$$A = \begin{bmatrix}
     1 & 1 & 0 \\
     0 & 1 & 1 \\
-  \end{bmatrix}$. Express the answer in the form of $USV^{T}$ where $U$ and $V$ are square matrices. 
+  \end{bmatrix}$$. 
 
-\textit{(Hint: 
-Possible eigenvectors of matrix $A^{T}A$ include $\begin{bmatrix}
-    1 \\ 0 \\ -1 \\
-  \end{bmatrix}$ and $\begin{bmatrix}
-    1 \\ 2 \\ 1 \\
-  \end{bmatrix}$.  Note that we could also use $AA^{T}$ to compute the singular value decomposion.)}
+The final answer will be of the form $A = U \Sigma V^{T}$ where $U$ is a $m \times m$ orthonormal matrix, $V$ is a $n \times n$ orthonormal matrix, and $\Sigma$ is a $m \times n$ matrix that is a diagonal matrix with $0$s padded on the right or below depending on the dimensions $m$ and $n.$
 
-\sol {
+\begin{enumerate}
+  \qitem \textbf{Step 1:} Compute the symmetric matrix $A^{T} A$ or $A A^{T}.$ \vskip 1pt
+  $A^{T}A$ will be of dimension $n \times n,$ and $AA^{T}$ will be of dimension $m \times m.$ \vskip 1pt
+  For a tall, skinny matrix, where $m > n,$ it will be easier to calculate $A^{T}A$ while for a short, fat matrix, where $m < n,$ it will be easier to calculate $AA^{T}.$ 
+
+  \qitem \textbf{Step 2:} Find the eigenvalues ($\lambda_1, \lambda_2, \ldots, \lambda_{n}$) and eigenvectors ($\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_{n}$) of $A^TA$. By the spectral theorem for real symmetric matrices, these eigenvectors are orthonormal.
+
+  \item \textbf{Step 3:}$\sigma_i = \sqrt{\lambda_i}$ where $\lambda_i$ are the sorted in descending order eigenvalues of $A^TA$. We know these are all non-negative because $(A\vec{v}_i)^T(A\vec{v}_i) = \|A \vec{v}_i\|^2$ and $(A\vec{v}_i)^T(A\vec{v}_i) =\vec{v}_i^T(A^T A)\vec{v}_i = \lambda_i \vec{v}_i^T\vec{v}_i = \lambda_i$. The corresponding normalized eigenvectors $\vec{v}_i$ form the $V$ matrix. 
+
+  \item \textbf{Step 4:} Using $\sigma_i$ and $\vec{v}_i$ we can find the corresponding vectors of the $U$ matrix, $\vec{u}_i$ by computing $\vec{u}_i = \frac{A\vec{v}_i}{\sigma_i}$. These are normalized since $\sigma_i = \|A \vec{v}_i\|$ by the argument above, and orthogonal since $(A\vec{v}_i)^T(A\vec{v}_j) = \vec{v}_i^T(A^T A)\vec{v}_j = \lambda_j \vec{v}_i^T\vec{v}_j = 0$ if $i \neq j$, since $V$ is an orthonormal matrix. 
+
+\end{enumerate}
+% \textit{(Hint: 
+% Possible eigenvectors of matrix $A^{T}A$ include $\begin{bmatrix}
+%     1 \\ 0 \\ -1 \\
+%   \end{bmatrix}$ and $\begin{bmatrix}
+%     1 \\ 2 \\ 1 \\
+%   \end{bmatrix}$.  Note that we could also use $AA^{T}$ to compute the singular value decomposion.)}
+
+% \sol {
   
-We first compute $A^{T}A$: $$A^{T}A = \begin{bmatrix}
-    1 & 1 & 0 \\
-    1 & 2 & 1 \\
-    0 & 1 & 1
-  \end{bmatrix}.$$ 
+% We first compute $A^{T}A$: $$A^{T}A = \begin{bmatrix}
+%     1 & 1 & 0 \\
+%     1 & 2 & 1 \\
+%     0 & 1 & 1
+%   \end{bmatrix}.$$ 
 
-Using the hint, we find unit eigenvectors and corresponding eigenvalues of $A^{T}A$ to be $$v_1 = \begin{bmatrix}
-    \frac{1}{\sqrt{6}} \\ \frac{2}{\sqrt{6}} \\ \frac{1}{\sqrt{6}} \\
-  \end{bmatrix}, v_2 = \begin{bmatrix}
-    \frac{1}{\sqrt{2}} \\ 0 \\ -\frac{1}{\sqrt{2}} \\
-  \end{bmatrix}, \lambda_{1} = 3, \lambda_{2} = 1.$$
+% Using the hint, we find unit eigenvectors and corresponding eigenvalues of $A^{T}A$ to be $$v_1 = \begin{bmatrix}
+%     \frac{1}{\sqrt{6}} \\ \frac{2}{\sqrt{6}} \\ \frac{1}{\sqrt{6}} \\
+%   \end{bmatrix}, v_2 = \begin{bmatrix}
+%     \frac{1}{\sqrt{2}} \\ 0 \\ -\frac{1}{\sqrt{2}} \\
+%   \end{bmatrix}, \lambda_{1} = 3, \lambda_{2} = 1.$$
 
-Thus, the singular values of matrix $A$ are $\sigma_1 = \sqrt{3}$ and $\sigma_2 = 1$. We could compute columns of matrix $U$ with $$u_{1} = \frac{1}{\sigma_{1}} A v_{1} = \begin{bmatrix}
-    \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\
-  \end{bmatrix}$$ and $$u_{2} = \frac{1}{\sigma_{2}} A v_{2} = \begin{bmatrix}
-    \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \\
-  \end{bmatrix}.$$ 
+% Thus, the singular values of matrix $A$ are $\sigma_1 = \sqrt{3}$ and $\sigma_2 = 1$. We could compute columns of matrix $U$ with $$u_{1} = \frac{1}{\sigma_{1}} A v_{1} = \begin{bmatrix}
+%     \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\
+%   \end{bmatrix}$$ and $$u_{2} = \frac{1}{\sigma_{2}} A v_{2} = \begin{bmatrix}
+%     \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \\
+%   \end{bmatrix}.$$ 
 
-Finally, using Gram-Schmidt, we find $v_3$ so that columns of matrix $V$ form an orthonormal basis for $\mathbb{R}^{3}$. This gives a SVD of matrix A as follows: 
+% Finally, using Gram-Schmidt, we find $v_3$ so that columns of matrix $V$ form an orthonormal basis for $\mathbb{R}^{3}$. This gives a SVD of matrix A as follows: 
 
-$$USV^{T} = \begin{bmatrix}
-    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}  \\
-  \end{bmatrix} 
-  \begin{bmatrix}
-    \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \\
-  \end{bmatrix}
-  \begin{bmatrix}
-    \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \frac{2}{\sqrt{6}} & 0  & -\frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\
-  \end{bmatrix}^T$$ 
+% $$USV^{T} = \begin{bmatrix}
+%     \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}  \\
+%   \end{bmatrix} 
+%   \begin{bmatrix}
+%     \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \\
+%   \end{bmatrix}
+%   \begin{bmatrix}
+%     \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \frac{2}{\sqrt{6}} & 0  & -\frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\
+%   \end{bmatrix}^T$$ 
 
 
-Similarly, we can use $AA^{T}$ to compute a singular value decomposion of $A$ as well, and the singular values and vectors $u_i$ can be found more easily since $AA^{T}$ is a $2\times2$ matrix.
+% Similarly, we can use $AA^{T}$ to compute a singular value decomposion of $A$ as well, and the singular values and vectors $u_i$ can be found more easily since $AA^{T}$ is a $2\times2$ matrix.
 
-}
+% }
 
 
 

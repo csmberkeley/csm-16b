@@ -1,0 +1,123 @@
+% Authors: Taejin Hwang
+% Emails: taejin@berkeley.edu
+
+\qns{OMP Speedup}
+
+Orthogonal Matching Pursuit is a way to take a large number of transmissions from satellites and to solve the problem of knowing which satellites are transmitting, and what message they are sending.
+
+Recall from 16A, that for OMP we can model the observed signal, $\vec{y}$ as a signal of length $N$ and we have a total of $m >> N$ satellites. The model for the output $\vec{y}$ would then be:
+\begin{equation}
+\vec{y} = a_{1} \vec{s}_{1}^{\ (\tau_{1})} + \cdots + a_m \vec{s}_{m}^{\ (\tau_{m})}
+\end{equation}
+For satellite $i,$ we denote $a_{i}$ as the message it is sending, $\vec{s}_{i}$ as the signal it is transmitting, and $\tau_{i}$ is the delay of the signal from its original form. 
+
+We then tried setting up a system of equations with $\vec{x}$ as a vector of all of the $a_i$
+\begin{equation}
+\vec{y} = 
+\begin{bmatrix} 
+| & | & | \\
+\ \vec{s}_{1}^{\ (\tau_{1})} & \cdots & \ \vec{s}_{m}^{\ (\tau_{m})} \\
+| & | & | 
+\end{bmatrix}
+\begin{bmatrix} a_{0} \\ \vdots \\ a_{m} \end{bmatrix} = S \vec{x} 
+\end{equation}
+We cannot use Least Squares to solve this system since the matrix $S$ is not full rank, since it will have more columns than rows.
+However, if we make the assumption that our solution was sparse ($\vec{x}$ will contain many zeros), then we could use the following iterative algorithm to solve for $\vec{x}.$
+
+\textbf{Iteration 1:}
+\begin{enumerate}[label=(\arabic*)]
+  \item Cross correlate the original signal $\vec{y}$ with all of the signals and find the signal $\vec{s}_{j}^{({\tau_{j}})}$ with the highest cross correlation at time $\tau_{j}.$
+  \item Shift the signal $\vec{s}_{j}^{\ (\tau_{j})}$ to get the original signal $\vec{s}_{j}.$
+  \item Approximate the signal $\hat{y} = a_{j} \vec{s}_{j}^{\ (\tau_{j})}$ and solve for $a_{i}$ using the 1-D Least Squares solution: $\hat{a_{i}} = \frac{1}{\vec{s}_{i}^{T} \vec{s}_{i}} \vec{s}_{i}^{T} \vec{y}.$
+  \item Calculate the residual of the estimate by computing $\vec{r} = \vec{y} - \hat{y} = \vec{y} - \hat{a_{j}} \vec{s}_{j}^{\ (\tau_{j})}$
+\end{enumerate}
+
+\textbf{Iteration i = $\{2, \cdots, n\}$:}
+\begin{enumerate}[label=(\arabic*)]
+  \item Cross correlate the original signal $\vec{y}$ with all of the signals and find the signal $\vec{s}_{}^({\tau_{k}})$ with the highest cross correlation at time $\tau_{k}.$
+  \item Shift the signal $\vec{s}_{k}^{\ (\tau_{k})}$ to get the original signal $\vec{s}_{j}.$
+  \item Approximate the signal $\hat{y} = \sum\limits_{r} a_{r} \vec{s}_{r}^{\ (\tau_{r})}$ using the signals we picked in the previous $i - 1$ iterations. 
+  \item This can be formulated as a least squares problem $\hat{y}_{i} = S_{i} \hat{x}$ where $S_{i}$ is a matrix of all $i$ signals we have picked in each iteration. This can then be solved with the Least Squares solution: $\hat{x} = (S_{i}^{T} S_{i})^{-1} S_{i}^{T} \vec{y}
+  .$
+  \item Calculate the residual of the estimate by computing $\vec{r} = \vec{y} - \hat{y}_{i} = \vec{y} - \sum\limits_{r} a_{r} \vec{s}_{r}^{\ (\tau_{r})}.$
+  \item Continue iterating until the residual $\norm{\vec{r}}$ is less than some threshold $\epsilon.$
+\end{enumerate}
+
+Now that we've established the algorithm for OMP, we will use our knowledge of Gram-Schimdt to see how we can speed up OMP.
+
+\begin{enumerate}
+  \item If $S_{i}$ were to have orthonormal columns, what would the least squares solution be?
+
+  \sol {
+    In general, the least squares solution would be $\hat{x} = (S_{i}^{T} S)^{-1} S_{i}^{T} \vec{y}.$ 
+    However, since $S_{i}$ has orthonormal columns, we know that $S_{i}^{T} S_{i} = I.$ 
+    Therefore, our least squares solution is $\hat{x} = S_{i}^{T} \vec{y}.$
+  }
+
+  \item We've seen that we can use Gram-Schmidt on the columns of $S_{i}$ to make its columns orthonormal.
+  We will call the matrix with orthonormal columns $Q_{i}.$ What is the orthogonal projection matrix that takes a vector $\vec{y}$ in $\mathbb{R}^{n},$ and projects it onto the $\text{Col}(Q_{i})?$
+
+  \sol {
+    The projection matrix that projected a vector $\vec{b}$ onto the $\text{Col}(A)$ in Least Squares, was shown to be $A (A^{T} A)^{-1} A^{T}.$ Since our matrix $Q_{i}$ has orthonormal columns, we can say that the projection matrix onto $\text{Col}(Q_{i})$ using Least Squares is $Q_{i} (Q_{i}^{T} Q_{i})^{-1} Q_{i}^{T}.$ We can show this is equal to:
+    $$Q_{i} (Q_{i}^{T} Q_{i})^{-1} Q_{i}^{T} = Q_{i} (I)^{-1} Q_{i}^{T} = Q_{i} Q_{i}^{T}$$
+  }
+
+  \item Now using the projection matrix from the previous part, let's project the vector $\vec{y}$ onto the $\text{Col}(Q_{i}).$
+  What is the resulting projection?
+
+  \sol {
+    The resulting projection will be $Q_{i} Q_{i}^{T} \vec{y}.$ This can be simplified as follows:
+    \begin{align*}
+    \text{proj}_{\text{Col}(Q_{i})} \vec{y} &= Q_{i} Q_{i}^{T} \vec{y} = Q_{i} \\
+    &= Q_{i} \begin{bmatrix} 
+    - & \vec{q}_{1}^{T} & - \\
+    - & \vdots & - \\
+    - & \vec{q}_{i}^{T} & - 
+    \end{bmatrix} \vec{y} = \begin{bmatrix}
+    | & | & | \\
+    \vec{q}_{1} & \cdots & \vec{q}_{i} \\
+    | & | & |
+    \end{bmatrix}
+    \begin{bmatrix} \vec{q}_{1}^{T} \vec{y} \\ \vdots \\ \vec{q}_{i}^{T} \vec{y} \end{bmatrix} \\
+    &= (\vec{q}_{1}^{T} \vec{y}) \vec{q}_{1} + \cdots + (\vec{q}_{i}^{\ T} \vec{y}) \vec{q}_{i}
+    \end{align*}
+  }
+
+  \item We will now go back to our algorithm for OMP. The resulting projection from the previous part should be the estimate $\hat{y}_{i}.$ Do you notice anything between iteration $i$ and $i+1?$ 
+
+  \sol {
+    Our estimate at the $i^{\text{th}}$ iteration is $\hat{y}_{i} = (\vec{q}_{1}^{T} \vec{y}) \vec{q}_{1} + \cdots + (\vec{q}_{i}^{\ T} \vec{y}) \vec{q}_{i}$ \\
+    On the $(i + 1)^{st}$ iteration, our estimate will be $\hat{y}_{i+1} = (\vec{q}_{1}^{T} \vec{y}) \vec{q}_{1} + \cdots + (\vec{q}_{i+1}^{\ T} \vec{y}) \vec{q}_{i+1}.$ \\
+    The estimates between iteration $i$ and $i + 1$ only differ by $(\vec{q}_{i+1}^{\ T} \vec{y}) \vec{q}_{i+1}!$ 
+    This means we no longer need to take inverses or use Least Squares to solve for our estimates $\hat{y}_{i}$ since we proved in the previous part that $\text{proj}_{\text{Col}(Q_{i})} \vec{y}$ has a closed formula and can be updated every step by adding $(\vec{q}_{i+1}^{\ T} \vec{y}) \vec{q}_{i+1}.$ 
+  }
+
+  \item Can you come up with a new algorithm for Gram Schmidt with the new speedup shown in the previous part?
+
+  \sol {
+    Remember that when we perform Gram Schmidt, all of the previous vectors are already orthonormal to each other, so for every new vector coming in, we can subtract its projections to make it orthonormal to the rest. 
+
+    For our new algorithm, we will keep track of our orthonormal signals in a set $Q$ initialized to be empty. In addition, we will initalize the residual vector $\vec{r} = \vec{y}.$ For the sake of notation, we will again index our signals from $1$ to $i - 1.$
+
+    \textbf{At each iteration i = 1, ..., n}
+    \begin{enumerate}[label=(\arabic*)]
+      \item Cross correlate the original signal $\vec{y}$ with all of the signals and find the signal $\vec{s}_{i}^{\ ({\tau_{i}})}$ with the highest cross correlation at time $\tau_{i}.$
+      \begin{itemize}
+        \item Also, shift the signal $\vec{s}_{i}^{\ (\tau_{i})}$ to get the original signal $\vec{s}_{i}.$
+      \end{itemize}
+      \item Make this new signal orthogonal to the rest by applying Gram-Schmidt. 
+      \begin{itemize}
+        \item We will define the vector $\vec{q}_{i} = \vec{s}_{i} - \sum\limits_{r = 0}^{i - 1} \innp{\vec{u}_{{r}}}{\vec{s}_{r}} \vec{u}_{r}$
+        \item Reassign $\vec{q}_{i}$ to $\frac{\vec{q}_{i}}{\norm{\vec{q}_{i}}}$ to make sure it has norm 1.
+        \item Add this vector to the set $Q$ (we do this keep track of the previous vectors)
+      \end{itemize}
+      \item Lastly, we calculate the residual, according to our calculations in the previous part
+      \begin{itemize}
+        \item The estimate $\hat{y}_{i}$ was computed as $\hat{y}_{i} = (\vec{q}_{1}^{T} \vec{y}) \vec{q}_{1} + \cdots + (\vec{q}_{i}^{\ T} \vec{y}) \vec{q}_{i}$
+        \item The residual was defined to be $\vec{r} = \vec{y} - \hat{y}_{i}.$ 
+        \item Therefore to update the residual, we subtract the residual from the one calculated in the previous step by the difference $(\vec{q}_{i}^{\ T} \vec{y}) \vec{q}_{i}$
+      \end{itemize}
+      \item We continue iterating until $\norm{\vec{r}} < \epsilon.$
+    \end{enumerate}
+  }
+\end{enumerate}

@@ -1,0 +1,149 @@
+% Authors: Yi Zhao, Taejin Hwang
+% Emails: taejin@berkeley.edu
+
+\qns{System Feedback}
+
+
+
+Consider the following continuous time system:
+$$
+\frac{d^2}{dt^2} x(t) = -x(t)
+$$
+We convert this system to state space form:
+
+\begin{equation}
+  \ddt{}{t} \vec{x}(t) = A \vec{x}(t) + B \vec{u}(t)
+\end{equation}
+
+We will pick our state variable $\vec{x} = \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix},$
+with $x_1(t) = x(t)$ and $x_2(t) = \frac{d}{dt} x(t)$. 
+
+\begin{enumerate}
+
+\qitem What is the values of the $A$ matrix?
+
+\sol {
+	$$
+    A = \begin{bmatrix}
+    0 & 1 \\
+    -1 & 0
+    \end{bmatrix}
+    $$
+}
+
+\qitem How about the matrix $B$ and the input vector $\vec{u}(t)?$ 
+
+\sol {
+  The current system can be modeled as:
+  \begin{equation}
+  \ddt{}{t} \vec{x}(t) = A \vec{x}(t)
+  \end{equation}
+  We do not have an input vector for the system, nor do we have a matrix $B.$ \vskip 1pt
+  The dimensions of $B$ and $\vec{u}(t)$ are currently undefined.
+}
+
+\qitem Is this continuous time system stable? How would you describe its behavior?
+
+\sol{
+	The eigenvalues of the $A$ matrix will be $\pm j.$ 
+  Since $\mathfrak{Re}(\lambda) = 0,$ not less than $0,$ the system is unstable.
+  It can be described as an oscillatory system that never dies out.
+}
+\end{enumerate}
+
+We want to change the behavior of the system using a feedback control model:
+$$
+\frac{d}{dt}
+\begin{bmatrix}
+x_1(t) \\
+x_2(t)
+\end{bmatrix}
+=
+A
+\begin{bmatrix}
+x_1(t) \\
+x_2(t)
+\end{bmatrix}
++ 
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+u(t)
+$$
+To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 \\ k_2 \end{bmatrix}$. 
+
+\begin{enumerate}[resume]
+\item After plugging in our input, $u(t) = K\vec{x}(t),$ what will our new system be?
+
+\sol {
+  We know that our $B$ matrix is: $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ and our input $u(t) = k_1 x_1(t) + k_2 x_2(t).$ \vskip 1pts
+  If we plug this into our system, we will get:
+  \begin{equation}
+    \ddt{}{t} \vec{x}(t) = 
+    \begin{bmatrix}
+    0 & 1 \\
+    -1 & 0
+    \end{bmatrix} 
+    \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix} + 
+    \begin{bmatrix} 0 \\ k_1 x_1(t) + k_2 x_2(t) \end{bmatrix} 
+  \end{equation}
+
+  This means our new system will be:
+  \begin{equation}
+    \ddt{}{t} \vec{x}(t) = 
+    \begin{bmatrix}
+    0 & 1 \\
+    -1 + k_1 & k_2
+    \end{bmatrix} 
+    \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix} 
+  \end{equation}
+  Or, in the form;
+  \begin{equation}
+    \ddt{}{t} \vec{x}(t) = (A + BK) \vec{x}(t)
+  \end{equation}
+}
+
+\qitem We will define the new matrix derived in the previous part as $A_{cl}$ for the closed loop system. 
+What are the eigenvalues of this new matrix $A_{cl}?$
+
+\sol {
+  We first compute the characteristic polynomial of $A_{cl}.$
+  $$\text{det}(A_{cl} - \lambda I) = 
+  \text{det} 
+  \bigg( 
+  \begin{bmatrix} 
+    -\lambda & 1 \\
+    -1 + k_1 & k_2 - \lambda 
+  \end{bmatrix}
+  \bigg) = \lambda(\lambda - k_2) - 1(-1 + k_1) = \lambda^{2} - k_2 \lambda + 1 - k_1$$
+  The eigenvalues will be the roots of this characteristic polynomial:
+  $$\lambda = \frac{k_2}{2} \pm \frac{1}{2} \sqrt{k_2^{2} - 4(1 - k_1)}$$
+}
+
+\qitem Suppose $k_1 = -1$ and $k_2 = -2,$ what will the eigenvalues of this system be? 
+How about when $k_1 = 1$ and $k_2 = 2$?
+
+\sol{
+	If $k_1 = -1$ and $k_2 = -2,$ then the eigenvalues will be:
+  $$-1 \pm \frac{1}{2} \sqrt{4 - 4(1 + 1)} = -1 \pm j$$
+  Since $\mathfrak{Re}(\lambda) = -1 < 0,$ for both eigenvalues, this system will be stable. \vskip 1pt
+
+  Now suppose $k_1 = 1$ and $k_2 = 2,$ then the eigenvalues will be:
+  $$-1 \pm \frac{1}{2} \sqrt{4 - 4(1 - 1)} = 0, \ -2$$
+  Since one of the eigenvalues has $\mathfrak{Re}(\lambda) = 0 >= 0,$ this system will be unstable.
+}
+
+\qitem What values of $k_1$ and $k_2$ will remove the oscillatory behavior completely and still stabilize the system?
+
+\sol{
+	To remove oscillatory behavior, and stabilize the system, the square root term of the eigenvalue must be positive, and both eigenvalues must be less than 0.
+
+	As example of this would be $k_1 = -1$ and $k_ 2 = -3.$ 
+  This gives the system eigenvalues of $-1$ and $-2$ while removing oscillatory behavior and being stable.
+}
+
+
+
+
+\end{enumerate}

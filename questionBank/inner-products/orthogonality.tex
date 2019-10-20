@@ -4,7 +4,12 @@
 \qns{Inner Products and Orthogonality}
 
 Recall from EECS 16A that we defined the notion of multiplying two vectors by using an \textbf{inner product}.
-An inner product over the real numbers, is a rule that takes two vectors $\vec{x}, \vec{y} \in V$ and outputs a scalar in a field $F = \mathbb{R}$ that satisfies the following properties:
+An inner product over the real numbers, is a rule that takes two vectors $\vec{x}, \vec{y} \in V$ and outputs a scalar in $\mathbb{R}$ that satisfies the following properties:
+
+\meta {
+  Note that the properties below are for $\textbf{real}$ inner products, and \textbf{complex} inner products will be covered later on when doing the DFT.
+}
+
 \begin{enumerate}[label=(\roman*)]
   \item Symmetry: $\innp{\vec{x}}{\vec{y}} = \innp{\vec{y}}{\vec{x}}$
   \item Homogeneity: $\innp{\alpha \vec{x}}{\vec{y}} = \alpha \innp{\vec{x}}{\vec{y}}$
@@ -13,20 +18,17 @@ An inner product over the real numbers, is a rule that takes two vectors $\vec{x
 \end{enumerate}
 
 
-In this question, we will review the concepts of an inner product, and focus our attention on when two vectors are \textbf{orthogonal}.
-
-We say two vectors $\vec{x}$ and $\vec{y}$ are orthogonal if:
+In this question, we will review the concepts of an inner product, and focus our attention on when two vectors are \textbf{orthogonal}. We say two vectors $\vec{x}$ and $\vec{y}$ are orthogonal if:
 \begin{equation}
   \langle \vec{x}, \vec{y} \rangle = 0
 \end{equation}
 
-If we plotted these vectors geometrically, then the two vectors would appear to be "perpendicular."
+If we plotted these vectors geometrically, then the two vectors would appear to be perpendicular.
 \begin{enumerate}
   \qitem What is the difference between a dot product and an inner product?
   
   \meta {
     The purpose of this part is to make sure students understand that not all inner products are the dot product, since they will be seeing the Frobenius Inner Product later on in the course. 
-    Note that the properties below are for $\textbf{real}$ inner products, and \textbf{complex} inner products will be covered later on when doing the DFT.
   }
 
   \sol {
@@ -45,14 +47,14 @@ If we plotted these vectors geometrically, then the two vectors would appear to 
   \end{equation}
   Recall the cosine definition of a dot product using norms, where $\theta$ is the angle between $\vec{x}$ and $\vec{y}$:
   \begin{equation}
-    \vec{x} \cdot \vec{y} = \norm{x} \norm{y} \cos(\theta)
+    \vec{x} \cdot \vec{y} = \norm{\vec{x}} \norm{\vec{y}} \cos(\theta)
   \end{equation}
   Show that if $\vec{x}$ and $\vec{y}$ are non-zero and orthogonal, then the angle between the two vectors is $90^{\circ}.$
 
   \sol {
     If $\vec{x}$ and $\vec{y}$ are orthogonal, then their inner product must be zero.
     $$\innp{\vec{x}}{\vec{y}} = 0.$$
-    This means that $\norm{x} \norm{y} \cos(\theta) = 0.$ Since $\vec{x}, \vec{y} \neq \vec{0},$ $\norm{x}, \norm{y}$ must be non-zero, but this implies that $\cos(\theta) = 0.$
+    This means that $\norm{\vec{x}} \norm{\vec{y}} \cos(\theta) = 0.$ Since $\vec{x}, \vec{y} \neq \vec{0},$ $\norm{\vec{x}}, \norm{\vec{y}}$ must be non-zero, but this implies that $\cos(\theta) = 0.$
     We conclude by saying that $\theta = \frac{\pi}{2}$ or $90^{\circ}.$
   }
 
@@ -77,7 +79,8 @@ If we plotted these vectors geometrically, then the two vectors would appear to 
     The exact same argument can be used one more time, by taking the inner product of both sides with $\vec{v}_{2}$ to show that $\alpha_{2}$ must also be zero, which shows that $\vec{v}_{1}$ and $\vec{v}_{2}$ must be linearly independent.
   }
 
-  \qitem Generalize the arugment above to show that if $\{\vec{v}_{1}, \cdots, \vec{v}_{n}\}$ is a set of non-zero orthogonal vectors, then the set must be linearly independent. We say a set of vectors is orthogonal, if each pair of vectors is mutually orthogonal, that is $\innp{\vec{v}_{i}}{\vec{v}_{j}} = 0$ for any $i$ and $j.$
+  \qitem Generalize the argument above to show that if $\{\vec{v}_{1}, \cdots, \vec{v}_{n}\}$ is a set of non-zero orthogonal vectors, then the set must be linearly independent. 
+  We say a set of vectors is orthogonal, if each pair of vectors is mutually orthogonal, that is $\innp{\vec{v}_{i}}{\vec{v}_{j}} = 0$ for any $i,j$ where $i \neq j.$
 
   \meta {
     If students aren't comfortable with summations, especially the $1 \leq i < j \leq n$ part, then use the first method provided in the solution.
