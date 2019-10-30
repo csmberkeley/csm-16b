@@ -3,7 +3,7 @@
 
 \qns{System Stability}
 
-In the previous question, we took a look at BIBO stability for systems modeled by a \textbf{scalar} differential equation. 
+In the previous question, we took a look at stability for systems modeled by a \textbf{scalar} differential equation. 
 We will now extend this to systems modeled as a \textbf{matrix/vector} differential equation of the form:
 \begin{equation}\label{eqn:std}
   \ddt{}{t} \vec{x}(t) = A \vec{x}(t) + B \vec{u}(t)
@@ -16,8 +16,7 @@ Since $\widetilde{B}$ is a matrix of scalars, we can redefine $\vec{\widetilde{{
 \begin{equation}\label{eqn:input}
   \ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{{u}}}(t)
 \end{equation}
-Also, in this case, $R$ will be an upper triangular matrix, and we say that $A = VRV^{T}$ where $V$ is the change of coordinates matrix from $z_{i}$ coordinates to $x_{i}$ coordinates. 
-In addition to this, we can choose an orthonormal basis $S,$ such that $V$ will have orthonormal columns.
+In this case, $R$ will be the upper triangular matrix, and the basis which makes the linear operator upper triangular, $S = \{ \vec{v}_{1}, \cdots, \vec{v}_{n} \},$ can be picked to be orthonormal. Therefore, we say that $A = VRV^{T}$ where $V$ is the change of coordinates matrix from $z_{i}$ coordinates to $x_{i}$ coordinates, or $\vec{x} = V \vec{z}.$
 
 \begin{enumerate}
   \qitem Show that if the system represented by equation \eqref{eqn:schur} is stable in $z_i$ coordinates, then it must also be stable in $x_i$ coordinates.
@@ -66,13 +65,28 @@ In addition to this, we can choose an orthonormal basis $S,$ such that $V$ will 
     \end{align*}
   }
 
-  \qitem When will the differential equation $\ddt{}{t} z_{n}(t) = \lambda_{n} z_{n} + \widetilde{u}_{n}(t)$ be stable?
+  \qitem Under what conditions will $\ddt{}{t} z_{n}(t) = \lambda_{n} z_{n}(t) + \widetilde{u}_{n}(t)$ be stable?
+
+  \meta {
+    This is an if and only if condition since we are discussing scalar BIBO stability.
+  }
 
   \sol {
     This scalar differential equation will only be stable when $\mathfrak{Re}(\lambda_{n}) < 0$ by the criterion we defined for BIBO stability in the previous question.
   }
 
-  \qitem Using back-substitution, confirm that $\ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{u}}(t)$ is stable only when $\mathfrak{Re}(\lambda_i) < 0$ for all $i.$
+  \qitem Using back-substitution, confirm that $\ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{u}}(t)$ will be stable when $\mathfrak{Re}(\lambda_i) < 0$ for all $i.$
+
+  \meta {
+    This however, is not a necessary condition, and will only be sufficient. 
+    It is possible to have a system with eigenvalue $0$ and still have it be BIBO stable, but we will say that it is not system stable, or asymptotically stable.
+    An example of this is when $A = \begin{bmatrix} 0 & 0 \\ 0 & -1 \end{bmatrix}, B = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.$
+
+    Therefore, we say the system is guaranteed to be BIBO stable when $\mathfrak{Re}(\lambda_i) < 0.$ 
+    When discussing system stability however, we must be able to control all of our eigenvalues in order to say that the eigenvalue test works for BIBO stability. In this case, the system is uncontrollable, and we cannot control the response with eigenvalue $0.$
+
+    Note that this question has been worded very carefully to claim that a system will be BIBO stable when the eigenvalue check is satisfied. Also, in general, when a question asks, "Is the system stable?" it is usually referring to system stability through the eigenvalue test.
+  }
 
   \sol {
     The differential equation for $z_{n-1}(t)$ will be:
@@ -80,9 +94,8 @@ In addition to this, we can choose an orthonormal basis $S,$ such that $V$ will 
       \ddt{}{t} z_{n-1}(t) = \lambda_{n-1} z_{n-1}(t) + r_{n-1, n} \ z_{n}(t) + \widetilde{u}_{n-1}(t)
     \end{equation}
     We've shown that $z_{n}(t)$ is stable only when $\mathfrak{Re}(\lambda_{n}) < 0,$ so we will now only have to consider the stability of $z_{n-1}(t).$ \vskip 1pt
-    We can treat $w_{n-1}(t) = r_{n-1, n} \ z_{n}(t) + \widetilde{u}_{n-1}(t)$ as an input to the differential equation for $z_{n-1},$ and again reapply the definition of BIBO stability to claim that $z_{n-1}$ is stable when $\mathfrak{Re}(\lambda_{n-1}) < 0.$ \vskip 1pt
-    Continuing this back-substitution, we will eventually see that all of the $z_i$ are stable only when $\mathfrak{Re}(\lambda_{i}) < 0$ for all $i.$
-
+    We can treat $w_{n-1}(t) = r_{n-1, n} \ z_{n}(t) + \widetilde{u}_{n-1}(t)$ as an input to the differential equation for $z_{n-1},$ and again reapply the definition of stability to claim that $z_{n-1}$ is stable when $\mathfrak{Re}(\lambda_{n-1}) < 0.$ \vskip 1pt
+    Continuing this back-substitution, we will eventually see that when $\mathfrak{Re}(\lambda_{i}) < 0$ for all $i,$ all of the $z_i$ will be stable.
   }
 
 \end{enumerate}

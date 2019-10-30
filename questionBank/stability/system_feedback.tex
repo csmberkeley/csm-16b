@@ -3,8 +3,6 @@
 
 \qns{System Feedback}
 
-
-
 Consider the following continuous time system:
 $$
 \frac{d^2}{dt^2} x(t) = -x(t)
@@ -39,16 +37,17 @@ with $x_1(t) = x(t)$ and $x_2(t) = \frac{d}{dt} x(t)$.
   \ddt{}{t} \vec{x}(t) = A \vec{x}(t)
   \end{equation}
   We do not have an input vector for the system, nor do we have a matrix $B.$ \vskip 1pt
-  The dimensions of $B$ and $\vec{u}(t)$ are currently undefined.
+  We can treat them as zero, but the dimensions of $B$ and $\vec{u}(t)$ are currently undefined.
 }
 
 \qitem Is this continuous time system stable? How would you describe its behavior?
 
 \sol{
 	The eigenvalues of the $A$ matrix will be $\pm j.$ 
-  Since $\mathfrak{Re}(\lambda) = 0,$ not less than $0,$ the system is unstable.
+  Since $\mathfrak{Re}(\lambda) = 0,$ and is not less than $0,$ the system is unstable.
   It can be described as an oscillatory system that never dies out.
 }
+
 \end{enumerate}
 
 We want to change the behavior of the system using a feedback control model:
@@ -71,13 +70,34 @@ x_2(t)
 \end{bmatrix}
 u(t)
 $$
-To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 \\ k_2 \end{bmatrix}$. 
+To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 & k_2 \end{bmatrix}$. Note that $K$ is a $1 \times 2$ matrix.
+
+\meta {
+  In the generalized state-space model, $B$ is an $n \times p$ matrix and $\vec{u}$ will be a vector in $\mathbb{R}^{p}.$ Therefore, since $\vec{u} = K \vec{x},$ and $\vec{x}$ is in $\mathbb{R}^{n},$ our $K$ matrix in the general state-space model will be of size $p \times n.$
+}
 
 \begin{enumerate}[resume]
-\item After plugging in our input, $u(t) = K\vec{x}(t),$ what will our new system be?
+\qitem We will now try to use our knowledge of controllability to stabilize this system. Is this continuous time system controllable?
+
+\meta {
+  Make sure to emphasize that we can only pick every eigenvalue of the system if it is controllable.
+  We can also make an unstable system stable, if we can control all of the unstable eigenvalues, but we would not be able to control \textbf{every} eigenvalue for the system.
+}
+
+\sol{
+  We can compute our controllability matrix as
+  $$\mathcal{C} = \begin{bmatrix} \vec{b} & A \vec{b} \end{bmatrix} = 
+  \begin{bmatrix}
+  0 & 1 \\
+  1 & 0 
+  \end{bmatrix}$$
+  This controllability matrix is full-rank since its columns are linearly independent, so the system is controllable.
+}
+
+\item After plugging in our input, $u(t) = K\vec{x}(t),$ what will our new system be? How can you write out this system of differential equations in matrix/vector form?
 
 \sol {
-  We know that our $B$ matrix is: $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ and our input $u(t) = k_1 x_1(t) + k_2 x_2(t).$ \vskip 1pts
+  We know that our $B$ matrix is: $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ and our input $u(t) = k_1 x_1(t) + k_2 x_2(t).$ \vskip 1pt
   If we plug this into our system, we will get:
   \begin{equation}
     \ddt{}{t} \vec{x}(t) = 
@@ -98,7 +118,7 @@ To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 \\ k_2 \
     \end{bmatrix} 
     \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix} 
   \end{equation}
-  Or, in the form;
+  We can alternatively represent this as a matrix/vector system of differential equations:
   \begin{equation}
     \ddt{}{t} \vec{x}(t) = (A + BK) \vec{x}(t)
   \end{equation}
@@ -121,29 +141,26 @@ What are the eigenvalues of this new matrix $A_{cl}?$
   $$\lambda = \frac{k_2}{2} \pm \frac{1}{2} \sqrt{k_2^{2} - 4(1 - k_1)}$$
 }
 
-\qitem Suppose $k_1 = -1$ and $k_2 = -2,$ what will the eigenvalues of this system be? 
-How about when $k_1 = 1$ and $k_2 = 2$?
+\qitem Suppose $k_1 = 1$ and $k_2 = 2,$ what will the eigenvalues of this system be? 
+How about when $k_1 = -1$ and $k_2 = -2$?
 
 \sol{
-	If $k_1 = -1$ and $k_2 = -2,$ then the eigenvalues will be:
-  $$-1 \pm \frac{1}{2} \sqrt{4 - 4(1 + 1)} = -1 \pm j$$
-  Since $\mathfrak{Re}(\lambda) = -1 < 0,$ for both eigenvalues, this system will be stable. \vskip 1pt
+	If $k_1 = 1$ and $k_2 = 2,$ then the eigenvalues will be:
+  $$1 \pm \frac{1}{2} \sqrt{4 - 4(1 - 1)} = 0, \ 2$$
+  Since both of the eigenvalues have $\mathfrak{Re}(\lambda) = 0, 2 >= 0,$ this system will be unstable.
 
-  Now suppose $k_1 = 1$ and $k_2 = 2,$ then the eigenvalues will be:
-  $$-1 \pm \frac{1}{2} \sqrt{4 - 4(1 - 1)} = 0, \ -2$$
-  Since one of the eigenvalues has $\mathfrak{Re}(\lambda) = 0 >= 0,$ this system will be unstable.
+  Now suppose $k_1 = -1$ and $k_2 = -2,$ then the eigenvalues will be:
+  $$-1 \pm \frac{1}{2} \sqrt{4 - 4(1 + 1)} = -1 \pm j$$
+  Since $\mathfrak{Re}(\lambda) = -1 < 0,$ for both eigenvalues, this system will be stable. 
 }
 
 \qitem What values of $k_1$ and $k_2$ will remove the oscillatory behavior completely and still stabilize the system?
 
 \sol{
-	To remove oscillatory behavior, and stabilize the system, the square root term of the eigenvalue must be positive, and both eigenvalues must be less than 0.
+	To remove oscillatory behavior, and stabilize the system, the square root term $\sqrt{k_2^{2} - 4(1 - k_1)}$ must be positive, and the real part of both eigenvalues must be less than 0.
 
 	As example of this would be $k_1 = -1$ and $k_ 2 = -3.$ 
   This gives the system eigenvalues of $-1$ and $-2$ while removing oscillatory behavior and being stable.
 }
-
-
-
 
 \end{enumerate}

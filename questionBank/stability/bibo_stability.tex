@@ -3,24 +3,36 @@
 
 \qns{BIBO Stability}
 
+\meta {
+  The mini-lecture here establishes the definitions of BIBO stability and why we can look at the solution $x_{p}(t)$ instead of the output $y(t).$ It also explains why we are only looking at the real part of the eigenvalues, since the imaginary part will not contribute to the magnitude of the output.
+}
+
 In this question, we will investigate into the definitions of stability for a scalar system modeled by a first order differential equation of the form with the initial condition $x(0) = x_{0}.$ 
 
 \begin{equation} \label{eq:h}
 \ddt{}{t} x(t) = \lambda x(t) + u(t)
 \end{equation}
 
-We say that this system is BIBO stable, if for every bounded input $u(t),$ the output $x(t)$ is bounded as well. \vskip 1pt
-A function $f(t)$ is bounded by a constant $B$ if: $\abs{f(t)} \leq B < \infty$ for all values of $t.$
+A function $x(t)$ is bounded by a constant $B$ if: $\abs{x(t)} \leq B < \infty$ for all values of $t.$
+Therefore we will say that this system is \textbf{BIBO stable} if for every bounded input $u(t),$ the output $y(t)$ is bounded as well. 
 
-Recall that the particular solution to this differential equation $x_{p}(t),$ was uniquely determined for $t \geq 0$ as:
+The output $y(t)$ will be a function of $x(t)$ in the form: 
+\begin{equation}
+y(t) = \alpha x(t) + \beta u(t)
+\end{equation}
+As $y(t)$ is a linear combination of $x(t),$ and an already assumed to be bounded input $u(t),$ showing that $y(t)$ is bounded is equivalent to showing that $x(t)$ is bounded.
 
-\begin{equation} \label{eq:h}
+Recall that the particular solution to the differential equation \eqref{eq:h}, was uniquely determined for $t \geq 0$ as:
+
+\begin{equation} \label{eq:p}
 x_{p}(t) = x_{0} e^{\lambda t} + \int_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d\tau
 \end{equation}
 
-Although $\lambda$ can be complex, we make the observation that $|e^{(a + bj)}| = |e^{a}| |e^{bj}| = |e^{a}| |\cos(b) + j \sin(b)| = |e^{a}|.$
-Therefore, $\mathfrak{Im}(\lambda)$ does not affect stability, and we will only consider the effects of $\mathfrak{Re}(\lambda).$  \\
-For the purposes of this question, assume $\lambda$ is real number. 
+Although $\lambda$ can be complex, we can observe that $|e^{(a + bj)}| = |e^{a}| |e^{bj}| = |e^{a}| |\cos(b) + j \sin(b)| = |e^{a}|.$ 
+
+The, $\mathfrak{Im}(\lambda)$ does not affect stability, and will correspond to oscillations that are bounded.
+Therefore, we will only consider the effects of $\mathfrak{Re}(\lambda)$ which affect the stability of a system, 
+and for the purposes of this question, assume that $\lambda$ is a real number.
 
 \begin{enumerate}
   \qitem We will start with a bounded input $u(t) = 0.$ Check if $x_{p}(t)$ is bounded for the three following cases:
@@ -31,12 +43,12 @@ For the purposes of this question, assume $\lambda$ is real number.
   \end{enumerate}
 
   \sol {
-  Remember that in order for a function, $f(t),$ to be bounded, its absolute value must be less than a constant $B$ \textbf{for all} values of $t.$ \vskip 1pt
+  Remember that in order for a function, $x(t),$ to be bounded, its absolute value must be less than a constant $B$ \textbf{for all} values of $t.$ \vskip 1pt
   For this zero input, the solution to the differential equation for $t \geq 0,$ will be $x_{p}(t) = x_{0} e^{\lambda t}.$
   \begin{enumerate}[label=(\roman*)]
     \item If $\lambda > 0,$ then $x_{p}(t) = x_{0} e^{\lambda t},$ which is a strictly increasing function. As $t \to \infty, x_{p}(t) \to \infty$ which implies that $x_{p}(t)$ is unbounded. 
     \item If $\lambda = 0,$ then $x_{p}(t) = x_{0} e^{0 \cdot t} = x_{0}.$ Therefore, $x_{p}(t)$ is bounded by $x_{0}.$
-    \item If $\lambda < 0,$ then $x_{p}(t) =  x_{0} e^{\lambda t}$ which is a strictly decreasing function. As $t \to \infty, x_{p}(t) \to x_{0}$ so this function is bounded by $x_{0}$ as well.
+    \item If $\lambda < 0,$ then $x_{p}(t) =  x_{0} e^{\lambda t}$ which is a strictly decreasing function. As $t \to \infty, x_{p}(t) \to 0$ so this function is bounded by its initial condition $x_{0}.$
   \end{enumerate} 
   }
 
@@ -44,22 +56,21 @@ For the purposes of this question, assume $\lambda$ is real number.
 
   \sol {
     We've shown that for $\lambda > 0,$ a bounded input $u(t) = 0,$ gave an unbounded output. 
-    Therefore, this system is not BIBO stable for $\lambda > 0.$ \vskip 1pt
-    We however, cannot say that the other two are BIBO stable, since we must show that \textbf{every} bounded input gives rise to an unbounded output. 
+    Therefore, this system is \textbf{not} BIBO stable for $\lambda > 0.$ \vskip 1pt
+    We however, cannot say that the other two are BIBO stable, since we must show that \textbf{every} bounded input gives rise to an bounded output. 
   }
 
   \qitem Now let's consider an input $u(t) = e^{\lambda t},$ can you say anything about the BIBO stability for $\lambda = 0?$
 
   \sol {
 
-    If $u(t) = e^{\lambda t} = 1$ then 
-    $$x_{p}(t) = x(0) e^{\lambda t} + \int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau =  x(0) + \int\limits_{0}^{t} e^{\lambda \tau} e^{\lambda(t - \tau)} d \tau = x(0) + \int\limits_{0}^{t} 1 d \tau = x(0) + t$$
+    If $u(t) = e^{\lambda t} = 1$ then, 
+    $$x_{p}(t) = x(0) e^{\lambda t} + \int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau =  x(0) + \int\limits_{0}^{t} e^{0 \cdot (t - \tau)} d \tau = x(0) + \int\limits_{0}^{t} 1 d \tau = x(0) + t$$
 
     As $t \to \infty, \ x_{p}(t) \to \infty$ which implies that for $\lambda = 0,$ the system is \textbf{not} BIBO stable.
-
   }
 
-  \qitem How can we show that when $\lambda < 0,$ the system is indeed BIBO stable? 
+  \qitem How can we show that when $\lambda < 0,$ the system is indeed BIBO stable? `
   You should start by assuming you have a bounded input $u(t)$ such that $\abs{u(t)} \leq B.$ \textit{Hint: $\abs{\int x(t) dt} \leq \int \abs{x(t)}.$}
 
   \sol {
@@ -67,10 +78,14 @@ For the purposes of this question, assume $\lambda$ is real number.
     We know our solution is: 
     $$x_{p}(t) = x(0) e^{\lambda t} + \int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau.$$
     We already know that $x(0) e^{\lambda t}$ is stable for $\lambda < 0,$ so it remains to show the integral is stable as well. \vskip 1pt
-    Using our hint, 
+    We first pull out the magnitude of $e^{\lambda t}$ out of the absolute value.
     $$\abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau} = 
-    \abs{e^{\lambda t}} \abs{\int\limits_{0}^{t} u(\tau) e^{-\lambda(\tau)} d \tau}
-    \leq \abs{e^{\lambda t}} \int\limits_{0}^{t} \abs{u(\tau) e^{-\lambda \tau}} d \tau 
+    \abs{e^{\lambda t}} \abs{\int\limits_{0}^{t} u(\tau) e^{-\lambda(\tau)} d \tau}$$
+    Using our hint, 
+    $$\abs{e^{\lambda t}} \abs{\int\limits_{0}^{t} u(\tau) e^{-\lambda(\tau)} d \tau}
+    \leq \abs{e^{\lambda t}} \int\limits_{0}^{t} \abs{u(\tau) e^{-\lambda \tau}} d \tau$$
+    Then we use the fact that $u(t)$ is bounded by $B.$
+    $$\abs{e^{\lambda t}} \int\limits_{0}^{t} \abs{u(\tau) e^{-\lambda \tau}} d \tau
     \leq \abs{e^{\lambda t}} B \int\limits_{0}^{t} \abs{e^{-\lambda \tau} d \tau}$$
     Since all of our functions are positive for $t \geq 0,$ we can get rid of the absolute values:
     $$\abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau} \leq B e^{\lambda t} \int\limits_{0}^{t} e^{-\lambda \tau} d \tau =

@@ -1,24 +1,29 @@
+% Authors: Akash Velu, Shreyas Krisnaswamy
+% Emails: akashvelu@berkeley.edu, shrekris@berkeley.edu
+
 \qns{Aperture Stability}
-\qcontributor{Akash Velu}
-\qcontributor{Shreyas Krishnaswamy}
 
 As an intern at Aperture Laboratories, it is your job to make sure the robots being built are stable systems.
-As a reminder, a system is stable if the following conditions are met:
+As a reminder, if the following conditions are met the system will be stable:
 
 \begin{itemize}
 
-\item $|\lambda{}| < 1$, for all eigenvalues in matrix A, for discrete time systems of the form:\\
-$\vec{x}(t+1) = A\vec{x}(t) + Bu(t) + \vec{w}(t)$
+\item For discrete time systems of the form:
+\begin{equation}
+\vec{x}(t+1) = A\vec{x}(t) + Bu(t) + \vec{w}(t)
+\end{equation}
+All eigenvalues of the matrix A, $\lambda_{i},$ have magnitude $|\lambda_{i}| < 1.$
 
-\item $re(\lambda{})< 0$, for all eigenvalues in matrix A, for continuous time systems of the form:\\
-$\frac{d}{dt}\vec{x}(t) = A\vec{x}(t) + Bu(t) + \vec{w}(t)$
-
+\item For continuous time systems of the form:
+\begin{equation}
+\ddt{}{t} \vec{x}(t) = A\vec{x}(t) + Bu(t) + \vec{w}(t)
+\end{equation}
+All eigenvalues of the matrix A, $\lambda_{i},$ have real part $\mathfrak{Re}(\lambda_{i})< 0.$
 \end{itemize}
 
 \begin{enumerate}
 
-\qitem According to your boss, the first robot, GLaDOS, can be described with the following discrete time system:\\
-
+\qitem According to your boss, the first robot, GLaDOS, can be described with the following discrete time system:
 \begin{equation*}
     \vec{x}(t+1) =
     \begin{bmatrix}
@@ -36,38 +41,63 @@ $\frac{d}{dt}\vec{x}(t) = A\vec{x}(t) + Bu(t) + \vec{w}(t)$
 Is she stable?
 
 \sol {
+% \begin{align*}
+% A\vec{v} &= \lambda\vec{v} \\
+% A\vec{v} - \lambda\vec{v} &= 0 \\
+% (A - \lambda{}I)\vec{v} &= 0 \\
+% det(A - \lambda{}I) &= 0
+% \end{align*}
 
 \begin{align*}
-A\vec{v} &= \lambda\vec{v} \\
-A\vec{v} - \lambda\vec{v} &= 0 \\
-(A - \lambda{}I)\vec{v} &= 0 \\
-det(A - \lambda{}I) &= 0
-\end{align*}
-
-\begin{equation*}
-det(A - \lambda{}I) =
-\begin{vmatrix}
+\text{det} (A - \lambda{}I) &=
+\text{det} \Big(
+\begin{bmatrix}
 \frac{3}{8} - \lambda{} & \frac{1}{8}\\
 \frac{1}{8} & \frac{3}{8} - \lambda{}\\
-\end{vmatrix} = 0
+\end{bmatrix} \Big) = \big(\frac{3}{8} - \lambda{}\big)\big(\frac{3}{8} - \lambda{}\big) - \big(\frac{1}{8}\big)\big(\frac{1}{8}\big) \\
+&= \lambda{}^2 - \frac{3}{4}\lambda{} + \frac{1}{8} = \big(\lambda{} - \frac{1}{2}\big)\big(\lambda{} - \frac{1}{4}\big) = 0\\
+\end{align*}
+Therefore, we see that 
+$$
+\lambda{} = \frac{1}{2}, \frac{1}{4}$$
+
+Since the system is a discrete time system, and both eigenvalues have magnitude smaller than 1, GLaDOS is stable.
+}
+
+\qitem Your boss now gives you data on the P-body robot. Is she stable?
+Her motion is described with the following discrete time system:
+\begin{equation*}
+    \vec{x}(t + 1) =
+    \begin{bmatrix}
+    -2 & -1\\
+    1 & -2\\
+    \end{bmatrix}
+    \vec{x}(t) +
+    \begin{bmatrix}
+    1\\
+    1\\
+    \end{bmatrix}
+    u(t)
 \end{equation*}
 
-\begin{align*}
-det(A - \lambda{}I) &= (\frac{3}{8} - \lambda{})(\frac{3}{8} - \lambda{}) - (\frac{1}{8})(\frac{1}{8})\\
-&= \lambda{}^2 - \frac{3}{4}\lambda{} + \frac{1}{8}\\
-&= (\lambda{} - \frac{1}{2})(\lambda{} - \frac{1}{8}) = 0\\
-\lambda{} &= \{\frac{1}{2}, \frac{1}{8}\}
-\end{align*}
-
-Since both eigenvalues are lower than 1 in magnitude and the system is a discrete time system, GLaDOS is stable.
-
+\sol {
+  \begin{align*}
+    \text{det}(A - \lambda{}I) &= \Big(
+    \begin{bmatrix}
+    -2 - \lambda{} & -1\\
+    1 & -2 - \lambda{}\\
+    \end{bmatrix} \Big) = (-2 - \lambda{})(-2 - \lambda{}) - (-1)(1) \\
+    &= \lambda{}^2 + 4\lambda{} + 5 = (\lambda{} - (-2 + j))(\lambda{} - (-2 - j)) = 0 \\
+  \end{align*}
+  Therefore we can compute the eigenvalues as
+  $$\lambda{} = -2 \pm j$$
+  However, the magnitude of both of these eigenvalues are $|\lambda| = \sqrt{5} \geq 1.$ Therefore, Atlas is unstable.
 }
 
 \qitem
-Now your boss gives you data on another robot, Atlas.
+Now your boss gives you data on a more advanced robot, Atlas.
 Is he stable?
-His movements can be described with the following continuous time system:\\
-
+His movements can be described with the following continuous time system:
 \begin{equation*}
     \frac{d}{dt}\vec{x}(t) =
     \begin{bmatrix}
@@ -83,36 +113,13 @@ His movements can be described with the following continuous time system:\\
 \end{equation*}
 
 \sol{
-
-\begin{align*}
-A\vec{v} &= \lambda\vec{v} \\
-A\vec{v} - \lambda\vec{v} &= 0 \\
-(A - \lambda{}I)\vec{v} &= 0 \\
-det(A - \lambda{}I) &= 0
-\end{align*}
-
-\begin{equation*}
-det(A - \lambda{}I) =
-\begin{vmatrix}
--2 - \lambda{} & -1\\
-1 & -2 - \lambda{}\\
-\end{vmatrix} = 0
-\end{equation*}
-
-\begin{align*}
-det(A - \lambda{}I) &= (-2 - \lambda{})(-2 - \lambda{}) - (-1)(1)\\
-&= \lambda{}^2 - 4\lambda{} + 5\\
-&= (\lambda{} - (-2 + i))(\lambda{} - (-2 - i)) = 0\\
-\lambda{} &= \{-2 + i, -2 - i\}
-\end{align*}
-
-Since the real parts of both eigenvalues are lower than 0 and the system is a continuous time system, Atlas is stable.
-
+  This is the exact same system as the previous system but in continuous time. The eigenvalues will be the same:
+  $$\lambda{} = -2 \pm j$$
+  This time, since this is a continuous time system, the conditions for stability have changed. Since $\mathfrak{Re}(\lambda) < 0$ for both eigenvalues, we conclude by saying that this system is stable.
 }
 
 \qitem Lastly, your boss gives you data on the Wheatley robot. Is he stable?
-His motion is described with the following discrete time system:\\
-
+His motion is described with the following discrete time system:
 \begin{equation*}
     \vec{x}(t+1) =
     \begin{bmatrix}
@@ -128,15 +135,20 @@ His motion is described with the following discrete time system:\\
 \end{equation*}
 
 \sol {
+  You can also note that A is the rotation matrix, and make the observation that the eigenvalues are on the unit circle.
+  Without even doing any calculations, we know Wheatley is unstable since $|\lambda| = 1.$
 
-Note that A is the rotation matrix.
-Without even doing any calculations, we know Wheatley is stable since for any bounded input, he has a bounded output.
-After all, he is only able to rotate!\\
+  This can also be realized by computing the eigenvalues in the following manner:
+  \begin{align*}
+    \text{det}(A - \lambda{}I) &= \text{det} \Big(
+    \begin{bmatrix}
+    \frac{\sqrt{3}}{2} - \lambda{} & -\frac{1}{2}\\
+    \frac{1}{2} & \frac{\sqrt{3}}{2} - \lambda{}\\
+    \end{bmatrix} \Big) = (\frac{\sqrt{3}}{2} - \lambda{})^{2} + \frac{1}{4} = \lambda{}^{2} - \sqrt{3} \lambda + 1 = 0
+  \end{align*}
+  Using the quadratic formula, we see that the eigenvalues are:
+  $$\lambda = \frac{\sqrt{3}}{2} \pm \frac{1}{2} \sqrt{(-\sqrt{3})^{2} - 4 \cdot 1} = \frac{\sqrt{3}}{2} \pm \frac{1}{2}j$$
 
-Good job intern!
-You've helped progress the field of science by confirming that Aperture Science never makes unstable machines.
-Never.
-
+  Intuitively, you can see that this system is unstable since it will continue rotating and will never converge to a steady state.
 }
-
 \end{enumerate}

@@ -36,7 +36,7 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
     \begin{equation}
       A^{T}AA^{T} \vec{u} = A^{T} (\lambda \vec{u}) = \lambda (A^{T} \vec{u})
     \end{equation}
-    We again assumed $\vec{u}$ is not in the $\text{Nul}(A^{T})$ so $A^{T} \vec{u}$ will be nonzero and in $\text{Col}(A^{T}).$
+    We again assumed $\vec{u}$ is not in the $\text{Nul}(A^{T})$ so $A^{T} \vec{u}$ will be nonzero and in the $\text{Col}(A^{T}).$
     Therefore, we can say that $\vec{v} = A^{T} \vec{u}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$
   }
 
@@ -47,7 +47,7 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
     \begin{equation} 
       \norm{A \vec{v}}_{2} = \sqrt{(A \vec{v})^{T} (A \vec{v})} = \sqrt{\vec{v}^{T} A^{T} A \vec{v}} = \sqrt{\vec{v}^{T} \lambda \vec{v}} = \sqrt{\lambda \vec{v}^{T} \vec{v}} = \sqrt{\lambda \norm{v}_2} = \sqrt{\lambda}
     \end{equation}
-    Note that $\norm{A \vec{v}}_{2}$ cannot be imaginary since we showed that $\lambda \geq 0$ in the previous question in part(b).
+    Note that $\norm{A \vec{v}}_{2}$ cannot be imaginary since we showed that $\lambda \geq 0$ in the previous question in part (b).
   }
 
   \qitem Going back to part (a), let's normalize $\vec{u}$ and $\vec{v}$ to have unit norm.
@@ -103,8 +103,8 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
     =  \begin{bmatrix} | & \ & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{k} \vec{u}_{n} \\ | & \ & | \end{bmatrix} = 
      \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{n} \\ | & \ & | \end{bmatrix} \begin{bmatrix} \sigma_{1} & 0 &  \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 \\ \vdots & \vdots & \ddots & \sigma_{n} \\ 
     \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix} = U \Sigma$$
-    Now let's $m < n.$ \\
-    We start off wit the eigenvectors of $A^{T} A$ again: $A \vec{v}_{1} = \sigma_{1} \vec{u}_{1}, \cdots, A \vec{v_k} = \vec{u_k}.$ \\
+    Now let's suppose $m < n.$ \\
+    We start off with the eigenvectors of $A^{T} A$ again: $A \vec{v}_{1} = \sigma_{1} \vec{u}_{1}, \cdots, A \vec{v_k} = \vec{u_k}.$ \\
     We will get the same matrix equation:
     $$A \begin{bmatrix} | & \ & | \\
     \vec{v}_{1} & \cdots & \vec{v}_{k}  \\ | & \ & | \end{bmatrix} 
@@ -118,7 +118,7 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
     $$A \begin{bmatrix} | & \ & | \\
     \vec{v}_{1} & \cdots & \vec{v}_{n}  \\ | & \ & | \end{bmatrix} = 
     \begin{bmatrix} | & \ & | &  & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{m} \vec{u}_{m} & \cdots & \vec{0} \\ | & \ & | &  & | \end{bmatrix} = 
-     \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{m} \\ | & \ & | \end{bmatrix} \begin{bmatrix} \sigma_{1} & 0 &  \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 & \cdots 0 \\ \vdots & \vdots & \ddots & \sigma_{m} & \cdots 0 \end{bmatrix}$$
+     \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{m} \\ | & \ & | \end{bmatrix} \begin{bmatrix} \sigma_{1} & 0 & \cdots & 0 & \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 & \cdots & 0 \\ \vdots & \vdots & \ddots & \sigma_{m} & \cdots&  0 \end{bmatrix}$$
     In both cases, we see that $AV = U\Sigma .$
   }
 
