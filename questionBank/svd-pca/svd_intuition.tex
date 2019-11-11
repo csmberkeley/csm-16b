@@ -42,7 +42,7 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
   }
 
   \qitem Let $\vec{u}$ be a nonzero vector in $\mathbb{R}^m$ that is not in the $\text{Nul}(A^{T}).$ 
-  Show that if $\vec{u}$ is an eigenvector of $AA^{T},$ with eigenvalue $\lambda,$ there must also be an eigenvector $\vec{v}$ of $A^{T} A$ with eigenvalue $\lambda.$
+  Show that if $\vec{u}$ is an eigenvector of $AA^{T},$ with eigenvalue $\lambda,$ there exists an eigenvector $\vec{v}$ of $A^{T} A$ with eigenvalue $\lambda.$
 
   \meta {
     We note that these vectors are in $\text{Col}(A)$ and $\text{Col}(A^{T})$ to motivate the Fundamental Theorem of Linear Algebra in the final part.
@@ -118,16 +118,16 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
   \textit{Hint: Try writing out the relationship between $\vec{v}_{i}$ and $\vec{u}_{i}$ and try turning these vector equations into a matrix equation.}
 
   \sol {
-    We've shown for eigenvectors of $A^{T} A, \ \vec{v}_{1}, \cdots, \vec{v_k} \in \text{Col}(A), \ A \vec{v}_{1} = \sigma_{1} \vec{u}_{1}, \cdots, A \vec{v_k} = \vec{u_k}.$ \\
+    We've shown for eigenvectors of $A^{T} A, \ \vec{v}_{1}, \dotsc, \vec{v_k} \in \text{Col}(A^{T}), \ A \vec{v}_{1} = \sigma_{1} \vec{u}_{1}, \cdots, A \vec{v_k} = \vec{u_k}.$ \\
     Therefore, if we try turning this into a matrix equation, we see that:
     $$A \begin{bmatrix} | & \ & | \\
     \vec{v}_{1} & \cdots & \vec{v}_{k}  \\ | & \ & | \end{bmatrix} 
     =  \begin{bmatrix} | & \ & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{k} \vec{u}_{k} \\ | & \ & | \end{bmatrix}$$
-    However, we can can notice that for $\vec{v}_{i},$
+    However, we can can notice that for $i = 1, \dotsc, k + 1,$
     $$A \vec{v}_{i} = 0 \cdot \vec{u}_{1} + \dotsc + \sigma_{i} \vec{u}_{i} + 0 \vec{u}_{i + 1} + \dotsc + 0 \vec{u}_{k}.$$
-    For each individual vector, we get:
+    So for each individual vector, we get the relation:
     $$A \vec{v}_{i} = U_{k} \begin{bmatrix} 0 \\ \vdots \\ \sigma_{i} \\ \vdots \\ 0 \end{bmatrix}$$
-    Therefore, we get the relation:
+    Which gives us our final result:
     $$A \begin{bmatrix} | & \ & | \\
     \vec{v}_{1} & \cdots & \vec{v}_{k}  \\ | & \ & | \end{bmatrix} = 
     \begin{bmatrix} | & \ & | \\
@@ -142,29 +142,38 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
   \sol {
     We will consider the cases for when $m \geq n$ and $m < n.$ \\
     Suppose $m \geq n.$ \\
-    For the remaining eigenvectors of $A^{T}A, \vec{v}_{k + 1}, \cdots, \vec{v}_{n} \in \text{Nul}(A), \ A \vec{v_{i}} = 0 \vec{u_{i}},$ up until $n.$ Therefore, we can try extending our matrix to all of the columns of $V$ with $\sigma_{k+1}, \dotsc, \sigma_{n} = 0.$\\
+    For the remaining eigenvectors of $A^{T}A, \ \vec{v}_{k + 1}, \cdots, \vec{v}_{n} \in \text{Nul}(A), \ A \vec{v_{i}} = 0 \vec{u_{i}},$ up until $n.$ 
+    Therefore, we can try extending our matrix to all of the columns of $V$ with $\sigma_{k+1}, \dotsc, \sigma_{n} = 0.$ 
+    If $n = m,$ then we are done, but if $n \leq m,$ we cannot cover all eigenvectors of $AA^{T}$ but we will cover up to $n < m.$ \\
     $$A \begin{bmatrix} | & \ & | \\
     \vec{v}_{1} & \cdots & \vec{v}_{n}  \\ | & \ & | \end{bmatrix} 
     =  \begin{bmatrix} | & \ & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{n} \vec{u}_{n} \\ | & \ & | \end{bmatrix} = 
-     \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{n} \\ | & \ & | \end{bmatrix} \begin{bmatrix} \sigma_{1} & 0 &  \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 \\ \vdots & \vdots & \ddots & \sigma_{n} \\ 
-    \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix} = U \Sigma$$
+     \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{n} \\ | & \ & | \end{bmatrix}  
+     \begin{bmatrix} \sigma_{1} & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & \sigma_{k} \end{bmatrix} = U_{n} \Sigma_{n}$$
+    For the remaining vectors $\vec{u}_{n+1}, \dotsc, \vec{u}_{m}$ that are in the $\text{Nul}(A^{T}),$ we will add $0$'s below the sigma matrix, to match the dimensions.
+    $$AV =  \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{m} \\ | & \ & | \end{bmatrix} 
+    \begin{bmatrix} \sigma_{1} & \cdots & 0 \\
+    \vdots & \ddots & \vdots  \\
+    0 & \cdots & \sigma_{n} \\
+    \vdots & \ddots & \vdots \\
+    0 & \cdots & 0 \end{bmatrix}
+     = U \Sigma$$
+
     Now let's suppose $m < n.$ \\
-    We start off with the eigenvectors of $A^{T} A$ again: $A \vec{v}_{1} = \sigma_{1} \vec{u}_{1}, \cdots, A \vec{v}_{k} = \vec{u}_{k}.$ \\
-    We will get the same matrix equation:
+    We'll start off with the same equation using the first $n$ eigenvectors of $A^{T}A$ and $AA^{T}.$
     $$A \begin{bmatrix} | & \ & | \\
-    \vec{v}_{1} & \cdots & \vec{v}_{k}  \\ | & \ & | \end{bmatrix} 
-    =  \begin{bmatrix} | & \ & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{k} \vec{u}_{k} \\ | & \ & | \end{bmatrix}$$
-    For the remaining eigenvectors of $A^{T}A, \vec{v}_{k + 1}, \cdots, \vec{v}_{n} \in \text{Nul}(A), \ A \vec{v_{i}} = 0 \vec{u_{i}},$ up until $m < n.$ Notice that we cannot cover all eigenvectors of $A^{T} A$ but we will cover up to $m < n.$
-    $$A \begin{bmatrix} | & \ & | \\
-    \vec{v}_{1} & \cdots & \vec{v}_{m}  \\ | & \ & | \end{bmatrix} = 
-    \begin{bmatrix} | & \ & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{m} \vec{u}_{m} \\ | & \ & | \end{bmatrix} = 
-     \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{m} \\ | & \ & | \end{bmatrix} \begin{bmatrix} \sigma_{1} & 0 &  \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 \\ \vdots & \vdots & \ddots & \sigma_{m} \end{bmatrix}$$
-    We however, can still extend to $V$ since $A \vec{v}_{i} = \vec{0}$ for $i \geq n.$ We will do this by padding $0$'s to the right of the $\Sigma$ matrix.
-    $$A \begin{bmatrix} | & \ & | \\
-    \vec{v}_{1} & \cdots & \vec{v}_{n}  \\ | & \ & | \end{bmatrix} = 
-    \begin{bmatrix} | & \ & | &  & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{m} \vec{u}_{m} & \cdots & \vec{0} \\ | & \ & | &  & | \end{bmatrix} = 
-     \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{m} \\ | & \ & | \end{bmatrix} \begin{bmatrix} \sigma_{1} & 0 & \cdots & 0 & \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 & \cdots & 0 \\ \vdots & \vdots & \ddots & \sigma_{m} & \cdots&  0 \end{bmatrix}$$
-    In both cases, we see that $AV = U\Sigma .$
+    \vec{v}_{1} & \cdots & \vec{v}_{n}  \\ | & \ & | \end{bmatrix} 
+    =  \begin{bmatrix} | & \ & | \\ \sigma_{1} \vec{u}_{1} & \cdots & \sigma_{n} \vec{u}_{n} \\ | & \ & | \end{bmatrix} = 
+     \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{n} \\ | & \ & | \end{bmatrix}  
+     \begin{bmatrix} \sigma_{1} & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & \sigma_{k} \end{bmatrix} = U_{n} \Sigma_{n}$$
+    Notice that we cannot cover all eigenvectors of $A^{T} A$ but we will cover up to $m < n.$
+    This time, we will extend $V$ by using the eigenvectors $\vec{v}_{n + 1}, \dotsc, \vec{v}_{n},$ by padding $0$'s, but this time they will have to be to the right of the $\Sigma_{n}$ matrix for the dimensions to match.
+    $$AV =  \begin{bmatrix} | & \ & | \\ \vec{u}_{1} & \cdots & \vec{u}_{m} \\ | & \ & | \end{bmatrix} 
+    \begin{bmatrix} \sigma_{1} & \cdots & 0 & \cdots & 0 \\
+    \vdots & \ddots & \vdots & \cdots & \vdots \\
+    0 & \cdots & \sigma_{n} & \cdots & 0 \end{bmatrix}
+     = U \Sigma$$
+    In either case, we will see that $AV = U\Sigma.$ 
   }
   \qitem Why does the above equation imply that $A = U \Sigma V^{T}?$
 
@@ -177,7 +186,7 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
 
   \qitem \textbf{OPTIONAL:} The Singular Value Decomposition will compute the eigenvectors of $A^{T} A$ and $AA^{T}.$ 
   Based on the previous parts, we can make the realization that each of these eigenvectors are part of one of the four fundamental subspaces of $A: \text{Col}(A), \text{Nul}(A), \text{Col}(A^{T}), \text{Nul}(A^{T}).$
-  Show which eigenvectors of $A^{T} A$ and $AA^{T}$ belong to which subspaces of $\mathbb{R}^{n}$ and $\mathbb{R}^{m}.$ 
+  State which eigenvectors of $A^{T} A$ and $AA^{T}$ belong to which subspaces of $\mathbb{R}^{n}$ and $\mathbb{R}^{m}.$ 
 
   \sol {
 
@@ -216,7 +225,7 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
 
     We also saw in the previous parts, that if $A$ has rank $k < n,$ eigenvectors $\vec{v}_{1}, \dotsc, \vec{v}_{k}$ will all be in the $\text{Col}(A^{T})$ while $\vec{v}_{k+1}, \dotsc, \vec{v}_{n}$ will be in the $\text{Nul}(A).$ Therefore, we conclude by saying that $\vec{v}_{1}, \dotsc, \vec{v}_{k}$ forms a basis for  $\text{Col}(A^{T})$ and $\vec{v}_{k+1}, \dotsc, \vec{v}_{n}$ will form a basis for $\text{Nul}(A).$
 
-    Using these basis vectors, we can write any vector $\vec{x}$ in $\text{Col}(A^{T})$ as $\vec{x} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k} \vec{v}_{k}$ and any vector $\vec{y}$ in $\text{Nul}(A)$ can be written as $\vec{y} = \alpha_{k+1} \vec{v}_{k+1} + \dotsc + \alpha_{n} \vec{v}_{n}.$ $\vec{x}$ will be orthogonal to $\vec{y}$ since the Spectral Theorem says that we can pick eigenvectors $\vec{v}_{i}$ of $A^{T}A$ are all mutually orthogonal. 
+    Using these basis vectors, we can write any vector $\vec{x}$ in $\text{Col}(A^{T})$ as $\vec{x} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k} \vec{v}_{k}$ and any vector $\vec{y}$ in $\text{Nul}(A)$ can be written as $\vec{y} = \alpha_{k+1} \vec{v}_{k+1} + \dotsc + \alpha_{n} \vec{v}_{n}.$ $\vec{x}$ will be orthogonal to $\vec{y}$ since the Spectral Theorem says that we can pick eigenvectors $\vec{v}_{i}$ of $A^{T}A$ that are all mutually orthogonal. 
     Therefore, the $\text{Col}(A^{T})$ will be orthogonal to the $\text{Nul}(A).$
 
     The exact same argument can be made for the eigenvectors of $AA^{T}$ by creating bases for the $\text{Col}(A)$ and $\text{Nul}(A^{T}).$ We again can invoke the Rank-Nullity theorem and the fact that these eigenvectors are orthogonal to conclude that these two subspaces are orthogonal to each other.

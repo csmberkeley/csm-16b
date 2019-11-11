@@ -1,6 +1,8 @@
 % Author: Taejin Hwang
 % Email: taejin@berkeley.edu
 
+\qcontributor{Taejin Hwang}
+
 \qns{Spectral Intuition}
 
 An amazing result in Linear Algebra is the Spectral Theorem which says that any \textbf{symmetric} matrix is orthogonally diagonalizable. 
@@ -18,20 +20,20 @@ We will show that some of these properties are true for the symmetric matrix $A^
   }
 
   \qitem Show that every eigenvalue $\lambda_{i}$ of $A^{T}A$ is greater than or equal to zero. \vskip 1pt 
-  \textit{Hint: Consider $\norm{A\vec{v}}_{2}^{2}.$ where $\vec{v}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$}
+  \textit{Hint: Consider $\norm{A\vec{v}}^{2}.$ where $\vec{v}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$}
 
   \sol {
-    $\norm{A\vec{v}}_{2}^{2} = (A \vec{v})^{T} (A \vec{v}) = \vec{v}^{T}A^{T} A \vec{v} = \vec{v}^{T} (\lambda \vec{v}) = \lambda \vec{v}^{T} \vec{v} = \lambda \norm{\vec{v}}_{2}^{2}.$ \vskip 1pt
+    $\norm{A\vec{v}}^{2} = (A \vec{v})^{T} (A \vec{v}) = \vec{v}^{T}A^{T} A \vec{v} = \vec{v}^{T} (\lambda \vec{v}) = \lambda \vec{v}^{T} \vec{v} = \lambda \norm{\vec{v}}^{2}.$ \vskip 1pt
     Therefore we see that:
     \begin{equation}
-      \lambda = \frac{\norm{A \vec{v}}_{2}^{2}}{\norm{\vec{v}}_{2}^{2}} \geq 0
+      \lambda = \frac{\norm{A \vec{v}}^{2}}{\norm{\vec{v}}^{2}} \geq 0
     \end{equation}
     $\vec{v}$ is an eigenvector, so it must be nonzero, meaning its norm squared will be greater than 0. \vskip 1pt
-    $\norm{A\vec{v}}_{2}^{2}$ will also be greater than or equal to zero, but may be zero if $A \vec{v} = 0$ or $\vec{v} \in \text{Nul}(A).$
+    $\norm{A\vec{v}}^{2}$ will also be greater than or equal to zero, but may be zero if $A \vec{v} = 0$ or $\vec{v} \in \text{Nul}(A).$
   }
 
   \qitem Show that if $\lambda_{i}$ and $\lambda_{j}$ are distinct eigenvalues of $A^{T} A,$ then the respective eigenvectors $\vec{v}_{i}$ and $\vec{v}_{j}$ are orthogonal. \\
-  \textit{Hint: Write out the eigenvector relationships: $A^{T} A \vec{v}_{i} = \lambda_{i} \vec{v}_{i}$ and $A^{T} A \vec{v}_{j} = \lambda_{i} \vec{v}_{j}$ and then try taking the transpose of the second equation.}
+  \textit{Hint: Write out the eigenvector relationships: $A^{T} A \vec{v}_{i} = \lambda_{i} \vec{v}_{i}$ and $A^{T} A \vec{v}_{j} = \lambda_{j} \vec{v}_{j}.$ Then take the transpose of the second equation and see how you can equate the two.}
 
   \sol {
     Let $\vec{v}_{i}$ and $\vec{v}_{j}$ be eigenvectors of $A^{T}A$ with distinct eigenvalues $\lambda_{i}$ and $\lambda_{j}.$ \vskip 1pt
@@ -66,6 +68,6 @@ We will show that some of these properties are true for the symmetric matrix $A^
   \sol {
   	We've shown that eigenvectors with distinct eigenvalues are orthogonal. \\
   	We've also shown that for repeated eigenvalues, we can pick an orthogonal eigenbasis. \\
-  	Therefore, we can pick $n$ linearly independent vectors of $A^{T} A$ that are all mutually orthogonal, and can normalize each one to have norm $1$ to make them mutually orthonormal.
+  	Therefore, we can pick $n$ linearly independent eigenvectors of $A^{T} A$ that are all mutually orthogonal, and can normalize each one to have norm $1$ to make them mutually orthonormal.
   }
 \end{enumerate}
