@@ -26,7 +26,7 @@ The essential strategy for interpolating a signal is to express the interpolatio
 where the $\alpha_i$ weights on functions $\phi_i(t)$ are determined by the specific discrete-time samples $y_d(k)$ in question. 
 From this general starting point, two specific methods emerge: the method of \emph{interpolation by basis functions}, and the method of \emph{interpolation by global polynomials}.
 
-\subsection{Interpolation by Basis Functions}
+\section{Interpolation by Basis Functions}
 
 In this method, we construct the interpolation rather directly, as
 \begin{equation*}
@@ -50,28 +50,28 @@ Several common interpolation schemes can be written in terms of basis functions.
 For example, zero-order hold (ZOH) interpolation can be expressed using a box-shaped basis function in this way:
 
 \begin{center}
-\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{figs/phibox}}
+\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{\bank/interpolation/\bank/interpolation/figs/phibox}}
 {\Huge $\Longrightarrow$}
-\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{figs/zoh-interp}}
+\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{\bank/interpolation/figs/zoh-interp}}
 \end{center}
 
 Similarly, piecewise linear (PWL) interpolation can be expressed using a triangle-shaped basis function:
 
 \begin{center}
-\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{figs/phihat}}
+\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{\bank/interpolation/figs/phihat}}
 {\Huge $\Longrightarrow$}
-\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{figs/pwl-interp}}
+\raisebox{-.5\height}{\includegraphics[width=0.45\textwidth]{\bank/interpolation/figs/pwl-interp}}
 \end{center}
 
 Another useful basis function is the \emph{sinc} function $\text{sinc}(x)= \frac{\sin(\pi x)}{\pi x}$, where we take $\phi(t)=\text{sinc}(t/\Delta)$.
 The sinc function is differentiable and \emph{band-limited}, the importance of which will become clear in the DFT module.
 
 \begin{center}
-\includegraphics[width=0.75\textwidth]{figs/sinc}
+\includegraphics[width=0.75\textwidth]{\bank/interpolation/figs/sinc}
 \end{center}
 
 
-\subsection{Interpolation by Global Polynomials}
+\section{Interpolation by Global Polynomials}
 
 Another method of interpolation is to find a polynomial that passes through the discrete-time data. 
 In other words, we can construct $y(t)$ as
