@@ -27,21 +27,21 @@ For the sake of the notebook, we will assume $m = 3$ and $n = 10,$ but know that
     $\vec{y}$ has the highest correlation with $\vec{s}_{2}$ with a time delay of $7.$ 
   }
 
-  \qitem Now that we've found the signal with highest correlation, what is the np.roll function doing?
+  \qitem Now that we've found the signal with highest correlation, $\vec{s}_{2}$ what is the np.roll function doing?
 
   \sol {
     We found the signal $\vec{s}_{2}$ with the highest correlation. Our goal now is to solve for $a_{2}$ to give an estimate of $\vec{y}$ as 
-    $\hat{y}_{1} = a_{2} \vec{s}_{2}^{\ (\tau_{2})}.$ We know what the signal $\vec{s}_{2}$ is and have shown that it is most likely that $\vec{y}$ contains $\vec{s}_{2}$ shifted by $7.$ Therefore, np.roll is delaying $\vec{s}_{2}$ by 7 time steps and we do this to compute $a_{2}$ using a Least-Squares estimate.
+    $\hat{y}_{1} = a_{2} \vec{s}_{2}^{\ (\tau_{2})}.$ We know what the signal $\vec{s}_{2}$ is and have shown that it is most likely that $\vec{y}$ contains $\vec{s}_{2}$ shifted by $7.$ 
+    Therefore, np.roll is delaying $\vec{s}_{2}$ by 7 time steps so we can compute $a_{2}$ using a Least-Squares estimate.
   }
 
-  \qitem We subtract $\hat{y}_{1} = a_{2} \vec{s}_{2}$ from our original signal $\vec{y}$ to obtain the residual $\vec{r}.$ Can we say that our received signal $\vec{y}$ consists of only $\vec{s}_{2}?$
+  \qitem We subtract $\hat{y}_{1} = a_{2} \vec{s}_{2}^{\ (\tau_{2})}$ from our original signal $\vec{y}$ to obtain the residual $\vec{r}.$ Can we say that our received signal $\vec{y}$ consists of only $\vec{s}_{2}?$
 
   \sol {
     If we take a look at the residual, we see that it has a norm of around $10$ which is quite large. Therefore, we continue cross correlating since we suspect that there is at least one more signal that is influencing $\vec{y}.$
   }
 
-  \qitem We run cross correlation on all of the signals on more time. Why are we cross correlating $\vec{r}$ with all of the signals instead of $\vec{y}?$ Also,
-  what do you notice about the cross correlations of $\vec{r}$ and $\vec{s}_{2}?$
+  \qitem We run cross correlation on all of the signals on more time. Why are we cross correlating $\vec{r}$ with all of the signals instead of $\vec{y}?$ Also, what do you notice about the cross correlations of $\vec{r}$ and $\vec{s}_{2}?$
 
   \sol {
     We cross correlate with $\vec{r}$ since we have subtracted the influence of $\vec{s}_{2}$ that was $\vec{y}.$
@@ -79,8 +79,5 @@ For the sake of the notebook, we will assume $m = 3$ and $n = 10,$ but know that
     This is why we set some small threshhold for OMP to stop, since it will be almost impossible to numerically get a residual with norm $0.$
     In addition to this, since we have used up all 3 satellites, it would not be possible for us to do one more iteration of OMP to get a better estimate.
   }
-
-
-
 
 \end{enumerate}

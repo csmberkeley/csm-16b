@@ -1,0 +1,132 @@
+% Author: Taejin Hwang
+
+\qns{Low Rank Approximation}
+
+Given a $m \times n$ matrix $A,$ of high rank, we want to see how we can best approximate this matrix $A$ using a lower rank matrix $A_{k}$ of rank $k << n.$ 
+
+Before we do this however, we will need to define a way to measure how large a matrix is, and how good our approximation is. Therefore, we will define the spectral norm of a matrix $\norm{A}_{2}$ as:
+\begin{equation}
+  \norm{A}_{2} = \max_{\vec{x} \neq 0} \frac{\norm{A \vec{x}}}{\norm{\vec{x}}} = \sigma_{1}
+\end{equation}
+We use the subscript $\norm{\cdot}_{2}$ for the spectral norm, and $\sigma_{1}$ is the largest singular value of the matrix $A.$
+
+To measure this Low-Rank approximation, we will look at the following norm:
+$\norm{A - B_{k}}_{2}$
+where $B_{k}$ is a matrix of rank $k.$ In this problem, we will take a look at the following optimization problem
+\begin{align*}
+  &\min_{B_{k}}{\norm{A - B_{k}}_{2}} \\
+  &\text{subject to} \ \text{Rank}(B_k) \leq k
+\end{align*}
+and show that the optimal $B_{k}$ is in fact $A_{k}$ or the rank $k$ SVD approximation of A:
+\begin{equation}
+  A_{k} = \sum\limits_{i = 1}^{k} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^{T}
+\end{equation}
+
+\begin{enumerate}
+  \qitem What is the spectral norm of $\norm{A - A_{k}}_{2}?$
+
+  \sol {
+    We know from the SVD that $A = U \Sigma V^{T} = \sum\limits_{i = 1}^{n} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^{T}.$
+    Therefore, $A - A_{k} = \sum\limits_{i = k + 1}^{n} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^{T}.$
+    As a result, the spectral norm of $A - A_{k}$ will be its largest singular value, which in this case will be $\sigma_{k + 1}.$
+  }
+\end{enumerate}
+
+To show $A_{k}$ is optimal, we must show that $\norm{A - B_{k}}_{2} \geq \norm{A - A_{k}}_{2} = \sigma_{k+1}$ for any matrix $B_{k}$ of rank $k.$
+
+To do this, we will first consider a vector $\vec{x} = \alpha_{1} \vec{v}_{1} + \cdots + \alpha_{k + 1} \vec{v}_{k + 1}$ that is a linear combination of the first $k + 1$ vectors of the $V$ matrix of the SVD of $A.$ 
+We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ and show that there must exist a vector $\vec{x}$ in both $S$ and $\text{Nul}(B_{k}).$
+
+\begin{enumerate}[resume]
+  \qitem What is the dimension of the $\text{Nul}(B_{k})?$
+
+  \sol {
+    By the Rank-Nullity Theorem, we know that $\text{Rank}(B_{k}) + \text{dim Nul}(B_{k}) = n.$ \\
+    Since $\text{Rank}(B_{k}) = k,$ we see that $\text{dim Nul}(B_{k}) = n - k.$
+  }
+
+  \qitem What is the dimension of $S?$
+
+  \sol {
+    Since $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \},$ and all of the vectors $\vec{v}_{i}$ are linearly independent, $A = \{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ forms a basis for $S$ meaning $S$ has dimension $k + 1.$
+  }
+
+  \qitem Both $B_{k}$ and $S$ are subspaces of $\mathbb{R}^{n}.$ What is $\text{dim Nul}(B_{k}) + \text{dim} \ S?$
+
+  \sol {
+    $\text{dim Nul}(B_{k}) + \text{dim} \ S = n - k + k + 1 = n + 1.$
+  }
+
+  \qitem How can we use the fact from the previous part to show that there must exist a vector $\vec{x} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}$ that is in both subspaces $\text{Nul}(B_{k})$ and $S?$
+  \textit{Hint: Let R be a basis for $S$ and then create a basis for $B$ for the $\text{Nul}(B_{k})$ and look at the union of the two bases.}
+
+  \sol {
+    We know that $R = \{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ is a basis for $S.$ 
+    Since $\text{Nul}(B_{k})$ has dimension $n - k,$ we can pick a basis $B = \{ \vec{w}_{1}, \dotsc, \vec{w}_{n - k} \}$ for $\text{Nul}(B_{k}).$
+    Now if we look at $R \cup B,$ this is a set of $n + 1$ vectors that are in $\mathbb{R}^{n},$ so this set must be linearly dependent. 
+    This means that we can write $\vec{w}_{n - k}$ as a linear combination of the remaining vectors:
+    $$\vec{w}_{n - k} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1} + \beta_{1} \vec{w}_{1} + \dotsc + \beta_{n - k - 1} \vec{w}_{n - k - 1}.$$
+    Subtracting over the $\vec{w}_{i}$ vectors, we see that
+    $$\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1} = -\beta_{1} \vec{w}_{1} - \dotsc - \beta_{n - k - 1} \vec{w}_{n - k - 1} + \vec{w}_{n - k}.$$
+    As a result, $\vec{x} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}$ is a linear combination of the vectors in $A$ so it must be in $S.$
+    It is also however, a linear combination of the vectors in $B$ so it must also be in $\text{Nul}(B_k).$
+  }
+
+  \qitem We will now put the constraint that $\norm{\vec{x}} = 1$ to simplify the problem. How can we rephrase $\norm{A - B_{k}}_{2}$ as an optimization problem with this constraint? \textit{Hint: Look at the definition of the spectral norm.}
+
+  \sol {
+    Using the definition of the spectral norm, we see that 
+    $$\norm{A - B_{k}}_{2} = \max_{\vec{x} \neq 0} \frac{\norm{(A - B_{k}) \vec{x}}}{\norm{\vec{x}}}$$ 
+    If we put the constraint that $\norm{\vec{x}} = 1,$ then 
+    $$\norm{A - B_{k}}_{2} = \max_{\norm{\vec{x}} = 1} \norm{(A - B_{k}) \vec{x}}.$$
+  }
+
+  \qitem What is the norm $\norm{\vec{x}}^{2}$ in terms of $\alpha_{1}, \dots, \alpha_{k+1}?$ 
+  \textit{Hint: Remember that $\vec{v}_{i}$ is an eigenvector of $A^{T}A.$}
+
+  \sol {
+    Using the definition of a norm with respect to the inner product we get:
+    $$\norm{\vec{x}}^{2} = \innp{\vec{x}}{\vec{x}} = \innp{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}$$
+    Then we can use the distributive properties of norms, and the fact that $\vec{v}_{i}$ are orthonormal to cancel the cross-terms.
+    $$\norm{\vec{x}}^{2} = \sum\limits_{i = 1}^{k + 1} \innp{\alpha_{i} \vec{v}_{i}}{\alpha_{i} \vec{v}_{i}} = 
+    \sum\limits_{i = 1}^{k + 1} \alpha_{i}^{2} \innp{\vec{v}_{i}}{\vec{v}_{i}} = \sum\limits_{i = 1}^{k + 1} \alpha_{i}^{2}$$
+  }
+
+  \qitem What is $\norm{A \vec{v}_{i}}$ where $\vec{v}_{i}$ has norm 1? 
+
+  \sol {
+    We again apply the definition of a norm with respect to the inner product to get:
+    \begin{align*}
+      \norm{A \vec{v}_{i}}^{2} &= \innp{A \vec{v}_{i}}{A \vec{v}_{i}} = (A \vec{v}_{i})^{T} (A \vec{v}_{i}) \\
+      &= \vec{v}_{i}^{T} A^{T} A \vec{v}_{i} = \vec{v}_{i}^{T} (\lambda_{i} \vec{v}_{i}) =  \lambda_{i} \vec{v}_{i}^{T} \vec{v}_{i} \\
+      &= \lambda_{i} = \sigma_{i}^{2}
+    \end{align*}
+  }
+
+  \qitem The optimization problem defined in part (f) is over all vectors $\vec{x}$ in $\mathbb{R}^{n}.$
+  However, if we pick a specific $\vec{y} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1},$ with norm $1,$ we can say that $\norm{A - B_{k}}_{2} \geq \norm{(A - B_{k})\vec{y}}$ since $\norm{A - B_{k}}_{2}$ is maximal over all $\vec{x}.$ Simplify this expression to conclude that $\norm{(A - B_{k})\vec{x}} \geq \sigma_{k+1}.$
+
+  \meta {
+    Note that the $\norm{A - B_{k}}_{2}$ is the spectral norm, while $\norm{(A - B_{k})\vec{y}}$ is a vector norm.
+    Since $\norm{A - B_{k}}_{2} = \max_{\norm{\vec{x}} = 1} \norm{(A - B_{k}) \vec{x}},$ is the maximum for all $\vec{x}$ in $\mathbb{R}^{n}$ of norm $1,$ it must be that $\norm{A - B_{k}}_{2} \geq \norm{(A - B_{k}) \vec{y}}$ where $\norm{\vec{y}} = 1.$
+  }
+
+  \sol {
+    Since $\vec{y}$ is in $\text{Nul}(B_{k}),$ we can simplify $\norm{(A - B_{k}) \vec{y}}$ as:
+    $$\norm{(A - B_{k}) \vec{y}} = \norm{A \vec{y} - B_{k} \vec{y}} = \norm{A \vec{y}}$$
+    Plugging in for $\vec{y},$ and looking at $\norm{A \vec{y}}^{2},$ we get:
+    $$\norm{A \vec{y}}^{2} = \norm{A (\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1})}^{2} = \innp{\alpha_{1} A\vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}{\alpha_{1} A\vec{v}_{1} + \dotsc + \alpha_{k + 1} A\vec{v}_{k + 1}}$$
+    Using the distributive property, and the fact that $\vec{v}_{i}$ are orthogonal, we get:
+    \begin{align*}
+      \norm{A \vec{y}}^{2} &= \alpha_{1}^{2} \innp{A \vec{v}_{1}}{A \vec{v}_{1}} + \dotsc + \alpha_{k + 1}^{2} \innp{A \vec{v}_{k + 1}}{A \vec{v}_{k + 1}} \\
+      &= \alpha_{1}^{2} \sigma_{1}^{2} + \dotsc + \alpha_{k + 1}^{2} \sigma_{k + 1}^{2}
+    \end{align*}
+    However, since $\sigma_{1} \geq \sigma_{2} \geq \dotsc \geq \sigma_{k + 1}$ and $\alpha_{1}^{2} + \dotsc + \alpha_{k + 1}^{2} = 1,$ we get $\norm{A \vec{y}}^{2} \geq \sigma_{k + 1}^{2}.$
+    Therefore, we conclude by saying that $\norm{A \vec{y}} \geq \sigma_{k + 1}$ which implies $\norm{A - B_{k}}_{2} \geq \sigma_{k + 1}$ proving the optimality of $A_{k}.$
+  }
+
+\end{enumerate}
+
+
+
+

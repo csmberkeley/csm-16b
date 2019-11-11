@@ -41,6 +41,12 @@ from the largest to smallest.
 
 {\em (HINT: There is no need to compute the eigenvalues of anything.)}
 
+\meta {
+  Make sure to address the fact that the singular values must be ordered from largest to smallest. \vskip 1pt
+  Also, there is no need to compute the vectors in the $U$ matrix since $\Sigma$ is a scaling matrix, and $V$ is a permutation matrix, no "information" of the $A$ matrix has been lost. 
+  Therefore, $U$ will be a scaled and shifted version of the $A$ matrix.
+}
+
 \sol {
   $$A = BD = BDI = \begin{bmatrix} -\frac{1}{\sqrt{14}} & \frac{1}{\sqrt{3}} & \frac{5}{\sqrt{42}} \\ \frac{3}{\sqrt{14}} & \frac{1}{\sqrt{3}} & -\frac{1}{\sqrt{42}} \\ \frac{2}{\sqrt{14}} & -\frac{1}{\sqrt{3}} & \frac{4}{\sqrt{42}}\ \end{bmatrix} \begin{bmatrix} \sqrt{14} & 0 & 0 \\  0 & \sqrt{3} & 0 \\ 0 & 0 & \sqrt{42} \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\  0 & 1& 0 \\ 0 & 0 & 1 \end{bmatrix}.$$
   Reordering the singular values and corresponding left and right singular vectors, we have the SVD:

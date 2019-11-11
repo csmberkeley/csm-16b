@@ -13,9 +13,8 @@ In this question, we will investigate into the definitions of stability for a sc
 \ddt{}{t} x(t) = \lambda x(t) + u(t)
 \end{equation}
 
-When we are discussing the stability of a system, we want to see if this system will produce a bounded output $\vec{y}(t)$for every bounded input $\vec{u}(t).$ Therefore we will say that this system is \textbf{BIBO stable} if for every bounded input $u(t),$ the output $y(t)$ is bounded as well. 
-
-As a reference, a function $f(t)$ is bounded by a constant $B$ if: $\abs{f(t)} \leq B < \infty$ for all values of $t.$
+A function $x(t)$ is bounded by a constant $B$ if: $\abs{x(t)} \leq B < \infty$ for all values of $t.$
+Therefore we will say that this system is \textbf{BIBO stable} if for every bounded input $u(t),$ the output $y(t)$ is bounded as well. 
 
 The output $y(t)$ will be a function of $x(t)$ in the form: 
 \begin{equation}
@@ -64,6 +63,7 @@ and for the purposes of this question, assume that $\lambda$ is a real number.
   \qitem Now let's consider an input $u(t) = e^{\lambda t},$ can you say anything about the BIBO stability for $\lambda = 0?$
 
   \sol {
+
     If $u(t) = e^{\lambda t} = 1$ then, 
     $$x_{p}(t) = x(0) e^{\lambda t} + \int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau =  x(0) + \int\limits_{0}^{t} e^{0 \cdot (t - \tau)} d \tau = x(0) + \int\limits_{0}^{t} 1 d \tau = x(0) + t$$
 
@@ -105,5 +105,6 @@ and for the purposes of this question, assume that $\lambda$ is a real number.
     $$\abs{x_{p}(t)} \leq \abs{x_{0}} + \frac{B}{\lambda}$$
     We have shown that every bounded input $u(t)$ has a bounded output, so the system is BIBO stable for $\lambda < 0.$
   }
+
 
 \end{enumerate}

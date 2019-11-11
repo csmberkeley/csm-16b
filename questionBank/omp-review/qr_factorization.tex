@@ -1,7 +1,7 @@
 % Author: Taejin Hwang
 % Email: taejin@berkeley.edu
 
-\qns{QR Factorization} 
+\qns{QR Decomposition} 
 
 While we have this amazing speedup through Gram-Schmidt, it is important to realize that our current signals $\vec{q}_{i}$ were modified to be orthonormal, when the actual signals $\vec{s}_{i}$ were not necessarily orthogonal. Our current solution $\hat{x}$ is in $Q$ basis coordinates as opposed to standard basis coordinates. Therefore, to tackle this, we will use a concept called \textbf{QR Decomposition}. 
 
@@ -42,27 +42,26 @@ While we have this amazing speedup through Gram-Schmidt, it is important to real
     We can continue doing this, and will continue noticing that for $\vec{s}_{j},$ all of the $\alpha_{1}, \cdots, \alpha_{j}$ will be nonzero, and $\alpha_{j+1}, \cdots, \alpha_{i}$ will be zero.
   }
 
-  \item Using the expression derived from the previous part, how can you represent the vector $\vec{s}_{j}$ as a matrix-vector equation $\vec{s}_{j} = Q \vec{r}_{j}$
+  \item Using the expression derived from the previous part, how can you represent the vector $\vec{s}_{j}$ as a matrix-vector equation $\vec{s}_{j} = Q_{i} \vec{r}_{j}$
 
   \sol {
     Rewriting out the expression for $\vec{s}_{j},$ we get:
     $$\vec{s}_{j} = \innp{\vec{q}_{1}}{\vec{s}_{j}} \vec{q}_{1} + \dotsc + \innp{\vec{q}_{j}}{\vec{s}_{j}} \vec{q}_{j}$$
     Remember that for any matrix-vector equation can be written as a linear combination of the columns and vice versa.
-    $$\vec{s}_{j} = \begin{bmatrix}
+    $$\vec{s}_{j} = Q_{j} \vec{r}_{j} \begin{bmatrix}
     | & | & | \\
-    \vec{q}_{1} & \cdots & \vec{q}_{i} \\
+    \vec{q}_{1} & \cdots & \vec{q}_{j} \\
     | & | & |
     \end{bmatrix} \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{q}_{1}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \end{bmatrix}$$
-    Therefore, $\vec{r}_{j}$ can be represented as the following:
-    $$\vec{r}_{j} = \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{q}_{1}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \end{bmatrix}$$
-    Using the fact that all of the $\alpha$ values past $j + 1$ are zero, we conclude by saying
+    However, this matrix $Q_{j}$ only has $j$ columns, and we need to extend it to have $i$ columns.
+    Noting that the coefficients $\alpha_{j + 1}, \cdots, \alpha_{i}$ will be $0$ for $\vec{q}_{j + 1}, \cdots, \vec{q}_{i},$ we can represent $\vec{r}_{j}$ as the following:
     $$\vec{r}_{j} = \begin{bmatrix} \innp{\vec{q}_{1}}{\vec{s}_{j}} \\ \vdots \\ \innp{\vec{q}_{j}}{\vec{s}_{j}} \\ 0 \\ \vdots \\ 0 \end{bmatrix}$$
   }
 
-  \item Let's assume that the matrix $Q_{j}$ was constructed to have orthonormal columns. Using the $\vec{r}_{j}$s derived from the previous part, how can you write out the matrix equation $S_{i} = Q_{i} R$ where $R$ is an upper triangular matrix.
+  \item Using the $\vec{r}_{j}$'s derived from the previous part, how can you write out the matrix equation $S_{i} = Q_{i} R$ where $R$ is an upper triangular matrix.
 
   \sol {
-    We can aggregate the vectors $\vec{s}_{j}$ into the matrix $S_{i}$ and since all of the $\vec{s}_{j}$ were written as a linear combination of vectors in the $Q_{i}$ matrix, the $R$ matrix can be constructed by aggregating the $\vec{r}_{j}$ vectors.
+    We can aggregate the vectors $\vec{s}_{j}$ for $j = 1, \cdots i$ into the matrix $S_{i}$ and since all of the $\vec{s}_{j}$ were written as a linear combination of vectors in the $Q_{i}$ matrix, the $R$ matrix can be constructed by aggregating the $\vec{r}_{j}$ vectors.
     $$S_{i} = \begin{bmatrix}
     | & | & | \\
     \vec{s}_{1} & \cdots & \vec{s}_{i} \\
@@ -82,7 +81,7 @@ While we have this amazing speedup through Gram-Schmidt, it is important to real
   \item What are the reprsentations of $\hat{y}$ using Q-basis coordinates and standard basis coordinates?
 
   \sol {
-    The estimate $\hat{y}$ using coordinates from the $Q$ basis can be represented as:
+    The estimate $\hat{y}$ using coordinates from the $Q$-basis can be represented as:
     $$ \hat{y} = Q_{i} [\hat{x}]_{Q} = \begin{bmatrix}
     | & | & | \\
     \vec{q}_{1} & \cdots & \vec{q}_{m} \\
@@ -98,14 +97,14 @@ While we have this amazing speedup through Gram-Schmidt, it is important to real
     $$S \hat{x} = Q_{i} [\hat{x}]_{Q}$$
   }
 
-  \item How can we use our relation $S_{i} = Q_{i} R$ to solve for $\hat{x}?$
+  \item How can we use our relation $S_{i} = Q_{i} R$ to solve for the solution $\hat{x}$ in standard basis coordinates?
 
   \sol {
     Substituting $S_{i} = Q_{i} R,$ we see that
     $$Q_{i} R \hat{x} = Q_{i} [\hat{x}]_{Q}$$
     Since $Q_{i}$ has orthonormal columns, we know that $Q_{i}^{T} Q_{i} = I.$ Therefore, if we left multiply by $Q_{i}^{T}$
     $$Q_{i}^{T} Q_{i} R \hat{x} = R \hat{x} = Q_{i}^{T} Q_{i} [\hat{x}]_{Q} = [\hat{x}]_{Q}$$
-    Therefore, taking the $R^{-1}$ we see that
+    Therefore, taking $R^{-1}$ on both sides, we see that
     $$\hat{x} = R^{-1} [\hat{x}]_{Q}$$
   }
 
