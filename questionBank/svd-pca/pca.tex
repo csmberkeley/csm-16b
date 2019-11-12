@@ -3,7 +3,44 @@
 
 \qns{Principal Component Analysis}
 
-\begin{enumerate}
+PCA (Shorthand for Principal Component Analysis) is a process that takes a data matrix containing values of different variables, and converts them into an orthogonal set of Principal Components. Principal Components denote the "direction" of variance in the data in the following manner: The first principal component has the largest variance, and subsequent principal components have the next highest variance, where variance is defined as variability in our data.
 
+Suppose that we have $m$ variables, each with $n$ data points. We will represent this as a $m$ x $n$ matrix $A$ that has $m$ rows and $n$ columns.
+We can utilize the SVD in order to perform PCA for matrix $A$ through the following process:
+
+    \begin{itemize}
+        \item Normalize $A$ by calculating the mean $\mu_i$ of each row and subtracting it from every value in the row. The resulting matrix is denoted as $\tilde{A}$, centering our data at the mean (graphically setting (0,0) to be the mean).
+        \item Find the SVD of $\tilde{A}$ such that $\tilde{A} = U\Sigma V^T$. It may be helpful to refer to last week's worksheet for computing the SVD.
+        \item Let the matrix of Principal Components be $P$, and the eigenvalues of $P$ be $\lambda_i$. Looking at the SVD of $\tilde{A}$, we find that $P$ = $V$ and $\lambda_i$ = $\frac{\sigma_i^2}{n}$.
+    \end{itemize}
+
+Matrix $P$ contains our principal components, represented as column vectors. As mentioned above, these can be interpreted as pointing in the direction that maximizes variance. For example, if we were to project our data $A$ onto the unit circle, the first principal component $\vec{p_1}$ would maximize $||A\vec{x}||$, where $\vec{x}$ = $\vec{p_1}$.
+
+Further, we can use the first $k$ principal components to perform dimensionality reduction by using the first $k$ rank-1 matrices of the SVD to form a rank-$k$ low-rank approximation of $A$.
+
+\begin{enumerate}
+	\qitem Find the Principal Components for the following matrix representing 2 variables each with 3 values: $$A = \begin{bmatrix}
+    1 & 3 & 5 \\
+    2 & 7 & 10 \\
+  \end{bmatrix}$$
+	\sol {
+
+	}
+
+	\qitem 2D
+	\sol {
+
+	}
+
+	\qitem 3D
+	\sol {
+
+
+	}
+
+	\qitem Suppose we represent our data matrix $A$ differently. Now, the data is aggregated in columns such that variables represent columns, not rows. How does this change how we find our principal components?
+	\sol {
+
+	}
 
 \end{enumerate}
