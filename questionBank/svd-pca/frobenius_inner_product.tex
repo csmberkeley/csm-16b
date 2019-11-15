@@ -10,14 +10,14 @@ We call this inner product the \textbf{Frobenius Inner Product} defined as:
 \begin{equation}
   \innp{A}{B}_{F} = \text{Trace}(A^{T} B)
 \end{equation}
-The trace of a square matrix is the sum of all of its entires along its diagonal.
+The trace of a square matrix is the sum of all of its entries along its diagonal.
 
 Similar to how we defined a norm for vectors, we can also define the Frobenius norm for matrices in $\mathbb{R}^{m \times n}\ $as:
 \begin{equation}
   \norm{A}_{F} = \sqrt{\innp{A}{A}_{F}} = \sqrt{\text{Trace}(A^{T} A)} = \sqrt{\text{Trace}(A A^{T})}
 \end{equation}
 
-In this question, we will investigate into the Frobenius norm, and its relation to the SVD.
+In this question, we will investigate the Frobenius norm, and its relation to the SVD.
 
 \begin{enumerate}
   \item Let $A$ be an $m \times n$ matrix, and $U$ be a square matrix with orthonormal columns. Show that $\norm{UA}_{F} = \norm{A}_{F.}$
@@ -35,15 +35,24 @@ In this question, we will investigate into the Frobenius norm, and its relation 
   \item Use the two facts above to show that $\norm{A}_{F} = \norm{\Sigma}.$
 
   \sol {
-    We know from the SVD that $A = U \Sigma V^{T}$ therefore, $\norm{A}_{F} = \norm{U \Sigma V^{T}}.$
-    Since $U$ and $V^{T}$ are both square matrices with orthonormal columns, it follows that $\norm{A}_{F} = \norm{\Sigma}_{F}.$
+    We know from the SVD that $A = U \Sigma V^{T}$ therefore, $\norm{A}_{F} = \norm{U \Sigma V^{T}}_{F}.$
+    Since $U$ and $V^{T}$ are both square matrices with orthonormal columns, 
+    $\norm{U \Sigma V^{T}}_{F} = \norm{\Sigma V^{T}}_{F} = \norm{\Sigma}_{F}.$
+    Therefore it follows that $\norm{A}_{F} = \norm{\Sigma}_{F}.$
   }
 
   \item Conclude by saying that $\norm{A}_{F} = \sqrt{\sum\limits_{i = 1}^{n} \sigma_{i}^{2}}.$
 
   \sol {
-    $\norm{A}_{F} = \norm{\Sigma}_{F} = \sqrt{\text{Trace}(\Sigma^{T} \Sigma)}.$ \\
-    Since $\Sigma^{T} \Sigma$ is a diagonal matrix, it follows that $\norm{A}_{F} = \sqrt{\sum\limits_{i = 1}^{n} \sigma_{i}^{2}}.$
+    $\norm{A}_{F} = \norm{\Sigma}_{F} = \sqrt{\text{Trace}(\Sigma^{T} \Sigma)}.$ 
+    Since $\Sigma^{T} \Sigma$ is a diagonal matrix, that looks like:
+    $$\begin{bmatrix}
+    \sigma_{1}^{2} & \cdots & 0 \\
+    \vdots & \ddots & \vdots \\
+    0 & \cdots & \sigma_{n}^{2}
+    \end{bmatrix}$$
+    The trace of this matrix will be the sum of all of its diagonal entries and it'll follow that:
+    $$\norm{A}_{F} = \sqrt{\sum\limits_{i = 1}^{n} \sigma_{i}^{2}}.$$
   }
 
 \end{enumerate}

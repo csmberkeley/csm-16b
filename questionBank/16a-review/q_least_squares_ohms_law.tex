@@ -1,0 +1,45 @@
+% Lydia Lee, lydia.lee@berkeley.edu
+
+\qns{And You Thought You Could Ignore Circuits Until Dead Week}
+
+\begin{enumerate}
+
+\qitem\label{ohmsLaw}{
+	Write Ohm's Law for a resistor.}
+
+\ans{
+	For the resistor
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) to[R,l=$R$,v=$V_R$,i=$I_R$] ++(2,0);
+		\end{circuitikz}
+	\end{center}
+	$$V_R = I_RR$$}
+
+\qitem\label{singlePoint}{
+	You're given the following test setup and told to find $R_{Th}$ between the two terminals of the mystery box. What is $R_{Th}$ of the mystery box between the two terminals in terms of $V_S$ and $I_\text{measure}$?
+	\begin{center}
+		\input{../../questionBank/week12/q_least_squares_ohms_law_figs/testSetup}
+	\end{center}}
+
+\ans{
+	\begin{align*}
+		R_{Th} &= \frac{V_S}{I_\text{measure}}\\
+		R_{Th} &= \frac{V_S}{I_\text{measure}}
+	\end{align*}}
+
+\qitem\label{twoNoisyMeasurements}{
+	You think you've figured out how to find $R_{Th}$! You've taken the following measurements:
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Measurement \# & $V_S$ & $I_\text{measure}$\\\hline
+			1 & $1\si{\volt}$ & $1\si{\ampere}$\\\hline
+			2 & 
+		\end{tabular}
+	\end{center}
+	Using the information above, formulate a least squares problem whose answer provides an estimate of $R_{Th}$.
+	}
+
+\end{enumerate}

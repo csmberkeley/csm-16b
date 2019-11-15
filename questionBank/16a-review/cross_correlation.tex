@@ -1,0 +1,78 @@
+% Authors: Aditya Baradwaj
+% Emails: abaradwaj@berkeley.edu
+
+% Maybe add picture from notes
+
+\qns{Cross correlation}\\
+You are a Google Maps engineer, trying to calculate the distance from a user's cell phone to a bunch of satellites. Have each of the $m$ satellites emit a signal $\vec{s_i}$, which repeats with a period of $N$. 
+
+You might have an intuitive idea of what a signal is already. But how can we represent a signal in linear algebraic terms? We will do it using vectors. For example, consider the vector
+$$\begin{bmatrix} 1 & 2 & 1 & -3 & 0\end{bmatrix}^T$$
+These components of the vector can be used to represent the amplitude of a signal at various points of time. So at time 0 the signal has amplitude 1, at time 2 it has amplitude 2, and so on. Perhaps you are used to thinking of signals as waves travelling through space? In that case, you can interpret the components of the vector as being the height of the wave at various points in time. But what about periodicity? In order to account for that, we can use this vector to refer to one period of our signal. So, the actual signal would take values 1, 2, 1, -3, 0, 1, 2, 1, ... at times 0, 1, 2, 3, ....
+In general, in order to represent a signal with period $N$, we will use a vector of length $N$.
+
+\meta{Plot these points on a plane and show students how these points can be used to represent a signal that passes through them}
+
+These signals are chosen in such a way that they are approximately orthogonal, i.e. $\innp{s_i}{s_j}$ is very close to 0, if $i \neq j$. These signals reach the user's cell phone. But by the time it reaches the phone, they have been modified in the following ways:
+
+\begin{itemize}
+    \item They have been attenuated, because of travelling the long distance from the satellite to the cell phone.
+    \item They have been time-shifted. That is, the user sees the signal with some delay.
+\end{itemize}
+
+
+\begin{enumerate}
+\qitem{Give an expression for the signal that the user sees}
+
+\sol{
+$y[k] = \sum_{i} \alpha_i s[k - \tau_i]$
+Where $\alpha_i$ is the attenuation factor of the $i$th signal, and $s[k - \tau_i]$ is a delayed version of the original signal $s[k]$, which has been shifted by $\tau_i$. It is important to note that when we index into vectors that represent signals, we are working "mod $N$". That is, if the index is negative, or if it exceeds $N$, it "wraps around" the vector and keeps going.
+}
+
+\meta{Explain the concept of "wrapping around" to students with an example}
+
+\qitem{First, consider the case when there is only one satellite, with a signal $s$ (which is known to the user). And assume that $y$ can consist of various shifts of $s$. That is, $y[k] = \sum_{i = 1}^{N} \beta_i s[k - i]$. Intuitively, this might happen if the signal bounces off multiple surfaces, resulting in a superposition of $s$ with different shifts and attenuations. How can the user recover the attenuation and the time shifts of the constituent $s$ signals? Formulate this problem as a system of equations}
+
+\sol{
+We can write this as a matrix-vector equation. First, define
+$$
+C_s = \circulantmatrix{s}
+$$
+Then, we have that $C_s \vec{\beta} = \vec{y}$
+Solving for $\beta$, we have $\beta = C_s^{-1} \vec{y}$
+}
+
+\qitem{Now, consider the case when there are multiple satellites. Will the same method as above work? Why/Why not?}
+
+\sol{No, because we will have more than $N$ unknowns, but still only $N$ equations. Notice that the equation for $y[k] = \sum_{i=1}^m y_i [k] = \sum_{i=1}^m \alpha_i s[k- \tau_i]$ has $2m$ unknowns, but they are coupled nonlinearly. 
+
+
+We could try to linearize the problem by introducing extra variables. In order to write this as a matrix-vector equation and solve for the unknowns $\tau_1 \ldots \tau_m, \alpha_1 \ldots \alpha_m$, we would first have to rewrite $y_i \ldots y_m$ as we did in part (b). That gives us $y[k] = \sum_{i=1}^m \sum_{j=1}^N \alpha_i \beta_j s[k-j]$, with the understanding that we want all $\beta_j$ to be 0 except the one where $j = \tau_i$. This equation can be treated as linear with $mN$ unknowns (if we lump $\alpha$ and $\beta$ together). We have $N$ equations from the $N$ points $y[0] \ldots y[N-1]$, and it is possible to \textit{approximate} the ``$0$ at all but $\tau_i$" constraint with $m$ more equations. Regardless, this linearized system is still underdetermined, and we definitely cannot apply the same method as in part (b).
+}
+
+\qitem{
+Recall that the inner product is a measure of "closeness" or "similarity" of 2 vectors. With this in mind, how could you find the approximate attenuation and shift of $s_i$ in the general setting, with multiple satellites?
+}
+
+\sol{
+Take the inner product of $y$ with all shifts of $s_i$. Since the signals are approximately orthogonal, the inner products of $s_i$ with other satellite signals will be low. So, we can find the shift with the maximum inner product with $y$. This inner product will be the approximate coefficient of the shift.
+
+We can find the vector of inner products of $y$ with all shifts of $s_i$ (called the cross-correlation of $y$ with $s_i$, by computing the matrix-vector product $C_{s_i}y$
+
+Below are two example signals (one is a shifted and scaled version of the other), and the resulting cross-correlation ($C_{s_i} y$ for each $i$. $s_2 = 0.5 s_1(n-3)$.
+\begin{center}
+  \makebox[\linewidth]{\includegraphics[width=\paperwidth]{{"\bank/16a-review/figures/img1"}.png}}
+\end{center}
+
+How was this calculated? Each point $i$ in the cross correlation is the result of an inner product between $s_1$ and $s_2$ shifted by $i$ time steps. We can see that the $s_2$ is most correlated with $s_1$ at $k=3$! Below are 4 example graphs of what the inner product at different shifts is. Each one of these graphs corresponds to one point in the cross correlation:
+\begin{center}
+  \makebox[\linewidth]{\includegraphics[width=\paperwidth]{{"\bank/16a-review/figures/img2"}.png}}
+\end{center}
+}
+
+\meta{
+Show a few cross-correlation examples with the original vector to illustrate the concept.
+}
+
+
+\end{enumerate}

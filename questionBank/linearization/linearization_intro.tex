@@ -11,10 +11,9 @@ A linear function $f(x)$ is a function that satisfies the two following properti
 \end{align*}
 Every matrix $A$ can be seen as a linear function $f(\vec{x}) = A \vec{x}$ since $f$ will satisfy both properties above.
 
-In this question however, we will turn our attention to functions that are \textbf{nonlinear}, meaning it will not satisfy both properties above. Some common examples of nonlinear functions are: $\sin(x), x^{2},$ or even $x - 4.$
-
+In this question however, we will turn our attention to functions that are \textbf{nonlinear}, meaning it will not satisfy both properties above. Some common examples of nonlinear functions are: $\sin(x), x^{2},$ or even $x - 4.$ 
 Linear functions are very convenient to work with, and we already have a large tool-kit on how to handle linear systems. 
-This does not mean all hope is lost for nonlinear systems.
+So ideally, we would like every system to be linear. 
 
 If we can construct a linear approximation for a nonlinear function, then we could use all of our techniques for linear systems to approximate the behavior of a nonlinear system! 
 The process of creating a linear approximation for a nonlinear function is called \textbf{linearization.}
@@ -23,7 +22,6 @@ The main ideas for linearization will come from Taylor Expansion, in which we'll
 \begin{equation} \label{eqn:ta}
   f(x) = f(x^{*}) + \frac{f'(x^{*})}{1!} (x - x^{*}) = f(x^{*}) + f'(x^{*}) (x - x^{*})
 \end{equation}
-
 \begin{enumerate}
   \qitem Is the function $f(x) = 5x$ linear? Prove why or why not?
 

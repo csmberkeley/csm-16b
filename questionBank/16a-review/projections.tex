@@ -1,0 +1,73 @@
+% Authors: Maxwell Chen, Taejin Hwang
+% Emails: maxhchen@berkeley.edu, taejin@berkeley.edu
+
+\qns{Projection Matrices}
+
+We know from Gram-Schmidt, that if we have a basis $S = \{ \vec{v}_{1}, \cdots \vec{v}_{n} \},$ for a vector space $V,$ 
+then we could pick an orthonormal basis $U = \{ \vec{u}_{1}, \cdots \vec{u}_{n} \}$ for the same vector space, since we showed that the span of $U$ was equivalent to the span of $S,$ or the vector space $V.$
+
+In this question, we will look into a special class of matrices called \textbf{projection matrices.}
+A projection matrix is a matrix $P$ such that $P^{2} = P.$ 
+Intuitively, if we projected a vector onto some subspace, then taking any vector in that subspace and reprojecting it will give the same vector.
+
+\begin{enumerate}
+
+\qitem Let visit the least squares problem from 16A. 
+Suppose we have some equation $A\vec{x} = \vec{b}$ that has no solution. Why does it have no solution? 
+Because $A$ has more rows than columns; it is a "tall" matrix where we have more equations than unknowns. 
+How can we estimate the solution $\hat{x}$ using Least Squares?
+
+\sol {
+Remember that we can set up the following least squares problem:
+$$\min{\norm{\vec{r}}} = \min{\norm{\vec{b} - A \vec{x}}}$$
+We use a geometric argument to show that the residual $\vec{r}$ is minimized, when it is orthogonal to $\text{Col}(A).$
+This means that the residual $\vec{r}$ is in $\text{Nul}(A^T)$ from the Fundamental Theorem of Linear Algebra.
+Therefore, we multiply both sides by $A^T$ to get:
+$$A^TA\vec{x} = A^T\vec{b} + A^T \vec{r} = A^T \vec{b}$$
+$A^TA$ is a square matrix that is invertible, when $A$ is of full rank. Therefore, we multiply both sides by the inverse to get
+$$\hat{x} = (A^TA)^{-1}A^T\vec{b}$$
+This was the formula for least-squares from 16A.
+}
+
+\qitem We can actually view the least squares problem as projection of the vector $\vec{b}$ onto the $\text{Col}(A).$
+What would the projection matrix $P$ that projects $\vec{b}$ onto $\text{Col}(A)$ be? 
+Verify that it indeed is a projection matrix.
+
+\sol {
+  We are projecting a vector $\vec{b}$ and the result of the projection is $A\hat{x} = A (A^TA)^{-1}A^T \vec{b}.$
+  Therefore, we should suspect that $P = A(A^TA)^{-1}A^T$ is our projection matrix.
+  We can indeed verify that is a projection matrix by computing its square:
+  $$P^{2} = A(A^TA)^{-1}A^T A(A^TA)^{-1}A^T = A(A^TA)^{-1}A^T = P$$
+}
+
+\qitem From the result above, we see that we have to invert $A^TA$ every time. This takes a lot of computational power and is rather slow. If $A$ were a matrix with orthonormal columns, how could this help us?
+
+\meta {
+  Note that $A^{T}A = I$ if $A$ has orthonormal columns even if $A$ is not square. 
+  This can be shown by writing out the columns of $A$ and $A^{T}$ and taking the individual inner products.
+}
+
+\sol {
+  Let $A$ be orthonormal. If this were the case, then $A^TA = I$. Recall that $I^{-1} = I$.
+  This means we don't have to do any work for inverting this matrix, and the least-squares formula reduces to $\hat{x} = A^T\vec{b}$.
+}
+
+\qitem We would like $A$ to be orthonormal. We cannot, however, arbitrarily replace $A$ with an orthonormal matrix $Q$. What must be true about $Q$ for the least-squares equation to hold?
+
+\sol {
+  Both $A$ and $Q$ must span the same space. 
+  Geometrically, least-squares projects $\vec{b}$ onto the column space of $A$, so if we want the projection to hold when using $Q$, it must project to the same spot on the same column space.
+}
+
+\qitem We will create this orthonormal matrix $Q$ by considering the columns of $A$ as a basis for $\text{Col}(A)$ and performing Gram-Schmdit on these basis vectors. We can then show that the projection of $\vec{b}$ onto $\text{Col}(A)$ is the same as projecting it onto $\text{Col}(Q)$ through the Orthogonal Decomposition Theorem. That is, $A (A^{T}A)^{-1} A^{T} \vec{b} = Q (Q^{T} Q)^{-1} Q^{T} \vec{b}.$ What is the least square solution $\hat{x}$ in terms of $Q?$
+
+\sol {
+  $$\hat{x} = (Q^{T} Q)^{-1} Q^{T} \vec{b} = I Q^{T} \vec{b} = Q^{T} \vec{b}$$
+}
+
+
+
+
+
+
+\end{enumerate}

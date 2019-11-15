@@ -34,8 +34,8 @@ and show that the optimal $B_{k}$ is in fact $A_{k}$ or the rank $k$ SVD approxi
 
 To show $A_{k}$ is optimal, we must show that $\norm{A - B_{k}}_{2} \geq \norm{A - A_{k}}_{2} = \sigma_{k+1}$ for any matrix $B_{k}$ of rank $k.$
 
-To do this, we will first consider a vector $\vec{x} = \alpha_{1} \vec{v}_{1} + \cdots + \alpha_{k + 1} \vec{v}_{k + 1}$ that is a linear combination of the first $k + 1$ vectors of the $V$ matrix of the SVD of $A.$ 
-We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ and show that there must exist a vector $\vec{x}$ in both $S$ and $\text{Nul}(B_{k}).$
+To do this, we will first consider a vector $\vec{y} = \alpha_{1} \vec{v}_{1} + \cdots + \alpha_{k + 1} \vec{v}_{k + 1}$ that is a linear combination of the first $k + 1$ vectors of the $V$ matrix of the SVD of $A.$ 
+We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ and show that there must exist a vector $\vec{y}$ in both $S$ and $\text{Nul}(B_{k}).$
 
 \begin{enumerate}[resume]
   \qitem What is the dimension of the $\text{Nul}(B_{k})?$
@@ -48,7 +48,7 @@ We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{
   \qitem What is the dimension of $S?$
 
   \sol {
-    Since $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \},$ and all of the vectors $\vec{v}_{i}$ are linearly independent, $A = \{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ forms a basis for $S$ meaning $S$ has dimension $k + 1.$
+    Since $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \},$ and all of the vectors $\vec{v}_{i}$ are linearly independent, $R = \{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ forms a basis for $S$ meaning $S$ has dimension $k + 1.$
   }
 
   \qitem Both $B_{k}$ and $S$ are subspaces of $\mathbb{R}^{n}.$ What is $\text{dim Nul}(B_{k}) + \text{dim} \ S?$
@@ -57,7 +57,7 @@ We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{
     $\text{dim Nul}(B_{k}) + \text{dim} \ S = n - k + k + 1 = n + 1.$
   }
 
-  \qitem How can we use the fact from the previous part to show that there must exist a vector $\vec{x} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}$ that is in both subspaces $\text{Nul}(B_{k})$ and $S?$
+  \qitem How can we use the fact from the previous part to show that there must exist a vector $\vec{y} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}$ that is in both subspaces $\text{Nul}(B_{k})$ and $S?$
   \textit{Hint: Let R be a basis for $S$ and then create a basis for $B$ for the $\text{Nul}(B_{k})$ and look at the union of the two bases.}
 
   \sol {
@@ -68,7 +68,7 @@ We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{
     $$\vec{w}_{n - k} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1} + \beta_{1} \vec{w}_{1} + \dotsc + \beta_{n - k - 1} \vec{w}_{n - k - 1}.$$
     Subtracting over the $\vec{w}_{i}$ vectors, we see that
     $$\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1} = -\beta_{1} \vec{w}_{1} - \dotsc - \beta_{n - k - 1} \vec{w}_{n - k - 1} + \vec{w}_{n - k}.$$
-    As a result, $\vec{x} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}$ is a linear combination of the vectors in $A$ so it must be in $S.$
+    As a result, $\vec{x} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}$ is a linear combination of the vectors in $R$ so it must be in $S.$
     It is also however, a linear combination of the vectors in $B$ so it must also be in $\text{Nul}(B_k).$
   }
 
@@ -81,14 +81,14 @@ We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{
     $$\norm{A - B_{k}}_{2} = \max_{\norm{\vec{x}} = 1} \norm{(A - B_{k}) \vec{x}}.$$
   }
 
-  \qitem What is the norm $\norm{\vec{x}}^{2}$ in terms of $\alpha_{1}, \dots, \alpha_{k+1}?$ 
+  \qitem What is the norm $\norm{\vec{y}}^{2}$ in terms of $\alpha_{1}, \dots, \alpha_{k+1}?$ 
   \textit{Hint: Remember that $\vec{v}_{i}$ is an eigenvector of $A^{T}A.$}
 
   \sol {
     Using the definition of a norm with respect to the inner product we get:
-    $$\norm{\vec{x}}^{2} = \innp{\vec{x}}{\vec{x}} = \innp{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}$$
+    $$\norm{\vec{y}}^{2} = \innp{\vec{y}}{\vec{y}} = \innp{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}$$
     Then we can use the distributive properties of norms, and the fact that $\vec{v}_{i}$ are orthonormal to cancel the cross-terms.
-    $$\norm{\vec{x}}^{2} = \sum\limits_{i = 1}^{k + 1} \innp{\alpha_{i} \vec{v}_{i}}{\alpha_{i} \vec{v}_{i}} = 
+    $$\norm{\vec{y}}^{2} = \sum\limits_{i = 1}^{k + 1} \innp{\alpha_{i} \vec{v}_{i}}{\alpha_{i} \vec{v}_{i}} = 
     \sum\limits_{i = 1}^{k + 1} \alpha_{i}^{2} \innp{\vec{v}_{i}}{\vec{v}_{i}} = \sum\limits_{i = 1}^{k + 1} \alpha_{i}^{2}$$
   }
 
@@ -104,7 +104,7 @@ We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{
   }
 
   \qitem The optimization problem defined in part (f) is over all vectors $\vec{x}$ in $\mathbb{R}^{n}.$
-  However, if we pick a specific $\vec{y} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1},$ with norm $1,$ we can say that $\norm{A - B_{k}}_{2} \geq \norm{(A - B_{k})\vec{y}}$ since $\norm{A - B_{k}}_{2}$ is maximal over all $\vec{x}.$ Simplify this expression to conclude that $\norm{(A - B_{k})\vec{x}} \geq \sigma_{k+1}.$
+  However, if we pick a specific $\vec{y} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1},$ with norm $1,$ we can say that $\norm{A - B_{k}}_{2} \geq \norm{(A - B_{k})\vec{y}}$ since $\norm{A - B_{k}}_{2}$ is maximal over all $\vec{x}.$ Simplify this expression to conclude that $\norm{(A - B_{k})}_{2} \geq \sigma_{k+1}.$
 
   \meta {
     Note that the $\norm{A - B_{k}}_{2}$ is the spectral norm, while $\norm{(A - B_{k})\vec{y}}$ is a vector norm.
@@ -112,17 +112,20 @@ We will also define a vector space $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{
   }
 
   \sol {
-    Since $\vec{y}$ is in $\text{Nul}(B_{k}),$ we can simplify $\norm{(A - B_{k}) \vec{y}}$ as:
+    Since we have shown that there exists a $\vec{y}$ that is a linear combination of the vectors in $S$ that is also in the $\text{Nul}(B_k),$ we want to show that the maximal $\norm{(A-B_k)} \vec{y}$ is still greater than some lower bound $\sigma_{k+1}.$ 
+    
+    $\vec{y}$ is in $\text{Nul}(B_{k}),$ so we can simplify $\norm{(A - B_{k}) \vec{y}}$ as:
     $$\norm{(A - B_{k}) \vec{y}} = \norm{A \vec{y} - B_{k} \vec{y}} = \norm{A \vec{y}}$$
     Plugging in for $\vec{y},$ and looking at $\norm{A \vec{y}}^{2},$ we get:
-    $$\norm{A \vec{y}}^{2} = \norm{A (\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1})}^{2} = \innp{\alpha_{1} A\vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}{\alpha_{1} A\vec{v}_{1} + \dotsc + \alpha_{k + 1} A\vec{v}_{k + 1}}$$
+    $$\norm{A \vec{y}}^{2} = \norm{A (\alpha_{1} \vec{v}_{1} + \dotsc + A \alpha_{k + 1} \vec{v}_{k + 1})}^{2} = \innp{\alpha_{1} A\vec{v}_{1} + \dotsc + \alpha_{k + 1} A \vec{v}_{k + 1}}{\alpha_{1} A\vec{v}_{1} + \dotsc + \alpha_{k + 1} A\vec{v}_{k + 1}}$$
     Using the distributive property, and the fact that $\vec{v}_{i}$ are orthogonal, we get:
     \begin{align*}
       \norm{A \vec{y}}^{2} &= \alpha_{1}^{2} \innp{A \vec{v}_{1}}{A \vec{v}_{1}} + \dotsc + \alpha_{k + 1}^{2} \innp{A \vec{v}_{k + 1}}{A \vec{v}_{k + 1}} \\
       &= \alpha_{1}^{2} \sigma_{1}^{2} + \dotsc + \alpha_{k + 1}^{2} \sigma_{k + 1}^{2}
     \end{align*}
     However, since $\sigma_{1} \geq \sigma_{2} \geq \dotsc \geq \sigma_{k + 1}$ and $\alpha_{1}^{2} + \dotsc + \alpha_{k + 1}^{2} = 1,$ we get $\norm{A \vec{y}}^{2} \geq \sigma_{k + 1}^{2}.$
-    Therefore, we conclude by saying that $\norm{A \vec{y}} \geq \sigma_{k + 1}$ which implies $\norm{A - B_{k}}_{2} \geq \sigma_{k + 1}$ proving the optimality of $A_{k}.$
+
+    Therefore, we conclude by saying that $\norm{A \vec{y}} \geq \sigma_{k + 1}$ which implies $\norm{A - B_{k}}_{2} \geq \sigma_{k + 1}$proving the optimality of $A_{k}.$
   }
 
 \end{enumerate}
