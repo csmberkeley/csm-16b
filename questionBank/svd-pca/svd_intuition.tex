@@ -184,22 +184,21 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
     \end{equation}
   }
 
-  \qitem \textbf{OPTIONAL:} The Singular Value Decomposition will compute the eigenvectors of $A^{T} A$ and $AA^{T}.$ 
+  \qitem The Singular Value Decomposition will compute the eigenvectors of $A^{T} A$ and $AA^{T}.$ 
   Based on the previous parts, we can make the realization that each of these eigenvectors are part of one of the four fundamental subspaces of $A: \text{Col}(A), \text{Nul}(A), \text{Col}(A^{T}), \text{Nul}(A^{T}).$
   State which eigenvectors of $A^{T} A$ and $AA^{T}$ belong to which subspaces of $\mathbb{R}^{n}$ and $\mathbb{R}^{m}.$ 
 
   \sol {
-
     The matrix $AA^{T}$ is an $m \times m$ matrix. \\
     We showed in part (a) that there are eigenvectors $\vec{u}$ of $AA^{T}$ that are in $\text{Col}(A).$ \\
-    We also showed in part (a) that there are eigenvectors $\vec{u}$ of $AA^{T}$ with eigenvalue $0,$ that are in $\text{Nul}(A^{T}).$ 
+    We also showed in part (f) that there are eigenvectors $\vec{u}$ of $AA^{T}$ with eigenvalue $0,$ that are in $\text{Nul}(A^{T}).$ 
 
     The matrix $A^{T}A$ is an $n \times n$ matrix. \\
     We showed in part (b) that there are eigenvectors $\vec{v}$ of $A^{T}A$ that are in $\text{Col}(A^{T}).$ \\
-    We also showed in part (e) that there are eigenvectors $\vec{v}$ of $A^{T}A$ with eigenvalue $0,$ that are in $\text{Nul}(A).$ 
+    We also showed in part (e) that there are eigenvectors $\vec{v}$ of $A^{T}A$ with eigenvalue $0,$ that are in $\text{Nul}(A).$
   }
 
-  \qitem \textbf{OPTIONAL:} The Fundamental Theorem of Linear Algebra states that:
+  \qitem The Fundamental Theorem of Linear Algebra states that:
   \begin{align*}
     \text{Col}(A) &\perp \text{Nul}(A^{T}) \\
     \text{Col}(A^{T}) &\perp \text{Nul}(A)

@@ -1,0 +1,29 @@
+\begin{document}
+
+\def\title{Worksheet 11}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+
+\begin{qunlist}
+
+\input{\bank/linearization/linearization_intro}
+\newpage
+\input{\bank/linearization/nonlinear_pendulum}
+\newpage
+\input{\bank/interpolation/q_interpolation}
+\newpage
+\input{\bank/interpolation/lagrange_stability}
+
+\end{qunlist}
+
+\end{document}
