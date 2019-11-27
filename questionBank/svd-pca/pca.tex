@@ -8,7 +8,7 @@ Principal Component Analysis or PCA is a process that takes a data matrix contai
 
 The principal components, and PCA can be interpreted as solving the following problems:
 \begin{itemize}
-  \item Given a dataset of rank $n >> k,$ how can I approximate this dataset using a matrix of only rank $k.$
+  \item Given a dataset of rank $n >> k,$ how can I approximate this dataset using only $k$ dimensions?
   \item If I we were to project the data onto the unit circle, where $\norm{\vec{x}} = 1,$ which $\vec{x}$ would maximize $\norm{A \vec{x}}?$
 \end{itemize}
 
@@ -24,6 +24,8 @@ In this question, we will look at how to compute a Principal Component Analysis,
 
 \meta {
   Note that it is convention to aggregate data by rows in PCA. We will discuss column aggregation in part (d).
+  Also in terms of motivation, remember that PCA is very crucial to the lab portion of the course, since students will be taking very high dimensional samples of voice data. 
+  They will use PCA to represent this data with much fewer dimensions, so that they can also perform k-means clustering on that data.
 }
 
 \begin{enumerate}

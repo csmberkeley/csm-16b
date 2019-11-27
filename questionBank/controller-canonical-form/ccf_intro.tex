@@ -1,5 +1,6 @@
-\qns{Eigenvalue Placement Through Controllable Canonical Form}
-% \qcontributor{Yen-Sheng Ho}
+% Author: Yen-Sheng Ho
+
+\qns{Controllable Canonical Form Introduction}
 
 \meta {
   Note that the proof for CCF is unconventional in that we assume there exists a transformation $T$ from the standard to controller basis, and then we derive what the actual transformation is, and show that it can only exist when the system is controllable.
@@ -21,7 +22,7 @@ such that in the transformed coordinates, the system is in
 0 & 0 & 1 & \cdots & 0 \\
 \vdots & \vdots & \vdots  & \ddots & \vdots \\
  0 & 0 & 0 & \cdots & 1 \\
- -a_0 & -a_{1} & -a_{2} & \ldots & -a_{n-1} \\
+ a_0 & a_{1} & a_{2} & \ldots & a_{n-1} \\
 \end{bmatrix} 
 \vec{z}(t) +
 \begin{bmatrix}
@@ -33,7 +34,7 @@ u(t)
 The characteristic polynomials of the matrices $A$ and $\widetilde{A}$ are the same and given by
 \begin{align}\label{eq:poly}
 \mbox{det}(\lambda I - A ) = \mbox{det}(\lambda I - \widetilde{A} )
-= \lambda^n  + a_{n-1} \lambda^{n-1} + a_{n-2} \lambda^{n-2} + \ldots + a_0
+= \lambda^n  - a_{n-1} \lambda^{n-1} - a_{n-2} \lambda^{n-2} - \ldots - a_0
 \end{align}
 
 \begin{enumerate}
@@ -53,8 +54,8 @@ Comparing to the canonical form, we have
 \begin{align*}
 \widetilde{A} = TAT^{-1} \mbox{, and }  \widetilde{\vec{b}} = T\vec{b}
 \end{align*}
-
 }
+
 \qitem Show that $A$ and $\widetilde{A}$ have the same eigenvalues (\textit{Hint: let $\vec{v}$ be an eigenvector of $A$; use $T\vec{v}$ for $\widetilde{A}$})
 
 \sol{
@@ -91,7 +92,6 @@ T{\vec{b}} & T{A}{\vec{b}} & \cdots & T{A}^{n-1}{\vec{b}}
 \end{bmatrix} \\
 &= TC
 \end{align*}
-
 }
 
 \end{enumerate}

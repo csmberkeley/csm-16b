@@ -22,6 +22,11 @@ and show that the optimal $B_{k}$ is in fact $A_{k}$ or the rank $k$ SVD approxi
   A_{k} = \sum\limits_{i = 1}^{k} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^{T}
 \end{equation}
 
+\meta {
+  Remember to emphasize that this question is the core to showing how the dimensionality reduction of PCA works.
+  It is also the spectral norm equivalent of the homework question which instead uses the Frobenius norm.
+}
+
 \begin{enumerate}
   \qitem What is the spectral norm of $\norm{A - A_{k}}_{2}?$
 
@@ -36,6 +41,15 @@ To show $A_{k}$ is optimal, we must show that $\norm{A - B_{k}}_{2} \geq \norm{A
 
 To do this, we will first consider a vector $\vec{y} = \alpha_{1} \vec{v}_{1} + \cdots + \alpha_{k + 1} \vec{v}_{k + 1}$ that is a linear combination of the first $k + 1$ vectors of the $V$ matrix of the SVD of $A.$ 
 We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ and show that there must exist a vector $\vec{y}$ in both $S$ and $\text{Nul}(B_{k}).$
+
+\meta {
+  You may want to explain the intuition behind picking this specific $\vec{y}.$ 
+  We do this since we want to minimize $\norm{(A - B_{k}) \vec{x}}$ over all $\vec{x}.$
+  Currently we know how to calculate $\norm{A \vec{v}_{i}}$ and the $B_{k}$ is the annoying part.
+  We do however know that the null-space of $B_{k}$ is of dimension $n - k,$ and will therefore construct a subspace using these $\vec{v}_{i}$ that is large enough so that there must be a vector in both this subspace and the null-space of $B_{k}.$
+  Doing so would make $\norm{(A - B_{k}) \vec{y}} = \norm{A \vec{y}}.$
+}
+
 
 \begin{enumerate}[resume]
   \qitem What is the dimension of the $\text{Nul}(B_{k})?$
@@ -101,6 +115,7 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
       &= \vec{v}_{i}^{T} A^{T} A \vec{v}_{i} = \vec{v}_{i}^{T} (\lambda_{i} \vec{v}_{i}) =  \lambda_{i} \vec{v}_{i}^{T} \vec{v}_{i} \\
       &= \lambda_{i} = \sigma_{i}^{2}
     \end{align*}
+    Therefore $\norm{A \vec{v}_{i}} = \sigma_{i}.$
   }
 
   \qitem The optimization problem defined in part (f) is over all vectors $\vec{x}$ in $\mathbb{R}^{n}.$
@@ -125,7 +140,7 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
     \end{align*}
     However, since $\sigma_{1} \geq \sigma_{2} \geq \dotsc \geq \sigma_{k + 1}$ and $\alpha_{1}^{2} + \dotsc + \alpha_{k + 1}^{2} = 1,$ we get $\norm{A \vec{y}}^{2} \geq \sigma_{k + 1}^{2}.$
 
-    Therefore, we conclude by saying that $\norm{A \vec{y}} \geq \sigma_{k + 1}$ which implies $\norm{A - B_{k}}_{2} \geq \sigma_{k + 1}$proving the optimality of $A_{k}.$
+    Therefore, we conclude by saying that $\norm{A \vec{y}} \geq \sigma_{k + 1}$ which implies $\norm{A - B_{k}}_{2} \geq \sigma_{k + 1}$ proving the optimality of $A_{k}.$
   }
 
 \end{enumerate}

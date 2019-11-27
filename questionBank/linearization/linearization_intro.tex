@@ -11,50 +11,74 @@ A linear function $f(x)$ is a function that satisfies the two following properti
 \end{align*}
 Every matrix $A$ can be seen as a linear function $f(\vec{x}) = A \vec{x}$ since $f$ will satisfy both properties above.
 
-In this question however, we will turn our attention to functions that are \textbf{nonlinear}, meaning it will not satisfy both properties above. Some common examples of nonlinear functions are: $\sin(x), x^{2},$ or even $x - 4.$ 
+In this question however, we will turn our attention to functions that are \textbf{nonlinear}, meaning it will not satisfy both properties above. 
+Some common examples of nonlinear functions are: $\sin(x), x^{2},$ or even $x - 4.$ 
 Linear functions are very convenient to work with, and we already have a large tool-kit on how to handle linear systems. 
 So ideally, we would like every system to be linear. 
 
 If we can construct a linear approximation for a nonlinear function, then we could use all of our techniques for linear systems to approximate the behavior of a nonlinear system! 
 The process of creating a linear approximation for a nonlinear function is called \textbf{linearization.}
 
-The main ideas for linearization will come from Taylor Expansion, in which we'll give a first order approximation for a function as:
+The main ideas for linearization will come from Taylor Expansion, in which we'll give a first order approximation for a function around a point $x^{*}$ as
 \begin{equation} \label{eqn:ta}
   f(x) = f(x^{*}) + \frac{f'(x^{*})}{1!} (x - x^{*}) = f(x^{*}) + f'(x^{*}) (x - x^{*})
 \end{equation}
+
+\meta {
+  We like to pick operating points $x^{*}$ in which $f(x^{*}) = 0$ since it will simplify $f(x) = f'(x^{*}) (x - x^{*}).$
+}
+
 \begin{enumerate}
   \qitem Is the function $f(x) = 5x$ linear? Prove why or why not?
 
+  \sol {
+    We can show that $f(x)$ satisfies both the properties of scaling and superposition.
+    \begin{itemize}
+      \item Scaling: $f(\alpha x) = 5(\alpha x) = \alpha (5x) = \alpha f(x).$
+      \item Superposition: $f(x_{1} + x_{2}) = 5(x_{1} + x_{2}) = 5 x_{1} + 5 x_{2} = f(x_{1}) + f(x_{2}).$
+    \end{itemize}
+  }
+
   \qitem How about the function $f(x) = e^{x}?$ Prove why it is, or isn't linear.
+
+  \sol {
+    This function satisfies neither the properties of scaling nor superposition.
+    Here are some counterexamples:
+    \begin{itemize}
+      \item Scaling: $f(0 \cdot x) = e^{0 \cdot x} = 1 \neq 0 \cdot e^{x}.$
+      \item Superposition: $f(x_{1} + x_{2}) = e^{x_{1} + x_{2}} = e^{x_{1}} e^{x_{2}} \neq e^{x_{1}} + e^{x_{2}}.$
+    \end{itemize}
+  }
 \end{enumerate}
 
 Let's now take a look at the differential equation:
 \begin{equation} \label{eqn:nl}
-  \ddt{}{t} x(t) = \sin(x)
+  \ddt{}{t} x(t) = - \sin(x)
 \end{equation}
 With initial condition, $x(0) = x_{0},$ since $\sin(x)$ is a nonlinear function, this differential equation will be difficult to solve.
 Therefore, we will linearize this system by taking an \textbf{equilibrium point} $x^{*}$ and taking a first order Taylor approximation.
 
 \begin{enumerate}[resume]
-  \qitem What is the first order Taylor approximation of $f(x) = \sin(x)$ around $x^{*} = 0?$
+  \qitem What is the first order Taylor approximation of $f(x) = - \sin(x)$ around $x^{*} = 0?$
 
   \sol {
     Using the first order Taylor expansion formula given in \eqref{eqn:ta}, we get:
     $$f(x) = f(x^{*}) + f'(x^{*}) (x - x^{*})$$
     The derivative of $\sin(x)$ is $\cos(x)$ so plugging in for $x^{*} = 0,$ we get:
-    $$f(x) = \sin(0) + \cos(0) (x - 0) = x$$
+    $$f(x) = -\sin(0) - \cos(0) (x - 0) = -x$$
   }
 
-  \qitem We will now look at a small window of $x(t)$ around $x^{*}$ and let $x(t) = x^{*} + \delta_{x}(t)$ where $\delta_{x}(t)$ is small enough so the error of the Taylor approximation is small. Plug in this $x(t)$ into the original differential equation \eqref{eqn:nl}:
+  \qitem We will now look at a small window of $x(t)$ around $x^{*}$ and let $x(t) = x^{*} + \delta_{x}(t)$ where $\delta_{x}(t)$ is small enough so the error of the Taylor approximation is small. 
+  Plug in this $x(t)$ into the original differential equation \eqref{eqn:nl} and use the first order Taylor approximation derived in the previous part to come up with a new differential equation in terms of $\delta_{x}(t).$
 
   \sol {
     Plugging in $x(t) = x^{*} + \delta_{x}(t),$ we'll get:
-    $$f(x) = x = x^{*} + \delta_{x}(t)$$
+    $$f(x) = -x = -x^{*} - \delta_{x}(t) = -\delta_{x}(t)$$
     Differentiating $x(t),$ and noticing that $x^{*}$ is a constant (zero in this case), we get:
     $$\ddt{}{t} x(t) = \ddt{}{t} \delta_{x}(t)$$
-    Therefore, the differential equation represented by \eqref{eqn:nl} will now be:
-    \begin{equation} \label{eqn:nl}
-      \ddt{}{t} \delta_{x}(t) = \delta_{x}(t)
+    Therefore, the linearized differential equation represented by \eqref{eqn:nl} will be:
+    \begin{equation}
+      \ddt{}{t} \delta_{x}(t) = -\delta_{x}(t)
     \end{equation}
   }
 
@@ -68,19 +92,21 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
   \sol {
     This is a first order homogenous differential equation, with zero input.
     Therefore, the solution will be:
-    \begin{equation} \label{eqn:nl}
-      \delta_{x}(t) = \delta_{x}(0) e^{t}
+    \begin{equation}
+      \delta_{x}(t) = \delta_{x}(0) e^{-t}
     \end{equation}
   }
 
   \qitem Using the solution for $\delta_{x}(t),$ what is the new linearized approximation for $x(t)?$ Is this approximation valid for all values of $t?$
 
   \meta {
-    Remember that linearization is an approximation to a system as well, and some linearizations are considered stable, meaning that it will be accurate for all values of $t$ whereas some will be unstable, meaning they only work in a small neighborhood around $x^{*}.$ 
+    Remember that linearization is an approximation to a system as well, and some linearizations are considered stable, meaning that it will be accurate for all values of $t$ whereas some will be unstable, meaning they only work in a small neighborhood around $x^{*}.$ The smallness assumption says that $\delta_{x}(t)$ should be small enough such that the approximation $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t)$ is valid.
   }
 
   \sol {
-    We plug in our solution $\delta_{x}(t) = \delta_{x}(0) e^{t}$ to get $x(t) = x^{*} + \delta_{x}(0) e^{t}.$
-    Note that for larger values of $t, \delta_{x}(0) e^{t}$ will blow up meaning this approximation will not be stable for large values of $t.$
+    The solution derived in the previous part was $\delta_{x}(t) = \delta_{x}(0) e^{-t}.$ 
+    Converting back to $x(t),$ we see that the new linearized approximation is $x(t) = x^{*} + \delta_{x}(t) = \delta_{x}(t) = \delta_{x}(0) e^{-t}.$
+    This solution is stable since $\delta_{x}(t) \leq \delta_{x}(0)$ for all values of $t \geq 0.$
+    If the linearization satisfies the smallness assumption, meaning $\delta_{x}(0)$ is small enough that $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t),$ then the linearization will be valid for all values of $t \geq 0.$
   }
 \end{enumerate}

@@ -1,6 +1,10 @@
 \qns{Stabilizing a System}
 % \qcontributor{John Maidens}
 
+\meta {
+  This time the system is no longer in Controllable Canonical Form, and we must now convert the system to a basis in which it is in CCF, and then convert back to use the $K$ values in the standard basis.
+}
+
 Consider the following linear discrete time system
 
 \begin{align*}
@@ -20,13 +24,13 @@ Consider the following linear discrete time system
 \qitem Is this system controllable?
 
 \sol{We calculate
-$$\mathcal C = [B,AB,A^{2}B] =
+$$C = [B,AB,A^{2}B] =
 \begin{bmatrix}
 1 & -1 & 2 \\
 0 & 1 & -3 \\
 0 & 0 & 1
 \end{bmatrix}$$
-Observe that $\mathcal C$ matrix is full rank and hence our system is controllable.
+Observe that $C$ matrix is full rank and hence our system is controllable.
 }
 
 \qitem Is the linear discrete time system stable?
@@ -55,6 +59,12 @@ a_1 & a_2 & a_3
 
 using transformation $\vec{z}(t) = T\vec{x}(t)$
 
+\meta {
+  You should probably tell your students that the inverse of 
+  $\begin{bmatrix} 1 & -1 & 2\\ 0 & 1 & -3 \\ 0 & 0 & 1 \end{bmatrix}$ is 
+  $\begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 3 \\ 0 & 0 & 1 \end{bmatrix}.$
+}
+
 \sol{
 The characteristic polynomial for this system is $\lambda^3 + 4\lambda^2 + 3\lambda$. So putting this system in control canonical form gives
 \begin{align*}
@@ -71,15 +81,15 @@ The characteristic polynomial for this system is $\lambda^3 + 4\lambda^2 + 3\lam
 To compute the transformation $T$, we need the matrices
 \[
 \begin{split}
-\mathcal{C}_{n} &= \begin{bmatrix} B & AB & \dots & A^{n-1}B \end{bmatrix} = \begin{bmatrix} 1 & -1 & 2\\ 0 & 1 & -3 \\ 0 & 0 & 1 \end{bmatrix}
+C &= \begin{bmatrix} B & AB & \dots & A^{n-1}B \end{bmatrix} = \begin{bmatrix} 1 & -1 & 2\\ 0 & 1 & -3 \\ 0 & 0 & 1 \end{bmatrix}
  \\
-\tilde{\mathcal{C}_{n}} &= \begin{bmatrix}  \tilde B &  \tilde A \tilde B & \dots & \tilde A^{n-1} \tilde B \end{bmatrix}
+\tilde{C} &= \begin{bmatrix}  \tilde B &  \tilde A \tilde B & \dots & \tilde A^{n-1} \tilde B \end{bmatrix}
 = \begin{bmatrix} 0 & 0 & 1\\ 0 & 1 & -4 \\ 1 & -4 & 13 \end{bmatrix}
 \end{split}
 \]
 Then $T$ is given by
 \[
-T = \tilde{\mathcal{C}_{n}} \mathcal{C}_{n}^{-1} =
+T = \tilde{C} C^{-1} =
 \begin{bmatrix} 0 & 0 & 1\\ 0 & 1 & -4 \\ 1 & -4 & 13 \end{bmatrix}
 \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 3 \\ 0 & 0 & 1 \end{bmatrix}
 =
@@ -87,21 +97,28 @@ T = \tilde{\mathcal{C}_{n}} \mathcal{C}_{n}^{-1} =
 \].
 }
 
-\qitem Using state feedback $u(t) =  \begin{bmatrix}
+\qitem Using state feedback $u(t) =  \widetilde{K} \vec{z}(t) = \begin{bmatrix}
 \widetilde{k}_1 & \widetilde{k}_2 & \widetilde{k}_3
-\end{bmatrix} \vec{z}(t)$ place the eigenvalues at $0,1/2,-1/2$.
+\end{bmatrix} \vec{z}(t)$ place the eigenvalues at $0,1/2,-1/2$. 
+What is the controller $K$ in standard basis coordinates?
 
 \meta {
   Remember that $\widetilde{K}$ is the matrix in which we can pick our $k$ values easily but it is in the wrong basis, therefore we must convert it back into the standard basis if we want the feedback controller $K.$ 
+  The relation $K = \widetilde{K} T$ can be derived by observing the following:
+  \begin{align*}
+  \vec{x}(t + 1) &= (A + BK) \vec{x}(t) \\
+  T^{-1} \vec{z}(t + 1) &= (A + BK) T^{-1} \vec{x}(t) \\
+  \vec{z}(t + 1) &= T(A + BK) T^{-1} \vec{x}(t) = TAT^{-1} + TBKT^{-1} \vec{x}(t)
+  \end{align*}
+  Since $\widetilde{A} = TAT^{-1}$ and $\widetilde{B} = TB, \widetilde{K}$ will be $KT^{-1}.$
 }
-
 
 \sol{
 The closed loop system in $z$ coordinates is given by
 \[
-\widetilde{A} + \widetilde{B} \widetilde{K} = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ k_1 & k_2 -3 & k_3 - 4 \end{bmatrix}
+\widetilde{A} + \widetilde{B} \widetilde{K} = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ \widetilde{k}_1 & \widetilde{k}_2 -3 & \widetilde{k}_3 - 4 \end{bmatrix}
 \]
-which has characteristic polynomial $\lambda^3 + (4-k_3) \lambda^2 + (3-k_2) \lambda - k_1$. To place the eigenvalues at 0, 1/2, -1/2, the desired characteristic polynomial is $\lambda(\lambda - 1/2)(\lambda + 1/2) = \lambda^3 - 1/4 \ \lambda$. So we should choose $k_1 = 0, k_2 = 13/4, k_3 = 4$.
+which has characteristic polynomial $\lambda^3 + (4- \widetilde{k}_3) \lambda^2 + (3- \widetilde{k}_2) \lambda - \widetilde{k}_1$. To place the eigenvalues at 0, 1/2, -1/2, the desired characteristic polynomial is $\lambda(\lambda - 1/2)(\lambda + 1/2) = \lambda^3 - 1/4 \ \lambda$. So we should choose $\widetilde{k}_1 = 0, \widetilde{k}_2 = 13/4, \widetilde{k}_3 = 4$.
 If we want the feedback controller in terms of $x(t)$, we write $u(t) = K \vec{x}(t)$ where
 \[
 K = \widetilde{K} T = \begin{bmatrix} 0 & 13/4 & 4 \end{bmatrix} \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & -1 \\ 1 & -3 & 2 \end{bmatrix} =
