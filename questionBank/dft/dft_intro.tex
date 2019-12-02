@@ -94,35 +94,99 @@ F_5 =
 Consider the following signal:
 
 \begin{align*}
-f(t) = cos(\frac{4\pi}{5}t + \frac{\pi}{2})
+f(t) = \cos(\frac{4\pi}{5}t + \frac{\pi}{2})
 \end{align*}
 
-Let our sampling frequency be 1 Hz. Starting at t = 0, {\bf sample $f$ at $N = 5$ points to construct $\vec{x}$. }
+Let our sampling frequency be 1 Hz. Starting at t = 0, {\bf sample $f$ at $N = 5$ points to construct $\vec{x}$. } \\
+Feel free to leave your answer in terms of the cosine function.
 
 {\em HINT:
-We can get samples of a time-domain signal by evaluating it at different points in time.
+We can get samples of a time-domain signal by evaluating it at different points in time. \\
 }
 
 \sol{
+    \begin{align*}
+        \vec{x} = 
+        \begin{bmatrix}
+        f(0) \\ f(1) \\ f(2) \\ f(3) \\ f(4)
+        \end{bmatrix} = 
+        \begin{bmatrix}
+        \cos(\frac{\pi}{2}) \\ 
+        \cos(\frac{13\pi}{10}) \\
+        \cos(\frac{21\pi}{10}) \\
+        \cos(\frac{29\pi}{10}) \\
+        \cos(\frac{37\pi}{10})
+        \end{bmatrix}
+    \end{align*}
 }
+
+\vspace{0.5em}
+When we apply the DFT to a vector of sample points, the elements of the resulting $\vec{X}$ correspond to the frequencies present in the signal. \\
+The first element (index 0) of $\vec{X}$ is $N$ times whatever constant/DC term is present in the signal. \\
+For every wave of the form $A\cos(\frac{2\pi}{N}(kt) + \phi)$, the $k^{\text{th}}$ index (again, zero-indexed) of $\vec{X}$ is $\frac{AN}{2}e^{j\phi}$, 
+and the $(N - k)^{\text{th}}$ index of $\vec{X}$ is the complex conjugate of the $k^{\text{th}}$ element, or $\frac{AN}{2}e^{-j\phi}$.
 
 \qitem
 {\bf Apply the DFT to find $\vec{X}$}, your sampled signal in the frequency domain.
 
 \sol{
+    \begin{align*}
+        \vec{X} =
+        \begin{bmatrix}
+        0 && 0 && \frac{5}{2}e^{\frac{\pi}{2}j} && \frac{5}{2}e^{-\frac{\pi}{2}j} && 0
+        \end{bmatrix}^T
+    \end{align*}
 }
 
 \qitem
 How do the elements of the $\vec{X}$ correspond to your original signal?
 
 \sol{
+    The element at index $2$ is $N$ times the phasor representation of our signal with frequency $\frac{4\pi}{5}$, 
+    and the element at index $5 - 2 = 3$ is $N$ times the complex conjugate of that phasor representation.
 }
 
 \qitem
-What is the highest frequency you can get out of the DFT for $N = 5$?
+Consider the following signals: 
+\begin{align*}
+f(t) = 3\cos(\frac{2\pi}{5}t)
+\end{align*}
+\begin{align*}
+f(t) = 3\cos(\frac{8\pi}{5}t)
+\end{align*}
+What do you get for your sample vector, and what do youout of the DFT for each signal? 
+Is it what you expect? \\
+If it is not what you expect, think about why. What could you do to fix this?
+
+\meta{
+    The motivation behind this part is to get students started thinking about aliasing. 
+    They should notice that they get the exact same $\vec{x}$ for the two signals, even though the signals have different frequencies.
+    Try to guide them towards the realization that we need to sample faster to pick up higher freuencies with the DFT.
+}
 
 \sol{
+    For both signals, 
+    \begin{align*}
+        \vec{x} = 
+        \begin{bmatrix}
+        \cos(\frac{\pi}{2}) \\ 
+        \cos(\frac{9\pi}{10}) \\
+        \cos(\frac{13\pi}{10}) \\
+        \cos(\frac{17\pi}{10}) \\
+        \cos(\frac{21\pi}{10})
+        \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+        \vec{X} =
+        \begin{bmatrix}
+        0 && \frac{15}{2} && 0 && 0 && \frac{15}{2}
+        \end{bmatrix}^T
+    \end{align*}
+
+    We get the same exact frequency domain representation for two different signals because we end up sampling the same points for the two signals. \\
+    In order to fix this, we need to sample faster and sample more points.
 }
+
 
 \end{enumerate}
 
