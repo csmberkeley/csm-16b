@@ -45,7 +45,25 @@ The columns of the DFT matrix are its basis vectors.
 }
 
 \sol{
-
+Following the hint, the $k^{th}$ DFT basis vector is the $k^{th}$ column of the DFT matrix. For $N$ = 5 and an arbitrary $k$,
+\begin{align*}
+\vec{v_k} =
+\begin{bmatrix}
+1 \\
+e^{-kj\frac{2\pi}{5}} \\
+e^{-2kj\frac{2\pi}{5}} \\
+e^{-3kj\frac{2\pi}{5}} \\
+e^{-4kj\frac{2\pi}{5}} \\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1 \\
+e^{-\frac{2{\pi}kj}{5}} \\
+e^{-\frac{4{\pi}kj}{5}} \\
+e^{-\frac{6{\pi}kj}{5}} \\
+e^{-\frac{8{\pi}kj}{5}} \\
+\end{bmatrix} 
+\end{align*}
 }
 
 \qitem 
@@ -56,6 +74,17 @@ Use the general formula from the previous part to fill in the full matrix.
 }
 
 \sol{
+Using the formula above, we get:
+\begin{align*}
+F_5 =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 \\
+1 & e^{-j\frac{2\pi}{5}} & e^{-2j\frac{2\pi}{5}} & e^{-3j\frac{2\pi}{5}} & e^{-4j\frac{2\pi}{5}} \\
+1 & e^{-2j\frac{2\pi}{5}} & e^{-4j\frac{2\pi}{5}} & e^{-6j\frac{2\pi}{5}} & e^{-8j\frac{2\pi}{5}} \\
+1 & e^{-3j\frac{2\pi}{5}} & e^{-6j\frac{2\pi}{5}} & e^{-9j\frac{2\pi}{5}} & e^{-12j\frac{2\pi}{5}} \\
+1 & e^{-4j\frac{2\pi}{5}} & e^{-8j\frac{2\pi}{5}} & e^{-12j\frac{2\pi}{5}} & e^{-16j\frac{2\pi}{5}} \\
+\end{bmatrix} 
+\end{align*}
 }
 
 % (c) Given a sinusoid (constant term + something with frequency (2 pi /5) * 2), write out your x vector
@@ -68,10 +97,12 @@ Consider the following signal:
 f(t) = cos(\frac{4\pi}{5}t + \frac{\pi}{2})
 \end{align*}
 
-Let our sampling frequency be 1 Hz. Starting at t = 0, {\bf sample $f$ at $N = 5$ points and construct $\vec{x}$. }
+Let our sampling frequency be 1 Hz. Starting at t = 0, {\bf sample $f$ at $N = 5$ points to construct $\vec{x}$. }
+
 {\em HINT:
 We can get samples of a time-domain signal by evaluating it at different points in time.
 }
+
 \sol{
 }
 
