@@ -35,6 +35,12 @@ F_N =
 
 Recall that $\omega_N$ is the basis $N^{th}$ root of unity, defined as $\omega_N = e^{j\frac{2\pi}{N}}$.
 
+\vspace{0.5em}
+When we apply the DFT to a vector of sample points, the elements of the resulting $\vec{X}$ correspond to the frequencies present in the signal. \\
+The first element (index 0) of $\vec{X}$ is $N$ times whatever constant/DC term is present in the signal. \\
+For every wave of the form $A\cos(\frac{2\pi}{N}(kt) + \phi)$, the $k^{\text{th}}$ index (again, zero-indexed) of $\vec{X}$ is $\frac{AN}{2}e^{j\phi}$, 
+and the $(N - k)^{\text{th}}$ index of $\vec{X}$ is the complex conjugate of the $k^{\text{th}}$ element, or $\frac{AN}{2}e^{-j\phi}$.
+
 \begin{enumerate}
 
 \qitem
@@ -119,12 +125,6 @@ We can get samples of a time-domain signal by evaluating it at different points 
         \end{bmatrix}
     \end{align*}
 }
-
-\vspace{0.5em}
-When we apply the DFT to a vector of sample points, the elements of the resulting $\vec{X}$ correspond to the frequencies present in the signal. \\
-The first element (index 0) of $\vec{X}$ is $N$ times whatever constant/DC term is present in the signal. \\
-For every wave of the form $A\cos(\frac{2\pi}{N}(kt) + \phi)$, the $k^{\text{th}}$ index (again, zero-indexed) of $\vec{X}$ is $\frac{AN}{2}e^{j\phi}$, 
-and the $(N - k)^{\text{th}}$ index of $\vec{X}$ is the complex conjugate of the $k^{\text{th}}$ element, or $\frac{AN}{2}e^{-j\phi}$.
 
 \qitem
 {\bf Apply the DFT to find $\vec{X}$}, your sampled signal in the frequency domain.
