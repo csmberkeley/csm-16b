@@ -10,12 +10,14 @@
 % (e) How do the elements of the X vector correspond to your original signal?
 % (d) What is the highest frequency you can get out of the DFT for N = 5?
 
-To motivate the DFT, imagine a scenario where you have an important signal that you would
-like to analyze (for example, a radio transmission from someone sending a message to you).
-Your first step is to sample the incoming signal at intervals, collecting a total of $N$
+To motivate the DFT, imagine a scenario where you would like to analyze an important signal
+(for example, a radio transmission from someone sending a message to you).
+First, you periodically sample the incoming signal, collecting a total of $N$
 points. Then, you put all of these samples into a vector $\vec{x}$. As we will show in this
-problem, applying the DFT to this vector will allow you to extract important information like
-all of the frequencies that are present in the signal.
+problem, applying the DFT to this vector $\vec{x}$ will allow you to extract important information such as
+the different frequencies that are present in the signal. In other words, applying the DFT to $N$ samples
+of a time-domain signal gives us its frequency-domain representation, showing us how much of each frequency is in our signal.
+
 
 The DFT matrix for a signal sampled at $N$ points is defined as follows:
 
@@ -31,12 +33,12 @@ F_N =
 \end{bmatrix} 
 \end{align*}
 
-Recall that $\omega_N$ is the basis $N$th root of unity, defined as $\omega_N = e^{j\frac{2\pi}{N}}$.
+Recall that $\omega_N$ is the basis $N^{th}$ root of unity, defined as $\omega_N = e^{j\frac{2\pi}{N}}$.
 
 \begin{enumerate}
 
 \qitem
-Given $N = 5$, { \bf write out the $k$th DFT basis vector. }
+Given $N = 5$, { \bf write out the $k^{th}$ DFT basis vector. }
 
 {\em HINT:
 The columns of the DFT matrix are its basis vectors.
@@ -60,14 +62,16 @@ Use the general formula from the previous part to fill in the full matrix.
 
 \qitem
 
-Given the signal:
+Consider the following signal:
 
 \begin{align*}
 f(t) = cos(\frac{4\pi}{5}t + \frac{\pi}{2})
 \end{align*}
 
-{\bf Sample $f$ at $N$ points to construct $\vec{x}$. }
-
+Let our sampling frequency be 1 Hz. Starting at t = 0, {\bf sample $f$ at $N = 5$ points and construct $\vec{x}$. }
+{\em HINT:
+We can get samples of a time-domain signal by evaluating it at different points in time.
+}
 \sol{
 }
 
