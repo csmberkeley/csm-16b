@@ -1,0 +1,152 @@
+\qns{Discrete Fourier Transform Introduction}
+
+% Sketch (from content channel):
+% Intro about sampling points from an AC signal and wanting to extract the original signal (frequencies, magnitudes, phase shifts).
+% Define the DFT matrix and how it can be applied to signals (what you get out when you input a signal of a certain frequency).
+% (a) Given N = 5, write out the kth DFT basis vector/ column of the DFT matrix.
+% (b) Write out the DFT matrix for N = 5
+% (c) Given a sinusoid (constant term + something with frequency (2 pi /5) * 2), write out your x vector
+% (d) Apply the DFT to get your frequency domain (X) vector.
+% (e) How do the elements of the X vector correspond to your original signal?
+% (d) What is the highest frequency you can get out of the DFT for N = 5?
+
+Let's say we have a real-world signal that is a function of time
+$x(t)$. By recording its values at regular intervals, we can represent
+it as a vector of discrete samples $\vec{x}$, of length $n$.   
+\begin{align}
+\vec{x}  = \begin{bmatrix} x[0] \\ x[1] \\ \vdots \\ x[n-1] \end{bmatrix}
+\end{align}
+
+In this section, we will explore the DFT and its interpretation through basis vectors.
+The $k$th DFT basis vector will be viewed as
+$\frac{\vec{r}^k}{\sqrt{N}}$ and represented as an $N$-length column by
+evaluating the expression with $t$ being the $N$th roots of unity.
+This alterative interpretation allows us to think about interpolation
+more easily.
+
+\meta {
+  $\vec{r}$ is a vector containing the $N$ roots of unity. For example, if $N = 4,$ then $\vec{r} = 
+  \begin{bmatrix}
+  1 & e^{j \frac{\pi}{2}} & e^{j \frac{\pi}{2} \cdot 2} & e^{j \frac{\pi}{2} \cdot 3}
+  \end{bmatrix}^{T}$
+}
+
+% that we want to transmit $\vec{s}$ % = \begin{bmatrix}s_1 & \cdots & s_n$.
+We will let $\vec{X} = \begin{bmatrix} X[0] & \ldots & X[N-1] \end{bmatrix}^T$
+as the signal $\vec{x}$ represented in the frequency domain, that is
+\begin{align}
+\vec{X} = U^{-1} \vec{x} = U^* \vec{x}
+\end{align}
+where $U$ is a matrix of the DFT basis vectors ($\omega =
+e^{j\frac{2\pi}{n}}$).
+\begin{align}
+U =
+\begin{bmatrix}
+| & & | \\
+\vec{u}_0 & \cdots & \vec{u}_{N-1} \\
+| & & |
+\end{bmatrix}
+=
+ \frac{1}{\sqrt{N}}
+\begin{bmatrix}
+1 & 1 & 1 & \cdots  & 1 \\
+1 & \omega & \omega^2 & \cdots & \omega^{N-1} \\
+1 & \omega^2 & \omega^4  & \cdots &  \omega^{2(N-1)}\\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & \omega^{N-1} & \omega^{2(N-1)}  & \cdots  & \omega^{(N-1)(N-1)}
+\end{bmatrix}
+\end{align}
+
+Alternatively, we have that $\vec{x} = U \vec{X}$ or more explicitly
+\begin{align}
+\vec{x} =  X[0] \vec{u}_0 + \cdots + X[N-1]\vec{u}_{N-1}
+\end{align}
+
+In other words, $\vec{x}$ is a linear combination of the complex exponentials $\vec{u}_i$ with coefficients $X[i]$.
+
+
+Let $r_k = \omega^{k}$ be the $j$th $N$th-root-of-unity. The $N$ points
+$r_{0}, r_{1}, \ldots, r_{N-1}$ are the $N$th-roots-of-unity.
+
+Recall that $\omega_N$ is the basis $N^{th}$ root of unity, defined as $\omega_N = e^{j\frac{2\pi}{N}}$.
+
+\vspace{0.5em}
+When we apply the DFT to a vector of sample points, the elements of the resulting $\vec{X}$ correspond to the frequencies present in the signal. 
+The first element $X[0]$ is $\sqrt{N}$ times whatever constant/DC term is present in the signal. 
+For every wave of the form $A\cos(\frac{2\pi}{N}(kt) + \phi)$, $X[k]$ is $\frac{A \sqrt{N}}{2}e^{j\phi}$, and $X[N - k]$ is the complex conjugate of $X[k]$
+or $\frac{A \sqrt{N}}{2}e^{-j\phi}$. 
+
+\ws {
+  \newpage
+}
+
+\begin{enumerate}
+
+\qitem
+Given $N = 5$, { \bf write out the $k^{th}$ DFT basis vector. }
+
+{\em HINT:
+The columns of the DFT matrix are its basis vectors.
+}
+
+\sol{
+Following the hint, the $k^{th}$ DFT basis vector is the $k^{th}$ column of the DFT matrix. For $N$ = 5 and an arbitrary $k$,
+\begin{align*}
+\vec{v_k} =
+\begin{bmatrix}
+1 \\
+e^{-kj\frac{2\pi}{5}} \\
+e^{-2kj\frac{2\pi}{5}} \\
+e^{-3kj\frac{2\pi}{5}} \\
+e^{-4kj\frac{2\pi}{5}} \\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1 \\
+e^{-\frac{2{\pi}kj}{5}} \\
+e^{-\frac{4{\pi}kj}{5}} \\
+e^{-\frac{6{\pi}kj}{5}} \\
+e^{-\frac{8{\pi}kj}{5}} \\
+\end{bmatrix} 
+\end{align*}
+}
+
+\qitem 
+{ \bf Write out the DFT matrix for $N = 5$. }
+
+{\em HINT:
+Use the general formula from the previous part to fill in the full matrix.
+}
+
+\sol{
+Using the formula above, we get:
+\begin{align*}
+F_5 =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 \\
+1 & e^{-j\frac{2\pi}{5}} & e^{-2j\frac{2\pi}{5}} & e^{-3j\frac{2\pi}{5}} & e^{-4j\frac{2\pi}{5}} \\
+1 & e^{-2j\frac{2\pi}{5}} & e^{-4j\frac{2\pi}{5}} & e^{-6j\frac{2\pi}{5}} & e^{-8j\frac{2\pi}{5}} \\
+1 & e^{-3j\frac{2\pi}{5}} & e^{-6j\frac{2\pi}{5}} & e^{-9j\frac{2\pi}{5}} & e^{-12j\frac{2\pi}{5}} \\
+1 & e^{-4j\frac{2\pi}{5}} & e^{-8j\frac{2\pi}{5}} & e^{-12j\frac{2\pi}{5}} & e^{-16j\frac{2\pi}{5}} \\
+\end{bmatrix} 
+\end{align*}
+}
+
+\qitem Given the time-domain signal $\vec{x} = \begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix}^{T},$ what is the frequency representation of $\vec{x}?$
+
+% X_1 = [2 2 2 2]
+
+\qitem Given the frequency-domain signal $\vec{X} = \begin{bmatrix} 1 & 0 & 0 & 0 \end{bmatrix}^{T},$ what is the time representation of $\vec{X}?$
+
+% x_2 = [1/2 1/2 1/2 1/2]
+
+\qitem Given the time-domain signal $\vec{x} = \begin{bmatrix} 2 & 1 & 1 & 1 \end{bmatrix}^{T},$ what is the frequency representation of $\vec{x}?$
+
+% x = x_1 + 2 * x_2
+
+% (c) Given a sinusoid (constant term + something with frequency (2 pi /5) * 2), write out your x vector
+
+
+\end{enumerate}
+
+
