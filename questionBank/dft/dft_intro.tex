@@ -10,15 +10,6 @@
 % (e) How do the elements of the X vector correspond to your original signal?
 % (d) What is the highest frequency you can get out of the DFT for N = 5?
 
-To motivate the DFT, imagine a scenario where you would like to analyze an important signal
-(for example, a radio transmission from someone sending a message to you).
-First, you periodically sample the incoming signal, collecting a total of $N$
-points. Then, you put all of these samples into a vector $\vec{x}$. As we will show in this
-problem, applying the DFT to this vector $\vec{x}$ will allow you to extract important information such as
-the different frequencies that are present in the signal. In other words, applying the DFT to $N$ samples
-of a time-domain signal gives us its frequency-domain representation, showing us how much of each frequency is in our signal.
-
-
 The DFT matrix for a signal sampled at $N$ points is defined as follows:
 
 \begin{align*}
