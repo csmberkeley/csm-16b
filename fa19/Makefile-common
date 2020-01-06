@@ -19,6 +19,7 @@ latexmaintex = $(wildcard latexmain*.tex)
 latexmainpdf = $(latexmaintex:.tex=.pdf)
 
 all: $(image) $(alltex) sol ws meta
+	$(tex) $(solin) $(wsin) $(metain)
 	mkdir -p build
 	cp $(ws) $(sol) $(meta) build
 

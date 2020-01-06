@@ -1,0 +1,97 @@
+% Author: Yen-Sheng Ho
+
+\qns{Controllable Canonical Form Introduction}
+
+\meta {
+  Note that the proof for CCF is unconventional in that we assume there exists a transformation $T$ from the standard to controller basis, and then we derive what the actual transformation is, and show that it can only exist when the system is controllable.
+}
+
+Consider a linear discrete time system below ($\vec{x} \in
+\mathbb{R}^n$, $u \in \mathbb{R}$, and $\vec{b} \in \mathbb{R}^n$).
+\begin{align*}
+\vec{x}(t+1) = A \vec{x}(t) + \vec{b} u(t)
+\end{align*}
+
+If the system is \textit{controllable},
+then there exists a transformation $\vec{z} = T\vec{x}$ (where $T$ is an invertible $n\times n$ matrix)
+such that in the transformed coordinates, the system is in
+\textit{controllable canonical form}, which is given by
+\begin{align*}
+\vec{z}(t+1) = \widetilde{A}\vec{z}(t) + \widetilde{\vec{b}} u(t) = \begin{bmatrix}
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots  & \ddots & \vdots \\
+ 0 & 0 & 0 & \cdots & 1 \\
+ a_0 & a_{1} & a_{2} & \ldots & a_{n-1} \\
+\end{bmatrix} 
+\vec{z}(t) +
+\begin{bmatrix}
+0 \\ 0 \\ 0 \\ \vdots \\ 1
+\end{bmatrix}
+u(t)
+\end{align*}
+
+The characteristic polynomials of the matrices $A$ and $\widetilde{A}$ are the same and given by
+\begin{align}\label{eq:poly}
+\mbox{det}(\lambda I - A ) = \mbox{det}(\lambda I - \widetilde{A} )
+= \lambda^n  - a_{n-1} \lambda^{n-1} - a_{n-2} \lambda^{n-2} - \ldots - a_0
+\end{align}
+
+\begin{enumerate}
+\qitem Show that $\widetilde{A} = TAT^{-1}$ and $\widetilde{\vec{b}} = T\vec{b}$.
+
+\sol{
+
+Starting from the original system, we have 
+\begin{align*}
+\vec{x}(t+1) &= A \vec{x}(t) + \vec{b} u(t) \\
+\Rightarrow T\vec{x}(t+1) &= TA \vec{x}(t) + T\vec{b} u(t) \\
+\Rightarrow T\vec{x}(t+1) &= TA (T^{-1}T) \vec{x}(t) + T\vec{b} u(t) \\
+\Rightarrow \vec{z}(t+1) &= TAT^{-1}\vec{z}(t) + T\vec{b} u(t) 
+\end{align*}
+
+Comparing to the canonical form, we have
+\begin{align*}
+\widetilde{A} = TAT^{-1} \mbox{, and }  \widetilde{\vec{b}} = T\vec{b}
+\end{align*}
+}
+
+\qitem Show that $A$ and $\widetilde{A}$ have the same eigenvalues (\textit{Hint: let $\vec{v}$ be an eigenvector of $A$; use $T\vec{v}$ for $\widetilde{A}$})
+
+\sol{
+
+Let $\lambda$ and $\vec{v}$ be an eigenvalue and its corresponding eigenvector of $A$. That is, $A\vec{v} = \lambda \vec{v}$.
+Next we consider $\widetilde{A}T\vec{v}$:
+\begin{align*}
+\widetilde{A}(T\vec{v}) &=  TAT^{-1} T\vec{v} \\
+&= TA\vec{v}\\
+&= T(\lambda\vec{v}) \\
+&= \lambda(T\vec{v})
+\end{align*}
+We have shown that $\lambda$ is also an eigenvalue of $\widetilde{A}$ and its corresponding eigenvector is $T\vec{v}$.
+}
+\qitem Let the controllability matrices $C$ and $\widetilde{C}$ be $C = \begin{bmatrix}
+\vec{b} & A\vec{b} & \cdots & A^{n-1}\vec{b}
+\end{bmatrix}$
+and 
+$\widetilde{C} = \begin{bmatrix}
+\widetilde{\vec{b}} & \widetilde{A}\widetilde{\vec{b}} & \cdots & \widetilde{A}^{n-1}\widetilde{\vec{b}}
+\end{bmatrix}$, respectively.
+Show that $\widetilde{C} = TC$, which is equivalent to $T = \widetilde{C}C^{-1}$.
+
+\sol{
+\begin{align*}
+\widetilde{C} &= \begin{bmatrix}
+\widetilde{\vec{b}} & \widetilde{A}\widetilde{\vec{b}} & \cdots & \widetilde{A}^{n-1}\widetilde{\vec{b}}
+\end{bmatrix} \\
+&= \begin{bmatrix}
+T{\vec{b}} & (T{A}T^{-1})(T{\vec{b}}) & \cdots & (T{A}^{n-1}T^{-1})(T{\vec{b}})
+\end{bmatrix} \\
+&= \begin{bmatrix}
+T{\vec{b}} & T{A}{\vec{b}} & \cdots & T{A}^{n-1}{\vec{b}}
+\end{bmatrix} \\
+&= TC
+\end{align*}
+}
+
+\end{enumerate}
