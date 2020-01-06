@@ -152,7 +152,7 @@ $$
 \end{bmatrix}
 $$
 where the solitary $1$ is in the $i$-row of the vector $\vec{e}_i$. Consider the augmented matrix and vector
-\begin{equation} \label{eq:augmented}
+\begin{equation} \label{eqn:augmented}
   X_{new} = \begin{bmatrix}
     \vec{x} &
     \vec{e}_i
@@ -230,7 +230,7 @@ least-squares estimate for $\widehat{\vec{p}}$ at all.}
 
 \sol{
   Note that
-  \begin{equation} \label{eq:p-new}
+  \begin{equation} \label{eqn:p-new}
     \begin{split}
       \vec{p}_{new} &= (X_{new}^\top X_{new})^{-1} X_{new}^\top \vec{y}_{new} \\ 
       &= \frac{1}{n-1}  
@@ -339,13 +339,13 @@ least-squares estimate for $\widehat{\vec{p}}$ at all.}
   
 }
 
-\qitem {\bf Argue that with the augmented variables defined in Eq. \eqref{eq:augmented}, the least-squares solution is equivalent to solving least-squares while ignoring the $i$-th set of data.
+\qitem {\bf Argue that with the augmented variables defined in Eq. \eqref{eqn:augmented}, the least-squares solution is equivalent to solving least-squares while ignoring the $i$-th set of data.
 }
 
 
 
 \sol{
-  By Eq. \eqref{p-new}, we see that
+  By Eq. \eqref{eqn:p-new}, we see that
   $$
     \hat{p} = \frac{1}{n-1} \cdot \sum_{i\neq i} y_i.
   $$

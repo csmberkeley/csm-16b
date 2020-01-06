@@ -1,0 +1,124 @@
+\qcontributor{Taejin Hwang}
+
+\section{How to Write Proofs}
+
+This guide was written to provide some useful tips on how to approach and overcome your fear on writing proofs. 
+A couple examples of proofs are given, and the details are a bit exaggerated, but they do emphasize the importance of the following tips below. They were mainly exaggerated to show which step of the proof corresponds with which tip.
+
+% \begin{enumerate}[label=(\roman*)]
+\subsection{Know your definitions}
+This is the single most important piece of advice I can give, a proof will always require you to know your definitions. 
+From my experiences with teaching, when a student is stuck on a proof, it is almost always because they didn't remember a definition.
+
+For example, a question asks to prove that a set of vectors is linearly independent, you will need to know what linear independence means, and you may have to know multiple definitions of linear independence to finish the proof. 
+
+\subsection{Identify your Goal}
+Often times, proof questions may get really long, and you forget what the goal of the proof was. 
+It is always important to identify what you want to prove at the beginning and continually refer back to it while proving. 
+Another strategy that you may need to use, is to identify the objective, and then ask yourself, "Can I rephrase this objective into something else that makes the problem easier?" 
+This ability to do this will come from a strong understanding of definitions.
+
+For example, if a questions asks you to prove two vectors $\vec{u}, \vec{v}$ are orthogonal, you may want to think about what it means to be orthogonal and maybe rephrase it as: Can I show $\vec{u}^{T} \vec{v} = 0?$
+
+\subsection{Try Something!}
+This is perhaps the scariest part of the proof. 
+You may \textbf{not} want to try something because you think it will lead to a wrong answer, but only after you try will you actually be able to say so. 
+The best way to start a proof is to write out definitions you know that are related to the problem, and then seeing which ones are the most helpful.
+
+For example, if a question asks to prove:
+$$|\innp{\vec{u}}{\vec{v}}| \leq \norm{\vec{u}} \norm{\vec{v}},$$ 
+then try writing out all the definitions of the inner product you know and you'll see that the cosine definition is most useful here.
+
+\subsection{Intuition}
+This is the hardest of them all, and are the reason why even some of the best mathematicians struggle with proofs.
+Think of a proof as a puzzle where the pieces are your definitions, but knowing which definitions will be more useful than others, or having the idea to multiply both sides by a term, comes from this magical word. 
+This comes from \textbf{practice}, \textbf{reading}, and \textbf{understanding} a large number of proofs.
+
+Some techniques that will come from intuition are multiplying and dividing by a certain constant, adding and subtracting $0,$ or maybe even interpreting the geometry of a problem.
+
+For example.
+
+\subsection{Use all the information given!}
+Happens to me all the time. I try writing a proof, I go step by step, but then hit a dead end. 
+This is when you should go back, and check, \textbf{is there any assumption or fact given in the statement that I have not used yet?}
+As a general tip, if a question gives a "weird" fact or assumption, you will most likely have to use that assumption somewhere in your proof.
+
+\subsection{Organization}
+The worst feeling when writing a proof is when something you need is written on your paper, but your work is too messy for you to realize it's sitting right in front of you. 
+Make sure you clearly document what your steps were one by one, and to keep track of your definitions one by one so you don't lost anything in the mess of everything.
+
+\section{Example}
+Q: Show that a set of non-zero vectors that are mutually orthogonal are linearly independent.
+\begin{enumerate}
+ \item \textbf{Definitions:} We should recall the definition of orthogonality. 
+  Two vectors are orthogonal if their inner product is zero, or $\innp{\vec{u}}{\vec{v}} = 0.$ 
+  We should also then think about the definitions of an inner product and how $\innp{\vec{u}}{\vec{v}} = \vec{u}^{T} \vec{v}.$
+ \item \textbf{Goal:} The goal is to show that these orthogonal vectors are linearly independent.
+ This means that if $\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{n} \vec{v}_{n} = \vec{0},$ then all of the scalars must be zero.
+ We should keep this in mind, while constructing our proof.
+ \item \textbf{First Step / Plan:} What should we write on our paper? With our goal in mind, we should probably write out 
+ $$\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{n} \vec{v}_{n} = \vec{0}$$
+ and then somehow show all of the $\alpha_{i}$ must be zero.
+ \item \textbf{Intuition:} We have now established our goal of showing all of the $\alpha_{i}$ must be zero.
+ But we are unsure of how to get there. We should use the fact that these vectors are \textbf{orthogonal} in some way or another. 
+ Since two vectors are orthogonal when $\vec{u}^{T} \vec{v} = 0,$ and we know that $\vec{v}_{1}^{T} \vec{v}_{i} = 0$ for $i \neq 1,$ our intuition should tell us that we should multiply both sides by $\vec{v}_{1}^{T}$ and see what happens.
+ \item \textbf{Try Something:} Let's try taking the inner product of both sides with $\vec{v}_{1},$ ask yourself why this is equivalent to multiplying both sides by $\vec{v}_{1}^{T}.$ Then we see that
+ $$\vec{v}_{1}^{T} (\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{n} \vec{v}_{n}) = \vec{v}_{1}^{T} \vec{0}$$
+ We need to remember our definitions (specifically the distributive property of inner products and vector multiplication).
+ We should also remember that the inner product with the $\vec{0}$ will alwyas be zero.
+ $$\alpha_{1} \vec{v}_{1}^{T} \vec{v}_{1} + \dotsc + \alpha_{n} \vec{v}_{1}^{T} \vec{v}_{n} = 0$$
+ \item \textbf{Organization:}
+ There is a lot to keep track of even in a proof as simple as this one. We need to remember why we multiplied by $\vec{v}_{1}^{T}$ to begin with. We did it since all of the $\vec{v}_{i}$ were orthogonal, and as a result, we should now see that all of the terms should be zero, \textbf{except} $\vec{v}_{1}^{T} \vec{v}_{1}!$
+
+ But now you should be asking yourself, "what if $\vec{v}_{1}$ is zero, then $\vec{v}_{1}^{T} \vec{v}_{1}$ would be equal to $0?"$ While this is a concern to have, since if $\vec{v}_{1}^{T} \vec{v}_{1} = 0,$ it would say nothing about $\alpha_{1},$ we must remember our original assumption that \textbf{the vectors were non-zero.} 
+ Therefore $\vec{v}_{1}^{T} \vec{v}_{1} = \norm{\vec{v}_{1}}^{2}$ must be greater than zero by the positive-definiteness of norms. 
+ Looking back at the original equations, we see that 
+ $$\alpha_{1} \vec{v}_{1}^{T} \vec{v}_{1} = 0$$
+ so since $\vec{v}_{1}^{T} \vec{v}_{1} > 0,$ we know for sure that $\alpha_{1}$ must be zero.
+
+ \item \textbf{Conclusion:}
+ We've tried taking the inner product of both sides with $\vec{v}_{1}$ and shown that $\alpha_{1}$ must be zero and should now be suspecting that all of them are zero, but how can we show that all of the $\alpha$ are zero? 
+ We can do this by generalizing the argument saying, "Hey what if I took the inner product of both sides with $\vec{v}_{i}$ for any $i = 1, \dots, n?$" If I can show $\alpha_{i} = 0,$ then it would mean $\alpha_{1}, \dots, \alpha_{n}$ are all equal to zero. In this case, we are allowed to do so, and therefore, conclude by saying all of the $\alpha_{i}$ are zero. 
+ Therefore, we conclude the proof by stating, "Since all of the $\alpha_{i} = 0,$ vectors $\vec{v}_{1}, \dots, \vec{v}_{n}$ must be linearly independent."
+
+\end{enumerate}
+
+
+\section{Example}
+
+Q: Prove that if $A$ is a matrix of full rank, then every eigenvalue of the matrix $A^{T}A$ will be greater than $0.$ \textit{Hint: Consider $\norm{A\vec{v}}^{2}$ where $\vec{v}$ is an eigenvector of $A^{T}A.$}
+
+\begin{enumerate}
+ \item \textbf{Definitions:} Before we even start, we should recall the definitions for full rank, eigenvalues, and norms. 
+ I'm not going to list the individual definitions here, but remember that you will most likely have to use all of these definitions somewhere in the proof.
+ \item \textbf{Goal:} In some way or another, we must show that every eigenvalue $\lambda$ of the matrix $A^{T}A$ must be greater than zero. Algebraically we can express this as showing $\lambda > 0$ for every $\lambda$ of the matrix $A^{T}A.$
+ \item \textbf{Using Information / Intuition:} If a question gives a hint, \textbf{use the hint!} To build some intuition behind the hint, we want to look at eigenvalues of $A^{T}A \vec{v} = \lambda \vec{v}$ the norm of $\norm{A\vec{v}}^{2} = (A \vec{v})^{T} (A \vec{v}) = \vec{v}^{T} A^{T} A \vec{v}.$ 
+ Without the hint, the intuition would've to construct $A^{T}A \vec{v}$ since we want to show every eigenvalue is greater than or equal to zero, and then focus on how we can show something is greater than zero. 
+ The term $A^{T}A \vec{v}$ is very close to $\vec{v}^{T} A^{T} A \vec{v}$ which is equal to $\norm{A \vec{v}}$ and we know that norms are always greater than or equal to zero.
+ This should explain the intuition behind the hint, and the thought process that would've been taken without the hint.
+ \item \textbf{Try Something!:} Now let's actually take the hint as is and consider this value $\norm{A\vec{v}}^{2}.$ 
+ As stated in the previous step, we can expand out the this squared norm to get $\vec{v}^{T} A^{T} A \vec{v}.$
+ Since the hint told us to look at the specific vector $\vec{v}$ which is an eigenvector of $A^{T}A,$ we should use this fact to say that $$\norm{A \vec{v}}^{2} = \vec{v}^{T} \lambda \vec{v} = \lambda \vec{v}^{T} \vec{v}.$$
+ It may seem like we are stuck now, but we are actually almost there! 
+ The key here is to now think back to the goal. 
+ Our goal was to show that $\lambda > 0.$ 
+ So let's look at the information we currently have. We have $\norm{A \vec{v}}^{2} = \lambda \vec{v}^{T} \vec{v}.$
+ Since we want to isolate the $\lambda$ on its own, we should try playing with $\vec{v}^{T} \vec{v},$ and we can make the observation that $\vec{v}^{T} \vec{v} = \norm{\vec{v}}^{2}.$ 
+ I would consider this observation under the \textit{intuition} category, and it really comes from the idea of seeing that we need to isolate $\lambda$ and show that it's greater than zero, and the fact that norms are also greater than zero. 
+ \item \textbf{Organization:} We're almost there, but we still have cleaning up to do. We now have the expression
+ $$\norm{A \vec{v}}^{2} = \lambda \norm{\vec{v}}^{2}$$
+ We spent a lot of time discussing why we should be isolating $\lambda$ so you should be thinking of diving by $\norm{\vec{v}}^{2}$but then you should also ask yourself: "How do I know that $\norm{\vec{v}}^{2} \neq 0?$" 
+ Dividing by zero would be a disaster and this proof would break down from here.
+ However, remember that $\vec{v}$ was defined to be an eigenvector of $A^{T}A$ meaning the vector will be nonzero, and its norm will henceworth be nonzero as well.
+ With all of this in mind, we now divide and end up with the expression:
+ $$\lambda = \frac{\norm{A\vec{v}}^{2}}{\norm{\vec{v}}^{2}}$$
+ We know that $\norm{\vec{v}}^{2} > 0,$ since $\vec{v} \neq \vec{0},$ and $\norm{A\vec{v}}^{2} \geq 0$ since norms are greater than or equal to zero, we can say that $\lambda \geq 0.$ However our goal was to show that $\lambda$ is strictly greater than zero. How could we achieve this? We could achieve this is we could show that $\norm{A\vec{v}}^{2} > 0.$ 
+\item \textbf{Use all the information given!:}
+ We may feel stuck again at this point, so let's go back to the original problem statement and see if there is any information that we have not used yet. It happens that we haven't used the fact that $A$ is full rank anywhere in the proof yet! 
+ It is no conicidence that this is the exact fact that we need to finish up the proof, without it we could only say that each eigenvalue of $A^{T}A$ is greater than or equal to zero. Since $A$ is a matrix of full rank, the matrix equation $A \vec{x} =\vec{0}$ will have the unique solution $\vec{x} = \vec{0}.$ We were looking at norm of $A \vec{v}$ where $\vec{v}$ is nonzero since $\vec{v}$ is an eigenvector of $A^{T}A.$ Using the fact that $A$ is full rank and  $\vec{v} \neq \vec{0},$ we should see that $A \vec{v}$ must also be nonzero. Since we are squaring the norm of a nonzero vector, $\norm{A\vec{v}}^{2} > 0,$ and we can conclude that $\lambda$ must be strictly greater than zero.
+\end{enumerate}
+
+
+% \section{Example}
+
+% Q: Prove t

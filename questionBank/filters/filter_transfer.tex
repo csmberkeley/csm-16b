@@ -54,7 +54,7 @@ For the purposes of this question, we will consider various filter configuration
 % Part(a)
 \qitem Given the following filter
 
-\input{\bank/transfer/filter_transfer/fig_low_pass}
+\input{\bank/filters/filter_transfer/fig_low_pass}
 
 \begin{enumerate}
   \item \textbf{Write out the transfer function $H(j\omega)$.}
@@ -69,7 +69,7 @@ For the purposes of this question, we will consider various filter configuration
 
   \item The circuit can be simplified as:
 
-    \input{\bank/transfer/filter_transfer/fig_simplified_low_pass}
+    \input{\bank/filters/filter_transfer/fig_simplified_low_pass}
 
     We recognize the circuit is a voltage divider.
     Let $\widetilde{V}_{out}$ and $\widetilde{V}_{in}$ be voltage phasors.
@@ -85,10 +85,10 @@ For the purposes of this question, we will consider various filter configuration
       = \frac{1}{1 + j\omega RC}
     ,\]
 
-  \qitem For values of $j\omega$ close to $0$, $\abs{H(j\omega)}$ approaches $1$.
+  \qitem For values of $\omega$ close to $0$, $\abs{H(j\omega)}$ approaches $1$.
     In this case, $\widetilde{V}_{out} = \widetilde{V}_{in}$, meaning that low frequencies will pass through this filter.
 
-  \qitem For values of $j\omega$ approaching $\infty$, $\abs{H(j\omega)}$ approaches $0$.
+  \qitem For values of $\omega$ approaching $\infty$, $\abs{H(j\omega)}$ approaches $0$.
     In this case, $\widetilde{V}_{out} = 0$, meaning that high frequencies will be blocked by this filter.
     
     \vspace{0.1 cm} 
@@ -100,7 +100,7 @@ For the purposes of this question, we will consider various filter configuration
 % Part(b)
 \qitem Given the following filter
 
-\input{\bank/transfer/filter_transfer/fig_high_pass}
+\input{\bank/filters/filter_transfer/fig_high_pass}
 
 \begin{enumerate}
   \item \textbf{Write out the transfer function $H(j \omega)$.}
@@ -115,7 +115,7 @@ For the purposes of this question, we will consider various filter configuration
 
   \item The circuit can be simplified as:
 
-    \input{\bank/transfer/filter_transfer/fig_simplified_high_pass}
+    \input{\bank/filters/filter_transfer/fig_simplified_high_pass}
 
     Using the voltage divider equation with impedance, we have
     \[
@@ -147,7 +147,7 @@ For the purposes of this question, we will consider various filter configuration
 % Part(c)
 \qitem Giving the following filter
 
-\input{\bank/transfer/filter_transfer/fig_band_pass}
+\input{\bank/filters/filter_transfer/fig_band_pass}
 
 \begin{enumerate}
   \item \textbf{Write out the transfer function $H(j \omega)$.}
@@ -162,7 +162,7 @@ For the purposes of this question, we will consider various filter configuration
 
   \item The circuit can be simplified as:
 
-     \input{\bank/transfer/filter_transfer/fig_simplified_band_pass}
+     \input{\bank/filters/filter_transfer/fig_simplified_band_pass}
 
     In this circuit, the op-amp acts as a unity gain buffer which connects the two filters together.
     On the left of the op-amp is a low-pass filter, and on the right of the op-amp is a high-pass filter.

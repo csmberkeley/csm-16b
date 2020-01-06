@@ -1,0 +1,110 @@
+\qns{Observing a System}
+
+When discussing systems in State-space form, we have always assumed that our state vector $\vec{x}$ was known.
+We used this information to perform closed loop feedback control through the input $\vect{u}{t} = K \vect{x}{t}.$
+
+However, we cannot always assume that we know our state vector $\vect{x}{t}.$
+For example, consider the system of a person driving a car. 
+If we use the state variables $p(t)$ for position and $v(t)$ for velocity, then the driver is only able to see his or her speed through the speedometer, but not the car's current position. 
+
+Recall that in State-space form, we have an output $\vect{y}{t}$ that depends on the state vector $\vect{x}{t}.$
+\begin{equation}
+\vect{y}{t} = C \vec{x}(t) + D \vect{u}{t}
+\end{equation}
+
+We will now investigate into when a system is \textbf{observable}, i.e. it is possible to recover the state vector $\vec{x}$ given a set of output measurements $\vect{y}{0}, \cdots, \vect{y}{n}.$ We will assume for this question that $D = 0.$ In addition, for the parts (a) - (d) of this question, assume that the input $\vect{u}{t} = \vec{0}$ for all time steps.
+
+\meta {
+  Note that for this question, we are assuming that $C$ is a $1 \times n$ matrix, meaning the output $y$ is a scalar. 
+}
+
+\begin{enumerate}
+
+  \qitem Write out the state vector $\vect{y}{1}$ in terms of the initial state $\vect{x}{0}.$
+
+  \sol {
+    The input to output relation is defined as $\vect{y}{t} = C \vect{x}{t} + D \vect{u}{t}.$ 
+    Since we assumed that the input is zero, $\vect{y}{1} = C \vect{x}{1}.$ 
+    Unrolling the state vectors from the state equation $\vect{x}{t + 1} = A \vect{x}{t} + B \vect{u}{t},$ and again assuming a zero input, we see that $\vect{y}{1} = C A \vect{x}{0}.$
+  }
+
+  \qitem What is the state vector $\vect{y}{k}$ in terms of the initial state $\vect{x}{0}.$
+
+  \sol {
+    Starting with the input-output relation our system
+    \[ \vect{y}{k} = C \vect{x}{k} \]
+    We can unroll $\vect{x}{k}$ using the state equation assuming zero input:
+    \[ \vect{x}{k} = A \vect{x}{k - 1} = A^{2} \vect{x}{k - 2} = \dotsc = A^{k} \vect{x}{0} \]
+  }
+
+  \qitem Suppose the state vector $\vec{x}$ is in $\mathbb{R}^{n}.$ Using the measurements above set up a matrix-vector equation $\mathcal{O} \vect{x}{0} = \vec{b}.$
+
+  \sol {
+    The key to this question is understanding the dimensions of our measurements. 
+    The output measurements $\vect{y}{0}, \dotsc, \vect{y}{n-1}$ are vectors in $\mathbb{R}^{p},$ the initial state we are solving for $\vec{x}[0]$ is a vector in $\mathbb{R}^{n},$ and the output matrix $C$ is a $p \times n$ matrix. 
+
+    Therefore if we write out all of our measurement equations:
+    \begin{align*} 
+      \vect{y}{0} &= C \vect{x}{0} \\
+      \vect{y}{1} &= CA \vect{x}{0} \\ 
+      &\vdots \\ 
+      \vect{y}{n-1} &= CA^{n - 1} \vect{x}{0}
+    \end{align*}
+    We can write the following matrix-vector equation:
+    \[ 
+    \vec{b} = \begin{bmatrix} \vect{y}{0} \\ \vect{y}{1} \\ \vdots \\ \vect{y}{n-1} \end{bmatrix} = 
+    \begin{bmatrix} C \\ CA \\ \vdots \\ CA^{n-1} \end{bmatrix} \vect{x}{0} = 
+    \mathcal{O} \vect{x}{0} \]
+    The $\vec{b}$ will be a vector in $\mathbb{R}^{n \cdot p},$ and the matrix $O$ is a $np \times n$ matrix.
+  }
+
+  \qitem When will the matrix-vector equation above have a unique solution? How does this relate to observability?
+
+  \sol {
+    The matrix-vector equation will have a unique solution when the observability matrix $\mathcal{O}$ has a non-trivial null-space or has $n$ linearly independent rows.
+    Remember that we can find the unique solution through Gaussian elimination. 
+    This means that we can recover our initial state $\vect{x}{0}$ when the observability matrix has rows that span $\mathbb{R}^{n}.$
+    Note that this is almost identical to the criterion of controllability. 
+  }
+
+  \qitem Now we will remove the assumption that our input $\vect{u}{t}$ was zero. Write out the measurements $\vect{y}{k}$ in terms of the inital state $\vect{x}{0}$ and the inputs $\vec{u}{t}$ for $k = 0, \dotsc, n - 1.$
+
+  \meta {
+    Write out the terms to generalize the summation. It is not obvious at first sight.
+  }
+
+  \sol {
+    Let's start by looking at $\vect{y}{t}$ in terms $\vect{x}{0}$ for $k = 0, 1, 2.$
+    \begin{align*} 
+      \vect{y}{0} &= C \vect{x}{0} \\
+      \vect{y}{1} &= C \vect{x}{1} = C (A \vect{x}{0} + B \vect{u}{0}) = CA \vect{x}{0} + CB \vect{u}{0} \\
+      \vect{y}{2} &= C \vect{x}{2} = C (A \vect{x}{1} + B \vect{u}{1}) = CA^{2} \vect{x}{0} + CAB \vect{u}{0} + CB \vect{u}{1}
+    \end{align*}
+    Therefore, for a generic $k$ we see that
+    \[ \vect{y}{k} = C \vect{x}{k} = C (A \vect{x}{k-1} + B \vect{u}{k - 1}) = C (A^{k} \vect{x}{0} + \sum\limits_{i = 0}^{k - 1} A^{k - 1 - i} B \vect{u}{i}) \]
+  }
+
+  \qitem Show that the criterion for observability is the same for nonzero inputs.
+
+  \sol {
+    We should try setting up the matrix-vector equation $\mathcal{O} \vect{x}{0} = \vec{b}$ one more time.
+
+    Writing out the measurement equations we see that:
+    \begin{align*} 
+      \vect{y}{0} &= C \vect{x}{0} \\
+      \vect{y}{1} &= CA \vect{x}{0} + CB \vect{u}{0} \\ 
+      &\vdots \\ 
+      \vect{y}{n-1} &= C (A^{n - 1} \vect{x}{0} + \sum\limits_{i = 0}^{n - 2} A^{n - i - 2} B \vect{u}{i})
+    \end{align*}
+    We can write this out as the following matrix-vector equation:
+    \[ \vec{y} = \begin{bmatrix} \vect{y}{0} \\ \vect{y}{1} \\ \vdots \\ \vect{y}{n-1} \end{bmatrix} = 
+    \begin{bmatrix} C \\ CA \\ \vdots \\ CA^{n-1} \end{bmatrix} \vect{x}{0} + C \begin{bmatrix} 0 \\ B \vect{u}{0} \\ \vdots \\ \sum\limits_{i = 0}^{n - 2} A^{n - i - 2} B \vect{u}{i} \end{bmatrix} = \mathcal{O} \vect{x}{0} + C\vec{w} 
+    \]
+    If we subtract $C\vec{w}$ over, we can again write out the matrix-vector equation $\mathcal{O} \vect{x}{0} = \vec{b}$
+    \[ \vec{y} - C\vec{w} = \begin{bmatrix} \vect{y}{0} \\ \vect{y}{1} - CB \vect{u}{0} \\ \vdots \\ \vect{y}{n-1} - C \big( \sum\limits_{i = 0}^{n - 2} A^{n - i - 2} B \vect{u}{i} \big) \end{bmatrix} = \mathcal{O} \vect{x}{0} \]
+    Again we see that we can only recover $\vect{x}{0}$ if the matrix $\mathcal{O}$ is of full rank meaning the criterion for observability does not depend on the inputs.
+  }
+
+\end{enumerate}
+
+

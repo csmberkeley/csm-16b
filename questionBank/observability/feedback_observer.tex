@@ -1,0 +1,72 @@
+\qns{Building an Observer}
+
+In this question we will look how to design an \textbf{observer} that estimates the state vector $\vec{x}.$ 
+Recall that a system is observable if the observability matrix $\mathcal{O}$ has $n$ linearly independent rows.
+\begin{equation}
+ \mathcal{O} = \begin{bmatrix} C \\ CA \\ \vdots \\ CA^{n-1} \end{bmatrix}
+\end{equation}
+While we have a way to recover our initial state if the observability criterion is met, it currently requires us to wait $n$ time steps to collect all of the output measurements in order to solve for $\vect{x}{0}.$
+
+Using an observer, we will estimate the state at each time step, $\vecht{x}{t}$ and use feedback to continually improve our estimates.
+This is done by comparing the observed output $\vect{y}{t}$ with the estimated output $\vecht{y}{t} = C \vecht{x}{t}$ and a feedback matrix $L.$
+
+The new updated State-space equations for the observer system will be:
+\begin{align*}
+  \vecht{x}{t+1} & = A \vecht{x}{t} + B \vect{u}{t} + \underbrace{ L \pp{ \vecht{y}{t} - \vect{y}{t}   }}_{\text{output feedback} } \\
+  \vecht{y}{t} &= C \vecht{x}{t} \qquad \qquad \vect{y}{t} = C \vect{x}{t}
+\end{align*}
+
+\begin{enumerate}
+  \qitem We'll start off by defining an error vector $\vect{e}{t} = \vecht{x}{t} - \vect{x}{t}.$ Use the State-space equations for $\vecht{x}{t}$ and $\vect{x}{t}$ to write $\vect{e}{t + 1}$ in terms of $\vect{e}{t}.$
+
+  \sol {
+    \begin{align*}
+      \vect{e}{t + 1} &= \vecht{x}{t + 1} - \vect{x}{t + 1} \\
+      &= A \vecht{x}{t} + B \vect{u}{t} + L \pp{ \vecht{y}{t} - \vect{y}{t} } - (A \vect{x}{t} + B \vect{u}{t}) \\
+      &= A \pp{\vecht{x}{t} - \vect{x}{t}} + L \pp{ \vecht{y}{t} - \vect{y}{t} } \\
+      &= A \pp{\vecht{x}{t} - \vect{x}{t}} + L \pp{ C \vecht{x}{t} - C \vect{x}{t} } \\
+      &= (A + LC) \pp{\vecht{x}{t} - \vect{x}{t}} \\
+      &= (A + LC) \vect{e}{t}
+    \end{align*} 
+  }
+
+  \qitem Under what conditions will $\vect{e}{t} \to \vec{0}$ as $t \to \infty?$ 
+
+  \sol {
+    Since this is a discrete-time system, if all of the eigenvalues of the matrix $A + LC$ have magnitude less than 1, then the error will converge to $\vec{0}$ as $t \to \infty.$
+  }
+\end{enumerate}
+
+Note that the structure of the matrix $A + LC$ looks very similar to that of $A + BK$ when doing feedback control.
+Therefore we should start suspecting that if we pick specific values for $L,$ then we can control the eigenvalues of the observer error.
+However, how can we be sure that we can \textbf{always} pick values of $L$ to pick all of our eigenvalues? 
+
+We will show this by looking at the \textbf{dual system} with state variable $\vect{z}{t}$ and input $\vect{w}{t}.$
+\begin{equation}
+  \vect{z}{t + 1} = A^{T} \vect{z}{t} + C^{T} \vect{w}{t}
+\end{equation}
+
+\begin{enumerate}[resume]
+  \qitem Under what conditions is the dual system controllable? Show that if the original system is observable, the dual system will always be controllable.
+
+  \sol {
+    Remember that a system is controllable if its controllabilty matrix $\mathcal{C}$ spans $\mathbb{R}^{n}.$ \\
+    In this case, the controllability matrix is 
+    \[ \begin{bmatrix} C^{T} & A^{T} C^{T} \dots \pp{A^{T}}^{n-1} C^{T} \end{bmatrix} \]
+    If the original system is observable, then the observability matrix is of full rank, or rank $n.$
+    \begin{equation}
+     \mathcal{O} = \begin{bmatrix} C \\ CA \\ \vdots \\ CA^{n-1} \end{bmatrix}
+    \end{equation}
+    However, since the observabiltiy and controllability matrices are transposes of each other, they must have the same rank!
+    Therefore, we conclude by saying that the dual system will be controllable when the original system is observable.
+  }
+
+  \qitem What are the implications of the dual system being controllable? Does this follow your intuition about observability?
+
+  \sol {
+    When the dual system is controllable, it means that we can pick inputs $\vect{w}{t}$ such that $\vect{z}{t}$ goes to any desired vector in $\mathbb{R}^{n}.$ This means we can pick values inputs $\vect{w}{t} = L^{T} \vect{z}{t}$ to make $\vect{z}{t}$ go to zero. Also, note that the dual system is the transpose of the error system $\vect{e}{t}.$ 
+
+    Therefore, if the original system is observable, the dual is controllable, meaning we can pick values of $L$ to make the error go to zero. This should not be a surprise since we knew that if a system was observable, we could recover $\vect{x}{t}$ after a sufficient number of time steps, which is equivalent to the error going to zero. 
+  }
+
+\end{enumerate}

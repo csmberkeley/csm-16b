@@ -1,0 +1,15 @@
+\begin{center}
+  \begin{circuitikz} \draw
+    (0, 0) node[ground] {}
+      to [sV, l_=$v_{in}$] (0, 2)
+      to [R = R] (4, 2)
+      to [C = C] (4, 0)
+      node[ground] {}
+
+    (4, 2) to[short, -o] (5, 2) node[anchor=west] (A) {A}
+
+    (4, 0) to[short, -o] (5, 0) node[anchor=west] (B) {B}
+
+    (A) to[open, l^=$v_{out}$] (B)
+  ;\end{circuitikz}
+\end{center}
