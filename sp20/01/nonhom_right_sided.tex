@@ -81,5 +81,104 @@ To recap, given a first order differential equation $\ddt{}{t} x(t) = \alpha x(t
 % $[x(0) - y(\infty)] e^{-\alpha t}$ which is the decaying exponential of the initial state, from the steady state response.
 % }
 
+We will now generalize this to an input, $u(t),$ which is an function independent of $x(t)$.
+We're given a first order differential equation of the form:
+\begin{equation} \label{eqn:odeinput}
+  \ddt{}{t} x(t) = \lambda x(t) + u(t)
+\end{equation}
 
+With an initial condition $x(0) = x_0,$ the solution is uniquely determined by:
+\begin{equation} \label{eqn:odesol}
+    x_{p}(t) = x_{0}e^{\lambda{}t} + \int_0^t \! u(\tau{})e^{\lambda{}(t - \tau{})} \, d\tau{}
+\end{equation}
 
+% \begin{enumerate}[resume]
+
+% \qitem Show that $x_{p}$(t) does indeed satisfy the differential equation \eqref{eqn:odeinput}. \\
+% \textit{Hint: Is there anything you can pull out of the integral to make sure there are no terms with $t$ in the integrand?}
+
+% \meta{
+%   The second line of work uses the product rule of derivatives combined with the Second Fundamental Theorem of Calculus.
+% }
+
+% \sol{
+% To show that $x_{p}$(t) satisfies equation \eqref{eqn:odeinput}, we have to show that it satisfies the the general differential equation and the initial condition. \\
+% For the general differential equation, we will show that $\ddt{x_p(t)}{t} = \lambda x_p(t) + u(t)$.
+% $$\ddt{x_p(t)}{t} = \lambda x_0 e^{\lambda t} + \ddt{}{t}(e^{\lambda t} \int_0^t \! u(\tau)e^{-\lambda \tau} \, d\tau)$$
+% $$\ddt{x_p(t)}{t} = \lambda x_0 e^{\lambda t} + \lambda e^{\lambda t} \int_0^t \! u(\tau)e^{-\lambda \tau} \, d\tau +  e^{\lambda t}u(t)e^{-\lambda t} = \lambda x_p(t) + u(t)$$
+% We also have to show that $x_p(0) = x_0$:
+% $$x_p(0) = x_0e^{\lambda \cdot 0} + \int_0^0 \! u(\tau)e^{-\lambda \tau} \, d\tau = x_0 + 0 = x_0$$
+% }
+
+% \end{enumerate}
+
+We will now take this insight and apply it to an RC circuit with non-constant input. Suppose $V_{c}(0) = 5V$.
+
+\begin{figure}[H]
+ \input{\bank/ode/figures/rc_circuit_nonconstant}
+\end{figure}
+Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the frequency of the cosine wave.
+
+\begin{enumerate}[resume]
+
+\qitem Write out the KCL equations combined with Ohm's Law and the voltage-current relation of a capacitor.
+
+\sol{
+For this solution, we labeled the currents in the circuit as the following: \\
+\begin{figure}[H]
+ \input{\bank/ode/figures/rc_circuit_nonconstant_currents}
+\end{figure}
+Applying the KCL at the $V_c$ node, we get $I_R(t) = I_C(t)$
+Substituting resistor and capacitor IV relationships, we have
+  $$\frac{u(t) - V_c(t)}{R} = C \ddt{V_c(t)}{t}$$
+}
+
+\qitem Show that your equation above can be put into the form of equation \eqref{eqn:odeinput}.
+
+\sol{
+Rearranging terms in out KCL equation,
+  $$\ddt{V_c(t)}{t} = - \frac{V_c(t)}{RC} + \frac{cos(\omega t)}{RC}$$
+}
+
+\qitem In this case, what are the values of $\lambda{}$, $x(t)$, $u(t),$ and $x_{0}$?
+
+\meta{
+  We wrote this question to make sure students are familiar with type-checking. 
+}
+
+\sol{
+  $\lambda$ is $-\frac{1}{RC}, \, x(t)$ is $V_c(t)$, $u(t)$ is $\frac{\cos (\omega t)}{RC}$ and our initial condition $x_{0} = V_c(0) = 5V$ 
+}
+
+\qitem Using this particular solution, write out an expression for $V_{c}(t)$.
+
+\meta {
+  Make sure students know that they're supposed to write out an integral expression, and not actually solve the integral.
+  Also, we used exp notation here since the fraction of the integral looked too small to distinguish between $t$ and $\tau.$
+}
+
+\sol{
+  Plugging our values of $\lambda{}$, $x(t)$, $u(t),$ and $x_{0}$ into equation \eqref{eqn:odesol}, we get
+    $$V_c(t) = 5e^{-\frac{t}{RC}} + \int_0^t \! \frac{cos(\omega \tau)}{RC} \text{exp}(-\frac{t - \tau}{RC}) \, d\tau$$
+}
+
+\qitem OPTIONAL: What is the closed form solution to the voltage across the capacitor, $V_{c}(t)$.\\
+\textit{Hint:} $\int \! e^{at}cos(bt) \, dt = \frac{e^{at} (a \cdot cos(bt) + b \cdot sin(bt))}{a^2 + b^2} + C$
+
+\meta{
+  This is an extremely nasty integral. The purpose of the question obviously isn't to understand the nastiness of the integral.
+  Most of this problem is done once they realize what the values of $a$ and $b$ are in the hint.
+  The main purpose of this part is to show students how difficult transient analysis can get, and should foreshadow phasors.  
+}
+
+\sol{
+  Rearranging terms in our expression for $V_{c}(t)$, we get 
+  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \int_0^t \! cos(\omega \tau) e^{\frac{\tau}{RC}} \, d\tau$$
+  Using the hint above to evaluate the integral (with $a = \frac{1}{RC}$ and $b = \omega$):
+  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \cdot \frac{e^{\frac{t}{RC}} (\frac{1}{RC} \cdot cos(\omega t) + \omega \cdot sin(\omega t)) - \frac{e^{0}}{RC} \cos(\omega \cdot 0)}{\frac{1}{R^2C^2} + \omega^2}$$
+  Simplifying slightly,
+  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{1}{(RC)^2} \frac{cos(\omega t) + \omega RC \cdot sin(\omega t) - e^{-\frac{t}{RC}}}{\frac{1}{(RC)^2} + \omega^2}$$
+  So it follows that,
+  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{cos(\omega t) + \omega RC \cdot sin(\omega t) - e^{-\frac{t}{RC}}}{1 + (\omega RC)^2}$$
+}
+\end{enumerate}
