@@ -1,19 +1,13 @@
-\begin{figure}[H]
-	\begin{centering}
-		\begin{circuitikz}
-			\draw (0, 2)
-			to[V = $v_{in}(t)$] (0, 0)
-			to node[ground]{} (0, 0);
-			\draw (0, 2)
-			to[R = $R_{in}$] (2.5, 2)
-			to node[vg, label={$v_g$}]{} (2.5, 2);
-
-			% to[switch,l^=\mbox{$t = 0$}](4,4)
-			% (4,4) to[R = $R$,v=$V_R(t)$,i>^=$i_R(t)$] (7,4)	
-			% to [short] (9,4)
-			% to[C = $C$, v=$V_C(t)$,i>^=$i_C(t)$] (9,0)
-			% to [short] (0,0);
-		\end{circuitikz}
-		\caption{\label{fig:circuit}RC Circuit with Voltage Source}
-	\end{centering}
-\end{figure}
+\begin{circuitikz}[scale=0.8]
+        \draw (-1,4) 
+        to [V=$V_{in}$](-1, 2) to (-1,2) node[ground]{}; 
+        \draw (4,5) node[pmos, emptycircle](pm){} ;
+        \draw (4,3) node[nmos, ](nm){} ;
+        \draw (-1,4) to [R = $R$] (2,4) to [short] (2,5)
+        to (pm.gate);
+        \draw (pm.source) to [short, -*] (4,6) node[above]{$V_{DD}$};;
+        \draw (pm.drain) to (nm.drain);
+        \draw (2,4) to [short] (2, 3) to (nm.gate);
+        \draw (nm.source) to (4,2) node[ground]{};
+        \draw (4,4) [short] to [short, -*] (5,4) node[right]{$V_{out}$};
+\end{circuitikz}
