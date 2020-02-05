@@ -55,7 +55,7 @@ $$V = \begin{bmatrix}
 
 \begin{enumerate}[resume]
 
-\qitem Let $\widetilde{\vec{x}}$ be the coordinates of $\vec{x}$ in the eigenbasis. This means that for some arbitrary vector represented in the eigenbasis as: $\widetilde{\vec{x}} = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$, the corresponding representation in standard coordinates is a linear combination of the columns of $V$: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$ \textbf{What is $\widetilde{\vec{x}}$ in terms of $V$ and $\vec{x}?$}
+\qitem Let $\widetilde{\vec{x}}$ be the coordinates of $\vec{x}$ in the eigenbasis. This means that for some arbitrary vector represented in the eigenbasis $\widetilde{\vec{x}} = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$, the corresponding representation in standard coordinates is a linear combination of the columns of $V$: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$. \textbf{What is $\widetilde{\vec{x}}$ in terms of $V$ and $\vec{x}?$}
 \vspace{3em}
 
 \meta{
@@ -74,17 +74,21 @@ $$V = \begin{bmatrix}
   \begin{tikzpicture}[node distance = 2cm, thick,every node/.style={inner sep=0.25em,outer sep=0.25em}]%
     \node (1) [circle,draw,minimum size=2em] {$\vec{x}$};
     \node (2) [circle,draw,right=of 1,minimum size=2em] {$\widetilde{\vec{x}}$};
-    \draw[->] (1.45) -- node [rectangle,draw,midway,above,minimum size=1.5em] {} (2.135);
-    \draw[->] (2.225) -- node [rectangle,draw,midway,below,minimum size=1.5em] {} (1.315);
+    \draw[->] (1.45) -- node [rectangle,draw,midway,above,minimum size=2.5em] {} (2.135);
+    \draw[->] (2.225) -- node [rectangle,draw,midway,below,minimum size=2.5em] {} (1.315);
   \end{tikzpicture}%
 \end{figure}
 
 \meta{}
 \sol{}
 
-\qitem Now that we are able to switch back and forth between the coordinate systems, let's see how the linear transformation brought by $A$ can be viewed as a diagonal scaling transformation in the eigenbasis coordinate system. % Might be a bit confusing.
+\qitem Now that we are able to switch back and forth between the coordinate systems, let's see how the linear transformation brought by $A$ can be viewed as a diagonal scaling transformation in the eigenbasis coordinate system. \\% Might be a bit confusing.
 
-Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$, using the same matrix $A$ and eigenvectors $\vec{v_1}, \vec{v_2}$ from before. \textbf{Find $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$ in terms of $\alpha_1, \alpha_2, \lambda_1, \lambda_2$. What can we say about the linear transformation bringing $\widetilde{\vec{x}}$ to $\widetilde{\vec{y}}$?} % Might be confusing as to what the problem is asking compared to the next part.
+Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$, using the same matrix $A$ and eigenvectors $\vec{v_1}, \vec{v_2}$ from before. \textbf{Find $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$ in terms of $\alpha_1, \alpha_2, \lambda_1, \lambda_2$. What can we say about the relationship between $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$?} % Might be confusing as to what the problem is asking compared to the next part.
+
+(\textit{Hint}: Your answers shouldn't be in terms of the original $\vec{x}$ or $\vec{y}$.
+ Use what you know about the coordinates of a vector in a certain basis; there is no need to invert any matrices or do any major computation.)
+
 \vspace{3em}
 
 \meta{}
@@ -92,7 +96,7 @@ Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2
 
 \qitem \textbf{Find the matrix $D$ satisfying $\widetilde{\vec{y}} = D \widetilde{\vec{x}}$ in terms of $V$ and $A$.}
 
-(Hint: Start by writing $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$ in terms of $\vec{x}, \vec{y}$. Refer to the state diagram from before.)
+(\textit{Hint}: Start by writing $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$ in terms of $\vec{x}, \vec{y}$. Refer to the state diagram from before.)
 \vspace{3em}
 
 \qitem Finally, let's visualize this linear transformation $A$ from the perspective of two different coordinate systems in the state diagram below. \textbf{Fill in the missing matrix operations in the state diagram. How can you show and explain the diagonalization $A = VDV^{-1}$ (using the state diagram) and the change of basis perspective?}
@@ -104,12 +108,12 @@ Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2
     \node (2) [circle,draw,right=of 1,minimum size=2em] {$\vec{y}$};
     \node (3) [circle,draw,below=of 2,minimum size=2em] {$\widetilde{\vec{y}}$};
     \node (4) [circle,draw,below=of 1,minimum size=2em] {$\widetilde{\vec{x}}$};
-    \draw[->] (1) -- node [rectangle,draw,midway,above,minimum size=1.5em] {} (2);
-    \draw[->] (1.240) -- node [rectangle,draw,midway,left,minimum size=1.5em]{} (4.120);
-    \draw[->] (4.60) -- node [rectangle,draw,midway,right,minimum size=1.5em]{} (1.300);
-    \draw[->] (2.300) -- node [rectangle,draw,midway,right,minimum size=1.5em]{} (3.60);
-    \draw[->] (3.120) -- node [rectangle,draw,midway,left,minimum size=1.5em]{} (2.240);
-    \draw[->] (4) -- node [rectangle,draw,midway,below,minimum size=1.5em] {} (3);
+    \draw[->] (1) -- node [rectangle,draw,midway,above,minimum size=2.5em] {} (2);
+    \draw[->] (1.240) -- node [rectangle,draw,midway,left,minimum size=2.5em]{} (4.120);
+    \draw[->] (4.60) -- node [rectangle,draw,midway,right,minimum size=2.5em]{} (1.300);
+    \draw[->] (2.300) -- node [rectangle,draw,midway,right,minimum size=2.5em]{} (3.60);
+    \draw[->] (3.120) -- node [rectangle,draw,midway,left,minimum size=2.5em]{} (2.240);
+    \draw[->] (4) -- node [rectangle,draw,midway,below,minimum size=2.5em] {} (3);
   \end{tikzpicture}%
 \end{figure}
 

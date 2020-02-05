@@ -1,0 +1,95 @@
+% Authors: Justin Yu
+% Email: justinvyu@berkeley.edu
+
+\qns{CR Circuit}
+
+\meta {
+}
+
+We're already familiar with the RC circuit from the second problem of this worksheet, but what happens if we flip the orientation of the circuit components?
+
+Consider the circuit below, assume that when $t\leq 0$, the capacitor has no charge stored $(V_{\text{C}}(t=0) = 0)$.
+At $t=0$, the switch closes. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
+
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+        \draw (-1,4) 
+        to [V = $V_{in}$] (-1,0)
+        (-1,4) to [switch, l^=\mbox{$t = 0$} ] (1,4)
+        (1,4) to [C = $C$,i=$i_C(t)$, v = $V_C(t)$] (4,4)
+        (4,4) to [short] (6,4)
+        to [R = $R$, v = $V_{out}$] (6,0)
+        to [short] (-1,0);
+    \end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+
+\qitem \textbf{Write out the differential equation for the voltage $V_C(t)$ of the capacitor when the switch is closed.}
+
+\ws{
+\vspace{3em}
+}
+
+\meta{}
+
+\sol{
+    KCL and Ohm's law gives us:
+    \begin{align*}
+        V_{in} - V_{out} &= V_L(t) = L \frac{d}{dt} i_L(t) \\
+        V_{out} &= R i_L(t) \\
+        \implies L \frac{d}{dt} i_L(t) &= V_{in} - R i_L(t) \\
+        \implies \frac{d}{dt} i_L(t) &= -\frac{R}{L}i_L(t) + \frac{V_{in}}{L}
+    \end{align*}
+}
+
+\qitem \textbf{Solve the differential equation for $V_C(t)$.}
+
+\ws{
+\vspace{3em}
+}
+
+\sol {
+    \begin{align*}
+        \frac{d}{dt} i_L(t) &= -\frac{R}{L}i_L(t) + \frac{V_{in}}{L} \\
+        \implies i_L(t) &= \frac{V_{in}}{R} (1 - e^{-\frac{R}{L}t})
+    \end{align*}
+}
+
+\qitem \textbf{What is the steady-state current through the inductor as $t \rightarrow \infty$?} Sketch a plot of the current through the inductor over time, labeling the asymptote after reaching the steady-state.
+
+\ws{
+\vspace{3em}
+}
+
+\sol {
+    \begin{align*}
+        \lim_{t \rightarrow \infty} i_L(t) &= \lim_{t \rightarrow \infty} \frac{V_{in}}{R} (1 - e^{-\frac{R}{L}t}) \\
+        &= \frac{V_{in}}{R} (1 - 0) \\
+        &= \frac{V_{in}}{R}
+    \end{align*}
+
+    The physics of the inductor opposes current flow initially, but it approaches the steady-state current as determined by the rest of the circuit (the resistor and voltage source).
+}
+
+\qitem \textbf{What is the steady-state voltage drop across the inductor as $t \rightarrow \infty$?}
+
+\ws{
+\vspace{3em}
+}
+
+\sol {
+    \begin{align*}
+        \lim_{t \rightarrow \infty} V_L(t) &= \lim_{t \rightarrow \infty} L \frac{d}{dt} i_L(t)  \\
+        &= \lim_{t \rightarrow \infty} L (\frac{d}{dt} \frac{V_{in}}{R} (1 - e^{-\frac{R}{L}t})) \\
+        &= \lim_{t \rightarrow \infty} L \frac{V_{in}}{R} \frac{R}{L} e^{-\frac{R}{L}t} \\
+        &= \lim_{t \rightarrow \infty} V_{in} e^{-\frac{R}{L}t} \\
+        &= 0
+    \end{align*}
+}
+
+\qitem \textbf{What circuit element does the inductor act like at steady-state?}
+
+\sol{It acts like a wire element, since the voltage drop across the inductor goes to 0.}
+
+\end{enumerate}
