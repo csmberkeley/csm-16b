@@ -81,17 +81,6 @@ To recap, given a first order differential equation $\ddt{}{t} x(t) = \alpha x(t
 % $[x(0) - y(\infty)] e^{-\alpha t}$ which is the decaying exponential of the initial state, from the steady state response.
 % }
 
-We will now generalize this to an input, $u(t),$ which is an function independent of $x(t)$.
-We're given a first order differential equation of the form:
-\begin{equation} \label{eqn:odeinput}
-  \ddt{}{t} x(t) = \lambda x(t) + u(t)
-\end{equation}
-
-With an initial condition $x(0) = x_0,$ the solution is uniquely determined by:
-\begin{equation} \label{eqn:odesol}
-    x_{p}(t) = x_{0}e^{\lambda{}t} + \int_0^t \! u(\tau{})e^{\lambda{}(t - \tau{})} \, d\tau{}
-\end{equation}
-
 % \begin{enumerate}[resume]
 
 % \qitem Show that $x_{p}$(t) does indeed satisfy the differential equation \eqref{eqn:odeinput}. \\
@@ -112,73 +101,89 @@ With an initial condition $x(0) = x_0,$ the solution is uniquely determined by:
 
 % \end{enumerate}
 
-We will now take this insight and apply it to an RC circuit with non-constant input. Suppose $V_{c}(0) = 5V$.
+We will now take this insight and apply it to the process of charging up a capacitor.
+\newline
 
-\begin{figure}[H]
- \input{\bank/ode/figures/rc_circuit_nonconstant}
-\end{figure}
-Let $u(t) = cos(\omega{}t)$, where $\omega{}$ denotes the frequency of the cosine wave.
+Consider the circuit below, assume that when $t\leq 0$, the capacitor has no charge stored $(V_{\text{c}}(t=0) = 0)$.
+At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
 
+\input{\bank/ode/figures/rc_circuit}
+\meta{
+	The rest of this problem is meant to be an introduction to transient analysis of circuits.
+	Make sure students fully understand the concepts presented (how to get a differential equation from the circuit, how to solve the equation, and the physical intuition of what is happening in the circuit - charging up a capacitor) before moving on.
+}
 \begin{enumerate}[resume]
 
-\qitem Write out the KCL equations combined with Ohm's Law and the voltage-current relation of a capacitor.
-
-\sol{
-For this solution, we labeled the currents in the circuit as the following: \\
-\begin{figure}[H]
- \input{\bank/ode/figures/rc_circuit_nonconstant_currents}
-\end{figure}
-Applying the KCL at the $V_c$ node, we get $I_R(t) = I_C(t)$
-Substituting resistor and capacitor IV relationships, we have
-  $$\frac{u(t) - V_c(t)}{R} = C \ddt{V_c(t)}{t}$$
-}
-
-\qitem Show that your equation above can be put into the form of equation \eqref{eqn:odeinput}.
-
-\sol{
-Rearranging terms in out KCL equation,
-  $$\ddt{V_c(t)}{t} = - \frac{V_c(t)}{RC} + \frac{cos(\omega t)}{RC}$$
-}
-
-\qitem In this case, what are the values of $\lambda{}$, $x(t)$, $u(t),$ and $x_{0}$?
+\qitem Write out the KCL equations associated with the circuit when the switch is closed.
 
 \meta{
-  We wrote this question to make sure students are familiar with type-checking. 
+	To simplify your circuit analysis, mark the negative end of the voltage source as ground.
 }
 
 \sol{
-  $\lambda$ is $-\frac{1}{RC}, \, x(t)$ is $V_c(t)$, $u(t)$ is $\frac{\cos (\omega t)}{RC}$ and our initial condition $x_{0} = V_c(0) = 5V$ 
+\begin{align*}
+\intertext{We denote the voltage to the left of resistor to be $V_s.$}
+\intertext{By KCL, the current through the resistor } i_R = i_{\text{C}}.
+\intertext{Ohm's law tells us that } i_R = \frac{V_s - V_{\text{c}}}{R}
+\intertext{The voltage-current relationship of a capacitor tells us that }i_\text{C} = C\ddt{V_{\text{c}}}{t}
+\intertext{Therefore, } \frac{V_s - V_{\text{c}}}{R} = C \ddt{V_{\text{c}}}{t}
+\end{align*}
 }
 
-\qitem Using this particular solution, write out an expression for $V_{c}(t)$.
 
-\meta {
-  Make sure students know that they're supposed to write out an integral expression, and not actually solve the integral.
-  Also, we used exp notation here since the fraction of the integral looked too small to distinguish between $t$ and $\tau.$
-}
 
-\sol{
-  Plugging our values of $\lambda{}$, $x(t)$, $u(t),$ and $x_{0}$ into equation \eqref{eqn:odesol}, we get
-    $$V_c(t) = 5e^{-\frac{t}{RC}} + \int_0^t \! \frac{cos(\omega \tau)}{RC} \text{exp}(-\frac{t - \tau}{RC}) \, d\tau$$
-}
-
-\qitem OPTIONAL: What is the closed form solution to the voltage across the capacitor, $V_{c}(t)$.\\
-\textit{Hint:} $\int \! e^{at}cos(bt) \, dt = \frac{e^{at} (a \cdot cos(bt) + b \cdot sin(bt))}{a^2 + b^2} + C$
+\qitem Write out the differential equation for $V_{\text{c}}(t)$ after the switch closes.
 
 \meta{
-  This is an extremely nasty integral. The purpose of the question obviously isn't to understand the nastiness of the integral.
-  Most of this problem is done once they realize what the values of $a$ and $b$ are in the hint.
-  The main purpose of this part is to show students how difficult transient analysis can get, and should foreshadow phasors.  
+	If students are confused about how to get started, point them to equation \eqref{eq:nh} in problem 1 as a template.
+	Which KCL equation from part (a) of this problem resembles a first order differential equation (i.e. which one has a differential term)?
 }
 
 \sol{
-  Rearranging terms in our expression for $V_{c}(t)$, we get 
-  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \int_0^t \! cos(\omega \tau) e^{\frac{\tau}{RC}} \, d\tau$$
-  Using the hint above to evaluate the integral (with $a = \frac{1}{RC}$ and $b = \omega$):
-  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{e^{-\frac{t}{RC}}}{RC} \cdot \frac{e^{\frac{t}{RC}} (\frac{1}{RC} \cdot cos(\omega t) + \omega \cdot sin(\omega t)) - \frac{e^{0}}{RC} \cos(\omega \cdot 0)}{\frac{1}{R^2C^2} + \omega^2}$$
-  Simplifying slightly,
-  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{1}{(RC)^2} \frac{cos(\omega t) + \omega RC \cdot sin(\omega t) - e^{-\frac{t}{RC}}}{\frac{1}{(RC)^2} + \omega^2}$$
-  So it follows that,
-  $$V_c(t) = 5e^{-\frac{t}{RC}} + \frac{cos(\omega t) + \omega RC \cdot sin(\omega t) - e^{-\frac{t}{RC}}}{1 + (\omega RC)^2}$$
+\begin{align*}
+\intertext{From the previous problem we know that when the switch is closed,}
+\frac{V_{\text{s}}- V_{\text{c}}}{R} = C\frac{dV_{\text{c}}}{dt} \\
+\intertext{Thus we obtain}
+\ddt{V_{\text{c}}}{t} + \frac{V_{\text{c}}}{RC} = \frac{V_{\text{S}}}{RC}
+\end{align*}
 }
+
+\sol{
+No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{\text{c}}=\SI{0}{\volt}$ before $t=0$.
+At $t=0$, the switch closes. Since voltage across the capacitor cannot change instantaneously, $V_{\text{c}}(t=0)=0.$
+As $t$ goes to infinity, the capacitor will become fully charged and the current goes to zero.
+Therefore, the voltage of the capacitor equals the voltage source: $V_{\text{c}}(t \to \infty) = V_{\text{S}}.$
+}
+
+\qitem Using the initial conditions found in the previous parts, find an expression for
+$V_{\text{c}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.
+
+\meta{
+	You can point at equation \eqref{eq:nhs} and find the appropriate values of $\alpha$ and $\beta,$ 
+	but let them know that they are still expected to know how to do the process below. 	
+}
+
+
+\sol{
+	To find an expression for $V_{out}(t)$:
+	\[V_c(t)=V_{out}(t)\]
+	\[\frac{dV_{out}(t)}{dt}+\frac{1}{RC}V_{out}(t)=\frac{V_{S}}{RC}\]
+
+	Using substitution of variables:
+	\[x(t) = V_{out}(t)-V_{S}\]
+	\[V_{out}(t)=x(t)+V_{S}\]
+	\[\frac{dV_{out}(t)}{dt}=\frac{dx(t)}{dt}\]
+	\[\frac{dx(t)}{dt}+\frac{1}{RC}x(t)=0\]
+	\[x(t)=Ae^{-\frac{t}{RC}}\]
+
+	Now substituting back to find $V_{out}$:
+	\[V_{out}(t)=V_{S}+Ae^{-\frac{t}{RC}}\]
+
+	Using our initial condition:
+	\[V_{out}(0)=0=V_{S}+A\]
+	\[A=-V_{S}\]
+	\[V_{out}(t)=V_{S}\left(1-e^{-\frac{t}{RC}}\right)\]
+	\[V_c(t) = V_S(1 - e^{-\frac{t}{\tau}}) \text{ where } \tau = RC \text{ ($\tau$ explained in next part)}\]
+}
+
 \end{enumerate}
