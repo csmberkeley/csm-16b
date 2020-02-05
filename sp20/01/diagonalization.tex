@@ -11,9 +11,17 @@
   Please do a mini-lecture on change of basis similar to the opening paragraph of the change of coordinates question before doing this one. It is crucial that students understand change of basis, and how to convert from different bases first, before trying to understand eigendecomposition. It is up to you whether you want to mention the fact that all diagonalizable linear operators have a diagonal matrix representation given the correct choice of basis. 
 }
 
-Diagonal matrices are often desirable since they are easy to analyze. 
+\textbf{Diagonal matrices}, matrices where all entries outside of the diagonal are zero, are often desirable since they are easy to analyze. 
 Determining properties such as rank and invertibility, are much simpler on a diagonal matrix as opposed to other non-diagonal matrices.
-The process of changing to a basis in which the linear operator has a diagonal matrix representation is called \textbf{eigendecomposition} or \textbf{diagonalization.} You can think of eigendecomposition as a change of basis to a basis entirely made up of eigenvectors.
+The process of \textbf{changing to a basis} in which the linear operator has a diagonal matrix representation is called \textbf{eigendecomposition} or \textbf{diagonalization.} You can think of eigendecomposition as a change of basis to a basis entirely made up of eigenvectors.
+\\
+
+So what is a \textbf{change of basis}? Well consider an arbitrary vector in $\mathbb{R}^2$: $$\vec{v} = \begin{bmatrix}v_1 \\ v_2 \end{bmatrix}$$
+When we write a vector in this form, we are essentially representing it as a linear combination of the \textit{standard basis} vectors for $\mathbb{R}^2:$ $$\vec{e_1} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \text{and } \vec{e_2} = \begin{bmatrix}0 \\ 1 \end{bmatrix}$$
+Basically, $\vec{v} = v_1\vec{e_1} + v_2\vec{e_2}$. Now what if we wanted to represent that same vector in a different basis? 
+For example, say you wanted to represent the same vector $\vec{v}$ using the set of basis vectors $\vec{b_1} \text{and } \vec{b_2} $.
+This means that we need to find scalars $v_{b_1}$ and $v_{b_2}$ such that $\vec{v} = v_{b_1}\vec{b_1} + v_{b_2}\vec{b_2}$. 
+To do this, we can just setup and solve a system of linear equations!\\
 
 Let's first look at the following matrix, represented in the standard basis:
 
