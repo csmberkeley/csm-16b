@@ -8,31 +8,33 @@
 }
 
 Ordinary differential equations play a key role in modeling physical and electrical systems.
-It was shown in lecture, and in homework that for a first-order, constant coefficient ordinary differential equation,
+It was shown in lecture and in homework that for a first-order, constant coefficient ordinary differential equation,
+
 \begin{equation} \label{eq:h}
 \ddt{}{t} x(t) = \lambda x(t)
 \end{equation}
 
-With initial condition $x(0) = x_0,$ the particular solution to the equation, $x_p(t),$ was uniquely determined as:
+with initial condition $x(0) = x_0,$ the particular solution to the equation, $x_p(t),$ was uniquely determined as:
 \begin{equation} \label{eq:hs}
 x_p(t) = x_0 e^{\lambda t}
 \end{equation}
 
-For the purposes of this question, we will look at the the case in which we have a constant on the right hand side.
-This is referred to as the non-homogeneous differential equation.
+For the purposes of this question, we will look at the case in which we have a constant on the right hand side.
+This is referred to as a \textbf{non-homogeneous differential equation}.
 
-Now consider the non-homogeneous differential equation of the form:
+Now consider the following non-homogeneous differential equation with initial condition $x(0) = x_0$:
 \begin{equation} \label{eq:nh}
     \ddt{}{t} x(t)  = \alpha x(t) + \beta, \ \forall t \geq 0
 \end{equation}
-With initial condition $x(0) = x_0.$ \\
+
+
 To solve this, we will use a change of variables.
 Let $\widetilde{x}(t) = x(t) + \frac{\beta}{\alpha}$.
 
 \begin{enumerate}
 
 \qitem Try writing the original equation as a differential equation in terms of $\widetilde{x}(t)$. \\
-Don't forget about the inital condition!
+Don't forget about the initial condition!
 
 \meta {
   Hint to students: Try calculating $\ddt{}{t}x(t)$ and see if you can substitute.
@@ -44,20 +46,24 @@ Don't forget about the inital condition!
   The initial condition will be $\widetilde{x}(0) = x(0) + \beta / \alpha.$ 
 }
 
+\vspace{75px}
+
 \qitem Does this equation look familiar? How can you solve this equation?
 
 \sol{
   This is the homogeneous equation \eqref{eq:h} in terms of $\widetilde{x}(t)!$ 
   Since this is a homogeneous differential equation, in terms of $\widetilde{x}(t),$ using the particular solution $x_p(t)$ provided above, our solution is $\widetilde{x}_{p}(t) = \widetilde{x}_{0} e^{\alpha t}.$
 }
+\vspace{75px}
 
 
-\qitem What is the final solution $x(t)$? Assume $x(0)$ is given.
+\qitem What is the final solution $x(t)$? Assume that $x(0)$ is given.
 
 \sol{
   Converting back to $x(t),$ our solution is $x(t) = \widetilde{x}_{0} e^{\alpha t} - \beta / \alpha.$
   Then substituting the initial condition in, our final solution is $x(t) = x(0) e^{\alpha t} - \frac{\beta}{\alpha} (1 - e^{\alpha t}). $
 }
+\vspace{75px}
 
 \end{enumerate}
 
@@ -130,7 +136,7 @@ At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$
 \end{align*}
 }
 
-
+\vspace{75px}
 
 \qitem Write out the differential equation for $V_{\text{c}}(t)$ after the switch closes.
 
@@ -154,6 +160,7 @@ At $t=0$, the switch closes. Since voltage across the capacitor cannot change in
 As $t$ goes to infinity, the capacitor will become fully charged and the current goes to zero.
 Therefore, the voltage of the capacitor equals the voltage source: $V_{\text{c}}(t \to \infty) = V_{\text{S}}.$
 }
+\vspace{75px}
 
 \qitem Using the initial conditions found in the previous parts, find an expression for
 $V_{\text{c}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.
