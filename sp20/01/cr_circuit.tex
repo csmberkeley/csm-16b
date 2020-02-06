@@ -6,16 +6,17 @@
 \meta {
 }
 
-We're already familiar with the RC circuit from the second problem of this worksheet, but what happens if we flip the orientation of the circuit components?
+We're already familiar with the charging RC circuit from the second problem of this worksheet, 
+but what happens if we flip the orientation of the circuit components and switch to discharging?
 
-Consider the circuit below, assume that when $t\leq 0$, the capacitor has no charge stored $(V_{\text{C}}(t=0) = 0)$.
-At $t=0$, the switch closes. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
+Consider the circuit below, assume that when $t\leq 0$, the capacitor is fully charged, with $(V_{\text{C}}(t=0) = V_{in})$.
+At $t=0$, the switch opens to allow the capacitor to discharge. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
 
 \begin{center}
     \begin{circuitikz}[scale=0.8]
         \draw (-1,4) 
         to [V = $V_{in}$] (-1,0)
-        (-1,4) to [switch, l^=\mbox{$t = 0$} ] (1,4)
+        (-1,4) to [opening switch, l_=\mbox{$t = 0$} ] (1,4)
         (1,4) to [C = $C$,i=$i_C(t)$, v = $V_C(t)$] (4,4)
         (4,4) to [short] (6,4)
         to [R = $R$, v = $V_{out}$] (6,0)
@@ -25,7 +26,7 @@ At $t=0$, the switch closes. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\oh
 
 \begin{enumerate}
 
-\qitem \textbf{Write out the differential equation for the voltage $V_C(t)$ of the capacitor when the switch is closed.}
+\qitem \textbf{Write out the differential equation for the voltage $V_C(t)$ of the capacitor when the switch is open.}
 
 \ws{
 \vspace{3em}
@@ -34,12 +35,10 @@ At $t=0$, the switch closes. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\oh
 \meta{}
 
 \sol{
-    KCL and Ohm's law gives us:
+    KCL and Ohm's law at the $V_{out}$ node gives us:
     \begin{align*}
-        V_{in} - V_{out} &= V_L(t) = L \frac{d}{dt} i_L(t) \\
-        V_{out} &= R i_L(t) \\
-        \implies L \frac{d}{dt} i_L(t) &= V_{in} - R i_L(t) \\
-        \implies \frac{d}{dt} i_L(t) &= -\frac{R}{L}i_L(t) + \frac{V_{in}}{L}
+        C \frac{d V_C(t)}{dt} &= \frac{V_{in} - V_C(t)}{R} \\
+        \implies \frac{d}{dt} V_C(t) &= - \frac{1}{RC} V_C(t) + \frac{1}{RC} V_{in}
     \end{align*}
 }
 
@@ -50,9 +49,34 @@ At $t=0$, the switch closes. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\oh
 }
 
 \sol {
+    We begin with a change of variables:
     \begin{align*}
-        \frac{d}{dt} i_L(t) &= -\frac{R}{L}i_L(t) + \frac{V_{in}}{L} \\
-        \implies i_L(t) &= \frac{V_{in}}{R} (1 - e^{-\frac{R}{L}t})
+        V_C(t) &= \widetilde{V_C}(t) - \frac{\frac{1}{RC}}{-\frac{1}{RC}} V_{in} \\
+               &= \widetilde{V_C}(t) + V_{in}
+    \end{align*}
+
+    We plug this new definition of $V_C(t)$ into the original differential equation to remove the constant term.
+    \begin{align*}
+        \frac{d}{dt} (\widetilde{V_C}(t) + V_{in}) &= - \frac{1}{RC} (\widetilde{V_C}(t) + V_{in}) + \frac{1}{RC} V_{in} \\
+        \frac{d}{dt} \widetilde{V_C}(t) &= - \frac{1}{RC} \widetilde{V_C}(t)
+    \end{align*}
+
+    Now, we can solve for the new variable $\widetilde{V_C}(t)$:
+    \begin{align*}
+        \widetilde{V_C}(t) &= Ae^{-\frac{1}{RC} t}
+    \end{align*}
+
+    Plug this general solution back into the change of variables definition, then solve using the initial solution: $V_C(0) = 0$.
+    \begin{align*}
+        V_C(t) &= Ae^{-\frac{1}{RC} t} + V_{in} \\
+        \implies V_C(0) = 0 &= Ae^0 + V_{in} \\
+        \implies A &= -V_{in}
+    \end{align*}
+    
+    We're now finished, with the final solution:
+    \begin{align*}
+        V_C(t) &= -V_{in}e^{-\frac{1}{RC} t} + V_{in} \\
+               &= V_{in} (1 - e^{-\frac{1}{RC} t})
     \end{align*}
 }
 
@@ -88,8 +112,12 @@ At $t=0$, the switch closes. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\oh
     \end{align*}
 }
 
-\qitem \textbf{What circuit element does the inductor act like at steady-state?}
+\qitem \textbf{What circuit element does the capacitor act like at steady-state ($t \rightarrow \infty$)?}
 
-\sol{It acts like a wire element, since the voltage drop across the inductor goes to 0.}
+\sol{
+    It acts like an open circuit element. Physically, the charge build up on one side of the plate until
+    the replusion of electrons prevents any current flow. In terms of the solved $V_C(t)$, the drop
+
+}
 
 \end{enumerate}

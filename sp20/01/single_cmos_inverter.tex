@@ -2,16 +2,91 @@
 
 \qns{RC Transistor Model}
 
-Consider a CMOS inverter with a voltage input, except there is some resistance between the voltage source and the gates of the transistors.
+Consider a single CMOS inverter with a voltage input, except there is some resistance between the voltage source and the gates of the transistors.
 \begin{center}
     \input{\bank/ode/figures/rc_inverter}
 \end{center}
 
-You want to analyze the behavior of this circuit in the time domain, so you decide to look at the gate voltage of the NMOS transistor ($V_{gsn}$) as a function of time.
-
 \begin{enumerate}
 
-\qitem First, we want to model our transistors in terms of resistors and capacitors. \\
-A transistor can be modeled as having a capacitor between the gate ans source, and a resistor and a switch between the drain and the source.
+\qitem First, let's introduce a way to model CMOS transistors.
+A transistor can be modeled with a capacitor between the gate $G$ and source $S$, an internal resistance, and a voltage-controlled switch between drain $D$ and $S$.
+
+\textbf{Using the NMOS and PMOS transistor models below, redraw the inverter as a simple RC circuit.}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.2\textwidth}
+\centering
+\begin{circuitikz}[american] 
+\draw (0, 0) node[pmos] (nmos) {};
+\draw (nmos.G) node[left]{$G$};
+\draw (nmos.S) node[left]{$S$};
+\draw (nmos.D) node[left]{$D$};
+\end{circuitikz}
+\end{subfigure}
+\begin{subfigure}{.2\textwidth}
+\centering
+\begin{circuitikz}[american] 
+\draw (0, 1) node[ocirc]{} node[above]{$G$}
+      to[short] (0, -1)
+      to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
+\draw (2, -1) node[ocirc]{} node[below]{$S$}
+      to[switch, l_=$V_{SG} \geq |V_{tp}|$] (2, 1)
+      to[R=$R_{on_, P}$] (2, 2.2)
+      to[short] (2, 3.4)
+      node[ocirc]{} node[above]{$D$} (2, 4);
+\end{circuitikz}
+\end{subfigure}
+\caption*{PMOS Transistor Model}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.2\textwidth}
+\centering
+\begin{circuitikz}[american] 
+\draw (0, 0) node[nmos] (nmos) {};
+\draw (nmos.G) node[left]{$G$};
+\draw (nmos.S) node[left]{$S$};
+\draw (nmos.D) node[left]{$D$};
+\end{circuitikz}
+\end{subfigure}
+\begin{subfigure}{.2\textwidth}
+\centering
+\begin{circuitikz}[american] 
+\draw (0, 1) node[ocirc]{} node[above]{$G$}
+      to[short] (0, -1)
+      to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
+\draw (2, -1) node[ocirc]{} node[below]{$S$}
+      to[switch, l_=$V_{GS} \geq V_{tn}$] (2, 1)
+      to[R=$R_{on_, N}$] (2, 2.2)
+      to[short] (2, 3.4)
+      node[ocirc]{} node[above]{$D$};
+% \draw (0, 0) to[open, v=$V_{GS}$] (1, -1);
+\end{circuitikz}
+\end{subfigure}
+\caption*{NMOS Transistor Model}
+\end{figure}
+
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 0) node[ocirc]{} node[above]{$G$};
+% \draw (1, -1) node[ocirc]{} node[below]{$S$} to[switch] (1, 1) node[ocirc]{} node[above]{$D$};
+% \draw (0, 0) to[open, v=$V_{GS}$] (1, -1);
+% \end{circuitikz}
+% % \caption{$V_{GS} > V_{th, N}$}
+
+\qitem
+We want to analyze the behavior of the inverter by solving for the gate voltage $V_{GS}$ \textit{of the bottom NMOS transistor} as a function of time. \textbf{Using KCL or KVL, write out a differential equation for $V_{GS}$.}
+
+\sol{}
+\meta{}
+
+\qitem 
+Assume that $V_{in}$ has been low ($V_{in} = 0$) for a long time and switches to high ($V_{in} = V_{DD}$) at time $t = 0$. \textbf{Solve for $V_{GS}(t)$ using the differential equation from the last part and the above initial condition.}
+
+\sol{}
+\meta{}
 
 \end{enumerate}
