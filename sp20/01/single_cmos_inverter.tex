@@ -19,64 +19,95 @@ A transistor can be modeled with a capacitor between the gate $G$ and source $S$
 
 \textbf{Using the NMOS and PMOS transistor models below, redraw the inverter as a simple RC circuit.}
 
-\noindent
-\begin{figure}[ht]
 \centering
-\begin{subfigure}{.48\textwidth}
-\flushleft
-\begin{subfigure}{.3\textwidth}
-\centering
-\begin{circuitikz}[american] 
-\draw (0, 0) node[pmos] (nmos) {};
-\draw (nmos.G) node[left]{$G$};
-\draw (nmos.S) node[left]{$S$};
-\draw (nmos.D) node[left]{$D$};
-\end{circuitikz}
-\end{subfigure}
-\centering
-\begin{subfigure}{.2\textwidth}
-\flushright\begin{circuitikz}[american] 
-\draw (0, 1) node[ocirc]{} node[above]{$G$}
-      to[short] (0, -1)
-      to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
-\draw (2, -1) node[ocirc]{} node[below]{$S$}
-      to[switch, l_=$V_{SG} \geq |V_{tp}|$] (2, 1)
-      to[R=$R_{on_, P}$] (2, 2.2)
-      to[short] (2, 3.4)
-      node[ocirc]{} node[above]{$D$} (2, 4);
-\end{circuitikz}
-\end{subfigure}
-\caption{PMOS Transistor Model}
-\end{subfigure}
-\begin{subfigure}{0.48\textwidth}
-\flushleft
-\begin{subfigure}{.3\textwidth}
-\centering
-\begin{circuitikz}[american] 
-\draw (0, 0) node[nmos] (nmos) {};
-\draw (nmos.G) node[left]{$G$};
-\draw (nmos.S) node[left]{$S$};
-\draw (nmos.D) node[left]{$D$};
-\end{circuitikz}
-\end{subfigure}
-\centering
-\begin{subfigure}{.2\textwidth}
-\flushright
-\begin{circuitikz}[american] 
-\draw (0, 1) node[ocirc]{} node[above]{$G$}
-      to[short] (0, -1)
-      to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
-\draw (2, -1) node[ocirc]{} node[below]{$S$}
-      to[switch, l_=$V_{GS} \geq V_{tn}$] (2, 1)
-      to[R=$R_{on_, N}$] (2, 2.2)
-      to[short] (2, 3.4)
-      node[ocirc]{} node[above]{$D$};
-% \draw (0, 0) to[open, v=$V_{GS}$] (1, -1);
-\end{circuitikz}
-\end{subfigure}
-\caption{NMOS Transistor Model}
-\end{subfigure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \begin{circuitikz}
+            \draw (0,-2) node[ground,label=right:$S$] {}
+            to[switch,l_= $V_{GS} \geq V_{tn}$]
+            (0,0) to[R,-*,l=$R_{on}$,i<=$I_D$] ++(0,2)
+            node[label=left:$D$] {};;
+            \draw (0,-2) -- (-1,-2)
+            to[C,-*,l=$C_G$] ++(0,2) node[label=left:$G$] {};;
+            \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
+        \end{circuitikz}
+        \caption*{\label{fig:nmoscap} \small{NMOS Resistor-Switch-Capacitor Model}}
+    \end{subfigure}
+	\begin{subfigure}{0.45\linewidth}
+        \centering
+		\begin{circuitikz}
+			\draw (0, -2) node[label=left:$D$] {}
+			to[switch,l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,0)
+			to[R, -*,l_=$R_{on}$, i<=$I_D$] ++(0, 2)
+			node[vcc,label=right:$S$] {};;
+			\draw (0, 2) -- (-1, 2)
+			to[C, -*, l_=$C_G$] ++(0, -2) node[label=left:$G$] {};;
+			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
+		\end{circuitikz}
+		\caption*{\label{fig:pmoscap} \small{PMOS Resistor-Switch-Capacitor Model}}
+	\end{subfigure}
 \end{figure}
+
+% \noindent
+% \begin{figure}[ht]
+% \centering
+% \begin{subfigure}{.48\textwidth}
+% \flushleft
+% \begin{subfigure}{.3\textwidth}
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 0) node[pmos] (nmos) {};
+% \draw (nmos.G) node[left]{$G$};
+% \draw (nmos.S) node[left]{$S$};
+% \draw (nmos.D) node[left]{$D$};
+% \end{circuitikz}
+% \end{subfigure}
+% \centering
+% \begin{subfigure}{.2\textwidth}
+% \flushright\begin{circuitikz}[american] 
+% \draw (0, 1) node[ocirc]{} node[above]{$G$}
+%       to[short] (0, -1)
+%       to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
+% \draw (2, -1) node[ocirc]{} node[below]{$S$}
+%       to[switch, l_=$V_{SG} \geq |V_{tp}|$] (2, 1)
+%       to[R=$R_{on_, P}$] (2, 2.2)
+%       to[short] (2, 3.4)
+%       node[ocirc]{} node[above]{$D$} (2, 4);
+% \end{circuitikz}
+% \end{subfigure}
+% \caption{PMOS Transistor Model}
+% \end{subfigure}
+% \begin{subfigure}{0.48\textwidth}
+% \flushleft
+% \begin{subfigure}{.3\textwidth}
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 0) node[nmos] (nmos) {};
+% \draw (nmos.G) node[left]{$G$};
+% \draw (nmos.S) node[left]{$S$};
+% \draw (nmos.D) node[left]{$D$};
+% \end{circuitikz}
+% \end{subfigure}
+% \centering
+% \begin{subfigure}{.2\textwidth}
+% \flushright
+% \begin{circuitikz}[american] 
+% \draw (0, 1) node[ocirc]{} node[above]{$G$}
+%       to[short] (0, -1)
+%       to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
+% \draw (2, -1) node[ocirc]{} node[below]{$S$}
+%       to[switch, l_=$V_{GS} \geq V_{tn}$] (2, 1)
+%       to[R=$R_{on_, N}$] (2, 2.2)
+%       to[short] (2, 3.4)
+%       node[ocirc]{} node[above]{$D$};
+% % \draw (0, 0) to[open, v=$V_{GS}$] (1, -1);
+% \end{circuitikz}
+% \end{subfigure}
+% \caption{NMOS Transistor Model}
+% \end{subfigure}
+% \end{figure}
 
 % \begin{figure}
 % \centering
@@ -121,14 +152,14 @@ A transistor can be modeled with a capacitor between the gate $G$ and source $S$
 \qitem
 We want to analyze the behavior of the inverter by solving for the gate voltage $V_{GS}$ \textit{of the bottom NMOS transistor} as a function of time. \textbf{Using KCL or KVL, write out a differential equation for $V_{GS}$.}
 
-\ws{\vspace{8em}}
+\ws{\vspace{200px}}
 
 \sol{}
 
 \qitem 
 Assume that $V_{in}$ has been low ($V_{in} = 0$) for a long time and switches to high ($V_{in} = V_{DD}$) at time $t = 0$. \textbf{Solve for $V_{GS}(t)$ using the differential equation from the last part and the above initial condition.}
 
-\ws{\vspace{8em}}
+\ws{\vspace{200px}}
 
 \sol{}
 \meta{}

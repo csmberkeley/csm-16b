@@ -9,14 +9,14 @@
 We're already familiar with the charging RC circuit from the second problem of this worksheet, 
 but what happens if we flip the orientation of the circuit components and switch to discharging?
 
-Consider the circuit below, assume that when $t\leq 0$, the capacitor is fully charged, with $(V_{\text{C}}(t=0) = V_{in})$.
-At $t=0$, the switch opens to allow the capacitor to discharge. Assume that $V_{in}=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
-
+% Assume that $V_{in}(t)=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
+Consider the CR circuit below:
 \begin{center}
     \begin{circuitikz}[scale=0.8]
         \draw (-1,4) 
-        to [V = $V_{in}$] (-1,0)
-        (-1,4) to [opening switch, l_=\mbox{$t = 0$} ] (1,4)
+        to [V = $V_{in}(t)$] (-1,0)
+        (-1, 4) to [short] (1, 4)
+        % (-1,4) to [opening switch, l_=\mbox{$t = 0$} ] (1,4)
         (1,4) to [C = $C$,i=$i_C(t)$, v = $V_C(t)$] (4,4)
         (4,4) to [short] (6,4)
         to [R = $R$, v = $V_{out}$] (6,0)
@@ -26,13 +26,21 @@ At $t=0$, the switch opens to allow the capacitor to discharge. Assume that $V_{
 
 \begin{enumerate}
 
-\qitem \textbf{Write out the differential equation for the voltage $V_C(t)$ of the capacitor when the switch is open.}
+\qitem \textbf{Write out the differential equation for the voltage $V_{C}(t)$ across the capacitor in terms of constants and $V_{in}(t)$.}
 
 \ws{
-\vspace{3em}
+\vspace{50px}
 }
 
-\meta{}
+\qitem 
+Assume that when $t\leq 0$, the capacitor has been fully charged with an input voltage $V_{DD}$, with the initial condition $V_C(t=0) = V_{DD}$.
+At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ for $t \geq 0$.
+
+\textbf{Plug in these conditions to the differential equation from the previous part and solve for $V_{C}(t)$ for $t \geq 0$.}
+
+\ws{
+\vspace{50px}
+}
 
 \sol{
     KCL and Ohm's law at the $V_{out}$ node gives us:
@@ -42,10 +50,10 @@ At $t=0$, the switch opens to allow the capacitor to discharge. Assume that $V_{
     \end{align*}
 }
 
-\qitem \textbf{Solve the differential equation for $V_C(t)$.}
+\qitem \textbf{What is $V_{out}(t)$?} Sketch a plot of the voltage across the resistor over time, labeling the asymptote it reaches at steady-state.
 
 \ws{
-\vspace{3em}
+\vspace{30px}
 }
 
 \sol {
@@ -80,10 +88,10 @@ At $t=0$, the switch opens to allow the capacitor to discharge. Assume that $V_{
     \end{align*}
 }
 
-\qitem \textbf{What is the steady-state current through the inductor as $t \rightarrow \infty$?} Sketch a plot of the current through the inductor over time, labeling the asymptote after reaching the steady-state.
+\qitem \textbf{What is the steady-state voltage across the capacitor as $t \rightarrow \infty$?}
 
 \ws{
-\vspace{3em}
+\vspace{40px}
 }
 
 \sol {
@@ -96,10 +104,10 @@ At $t=0$, the switch opens to allow the capacitor to discharge. Assume that $V_{
     The physics of the inductor opposes current flow initially, but it approaches the steady-state current as determined by the rest of the circuit (the resistor and voltage source).
 }
 
-\qitem \textbf{What is the steady-state voltage drop across the inductor as $t \rightarrow \infty$?}
+\qitem \textbf{What is the steady-state current across the capacitor as $t \rightarrow \infty$?}
 
 \ws{
-\vspace{3em}
+\vspace{40px}
 }
 
 \sol {
@@ -115,9 +123,7 @@ At $t=0$, the switch opens to allow the capacitor to discharge. Assume that $V_{
 \qitem \textbf{What circuit element does the capacitor act like at steady-state ($t \rightarrow \infty$)?}
 
 \sol{
-    It acts like an open circuit element. Physically, the charge build up on one side of the plate until
-    the replusion of electrons prevents any current flow. In terms of the solved $V_C(t)$, the drop
-
+    It acts like a short circuit element.
 }
 
 \end{enumerate}

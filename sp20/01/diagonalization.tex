@@ -8,22 +8,23 @@
 \qns{Eigendecomposition and Change of Basis}
 
 \meta{
-  Please do a mini-lecture on change of basis similar to the opening paragraph of the change of coordinates question before doing this one. It is crucial that students understand change of basis, and how to convert from different bases first, before trying to understand eigendecomposition. It is up to you whether you want to mention the fact that all diagonalizable linear operators have a diagonal matrix representation given the correct choice of basis. 
+  Please do a mini-lecture on change of basis similar to the opening paragraph of the change of coordinates question before doing this one.It is crucial that students understand change of basis, and how to convert from different bases first, before trying to understand eigendecomposition. It is up to you whether you want to mention the fact that all diagonalizable linear operators have a diagonal matrix representation given the correct choice of basis. 
 }
 
 \textbf{Diagonal matrices}, matrices where all entries outside of the diagonal are zero, are often desirable since they are easy to analyze. 
 Determining properties such as rank and invertibility, are much simpler on a diagonal matrix as opposed to other non-diagonal matrices.
-The process of \textbf{changing to a basis} in which the linear operator has a diagonal matrix representation is called \textbf{eigendecomposition} or \textbf{diagonalization.} You can think of eigendecomposition as a change of basis to a basis entirely made up of eigenvectors.
-\\
+The process of \textbf{changing to a basis} in which the linear operator has a diagonal matrix representation is called \textbf{eigendecomposition} or \textbf{diagonalization.} You can think of eigendecomposition as a change of basis to one entirely made up of eigenvectors.
 
-So what is a \textbf{change of basis}? Well consider an arbitrary vector in $\mathbb{R}^2$: $$\vec{v} = \begin{bmatrix}v_1 \\ v_2 \end{bmatrix}$$
-When we write a vector in this form, we are essentially representing it as a linear combination of the \textit{standard basis} vectors for $\mathbb{R}^2:$ $$\vec{e_1} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \text{and } \vec{e_2} = \begin{bmatrix}0 \\ 1 \end{bmatrix}$$
-Basically, $\vec{v} = v_1\vec{e_1} + v_2\vec{e_2}$. Now what if we wanted to represent that same vector in a different basis? 
-For example, say you wanted to represent the same vector $\vec{v}$ using the set of basis vectors $\vec{b_1} \text{and } \vec{b_2} $.
-This means that we need to find scalars $v_{b_1}$ and $v_{b_2}$ such that $\vec{v} = v_{b_1}\vec{b_1} + v_{b_2}\vec{b_2}$. 
-To do this, we can just setup and solve a system of linear equations!\\
+So what is a \textbf{change of basis}? Consider an arbitrary vector in $\mathbb{R}^2$: $\vec{x} = [ x_1 \text{ } x_2 ]^T$.
+When we write a vector in this form, we are representing it as a linear combination of the \textit{standard basis} vectors for $\mathbb{R}^2$: $\vec{x} = x_1 \begin{bsmallmatrix} 1 \\ 0 \end{bsmallmatrix} + x_2 \begin{bsmallmatrix} 0 \\ 1 \end{bsmallmatrix}$. Naturally, $x_1$ and $x_2$ are the \textit{coordinates} of $\vec{x}$ in the standard basis (as you would refer to them if you graphed $\vec{x}$ on a Cartesian plane).
 
-Let's first look at the following matrix, represented in the standard basis:
+Now what if we wanted to represent that same vector in a different basis? 
+For example, say you wanted to represent the same vector $\vec{x}$ using the set of basis vectors $\vec{v_1}$ and $\vec{v_2}$.
+This means that we need to find scalars $\alpha_1$ and $\alpha_2$ such that $\vec{x}$ can be written as a linear combination of these new basis vectors: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$.
+To do this, we can just setup and solve a system of linear equations of the form:
+$$\begin{bmatrix} \vec{v_1} & \vec{v_2} \end{bmatrix} \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$$
+
+In this problem, we'll investigate changing to and from the \textbf{eigenbasis} for the following matrix:
 
 $$A = \begin{bmatrix}
 2 & 2 \\
@@ -33,14 +34,18 @@ $$A = \begin{bmatrix}
 \begin{enumerate}
 
 \qitem \textbf{Find $\lambda_1, \lambda_2$, the eigenvalues of $A$, ordered from largest to smallest.}
-\vspace{2em}
+\ws{
+\vspace{50px}
+}
 
 \meta{}
 
 \sol{}
 
 \qitem \textbf{Find the eigenvectors $\vec{v_1}, \vec{v_2}$ corresponding to the eigenvalues.}
-\vspace{2em}
+\ws{
+\vspace{50px}
+}
 
 \meta{}
 
@@ -82,14 +87,14 @@ $$V = \begin{bmatrix}
 \meta{}
 \sol{}
 
-\qitem Now that we are able to switch back and forth between the coordinate systems, let's see how the linear transformation brought by $A$ can be viewed as a diagonal scaling transformation in the eigenbasis coordinate system. \\% Might be a bit confusing.
+\qitem Now that we are able to switch back and forth between the coordinate systems, let's see how the linear transformation brought by $A$ can be viewed as a diagonal scaling transformation in the eigenbasis coordinate system.% Might be a bit confusing.
 
 Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$, using the same matrix $A$ and eigenvectors $\vec{v_1}, \vec{v_2}$ from before. \textbf{Find $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$ in terms of $\alpha_1, \alpha_2, \lambda_1, \lambda_2$. What can we say about the relationship between $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$?} % Might be confusing as to what the problem is asking compared to the next part.
 
 (\textit{Hint}: Your answers shouldn't be in terms of the original $\vec{x}$ or $\vec{y}$.
  Use what you know about the coordinates of a vector in a certain basis; there is no need to invert any matrices or do any major computation.)
 
-\vspace{3em}
+\vspace{75px}
 
 \meta{}
 \sol{}
@@ -97,7 +102,7 @@ Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2
 \qitem \textbf{Find the matrix $D$ satisfying $\widetilde{\vec{y}} = D \widetilde{\vec{x}}$ in terms of $V$ and $A$.}
 
 (\textit{Hint}: Start by writing $\widetilde{\vec{x}}$ and $\widetilde{\vec{y}}$ in terms of $\vec{x}, \vec{y}$. Refer to the state diagram from before.)
-\vspace{3em}
+\vspace{75px}
 
 \qitem Finally, let's visualize this linear transformation $A$ from the perspective of two different coordinate systems in the state diagram below. \textbf{Fill in the missing matrix operations in the state diagram. How can you show and explain the diagonalization $A = VDV^{-1}$ (using the state diagram) and the change of basis perspective?}
 
