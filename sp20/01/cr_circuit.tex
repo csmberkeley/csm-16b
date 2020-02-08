@@ -4,6 +4,7 @@
 \qns{CR Circuit}
 
 \meta {
+    This problem is primarily meant as extra practice for students to see and solve a simple differential equation.
 }
 
 We're already familiar with the charging RC circuit from the second problem of this worksheet, 
@@ -32,6 +33,14 @@ Consider the CR circuit below:
 \vspace{50px}
 }
 
+\sol {
+    KCL and Ohm's law at the $V_{out}$ node gives us:
+    \begin{align*}
+        C \frac{d V_C(t)}{dt} &= \frac{V_{in}(t) - V_C(t)}{R} \\
+        \implies \frac{d}{dt} V_C(t) &= - \frac{1}{RC} V_C(t) + \frac{1}{RC} V_{in}(t)
+    \end{align*}
+}
+
 \qitem 
 Assume that when $t\leq 0$, the capacitor has been fully charged with an input voltage $V_{DD}$, with the initial condition $V_C(t=0) = V_{DD}$.
 At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ for $t \geq 0$.
@@ -43,11 +52,23 @@ At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ f
 }
 
 \sol{
-    KCL and Ohm's law at the $V_{out}$ node gives us:
+    We can plug in $V_{in}(t) = 0$ as given by the problem:
     \begin{align*}
-        C \frac{d V_C(t)}{dt} &= \frac{V_{in} - V_C(t)}{R} \\
-        \implies \frac{d}{dt} V_C(t) &= - \frac{1}{RC} V_C(t) + \frac{1}{RC} V_{in}
+        \frac{d}{dt} V_C(t) &= - \frac{1}{RC} V_C(t)
     \end{align*}
+
+    Now, we see that this is a homogeneous differential equation with the general solution:
+    \begin{align*}
+        V_C(t) &= A e^{-\frac{1}{RC} t}
+    \end{align*}
+
+    We solve for $A$ by plugging in the initial condition $V_C(0) = V_{DD}$:
+    \begin{align*}
+        V_C(0) = V_{DD} &= A e^0 \\
+        \implies A &= V_{DD}
+    \end{align*}
+
+    Thus, the final solution for the voltage of the discharging capacitor is given by $V_C(t) = V_{DD} e^{- \frac{1}{RC} t}$.
 }
 
 \qitem \textbf{What is $V_{out}(t)$?} Sketch a plot of the voltage across the resistor over time, labeling the asymptote it reaches at steady-state.
@@ -57,35 +78,7 @@ At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ f
 }
 
 \sol {
-    We begin with a change of variables:
-    \begin{align*}
-        V_C(t) &= \widetilde{V_C}(t) - \frac{\frac{1}{RC}}{-\frac{1}{RC}} V_{in} \\
-               &= \widetilde{V_C}(t) + V_{in}
-    \end{align*}
-
-    We plug this new definition of $V_C(t)$ into the original differential equation to remove the constant term.
-    \begin{align*}
-        \frac{d}{dt} (\widetilde{V_C}(t) + V_{in}) &= - \frac{1}{RC} (\widetilde{V_C}(t) + V_{in}) + \frac{1}{RC} V_{in} \\
-        \frac{d}{dt} \widetilde{V_C}(t) &= - \frac{1}{RC} \widetilde{V_C}(t)
-    \end{align*}
-
-    Now, we can solve for the new variable $\widetilde{V_C}(t)$:
-    \begin{align*}
-        \widetilde{V_C}(t) &= Ae^{-\frac{1}{RC} t}
-    \end{align*}
-
-    Plug this general solution back into the change of variables definition, then solve using the initial solution: $V_C(0) = 0$.
-    \begin{align*}
-        V_C(t) &= Ae^{-\frac{1}{RC} t} + V_{in} \\
-        \implies V_C(0) = 0 &= Ae^0 + V_{in} \\
-        \implies A &= -V_{in}
-    \end{align*}
-    
-    We're now finished, with the final solution:
-    \begin{align*}
-        V_C(t) &= -V_{in}e^{-\frac{1}{RC} t} + V_{in} \\
-               &= V_{in} (1 - e^{-\frac{1}{RC} t})
-    \end{align*}
+    % By KVL, $V_{out}(t) = V_{in}(t) - $
 }
 
 \qitem \textbf{What is the steady-state voltage across the capacitor as $t \rightarrow \infty$?}
@@ -96,12 +89,10 @@ At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ f
 
 \sol {
     \begin{align*}
-        \lim_{t \rightarrow \infty} i_L(t) &= \lim_{t \rightarrow \infty} \frac{V_{in}}{R} (1 - e^{-\frac{R}{L}t}) \\
-        &= \frac{V_{in}}{R} (1 - 0) \\
-        &= \frac{V_{in}}{R}
+        \lim_{t \rightarrow \infty} V_C(t) &= \lim_{t \rightarrow \infty} V_{DD} (e^{-\frac{1}{RC}t}) \\
+        &= V_{DD} (0) \\
+        &= 0
     \end{align*}
-
-    The physics of the inductor opposes current flow initially, but it approaches the steady-state current as determined by the rest of the circuit (the resistor and voltage source).
 }
 
 \qitem \textbf{What is the steady-state current across the capacitor as $t \rightarrow \infty$?}
@@ -112,10 +103,8 @@ At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ f
 
 \sol {
     \begin{align*}
-        \lim_{t \rightarrow \infty} V_L(t) &= \lim_{t \rightarrow \infty} L \frac{d}{dt} i_L(t)  \\
-        &= \lim_{t \rightarrow \infty} L (\frac{d}{dt} \frac{V_{in}}{R} (1 - e^{-\frac{R}{L}t})) \\
-        &= \lim_{t \rightarrow \infty} L \frac{V_{in}}{R} \frac{R}{L} e^{-\frac{R}{L}t} \\
-        &= \lim_{t \rightarrow \infty} V_{in} e^{-\frac{R}{L}t} \\
+        \lim_{t \rightarrow \infty} i_C(t) &= \lim_{t \rightarrow \infty} C \frac{d}{dt} V_C(t)  \\
+        &= \lim_{t \rightarrow \infty} C (\frac{d}{dt} V_{DD} (e^{-\frac{1}{RC}t})) \\
         &= 0
     \end{align*}
 }
@@ -123,7 +112,7 @@ At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ f
 \qitem \textbf{What circuit element does the capacitor act like at steady-state ($t \rightarrow \infty$)?}
 
 \sol{
-    It acts like a short circuit element.
+    When completely discharged, it acts like a short circuit element, where the voltage across is 0, and the current through it is determined by the circuit components around it, which is 0 in this case.
 }
 
 \end{enumerate}
