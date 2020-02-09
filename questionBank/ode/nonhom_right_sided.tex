@@ -8,31 +8,37 @@
 }
 
 Ordinary differential equations play a key role in modeling physical and electrical systems.
-It was shown in lecture, and in homework that for a first-order, constant coefficient ordinary differential equation,
+It was shown in lecture and in homework that for a first-order, constant coefficient ordinary differential equation,
+
 \begin{equation} \label{eq:h}
 \ddt{}{t} x(t) = \lambda x(t)
 \end{equation}
 
-With initial condition $x(0) = x_0,$ the particular solution to the equation, $x_p(t),$ was uniquely determined as:
+with initial condition $x(0) = x_0,$ the particular solution to the equation, $x_p(t),$ was uniquely determined as:
 \begin{equation} \label{eq:hs}
 x_p(t) = x_0 e^{\lambda t}
 \end{equation}
 
-For the purposes of this question, we will look at the the case in which we have a constant on the right hand side.
-This is referred to as the non-homogeneous differential equation.
+For the purposes of this question, we will look at the case in which we have a constant on the right hand side.
+This is referred to as a \textbf{non-homogeneous differential equation}.
 
-Now consider the non-homogeneous differential equation of the form:
+Now consider the following non-homogeneous differential equation with initial condition $x(0) = x_0$:
 \begin{equation} \label{eq:nh}
     \ddt{}{t} x(t)  = \alpha x(t) + \beta, \ \forall t \geq 0
 \end{equation}
-With initial condition $x(0) = x_0.$ \\
+
+
 To solve this, we will use a change of variables.
 Let $\widetilde{x}(t) = x(t) + \frac{\beta}{\alpha}$.
 
 \begin{enumerate}
 
-\qitem Try writing the original equation as a differential equation in terms of $\widetilde{x}(t)$. \\
-Don't forget about the inital condition!
+\qitem \textbf{Try writing equation (\ref{eq:nh}) as a differential equation in terms of $\widetilde{x}(t)$.} \\
+Don't forget about the initial condition!
+
+\ws{
+	\vspace{75px}
+}
 
 \meta {
   Hint to students: Try calculating $\ddt{}{t}x(t)$ and see if you can substitute.
@@ -44,15 +50,22 @@ Don't forget about the inital condition!
   The initial condition will be $\widetilde{x}(0) = x(0) + \beta / \alpha.$ 
 }
 
-\qitem Does this equation look familiar? How can you solve this equation?
+\qitem \textbf{Does this equation look familiar? How can you solve this equation?}
+
+\ws{
+	\vspace{75px}
+}
 
 \sol{
   This is the homogeneous equation \eqref{eq:h} in terms of $\widetilde{x}(t)!$ 
   Since this is a homogeneous differential equation, in terms of $\widetilde{x}(t),$ using the particular solution $x_p(t)$ provided above, our solution is $\widetilde{x}_{p}(t) = \widetilde{x}_{0} e^{\alpha t}.$
 }
 
+\qitem \textbf{What is the final solution $x(t)$?} Assume that $x(0) = x_0$ is a given constant.
 
-\qitem What is the final solution $x(t)$? Assume $x(0)$ is given.
+\ws{
+	\vspace{75px}
+}
 
 \sol{
   Converting back to $x(t),$ our solution is $x(t) = \widetilde{x}_{0} e^{\alpha t} - \beta / \alpha.$
@@ -81,5 +94,113 @@ To recap, given a first order differential equation $\ddt{}{t} x(t) = \alpha x(t
 % $[x(0) - y(\infty)] e^{-\alpha t}$ which is the decaying exponential of the initial state, from the steady state response.
 % }
 
+% \begin{enumerate}[resume]
+
+% \qitem Show that $x_{p}$(t) does indeed satisfy the differential equation \eqref{eqn:odeinput}. \\
+% \textit{Hint: Is there anything you can pull out of the integral to make sure there are no terms with $t$ in the integrand?}
+
+% \meta{
+%   The second line of work uses the product rule of derivatives combined with the Second Fundamental Theorem of Calculus.
+% }
+
+% \sol{
+% To show that $x_{p}$(t) satisfies equation \eqref{eqn:odeinput}, we have to show that it satisfies the the general differential equation and the initial condition. \\
+% For the general differential equation, we will show that $\ddt{x_p(t)}{t} = \lambda x_p(t) + u(t)$.
+% $$\ddt{x_p(t)}{t} = \lambda x_0 e^{\lambda t} + \ddt{}{t}(e^{\lambda t} \int_0^t \! u(\tau)e^{-\lambda \tau} \, d\tau)$$
+% $$\ddt{x_p(t)}{t} = \lambda x_0 e^{\lambda t} + \lambda e^{\lambda t} \int_0^t \! u(\tau)e^{-\lambda \tau} \, d\tau +  e^{\lambda t}u(t)e^{-\lambda t} = \lambda x_p(t) + u(t)$$
+% We also have to show that $x_p(0) = x_0$:
+% $$x_p(0) = x_0e^{\lambda \cdot 0} + \int_0^0 \! u(\tau)e^{-\lambda \tau} \, d\tau = x_0 + 0 = x_0$$
+% }
+
+% \end{enumerate}
+
+We will now take this insight and apply it to the process of charging up a capacitor.
+\newline
+
+Consider the circuit below, assume that when $t\leq 0$, the capacitor has no charge stored $(V_{C}(t=0) = 0)$.
+At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
+
+\input{\bank/ode/figures/rc_circuit}
+\meta{
+	The rest of this problem is meant to be an introduction to transient analysis of circuits.
+	Make sure students fully understand the concepts presented (how to get a differential equation from the circuit, how to solve the equation, and the physical intuition of what is happening in the circuit - charging up a capacitor) before moving on.
+}
+\begin{enumerate}[resume]
+
+\qitem \textbf{Write out the KCL equations associated with the circuit when the switch is closed.}
+
+\ws{\vspace{75px}}
+
+\meta{
+	To simplify your circuit analysis, mark the negative end of the voltage source as ground.
+}
+
+\sol{
+\begin{align*}
+\intertext{We denote the voltage to the left of resistor to be $V_s.$}
+\intertext{By KCL, the current through the resistor } i_R = i_{\text{C}}.
+\intertext{Ohm's law tells us that } i_R = \frac{V_s - V_{C}}{R}
+\intertext{The voltage-current relationship of a capacitor tells us that }i_\text{C} = C\ddt{V_{C}}{t}
+\intertext{Therefore, } \frac{V_s - V_{C}}{R} = C \ddt{V_{C}}{t}
+\end{align*}
+}
+
+\qitem \textbf{Write out the differential equation for $V_{\text{C}}(t)$ after the switch closes.}
+
+\ws{
+\vspace{75px}
+}
+
+\meta{
+	If students are confused about how to get started, point them to equation \eqref{eq:nh} in problem 1 as a template.
+	Which KCL equation from part (a) of this problem resembles a first order differential equation (i.e. which one has a differential term)?
+}
+
+\sol{
+\begin{align*}
+\intertext{From the previous problem we know that when the switch is closed,}
+\frac{V_{\text{s}}- V_{C}}{R} = C\frac{dV_{C}}{dt} \\
+\intertext{Thus we obtain}
+\ddt{V_{C}}{t} + \frac{V_{C}}{RC} = \frac{V_{\text{S}}}{RC}
+\end{align*}
+}
+
+\sol{
+No charge is on the capacitor before time $t=0$. Using $q=VC$, we know that $V_{C}=\SI{0}{\volt}$ before $t=0$.
+At $t=0$, the switch closes. Since voltage across the capacitor cannot change instantaneously, $V_{C}(t=0)=0.$
+As $t$ goes to infinity, the capacitor will become fully charged and the current goes to zero.
+Therefore, the voltage of the capacitor equals the voltage source: $V_{C}(t \to \infty) = V_{\text{S}}.$
+}
+
+\qitem \textbf{Using the initial conditions found in the previous parts, find an expression for
+$V_{\text{C}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.}
+
+\meta{
+	You can point at equation \eqref{eq:nhs} and find the appropriate values of $\alpha$ and $\beta,$ 
+	but let them know that they are still expected to know how to do the process below. 	
+}
 
 
+\sol{
+	To find an expression for $V_{out}(t)$:
+	\[V_c(t)=V_{out}(t)\]
+	\[\frac{dV_{out}(t)}{dt}+\frac{1}{RC}V_{out}(t)=\frac{V_{S}}{RC}\]
+
+	Using substitution of variables:
+	\[x(t) = V_{out}(t)-V_{S}\]
+	\[V_{out}(t)=x(t)+V_{S}\]
+	\[\frac{dV_{out}(t)}{dt}=\frac{dx(t)}{dt}\]
+	\[\frac{dx(t)}{dt}+\frac{1}{RC}x(t)=0\]
+	\[x(t)=Ae^{-\frac{t}{RC}}\]
+
+	Now substituting back to find $V_{out}$:
+	\[V_{out}(t)=V_{S}+Ae^{-\frac{t}{RC}}\]
+
+	Using our initial condition:
+	\[V_{out}(0)=0=V_{S}+A\]
+	\[A=-V_{S}\]
+	\[V_{out}(t)=V_{S}\left(1-e^{-\frac{t}{RC}}\right)\]
+	\[V_c(t) = V_S(1 - e^{-\frac{t}{\tau}}) \text{ where } \tau = RC \text{ ($\tau$ explained in next part)}\]
+}
+
+\end{enumerate}

@@ -1,0 +1,150 @@
+% Author: Yannan Tuo, Varsha Ramakrishnan, Taejin Hwang
+% Email: ytuo@berkeley.edu, vio@berkeley.edu, taejin@berkeley.edu
+% Edited Lydia Lee, Spring 2019
+% lydia.lee@berkeley.edu
+
+\qns{Eigendecomposition}
+
+\meta{
+  Please do a mini-lecture on change of basis similar to the opening paragraph of the change of coordinates question before doing this one. It is crucial that students understand change of basis, and how to convert from different bases first, before trying to understand eigendecomposition. It is up to you whether you want to mention the fact that all diagonalizable linear operators have a diagonal matrix representation given the correct choice of basis. 
+}
+
+Diagonal matrices are often desirable since they are easy to analyze. 
+Determining properties such as rank and invertibility, are much simpler on a diagonal matrix as opposed to other non-diagonal matrices.
+The process of changing to a basis in which the linear operator has a diagonal matrix representation is called \textbf{eigendecomposition} or \textbf{diagonalization.} You can think of eigendecomposition as a change of basis to a basis entirely made up of eigenvectors.
+
+Let's first look at the following diagonal matrix:
+
+$$D = \begin{bmatrix}
+5 & 0 \\
+0 & -1
+\end{bmatrix}$$
+
+that is currently represented in the standard basis.
+However, we want to now see what this matrix looks like in a different basis $S$:
+\begin{gather*}
+    \vec{v_1} =
+    \begin{bmatrix}
+      1 \\
+      1
+    \end{bmatrix},
+    \vec{v_2} = \begin{bmatrix}
+      -2 \\
+      1
+    \end{bmatrix}
+\end{gather*}
+
+\begin{enumerate}
+
+\qitem Recall that $[\vec{x}]_S,$ is the representation of $\vec{x}$ using S-coordinates. This means that if $[\vec{x}]_S = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix},$ then $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}.$ What is $[\vec{x}]_S$ in terms of $V$ and $\vec{x}?$
+
+\meta{
+  The line $\alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} = V [\vec{x}]_S$ is not the most intuitive. 
+  It may require you showing on the board, why matrix vector multiplication can be seen as a linear combination of the columns.
+}
+
+\sol{
+  $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} = V [\vec{x}]_S.$ So it follows that $[\vec{x}]_S = V^{-1} \vec{x}.$
+}
+
+\qitem In the standard basis, we currently have the input output relation: $\vec{y} = D \vec{x}.$
+Using a change of coordinates, how can we represent our original diagonal matrix as an input-output relationship in the basis S?
+That is, if $[\vec{y}]_S = A [\vec{x}]_S,$ how would you represent $A?$
+
+\sol {
+  We start with the current conversion between standard and S-coordinates.
+  \begin{gather*}
+    \vec{x} = V [\vec{x}]_S, \vec{y} = V [\vec{y}]_S
+  \end{gather*}
+
+  Then substituting in for the original relation $\vec{y} = D \vec{x},$ we get:
+  $$V[\vec{y}]_S = D V[\vec{x}]_S$$
+
+  Left multiplying by $V^{-1}$ we see that:
+  $$[\vec{y}]_S = V^{-1} D V[\vec{x}]_S$$
+
+  So it follows that $A = V^{-1} D V$
+}
+
+\qitem Now we will look at the case in which we start with the matrix
+$$ A = \begin{bmatrix}
+        1 & 4 \\
+        2 & 3
+  \end{bmatrix} $$
+represented in the standard basis. What are the eigenvalues of $A?$ Order from largest to smallest.
+
+\sol {
+  In order to find the eigenvalues of $A,$ we look at the determinant of $A - \lambda I.$
+  $$det\mathbf{\begin{bmatrix}
+  1-\lambda & 4 \\
+  2 & 3-\lambda
+ \end{bmatrix}}  =  (1 - \lambda)(3 - \lambda) - 8 =  \lambda^2 - 4 \lambda - 5 = 0$$
+ $$ \lambda_1 = 5, \lambda_2 = -1$$
+}
+
+\qitem What is a basis for the eigenspace for $\lambda_1$ and $\lambda_2?$
+
+\sol {
+  To find the eigenspaces for $\lambda$ we compute the null-spaces of $A - \lambda I.$
+  $$A - 5I = \begin{bmatrix}
+  -4 & 4 \\
+  2 & -2
+ \end{bmatrix}$$ 
+ We can see that $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ is a basis for the null-space of $A - 5I.$
+
+ $$A + I = \begin{bmatrix}
+  2 & 4 \\
+  2 & 4
+ \end{bmatrix}$$ 
+ We can see that $\begin{bmatrix} -2 \\ 1 \end{bmatrix}$ is a basis for the null-space of $A + I.$
+}
+
+\qitem What do you notice about the eigenvalues and eigenvectors of $A?$
+
+\sol {
+  The eigenvectors of $A$ are the same vectors as the vectors in the basis $S.$ \\
+  The eigenvalues of $A$ have the same values as the diagonal entries of the matrix $D.$ \\
+  This should not be a coincidence. This is because $A$ is in fact a linear operator with a diagonal matrix representation "hidden" under the eigenbasis.
+}
+
+\qitem In the standard basis, we currently have the input output relation: $\vec{y} = A \vec{x}.$
+Using a change of coordinates, how can we represent our original diagonal matrix as an input-output relationship in the basis S?
+That is, if $[\vec{y}]_S = B [\vec{x}]_S,$ how would you represent $B?$ Try to do the calculation as well.
+
+\meta{
+  If you don't do end up doing the calculation, at least write out the matrices A and V as you're doing this, and state that $B = D$ at the end.
+}
+
+\sol {
+  We start with the current conversion between standard and S-coordinates.
+  \begin{gather*}
+    \vec{x} = V [\vec{x}]_S, \vec{y} = V [\vec{y}]_S
+  \end{gather*}
+
+  Then substituting in for the original relation $\vec{y} = A \vec{x},$ we get:
+  $$V[\vec{y}]_S = A V[\vec{x}]_S$$
+
+  Left multiplying by $V{-1}$ we see that:
+  $$[\vec{y}]_S = V^{-1} A V[\vec{x}]_S$$
+
+  So it follows that $B = V^{-1} A V.$ \vskip 1pt
+  However after doing the calculation, we see that $B = D!$
+}
+
+\qitem What is the relationship between $A, D$ and $V?$ In other words, how can you express $A$ using $D$ and $V?$
+
+\sol {
+  We saw from the previous part that $D = V^{-1} A V.$ 
+  Therefore, $A = V D V^{-1}.$
+}
+
+\qitem When can a matrix not be diagonalized? 
+In other words, when does a linear operator not have a diagonal matrix representation?
+
+\sol {
+  A linear operator cannot have a diagonal matrix representation if it isn't possible to change to a basis made up of eigenvectors.
+  Remember that a change of coordinates matrix must be invertible. 
+  However, if a matrix does not have $n$ linearly independent eigenvectors, then it cannot have a change of basis matrix.
+}
+
+\end{enumerate}
