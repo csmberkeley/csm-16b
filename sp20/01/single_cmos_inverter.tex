@@ -187,9 +187,8 @@ A transistor can be modeled with a capacitor between the gate $G$ and source $S$
                     node[ground]{};
         \end{circuitikz}
     \end{center}
+    \newpage
 }
-
-\newpage
 
 \qitem
 We want to analyze the behavior of the inverter by solving for the gate voltage $V_{GS}$ \textit{of the bottom NMOS transistor} as a function of time. \textbf{Using KCL or KVL, write out a differential equation for $V_{GS}$.}
@@ -212,7 +211,22 @@ Assume that $V_{in}$ has been low ($V_{in} = 0$) for a long time and switches to
 
 \ws{\vspace{200px}}
 
-\sol{}
-\meta{}
+\sol{
+    Since we know that $V_{in}$ has been low for a long time before $t = 0$, the inverter has stabilized to the top PMOS transistor having $V_{GS, P}(0) = V_{DD}$ and the bottom NMOS transistor having $V_{GS, N}(0) = 0$. Thus, we can plug in this initial condition when solving the differential equation.
+
+	Using substitution of variables:
+	\[V_{GS, N}(t) = z(t) + V_{in}\]
+	\[\frac{dV_{GS, N}(t)}{dt}=\frac{d z(t) }{dt}\]
+	\[\frac{dz(t)}{dt} = - \frac{1}{2RC_{GS}}z(t)\]
+	\[z(t)=Ae^{-\frac{t}{2RC_{GS}}}\]
+
+	Now substituting back to find $V_{out}$:
+	\[V_{GS, N}(t)=Ae^{-\frac{t}{2RC_{GS}}} + V_{in}\]
+
+	Using our initial condition:
+	\[V_{GS, N}(0)= 0 = V_{in} + Ae^0 \]
+	\[A=-V_{in}\]
+	\[V_{GS, N}(t) = V_{in}\left(1-e^{-\frac{t}{2RC_{GS}}}\right) = V_{DD}\left(1-e^{-\frac{t}{2RC_{GS}}}\right) \]
+}
 
 \end{enumerate}
