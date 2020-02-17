@@ -1,0 +1,80 @@
+% Source: Kyle Tanghe
+% Updated: Justin Yu (justinvyu@berkeley.edu)
+
+\qns{RLC Circuit}
+
+In this question, we will take a look at an electrical systems described by second-order differential equations and analyze it in the phasor domain. Consider the circuit below where $\widetilde{V_{\text{s}}}$ is a sinusoidal signal, $L = \SI{1}{\milli\henry}$, and $C = \SI{1}{\nano\farad}$:
+
+\begin{center}
+		\begin{circuitikz}[scale=0.8]
+			\draw (0,4) 
+			to [sV, l_= $\widetilde{V_s}$] (0,0)
+			(0,4)
+			to [R = $R$,v=$\widetilde{V}_R$] (4,4)
+			to [L = $L$,v=$\widetilde{V}_L$] (8,4)
+			to [short] (10,4)
+			to [C = $C$,v=$\widetilde{V}_C$] (10,0)	
+			to [short] (0,0);
+		\end{circuitikz}
+	\end{center}
+\begin{enumerate}
+  
+\qitem \textbf{Transform the circuit into the phasor domain.}
+\ws{\vspace{50px}}
+
+\sol{
+\begin{align*}
+Z_R &= R \\ 
+Z_L &= j\omega L \\
+Z_C &= \frac{1}{j\omega C}
+\end{align*}
+}
+
+\qitem \textbf{Solve for the transfer function $H_C(\omega)=\frac{\widetilde{V}_C}{\widetilde{V}_{\text{s}}}$ in terms of $R$, $L$, and $C$.}
+
+\ws{\vspace{75px}}
+
+\sol{
+$\widetilde{V}_C$ is a voltage divider where the output voltage is taken across the capacitor.
+\begin{align*}
+\widetilde{V}_C&=\frac{Z_C}{Z_R+Z_L+Z_C}\widetilde{V}_{\text{s}}, \\
+H_C(\omega)&=\frac{Z_C}{Z_R+Z_L+Z_C} = \frac{\frac{1}{j\omega C}}{R+j\omega L+\frac{1}{j\omega C}}.
+\end{align*}
+Multiplying the numerator and denominator by $j\omega C$ gives
+\[H_C(\omega)=\frac{1}{(j\omega)^2LC+j\omega RC+1}\]
+
+}
+
+\qitem \textbf{Solve for the transfer function $H_L(\omega)=\frac{\widetilde{V}_L}{\widetilde{V}_{\text{s}}}$ in terms of $R$, $L$, and $C$.}
+
+\ws{\vspace{75px}}
+
+\sol{
+$\widetilde{V}_L$ is a voltage divider where the output voltage is taken across the inductor.
+\begin{align*}
+\widetilde{V}_L&=\frac{Z_L}{Z_R+Z_L+Z_C}\widetilde{V}_{\text{s}}, \\
+H_L(\omega)&=\frac{Z_L}{Z_R+Z_L+Z_C} = \frac{j\omega L}{R+j\omega L+\frac{1}{j\omega C}}.
+\end{align*}
+Multiplying the numerator and denominator by $j\omega C$ gives
+\[H_L(\omega)=\frac{(j\omega)^2LC}{(j\omega)^2LC+j\omega RC+1}\]
+
+}
+
+\qitem \textbf{Solve for the transfer function $H_R(\omega)=\frac{\widetilde{V}_R}{\widetilde{V}_{\text{s}}}$ in terms of $R$, $L$, and $C$.}
+
+\ws{\vspace{75px}}
+
+\sol{
+
+$\widetilde{V}_R$ is a voltage divider where the output voltage is taken across the resistor.
+\begin{align*}
+\widetilde{V}_R&=\frac{Z_R}{Z_R+Z_L+Z_C}\widetilde{V}_{\text{s}}, \\
+H_R(\omega)&=\frac{Z_R}{Z_R+Z_L+Z_C} = \frac{R}{R+j\omega L+\frac{1}{j\omega C}}.
+\end{align*}
+Multiplying the numerator and denominator by $j\omega C$ gives
+\[H_R(\omega)=\frac{j\omega RC}{(j\omega)^2LC+j\omega RC+1}.\]
+
+}
+ 
+\end{enumerate}
+
