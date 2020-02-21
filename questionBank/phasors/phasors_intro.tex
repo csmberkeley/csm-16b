@@ -75,13 +75,23 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
 % In phasor domain,
 % $$\tilde{V} = R\tilde{I}$$
 
+\meta {
+    Students may ask why we arbitrarily choose the current or the voltage to be sinusoidal. All we are doing in this problem is finding the phasor relationship between the two, which means that we can start from assuming a general sinusoidal form for one and work our way to the other (either from $v(t)$ to $i(t)$ or the other way around), and it will work out to the same ratio $\frac{\widetilde{V}}{\widetilde{I}}$.
+}
+
 \textbf{Find the impedance of the resistor, $Z_R = \frac{\widetilde{V_R}}{\widetilde{I_R}}$.}
 
 \textit{Hint: This part should be straightforward. Use the circuit laws you know.}
 
 \ws{\vspace{35px}}
 
-\sol{}
+\sol{
+    Using the given $i_R(t)$, we can pull out the phasor representation $\widetilde{I}_R = I_0 e^{j \phi}$. To find $\widetilde{V}_R$, we first find $V_R(t)$ in time domain using the Ohm's law relationship. This gives $V_R(t) = RI_R(t) = RI_0 cos(\omega t + \phi) = \operatorname{Re}(RI_0e^{j \phi}e^{j \omega t})$. Pulling out the phasor, we have $\widetilde{V}_R = RI_0 e^{j \phi}$.
+    
+    This leads us to conclude the impedance of a resistor is: $Z_R = \frac{\widetilde{V}_R}{\widetilde{I}_R} = \frac{RI_0 e^{j \phi}}{I_0 e^{j \phi}} = R$.
+
+    This means that the $\widetilde{I}-\widetilde{V}$ relationship in phasor domain is purely real.
+}
 
 \qitem Consider a capacitor circuit below, with a sinusoidal voltage $V_C(t) = V_0 \cos(\omega t + \phi)$.
 
@@ -99,7 +109,27 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
 \ws{\vspace{60px}}
 
 \sol {
+    We're given:
+    \begin{align*}
+        V_C(t) &= V_0 cos(\omega t + \phi) \\
+        \implies \widetilde{V}_C &= V_0 e^{j \phi}
+    \end{align*}
 
+    We apply the capacitor relationship to get the current through the capacitor as a function of time:
+    \begin{align*}
+        i_C(t) &= C \frac{d}{dt} V_C(t) \\
+        &= \frac{d}{dt} CV_0 cos(\omega t + \phi) \\
+        &= \frac{d}{dt} \operatorname{Re}(CV_0 e^{j \phi} e^{j \omega t}) \\
+        &= \operatorname{Re}(j \omega CV_0 e^{j \phi} e^{j \omega t}) \\
+        \implies \widetilde{I}_C &= j \omega C V_0 e^{j \phi} e^{j \phi}
+    \end{align*}
+
+    Thus, the impedance of a capacitor is:
+    \begin{align*}
+        Z_C &= \frac{\widetilde{V}_C}{\widetilde{I}_C} \\
+        &= \frac{V_0 e^{j \phi}}{j \omega C V_0 e^{j \phi}} \\ 
+        &= \frac{1}{j\omega C}
+    \end{align*}
 }
 
 \qitem Consider an inductor circuit below, with a sinusoidal current $i_L(t) = I_0 \cos(\omega t + \phi)$.
@@ -116,7 +146,27 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
 \ws{\vspace{60px}}
 
 \sol {
+    We're given:
+    \begin{align*}
+        i_L(t) &= I_0 cos(\omega t + \phi) \\
+        \implies \widetilde{I}_L &= I_0 e^{j \phi}
+    \end{align*}
 
+    We apply the inductor relationship to get the voltage across the inductor as a function of time:
+    \begin{align*}
+        V_L(t) &= L \frac{d}{dt} i_L(t) \\
+        &= \frac{d}{dt} L I_0 cos(\omega t + \phi) \\
+        &= \frac{d}{dt} \operatorname{Re}(L I_0 e^{j \phi} e^{j \omega t}) \\
+        &= \operatorname{Re}(j \omega L I_0 e^{j \phi} e^{j \omega t}) \\
+        \implies \widetilde{V}_L &= j \omega L I_0 e^{j \phi} e^{j \phi}
+    \end{align*}
+
+    Thus, the impedance of an inductor is:
+    \begin{align*}
+        Z_L &= \frac{\widetilde{V}_L}{\widetilde{I}_L} \\
+        &= \frac{j \omega L I_0 e^{j \phi}}{I_0 e^{j \phi}} \\ 
+        &= j\omega L
+    \end{align*}
 }
 
 \end{enumerate}
