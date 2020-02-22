@@ -126,7 +126,7 @@ NMOS &  \begin{circuitikz}[scale=0.9]
     \end{align*}
 
 \end{enumerate}
-
+\newpage 
 \subsection*{Time-Domain RC circuits}
 \begin{figure}[H]
 	\begin{center}
@@ -326,18 +326,15 @@ We can analyze circuits with sinusoidal inputs/sources in the frequency domain. 
         Element & Drawing & Impedance \\ \hline
         Resistor & 
         \begin{circuitikz}
-            \draw (0, 0)
-            to[R = $R$] (2,0) {};;
+            \draw (0, 0) to[R = $R$] (2,0);
         \end{circuitikz}
         & $Z_R = R$ \\ \hline
         Capacitor & \begin{circuitikz}
-            \draw (0, 0)
-            to[C = $C$] (2,0) {};;
+            \draw (0, 0) to[C = $C$] (2,0);
         \end{circuitikz}
         & $Z_C = \frac{1}{j \omega C}$ \\ \hline
         Inductor & \begin{circuitikz}
-            \draw (0, 0)
-            to[L = $L$] (2,0) {};;
+            \draw (0, 0) to[L = $L$] (2,0);
         \end{circuitikz}
         & $Z_L = j \omega L$ \\ \hline
         \end{tabular}
@@ -347,20 +344,98 @@ We can analyze circuits with sinusoidal inputs/sources in the frequency domain. 
     If necessary, convert the output voltage back to the time domain ($Ae^{j \phi}$ at frequency $\omega$ becomes $A\cos(\omega t + \phi)$)
 \end{enumerate}
 
-\subsection*{Filters}
+\subsection*{Transfer Functions and Filters}
+When we want to look at the input-output relationship of a circuit, we look at its transfer function, which is usually defined as
+\begin{align*}
+    H(\omega) = \frac{\widetilde{V}_{out}}{\widetilde{V}_{in}}
+\end{align*}
+
+A \textbf{filter} is a circuit that only lets some frequencies pass through and attenuates the rest
+
+\begin{center}
+    \begin{tabular}[t]{|c|c|c|c|c|}
+        \hline
+        Type & \multicolumn{2}{c|}{Circuit} & \multicolumn{2}{c|}{Transfer Function}\\ \hline
+        Low-Pass & 
+        \begin{circuitikz}
+            \draw (0, 2) node[label=left:$\widetilde{V}_{in}$] {}
+            to[R = $R$] (2,2) node[label=right:$\widetilde{V}_{out}$] {};
+            \draw (2, 2) to[C = $\frac{1}{j \omega C}$] (2, 0.5)
+            node[ground] {};
+        \end{circuitikz} &
+        \begin{circuitikz}
+            \draw (0, 2) node[label=left:$\widetilde{V}_{in}$] {}
+            to[L = $j \omega L$] (2,2) node[label=right:$\widetilde{V}_{out}$] {};
+            \draw (2, 2) to[R = $R$] (2, 0.5)
+            node[ground] {};
+        \end{circuitikz} & 
+        $H(\omega) = \frac{1}{1 + j \omega RC}$ &
+        $H(\omega) = \frac{1}{1 + j \omega L/R}$ \\ \hline
+
+        High-Pass & 
+        \begin{circuitikz}
+            \draw (0, 2) node[label=left:$\widetilde{V}_{in}$] {}
+            to[C = $\frac{1}{j \omega C}$] (2,2) node[label=right:$\widetilde{V}_{out}$] {};
+            \draw (2, 2) to[R = $R$] (2, 0.5)
+            node[ground] {};
+        \end{circuitikz} &
+        \begin{circuitikz}
+            \draw (0, 2) node[label=left:$\widetilde{V}_{in}$] {}
+            to[R = $R$] (2,2) node[label=right:$\widetilde{V}_{out}$] {};
+            \draw (2, 2) to[L = $j \omega L$] (2, 0.5)
+            node[ground] {};
+        \end{circuitikz} & 
+        $H(\omega) = \frac{j \omega RC}{1 + j \omega RC}$ &
+        $H(\omega) = \frac{j \omega L/R}{1 + j \omega L/R}$ \\ \hline
+
+        Band-Pass & \multicolumn{2}{c|}{
+            \begin{circuitikz}
+                \draw (0, 2.5) node[label=left:$\widetilde{V}_{in}$] {}
+                to[R = $R$] (2,2.5);
+                \draw (2, 2.5) to[C = $\frac{1}{j \omega C}$] (2, 0)
+                node[ground] {};
+                \draw (2, 2.5) to[short] (3.5, 2.5)
+                node[op amp, yscale=-1, anchor=+](A1) {};
+                \draw (A1.-) to[short] (3.5, 0.75)
+                to[short] (5.75, 0.75)
+                to[short] (5.75, 2);
+                \draw (A1.out) to[C = $\frac{1}{j \omega C}$] (7.5, 2)
+                node[label=right:$\widetilde{V}_{out}$] {};
+                \draw (7.5, 2) to[R = $R$] (7.5, 0)
+                node[ground] {};
+            \end{circuitikz}
+            } &
+            \multicolumn{2}{c|}{
+                $H(\omega) = \frac{j \omega RC}{1 + j \omega RC} \cdot \frac{1}{1 + j \omega RC}$
+            } \\ \hline
+    \end{tabular}
+\end{center}
+\textit{Note}: For a general band-pass filter, you connect a high-pass and a low-pass filter with a unity gain buffer in between. The transfer function of the band-pass filter is the product of the transfer functions of the two filters it is made of.
 
 \subsection*{Resonance}
-% DONE NMOS, PMOS: knowing what happens with different gate and source potentials for both
-% DONE Switch, Resistor Switch, and RC model
-% CMOS inverter: replace with RC model, get diff eqs, solve
-% DONE Time-domain circuits
-% DONE Homogenous ODE, non-homogenous ODE (change of variables), ODE with non-constant input
-% DONE RC, LR circuits: get diff eq using KCL and KVL, then solve + apply initial conditions
-% DONE Change of Basis and Diagonalization
-% DONE Multivariate ODE: get matrix-vector equation, diagonalize, solve in the eigenbasis, change back to standard basis
-% DONE Second-order ODE (using x and x' as state variables) and LRC
-% DONE Frequency Domain
-% DONE Phasors (e^{j \phi}, intuition: cos(\omega t + \phi) is the real part of e^{j(\omega t + \phi)}, get rid of the \omega t part because the circuit cannot introduce new frequencies)
-% DONE Impedance of common circuit elements(R, L, C)
-% Filters (high-pass, low-pass, band-pass) and transfer functions, reading but not creating bode plots
-% Resonance: transfer function for LRC circuit
+Consider an LRC circuit in the frequency domain
+\begin{center}
+    \begin{circuitikz}
+        \draw (0, 2) node[label=left:$\widetilde{V}_{in}$] {}
+        to[L = $j \omega L$] (2,2);
+        \draw (2, 2) to[R = $R$] (4.5, 2)
+        node[label=right:$\widetilde{V}_{out}$] {};
+        \draw (4.5, 2) to[C = $\frac{1}{j \omega C}$] (4.5, 0.5)
+        node[ground] {};
+    \end{circuitikz}
+\end{center}
+
+If out output is the voltage over the capacitor, the transfer function of this circuit is as follows
+\begin{align*}
+    H(\omega) = \frac{1/LC}{(j \omega)^2 + j \omega R/L + 1/LC}
+\end{align*}
+
+We degine $\omega_n = \sqrt{1/LC}$ to be the \textit{resonant frequency} of the circuit.
+At this frequency, the impedances of the capacitor and inductor "cancel out" ($j \omega L = \frac{1}{j \omega C}$), resulting in a spike in the magnitude of the transfer function.
+
+\begin{align*}
+    H(\omega_n = \sqrt{1/LC}) = \frac{1/LC}{j\sqrt{\frac{1}{LC}} \frac{R}{L}}
+\end{align*}
+
+If we plot the magnitude in the frequency domain, we get
+[INSERT BODE PLOT HERE]
