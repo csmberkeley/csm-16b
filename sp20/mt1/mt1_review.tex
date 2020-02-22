@@ -1,0 +1,272 @@
+\section*{Midterm 1 Review}
+
+\subsection*{Transistors}
+
+\begin{center} 
+\begin{tabular}[t]{|c|c|p{200px}|}
+\hline
+Type & Circuit Element & Behavior \\ \hline
+PMOS & \begin{circuitikz}[american] 
+\draw (0, 0) node[pmos] (nmos) {};
+\draw (nmos.G) node[left]{$G$};
+\draw (nmos.S) node[left]{$S$};
+\draw (nmos.D) node[left]{$D$};
+\end{circuitikz} & Closed switch: gate voltage is at least $|V_{tp}|$ below source voltage (gate voltage is low).
+
+Open switch: otherwise. \\ \hline
+
+NMOS & \begin{circuitikz}[american] 
+\draw (0, 0) node[nmos] (nmos) {};
+\draw (nmos.G) node[left]{$G$};
+\draw (nmos.S) node[left]{$S$};
+\draw (nmos.D) node[left]{$D$};
+\end{circuitikz} & 
+
+Closed switch: gate voltage is at least $|V_{tn}|$ above source voltage (gate voltage is high).
+\\ \hline
+\end{tabular} \end{center}
+
+\begin{center} \begin{tabular}{|c|c|c|c|}
+\hline
+Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch \\ \hline
+PMOS & \begin{circuitikz}[scale=0.9]
+			\draw (0, -2) node[label=left:$D$] {}
+			to[switch, l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,2)
+			to[short, -*] ++(0, 0.2)
+            node[label=right:$S$] {};;
+			\draw (0, 2) -- (-1, 2)
+			to[short, -*] ++(0, -2) node[label=left:$G$] {};;
+			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
+		\end{circuitikz} & 
+        \begin{circuitikz}[scale=0.9]
+			\draw (0, -2) node[label=left:$D$] {}
+			to[switch,l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,0)
+			to[R, l_=$R_{on}$, i<=$I_D$] ++(0, 2)
+			to[short, -*] ++(0, 0.2) node[label=right:$S$] {};;
+			\draw (0, 2) -- (-1, 2)
+			to[short, -*] ++(0, -2) node[label=left:$G$] {};;
+			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
+		\end{circuitikz} &
+        \begin{circuitikz}[scale=0.9]
+			\draw (0, -2) node[label=left:$D$] {}
+			to[switch,l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,0)
+			to[R, l_=$R_{on}$, i<=$I_D$] ++(0, 2)
+			to[short, -*] ++(0, 0.2)
+            node[label=right:$S$] {};;
+			\draw (0, 2) -- (-1, 2)
+			to[C, -*, l_=$C_{GS}$] ++(0, -2) node[label=left:$G$] {};;
+			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
+		\end{circuitikz} \\ \hline
+
+NMOS &  \begin{circuitikz}[scale=0.9]
+            \draw (0,-2)
+            to[switch,l_= $V_{GS} \geq V_{tn}$]
+            (0,2) to[short, -*] ++(0,0)
+            node[label=left:$D$] {};;
+            \draw (0,-2) -- (-1,-2)
+            to[short, -*] ++(0,2) node[label=left:$G$] {};;
+            \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
+            \draw (0, -2) to [short, -*] ++(0, -0.2) node[label=right:$S$] {};;
+        \end{circuitikz} &
+        \begin{circuitikz}[scale=0.9]
+            \draw (0,-2)
+            to[switch,l_= $V_{GS} \geq V_{tn}$]
+            (0,0) to[R,-*,l=$R_{on, N}$,i<=$I_D$] ++(0,2)
+            node[label=left:$D$] {};;
+            \draw (0,-2) -- (-1,-2)
+            to[short, -*] ++(0,2) node[label=left:$G$] {};;
+            \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
+            \draw (0, -2) to [short, -*] ++(0, -0.2) node[label=right:$S$] {};;
+        \end{circuitikz} & 
+        \begin{circuitikz}[scale=0.9]
+            \draw (0,-2)
+            to[switch,l_= $V_{GS} \geq V_{tn}$]
+            (0,0) to[R,-*,l=$R_{on, N}$,i<=$I_D$] ++(0,2)
+            node[label=left:$D$] {};;
+            \draw (0,-2) -- (-1,-2)
+            to[C,-*,l=$C_{GS}$] ++(0,2) node[label=left:$G$] {};;
+            \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
+            \draw (0, -2) to [short, -*] ++(0, -0.2) node[label=right:$S$] {};;
+        \end{circuitikz} \\ \hline
+\end{tabular} \end{center}
+
+\subsection*{First-order ODEs}
+\begin{enumerate}
+    \item \textbf{Homogenous case}: a differential equation where the first derivative of the state variable is proportional to the state variable.
+    \begin{align*}
+        \frac{d}{dt} x(t) = \lambda x(t)
+    \end{align*}
+    The general solution to this differential equation is
+    \begin{align*}
+        x(t) = x(0) e^{\lambda t}
+    \end{align*}
+
+    \item \textbf{Non-homogenous case}: the first derivative of the state variable is equal to a multiple of the state plus a constant.
+    \begin{align*}
+        \frac{d}{dt} x(t) = \lambda x(t) + \alpha
+    \end{align*}
+    To solve this type of differential equation, change variables to $z(t) = x(t) + \frac{\alpha}{\lambda}$, so that
+    \begin{align*}
+        \frac{d}{dt} z(t) = \lambda z(t)
+    \end{align*}
+    Now, you can use the result from the homogenous case to solve the differential equation in terms of $z(t)$, and then change variables back to $x(t)$ to get your final solution.
+    \begin{align*}
+        z(t) = z(0) e^{\lambda t} \\
+        x(t) + \frac{\alpha}{\lambda} = (x(0) + \frac{\alpha}{\lambda}) e^{\lambda t} \\
+        x(t) = x(0) e^{\lambda t} + \frac{\alpha}{\lambda}(e^{\lambda t} - 1)
+    \end{align*}
+
+    \item \textbf{First order ODE with non-constant inputs}:the first derivative of the state variable is equal to a multiple of the state plus a non-constant function of t.
+    \begin{align*}
+        \frac{d}{dt} x(t) = \lambda x(t) + u(t)
+    \end{align*}
+    The general solution to this differential equation is:
+    \begin{align*}
+        x(t) = x(0) e^{\lambda t} + \int_0^t u(\tau) e^{\lambda(t - \tau)} \, d\tau
+    \end{align*}
+
+\end{enumerate}
+
+\subsection*{Time-Domain RC circuits}
+\begin{figure}[H]
+	\begin{center}
+		\begin{circuitikz}
+			\draw (0, 4)
+			to[V =$V_s$] (0, 0);
+			\draw (0, 4)
+			to[switch,l^=\mbox{$t = 0$}](4,4)
+			(4,4) to[R = $R$,v=$V_R(t)$,i>^=$i_R(t)$] (7,4)	
+			to [short] (9,4)
+			to[C = $C$, v=$V_{C}(t)$,i>^=$i_C(t)$] (9,0)
+			to [short] (0,0);
+		\end{circuitikz}
+		\caption{\label{fig:circuit}RC Circuit with Voltage Source}
+	\end{center}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Step 1}: Use KCL and KVL equations, and the capacitor charge-voltage relationship ($Q = CV$, $I_C = C \frac{d}{dt} V_C$) to get a differential equation in terms of the given variable (typically $V_C$ or $I_C$)
+    \item \textbf{Step 2}: Identify the differential equation as homogenous, non-homogenous, or having a non-constant input, and solve the differential equation using the tools above.
+    \item \textbf{Step 3}: Plug initial conditions into your solution.
+\end{enumerate}
+
+Note: LR circuits can be solved in a similar manner, using the relation $V_R = L \frac{d}{dt} I_R$
+
+\subsection*{Diagonalization and Eigenbasis}
+
+Given a system of the form
+\begin{align*}
+    \vec{y} = A \vec{x}
+\end{align*}
+We define the eigenbasis as
+\begin{align*}
+    V = \begin{bmatrix}
+        \vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
+    \end{bmatrix}
+\end{align*}
+where $\vec{v_i}$ is the $i^{\text{th}}$ eigenvector of $A$ \\
+Then, we can express any vector as a linear combination of eigenvectors of $A$
+\begin{align*}
+    \vec{x} = a_1 \vec{v_1} + \dots + \vec{v_n} \\
+    \vec{x} = V \vec{\widetilde{x}} \\
+    \vec{\widetilde{x}} = V^{-1} \vec{x}
+\end{align*}
+Then, if we substitute $V \vec{\widetilde{x}}$ for $\vec{x}$ in our system, we get
+\begin{align*}
+    V \vec{\widetilde{y}} = AV \vec{\widetilde{x}} \\
+    \vec{\widetilde{y}} = V^{-1}AV \vec{\widetilde{x}}
+\end{align*}
+
+Because $V$ is the eigenbasis, $V^{-1}AV$ is diagonal
+\begin{align*}
+    V^{-1}AV = 
+    \begin{bmatrix}
+        \lambda_1 & 0 & \dots & 0 \\
+        0 & \lambda_2 & \dots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \dots & \lambda_n
+    \end{bmatrix}
+\end{align*}
+
+You may find this diagram useful to visualize this process:
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance = 2cm, thick, every node/.style={inner sep=0.25em,outer sep=0.25em}]%
+      \node (1) [circle,draw,minimum size=2em] {$\vec{x}$};
+      \node (2) [circle,draw,right=of 1,minimum size=2em] {$\vec{y}$};
+      \node (3) [circle,draw,below=of 2,minimum size=2em] {$\widetilde{\vec{y}}$};
+      \node (4) [circle,draw,below=of 1,minimum size=2em] {$\widetilde{\vec{x}}$};
+      \draw[->] (1) -- node [rectangle,draw,midway,above,minimum size=2.5em] {$A$} (2);
+      \draw[->] (1.240) -- node [rectangle,draw,midway,left,minimum size=2.5em]{$V^{-1}$} (4.120);
+      \draw[->] (4.60) -- node [rectangle,draw,midway,right,minimum size=2.5em]{$V$} (1.300);
+      \draw[->] (2.300) -- node [rectangle,draw,midway,right,minimum size=2.5em]{$V^{-1}$} (3.60);
+      \draw[->] (3.120) -- node [rectangle,draw,midway,left,minimum size=2.5em]{$V$} (2.240);
+      \draw[->] (4) -- node [rectangle,draw,midway,below,minimum size=2.5em] {$D$} (3);
+    \end{tikzpicture}%
+\end{figure}
+
+\subsection*{Multivariate ODEs}
+When given a system of differential equations of the form
+\begin{align*}
+    \frac{d}{dt} \vec{x}(t) = 
+    A \vec{x}(t)
+\end{align*}
+you can diagonalize the system and solve in the eigenbasis.
+
+\begin{enumerate}
+    \item \textbf{Step 1}: Find the eigenvalue-eigenvector pairs $(\lambda_1, \vec{v_1}), \dots (\lambda_n, \vec{v_n})$ of your $A$ matrix.
+    \item \textbf{Step 2}: Define $V = \begin{bmatrix}
+        \vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
+    \end{bmatrix}$, and transform your system to the eigenbasis
+
+    \begin{align*}
+    \frac{d}{dt} \vec{\widetilde{x}}(t) =  V^{-1}AV \vec{\widetilde{x}}(t) =
+    \begin{bmatrix}
+        \lambda_1 & 0 & \dots & 0 \\
+        0 & \lambda_2 & \dots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \dots & \lambda_n
+    \end{bmatrix} \vec{\widetilde{x}}(t) \\
+    \vec{\widetilde{x}}(0) = V^{-1} \vec{x}(0)
+    \end{align*}
+
+    \item We can then decompose this matrix-vector equation into several single-variable equations
+    \begin{align*}
+        \frac{d}{dt} \widetilde{x_1}(t) = \lambda_1 \widetilde{x_1}(t) \\
+        \dots \\
+        \frac{d}{dt} \widetilde{x_n}(t) = \lambda_n \widetilde{x_n}(t)
+    \end{align*}
+    Solve each equation to get expressions for $\widetilde{x_1}, \dots \widetilde{x_n}$
+    \begin{align*}
+        \widetilde{x_1}(t) = \widetilde{x_1}(0) e^{\lambda_1 t} \\
+        \dots \\
+        \widetilde{x_n}(t) = \widetilde{x_1}(0) e^{\lambda_n t} 
+    \end{align*}
+
+    \item Transform your solution back to the standard basis
+    \begin{align*}
+        \vec{x}(t) = V \vec{\widetilde{x}}(t)
+    \end{align*}
+
+\end{enumerate}
+
+\textbf{Second-Order ODE}: If we have a differential equation that depends on $\frac{d^2}{dt^2} x$, define your state vector as $\begin{bmatrix} x \\ \frac{d}{dt} x \end{bmatrix}$ and solve your system as a Multivariate ODE.
+
+\subsection*{Complex Numbers}
+
+
+
+% DONE NMOS, PMOS: knowing what happens with different gate and source potentials for both
+% DONE Switch, Resistor Switch, and RC model
+% CMOS inverter: replace with RC model, get diff eqs, solve
+% DONE Time-domain circuits
+% DONE Homogenous ODE, non-homogenous ODE (change of variables), ODE with non-constant input
+% DONE RC, LR circuits: get diff eq using KCL and KVL, then solve + apply initial conditions
+% DONE Change of Basis and Diagonalization
+% DONE Multivariate ODE: get matrix-vector equation, diagonalize, solve in the eigenbasis, change back to standard basis
+% DONE Second-order ODE (using x and x' as state variables) and LRC
+% Frequency Domain
+% Phasors (e^{j \phi}, intuition: cos(\omega t + \phi) is the real part of e^{j(\omega t + \phi)}, get rid of the \omega t part because the circuit cannot introduce new frequencies)
+% Impedance of common circuit elements(R, L, C)
+% Filters (high-pass, low-pass, band-pass) and transfer functions, reading but not creating bode plots
+% Resonance: transfer function for LRC circuit
