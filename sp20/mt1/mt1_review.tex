@@ -252,10 +252,104 @@ you can diagonalize the system and solve in the eigenbasis.
 
 \textbf{Second-Order ODE}: If we have a differential equation that depends on $\frac{d^2}{dt^2} x$, define your state vector as $\begin{bmatrix} x \\ \frac{d}{dt} x \end{bmatrix}$ and solve your system as a Multivariate ODE.
 
+\textbf{Complex Eigenvalues}: The behavior of a system (for example, a RLC circult) in the time domain varies based on whether its eigenvalues are real, imaginary, or complex.
+\begin{enumerate}
+    \item \textit{Real}: The time-domain response is a decaying exponential with no oscillations.
+    \item \textit{Imaginary}: The response is a sinusoid that oscillates without decaying.
+    \item \textit{Complex}: The response is the product of a decaying exponential and a sinusoid, so it oscillates as it decays.
+\end{enumerate}
+
 \subsection*{Complex Numbers}
+\textbf{Complex number representations:} You can either represent complex numbers in 
+\begin{enumerate}
+    \item rectangular form ($a + bi$, where $a$ is the real component and $b$ is the imaginary component), or
+    \item polar form ($Me^{j \theta}$, where $M$ is the magnitude and $\theta$ is the angle)
+\end{enumerate}
 
+\textbf{Operations with complex numbers}
+\begin{enumerate}
+    \item To go from rectangular to polar
+    \begin{align*}
+        M = \sqrt{a^2 + b^2} \\
+        \theta = \atan2(b, a)
+    \end{align*}
+    \textit{Note: atan2(y, x) returns the angle between y and x. It is like arctan, except its range is from 0 to $2\pi$}
+    \item To go from polar to rectangular
+    \begin{align*}
+        a = M\cos(\theta) \\
+        b = M\sin(\theta)
+    \end{align*}
 
+    \item It is easiest to add two numbers in rectangular form: the real and imaginary components add
+    \begin{align*}
+        (a + bj) + (c + dj) = (a + c) + (b + d)j
+    \end{align*}
 
+    \item It is easiest to multiple numbers in polar form: the magntudes multiply and the phases add
+    \begin{align*}
+        (M_1 e^{j \theta_1})(M_2 e^{j \theta_2}) = M_1 M_2 e^{j (\theta_1 + \theta_2)}
+    \end{align*}
+\end{enumerate}
+
+\textbf{Euler's Identity}: Euler's Identity relates complex exponentials (the polar representation of complex numbers) to sines and cosines.
+\begin{align*}
+    e^{j \theta} = \cos(\theta) + j \sin(\theta)
+\end{align*}
+
+\subsection*{Frequency Domain Analysis: Phasors and Impedance}
+We can analyze circuits with sinusoidal inputs/sources in the frequency domain. To do so, we use the \textit{phasor} representation of sinusoidal voltages and currents, and the \textit{impedances} of passive circuit elements (resistors, capacitors, inductors).
+
+\begin{enumerate}
+    \item \textbf{Find the phasor representations of voltages and currents}: 
+    Let 
+    \begin{align*}
+    V_s = A\cos(\omega t + \phi)
+    \end{align*}
+
+    where A is the amplitude of the wave, $\omega$ is the angular frequency in radians per second, and $\phi$ is the phase offset. \\
+    Then, the phasor representation of $V_s$ is as follows
+
+    \begin{align*}
+    \widetilde{V_s} = A e^{j \phi}
+    \end{align*}
+    \textit{Note:} to find the phasor representation of a sine wave, first convert to cosine: $\sin(\theta) = \cos(\theta - \pi/2)$ \\
+
+    \item \textbf{Find the impedance of passive circuit elements}:
+    The impedance of a circuit element is defined as its current-voltage relationship in the phasor domain.
+    \begin{align*}
+    Z = \frac{\widetilde{V}}{\widetilde{I}}
+    \end{align*}
+    
+    \begin{center}
+        \begin{tabular}[t]{|c|c|c|}
+        \hline
+        Element & Drawing & Impedance \\ \hline
+        Resistor & 
+        \begin{circuitikz}
+            \draw (0, 0)
+            to[R = $R$] (2,0) {};;
+        \end{circuitikz}
+        & $Z_R = R$ \\ \hline
+        Capacitor & \begin{circuitikz}
+            \draw (0, 0)
+            to[C = $C$] (2,0) {};;
+        \end{circuitikz}
+        & $Z_C = \frac{1}{j \omega C}$ \\ \hline
+        Inductor & \begin{circuitikz}
+            \draw (0, 0)
+            to[L = $L$] (2,0) {};;
+        \end{circuitikz}
+        & $Z_L = j \omega L$ \\ \hline
+        \end{tabular}
+    \end{center}
+
+    \item \textbf{Solve}: Use KCL, KVL, and impedance relationships to solve for the output voltage.
+    If necessary, convert the output voltage back to the time domain ($Ae^{j \phi}$ at frequency $\omega$ becomes $A\cos(\omega t + \phi)$)
+\end{enumerate}
+
+\subsection*{Filters}
+
+\subsection*{Resonance}
 % DONE NMOS, PMOS: knowing what happens with different gate and source potentials for both
 % DONE Switch, Resistor Switch, and RC model
 % CMOS inverter: replace with RC model, get diff eqs, solve
@@ -265,8 +359,8 @@ you can diagonalize the system and solve in the eigenbasis.
 % DONE Change of Basis and Diagonalization
 % DONE Multivariate ODE: get matrix-vector equation, diagonalize, solve in the eigenbasis, change back to standard basis
 % DONE Second-order ODE (using x and x' as state variables) and LRC
-% Frequency Domain
-% Phasors (e^{j \phi}, intuition: cos(\omega t + \phi) is the real part of e^{j(\omega t + \phi)}, get rid of the \omega t part because the circuit cannot introduce new frequencies)
-% Impedance of common circuit elements(R, L, C)
+% DONE Frequency Domain
+% DONE Phasors (e^{j \phi}, intuition: cos(\omega t + \phi) is the real part of e^{j(\omega t + \phi)}, get rid of the \omega t part because the circuit cannot introduce new frequencies)
+% DONE Impedance of common circuit elements(R, L, C)
 % Filters (high-pass, low-pass, band-pass) and transfer functions, reading but not creating bode plots
 % Resonance: transfer function for LRC circuit
