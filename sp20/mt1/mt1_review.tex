@@ -350,7 +350,7 @@ When we want to look at the input-output relationship of a circuit, we look at i
     H(\omega) = \frac{\widetilde{V}_{out}}{\widetilde{V}_{in}}
 \end{align*}
 
-A \textbf{filter} is a circuit that only lets some frequencies pass through and attenuates the rest
+A \textbf{filter} is a circuit that only lets some frequencies pass through and attenuates the rest.
 
 \begin{center}
     \begin{tabular}[t]{|c|c|c|c|c|}
@@ -437,7 +437,7 @@ At this frequency, the impedances of the capacitor and inductor "cancel out" ($j
     H(\omega_n = \sqrt{1/LC}) = \frac{1/LC}{j\sqrt{\frac{1}{LC}} \frac{R}{L}}
 \end{align*}
 
-For an LRC bandpass filter with $\omega_n = 10^4$, the magnitude of the transfer function would look something like this (\textit{Note: the transfer function is on a log-log scale})
+For an LRC bandpass filter with $\omega_n = 10^4$, the magnitude of the transfer function would look something like this (\textit{Note: the plot is on a log-log scale}) \\
 \begin{tikzpicture}[
     declare function={
     mag(\omega)= (10^8) / (sqrt((10^8 - \omega^2)^2 + (\omega * 100)^2))
