@@ -437,5 +437,23 @@ At this frequency, the impedances of the capacitor and inductor "cancel out" ($j
     H(\omega_n = \sqrt{1/LC}) = \frac{1/LC}{j\sqrt{\frac{1}{LC}} \frac{R}{L}}
 \end{align*}
 
-If we plot the magnitude in the frequency domain, we get
-[INSERT BODE PLOT HERE]
+For an LRC bandpass filter with $\omega_n = 10^4$, the magnitude of the transfer function would look something like this (\textit{Note: the transfer function is on a log-log scale})
+\begin{tikzpicture}[
+    declare function={
+    mag(\omega)= (10^8) / (sqrt((10^8 - \omega^2)^2 + (\omega * 100)^2))
+    ;
+    }
+]
+    \begin{loglogaxis}
+    [
+    ymin=0.001, ymax=100, ylabel=$|H(\omega)|$,
+    xmin=10^2, xmax=10^6, xlabel=$\omega$,
+    domain=10^2:10^6,
+    grid=both, grid style={line width=.1pt, draw=gray!30},
+    width=\textwidth * 0.8,
+    height=\textwidth / 2.5,
+    samples=500
+    ]
+    \addplot [blue,very thick] {mag(x)};
+    \end{loglogaxis}
+\end{tikzpicture}
