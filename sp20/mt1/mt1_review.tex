@@ -5,7 +5,7 @@
 \begin{center} 
 \begin{tabular}[t]{|c|c|p{200px}|}
 \hline
-Type & Circuit Element & Behavior \\ \hline
+Type & Drawing & Behavior \\ \hline
 PMOS & \begin{circuitikz}[american] 
 \draw (0, 0) node[pmos] (nmos) {};
 \draw (nmos.G) node[left]{$G$};
@@ -90,41 +90,44 @@ NMOS &  \begin{circuitikz}[scale=0.9]
         \end{circuitikz} \\ \hline
 \end{tabular} \end{center}
 
-\subsection*{First-order ODEs}
+\subsection*{First-Order Differential Equations}
 \begin{enumerate}
-    \item \textbf{Homogenous case}: a differential equation where the first derivative of the state variable is proportional to the state variable.
+    \item \textbf{Homogeneous Case}: the first derivative of the state variable $x(t)$ is proportional to the state variable by some constant $\lambda$. The general form of a homogeneous differential equation is:
     \begin{align*}
-        \frac{d}{dt} x(t) = \lambda x(t)
+        \boxed{\frac{d}{dt} x(t) = \lambda x(t)}
     \end{align*}
-    The general solution to this differential equation is
+    Given some initial state $x(0)$, the unique solution to this differential equation is:
     \begin{align*}
-        x(t) = x(0) e^{\lambda t}
+        \boxed{x(t) = x(0) e^{\lambda t}}
     \end{align*}
 
-    \item \textbf{Non-homogenous case}: the first derivative of the state variable is equal to a multiple of the state plus a constant.
+    \item \textbf{Non-homogenous Case}: the first derivative of the state variable $x(t)$ is equal to a scaled multiple of the state plus a nonzero constant. The general form of a non-homogeneous differential equation is:
     \begin{align*}
-        \frac{d}{dt} x(t) = \lambda x(t) + \alpha
+        \boxed{\frac{d}{dt} x(t) = \lambda x(t) + \alpha}
     \end{align*}
-    To solve this type of differential equation, change variables to $z(t) = x(t) + \frac{\alpha}{\lambda}$, so that
+    To solve this type of differential equation, use a change of variables $x(t) = z(t) - \frac{\alpha}{\lambda}$. Plugging in this new definition of $x(t)$ into the original differential equation, we get the homogeneous case with respect to the new variable $z(t)$:
     \begin{align*}
-        \frac{d}{dt} z(t) = \lambda z(t)
+        \frac{d}{dt} x(t) &= \lambda x(t) + \alpha \\
+        \frac{d}{dt} (z(t) - \frac{\alpha}{\lambda}) &= \lambda (z(t) - \frac{\alpha}{\lambda}) + \alpha \\
+        \frac{d}{dt} z(t) &= \lambda z(t)
     \end{align*}
     Now, you can use the result from the homogenous case to solve the differential equation in terms of $z(t)$, and then change variables back to $x(t)$ to get your final solution.
     \begin{align*}
-        z(t) = z(0) e^{\lambda t} \\
-        x(t) + \frac{\alpha}{\lambda} = (x(0) + \frac{\alpha}{\lambda}) e^{\lambda t} \\
-        x(t) = x(0) e^{\lambda t} + \frac{\alpha}{\lambda}(e^{\lambda t} - 1)
+        z(t) &= z(0) e^{\lambda t} \\
+        x(t) + \frac{\alpha}{\lambda} &= (x(0) + \frac{\alpha}{\lambda}) e^{\lambda t} \\
     \end{align*}
 
-    \item \textbf{First order ODE with non-constant inputs}:the first derivative of the state variable is equal to a multiple of the state plus a non-constant function of t.
-    \begin{align*}
-        \frac{d}{dt} x(t) = \lambda x(t) + u(t)
-    \end{align*}
-    The general solution to this differential equation is:
-    \begin{align*}
-        x(t) = x(0) e^{\lambda t} + \int_0^t u(\tau) e^{\lambda(t - \tau)} \, d\tau
-    \end{align*}
+    \vspace{-35px}
+    $$\boxed{x(t) = x(0) e^{\lambda t} + \frac{\alpha}{\lambda}(e^{\lambda t} - 1)}$$
 
+    \item \textbf{Non-homogeneous with Nonconstant Input $u(t)$}: the first derivative of the state variable is equal to a scalar multiple of the state plus a general non-constant function $u(t)$.
+    \begin{align*}
+        \boxed{\frac{d}{dt} x(t) = \lambda x(t) + u(t)}
+    \end{align*}
+    The solution to this differential equation is:
+    \begin{align*}
+        \boxed{x(t) = x(0) e^{\lambda t} + \int_0^t u(\tau) e^{\lambda(t - \tau)} \, d\tau}
+    \end{align*}
 \end{enumerate}
 \newpage 
 \subsection*{Time-Domain RC circuits}
@@ -134,10 +137,10 @@ NMOS &  \begin{circuitikz}[scale=0.9]
 			\draw (0, 4)
 			to[V =$V_s$] (0, 0);
 			\draw (0, 4)
-			to[switch,l^=\mbox{$t = 0$}](4,4)
-			(4,4) to[R = $R$,v=$V_R(t)$,i>^=$i_R(t)$] (7,4)	
-			to [short] (9,4)
-			to[C = $C$, v=$V_{C}(t)$,i>^=$i_C(t)$] (9,0)
+			to[switch,l^=\mbox{$t = 0$}](3,4)
+			(3,4) to[R = $R$,v=$V_R(t)$,i>^=$i_R(t)$] (6,4)	
+			to [short] (8,4)
+			to[C = $C$, v=$V_{C}(t)$,i>^=$i_C(t)$] (8,0)
 			to [short] (0,0);
 		\end{circuitikz}
 		\caption{\label{fig:circuit}RC Circuit with Voltage Source}
@@ -145,13 +148,32 @@ NMOS &  \begin{circuitikz}[scale=0.9]
 \end{figure}
 
 \begin{enumerate}
-    \item \textbf{Step 1}: Use KCL and KVL equations, and the capacitor charge-voltage relationship ($Q = CV$, $I_C = C \frac{d}{dt} V_C$) to get a differential equation in terms of the given variable (typically $V_C$ or $I_C$)
+    \item \textbf{Step 1}: Use KCL and KVL equations, and the capacitor charge-voltage relationship ($i_C(t) = C \frac{d}{dt} V_C(t)$) to get a differential equation in terms of the given variable (typically $V_C(t)$ or $i_C(t)$).
+    
+    For the above circuit, KCL gives us the following differential equation:
+    \begin{align*}
+        i_R(t) &= i_C(t) \\
+        \frac{V_s - V_C(t)}{R} &= C \frac{d}{dt} V_C(t)
+    \end{align*}
+
     \item \textbf{Step 2}: Identify the differential equation as homogenous, non-homogenous, or having a non-constant input, and solve the differential equation using the tools above.
+
+    We can express the above differential equation the form:
+    \begin{align*}
+        \frac{d}{dt} V_C(t) = -\frac{1}{RC} V_C(t) + \frac{1}{RC} V_s
+    \end{align*}
+
+    How would you solve this differential equation if $V_s = 0$? $V_s = V_{DD} > 0$? $V_s(t) = e^{t}$?
+
     \item \textbf{Step 3}: Plug initial conditions into your solution.
+
+    For example, uncharged capacitors have an initial condition $V_C(t = 0) = 0$.
 \end{enumerate}
 
-Note: LR circuits can be solved in a similar manner, using the relation $V_R = L \frac{d}{dt} I_R$
+Note: Circuits with inductors can be solved in a similar manner, using the inductor I-V relationship: 
+$$\boxed{V_L(t) = L \frac{d}{dt} i_L(t)}$$
 
+\newpage
 \subsection*{Diagonalization and Eigenbasis}
 
 Given a system of the form
