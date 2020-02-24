@@ -40,9 +40,15 @@ All voltages and currents with known sinusoidal functions should be expressed in
 \ws{\vspace{100px}}
 
 \sol{
-\begin{align}
-v_s(t) = 8 \cos(\omega t - \frac{\pi}{4})
-\end{align}
+We can extract the phasor representation of $V_s(t)$ by writing it in the form $V_s(t) = \operatorname{Re}(\widetilde{V}_s e^{j \omega t})$:
+
+\begin{align*}
+V_s(t) &= 8 \cos(\omega t - \frac{\pi}{4}) \\
+	   &= \operatorname{Re}(8e^{j (-\frac{\pi}{4})} e^{j \omega t}) \\
+	\implies \widetilde{V}_s &= 8e^{j (-\frac{\pi}{4})}
+\end{align*}
+
+\textit{Alternatively,} we can expand $V_s(t)$ into the sum of complex exponentials and pattern matching to find the phasor.
 
 The two formulas below will help us convert a sinusoid into a sum of exponentials:
 \begin{gather*}
@@ -50,17 +56,16 @@ The two formulas below will help us convert a sinusoid into a sum of exponential
 \sin(\theta) = \frac{1}{2j} e^{j \theta} - \frac{1}{2j} e^{-j \theta}
 \end{gather*}
 
-
 Using the fact that $\cos(\theta) = \frac{1}{2} e^{j \theta} + \frac{1}{2} e^{-j\theta},$
 \begin{align*}
-v_s(t) &= 8 \big( \frac{1}{2} e^{j(\omega t - \frac{\pi}{4})} + \frac{1}{2} e^{-j(\omega t - \frac{\pi}{4})} \big) = 4e^{j(\omega t - \frac{\pi}{4})} + 4e^{-j(\omega t - \frac{\pi}{4})} \\
-&= 4e^{j \omega t} \cdot e^{-j \frac{\pi}{4}} + 4e^{-j \omega t} e^{j \frac{\pi}{4}}
+V_s(t) &= 8 \big( \frac{1}{2} e^{j(\omega t - \frac{\pi}{4})} + \frac{1}{2} e^{-j(\omega t - \frac{\pi}{4})} \big) = \frac{1}{2} (e^{j(\omega t - \frac{\pi}{4})} + 8e^{-j(\omega t - \frac{\pi}{4})}) \\
+&= \frac{1}{2} (8 e^{-j \frac{\pi}{4}} e^{j \omega t} + 8 e^{j \frac{\pi}{4}} e^{-j \omega t})
 \end{align*}
 
-The phasor is given by
-\begin{align}
-\widetilde{V}_s = 4 e^{-j\frac{\pi}{4}}
-\end{align}
+Thus, the phasor is given by
+\begin{align*}
+\widetilde{V}_s = 8 e^{-j\frac{\pi}{4}}
+\end{align*}
 }
 
 % \ans{
@@ -83,6 +88,8 @@ The current $i(t)$ is related to its phasor counterpart $\widetilde{I}$.
 % i(t) = \mathfrak{Re}[I e^{j\omega t}].
 % \end{align}
 \textbf{What are the phasor representations of $R$ and $C$?}
+
+\meta{Students might find it helpful to actually redraw the circuit and labeling the source as a constant phasor input and the circuit elements transformed into black box impedances.}
 
 \ws{\vspace{50px}}
 
@@ -108,9 +115,9 @@ Use Kirchhoff's laws to write down a loop equation that relates all phasors in S
 
 \sol{
 By KCL, the current through the resistor is equal to the current through the capacitor.
-$$i(t) = i_{r}(t) = i_{\text{c}}(t) \rightarrow \widetilde{I} = \widetilde{I}_R = \widetilde{I}_C $$
+$$i(t) = i_{R}(t) = i_{\text{C}}(t) \rightarrow \widetilde{I} = \widetilde{I}_R = \widetilde{I}_C $$
 By KVL, the sum of the voltages across the resistor and capacitor is equal to that of the source.
-$$v_{s}(t) = v_{\text{c}}(t) + v_{r}(t) \rightarrow \widetilde{V}_s = \widetilde{V}_{\text{c}} + \widetilde{V}_{R}$$
+$$V_{s}(t) = V_{\text{C}}(t) + V_{R}(t) \rightarrow \widetilde{V}_s = \widetilde{V}_{\text{c}} + \widetilde{V}_{R}$$
 Substituting the impedances in, we get:
 $$\widetilde{V}_s = \widetilde{I} \frac{1}{j \omega C} + \widetilde{I} R = \widetilde{I} (R + \frac{1}{j\omega C})$$
 }
@@ -125,30 +132,15 @@ What is the polar form of $\widetilde{I}$ ($Ae^{i\theta}$, where $A$ is a positi
 \sol{
 We first solve for the current $\widetilde{I}:$
 $$\widetilde{I} = \frac{\widetilde{V}_s}{R + \frac{1}{j \omega C}}$$
-We plug in for $\omega = 10^3, R = 10^3 \Omega, C = 10^{-6} \mu$F
-$$\widetilde{I} = \frac{4 e^{-j \frac{\pi}{4}}}{10^3 + \frac{1}{j 10^{3} 10^{-6}}} = \frac{4 e^{-j \frac{\pi}{4}}}{10^3 - 10^3 j} = \frac{4 e^{-j \frac{\pi}{4}}}{10^{3} \sqrt{2} e^{-j \frac{\pi}{4}.}} = \frac{2 \sqrt{2}}{10^{3}} \mbox{ A} = 2 \sqrt{2} \mbox{ mA}$$
+We plug in for $\omega = 10^3, R = 10^3 \Omega, C = 10^{-6} \mu$F, $\widetilde{V}_s = 8 e^{-j\frac{\pi}{4}}$:
 
-To solve for $\widetilde{V}_{\text{C}}$ we use the voltage-current relationship $\widetilde{V} = \widetilde{I} \frac{1}{j \omega C}$
-$$\widetilde{V}_{\text{c}} = \frac{1}{10^{-3} j} \frac{2 \sqrt{2}}{10^{3}} = 2 \sqrt{2} e^{-j \frac{\pi}{2}} \mbox{ V}$$
+$$\widetilde{I} = \frac{8 e^{-j \frac{\pi}{4}}}{10^3 + \frac{1}{j 10^{3} 10^{-6}}} = \frac{8 e^{-j \frac{\pi}{4}}}{10^3 - 10^3 j} = \frac{8 e^{-j \frac{\pi}{4}}}{10^{3} \sqrt{2} e^{-j \frac{\pi}{4}.}} = \frac{4 \sqrt{2}}{10^{3}} \mbox{ A} = 4 \sqrt{2} \mbox{ mA}$$
+
+In the previous line, the third to the fourth equality comes from the plotting the denominator on the complex plane and converting to polar coordinates by taking the magnitude and the phase with respect to the positive real axis.
+
+To solve for $\widetilde{V}_{\text{C}}$ we use the voltage-current relationship of a capacitor in phasor domain (as we derived in a previous problem): $\widetilde{V} = \widetilde{I} \frac{1}{j \omega C}$.
+$$\widetilde{V}_{\text{C}} = \frac{1}{10^{-3} j} \frac{4 \sqrt{2}}{10^{3}} = 4 \sqrt{2} e^{-j (\frac{\pi}{2})} \mbox{ V}$$
 }
-
-% \ans{
-% \begin{align}
-% I = \frac{12 e^{-j\frac{3\pi}{4}}}{R + \frac{1}{j\omega C}} = \frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}
-% \end{align}
-% \begin{align*}
-% V_C=IZ_C=\frac{j12\omega C e^{{-j\frac{3\pi}{4}}}}{1+ j\omega RC}*\frac{1}{j\omega C}= \frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC}
-% \end{align*}
-
-% To derive the polar form,
-% \begin{align}
-% I = \frac{j12e^{-j\frac{3\pi}{4}}*10^{-3}}{1+j\sqrt{3}} = \frac{12e^{-j\frac{3\pi}{4}}e^{j\frac{\pi}{2}}*10^{-3}}{2e^{j\frac{\pi}{3}}}
-% = 6e^{-j\frac{7\pi}{12}} \mbox{ mA}.
-% \end{align}
-% \begin{align}
-% V=\frac{12e^{-j\frac{3\pi}{4}}}{1+j\omega RC} = \frac{12e^{-j\frac{3\pi}{4}}}{1+j\sqrt{3}}=\frac{12e^{-j\frac{3\pi}{4}}}{2e^{j\frac{\pi}{3}}}= 6e^{-j\frac{13\pi}{12}}  \mbox{ V}
-% \end{align}
-% }
 
 \qitem \textbf{Step 5: Transform solutions back to time domain}
 
@@ -158,13 +150,25 @@ What is $i(t)$ and $V_{\text{C}}(t)$? What is the phase difference between $i(t)
 \ws{\vspace{100px}}
 
 \sol{
-\begin{align}
-i(t) = Ie^{j\omega t} + \overline{I}e^{-j\omega t} = 4 \sqrt{2} \cos (\omega t)  \mbox{ mA}
-\end{align}
-\begin{align}
-v_C(t)= Ve^{j\omega t} + \overline{V}e^{-j\omega t}= 4 \sqrt{2} \cos(\omega t - \frac{\pi}{2}) \mbox{ V}
-\end{align}
-The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$
+From the previous part, we now have the phasor representations of current and voltage of the capacitor: 
+\begin{align*}
+\widetilde{I} &= 4 \sqrt{2} \\
+\widetilde{V}_C &= 4 \sqrt{2} e^{-j (\frac{\pi}{2})}
+\end{align*}
+
+Remember that phasors encode the magnitude and phase of a sinusoid, removing the time-dependence by assuming that we are operating with a sinusoid with the given fixed frequency $\omega$. Therefore, to convert back, we can just read off the magnitude and phase of the current and voltage phasors.
+
+\begin{align*}
+\widetilde{I} = \frac{4\sqrt{2}}{10^3} = \frac{4\sqrt{2}}{10^3} e^{j (0)} &\implies A = \frac{4\sqrt{2}}{10^3} \text{, } \phi = 0 \\
+&\implies i(t) = A\cos(\omega t + \phi) = \frac{4\sqrt{2}}{10^3} \cos(\omega t + 0) = 4\sqrt{2} \cos(\omega t) \mbox{ mA}
+\end{align*}
+
+\begin{align*}
+\widetilde{V}_C = 4 \sqrt{2} e^{-j (\frac{\pi}{2})} &\implies A = 4\sqrt{2} \text{, } \phi = -\frac{\pi}{2} \\
+&\implies V_C(t) = A\cos(\omega t + \phi) = 4\sqrt{2} \cos(\omega t - \frac{\pi}{2}) = 4\sqrt{2} \cos(\omega t - \frac{\pi}{2}) \mbox{ V}
+\end{align*}
+
+The phase difference between the two, with respect to $i(t)$ is $-\frac{\pi}{2}$.
 }
 
 % \ans{
