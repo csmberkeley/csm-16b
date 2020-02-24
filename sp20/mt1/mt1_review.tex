@@ -291,7 +291,7 @@ The strategy is to diagonalize the system so that there is a set of $n$ separate
 
 \textbf{Second-Order ODE}: If we have a differential equation that depends on $\frac{d^2}{dt^2} x(t)$, define your state vector as $\begin{bmatrix} x(t) & \frac{d}{dt} x(t) \end{bmatrix}^T$ and solve your system as a multivariate differential equation.
 
-\textbf{Complex Eigenvalues}: The behavior of a system (for example, a RLC circult) in the time domain varies based on whether its eigenvalues are real, imaginary, or complex.
+\textbf{Complex Eigenvalues}: The behavior of a system (for example, a RLC circuit) in the time domain varies based on whether its eigenvalues are real, imaginary, or complex.
 \begin{enumerate}
     \item \textbf{Purely Real Eigenvalues ($\lambda = a$)}: The time-domain response is a decaying exponential with no oscillations.
     \item \textbf{Purely Imaginary Eigenvalues ($\lambda = bj$)}: The response is a sinusoid that oscillates without decaying.
@@ -394,8 +394,6 @@ We can analyze circuits with sinusoidal inputs/sources in the frequency domain. 
         $\phi_v$ and $\phi_i$ are the \textbf{phase} terms of the voltage and current respectively. These capture a delay, or shift, in time.
     \end{enumerate}
 
-    where A is the amplitude of the wave, $\omega$ is the angular frequency in radians per second, and $\phi$ is the phase offset.
-
     \begin{center} \begin{tabular}{|c|c|c|}
     \hline
             & Time Domain                         & Phasor/Frequency Domain \\ \hline
@@ -416,19 +414,35 @@ We can analyze circuits with sinusoidal inputs/sources in the frequency domain. 
         \begin{tabular}[t]{|c|c|c|}
         \hline
         Element & Drawing & Impedance \\ \hline
-        Resistor & 
-        \begin{circuitikz}
-            \draw (0, 0) to[R = $R$] (2,0);
-        \end{circuitikz}
-        & $Z_R = R$ \\ \hline
-        Capacitor & \begin{circuitikz}
-            \draw (0, 0) to[C = $C$] (2,0);
-        \end{circuitikz}
-        & $Z_C = \frac{1}{j \omega C}$ \\ \hline
-        Inductor & \begin{circuitikz}
-            \draw (0, 0) to[L = $L$] (2,0);
-        \end{circuitikz}
-        & $Z_L = j \omega L$ \\ \hline
+        \begin{minipage}[c]{50px} \centering Resistor \end{minipage} &
+        \begin{minipage}[c]{75px}
+            \centering
+            \begin{circuitikz}
+                \draw (0, 0) to[R = $R$] (2,0);
+            \end{circuitikz}
+            \vspace{5px}
+        \end{minipage}
+        & \begin{minipage}[c]{50px} \centering $Z_R = R$ \end{minipage}
+        \\ \hline
+        \begin{minipage}[c]{50px} \centering Capacitor \end{minipage} 
+        & \begin{minipage}[c]{75px}
+            \centering
+            \begin{circuitikz}
+                \draw (0, 0) to[C = $C$] (2,0);
+            \end{circuitikz}
+            \vspace{5px}
+        \end{minipage}
+        & \begin{minipage}[c]{50px} \centering $Z_C = \frac{1}{j \omega C}$ \end{minipage} \\ \hline
+        \begin{minipage}[c]{50px} \centering Inductor \end{minipage}
+        &
+        \begin{minipage}[c]{75px}
+            \centering 
+            \begin{circuitikz}
+                \draw (0, 0) to[L = $L$] (2,0);
+            \end{circuitikz}
+            \vspace{5px}
+        \end{minipage}
+        & \begin{minipage}[c]{50px} \centering $Z_L = j \omega L$ \end{minipage} \\ \hline
         \end{tabular}
     \end{center}
 
@@ -538,19 +552,20 @@ Consider an LRC circuit in the frequency domain:
     \end{circuitikz}
 \end{center}
 
-If out output is the voltage over the capacitor, the transfer function of this circuit is as follows:
+If our output is the voltage over the capacitor, the transfer function of this circuit is as follows:
 \begin{align*}
     H(j\omega) = \frac{1/LC}{(j \omega)^2 + j \omega R/L + 1/LC}
 \end{align*}
 
-We degine $\omega_n = \sqrt{1/LC}$ to be the \textit{resonant frequency} of the circuit.
-At this frequency, the impedances of the capacitor and inductor ``cancel out'' ($j \omega L = \frac{1}{j \omega C}$), resulting in a spike in the magnitude of the transfer function.
+We define $\omega_n = \sqrt{1/LC}$ to be the \textit{resonant frequency} of the circuit.
+At this frequency, the impedances of the capacitor and inductor ``cancel out'' ($j \omega_n L = \frac{1}{j \omega_n C}$), resulting in a spike in the magnitude of the transfer function.
 
 \begin{align*}
     H(\omega_n = \sqrt{1/LC}) = \frac{1/LC}{j\sqrt{\frac{1}{LC}} \frac{R}{L}}
 \end{align*}
 
 For an LRC bandpass filter with $\omega_n = 10^4$, the magnitude of the transfer function would look something like below. (\textit{Note: the plot is on a log-log scale.}) \\
+\begin{center}
 \begin{tikzpicture}[
     declare function={
     mag(\omega)= (10^8) / (sqrt((10^8 - \omega^2)^2 + (\omega * 100)^2))
@@ -570,3 +585,4 @@ For an LRC bandpass filter with $\omega_n = 10^4$, the magnitude of the transfer
     \addplot [blue,very thick] {mag(x)};
     \end{loglogaxis}
 \end{tikzpicture}
+\end{center}
