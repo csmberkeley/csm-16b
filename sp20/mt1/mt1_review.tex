@@ -148,7 +148,7 @@ NMOS &  \begin{circuitikz}[scale=0.9]
 \end{figure}
 
 \begin{enumerate}
-    \item \textbf{Step 1}: Use KCL and KVL equations, and the capacitor charge-voltage relationship ($i_C(t) = C \frac{d}{dt} V_C(t)$) to get a differential equation in terms of the given variable (typically $V_C(t)$ or $i_C(t)$).
+    \item \textbf{Step 1}: Use KCL and KVL equations, and the capacitor charge-voltage relationship $i_C(t) = C \frac{d}{dt} V_C(t)$ to get a differential equation in terms of the given variable (typically $V_C(t)$ or $i_C(t)$).
     
     For the above circuit, KCL gives us the following differential equation:
     \begin{align*}
@@ -163,7 +163,7 @@ NMOS &  \begin{circuitikz}[scale=0.9]
         \frac{d}{dt} V_C(t) = -\frac{1}{RC} V_C(t) + \frac{1}{RC} V_s
     \end{align*}
 
-    How would you solve this differential equation if $V_s = 0$? $V_s = V_{DD} > 0$? $V_s(t) = e^{t}$?
+    How would you solve this differential equation if $V_s = 0$? $V_s = V_{DD} > 0$? $V_s(t) = e^{-t}$?
 
     \item \textbf{Step 3}: Plug initial conditions into your solution.
 
@@ -174,34 +174,39 @@ Note: Circuits with inductors can be solved in a similar manner, using the induc
 $$\boxed{V_L(t) = L \frac{d}{dt} i_L(t)}$$
 
 \newpage
-\subsection*{Diagonalization and Eigenbasis}
+\subsection*{Diagonalization and Change of Basis}
 
-Given a system of the form
+We start with a system of the form with a diagonalizable $n \times n$ matrix $A$:
 \begin{align*}
     \vec{y} = A \vec{x}
 \end{align*}
-We define the eigenbasis as
+We can find the eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$ and eigenvectors $\vec{v}_1, \vec{v}_2, \ldots \vec{v}_n$. The eigenbasis is this set of $n$ eigenvectors that spans $\mathbb{R}^n$, with the eigenbasis matrix defined below:
 \begin{align*}
     V = \begin{bmatrix}
         \vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
     \end{bmatrix}
 \end{align*}
-where $\vec{v_i}$ is the $i^{\text{th}}$ eigenvector of $A$ \\
-Then, we can express any vector as a linear combination of eigenvectors of $A$
+
+Given this definition of $V$, we can express any vector $\vec{x} \in \mathbb{R}^n$ as a linear combination of eigenvectors of $A$:
 \begin{align*}
-    \vec{x} = a_1 \vec{v_1} + \dots + \vec{v_n} \\
+    \vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} + \dots + \alpha_n \vec{v_n} = V \begin{bmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{bmatrix} = V \vec{\widetilde{x}}
+\end{align*}
+We define the coordinates of $\vec{x}$ in the eigenbasis as the vector of $\alpha_i$'s, which we represent as $\vec{\widetilde{x}}$. The following relationships define changing from the eigenbasis coordinate system:
+\begin{align*}
     \vec{x} = V \vec{\widetilde{x}} \\
     \vec{\widetilde{x}} = V^{-1} \vec{x}
 \end{align*}
-Then, if we substitute $V \vec{\widetilde{x}}$ for $\vec{x}$ in our system, we get
+
+Then, if we substitute $\vec{x} = V \vec{\widetilde{x}}$ and $\vec{y} = V \vec{\widetilde{y}}$ in the original system, we get
 \begin{align*}
-    V \vec{\widetilde{y}} = AV \vec{\widetilde{x}} \\
-    \vec{\widetilde{y}} = V^{-1}AV \vec{\widetilde{x}}
+    V \vec{\widetilde{y}} &= AV \vec{\widetilde{x}} \\
+    \vec{\widetilde{y}} &= V^{-1}AV \vec{\widetilde{x}} \\
+    \vec{\widetilde{y}} &= \Lambda \vec{\widetilde{x}}
 \end{align*}
 
-Because $V$ is the eigenbasis, $V^{-1}AV$ is diagonal
+Because $V$ is the eigenbasis, $V^{-1}AV$ is the matrix $\Lambda$ with the eigenvalues on the diagonal:
 \begin{align*}
-    V^{-1}AV = 
+    \boxed{\Lambda = V^{-1}AV} = 
     \begin{bmatrix}
         \lambda_1 & 0 & \dots & 0 \\
         0 & \lambda_2 & \dots & 0 \\
@@ -210,77 +215,79 @@ Because $V$ is the eigenbasis, $V^{-1}AV$ is diagonal
     \end{bmatrix}
 \end{align*}
 
-You may find this diagram useful to visualize this process:
+Thus, the diagonalization of $\boxed{A = V \Lambda V^{-1}}$. You may find this diagram useful to visualize this process, where the $V^{-1}$ brings a vector into the eigenbasis, $\Lambda$ represents $A$'s linear transformation in the eigenbasis coordaintes, and $V$ brings the vector back into standard coordinates.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[node distance = 2cm, thick, every node/.style={inner sep=0.25em,outer sep=0.25em}]%
       \node (1) [circle,draw,minimum size=2em] {$\vec{x}$};
       \node (2) [circle,draw,right=of 1,minimum size=2em] {$\vec{y}$};
-      \node (3) [circle,draw,below=of 2,minimum size=2em] {$\widetilde{\vec{y}}$};
-      \node (4) [circle,draw,below=of 1,minimum size=2em] {$\widetilde{\vec{x}}$};
+      \node (3) [circle,draw,below=of 2,minimum size=2em] {$\vec{\widetilde{y}}$};
+      \node (4) [circle,draw,below=of 1,minimum size=2em] {$\vec{\widetilde{x}}$};
       \draw[->] (1) -- node [rectangle,draw,midway,above,minimum size=2.5em] {$A$} (2);
       \draw[->] (1.240) -- node [rectangle,draw,midway,left,minimum size=2.5em]{$V^{-1}$} (4.120);
       \draw[->] (4.60) -- node [rectangle,draw,midway,right,minimum size=2.5em]{$V$} (1.300);
       \draw[->] (2.300) -- node [rectangle,draw,midway,right,minimum size=2.5em]{$V^{-1}$} (3.60);
       \draw[->] (3.120) -- node [rectangle,draw,midway,left,minimum size=2.5em]{$V$} (2.240);
-      \draw[->] (4) -- node [rectangle,draw,midway,below,minimum size=2.5em] {$D$} (3);
-    \end{tikzpicture}%
+      \draw[->] (4) -- node [rectangle,draw,midway,below,minimum size=2.5em] {$\Lambda$} (3);
+    \end{tikzpicture}
 \end{figure}
 
-\subsection*{Multivariate ODEs}
-When given a system of differential equations of the form
+\subsection*{Multivariate Differential Equations}
+Consider a system of differential equations of the form:
 \begin{align*}
-    \frac{d}{dt} \vec{x}(t) = 
-    A \vec{x}(t)
+    \frac{d}{dt} \vec{x}(t) = A \vec{x}(t)
 \end{align*}
-you can diagonalize the system and solve in the eigenbasis.
+
+The strategy is to diagonalize the system so that there is a set of $n$ separate first order homogeneous differential equations that we can solve individually and recover the solutions in the original coordinates.
 
 \begin{enumerate}
     \item \textbf{Step 1}: Find the eigenvalue-eigenvector pairs $(\lambda_1, \vec{v_1}), \dots (\lambda_n, \vec{v_n})$ of your $A$ matrix.
+
     \item \textbf{Step 2}: Define $V = \begin{bmatrix}
         \vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
-    \end{bmatrix}$, and transform your system to the eigenbasis
+    \end{bmatrix}$, $\vec{x}(t) = V \vec{\widetilde{x}}(t)$, and transform your system to eigenbasis coordinates.
 
     \begin{align*}
-    \frac{d}{dt} \vec{\widetilde{x}}(t) =  V^{-1}AV \vec{\widetilde{x}}(t) =
+    \frac{d}{dt} \vec{\widetilde{x}}(t) &=  V^{-1}AV \vec{\widetilde{x}}(t) =
     \begin{bmatrix}
         \lambda_1 & 0 & \dots & 0 \\
         0 & \lambda_2 & \dots & 0 \\
         \vdots & \vdots & \ddots & \vdots \\
         0 & 0 & \dots & \lambda_n
     \end{bmatrix} \vec{\widetilde{x}}(t) \\
-    \vec{\widetilde{x}}(0) = V^{-1} \vec{x}(0)
+    \vec{\widetilde{x}}(0) &= V^{-1} \vec{x}(0)
     \end{align*}
 
-    \item We can then decompose this matrix-vector equation into several single-variable equations
+    \item \textbf{Step 3}: We can then decompose this diagonal matrix-vector equation into $n$ single-variable differential equations:
     \begin{align*}
-        \frac{d}{dt} \widetilde{x_1}(t) = \lambda_1 \widetilde{x_1}(t) \\
-        \dots \\
-        \frac{d}{dt} \widetilde{x_n}(t) = \lambda_n \widetilde{x_n}(t)
-    \end{align*}
-    Solve each equation to get expressions for $\widetilde{x_1}, \dots \widetilde{x_n}$
-    \begin{align*}
-        \widetilde{x_1}(t) = \widetilde{x_1}(0) e^{\lambda_1 t} \\
-        \dots \\
-        \widetilde{x_n}(t) = \widetilde{x_1}(0) e^{\lambda_n t} 
+        \frac{d}{dt} \widetilde{x_1}(t) &= \lambda_1 \widetilde{x_1}(t) \\
+        &\vdots \\
+        \frac{d}{dt} \widetilde{x_n}(t) &= \lambda_n \widetilde{x_n}(t)
     \end{align*}
 
-    \item Transform your solution back to the standard basis
+    \item \textbf{Step 4}: Solve each equation to get expressions for $\widetilde{x}_1(t), \ldots \widetilde{x}_n(t)$.
+    \begin{align*}
+        \widetilde{x_1}(t) &= \widetilde{x_1}(0) e^{\lambda_1 t} \\
+        &\vdots \\
+        \widetilde{x_n}(t) &= \widetilde{x_1}(0) e^{\lambda_n t} 
+    \end{align*}
+
+    \item \textbf{Step 5}: Transform your solution back to the standard basis coordinates.
     \begin{align*}
         \vec{x}(t) = V \vec{\widetilde{x}}(t)
     \end{align*}
-
 \end{enumerate}
 
-\textbf{Second-Order ODE}: If we have a differential equation that depends on $\frac{d^2}{dt^2} x$, define your state vector as $\begin{bmatrix} x \\ \frac{d}{dt} x \end{bmatrix}$ and solve your system as a Multivariate ODE.
+\textbf{Second-Order ODE}: If we have a differential equation that depends on $\frac{d^2}{dt^2} x(t)$, define your state vector as $\begin{bmatrix} x(t) & \frac{d}{dt} x(t) \end{bmatrix}^T$ and solve your system as a multivariate differential equation.
 
 \textbf{Complex Eigenvalues}: The behavior of a system (for example, a RLC circult) in the time domain varies based on whether its eigenvalues are real, imaginary, or complex.
 \begin{enumerate}
-    \item \textit{Real}: The time-domain response is a decaying exponential with no oscillations.
-    \item \textit{Imaginary}: The response is a sinusoid that oscillates without decaying.
-    \item \textit{Complex}: The response is the product of a decaying exponential and a sinusoid, so it oscillates as it decays.
+    \item \textbf{Purely Real Eigenvalues ($\lambda = a$)}: The time-domain response is a decaying exponential with no oscillations.
+    \item \textbf{Purely Imaginary Eigenvalues ($\lambda = bj$)}: The response is a sinusoid that oscillates without decaying.
+    \item \textbf{Complex Eigenvalues ($\lambda = a + bj$)}: The response is the product of a decaying exponential and a sinusoid, so it oscillates as it decays.
 \end{enumerate}
 
+\newpage
 \subsection*{Complex Numbers}
 \textbf{Complex number representations:} You can either represent complex numbers in 
 \begin{enumerate}
