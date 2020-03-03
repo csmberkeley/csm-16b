@@ -1,4 +1,4 @@
-\section*{Midterm 1 Review}
+% \section*{Midterm 1 Review}
 
 \renewcommand{\arraystretch}{1.25}
 
@@ -29,6 +29,8 @@ Closed switch when gate voltage $V_G$ is at least $|V_{tp}|$ below source voltag
 \end{circuitikz}
 \end{minipage} & 
 
+% \input{\bank/ode/figures/inductor_1}
+
 \begin{minipage}[t]{200px}
 \vspace{-22px}
 Closed switch when gate voltage $V_G$ is at least $V_{tn}$ above source voltage $V_S$ (gate voltage is high). Open switch otherwise.
@@ -44,27 +46,36 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
 			to[switch, l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,2)
 			to[short, -*] ++(0, 0.2)
             node[label=right:$S$] {};;
-			\draw (0, 2) -- (-1, 2)
-			to[short, -*] ++(0, -2) node[label=left:$G$] {};;
+			\draw (0, 2) -- (-1, 2) to [short, -o] (-1, 2);;
+            \draw (-2, 0) to [short, -*] (-2, 0)
+                          to [short, -o] (-1, 0) node[label=below:$G$] {}
+                          to [open, v^=$V_{GS}$] ++(0, 2);;
+			% to[short, -*] ++(0, -2) node[label=left:$G$] {};;
+            % \draw (-1, -2) node[label=left:$G$] {};;
 			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
 		\end{circuitikz} & 
         \begin{circuitikz}[scale=0.9]
 			\draw (0, -2) node[label=left:$D$] {}
 			to[switch,l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,0)
-			to[R, l_=$R_{on}$, i<=$I_D$] ++(0, 2)
+			to[R, l_=$R_{on, P}$, i<=$I_D$] ++(0, 2)
 			to[short, -*] ++(0, 0.2) node[label=right:$S$] {};;
-			\draw (0, 2) -- (-1, 2)
-			to[short, -*] ++(0, -2) node[label=left:$G$] {};;
+            \draw (0, 2) -- (-1, 2) to [short, -o] (-1, 2);;
+            \draw (-2, 0) to [short, -*] (-2, 0)
+                          to [short, -o] (-1, 0) node[label=below:$G$] {}
+                          to [open, v^=$V_{GS}$] ++(0, 2);;
+
+			% \draw (0, 2) -- (-1, 2)
+			% to[short, -*] ++(0, -2) node[label=left:$G$] {};;
 			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
 		\end{circuitikz} &
         \begin{circuitikz}[scale=0.9]
 			\draw (0, -2) node[label=left:$D$] {}
 			to[switch,l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,0)
-			to[R, l_=$R_{on}$, i<=$I_D$] ++(0, 2)
+			to[R, l_=$R_{on, P}$, i<=$I_D$] ++(0, 2)
 			to[short, -*] ++(0, 0.2)
             node[label=right:$S$] {};;
-			\draw (0, 2) -- (-1, 2)
-			to[C, -*, l_=$C_{GS}$] ++(0, -2) node[label=left:$G$] {};;
+			\draw (0, 2) -- (-2, 2);;
+			\draw (-2, 0) to[short, -*] ++(0, 0) node[label=left:$G$] {} to[C, l_=$C_{GS}$, v^=$V_{GS}$] ++(0, 2);;
 			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
 		\end{circuitikz} \\ \hline
 
@@ -74,8 +85,13 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
             to[switch,l_= $V_{GS} \geq V_{tn}$]
             (0,2) to[short, -*] ++(0,0)
             node[label=left:$D$] {};;
-            \draw (0,-2) -- (-1,-2)
-            to[short, -*] ++(0,2) node[label=left:$G$] {};;
+            % \draw (0,-2) -- (-1,-2)
+            % to[short, -*] ++(0,2) node[label=left:$G$] {};;
+            \draw (0, -2) -- (-1, -2) to [short, -o] (-1, -2);;
+            \draw (-2, 0) to [short, -*] (-2, 0)
+                          to [short, -o] (-1, 0) node[label=above:$G$] {}
+                          to [open, v=$V_{GS}$] ++(0, -2);;
+
             \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
             \draw (0, -2) to [short, -*] ++(0, -0.2) node[label=right:$S$] {};;
         \end{circuitikz} &
@@ -84,8 +100,13 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
             to[switch,l_= $V_{GS} \geq V_{tn}$]
             (0,0) to[R,-*,l=$R_{on, N}$,i<=$I_D$] ++(0,2)
             node[label=left:$D$] {};;
-            \draw (0,-2) -- (-1,-2)
-            to[short, -*] ++(0,2) node[label=left:$G$] {};;
+            % \draw (0,-2) -- (-1,-2)
+            % to[short, -*] ++(0,2) node[label=left:$G$] {};;
+            \draw (0, -2) -- (-1, -2) to [short, -o] (-1, -2);;
+            \draw (-2, 0) to [short, -*] (-2, 0)
+                          to [short, -o] (-1, 0) node[label=above:$G$] {}
+                          to [open, v=$V_{GS}$] ++(0, -2);;
+
             \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
             \draw (0, -2) to [short, -*] ++(0, -0.2) node[label=right:$S$] {};;
         \end{circuitikz} & 
@@ -94,9 +115,9 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
             to[switch,l_= $V_{GS} \geq V_{tn}$]
             (0,0) to[R,-*,l=$R_{on, N}$,i<=$I_D$] ++(0,2)
             node[label=left:$D$] {};;
-            \draw (0,-2) -- (-1,-2)
-            to[C,-*,l=$C_{GS}$] ++(0,2) node[label=left:$G$] {};;
-            \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
+            \draw (0,-2) -- (-2,-2);;
+            \draw (-2, 0) to [short, -*] (-2, 0) node[label=left:$G$] {} to[C,l=$C_{GS}$,v=$V_{GS}$] ++(0,-2);;
+            \draw (0,1.75) to [short,-*,l=$V_{out}$] ++(1,0);;
             \draw (0, -2) to [short, -*] ++(0, -0.2) node[label=right:$S$] {};;
         \end{circuitikz} \\ \hline
 \end{tabular} \end{center}
@@ -280,7 +301,7 @@ The strategy is to diagonalize the system so that there is a set of $n$ separate
     \begin{align*}
         \widetilde{x_1}(t) &= \widetilde{x_1}(0) e^{\lambda_1 t} \\
         &\vdots \\
-        \widetilde{x_n}(t) &= \widetilde{x_1}(0) e^{\lambda_n t} 
+        \widetilde{x_n}(t) &= \widetilde{x_n}(0) e^{\lambda_n t} 
     \end{align*}
 
     \item \textbf{Step 5}: Transform your solution back to the standard basis coordinates.
