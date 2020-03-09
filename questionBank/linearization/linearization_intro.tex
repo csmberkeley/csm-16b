@@ -29,8 +29,11 @@ The main ideas for linearization will come from Taylor Expansion, in which we'll
 }
 
 \begin{enumerate}
-  \qitem Is the function $f(x) = 5x$ linear? Prove why or why not?
+  \qitem \textbf{Is the function $f(x) = 5x$ linear? Prove why or why not.}
 
+  \ws {
+    \vspace{75px}
+  }
   \sol {
     We can show that $f(x)$ satisfies both the properties of scaling and superposition.
     \begin{itemize}
@@ -39,7 +42,11 @@ The main ideas for linearization will come from Taylor Expansion, in which we'll
     \end{itemize}
   }
 
-  \qitem How about the function $f(x) = e^{x}?$ Prove why it is, or isn't linear.
+  \qitem \textbf{Is the function $f(x) = e^{x}$ linear? Prove why or why not.}
+
+  \ws {
+    \vspace{75px}
+  }
 
   \sol {
     This function satisfies neither the properties of scaling nor superposition.
@@ -59,8 +66,11 @@ With initial condition, $x(0) = x_{0},$ since $\sin(x)$ is a nonlinear function,
 Therefore, we will linearize this system by taking an \textbf{equilibrium point} $x^{*}$ and taking a first order Taylor approximation.
 
 \begin{enumerate}[resume]
-  \qitem What is the first order Taylor approximation of $f(x) = - \sin(x)$ around $x^{*} = 0?$
+  \qitem \textbf{What is the first order Taylor approximation of $f(x) = - \sin(x)$ around $x^{*} = 0$?}
 
+  \ws {
+    \vspace{75px}
+  }
   \sol {
     Using the first order Taylor expansion formula given in \eqref{eqn:ta}, we get:
     $$f(x) = f(x^{*}) + f'(x^{*}) (x - x^{*})$$
@@ -69,7 +79,11 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
   }
 
   \qitem We will now look at a small window of $x(t)$ around $x^{*}$ and let $x(t) = x^{*} + \delta_{x}(t)$ where $\delta_{x}(t)$ is small enough so the error of the Taylor approximation is small. 
-  Plug in this $x(t)$ into the original differential equation \eqref{eqn:nl} and use the first order Taylor approximation derived in the previous part to come up with a new differential equation in terms of $\delta_{x}(t).$
+  \textbf{Plug in this $x(t)$ into the original differential equation \eqref{eqn:nl} and use the first order Taylor approximation derived in the previous part to come up with a new differential equation in terms of $\delta_{x}(t).$}
+
+  \ws {
+    \vspace{100px}
+  }
 
   \sol {
     Plugging in $x(t) = x^{*} + \delta_{x}(t),$ we'll get:
@@ -82,8 +96,11 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
     \end{equation}
   }
 
-  \qitem What is the solution to the new differential equation derived in $\delta_{x}(t)$
+  \qitem \textbf{What is the solution to the new differential equation derived in the previous part, in terms of $\delta_{x}(t)$?}
 
+  \ws {
+    \vspace{75px}
+  }
   \meta {
     It is important to emphasize here that this $\delta_{x}(t)$ is no longer a function of $x$ rather, it is a function of the distance to $x.$
     This however, does not matter since when we are doing system analysis, we rarely care about the actual solution to this system, rather we care about its behavior.
@@ -97,7 +114,11 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
     \end{equation}
   }
 
-  \qitem Using the solution for $\delta_{x}(t),$ what is the new linearized approximation for $x(t)?$ Is this approximation valid for all values of $t?$
+  \qitem \textbf{Using the solution for $\delta_{x}(t),$ what is the new linearized approximation for $x(t)?$ Is this approximation valid for all values of $t?$}
+  
+  \ws {
+    \vspace{75px}
+  }
 
   \meta {
     Remember that linearization is an approximation to a system as well, and some linearizations are considered stable, meaning that it will be accurate for all values of $t$ whereas some will be unstable, meaning they only work in a small neighborhood around $x^{*}.$ The smallness assumption says that $\delta_{x}(t)$ should be small enough such that the approximation $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t)$ is valid.
