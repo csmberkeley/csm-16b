@@ -3,7 +3,7 @@
 You are building your 16B lab car, and have found the following relation between input voltage and velocity:
 
 \begin{align*}
-    \frac{d}{dt} \vec{v}(t) = 5u(t)
+    \frac{d}{dt} v(t) = 5u(t)
 \end{align*}
 Your MSP can only provide a piecewise constant input voltage with interval $T$. This means that, for each interval $[nT, (n + 1)T)$, $u(t)$ is constant.
 
@@ -18,10 +18,26 @@ Your MSP can only provide a piecewise constant input voltage with interval $T$. 
         \item Find $v(t + T)$ in terms of $v(t)$ and $u(t)$. Say that the input is constant between times $t$ and $t + T$. \\
         \textit{Hint: Integrate both sides and apply the Fundamental Theorem of Calculus.}
 
+        \sol{
+            \begin{align*}
+                \frac{d}{dt} v(t) = 5u(t) \\
+                \int _{v(t)}^{v(t + T)} \, dv = \int_t^{t + T} 5u(\tau) \, d\tau \\
+                v(t + T) = v(t) + 5Tu(t)
+            \end{align*}
+            \textit{Note: notice how the variable of integration is $\tau$, not t.}
+        }
+
         \item Using your result from part (i), find $\alpha$ and $u_d(t)$ in the relation
         \begin{align*}
             v_d(t + 1) = \alpha v_d(t) + u_d(t)
         \end{align*}
+        \sol{ 
+            Let us say that $v_d(t)$ is $v(t)$, and $v_d(t + 1)$ is $v(t + T)$.
+            \begin{align*}
+                v_d(t + 1) = v_d(t) + 5Tu(t) \\
+            \end{align*}
+            So, $\alpha = 1$ and $u_d(t) = 5Tu(t)$
+        }
     \end{enumerate}
 
     \qitem Now you want to examine your car's position in discrete time, knowing that
@@ -33,10 +49,29 @@ Your MSP can only provide a piecewise constant input voltage with interval $T$. 
         \item Integrate both sides to get $x(t + T)$ in terms of $x(t)$, $v(t)$, and $u(t)$. Again, assume a constant input between times $t$ and $t + T$. \\
         \textit{Hint: If we know $v(t)$, then we can write $v(\tau)$ as $v(t) + v'(t) \cdot (\tau - t)$.}
 
+        \sol{
+            \begin{align*}
+                \frac{d}{dt} x(t) = v(t) \\
+                \int _{x(t)}^{x(t + T)} \, dx = \int_t^{t + T} v(\tau) \, d\tau \\
+            \end{align*}
+            Using the hint, we have
+            \begin{align*}
+                x(t + T) = x(t) + \int_t^{t + T} (v(t) + 5u(t)(\tau - t)) \, d\tau \\
+                x(t + T) = x(t) + Tv(t) + 5u(t) \frac{T^2}{2}
+            \end{align*}
+        }
+
         \item Discretize the system by finding $\alpha$, $\beta$, and $u_d(t)$ in the following relation
         \begin{align*}
             x_d(t + 1) = \alpha x_d(t) + \beta v_d(t) + u_d(t)
         \end{align*}
+        \sol{
+            Again, we set $x_d(t) = x(t)$, so $x_d(t + 1) = x(t + T)$ and $v_d(t) = v(t)$
+            \begin{align*}
+                x_d(t + 1) = x_d(t) + Tv(t) + 5u(t)\frac{T^2}{2} \\
+            \end{align*}
+            So, $\alpha = 1$, $\beta = T$, and $u_d(t) = 5u(t)\frac{T^2}{2}$
+        }
     \end{enumerate}
 
 \end{enumerate}

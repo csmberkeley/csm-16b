@@ -30,9 +30,8 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
   \sol {
     $$\ddt{}{t} \vec{x} 
     = \ddt{}{t} \begin{bmatrix} \theta \\ \ddt{\theta}{t} \end{bmatrix} 
-    = \ddt{}{t} \begin{bmatrix} f_{1}(\vec{x}, u) \\ f_{2}(\vec{x}, u) \end{bmatrix}
-    = \begin{bmatrix} \ddt{\theta}{t} \\ -\frac{g}{L} \sin \theta - \frac{b}{m} \ddt{\theta}{t} \end{bmatrix} + 
-      \begin{bmatrix} 0 \\ \frac{\cos \theta}{m \cdot L} \end{bmatrix} u(t)$$
+    = \begin{bmatrix} f_{1}(\vec{x}, u) \\ f_{2}(\vec{x}, u) \end{bmatrix}
+    = \begin{bmatrix} \ddt{\theta}{t} \\ -\frac{g}{L} \sin \theta - \frac{b}{m} \ddt{\theta}{t} \frac{\cos \theta}{m \cdot L} u(t) \end{bmatrix}$$
   }
 
   \qitem What are $J_{\vec{x}}$ and $J_{u}$ evaluated the equilibrium points $\vec{x}^{*} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}, u^{*} = 0.$
@@ -42,10 +41,10 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
   }
 
   \sol {
-    The indivdual functions $f_{1}, f_{2},$ in terms of the state variables $x_1, x_2$ and the input $u$ are
+    The individual functions $f_{1}, f_{2}$ in terms of the state variables $x_1, x_2$ and the input $u$ are
     \begin{align*} 
       &f_{1}(x_{1}, x_{2}, u) = x_{2} \\
-      &f_{2}(x_{1}, x_{2}, u) = -\frac{g}{L} \sin x_{1} - \frac{b}{m} x_{2} + \frac{\cos{\theta}}{mL} u
+      &f_{2}(x_{1}, x_{2}, u) = -\frac{g}{L} \sin x_{1} - \frac{b}{m} x_{2} + \frac{\cos{x_1}}{mL} u
     \end{align*}
 
     The Jacobian for $\vec{x}$ is:
@@ -57,7 +56,7 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
     -\frac{g}{L} \cos x_{1} & -\frac{b}{m} 
     \end{bmatrix} = 
     \begin{bmatrix} 0 & 1 \\
-    -\frac{g}{L} \cos \theta & -\frac{b}{m} 
+    -\frac{g}{L} \cos x_1 - \frac{\sin{x_1}}{mL} u & -\frac{b}{m} 
     \end{bmatrix}
     $$
     The Jacobian for $u$ is:
