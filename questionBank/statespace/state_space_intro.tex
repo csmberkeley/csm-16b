@@ -9,42 +9,59 @@ Often times, when we are describing a system, we will have a \textbf{state varia
 that will often be a multivariable function. 
 For a given system, we can often write a differential equation describing its change over time as
 \begin{align}
-\ddt{\vec{x}(t)}{t} = f(\vec{x}(t))
+\ddt{\vec{x}(t)}{t} = f(\vec{x}(t), \vec{u}(t))
 \end{align}
 
-In this problem, we will examine a specific form of systems that can be put in \textbf{State-space representation.} \vspace{0.5 cm}
-For linear systems (we will define what it means to be linear later) the state-space representation is:
+In this problem, we will examine a specific form of systems that can be put in \textbf{state-space representation.}
+
+For a continuous-time linear systems (we will define what it means to be linear later) the general state-space representation is shown below:
 \begin{align}
-\ddt{\vec{x}(t)}{t} = A \vec{x}(t) + B \vec{u}(t)
+\frac{d}{dt} \vec{x}(t) = A \vec{x}(t) + B \vec{u}(t)
 \end{align}
 
-Where $A$ is the $n \times n$ state matrix, $\vec{x}$ is a state vector in $\mathbb{R}^n$, $B$ is a $n \times d$ input matrix, and $\vec{u}$ is an input vector in $\mathbb{R}^d$. We will usually consider a $B$ as a vector in $\mathbb{R}^n$ and $u(t)$ will be a scalar input.
+Similarly, for a discrete-time linear system the general state-space representation is shown below, replacing derivatives with respect to time with recursive difference equations:
+\begin{align}
+\vec{x}[n + 1] = A \vec{x}[n] + B \vec{u}[n]
+\end{align}
 
-Given the following system:
+Where $A$ is the $n \times n$ state matrix, $\vec{x}$ is a state vector in $\mathbb{R}^n$, $B$ is a $n \times d$ input matrix, and $\vec{u}$ is an input vector in $\mathbb{R}^d$. We will usually consider a $B$ as a vector in $\mathbb{R}^n$ and $u(t)$ will be a scalar input. Intuitively, $A$ acts as a linear function that determines how a future state depends on the current state of the world, and $B$ explains how an action or input that we introduce affects our system.
+
+Tying this back to the circuits we've analyzed, an example of a state variable could be the voltage $V_C(t)$ across a capacitor or the current $I_L(t)$ through an inductor, and an example input could be the input voltage of a system $V_{in}(t)$.
+
+Consider the following system:
 \begin{align*}
     \ddt{}{t}x_{1}(t) &= 3 x_{1}(t) - 2 x_{2}(t) + 4 \\
     \ddt{}{t}x_{2}(t) &= - x_{1}(t) + 5 x_{2}(t) + 2
 \end{align*}
 
-With initial conditions $x_{1}(0) = 2, \ x_{2}(0) = 3,$
+The initial conditions of the state variables are $x_{1}(0) = 2, \ x_{2}(0) = 3$.
 
 \begin{enumerate}
-    \qitem What is an appropriate state vector for this system?
+    \qitem \textbf{What is the state vector $\vec{x}(t)$ for this system?}
 
+    \ws {
+        \vspace{50px}
+    }
     \sol{
         We have to variables $x_1$ and $x_2$ therefore we define our state vector as:
         $$\vec{x} = \begin{bmatrix} x_{1} \\ x_{2} \end{bmatrix}$$
     }
 
-    \qitem What is the initial condition of this system?
+    \qitem \textbf{What is the initial condition $\vec{x}(0)$ of this system?}
 
+    \ws {
+        \vspace{50px}
+    }
     \sol{
         We have the individual initial conditions for $x_1$ and $x_2$ but we must also a define an initial condition for our state vector.
         $$\vec{x}(0) = \begin{bmatrix} x_{1}(0) \\ x_{2}(0) \end{bmatrix} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} $$
     }
 
-    \qitem Write out the system of differential equations as in state-space form.
+    \qitem \textbf{Write out the system of differential equations the form of a general continuous time state-space model.}
     
+    \ws {
+        \vspace{150px}
+    }
     \sol{
         $$\ddt{}{t}\vec{x}(t) = \begin{bmatrix} 3 & -2 \\ -1 & 5 \end{bmatrix} \begin{bmatrix} x_{1}(t) \\ x_{2}(t) \end{bmatrix} 
         = \begin{bmatrix} 3 & -2 \\ -1 & 5 \end{bmatrix} \vec{x}(t) + \begin{bmatrix} 4 \\ 2 \end{bmatrix}$$
