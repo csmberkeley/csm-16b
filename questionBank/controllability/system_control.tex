@@ -3,18 +3,19 @@
 
 \qns{Controlling a System}
 
-We are given a discrete time state space system, where $\vec{x}$ is our \textbf{state vector,} $A$ is the state space \textbf{model}, $B$ is the input \textbf{matrix}, and $\vec{u}$ is the control input \textbf{vector.}
+We are given a discrete time state space system, where $\vec{x}$ is our \textbf{state vector}, $A$ is the \textbf{state space model} of the system, $B$ is the \textbf{input matrix}, and $\vec{u}$ is the \textbf{control input vector}.
 \begin{equation}
-\vec{x}(t + 1) = A \vec{x}(t) + B\vec{u}(t)
+\vec{x}[t + 1] = A \vec{x}[t] + B\vec{u}[t]
 \end{equation}
-We want to know if this system is “controllable;” if given a set of inputs, we can get the system from any initial state to any final state. This has an important physical meaning; if a physical system is controllable, that means that we can get anywhere in the state space. If a robot is controllable, it is able to travel anywhere in the system it is living in (given enough control inputs).
+We define a system to be controllable if: \textbf{given a set of inputs, we can move the system from any initial state to any final state by choosing a sequence of inputs.} This has an important physical meaning; if a physical system is controllable, that means that we can get anywhere in the state space. For example, if a robot is controllable, it is able to travel anywhere in the system it is living in (given enough time and control inputs).
 
-We will start with the assumption that the system started at rest: $\vec{x}(0) = \vec{0},$ and our state space will be $\mathbb{R}^{n}.$ 
+\textbf{We will start with the assumption that the system started at rest at the zero vector: $\vec{x}[0] = \vec{0}$}, and our state space will be an n-dimensional vector in $\mathbb{R}^{n}.$ 
 
 \begin{enumerate}
 
-\qitem How can you write out $\vec{x}(1)$ using the state space equation? How about $\vec{x}(2)?$
+\qitem \textbf{How can you write out $\vec{x}[1]$ using the state space equation? How about $\vec{x}[2]?$}
 
+\ws{\vspace{75px}}
 \sol {
   Using the state space model $\vec{x}(t + 1) = A \vec{x}(t) + B \vec{u}(t),$
   $$\vec{x}(1) = A \vec{x}(0) + B \vec{u}(0) = A \vec{0} + B \vec{u}(0) = B \vec{u}(0)$$
@@ -22,8 +23,8 @@ We will start with the assumption that the system started at rest: $\vec{x}(0) =
   $$\vec{x}(2) = A \vec{x}(1) + B \vec{u}(1) = A (B \vec{u}(0)) + B \vec{u}(1)$$
 }
 
-\qitem Given these two observations, where in our state space can $\vec{x}$ reach at time $t = 2?$
-
+\qitem \textbf{Given these two observations and the initial condition $\vec{x}[0] = \vec{0}$, where can $\vec{x}$ reach in our state space reach after 2 time steps (i.e. at $t = 2$)?}
+\ws{\vspace{100px}}
 \sol {
   From the previous part, we know that
   $$\vec{x}(2) = A (B \vec{u}(0)) + B \vec{u}(1) = AB \vec{u}(0) + B \vec{u}(1)$$
@@ -37,8 +38,8 @@ We will start with the assumption that the system started at rest: $\vec{x}(0) =
   In general, we could reach anywhere in the span of the columns of $B$ and $AB.$
 }
 
-\qitem Given $n$ observations, where in our state space can $\vec{x}$ reach at time $t = n?$
-
+\qitem \textbf{Given $n$ observations, where in our state space can $\vec{x}$ reach at time $t = n?$}
+\ws{\vspace{100px}}
 \sol {
   We will start off in a similar manner by writing out $\vec{x}(3)$ in terms of $\vec{x}(2)$ and $\vec{u}(2).$
   $$\vec{x}(3) = A \vec{x}(2) + B \vec{u}(2) =  A (AB \vec{u}(0) + B \vec{u}(1)) + B \vec{u}(2) = A^2 B \vec{u}(0) + AB \vec{u}(1) + B \vec{u}(2).$$
@@ -50,8 +51,11 @@ We will start with the assumption that the system started at rest: $\vec{x}(0) =
   Therefore, after $n$ timesteps, we can reach anywhere in the span of the columns of $\{ B, \ AB, \ A^2 B, \cdots, A^{n-1} B \}.$
 }
 
-\qitem Show that if the columns of $A^{k} B$ are linearly dependent, then the columns of $A^{k + 1} B$ are also linearly dependent.
-
+\qitem \textbf{Show that if the columns of $A^{k} B$ are linearly dependent, then the columns of $A^{k + 1} B$ are also linearly dependent.}
+\ws{\vspace{100px}}
+\meta {
+  Make sure your students understand the reason for proving this. We want to be able to define a \textit{finite} controllability matrix to check if a system is controllable. If we don't prove that we only need to check up to $A^{n - 1}B$, then there's no guarantee that some infinitely large controllability matrix may end up having rank $n$.
+}
 \sol {
   We first make the observation that the columns of $A^{k} B$ are:
   $$A^{k} B = \begin{bmatrix} A^{k} \vec{b_1} & A^{k} \vec{b_2} & \cdots & A^{k} \vec{b_m} \end{bmatrix}$$
@@ -74,7 +78,7 @@ We will start with the assumption that the system started at rest: $\vec{x}(0) =
 \begin{equation}
 \mathcal{C} = \begin{bmatrix} B & AB & A^2B & \cdots & A^{n-2}B & A^{n-1}B \end{bmatrix}
 \end{equation}
-Based on the previous parts, when can we say our system is "controllable?" (i.e. we can reach anywhere in our state space using our system)
+\textbf{Based on the previous parts, when can we say our system is controllable? (i.e. we can reach anywhere in our state space using our system)}
 
 \sol {
   Using our knowledge from part (c), we can say that $\vec{x}$ can reach anywhere in the span of the columns of $\mathcal{C}$ after $n$ time steps. 

@@ -12,8 +12,8 @@ Consider the system
 \end{bmatrix} u(t)\]
 
 \begin{enumerate}
-    \qitem What is the controllability matrix, $\mathcal{C}$, for this system? What is its column space?
-
+    \qitem \textbf{What is the controllability matrix, $\mathcal{C}$, for this system?}
+    \ws{\vspace{100px}}
     \sol{
         For a 3-dimensional system,
         \[\mathcal{C} = 
@@ -32,15 +32,18 @@ Consider the system
         \[\text{col}(\mathcal{C}) = \text{span}\{ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}\}\]
     }
 
-    \qitem What is the rank of the controllability matrix? Is the system controllable?
+    \qitem \textbf{What is the rank of the controllability matrix? Is the system controllable?}
+
+    \ws{\vspace{75px}}
 
     \sol{
         The controllability matrix has rank 2, so this system is not controllable.
         Note that the initial state $\vec{x}(0)$ has no effect on whether a system is controllable.
     }
 
-    \qitem Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? 
-    Two timesteps? Three?
+    \qitem \textbf{Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? Two timesteps? Three?}
+    
+    \ws{\vspace{150px}}
 
     \sol{
         For one timestep,
@@ -108,8 +111,10 @@ Consider the system
         As with 2 timesteps, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$.
     }
 
-    \qitem What is the minimum number of timesteps it takes to reach $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$? 
-    What about $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$?
+    \qitem \textbf{What is the minimum number of timesteps it takes to reach $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$? 
+    What about $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$?}
+
+    \ws{\vspace{100px}}
 
     \sol{
         It takes two timesteps to reach $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$. \\
@@ -120,11 +125,20 @@ Consider the system
     }
 \end{enumerate}
 
-
+Now, consider the system, with $A$ modified slightly:
+\[\vec{x}(t + 1) = 
+\begin{bmatrix}
+    0 & 1 & 0 \\
+    0 & 2 & -2 \\
+    -1 & 1 & 0
+\end{bmatrix} \vec{x}(t) + 
+\begin{bmatrix}
+    2 \\ 0 \\ 0
+\end{bmatrix} u(t)\]
 
 \begin{enumerate}[resume]
-  \qitem What is the controllability matrix, $\mathcal{C}$, for this system? What is its column space?
-
+  \qitem \textbf{What is the controllability matrix, $\mathcal{C}$, for this system? What is its column space?}
+  \ws{\vspace{100px}}
   \sol {
     \[\mathcal{C} = 
     \begin{bmatrix}
@@ -138,15 +152,16 @@ Consider the system
     The column space of this matrix spans $\mathbb{R}^3$.
   }
 
-  \qitem What is the rank of the controllability matrix? Is the system controllable?
+  \qitem \textbf{What is the rank of the controllability matrix? Is the system controllable?}
 
+  \ws{\vspace{50px}}
   \sol {
     The controllability matrix has rank 3, so the system is controllable.
   }
 
-  \qitem Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? \vskip 1.1pt 
-  How about in two timesteps? Three?
+  \qitem \textbf{Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? Two timesteps? Three?}
 
+  \ws{\vspace{100px}}
   \sol {
     For one timestep, 
     \[\vec{x}(1) = 
@@ -205,17 +220,19 @@ Consider the system
     We can reach any state in $\mathbb{R}^3$ in three timesteps.
   }
 
-  \qitem What is the minimum number of timesteps it takes to reach $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$? \\
+  \qitem \textbf{What is the minimum number of timesteps it takes to reach $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$?} \\
     \textit{Hint: 
       Since the system is controllable, we can reach any state in three time steps, however, it may be possible to reach a state in fewer than three time steps. Look at your answer to the previous part, and check which possible states we can reach in one, two, and three time steps.
     }
+
+  \ws{\vspace{50px}}
     
   \sol {
     We unfortunately cannot reach this vector in fewer timesteps because $\begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}$ is not in the form $\begin{bmatrix} c_1 \\ 0 \\ -1 \end{bmatrix}$ or $\begin{bmatrix} c_1 \\ 2 \\ c_2 \end{bmatrix}.$
   }
 
-  \qitem What is the minimum number of timesteps it takes to reach $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$?
-
+  \qitem \textbf{What is the minimum number of timesteps it takes to reach $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$?}
+  \ws{\vspace{50px}}
   \sol {
     We can reach this vector in two time steps since it is in the form $\begin{bmatrix} c_1 \\ 0 \\ -1 \end{bmatrix}$ or $\begin{bmatrix} c_1 \\ 2 \\ c_2 \end{bmatrix}.$
   }
