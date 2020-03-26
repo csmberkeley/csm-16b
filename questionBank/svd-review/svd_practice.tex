@@ -28,7 +28,7 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
 
   These are normalized since $\sigma_i = \|A \vec{v}_i\| = \|A^{T} \vec{u}_i \|$ by the argument above, and orthogonal since $(A\vec{v}_i)^T(A\vec{v}_j) = \vec{v}_i^T(A^T A)\vec{v}_j = \lambda_j \vec{v}_i^T\vec{v}_j = 0$ if $i \neq j$, since $V$ is an orthonormal matrix. 
 
-  \item \textbf{Step 5: Use Gram-Schmidt to complete the $U$ or $V$ matrix} \vskip 1pt
+  \item \textbf{Step 5 (for finding the full SVD): Use Gram-Schmidt to complete the $U$ or $V$ matrix} \vskip 1pt
   If $m > n$ we can complete the $U$ matrix by finding $\vec{u}_{n + 1}, \ldots, \vec{u}_{m}$ through Gram-Schmidt. \\
   If $m < n$ we will complete the $V$ matrix by finding $\vec{v}_{m + 1}, \ldots, \vec{v}_{n}$ through Gram-Schmidt.
 
@@ -36,12 +36,20 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
 
 \end{enumerate}
 
+\newpage
 \begin{enumerate}
-  \qitem PRACTICE: Compute the SVD of 
-$$A = \begin{bmatrix}
+  \qitem Given the matrix: 
+  $$A = \begin{bmatrix}
     1 & 1 & 0 \\
     0 & 1 & 1 \\
-  \end{bmatrix}$$. 
+  \end{bmatrix}$$
+
+  \textbf{Compute the following:}
+  \begin{enumerate}
+  \item compact SVD
+  \item outer product SVD
+  \item full SVD
+  \end{enumerate}
 
   \sol {
     \begin{enumerate}[label=(\roman*)]
@@ -93,12 +101,20 @@ $$A = \begin{bmatrix}
     \end{equation}
   }
 
-  \qitem PRACTICE: Compute the SVD of 
-$$A = \begin{bmatrix}
+  \newpage
+  \qitem Given the matrix: 
+  $$A = \begin{bmatrix}
     1 & -1 \\
     0 & 1 \\
     1 & 0
   \end{bmatrix}$$. 
+
+  \textbf{Compute the following:}
+  \begin{enumerate}
+  \item compact SVD
+  \item outer product SVD
+  \item full SVD
+  \end{enumerate}
 
   \sol {
     \begin{enumerate}[label=(\roman*)]
