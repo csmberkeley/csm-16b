@@ -35,7 +35,7 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
     $$\ddt{}{t} \vec{x} 
     = \ddt{}{t} \begin{bmatrix} \theta \\ \ddt{\theta}{t} \end{bmatrix} 
     = \begin{bmatrix} f_{1}(\vec{x}, u) \\ f_{2}(\vec{x}, u) \end{bmatrix}
-    = \begin{bmatrix} \ddt{\theta}{t} \\ -\frac{g}{L} \sin \theta - \frac{b}{m} \ddt{\theta}{t} \frac{\cos \theta}{m \cdot L} u(t) \end{bmatrix}$$
+    = \begin{bmatrix} \ddt{\theta}{t} \\ -\frac{g}{L} \sin \theta - \frac{b}{m} \ddt{\theta}{t} + \frac{\cos \theta}{m \cdot L} u(t) \end{bmatrix}$$
   }
 
   \newpage

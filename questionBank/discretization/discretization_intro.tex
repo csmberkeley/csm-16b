@@ -91,7 +91,7 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
         This does not make sense in the context of our problem because it is impossible to have an infinite amount of students.
     }
 
-    \qitem Let $\vec{x}[0] = \begin{bmatrix} 50 \\ 50 \end{bmatrix}$, and $u[t] = -4$ for all values of $t$. \textbf{What is $\vec{x}[1]$? What is $\vec{x}[2]$?} \textbf{What is $||\vec{x}||$ as $t\rightarrow\infty$? Does that make sense in the context of our problem?}
+    \qitem Let $\vec{x}[0] = \begin{bmatrix} 50 \\ 50 \end{bmatrix}$, and $u[t] = -4$ for all values of $t$. \textbf{What is $\vec{x}[1]$? What is $\vec{x}[2]$?} \textbf{What is $||\vec{x}||$ as $t\rightarrow\infty$? What sign are the elements of $\vec{x}$? Does that make sense in the context of our problem?}
 
 \sol{
         \begin{align*}
@@ -136,14 +136,14 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
         \end{align*}
         \textit{Note: it's ok that the state variables are not whole numbers! Think of them as the average number of students in Moffit and Taejin's OH.}
         \newline
-        The input to the system is always negative, and no students are ever added to the system, so the magnitude of the state keeps on decreasing linearly. So,
+        The input to the system is always negative, and no students are ever added to the system, so the magnitude of the state keeps on decreasing linearly. So, \textbf{the sign of the elements of $\vec{x}$ is negative} and
         \begin{align*}
-            \lim_{t \to \infty} ||\vec{x}[t]|| = -\infty
+            \lim_{t \to \infty} ||\vec{x}[t]|| = \infty
         \end{align*}
-        This does not make sense in the context of our problem because it is impossible to have a negative number of students (especially an infinitely negative amount of students).
+        This does not make sense in the context of our problem because there is an infinitely negative amount of students in our system.
     }
 
-    \qitem Let $\vec{x}[0] = \vec{0}$, $u[0] = 16$, and $u[t>0] = 0$. \textbf{What is $\vec{x}[1]$? What is $\vec{x}[2]$?} \textbf{What is $||\vec{x}||$ as $t\rightarrow\infty$? Does that make sense in the context of our problem?}
+    \qitem Let $\vec{x}[0] = \vec{0}$, $u[0] = 16$, and $u[t>0] = 0$. \textbf{What is $\vec{x}[1]$? What is $\vec{x}[2]$?} \textbf{What is the largest $||\vec{x}||$ can get as $t\rightarrow\infty$? Does that make sense in the context of our problem?}
 
     \sol {
         \begin{align*}
@@ -171,9 +171,9 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
             \begin{bmatrix} 11.2 \\ 4.8 \end{bmatrix}
         \end{align*}
 
-        The input to the system is 0 after the first time step, and the magnitude of $\vec{x}$ is conserved after every iteration, so
+        The input to the system is 0 after the first time step, and the sum of students in the two states stays the same each timestep, so, by the triangle inequality, the magnitude of $\vec{x}$ will remain less than or equal to the sum of the students in the two states after the first timestep.
         \begin{align*}
-            \lim_{t \to \infty} ||\vec{x}[t]|| = ||\vec{x}[1]|| = 16
+            \lim_{t \to \infty} ||\vec{x}[t]|| \leq 16
         \end{align*}
         This \textit{does} make sense in the context of our problem because it is a finite, positive number.
     }
