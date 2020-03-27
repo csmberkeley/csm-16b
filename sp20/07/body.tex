@@ -1,0 +1,24 @@
+\begin{document}
+
+\def\title{Worksheet 7}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+    \input{\bank/gram-schmidt/gram_schmidt_sp20}
+    \newpage
+    \input{\bank/svd-review/svd_intuition}
+    \newpage
+    \input{\bank/svd-review/svd_practice}
+\end{qunlist}
+
+\end{document}
