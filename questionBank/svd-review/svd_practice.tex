@@ -36,6 +36,15 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
 
 \end{enumerate}
 
+Recall the following SVD forms:
+
+\begin{center} \begin{tabular}{|c|c|}
+  \hline
+  Compact SVD       & $A = U_r \Sigma_r {V_r}^T$ \\ \hline
+  Outer Product SVD & $\sum_{i=1}^{r} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^T$ \\ \hline
+  Full SVD          & $A = U \Sigma V^T$ \\ \hline
+\end{tabular} \end{center}
+
 \newpage
 \begin{enumerate}
   \qitem Given the matrix: 
@@ -91,13 +100,27 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
         We however, must normalize $\vec{v}_{3}$ so that $V$ has orthonormal columns. As a result, we see that
         $$\vec{v}_{3} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ - \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}.$$
     \end{enumerate}
-    The final result of our SVD will be:
+    The final result of our full SVD will be:
     \begin{equation}
       A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
       \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} 
       \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
       -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\
       \frac{1}{\sqrt{3}} & - \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix}
+    \end{equation}
+
+    The compact SVD is:
+    \begin{equation}
+      A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
+      \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \end{bmatrix} 
+      \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
+      -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \end{bmatrix}
+    \end{equation}
+
+    The outer product SVD is:
+    \begin{equation}
+      A = \sqrt{3} \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \end{bmatrix}
+        + 1 \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \end{bmatrix}
     \end{equation}
   }
 
@@ -150,19 +173,42 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
         $$\vec{u}_{2} = \frac{A \vec{v}_{2}}{1} = 
         \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
       \item \textbf{Step 5:}
-        We still have one last vector $\vec{v}_{3}$ to solve for. To do this, we compute the null-space of $A$ \\
+        We still have one last vector $\vec{u}_{3}$ to solve for. To do this, we compute the null-space of $A$ \\
         A basis for the null-space of $A$ can be computed through Gaussian-Elimination as:
-        $$\vec{v}_{3} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}.$$
-        We however, must normalize $\vec{v}_{3}$ so that $V$ has orthonormal columns. As a result, we see that
-        $$\vec{v}_{3} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ - \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}.$$
+        $$\vec{u}_{3} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}.$$
+        We however, must normalize $\vec{u}_{3}$ so that $V$ has orthonormal columns. As a result, we see that
+        $$\vec{u}_{3} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ - \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}.$$
     \end{enumerate}
     The final result of our SVD will be:
     \begin{equation}
-      A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
-      \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} 
-      \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
-      -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\
-      \frac{1}{\sqrt{3}} & - \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix}
+      A = 
+      \begin{bmatrix}
+      \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\
+      \frac{\sqrt{6}}{3} & 0 & -\frac{1}{\sqrt{3}} \\
+      \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \end{bmatrix}
+      \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}
+      \begin{bmatrix}
+      \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+      -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
+    \end{equation}
+
+    The compact SVD is:
+    \begin{equation}
+      A = 
+      \begin{bmatrix}
+      \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} \\
+      \frac{\sqrt{6}}{3} & 0 \\
+      \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} \\ \end{bmatrix}
+      \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \end{bmatrix}
+      \begin{bmatrix}
+      \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+      -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
+    \end{equation}
+
+    The outer product SVD is:
+    \begin{equation}
+      A = \sqrt{3} \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+        + 1 \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
     \end{equation}
   }
 \end{enumerate}
