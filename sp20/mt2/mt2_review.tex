@@ -3,12 +3,164 @@
 \renewcommand{\arraystretch}{1.25}
 
 \subsection*{State-space models of systems}
+In this unit, we are focusing on taking real-world systems and then working with them as matrix-vector equations. The first step to doing this is to represent systems with \textbf{state-space models}. \\
+\newline
+There are two parts to coming up with a state-space model:
+\begin{enumerate}
+    \item \textit{Choosing state variables.} These are the quantities that will appear in the $\vec{x}$ vector in an equation like 
+    $$\frac{d}{dt}\vec{x}(t) = A\vec{x}(t) + B\vec{u}(t)$$ 
+    \item \textit{Finding a differential or recurrence relation involving state variables:} i.e. find $\frac{d}{dt} \vec{x}$ in terms of $\vec{x}$ for a continuous-time system or find $\vec{x}(k + 1)$ in terms of $\vec{x}(k)$ for a discrete-time system. \\
+    \newline
+    Typically, this consists of filling in the elements of the $A$ matrix and $B$ vector, such as in the following equation:
+    \begin{align*}
+        \vec{x}(k + 1) = \begin{bmatrix}
+            a_{11} & a_{12} \\
+            a_{21} & a_{22}
+        \end{bmatrix} \vec{x}(k) + \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} u(t)
+    \end{align*}
+    However, \textbf{non-linear systems} cannot be represented as matrix-vector equations, so the state-space model can look as follows:
+    \begin{align*}
+        \frac{d}{dt} \vec{x}(t) = \begin{bmatrix}
+            x_1^{\,2} + \cos(x_2) \\
+            x_1^{\,3} - \sin(x_2)
+        \end{bmatrix}
+    \end{align*}
+\end{enumerate}
+For instance, when you analyzed the LRC circuit, you chose the voltage across the capacitor and the current through the inductor as your state variables and then used the current-voltage relationships of capacitors and inductors to come up with the following state-space representation:
+\begin{align*}
+    \frac{d}{dt} \begin{bmatrix} 
+        I_L(t) \\ V_C(t)
+    \end{bmatrix} = \begin{bmatrix}
+        -R/L & -1/L \\
+        1/C & 0
+    \end{bmatrix} \begin{bmatrix} 
+        I_L(t) \\ V_C(t)
+    \end{bmatrix}
+    \end{align*}
 
 \subsection*{Linearization}
+Many systems in the real world are nonlinear, which means that we cannot represent them with a matrix-vector equation. 
+We would like to use linear tools (such as diagonalization) to solve these equations, so we typically linearize nonlinear systems. \\
+\newline
+\textbf{When is a system linear?} \\
+A system is linear if it follows the \textbf{scaling} and \textbf{additivity} properties:
+\begin{enumerate}
+    \item \textbf{Scaling}: For a linear system $f$, $f(ax) = af(x)$ for every $a$ and for every $x$.
+    \item \textbf{Additivity}: For a linear system $f$, $f(x + y) = f(x) + f(y)$ for every $x, y$.
+\end{enumerate}
+\textit{Note: Equations of the form $f(x) = ax + b$ with nonzero $b$ are not linear; they are considered to be \textbf{affine}}. \\
+\newline
+\textbf{Linearizing a nonlinear system} \\
+We convert a nonlinear system into a linear system by using a first-order Taylor approximation:
+$$f(x) \approx f(x^*) + \frac{df}{dx} \bigg\rvert_{x = x^*} (x - x^*)$$
+Or, for an equation with an input, $u$:
+$$f(x, u) \approx f(x^*, u^*) + \frac{df}{dx} \bigg\rvert_{x = x^*} (x - x^*) + \frac{df}{du} \bigg\rvert_{u = u^*} (u - u^*)$$
+In these equations, we linearize the system around an \textbf{equilibrium point} or \textbf{operating point}, $(x^*, u^*)$. 
+This is a point that we choose when making our approximation, typically so that
+$$f(x^*, u^*) = 0$$
+\newline
+\textbf{Linearizing a system of nonlinear equations} \\
+Say we have a system of nonlinear functions, typically represented by
+\begin{align*}
+    \vec{f}(\vec{x}) = \begin{bmatrix}
+        f_1(x_1, \dots, x_n) \\
+        \vdots \\
+        f_m(x_1, \dots, x_n)
+    \end{bmatrix}
+\end{align*}
+For these systems, you can linearize each equation using the partial derivative of the function with respect to each state variable:
+\begin{center}
+    \begin{align*}
+        f_1(\vec{x}) \approx f_1(\vec{x}^*) + \frac{\partial f_1}{\partial x_1} \bigg\rvert_{x_1 = x_1^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_1}{\partial x_n} \bigg\rvert_{x_n = x_n^*} (x_n - x_n^*) \\
+        \vdots \\
+        f_m(\vec{x}) \approx f_m(\vec{x}^*) + \frac{\partial f_m}{\partial x_1} \bigg\rvert_{x_1 = x_1^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_m}{\partial x_n} \bigg\rvert_{x_n = x_n^*} (x_n - x_n^*)
+    \end{align*}
+\end{center}
+In this case, we choose an $\vec{x}^*$ and $\vec{u}^*$ such that $\vec{f}(\vec{x}^*, \vec{u}^*) = \vec{0}$. \\
+\newline
+We can express this linearization as a matrix-vector equation:
+\begin{align*}
+    \vec{f}(\vec{x}) = \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{x_n^*} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{x_n^*}
+    \end{bmatrix} \begin{bmatrix}
+        (x_1 - x_1^*) \\
+        \vdots \\
+        (x_n - x_n^*)
+    \end{bmatrix} = J_{\vec{x}} \vec{\delta x}
+\end{align*}
+Where $J_{\vec{x}}$ is the \textbf{Jacobian matrix} of $\vec{f}$ with respect to $\vec{x}$ and $\vec{\delta x}$ is the distance of $\vec{x}$ from the equilibrium point. \\
+\newline
+If we are looking at a system of equations with a vector input, the linearization will be as follows
+\begin{align*}
+    \vec{f}(\vec{x}, \vec{u}) = \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{x_n^*} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{x_n^*}
+    \end{bmatrix} \begin{bmatrix}
+        (x_1 - x_1^*) \\
+        \vdots \\
+        (x_n - x_n^*)
+    \end{bmatrix} + \begin{bmatrix}
+        \frac{\partial f_1}{\partial u_1} \bigg\rvert_{u_1^*} & \cdots & \frac{\partial f_1}{\partial u_k} \bigg\rvert_{u_k^*} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial u_1} \bigg\rvert_{u_1^*} & \cdots & \frac{\partial f_m}{\partial u_k} \bigg\rvert_{u_k^*}
+    \end{bmatrix} \begin{bmatrix}
+        (u_1 - u_1^*) \\
+        \vdots \\
+        (u_k - u_k^*)
+    \end{bmatrix} = J_{\vec{x}} \vec{\delta x} + J_{\vec{u}} \vec{\delta u}
+\end{align*}
 
 \subsection*{Discretization}
+Another modification we often make is converting systems from \textbf{continuous time} (represented by a \textit{differential equation}) to \textbf{discrete time} (represented by a \textit{recurrence relation}).
+One motivation behind discretizing a system is that computers can only sample the system at discrete points in time, and can only provide piecewise constant inputs. \\
+\newline
+\textbf{Discretizing a system}
+Let's say you have an differential equation of the form
+$$\frac{d}{dt} x = f(t) + u(t)$$
+We want to convert it into the discrete-time recurrence relation
+$$\tilde{x}(k + 1) = a\tilde{x}(k) + \tilde{u}(k)$$
+where $\tilde{x}(k)$ is the discrete-time counterpart of $x(t)$ and $\tilde{u}(k)$ is the discrete-time counterpart of the input $u(t)$.
+\newline
+We are given our system has time step $T$, which you can think of as having two implications:
+\begin{enumerate}
+    \item Inputs are constant between times $nT$ and $(n + 1)T$.
+    \item When we discretize the system, $\tilde{x}(k) = x(kT)$.
+\end{enumerate}
+In order to discretize the system, we want to find $x(t + T)$ in terms of $x(t)$, assuming a constant input in the interval $[t, t + T}$.
+To do so, you can integrate the system between $t$ and $t + T$:
+\begin{align*}
+    \int_{x(t)}^{x(t + T)} dx = \int_t^{t + T} (f(\tau) + u(\tau)) \, d\tau \\
+\end{align*}
+Note that the variable of integration on the right-hand side is $\tau$, not $t$ because $t$ is present in the limits of integration. \\
+If $F$ is the antiderivative of $f$, we can get the following expression for $x(t + T)$
+\begin{align*}
+    x(t + T) = x(t) + (F(t + T) - F(t) + Tu(t))
+\end{align*}
+Now, we have the information we need to get $\tilde{x}(k + 1)$ in terms of $\tilde{x}(k)$ and $\tilde{u}(k)$. 
+If we set $t = kT$, we have
+\begin{align*}
+    x((k + 1)T) = x(kT) + (F((k + 1)T) - F(kT) + Tu(kT)) \\
+    \tilde{x}(k + 1) = \tilde{x}(k) + (F((k + 1)T) - F(kT) + Tu(kT))
+\end{align*}
+So, in the expression $\tilde{x}(k + 1) = a\tilde{x}(k) + \tilde{u}(k)$, we now know that $a = 1$ and $\tilde{u}(k) = F((k + 1)T) - F(kT) + Tu(kT)$.
 
 \subsection*{Controllability}
+We say that a system of the form
+$$\vec{x}(k + 1) = A\vec{x}(k) + \vec{b} u(k)$$
+is controllable if, given any $\vec{x}(0)$, we can specify a series of control inputs $(u(0), u(1), \dots, u(n))$ to reach any state (so, $\vec{x}(n)$ can be anything we want it to be). \\
+To determine whether a system is controllable, we define its controllability matrix to be
+\begin{align*}
+    \mathcal{C} = \begin{bmatrix}
+        \vec{b} & A\vec{b} & \cdots & A^{n - 1} \vec{b}
+    \end{bmatrix}
+\end{align*}
+Assuming we start at $\vec{x}(0) = \vec{0}$, we can reach any state in the span of the columns of $\mathcal{C}$, and therefore the system is controllable if the $\mathcal{C}$ is \textbf{full rank}, i.e., for an n-dimensional $\vec{x}$, the controllability matrix has n linearly independent columns. \\
+\newline
+\textbf{What states can a system reach in m timesteps?} \\
+Assume we have a scalar input $u(k)$.  
 
 \subsection*{System Identification}
 
