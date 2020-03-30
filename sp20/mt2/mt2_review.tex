@@ -117,7 +117,7 @@ If we are looking at a system of equations with a vector input, the linearizatio
 Another modification we often make is converting systems from \textbf{continuous time} (represented by a \textit{differential equation}) to \textbf{discrete time} (represented by a \textit{recurrence relation}).
 One motivation behind discretizing a system is that computers can only sample the system at discrete points in time, and can only provide piecewise constant inputs. \\
 \newline
-\textbf{Discretizing a system}
+\textbf{Discretizing a system} \\
 Let's say you have an differential equation of the form
 $$\frac{d}{dt} x = f(t) + u(t)$$
 We want to convert it into the discrete-time recurrence relation
@@ -129,7 +129,7 @@ We are given our system has time step $T$, which you can think of as having two 
     \item Inputs are constant between times $nT$ and $(n + 1)T$.
     \item When we discretize the system, $\tilde{x}(k) = x(kT)$.
 \end{enumerate}
-In order to discretize the system, we want to find $x(t + T)$ in terms of $x(t)$, assuming a constant input in the interval $[t, t + T}$.
+In order to discretize the system, we want to find $x(t + T)$ in terms of $x(t)$, assuming a constant input in the interval $[t, t + T)$.
 To do so, you can integrate the system between $t$ and $t + T$:
 \begin{align*}
     \int_{x(t)}^{x(t + T)} dx = \int_t^{t + T} (f(\tau) + u(\tau)) \, d\tau \\
@@ -145,7 +145,7 @@ If we set $t = kT$, we have
     x((k + 1)T) = x(kT) + (F((k + 1)T) - F(kT) + Tu(kT)) \\
     \tilde{x}(k + 1) = \tilde{x}(k) + (F((k + 1)T) - F(kT) + Tu(kT))
 \end{align*}
-So, in the expression $\tilde{x}(k + 1) = a\tilde{x}(k) + \tilde{u}(k)$, we now know that $a = 1$ and $\tilde{u}(k) = F((k + 1)T) - F(kT) + Tu(kT)$.
+So, in the expression $\tilde{x}(k + 1) = a\tilde{x}(k) + \tilde{u}(k)$, $a = 1$ and $\tilde{u}(k) = F((k + 1)T) - F(kT) + Tu(kT)$.
 
 \subsection*{Controllability}
 We say that a system of the form
@@ -159,11 +159,91 @@ To determine whether a system is controllable, we define its controllability mat
 \end{align*}
 Assuming we start at $\vec{x}(0) = \vec{0}$, we can reach any state in the span of the columns of $\mathcal{C}$, and therefore the system is controllable if the $\mathcal{C}$ is \textbf{full rank}, i.e., for an n-dimensional $\vec{x}$, the controllability matrix has n linearly independent columns. \\
 \newline
-\textbf{What states can a system reach in m timesteps?} \\
-Assume we have a scalar input $u(k)$.  
+\textbf{Controlling a system} \\
+Assume we have a scalar input $u(k)$ and we want to see what states we can reach with $n$ controls if we start at $\vec{x}(0) = \vec{0}$. \\ 
+\newline
+Plugging the controls into the recurrence relation, we see that the first column of the controllability matrix corresponds to the last input ($u(n - 1)$), the second column corresponds to the second-to-last input ($u(n - 2)$), and the $n^{\text{th}}$ column corresponds to $u(0)$: 
+\begin{align*}
+    \vec{x}(n) = A\vec{x}(n - 1) + \vec{b} u(n - 1) \\
+    \vec{x}(n) = A(A \vec{x}(n - 2) + \vec{b} u(n - 2)) + \vec{b} u(n - 1) \\
+    = A^2 \vec{x}(n - 2) + A\vec{b} u(n - 2) + \vec{b} u(n - 1) \\
+    \cdots
+    \vec{x}(n) = A^n \vec{x}(0) + A^{n - 1} \vec{b} u(0) + \cdots +  A\vec{b} u(n - 2) + \vec{b} u(n - 1) \\
+    = A^{n - 1} \vec{b} u(0) + \cdots +  A\vec{b} u(n - 2) + \vec{b} u(n - 1)
+\end{align*}
+So, if we want to pick control values such that a system reaches a certain $\vec{x}(n)$ starting at $\vec{x}(0) = \vec{0}$, we can use the relation
+\begin{align*}
+    \vec{x}(n) = \mathcal{C} \begin{bmatrix}
+        u(n - 1) \\ \vdots \\ u(0)
+    \end{bmatrix}
+\end{align*}
+and solve for your control inputs as follows:
+\begin{align*}
+    \begin{bmatrix}
+        u(n - 1) \\ \vdots \\ u(0)
+    \end{bmatrix} = \mathcal{C}^{-1} \vec{x}(n)
+\end{align*}
 
 \subsection*{System Identification}
-
-\subsection*{Orthonormalization}
+If we don't know the parameters of our system (i.e. the $A$ matrix and $\vec{b}$ vector) but we do have a series of inputs and outputs to the system, we can use least squares to solve for the elements of $A$ and $\vec{b}$. \\
+\newline
+First, let us consider a 2-dimensional system with a scalar input.
+\begin{align*}
+    \begin{bmatrix}
+        x_1(k + 1) \\ x_2(k + 1)
+    \end{bmatrix} = \begin{bmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+    \end{bmatrix} \begin{bmatrix}
+        x_1(k) \\ x_2(k)
+    \end{bmatrix} + \begin{bmatrix}
+        b_1 \\ b_2
+    \end{bmatrix} u(k)
+\end{align*}
+Also, let's say we are given the following data points: $\vec{x}(0), \dots, \vec{x}(m)$ and $u(0), \dots, u(m - 1)$. \\
+\newline
+In order to perform system identification, we want to format the system as a least squares problem:
+\begin{align*}
+    D\vec{p} \approx \vec{y}
+\end{align*}
+$\vec{p}$ is our vector of unknowns, so we populate it with the elements of $A$ and $\vec{b}$:
+\begin{align*}
+    \vec{p} = \begin{bmatrix}
+        a_{11} & a_{12} & a_{21} & a_{22} & b_1 & b_2
+    \end{bmatrix}^T
+\end{align*}
+We can view $\vec{y}$ as the output of the system, so we can populate with $\vec{x}(1), \dots, \vec{x}(m)$
+\begin{align*}
+    \vec{y} = \begin{bmatrix}
+        x_1(1) & x_2(1) & \cdots & x_1(m) & x_2(m)
+    \end{bmatrix}^T
+\end{align*}
+Now, we need to find the elements of the $D$ matrix to complete the relationship between $\vec{p}$ and $\vec{y}$. 
+From the matrix-vector representation of the system, we get scalar equations of the form
+\begin{align*}
+    x_1(k + 1) = a_{11} x_1(k) + a_{12} x_2(k) + b_1 u(k) \\
+    x_2(k + 1) = a_{21} x_1(k) + a_{22} x_2(k) + b_2 u(k) 
+\end{align*}
+So, we have the following least-squares problem:
+\begin{align*}
+    \begin{bmatrix}
+        x_1(1) \\ x_2(1) \\ x_1(2) \\ x_2(2) \cdots \\ x_1(m) \\ x_2(m)
+    \end{bmatrix} = \begin{bmatrix}
+        x_1(0) & x_2(0) & 0 & 0 & u(0) & 0 \\
+        0 & 0 & x_1(0) & x_2(0) & 0 & u(0) \\
+        x_1(1) & x_2(1) & 0 & 0 & u(1) & 0 \\
+        0 & 0 & x_1(1) & x_2(1) & 0 & u(1) \\
+        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+        x_1(m - 1) & x_2(m - 1) & 0 & 0 & u(m - 1) & 0 \\
+        0 & 0 & x_1(m - 1) & x_2(m - 1) & 0 & u(m - 1)
+    \end{bmatrix} \begin{bmatrix}
+        a_{11} \\ a_{12} \\ a_{21} \\ a_{22} \\ b_1 \\ b_2
+    \end{bmatrix}
+\end{align*}
+From here, we can solve for $\vec{p}$ using the least-squares formula:
+$$\vec{p} = (D^T D)^{-1} D^T \vec{y}$$
+This also extrapolates to systems of higher dimension.
+\newline
+\textit{Note: At the very least, you need $\vec{x}(0), \dots \vec{x(3)}$ and $u(0), u(1), u(2)$ because we have 6 unknowns and need 6 equations to have a unique solution.}
 
 \subsection*{SVD}
