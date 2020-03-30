@@ -24,8 +24,15 @@ We will start our investigation by looking at the eigenvectors of the matrix $A^
   \qitem Let $A$ be a matrix in $\mathbb{R}^{m \times n}$. \textbf{Show that the matrices $A^T A$ and $A A^T$ are symmetric.}
   
   \textit{Hint: This should be a very quick proof, using the definition of a symmetric matrix.}
+
   \ws{\vspace{50px}}
-  \sol{}
+  \sol{
+    We use the definition of a symmetric matrix $B$ having the property $B = B^T$.
+    \begin{align*}
+      (A^T A)^T = A^T (A^T)^T = A^T A \\
+      (A A^T)^T = (A^T)^T A^T = A A^T
+    \end{align*}
+  }
 
   \qitem \textbf{Show that $A^T A$ has non-negative eigenvalues.} A similar proof applies for $A A^T$.
 
@@ -112,12 +119,12 @@ Now that we've shown $A^T A$ and $A A^T$ to be symmetric with non-negative eigen
     This shows that $\sigma = \sqrt{\lambda}$ so we see that $A \vec{v} = \sqrt{\lambda} \vec{u}.$
   }
 
-  \qitem So far, we've been considering vectors in outside the null spaces of $A$ and $A^T$. We want to ensure that the SVD still maps vectors in these null spaces to $\vec{0}$.
+  \qitem So far, we've been considering vectors outside the null spaces of $A$ and $A^T$. We want to ensure that the SVD still maps vectors in these null spaces to $\vec{0}$.
 
   \begin{enumerate}
   
   \qitem
-  Let $\vec{v}$ be nonzero vector in $\mathbb{R}^{n}$ that is also in the null space of $A$
+  Let $\vec{v}$ be nonzero vector in $\mathbb{R}^{n}$ that is also in the null space of $A$.
   \textbf{Show that $\vec{v}$ is an eigenvector of $A^{T} A$ with eigenvalue $0.$}
 
   \meta {
