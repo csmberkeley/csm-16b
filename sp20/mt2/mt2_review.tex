@@ -258,6 +258,17 @@ Now, we will look at \textbf{singular value decomposition}, which decomposes any
 \end{align*}
 Where the columns of $U$ are orthonormal, the rows of $V^T$ are orthonormal, and $\Sigma$ has the \textbf{singular values} of the system on the diagonal and is zero elsewhere. \\
 \newline
+The SVD can also be written in \textbf{outer product form} as follows:
+\begin{align*}
+    \boxed{A = \sum \sigma_i \vec{u}_i \vec{v}^T_i}
+\end{align*}
+$\vec{u}_i \vec{v}^T_i$ is the outer product of $\vec{u}$ and $\vec{v}$, which results in a rank-one matrix. So, if $A$ is a rank-k matrix, $A$ can be expressed as the sum of $k$ rank-one matrices, each scaled by the corresponding singular value. \\
+\newline
+This is useful in approximating high-rank matrices with lower-rank ones. If we want to approximate $A$ as a rank-j matrix where $j < k$, we can take the first $j$ terms of the outer-product form of the SVD (the terms that correspond to the $j$ largest singular values):
+\begin{align*}
+    \boxed{A \approx \sum_{i = 1}^{j} \sigma_i \vec{u}_i \vec{v}^T_i}
+\end{align*}
+\newline
 \textbf{Elements of the SVD}
 \begin{enumerate}
     \item The columns of $U$ are orthonormal eigenvectors of the matrix $AA^T$.
@@ -306,10 +317,12 @@ where $U$ and $V$ are both orthonormal because they consist of eigenvalues of a 
     \end{align*}
     Then the equation relating $U$ and $V$ can be written as
     $$U\Sigma = AV$$
-    \item From there, we can right-multiply both sides by the transpose of $V$. $V$ is orthonormal, so $V V^T$ is the identity. So,
+    \item From there, we can right-multiply both sides by the transpose of $V$. 
+    $$AVV^T = U \Sigma V^T$$
+    $VV^T$ is not quite the identity matrix (it would be if $V$ was square, since $V$ is orthonormal), but it can be proven that $AVV^T = A$ (look at note 9B for more information). So,
     $$A = U \Sigma V^T$$
 \end{enumerate}
 
 \textbf{Applications of the SVD: PCA} \\
 \newline
-TBD until we see how PCA is taught this semester.
+TBD: 03/31 or 04/02
