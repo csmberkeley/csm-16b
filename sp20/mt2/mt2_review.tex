@@ -290,7 +290,25 @@ Let's say $A$ is an $n \times m$ matrix of rank $k$ (has k linearly independent 
     \item If you started out with $AA^T$, compute $\vec{v}_i$ as $\frac{A^T \vec{u}_i}{\sigma_i}$. Otherwise, compute $\vec{u}$ as $\frac{A \vec{v}_i}{\sigma_i}$.
 \end{enumerate}
 
-\textbf{SVD Intuition} \\
+\textbf{Full SVD} \\
+\newline
+For the full SVD, we start with the compact SVD and then add eigenvectors in the nullspace of $AA^T$ to $U$ and eigenvectors in the nullspace of $A^TA$ to $V$. \\
+\newline
+Let's say $A$ is an $n \times m$ matrix of rank $k$. Then, for the full SVD, $U$ will be an orthonormal $n \times n$ matrix, $\Sigma$ will have the dimensions $n \times m$ (same as the original A matrix), and $V$ will be an orthonormal $m \times m$ matrix. \\
+\newline
+\textbf{Computing the Full SVD}
+\begin{enumerate}
+    \item Compute the compact SVD.
+    \item Now, let's fill in $\vec{u}_{k+1}, \dots, \vec{u}_n$. We have found the eigenvectors of $AA^T$ with nonzero eigenvalues, so now we compute the eigenspace for $\lambda = 0$. To do so, find an orthonormal basis for the nullspace of $AA^T$ and append it to your $U$ matrix.
+    \item Then, do the same for $V$. Find an orthonormal basis for the nullspace of $A^T A$ and append it to your $V$ matrix.
+    \item Finally, we need to modify $\Sigma$ so that it is $n \times m$ (so the matrix multiplication in $U \Sigma V^T$ works out). Zero-pad $\Sigma$ until it has dimensions $n \times m$.
+\end{enumerate}
+\textit{Side note (out-of-scope intuition): $U$ is guaranteed to be orthogonal because the set of vectors $\{\vec{u}_{k + 1}, \dots, \vec{u}_n\}$ is orthogonal to $\{\vec{u}_1, \dots, \vec{u}_k$\}. 
+This is because $\vec{u}_1, \dots, \vec{u}_k$ come from the columnspace of $A$ and $\vec{u}_{k + 1}, \dots, \vec{u}_n$ come from the nullspace of $A^T$, which are orthogonal subspaces. 
+Similar logic can be applied to $V$ if we switch $A$ and $A^T$.} \\
+\newline
+\textbf{SVD Intuition (Compact SVD)} \\
+\textbf{Note: this piece of intuition is out of scope but may be helpful in understanding how the SVD works.} \\
 \newline
 The \textbf{Spectral Theorem} states that symmetric matrices in $\mathbb{R}^{n\times n}$ have $n$ \textbf{orthogonal eigenvectors}, and all eigenvalues are \textbf{real and nonnegative}. \\
 \newline
@@ -322,7 +340,3 @@ where $U$ and $V$ are both orthonormal because they consist of eigenvalues of a 
     $VV^T$ is not quite the identity matrix (it would be if $V$ was square, since $V$ is orthonormal), but it can be proven that $AVV^T = A$ (look at note 9B for more information). So,
     $$A = U \Sigma V^T$$
 \end{enumerate}
-
-\textbf{Applications of the SVD: PCA} \\
-\newline
-TBD: 03/31 or 04/02
