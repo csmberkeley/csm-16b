@@ -18,8 +18,9 @@ with $x_1(t) = x(t)$ and $x_2(t) = \frac{d}{dt} x(t)$.
 
 \begin{enumerate}
 
-\qitem What are the values of the $A$ matrix?
+\qitem \textbf{What are the values of the $A$ matrix?}
 
+\ws{\vspace{75px}}
 \sol {
 	$$
     A = \begin{bmatrix}
@@ -40,8 +41,9 @@ with $x_1(t) = x(t)$ and $x_2(t) = \frac{d}{dt} x(t)$.
 %   We can treat them as zero, but the dimensions of $B$ and $\vec{u}(t)$ are currently undefined.
 % }
 
-\qitem Is this continuous time system stable? How would you describe its behavior?
+\qitem \textbf{Is this continuous time system stable? How would you describe its behavior?}
 
+\ws{\vspace{75px}}
 \sol{
 	The eigenvalues of the $A$ matrix will be $\pm j.$ 
   Since $\mathfrak{Re}(\lambda) = 0,$ and is not less than $0,$ the system is unstable.
@@ -53,16 +55,10 @@ with $x_1(t) = x(t)$ and $x_2(t) = \frac{d}{dt} x(t)$.
 We want to change the behavior of the system using a feedback control model:
 $$
 \frac{d}{dt}
-\begin{bmatrix}
-x_1(t) \\
-x_2(t)
-\end{bmatrix}
+\vec{x}(t)
 =
 A
-\begin{bmatrix}
-x_1(t) \\
-x_2(t)
-\end{bmatrix}
+\vec{x}(t)
 + 
 \begin{bmatrix}
 0 \\
@@ -70,20 +66,22 @@ x_2(t)
 \end{bmatrix}
 u(t)
 $$
-To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 & k_2 \end{bmatrix}$. Note that $K$ is a $1 \times 2$ matrix.
+To do this, we set $u(t) = \vec{k}^T\vec{x}(t)$, where $\vec{k}^T = \begin{bmatrix} k_1 & k_2 \end{bmatrix}$. Note that $\vec{k}^T$ is a $1 \times 2$ row vector and $u(t)$ is a scalar resulting from the inner product.
 
 \meta {
   In the generalized state-space model, $B$ is an $n \times p$ matrix and $\vec{u}$ will be a vector in $\mathbb{R}^{p}.$ Therefore, since $\vec{u} = K \vec{x},$ and $\vec{x}$ is in $\mathbb{R}^{n},$ our $K$ matrix in the general state-space model will be of size $p \times n.$
 }
 
 \begin{enumerate}[resume]
-\qitem We will now try to use our knowledge of controllability to stabilize this system. Is this continuous time system controllable?
+\qitem We will now try to use our knowledge of controllability to stabilize this system. 
+\textbf{Is this continuous time system controllable?}
 
 \meta {
   Make sure to emphasize that we can only pick every eigenvalue of the system if it is controllable.
   We can also make an unstable system stable, if we can control all of the unstable eigenvalues, but we would not be able to control \textbf{every} eigenvalue for the system.
 }
 
+\ws{\vspace{100px}}
 \sol{
   We can compute our controllability matrix as
   $$\mathcal{C} = \begin{bmatrix} \vec{b} & A \vec{b} \end{bmatrix} = 
@@ -94,11 +92,12 @@ To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 & k_2 \e
   This controllability matrix is full-rank since its columns are linearly independent, so the system is controllable.
 }
 
-\item After plugging in our input, $u(t) = K\vec{x}(t),$ what will our new system be? How can you write out this system of differential equations in matrix/vector form?
+\item After plugging in our input, $u(t) = \vec{k}^T\vec{x}(t),$ what will our new system be? \textbf{Write out this system of differential equations in matrix/vector form.}
 
+\ws{\vspace{100px}}
 \sol {
-  We know that our $B$ matrix is: $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ and our input $u(t) = k_1 x_1(t) + k_2 x_2(t).$ \vskip 1pt
-  If we plug this into our system, we will get:
+  We know that our $\vec{b}$ vector is: $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ and our input $u(t) = k_1 x_1(t) + k_2 x_2(t).$ \vskip 1pt
+  If we plug this into our system and distribute out the common $\vec{x}(t)$ term, we will get:
   \begin{equation}
     \ddt{}{t} \vec{x}(t) = 
     \begin{bmatrix}
@@ -120,13 +119,14 @@ To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 & k_2 \e
   \end{equation}
   We can alternatively represent this as a matrix/vector system of differential equations:
   \begin{equation}
-    \ddt{}{t} \vec{x}(t) = (A + BK) \vec{x}(t)
+    \ddt{}{t} \vec{x}(t) = (A + \vec{b} \vec{k}^T) \vec{x}(t)
   \end{equation}
 }
 
-\qitem We will define the new matrix derived in the previous part as $A_{cl}$ for the closed loop system. 
-What are the eigenvalues of this new matrix $A_{cl}?$
+\qitem We will define the new matrix derived in the previous part as $A_{cl}$ for the \textit{closed loop} system. 
+\textbf{What are the eigenvalues of this new matrix $A_{cl}?$}
 
+\ws{\vspace{100px}}
 \sol {
   We first compute the characteristic polynomial of $A_{cl}.$
   $$\text{det}(A_{cl} - \lambda I) = 
@@ -141,21 +141,30 @@ What are the eigenvalues of this new matrix $A_{cl}?$
   $$\lambda = \frac{k_2}{2} \pm \frac{1}{2} \sqrt{k_2^{2} - 4(1 - k_1)}$$
 }
 
-\qitem Suppose $k_1 = 1$ and $k_2 = 2,$ what will the eigenvalues of this system be? 
-How about when $k_1 = -1$ and $k_2 = -2$?
+\qitem Let's see how different values of $k_1, k_2$ affect the response of this continuous time system.
 
+\begin{enumerate}
+\item \textbf{What will the eigenvalues of the closed loop system be if $k_1 = 1$ and $k_2 = 2$?}
+
+\ws{\vspace{75px}}
 \sol{
 	If $k_1 = 1$ and $k_2 = 2,$ then the eigenvalues will be:
   $$1 \pm \frac{1}{2} \sqrt{4 - 4(1 - 1)} = 0, \ 2$$
   Since both of the eigenvalues have $\mathfrak{Re}(\lambda) = 0, 2 >= 0,$ this system will be unstable.
+}
+\item \textbf{What will the eigenvalues of the closed loop system be if $k_1 = -1$ and $k_2 = -2$?}
 
+\ws{\vspace{75px}}
+\sol {
   Now suppose $k_1 = -1$ and $k_2 = -2,$ then the eigenvalues will be:
   $$-1 \pm \frac{1}{2} \sqrt{4 - 4(1 + 1)} = -1 \pm j$$
   Since $\mathfrak{Re}(\lambda) = -1 < 0,$ for both eigenvalues, this system will be stable. 
 }
+\end{enumerate}
 
-\qitem What values of $k_1$ and $k_2$ will remove the oscillatory behavior completely and still stabilize the system?
+\qitem \textbf{What values of $k_1$ and $k_2$ will remove the oscillatory behavior completely and still stabilize the system?} \textit{Hint: There may be many possible values that satisfy this criteria.}
 
+\ws{\vspace{75px}}
 \sol{
 	To remove oscillatory behavior, and stabilize the system, the square root term $\sqrt{k_2^{2} - 4(1 - k_1)}$ must be positive, and the real part of both eigenvalues must be less than 0.
 
