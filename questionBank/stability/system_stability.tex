@@ -16,11 +16,19 @@ Since $\widetilde{B}$ is a matrix of scalars, we can redefine $\vec{\widetilde{{
 \begin{equation}\label{eqn:input}
   \ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{{u}}}(t)
 \end{equation}
-In this case, $R$ will be the upper triangular matrix, and the basis which makes the linear operator upper triangular, $S = \{ \vec{v}_{1}, \cdots, \vec{v}_{n} \},$ can be picked to be orthonormal. Therefore, we say that $A = VRV^{T}$ where $V$ is the change of coordinates matrix from $z_{i}$ coordinates to $x_{i}$ coordinates, or $\vec{x} = V \vec{z}.$
+In this case, $R$ will be the upper triangular matrix of the form: $$R = \begin{bmatrix} 
+      \lambda_{1} & r_{1,2} & \cdots & r_{1,n} \\ 
+      0 & \lambda_{2} & \cdots & r_{2,n} \\ 
+      \vdots & \ddots & \cdots & \vdots \\
+      0 & \cdots & 0 & \lambda_{n}
+      \end{bmatrix}$$
+
+The entries above the diagonal in the matrix $R$ are all arbitrary constants. The basis which represents $A$ in this upper-triangular fashion is $V = \{ \vec{v}_{1}, \cdots, \vec{v}_{n} \}$, which can be picked to be \textit{orthonormal}. Therefore, we say that $A = VRV^{T}$ where $V$ is the change of coordinates matrix from $z$ coordinates to $x$ coordinates, or $\vec{x} = V \vec{z}$.
 
 \begin{enumerate}
-  \qitem Show that if the system represented by equation \eqref{eqn:schur} is stable in $z_i$ coordinates, then it must also be stable in $x_i$ coordinates.
+  \qitem \textbf{Show that if the system represented by equation \eqref{eqn:schur} is stable in $z$ coordinates, then it must also be stable in $x$ coordinates.}
 
+  \ws{\vspace{150px}}
   \sol {
     If equation \eqref{eqn:schur} is stable in $z_i$ coordinates, then for any bounded input $\vec{\widetilde{{u}}}(t),$
     $\vec{z}(t)$ must be bounded as well.
@@ -41,8 +49,9 @@ In this case, $R$ will be the upper triangular matrix, and the basis which makes
     Since $\vec{z}(t)$ is bounded, $\vec{x}(t)$ must be bounded as well.
   }
 
-  \qitem Uncouple the system in equation \eqref{eqn:input} into first order scalar differential equations.
+  \qitem \textbf{Uncouple the system in equation \eqref{eqn:input} into first order scalar differential equations.}
 
+  \ws{\vspace{200px}}
   \sol {
     Since the $R$ matrix is upper triangular, we can uncouple the system into $n$ first order scalar differential equations.
     The $r_{i,j}$ represents the entry in the $i^{th}$ row and $j^{th}$ column. 
@@ -65,8 +74,11 @@ In this case, $R$ will be the upper triangular matrix, and the basis which makes
     \end{align*}
   }
 
-  \qitem Under what conditions will $\ddt{}{t} z_{n}(t) = \lambda_{n} z_{n}(t) + \widetilde{u}_{n}(t)$ be stable?
+  \qitem \textbf{Under what conditions will $\ddt{}{t} z_{n}(t) = \lambda_{n} z_{n}(t) + \widetilde{u}_{n}(t)$ be stable?}
+  
+  \textit{Hint: Recall our definition of BIBO stability, which says a system is stable $\iff x(t) \leq B < \infty$ for all choices of bounded inputs $(t)$. What conditions does this imply on the eigenvalues?}
 
+  \ws{\vspace{150px}}
   \meta {
     This is an if and only if condition since we are discussing scalar BIBO stability.
   }
@@ -75,14 +87,14 @@ In this case, $R$ will be the upper triangular matrix, and the basis which makes
     This scalar differential equation will only be stable when $\mathfrak{Re}(\lambda_{n}) < 0$ by the criterion we defined for BIBO stability in the previous question.
   }
 
-  \qitem Using back-substitution, confirm that $\ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{u}}(t)$ will be stable when $\mathfrak{Re}(\lambda_i) < 0$ for all $i.$
+  \qitem \textbf{Using back-substitution, confirm that $\ddt{}{t} \vec{z}(t) = R \vec{z}(t) + \vec{\widetilde{u}}(t)$ will be stable when $\operatorname{Re}(\lambda_i) < 0$ for all $i \in {0, 1, \dots, n}$}.
 
   \meta {
     This however, is not a necessary condition, and will only be sufficient. 
     It is possible to have a system with eigenvalue $0$ and still have it be BIBO stable, but we will say that it is not system stable, or asymptotically stable.
     An example of this is when $A = \begin{bmatrix} 0 & 0 \\ 0 & -1 \end{bmatrix}, B = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.$
 
-    Therefore, we say the system is guaranteed to be BIBO stable when $\mathfrak{Re}(\lambda_i) < 0.$ 
+    Therefore, we say the system is guaranteed to be BIBO stable when $\operatorname{Re}(\lambda_i) < 0.$ 
     When discussing system stability however, we must be able to control all of our eigenvalues in order to say that the eigenvalue test works for BIBO stability. In this case, the system is uncontrollable, and we cannot control the response with eigenvalue $0.$
 
     Note that this question has been worded very carefully to claim that a system will be BIBO stable when the eigenvalue check is satisfied. Also, in general, when a question asks, "Is the system stable?" it is usually referring to system stability through the eigenvalue test.
