@@ -1,0 +1,31 @@
+\renewcommand{\arraystretch}{1.25}
+
+\subsection*{Applications of the SVD}
+\textbf{PCA} \\
+\newline
+\textit{Principal Component Analysis} is a procedure that uses the SVD to analyze data by finding the directions of maximum "spread" or variation.
+
+\newline
+\textbf{Minimum Norm Control} \\
+\newline
+Say we have a controllable system of rank $n$
+\begin{align*}
+    \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)
+\end{align*}
+ and we want to reach a desired state $\vec{x}_f$ with $k > n$ control inputs. We know we can reach any state in $n$ timesteps, and there are infinitely many ways to reach $\vec{x}_f$ in $k > n$ timesteps. Using the SVD, however, we can find the series of control inputs that has the minimum norm.
+
+\subsection*{Stability}
+A continuous- or discrete-time system is considered \textit{stable} if, for any bounded initial condition and series of inputs, the state remains bounded (if a quantity is \textit{bounded}, it is less than some finite constant at all times). This is sometimes called BIBO (bounded input $\implies$ bounded output) stability.
+
+\subsection*{Feedback Control}
+Consider a system that is controllable but has unstable eigenvalues:
+\begin{align*}
+    \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)
+\end{align*}
+We can use the fact that the system is controllable to place its eigenvalues wherever we want by applying a \textit{feedback control}, where the control input depends on the current state. Depending on the problem, the feedback input will either be of the form $u(t) = \vec{f^T} \vec{x}(k)$ or $u(t) = -\vec{f^T} \vec{x}(k}$. We will use the first in this worksheet, but you should expect to see both forms.
+\begin{align*}
+    \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}\vec{f}^T \vec{x}(k)
+\end{align*}
+
+\subsection*{CCF}
+It is feasible to calculate feedback control coefficients by hand for a $2 \times 2$ system, but it quickly becomes difficult for higher-order systems. For systems in \textit{controller canonical form (CCF)}, however, it is a lot easier to apply feedback control. 
