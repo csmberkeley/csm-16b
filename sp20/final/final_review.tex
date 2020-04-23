@@ -4,7 +4,6 @@
 \textbf{PCA} \\
 \newline
 \textit{Principal Component Analysis} is a procedure that uses the SVD to analyze data by finding the directions of maximum "spread" or variation.
-
 \newline
 \textbf{Minimum Norm Control} \\
 \newline
@@ -15,17 +14,106 @@ Say we have a controllable system of rank $n$
  and we want to reach a desired state $\vec{x}_f$ with $k > n$ control inputs. We know we can reach any state in $n$ timesteps, and there are infinitely many ways to reach $\vec{x}_f$ in $k > n$ timesteps. Using the SVD, however, we can find the series of control inputs that has the minimum norm.
 
 \subsection*{Stability}
-A continuous- or discrete-time system is considered \textit{stable} if, for any bounded initial condition and series of inputs, the state remains bounded (if a quantity is \textit{bounded}, it is less than some finite constant at all times). This is sometimes called BIBO (bounded input $\implies$ bounded output) stability.
+A continuous- or discrete-time system is considered \textit{stable} if, for any bounded initial condition and series of inputs, the state remains bounded (if a quantity is \textit{bounded}, it is less than some finite constant at all times). This is sometimes called BIBO (bounded input $\implies$ bounded output) stability. \\
+\newline
+For a system in \textit{discrete time}
+$$\vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)$$
+the system is
+\begin{enumerate}
+    \item \textbf{Stable} if all eigenvalues have a \textbf{magnitude less than 1},
+    \item \textbf{Unstable} if at least one eigenvalue has a \textbf{magnitude greater than 1}, or
+    \item \textbf{Marginally unstable} if at least one eigenvalue has a magnitude of 1 and none have a magnitude greater than 1.
+\end{enumerate}
 
-\subsection*{Feedback Control}
+For a system in \textit{continuous time}
+$$\frac{d}{dt} \vec{x}(t) = A\vec{x}(t) + \vec{b}u(t)$$
+the system is
+\begin{enumerate}
+    \item \textbf{Stable} if all eigenvalues have a \textbf{negative real component},
+    \item \textbf{Unstable} if at least one eigenvalue has a \textbf{positive real component}, or
+    \item \textbf{Marginally unstable} if at least one eigenvalue has a real component of 0 and none have a positive real component.
+\end{enumerate}
+
+An interesting case is \textit{upper-triangular matrices}. If a matrix is upper-triangular, its eigenvalues are on the diagonal. So, to see if a system with an upper-triangular A matrix is stable, you can look at the diagonal elements.
+
+\subsection*{Feedback Control and Eigenvalue Placement}
 Consider a system that is controllable but has unstable eigenvalues:
 \begin{align*}
     \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)
 \end{align*}
-We can use the fact that the system is controllable to place its eigenvalues wherever we want by applying a \textit{feedback control}, where the control input depends on the current state. Depending on the problem, the feedback input will either be of the form $u(t) = \vec{f^T} \vec{x}(k)$ or $u(t) = -\vec{f^T} \vec{x}(k}$. We will use the first in this worksheet, but you should expect to see both forms.
+We can use the fact that the system is controllable to place its eigenvalues wherever we want by applying a \textit{feedback control}, where the control input depends on the current state. Depending on the problem, the feedback input will either be of the form $u(t) = \vec{f^T} \vec{x}(k)$ or $u(t) = -\vec{f^T} \vec{x}(k)$. We will use the first in this worksheet, but you should expect to see both forms.
 \begin{align*}
     \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}\vec{f}^T \vec{x}(k)
 \end{align*}
+We can rewrite this system as follows:
+\begin{align*}
+    \vec{x}(k + 1) = (A + \vec{b}\vec{f}^T) \vec{x}(k)
+\end{align*}
+So, the new state transition matrix for the system is $(A + \vec{b}\vec{f}^T)$. Because the system is controllable, we can pick the elements of the feedback coefficient vector $\vec{f}$ to place the eigenvalues of our system wherever we choose.
 
 \subsection*{CCF}
-It is feasible to calculate feedback control coefficients by hand for a $2 \times 2$ system, but it quickly becomes difficult for higher-order systems. For systems in \textit{controller canonical form (CCF)}, however, it is a lot easier to apply feedback control. 
+It is feasible to calculate feedback control coefficients by hand for a $2 \times 2$ system, but it quickly becomes difficult for higher-order systems. For systems in \textit{controller canonical form (CCF)}, however, it is a lot easier to apply feedback control. \\
+\newline
+In general, a system in CCF will look like the following:
+\begin{align*}
+    \vec{x}(k + 1) = \begin{bmatrix}
+        0 & 1 & 0 & \cdots & 0 \\
+        0 & 0 & 1 & \cdots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \cdots & 1 \\
+        a_1 & a_2 & a_3 & \cdots & a_n
+    \end{bmatrix} \vec{x}(k) + \begin{bmatrix}
+        0 \\ 0 \\ \vdots \\ 0 \\ 1
+    \end{bmatrix} u(k)
+\end{align*}
+For a system in CCF, the $B$ vector will be \textit{all zeros with a one in the last position}, and $A$ matrix will have \textit{ones in the position to the right of the diagonal and will be zero elsewhere, except in the last row}. \\
+\newline
+The interesting part about CCF is that the coefficients in the last row of the $A$ matrix \textbf{form the characteristic polynomial of our system}. 
+For the above system, the characteristic polynomial would be:
+\begin{align*}
+    \lambda^n - a_n \lambda^{n - 1} - a_{n - 1}\lambda^{n - 2} - \cdots - a_2 \lambda - a_1 = 0
+\end{align*}
+Notice that each term after $\lambda^n$ is being \textit{subtracted}, and that the coefficients in the last row of $A$ are ordered in increasing rank (the constant term, then the coefficient of $\lambda$, etc). \\
+\newline
+Now, let's try to apply a feedback control input to see how useful CCF is.
+\begin{align*}
+    u(k) = \begin{bmatrix}
+        f_1 & \cdots & f_n
+        \end{bmatrix} \vec{x} \\
+    \vec{x}(k + 1) = \begin{bmatrix}
+        0 & 1 & 0 & \cdots & 0 \\
+        0 & 0 & 1 & \cdots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \cdots & 1 \\
+        a_1 & a_2 & a_3 & \cdots & a_n
+    \end{bmatrix} \vec{x}(k) + \begin{bmatrix}
+        0 \\ 0 \\ \vdots \\ 0 \\ 1
+    \end{bmatrix} \begin{bmatrix}
+        f_1 & \cdots & f_n
+        \end{bmatrix} \vec{x}(k)
+\end{align*}
+The new state transition matrix would be the following:
+\begin{align*}
+    \begin{bmatrix}
+        0 & 1 & 0 & \cdots & 0 \\
+        0 & 0 & 1 & \cdots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \cdots & 1 \\
+        a_1 & a_2 & a_3 & \cdots & a_n
+    \end{bmatrix} \vec{x}(k) + \begin{bmatrix}
+        0 \\ 0 \\ \vdots \\ 0 \\ 1
+    \end{bmatrix} \begin{bmatrix}
+        f_1 & \cdots & f_n
+        \end{bmatrix} = \begin{bmatrix}
+        0 & 1 & 0 & \cdots & 0 \\
+        0 & 0 & 1 & \cdots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \cdots & 1 \\
+        a_1 + f_1 & a_2 + f_2 & a_3 + f_3 & \cdots & a_n + f_n
+    \end{bmatrix}
+\end{align*}
+And the new characteristic polynomial would be:
+\begin{align*}
+    \lambda^n - (a_n + f_n)\lambda^{n - 1} - \cdots - (a_2 + f_2) \lambda - (a_1 + f_1)
+\end{align*}
+As you can see, we can easily set the coefficients of the characteristic polynomial and therefore place the eigenvalues of the system.

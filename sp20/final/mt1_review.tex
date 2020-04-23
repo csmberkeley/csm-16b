@@ -161,7 +161,7 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
         \boxed{x(t) = x(0) e^{\lambda t} + \int_0^t u(\tau) e^{\lambda(t - \tau)} \, d\tau}
     \end{align*}
 \end{enumerate}
-\newpage 
+
 \subsection*{Time-Domain RC circuits}
 \begin{figure}[H]
 	\begin{center}
@@ -205,7 +205,6 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
 Note: Circuits with inductors can be solved in a similar manner, using the inductor I-V relationship: 
 $$\boxed{V_L(t) = L \frac{d}{dt} i_L(t)}$$
 
-\newpage
 \subsection*{Diagonalization and Change of Basis}
 
 We start with a system of the form with a diagonalizable $n \times n$ matrix $A$:
@@ -319,7 +318,6 @@ The strategy is to diagonalize the system so that there is a set of $n$ separate
     \item \textbf{Complex Eigenvalues ($\lambda = a + bj$)}: The response is the product of a decaying exponential and a sinusoid, so it oscillates as it decays.
 \end{enumerate}
 
-\newpage
 \subsection*{Complex Numbers}
 \textbf{Complex Number Representations:} 
 
@@ -394,7 +392,6 @@ Euler's identity relates complex exponentials (the polar representation of compl
     \boxed{\sin(\theta) = \frac{1}{2j} (e^{j \theta} - e^{-j \theta})}
 \end{align*}
 
-\newpage
 \subsection*{Frequency Domain Analysis: Phasors and Impedance}
 We can analyze circuits with sinusoidal inputs/sources in the frequency domain. To do so, we use the \textit{phasor} representation of sinusoidal voltages and currents, and the \textit{impedances} of passive circuit elements (resistors, capacitors, inductors).
 
@@ -471,7 +468,6 @@ We can analyze circuits with sinusoidal inputs/sources in the frequency domain. 
     If necessary, convert the output voltage phasor $\widetilde{V}_{out}$ back to the time domain (i.e. if $\widetilde{V}_{out} = Ae^{j \phi}$ at frequency $\omega$, then the output voltage with respect to time is $V_{out}(t) = \operatorname{Re}(Ae^{j \phi}e^{j \omega t}) = A\cos(\omega t + \phi)$).
 \end{enumerate}
 
-\newpage
 \subsection*{Transfer Functions and Filters}
 When we want to look at the input-output relationship of a circuit, we look at its transfer function, which is usually defined as:
 \begin{align*}
@@ -558,7 +554,6 @@ A \textbf{filter} is a circuit that only lets some frequencies pass through and 
 \end{center}
 \textit{Note}: For a general band-pass filter, you connect a high-pass and a low-pass filter with a unity gain buffer in between. The transfer function of the band-pass filter is the product of the transfer functions of the two filters it is made of.
 
-\newpage
 \subsection*{Resonance}
 Consider an LRC circuit in the frequency domain:
 \begin{center}
