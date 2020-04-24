@@ -307,8 +307,7 @@ Let's say $A$ is an $n \times m$ matrix of rank $k$. Then, for the full SVD, $U$
 This is because $\vec{u}_1, \dots, \vec{u}_k$ come from the columnspace of $A$ and $\vec{u}_{k + 1}, \dots, \vec{u}_n$ come from the nullspace of $A^T$, which are orthogonal subspaces. 
 Similar logic can be applied to $V$ if we switch $A$ and $A^T$.} \\
 \newline
-\textbf{SVD Intuition (Compact SVD)} \\
-\textbf{Note: this piece of intuition is out of scope but may be helpful in understanding how the SVD works.} \\
+\textbf{SVD Intuition (de-emphasized but in scope)}: \\
 \newline
 The \textbf{Spectral Theorem} states that symmetric matrices in $\mathbb{R}^{n\times n}$ have $n$ \textbf{orthogonal eigenvectors}, and all eigenvalues are \textbf{real}. In addition, for the symmetric matrices $A^T A$ and $AA^T$, it can be proven that all eigenvalues are \textbf{nonnegative}. \\
 \newline
@@ -335,8 +334,23 @@ where $U$ and $V$ are both orthonormal because they consist of eigenvalues of a 
     \end{align*}
     Then the equation relating $U$ and $V$ can be written as
     $$U\Sigma = AV$$
+    \item \textbf{Completing the full SVD}: In order for $U$ to have $m$ columns and $V$ to have $n$ columns, we need to complete the eigenbases of $AA^T$ and $A^TA$. So far, we have looked at eigenvectors with nonzero eigenvalues. Now, we can complete the $U$ and $V$ matrices by finding orthonormal bases for the \textit{nullspaces} of $AA^T$ and $A^TA$ respectively (the nullspace of a matrix corresponds to an eigenvalue of 0). \\
+    \newline
+    Now that $U$ is $m \times m$ and $V$ is $n \times n$, we need to modify $\Sigma$ so that the matrix dimensions in the equation $AV = U\Sigma$ match up.
+    So, we \textit{zero-pad} the $\Sigma$ matrix until it is $m \times n$ (the same dimensions of $A$).
+
     \item From there, we can right-multiply both sides by the transpose of $V$. 
     $$AVV^T = U \Sigma V^T$$
-    $VV^T$ is not quite the identity matrix (it would be if $V$ was square, since $V$ is orthonormal), but it can be proven that $AVV^T = A$ (look at note 9B for more information). So,
     $$A = U \Sigma V^T$$
+\end{enumerate}
+
+\textbf{SVD and matrix subspaces (de-emphasized but in scope)}:
+\begin{enumerate}
+    \item \textbf{The first $k$ columns of $U$ form a basis for the columspace of $A$}: By properties of matrix multiplication, the columnspace of $AA^T$ is in the columnspace of $A$. Also, we know that $AA^T$ has $k$ eigenvectors that correspond to nonzero eigenvalues, so the columnspace of $AA^T$ is k-dimensional. The columnspace of $AA^T$ has the same rank as the columnspace of $A$, so they are the same subspace, and the $k$ eigenvectors from the columnspace of $AA^T$ form an orthonormal basis for the columnspace of $A$.  \\
+    \item \textbf{The last $m - k$ columns of $U$ form a basis for the nullspace of $A^T$}: We already know that the last $m - k$ columns of $U$ form a basis for the nullspace of $AA^T$. To see why the nullspace of $AA^T$ is the same as the nullspace of $AA^T$, consider a vector $\vec{x}$ in the nullspace of $A^T$:
+            $$AA^T \vec{x} = A \vec{0} = \vec{0}$$ 
+    \item The columnspace of $A$ is orthogonal to the nullspace of $A^T$ so the first $k$ columns of $U$ are guaranteed to be orthogonal to the last $m - k$ columns of $U$.
+    \item \textbf{The first $k$ columns of $V$ form a basis for the columspace of $A^T$ or rowspace of $A$}: applying the same reasoning we used in (a) to the matrix $A^TA$.
+    \item \textbf{The last $n - k$ columns of $V$ form a basis for the nullspace of $A$}: applying the same reasoning we used in (b) to the matrix $A^TA$.
+    \item The columnspace of $A^T$ is orthogonal to the nullspace of $A$ so the first $k$ columns of $V$ are guaranteed to be orthogonal to the last $n - k$ columns of $V$.
 \end{enumerate}
