@@ -54,9 +54,9 @@ A system is linear if it follows the \textbf{scaling} and \textbf{additivity} pr
 \textbf{Linearizing a nonlinear system} \\
 \newline
 We convert a nonlinear system into a linear system by using a first-order Taylor approximation:
-$$\boxed{f(x) \approx f(x^*) + \frac{df}{dx} \bigg\rvert_{x = x^*} (x - x^*)}$$
+$$\boxed{f(x) \approx f(x^*) + \frac{df}{dx} \bigg\rvert_{x^*} (x - x^*)}$$
 Or, for an equation with an input, $u$:
-$$\boxed{f(x, u) \approx f(x^*, u^*) + \frac{df}{dx} \bigg\rvert_{x = x^*} (x - x^*) + \frac{df}{du} \bigg\rvert_{u = u^*} (u - u^*)}$$
+$$\boxed{f(x, u) \approx f(x^*, u^*) + \frac{df}{dx} \bigg\rvert_{x^*, u^*} (x - x^*) + \frac{df}{du} \bigg\rvert_{x^*, u^*} (u - u^*)}$$
 In these equations, we linearize the system around an \textbf{equilibrium point} or \textbf{operating point}, $(x^*, u^*)$. 
 This is a point that we choose when making our approximation, typically so that
 $$f(x^*, u^*) = 0$$
@@ -74,19 +74,19 @@ Say we have a system of nonlinear functions, typically represented by
 For these systems, you can linearize each equation using the partial derivative of the function with respect to each state variable:
 \begin{center}
     \begin{align*}
-        f_1(\vec{x}) \approx f_1(\vec{x}^*) + \frac{\partial f_1}{\partial x_1} \bigg\rvert_{x_1 = x_1^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_1}{\partial x_n} \bigg\rvert_{x_n = x_n^*} (x_n - x_n^*) \\
+        f_1(\vec{x}) \approx f_1(\vec{x}^*) + \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x}^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_1}{\partial x_n} \bigg\rvert_{\vec{x}^*} (x_n - x_n^*) \\
         \vdots \\
-        f_m(\vec{x}) \approx f_m(\vec{x}^*) + \frac{\partial f_m}{\partial x_1} \bigg\rvert_{x_1 = x_1^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_m}{\partial x_n} \bigg\rvert_{x_n = x_n^*} (x_n - x_n^*)
+        f_m(\vec{x}) \approx f_m(\vec{x}^*) + \frac{\partial f_m}{\partial x_1} \bigg\rvert_{\vec{x}^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_m}{\partial x_n} \bigg\rvert_{\vec{x}^*} (x_n - x_n^*)
     \end{align*}
 \end{center}
-In this case, we choose an $\vec{x}^*$ and $\vec{u}^*$ such that $\vec{f}(\vec{x}^*, \vec{u}^*) = \vec{0}$. \\
+In this case, we choose an $\vec{x}^*$ such that $\vec{f}(\vec{x}^*) = \vec{0}$. \\
 \newline
 We can express this linearization as a matrix-vector equation:
 \begin{align*}
     \vec{f}(\vec{x}) = \begin{bmatrix}
-        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{x_n^*} \\
+        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x}^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{\vec{x}^*} \\
         \vdots & \ddots & \vdots \\
-        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{x_n^*}
+        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{\vec{x}^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{\vec{x}^*}
     \end{bmatrix} \begin{bmatrix}
         (x_1 - x_1^*) \\
         \vdots \\
@@ -98,17 +98,17 @@ Where $J_{\vec{x}}$ is the \textbf{Jacobian matrix} of $\vec{f}$ with respect to
 If we are looking at a system of equations with a vector input, the linearization will be as follows
 \begin{align*}
     \vec{f}(\vec{x}, \vec{u}) = \begin{bmatrix}
-        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{x_n^*} \\
+        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{\vec{x}^*, \vec{u}^*} \\
         \vdots & \ddots & \vdots \\
-        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{x_1^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{x_n^*}
+        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{\vec{x}^*, \vec{u}^*}
     \end{bmatrix} \begin{bmatrix}
         (x_1 - x_1^*) \\
         \vdots \\
         (x_n - x_n^*)
     \end{bmatrix} + \begin{bmatrix}
-        \frac{\partial f_1}{\partial u_1} \bigg\rvert_{u_1^*} & \cdots & \frac{\partial f_1}{\partial u_k} \bigg\rvert_{u_k^*} \\
+        \frac{\partial f_1}{\partial u_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_1}{\partial u_k} \bigg\rvert_{\vec{x}^*, \vec{u}^*} \\
         \vdots & \ddots & \vdots \\
-        \frac{\partial f_m}{\partial u_1} \bigg\rvert_{u_1^*} & \cdots & \frac{\partial f_m}{\partial u_k} \bigg\rvert_{u_k^*}
+        \frac{\partial f_m}{\partial u_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_m}{\partial u_k} \bigg\rvert_{\vec{x}^*, \vec{u}^*}
     \end{bmatrix} \begin{bmatrix}
         (u_1 - u_1^*) \\
         \vdots \\
