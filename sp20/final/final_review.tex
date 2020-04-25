@@ -1,11 +1,13 @@
 \renewcommand{\arraystretch}{1.25}
 
 \subsection*{Applications of the SVD}
-\textbf{PCA} \\
-\newline
-\textit{Principal Component Analysis} is a procedure that uses the SVD to analyze data by finding the directions of maximum "spread" or variation. \\
-\newline
-% TODO Justin
+\textbf{Principal Component Analysis}
+
+\textit{Principal Component Analysis} (PCA) is a procedure that uses the SVD to analyze data by finding the directions of maximum "spread" or variation. Some of its uses include visualizing high dimensional data and revealing patterns that are useful to perform classification.
+
+Below, we show the steps of performing PCA, as well as visualizations on a two dimensional dataset:
+
+\includegraphics[width=\textwidth]{figures/pca-steps}
 
 \textbf{Minimum Norm Control} \\
 \newline
@@ -14,7 +16,26 @@ Say we have a controllable system of rank $n$
     \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)
 \end{align*}
  and we want to reach a desired state $\vec{x}_f$ with $k > n$ control inputs. We know we can reach any state in $n$ timesteps, and there are infinitely many ways to reach $\vec{x}_f$ in $k > n$ timesteps. Using the SVD, however, we can find the series of control inputs that has the minimum norm.
- % TODO Justin
+
+To solve for the minimum norm solution, we use the \textbf{Moore-Penrose Pseudoinverse}, a generalization of matrix inverses for rectangular matrices using the full SVD of a matrix. We denote the pseudoinverse with a dagger, and the solution will be $\vec{x} = A^{\dagger} \vec{b}.$
+This solution is special in that it has \textbf{minimum norm.} That is, if we have another solution $\vec{z},$ such that $A \vec{z} = \vec{b},$ then $\norm{x} \leq \norm{z}.$
+
+To compute the pseudoinverse, we invert each element of the SVD one at a time:
+
+\begin{align*}
+    A \vec{x} &= \vec{y} \\
+    U \Sigma V^T \vec{x} &= \vec{y} \\
+    (U^T U) \Sigma V^T \vec{x} &= U^T \vec{y} \\
+    (\Sigma^{\dagger} \Sigma) V^T \vec{x} &= \Sigma^{\dagger} U^T \vec{y} \\
+    (V V^T) \vec{x} &= V \Sigma^{\dagger} U^T \vec{y} \\
+    \vec{x} &= V \Sigma^{\dagger} U^T \vec{y} \\
+    \implies \vec{x} &= A^{\dagger} \vec{y}
+\end{align*}
+
+We can calculate $\Sigma^{\dagger}$ accordingly to produce an identity matrix so that the term $\Sigma^{\dagger}\Sigma$ disappears.
+
+$$\Sigma^{\dagger} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\ 
+    \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
 
 \subsection*{Stability}
 A continuous- or discrete-time system is considered \textit{stable} if, for any bounded initial condition and series of inputs, the state remains bounded (if a quantity is \textit{bounded}, it is less than some finite constant at all times). We sometimes refer to this as BIBO (bounded input implies bounded output) stability. \\
