@@ -143,7 +143,7 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
         \frac{d}{dt} (z(t) - \frac{\alpha}{\lambda}) &= \lambda (z(t) - \frac{\alpha}{\lambda}) + \alpha \\
         \frac{d}{dt} z(t) &= \lambda z(t)
     \end{align*}
-    Now, you can use the result from the homogenous case to solve the differential equation in terms of $z(t)$, and then change variables back to $x(t)$ to get your final solution.
+    Now you can use the result from the homogenous case to solve the differential equation in terms of $z(t)$, and then change variables back to $x(t)$ to get your final solution.
     \begin{align*}
         z(t) &= z(0) e^{\lambda t} \\
         x(t) + \frac{\alpha}{\lambda} &= (x(0) + \frac{\alpha}{\lambda}) e^{\lambda t} \\
@@ -152,7 +152,7 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
     \vspace{-35px}
     $$\boxed{x(t) = x(0) e^{\lambda t} + \frac{\alpha}{\lambda}(e^{\lambda t} - 1)}$$
 
-    \item \textbf{Non-homogeneous with Nonconstant Input $u(t)$}: the first derivative of the state variable is equal to a scalar multiple of the state plus a general non-constant function $u(t)$.
+    \item \textbf{Non-homogeneous with Non-constant Input $u(t)$}: the first derivative of the state variable is equal to a scalar multiple of the state plus a general non-constant function $u(t)$.
     \begin{align*}
         \boxed{\frac{d}{dt} x(t) = \lambda x(t) + u(t)}
     \end{align*}
@@ -180,7 +180,7 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
 \end{figure}
 
 \begin{enumerate}
-    \item \textbf{Step 1}: Use KCL and KVL equations, and the capacitor charge-voltage relationship $i_C(t) = C \frac{d}{dt} V_C(t)$ to get a differential equation in terms of the given variable (typically $V_C(t)$ or $i_C(t)$).
+    \item \textbf{Step 1}: Use KCL, KVL, and the capacitor charge-voltage relationship $i_C(t) = C \frac{d}{dt} V_C(t)$ to get a differential equation in terms of the given variable (typically $V_C(t)$ or $i_C(t)$).
     
     For the above circuit, KCL gives us the following differential equation:
     \begin{align*}
@@ -190,7 +190,7 @@ Type & (Voltage-Controlled) Switch & Resistor-Switch & Resistor-Capacitor-Switch
 
     \item \textbf{Step 2}: Identify the differential equation as homogenous, non-homogenous, or having a non-constant input, and solve the differential equation using the tools above.
 
-    We can express the above differential equation the form:
+    We can express the above differential equation in the form:
     \begin{align*}
         \frac{d}{dt} V_C(t) = -\frac{1}{RC} V_C(t) + \frac{1}{RC} V_s
     \end{align*}
@@ -207,18 +207,18 @@ $$\boxed{V_L(t) = L \frac{d}{dt} i_L(t)}$$
 
 \subsection*{Diagonalization and Change of Basis}
 
-We start with a system of the form with a diagonalizable $n \times n$ matrix $A$:
+We start with a system with a diagonalizable $n \times n$ matrix $A$ of the form:
 \begin{align*}
     \vec{y} = A \vec{x}
 \end{align*}
-We can find the eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$ and eigenvectors $\vec{v}_1, \vec{v}_2, \ldots \vec{v}_n$. The eigenbasis is this set of $n$ eigenvectors that spans $\mathbb{R}^n$, with the eigenbasis matrix defined below:
+We can find the eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$ and eigenvectors $\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n$. The eigenbasis is this set of $n$ eigenvectors that spans $\mathbb{R}^n$, with the eigenbasis matrix defined below:
 \begin{align*}
     V = \begin{bmatrix}
         \vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
     \end{bmatrix}
 \end{align*}
 
-Given this definition of $V$, we can express any vector $\vec{x} \in \mathbb{R}^n$ as a linear combination of eigenvectors of $A$:
+Given this definition of $V$, we can express any vector $\vec{x} \in \mathbb{R}^n$ as a linear combination of the eigenvectors of $A$:
 \begin{align*}
     \vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} + \dots + \alpha_n \vec{v_n} = V \begin{bmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{bmatrix} = V \vec{\widetilde{x}}
 \end{align*}
@@ -246,7 +246,7 @@ Because $V$ is the eigenbasis, $V^{-1}AV$ is the matrix $\Lambda$ with the eigen
     \end{bmatrix}
 \end{align*}
 
-Thus, the diagonalization of $\boxed{A = V \Lambda V^{-1}}$. You may find this diagram useful to visualize this process, where the $V^{-1}$ brings a vector into the eigenbasis, $\Lambda$ represents $A$'s linear transformation in the eigenbasis coordaintes, and $V$ brings the vector back into standard coordinates.
+This is the diagonalization of $\boxed{A = V \Lambda V^{-1}}$. You may find the following diagram useful to visualize this process, where $V^{-1}$ brings a vector into the eigenbasis, $\Lambda$ represents $A$'s linear transformation in the eigenbasis coordinates, and $V$ brings the vector back into standard coordinates.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[node distance = 1.5cm, thick, every node/.style={inner sep=0.25em,outer sep=0.25em}]%
@@ -276,7 +276,7 @@ The strategy is to diagonalize the system so that there is a set of $n$ separate
 
     \item \textbf{Step 2}: Define $V = \begin{bmatrix}
         \vec{v_1} & \vec{v_2} & \dots & \vec{v_n}
-    \end{bmatrix}$, $\vec{x}(t) = V \vec{\widetilde{x}}(t)$, and transform your system to eigenbasis coordinates.
+    \end{bmatrix}$, $\vec{x}(t) = V \vec{\widetilde{x}}(t)$, and transform your system to eigenbasis coordinates:
 
     \begin{align*}
     \frac{d}{dt} \vec{\widetilde{x}}(t) &=  V^{-1}AV \vec{\widetilde{x}}(t) =
@@ -296,7 +296,7 @@ The strategy is to diagonalize the system so that there is a set of $n$ separate
         \frac{d}{dt} \widetilde{x_n}(t) &= \lambda_n \widetilde{x_n}(t)
     \end{align*}
 
-    \item \textbf{Step 4}: Solve each equation to get expressions for $\widetilde{x}_1(t), \ldots \widetilde{x}_n(t)$.
+    \item \textbf{Step 4}: Solve each equation to get expressions for $\widetilde{x}_1(t), \ldots, \widetilde{x}_n(t)$.
     \begin{align*}
         \widetilde{x_1}(t) &= \widetilde{x_1}(0) e^{\lambda_1 t} \\
         &\vdots \\
@@ -310,6 +310,7 @@ The strategy is to diagonalize the system so that there is a set of $n$ separate
 \end{enumerate}
 
 \textbf{Second-Order ODE}: If we have a differential equation that depends on $\frac{d^2}{dt^2} x(t)$, define your state vector as $\begin{bmatrix} x(t) & \frac{d}{dt} x(t) \end{bmatrix}^T$ and solve your system as a multivariate differential equation.
+\\
 
 \textbf{Complex Eigenvalues}: The behavior of a system (for example, a RLC circuit) in the time domain varies based on whether its eigenvalues are real, imaginary, or complex.
 \begin{enumerate}
@@ -393,7 +394,7 @@ Euler's identity relates complex exponentials (the polar representation of compl
 \end{align*}
 
 \subsection*{Frequency Domain Analysis: Phasors and Impedance}
-We can analyze circuits with sinusoidal inputs/sources in the frequency domain. To do so, we use the \textit{phasor} representation of sinusoidal voltages and currents, and the \textit{impedances} of passive circuit elements (resistors, capacitors, inductors).
+We can analyze circuits with sinusoidal inputs / sources in the frequency domain. To do so, we use the \textit{phasor} representation of sinusoidal voltages and currents, and the \textit{impedances} of passive circuit elements (resistors, capacitors, inductors).
 
 \begin{enumerate}
     \item \textbf{Step 1: Convert voltages and currents to phasor representation.}
@@ -404,7 +405,7 @@ We can analyze circuits with sinusoidal inputs/sources in the frequency domain. 
 
     \begin{enumerate}
     \item
-        $V_0$ is the voltage \textbf{magnitude/amplitude} and is the highest value of voltage $v(t)$ will attain at any time. Similarly, $I_0$ is the current
+        $V_0$ is the voltage \textbf{magnitude / amplitude} and is the highest value of voltage $v(t)$ attainable at any time. Similarly, $I_0$ is the current
         amplitude.
     \item
         $\omega$ is the \textbf{frequency} of oscillation, corresponding to the sinusoid's period $T = \frac{2\pi}{\omega}$.
