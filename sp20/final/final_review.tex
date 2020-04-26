@@ -11,25 +11,27 @@ Below, we show the steps of performing PCA, as well as visualizations on a two d
 
 In summary,
 \begin{enumerate}
-    \item We first \textbf{de-mean} the data. If the each datapoint is represented as a \textit{row}, then we are going to want find the mean of each \textit{column} and subtract it from each element in that \textit{column} to make it \textbf{zero-mean}. If each datapoint is a \textit{column}, we want every \textit{row} to be zero-mean.
-    \item If each datapoint is a \textit{row} (which this example assumes), the covariance matrix is $\frac{1}{n} \widetilde{X}^T\widetilde{X}$, and the \textit{principal components are the columns of $V$} in the SVD (eigenvectors of the covariance matrix). 
-    If each datapoint is a \textit{column}, the covariance matrix is $\frac{1}{n} \widetilde{X}\widetilde{X}^T$, and the \textit{principal components correspond to the columns of $U$}. \\
+    \item We first \textbf{demean} the data. If each datapoint is represented as a \textit{row}, then we are going to want to find the mean of each \textit{column} and subtract it from every element in that column to make it \textbf{zero-mean}. If each datapoint is a \textit{column}, we want every \textit{row} to be zero-mean.
+    \item If each datapoint is a \textit{row} (as in the previous example), the covariance matrix is $\frac{1}{n} \widetilde{X}^T\widetilde{X}$, and the \textit{principal components} are the \textbf{columns of $V$} in the SVD (eigenvectors of the covariance matrix). 
+    If each datapoint is a \textit{column}, the covariance matrix is $\frac{1}{n} \widetilde{X}\widetilde{X}^T$, and the \textit{principal components} correspond to the \textbf{columns of $U$}. \\
     \newline
-    You can think of the covariance matrix as measuring the relation between the quantities we're measuring, and its eigenvectors as the directions in our data with the most variation.
+    You can think of the covariance matrix as looking at the relation between the quantities we're measuring, and its eigenvectors as the directions in our data with the most variation.
     \item When you have the principal components, you can \textbf{project datapoints onto the principal components} to see how much of each principal component contributes to that datapoint.
 \end{enumerate}
 
 \newpage
 \textbf{Minimum Norm Control} \\
-Say we have a controllable system of rank $n$
+Say we have a controllable system of rank $n$:
 \begin{align*}
     \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)
 \end{align*}
- and we want to reach a desired state $\vec{x}_f$ with $k > n$ control inputs. We know we can reach any state in $n$ timesteps, and there are infinitely many ways to reach $\vec{x}_f$ in $k > n$ timesteps. Using the SVD, however, we can find the series of control inputs that has the minimum norm. \\
+ and we want to reach a desired state $\vec{x}_f$ with $k > n$ control inputs. We know we can reach any state in $n$ timesteps, and there are infinitely many ways to reach $\vec{x}_f$ in $k > n$ timesteps. Using the SVD however, we can find the series of control inputs that has the minimum norm. \\
  \newline
  Recall from the section on control that we can use the following linear system to solve for the control inputs:
  \begin{align*}
-    \vec{x}(k) = \mathcal{C}_k \vec{u}_k \\
+    \vec{x}(k) = \mathcal{C}_k \vec{u}_k
+\end{align*}
+\begin{align*}
     \vec{x}(k) = \begin{bmatrix}
         \vec{b} & A\vec{b} & \cdots & A^{k - 1} \vec{b}
     \end{bmatrix} \begin{bmatrix}
@@ -38,10 +40,9 @@ Say we have a controllable system of rank $n$
  \end{align*}
 
 To solve for the minimum norm solution, we use the \textbf{Moore-Penrose Pseudoinverse}, a generalization of matrix inverses for rectangular matrices using the full SVD of a matrix. We denote the pseudoinverse with a dagger, and the solution will be $\vec{u}_k = \mathcal{C}_k^{\dagger} \vec{x}(k).$ 
-This solution is special in that it has \textbf{minimum norm.} That is, if we have another solution $\vec{z},$ such that $\mathcal{C}_k \vec{z} = \vec{x}(k),$ then $\norm{\vec{u}_k} \leq \norm{z}.$
+This solution is special because it has \textbf{minimum norm}; that is, if we have another solution $\vec{z},$ such that $\mathcal{C}_k \vec{z} = \vec{x}(k),$ then $\norm{\vec{u}_k} \leq \norm{z}.$
 
 To compute the pseudoinverse, we invert each element of the SVD one at a time:
-
 \begin{align*}
     \mathcal{C}_k \vec{u}_k &= \vec{x}(k) \\
     U \Sigma V^T \vec{u}_k &= \vec{x}(k)\\
@@ -52,34 +53,34 @@ To compute the pseudoinverse, we invert each element of the SVD one at a time:
     \implies \vec{u}_k &= \mathcal{C}_k^{\dagger} \vec{x}(k)
 \end{align*}
 
-We can calculate $\Sigma^{\dagger}$ accordingly to produce an identity matrix so that the term $\Sigma^{\dagger}\Sigma$ disappears.
+We can calculate $\Sigma^{\dagger}$ accordingly to produce an identity matrix such that the term $\Sigma^{\dagger}\Sigma$ disappears:
 
 $$\Sigma^{\dagger} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\ 
     \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
 
-\textit{Note}: another, sometimes computationally easier, form of the pseudoinverse:
+\textit{Note}: This is another, sometimes computationally easier, form of the pseudoinverse:
 $$\vec{u}_k = \mathcal{C}_k^T(\mathcal{C}_k\mathcal{C}_k^T)^{-1}\vec{x}(k)$$
-(See Sp20 Note 11B for more information)
+See Sp20: Note 11B for more information.
 
 \subsection*{Stability}
-A continuous- or discrete-time system is considered \textit{stable} if, for any bounded initial condition and series of inputs, the state remains bounded (if a quantity is \textit{bounded}, it is less than some finite constant at all times). We sometimes refer to this as BIBO (bounded input implies bounded output) stability. \\
+A continuous- or discrete-time system is considered \textit{stable} if, for any bounded initial condition and series of inputs, the state remains bounded (if a quantity is \textit{bounded}, it is less than some finite constant at all times). We sometimes refer to this as \textbf{BIBO} (bounded input implies bounded output) \textbf{stability}. \\
 \newline
-For a system in \textit{discrete time}
+For a system in \textit{discrete time}:
 $$\vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)$$
-The system is
+The system is:
 \begin{enumerate}
-    \item \textbf{Stable} if all eigenvalues have a \textbf{magnitude less than 1},
-    \item \textbf{Unstable} if at least one eigenvalue has a \textbf{magnitude greater than 1}, or
-    \item \textbf{Marginally unstable} if at least one eigenvalue has a magnitude of 1 and none have a magnitude greater than 1.
+    \item \textbf{Stable}, if all eigenvalues have a \textbf{magnitude less than 1},
+    \item \textbf{Unstable}, if at least one eigenvalue has a \textbf{magnitude greater than 1}, or
+    \item \textbf{Marginally unstable}, if at least one eigenvalue has a magnitude of 1 and none have a magnitude greater than 1.
 \end{enumerate}
 
-For a system in \textit{continuous time}
+For a system in \textit{continuous time}:
 $$\frac{d}{dt} \vec{x}(t) = A\vec{x}(t) + \vec{b}u(t)$$
-The system is
+The system is:
 \begin{enumerate}
-    \item \textbf{Stable} if all eigenvalues have a \textbf{negative real component},
-    \item \textbf{Unstable} if at least one eigenvalue has a \textbf{positive real component}, or
-    \item \textbf{Marginally unstable} if at least one eigenvalue has a real component of 0 and none have a positive real component.
+    \item \textbf{Stable}, if all eigenvalues have a \textbf{negative real component},
+    \item \textbf{Unstable}, if at least one eigenvalue has a \textbf{positive real component}, or
+    \item \textbf{Marginally unstable}, if at least one eigenvalue has a real component of 0 and none have a positive real component.
 \end{enumerate}
 
 If we plot the eigenvalues on the \textit{complex plane}, a \textbf{discrete-time system} is stable if all eigenvalues are \textbf{strictly inside the unit circle} (left graph), and a \textbf{continuous-time system} is stable if all eigenvalues are on the left half of the plane (right graph): \\
@@ -88,7 +89,7 @@ If we plot the eigenvalues on the \textit{complex plane}, a \textbf{discrete-tim
     \includegraphics[width = 0.35 \textwidth]{\bank/../sp20/final/figures/continuous-stable.PNG}
 \end{tabular}
 
-An interesting case is \textit{upper-triangular matrices}. If a matrix is upper-triangular, its eigenvalues are on the diagonal. So, to see if a system with an upper-triangular A matrix is stable, you can look at the diagonal elements. \\
+An interesting case is \textit{upper-triangular matrices}. If a matrix is upper-triangular, its eigenvalues are on the diagonal, so to see if a system with an upper-triangular $A$ matrix is stable, you can look at its diagonal elements. \\
 \newline
 
 \textbf{Visualizing stability}: \\
@@ -97,14 +98,14 @@ In addition, whether or not the eigenvalues have a complex component determines 
 \newline
 The following plots will explore how complex eigenvalues affect the state evolution of stable and unstable systems.
 
-\begin{tabular}{|p{0.3\textwidth}| p{0.3\textwidth}|b{0.4\textwidth}|}
+\begin{tabular}{|m{0.3\textwidth}|m{0.3\textwidth}|m{0.4\textwidth}|}
     \multicolumn{3}{c}{Plots of $\vec{x}_1(k)$ for discrete-time systems with initial condition $\begin{bmatrix} 1 & 1 \end{bmatrix}^T$} \\
     \hline
     Real and Positive $\lambda$ & Complex or Negative $\lambda$ & Description \\
     \hline & & \\
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/discrete-graphs/stable-real-x1.PNG} &
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/discrete-graphs/stable-complex-x1.PNG} &
-    \textbf{Stable system}: The system is stable, so the initial condition decays over time. When the eigenvalues are \textbf{real}, there is \textbf{no rotation}, but when they are \textbf{complex}, the state vector \textbf{rotates each timestep}. \\
+    \textbf{Stable system}: The system is stable, so the initial condition decays over time. When the eigenvalues are \textbf{real}, there is \textbf{no rotation}, but when they are \textbf{complex}, the state vector \textbf{rotates at every timestep}.\\
     \hline & & \\
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/discrete-graphs/unstable-real-x1.PNG} &
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/discrete-graphs/unstable-complex-x1.PNG} &
@@ -112,18 +113,18 @@ The following plots will explore how complex eigenvalues affect the state evolut
     \hline & & \\
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/discrete-graphs/marginal-real-x1.PNG} &
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/discrete-graphs/marginal-negative-x1.PNG} &
-    \textbf{Marginally unstable}: The initial condition neither grows nor decays. When both eigenvalues are 1, the state vector stays constant. When the eigenvalues are elsewhere on the unit circle, the state vector rotates.\\
+    \textbf{Marginally unstable}: The initial condition neither grows nor decays. When both eigenvalues are 1, the state vector stays constant. When the eigenvalues are elsewhere on the unit circle, the state vector rotates.\vspace{2mm}\\
     \hline
 \end{tabular}
 
-\begin{tabular}{|p{0.3\textwidth}| p{0.3\textwidth}|b{0.4\textwidth}|}
+\begin{tabular}{|m{0.3\textwidth}|m{0.3\textwidth}|m{0.4\textwidth}|}
      \multicolumn{3}{c}{Plots of $\vec{x}_1(t)$ for continuous-time systems with initial condition $\begin{bmatrix} 1 & 1 \end{bmatrix}^T$} \\
     \hline
     Real $\lambda$ & Complex or Imag. $\lambda$ & Description \\
     \hline & & \\
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/continuous-graphs/real_negative_x1.png} &
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/continuous-graphs/complex_negative_x1.png} &
-    \textbf{Stable system}: The system is stable, so the initial condition decays over time. When the eigenvalues are \textbf{real}, there is \textbf{no oscillation}, but when they are \textbf{complex}, the state \textbf{oscillates}. \\
+    \textbf{Stable system}: The system is stable, so the initial condition decays over time. When the eigenvalues are \textbf{real}, there is \textbf{no oscillation}, but when they are \textbf{complex}, the state \textbf{oscillates}. \vspace{2mm}\\
     \hline & & \\
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/continuous-graphs/real_positive_x1.png} &
     \includegraphics[width = 0.3 \textwidth]{\bank/stability/figures/continuous-graphs/complex_positive_x1.png} &
@@ -141,7 +142,7 @@ Consider a system that is controllable but has unstable eigenvalues:
 \begin{align*}
     \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)
 \end{align*}
-We can use the fact that the system is controllable to place its eigenvalues wherever we want by applying a \textit{feedback control}, where the control input depends on the current state. Depending on the problem, the feedback input will either be of the form $u(t) = \vec{f^T} \vec{x}(k)$ or $u(t) = -\vec{f^T} \vec{x}(k)$. We will use the first in this worksheet, but you should expect to see both forms.
+We can use the fact that the system is controllable to place its eigenvalues wherever we want by applying a \textit{feedback control}, where the control input depends on the current state. Depending on the problem, the feedback input will either be of the form $u(t) = \vec{f^T} \vec{x}(k)$ or $u(t) = -\vec{f^T} \vec{x}(k)$. We will use the first one in this worksheet, but you should expect to see both forms.
 \begin{align*}
     \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}\vec{f}^T \vec{x}(k)
 \end{align*}
@@ -149,11 +150,11 @@ We can rewrite this system as follows:
 \begin{align*}
     \vec{x}(k + 1) = (A + \vec{b}\vec{f}^T) \vec{x}(k)
 \end{align*}
-So, the new state transition matrix for the system is $(A + \vec{b}\vec{f}^T)$. Because the system is controllable, we can pick the elements of the feedback coefficient vector $\vec{f}$ to place the eigenvalues of our system wherever we choose. \\
+The new state transition matrix for the system is $(A + \vec{b}\vec{f}^T)$. Because the system is controllable, we can pick the elements of the feedback coefficient vector $\vec{f}$ to place the eigenvalues of our system wherever we choose. \\
 \newline
 
 \subsection*{CCF}
-It is feasible to calculate feedback control coefficients by hand for a $2 \times 2$ system, but it quickly becomes difficult for higher-order systems. For systems in \textit{controller canonical form (CCF)}, however, it is a lot easier to apply feedback control. \\
+It is feasible to calculate feedback control coefficients by hand for a $2 \times 2$ system, but it quickly becomes difficult for higher-order systems. However, for systems in \textit{controller canonical form (CCF)}, it is a lot easier to apply feedback control. \\
 \newline
 In general, a system in CCF will look like the following:
 \begin{align*}
@@ -167,7 +168,7 @@ In general, a system in CCF will look like the following:
         0 \\ 0 \\ \vdots \\ 0 \\ 1
     \end{bmatrix} u(k)
 \end{align*}
-For a system in CCF, the $B$ vector will be \textit{all zeros with a one in the last position}, and $A$ matrix will have \textit{ones in the position to the right of the diagonal and will be zero elsewhere, except in the last row}. \\
+For a system in CCF, the $\vec{b}$ will be \textit{all zeros with a one in the last position}, and $A$ matrix will have \textit{ones in the position to the right of the diagonal and will be zero elsewhere, except in the last row}. \\
 \newline
 The interesting part about CCF is that the coefficients in the last row of the $A$ matrix \textbf{form the characteristic polynomial of our system}. 
 For the above system, the characteristic polynomial would be:
@@ -180,7 +181,9 @@ Now, let's try to apply a feedback control input to see how useful CCF is.
 \begin{align*}
     u(k) = \begin{bmatrix}
         f_1 & \cdots & f_n
-        \end{bmatrix} \vec{x} \\
+        \end{bmatrix} \vec{x}(k)
+\end{align*}
+\begin{align*}
     \vec{x}(k + 1) = \begin{bmatrix}
         0 & 1 & 0 & \cdots & 0 \\
         0 & 0 & 1 & \cdots & 0 \\
@@ -201,7 +204,7 @@ The new state transition matrix would be the following:
         \vdots & \vdots & \vdots & \ddots & \vdots \\
         0 & 0 & 0 & \cdots & 1 \\
         a_1 & a_2 & a_3 & \cdots & a_n
-    \end{bmatrix} \vec{x}(k) + \begin{bmatrix}
+    \end{bmatrix} + \begin{bmatrix}
         0 \\ 0 \\ \vdots \\ 0 \\ 1
     \end{bmatrix} \begin{bmatrix}
         f_1 & \cdots & f_n
