@@ -13,7 +13,7 @@ In summary,
 \begin{enumerate}
     \item We first \textbf{de-mean} the data. If the each datapoint is represented as a \textit{row}, then we are going to want find the mean of each \textit{column} and subtract it from each element in that \textit{column} to make it \textbf{zero-mean}. If each datapoint is a \textit{column}, we want every \textit{row} to be zero-mean.
     \item If each datapoint is a \textit{row} (which this example assumes), the covariance matrix is $\frac{1}{n} \widetilde{X}^T\widetilde{X}$, and the \textit{principal components are the columns of $V$} in the SVD (eigenvectors of the covariance matrix). 
-    If each datapoint is a \textit{column}, the covariance matrix is $\frac{1}{m} \widetilde{X}\widetilde{X}^T$, and the \textit{principal components correspond to the columns of $U$}. \\
+    If each datapoint is a \textit{column}, the covariance matrix is $\frac{1}{n} \widetilde{X}\widetilde{X}^T$, and the \textit{principal components correspond to the columns of $U$}. \\
     \newline
     You can think of the covariance matrix as measuring the relation between the quantities we're measuring, and its eigenvectors as the directions in our data with the most variation.
     \item When you have the principal components, you can \textbf{project datapoints onto the principal components} to see how much of each principal component contributes to that datapoint.
@@ -29,9 +29,7 @@ Say we have a controllable system of rank $n$
  \newline
  Recall from the section on control that we can use the following linear system to solve for the control inputs:
  \begin{align*}
-    \vec{x}(k) = \mathcal{C}_k \begin{bmatrix}
-        u(k - 1) \\ \vdots \\ u(0)
-    \end{bmatrix} \\
+    \vec{x}(k) = \mathcal{C}_k \vec{u}_k \\
     \vec{x}(k) = \begin{bmatrix}
         \vec{b} & A\vec{b} & \cdots & A^{k - 1} \vec{b}
     \end{bmatrix} \begin{bmatrix}
@@ -39,19 +37,19 @@ Say we have a controllable system of rank $n$
     \end{bmatrix}
  \end{align*}
 
-To solve for the minimum norm solution, we use the \textbf{Moore-Penrose Pseudoinverse}, a generalization of matrix inverses for rectangular matrices using the full SVD of a matrix. We denote the pseudoinverse with a dagger, and the solution will be $\vec{x} = A^{\dagger} \vec{b}.$ (\textit{Note: in the case of finding control inputs, you would replace $A$ with $\mathcal{C}_k$})
-This solution is special in that it has \textbf{minimum norm.} That is, if we have another solution $\vec{z},$ such that $A \vec{z} = \vec{b},$ then $\norm{x} \leq \norm{z}.$
+To solve for the minimum norm solution, we use the \textbf{Moore-Penrose Pseudoinverse}, a generalization of matrix inverses for rectangular matrices using the full SVD of a matrix. We denote the pseudoinverse with a dagger, and the solution will be $\vec{u}_k = \mathcal{C}_k^{\dagger} \vec{x}(k).$ 
+This solution is special in that it has \textbf{minimum norm.} That is, if we have another solution $\vec{z},$ such that $\mathcal{C}_k \vec{z} = \vec{x}(k),$ then $\norm{\vec{u}_k} \leq \norm{z}.$
 
 To compute the pseudoinverse, we invert each element of the SVD one at a time:
 
 \begin{align*}
-    A \vec{x} &= \vec{y} \\
-    U \Sigma V^T \vec{x} &= \vec{y} \\
-    (U^T U) \Sigma V^T \vec{x} &= U^T \vec{y} \\
-    (\Sigma^{\dagger} \Sigma) V^T \vec{x} &= \Sigma^{\dagger} U^T \vec{y} \\
-    (V V^T) \vec{x} &= V \Sigma^{\dagger} U^T \vec{y} \\
-    \vec{x} &= V \Sigma^{\dagger} U^T \vec{y} \\
-    \implies \vec{x} &= A^{\dagger} \vec{y}
+    \mathcal{C}_k \vec{u}_k &= \vec{x}(k) \\
+    U \Sigma V^T \vec{u}_k &= \vec{x}(k)\\
+    (U^T U) \Sigma V^T \vec{u}_k &= U^T \vec{x}(k) \\
+    (\Sigma^{\dagger} \Sigma) V^T \vec{u}_k &= \Sigma^{\dagger} U^T \vec{x}(k) \\
+    (V V^T) \vec{u}_k &= V \Sigma^{\dagger} U^T \vec{x}(k) \\
+    \vec{u}_k &= V \Sigma^{\dagger} U^T \vec{x}(k) \\
+    \implies \vec{u}_k &= \mathcal{C}_k^{\dagger} \vec{x}(k)
 \end{align*}
 
 We can calculate $\Sigma^{\dagger}$ accordingly to produce an identity matrix so that the term $\Sigma^{\dagger}\Sigma$ disappears.
@@ -59,8 +57,8 @@ We can calculate $\Sigma^{\dagger}$ accordingly to produce an identity matrix so
 $$\Sigma^{\dagger} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\ 
     \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
 
-\textit{Note}: another, sometimes computationally easier, form of the pseudoinverse for wide matrices is:
-$$\vec{x} = A^T(AA^T)^{-1}\vec{y}$$
+\textit{Note}: another, sometimes computationally easier, form of the pseudoinverse:
+$$\vec{u}_k = \mathcal{C}_k^T(\mathcal{C}_k\mathcal{C}_k^T)^{-1}\vec{x}(k)$$
 (See Sp20 Note 11B for more information)
 
 \subsection*{Stability}
