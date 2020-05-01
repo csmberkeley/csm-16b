@@ -1,26 +1,36 @@
 \qns{RLC circuit}
-   
-    Consider the circuit shown below: 
 
-    \begin{center}
-		\begin{circuitikz}[scale=0.8]
-			\draw (-1,4) 
-			to [V = $V_s$,i=$i_s$] (-1,0)
-			(-1,4) to [switch, l^=\mbox{$t = 0$} ] (1,4)
-			to [opening switch,l^=\mbox{$t = 0$} ] (1,0) 
-			(1,4) to [R = $R_s$] (4,4)
-			to [C = $C$,i=$i_C$] (4,0)
-			to [short] (-1,0)
-			(4,4) to [short] (8,4)
-			to [L = $L$,i=$i_L$, v = $V_{out}$] (8,0)
-			to [short] (-1,0);
-		\end{circuitikz}
-	\end{center}
-	 Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch changes state and connects to the voltage source $V_s$
+Consider the circuit shown below: 
+
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+        \draw (-1,4) 
+        to [V = $V_s$,i=$i_s$] (-1,0)
+        (-1,4) to [switch, l^=\mbox{$t = 0$} ] (1,4)
+        to [opening switch,l^=\mbox{$t = 0$} ] (1,0) 
+        (1,4) to [R = $R_s$] (4,4)
+        to [C = $C$,i=$i_C$] (4,0)
+        to [short] (-1,0)
+        (4,4) to [short] (8,4)
+        to [L = $L$,i=$i_L$, v = $V_{out}$] (8,0)
+        to [short] (-1,0);
+    \end{circuitikz}
+\end{center}
+
+Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch changes state and connects to the voltage source $V_s$.
+
+\meta {
+    Explain what it means when the circuit reaches steady state.
+}
 
 \begin{enumerate}
-	\qitem Write out the KCL equations and find the differential equation for $V_{out}$ for $t\geq0$
+
+	\qitem \textbf{Find the differential equation for $V_{out}$ for $t\geq0$.} \textit{Hint: Write out the KCL equation.}
 	
+    \ws {
+        \vspace{75px}
+    }
+
 	\meta {
 		It might not be intuitive at first to take the derivative, however, we want to find $V_{out} = V_L$ and remember that the voltage-current relationship of an inductor is $V_L = L \ddt{i_L(t)}{t}.$
 		Our KCL equation is in terms of $i_L(t)$ we'll take a derivative to substitute the relation above.
@@ -46,9 +56,13 @@
 % \[0=\frac{1}{R_sC}\frac{d^2i}{dt^2}+\frac{d^3i}{dt^3}+\frac{1}{LC}\frac{di_l}{dt}\]	
 % \[0=\frac{d^2V_{out}}{dt^2}+\frac{1}{R_sC}\frac{dV_{out}}{dt}+\frac{1}{LC}V_{out}\]
     }
-    \qitem We will define our state variable $\vec{x} = \begin{bmatrix} V_{out}(t) \\ \ddt{V_{out}(t)}{t} \end{bmatrix}.$
-    How can we set up a system of differential equations? Also what are its initial conditions at $t = 0?$
+    \qitem We will define our state variable $\vec{x}(t) = \begin{bmatrix} V_{out}(t) \\ \frac{d}{dt} V_{out}(t) \end{bmatrix}$.
 
+    \textbf{Set up a system of differential equations in the form $\vec{x}(t) = A \vec{x}(t)$. What are its initial conditions $\vec{x}(0)$?}
+
+    \ws{
+        \vspace{75px}
+    }
     \sol{
     We know that at $t=0,$ $V_{out}=0$, $i_C=0$, and $i_L=0$. We also know that the voltage on a capacitor and the current through an inductor can't change instantaneously, so it follows that 
     $$\vec{x}(0) = \begin{bmatrix} V_{out}(0)=0 \\ \ddt{V_{out}(t)}{t}(0)=0 \end{bmatrix}.$$
@@ -59,7 +73,11 @@
     \begin{bmatrix} 0 & 1 \\ -\frac{1}{LC} & -\frac{1}{R_sC} \end{bmatrix}\begin{bmatrix} V_{out}(t) \\ \ddt{V_{out}(t)}{t} \end{bmatrix} =\begin{bmatrix} 0 & 1 \\ -\frac{1}{LC} & -\frac{1}{R_sC} \end{bmatrix} \vec{x}$$
     }
 
-	\qitem Find the eigenvalues of the differential equation
+	\qitem \textbf{Find the eigenvalues of $A$.}
+
+    \ws {
+        \vspace{75px}
+    }
 
     \sol {
     To find the eigenvalues, we take a look at the determinant of $A - \lambda I.$
@@ -72,7 +90,11 @@
     $$\lambda = -\frac{1}{2 R_s C} \pm \frac{1}{2} \sqrt{(\frac{1}{R_s C})^2 - \frac{4}{LC}}$$
     }
 	
-    \qitem When are the eigenvalues real, complex, and distinct?
+    \qitem \textbf{When are the eigenvalues real, complex, and distinct?} \textit{Hint: When is there a negative under the square root?}
+    
+    \ws {
+        \vspace{100px}
+    }
 
     \sol {
         The main term that will determine whether the eigenvalues are real or complex is the $\sqrt{(\frac{1}{R_s C})^2 - \frac{4}{LC}}$ term. 
@@ -90,6 +112,10 @@ Based on the eigenvalues, we can describe the shape of the graph of $V_{out}$ fr
 \item \textbf{Case II:} If the eigenvalues are complex, the solution will have a decaying exponential envelope with oscillations inside.
 \item \textbf{Case III:} If there is a unique real eigenvalue, the solution will look like a decaying exponential with rate of decay faster than that of (i).
 \end{itemize}
+
+\meta {
+    Draw out these plots for your students for the three cases.
+}
 
 %     Solve the differential equation. Considering all of these cases.
 

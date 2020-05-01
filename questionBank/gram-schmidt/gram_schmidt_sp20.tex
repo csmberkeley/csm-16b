@@ -1,0 +1,115 @@
+% Author: Maxwell Chen
+\pgfplotsset{width=7cm,compat=1.16}
+\usepgfplotslibrary{polar}
+
+% \input{../../newcommands/newcommands-eg-ie-etc}
+
+\qns{Gram-Schmidt Process}
+
+A set of vectors is orthonormal \textbf{if and only if}:
+\begin{itemize}
+    \item Any pair of vectors are orthogonal (for any vectors $\vec{u}, \vec{v} \in S$ where $\vec{u} \neq \vec{v}$, the angle between them is 90$^\circ$).
+    \item Each vector is of unit length (for vector $\vec{v} \in $ $S$, $\norm{\vec{v}} = 1$).
+\end{itemize}
+
+Gram-Schmidt orthonormalization is a process that allows us to take such a set $S$ of arbitrary, linearly-independent vectors, and create a new set $S'$ of vectors that span the exact same space, yet are now orthonormal.
+
+\begin{enumerate}
+
+\qitem For linearly independent vectors $\vec{v}_1, \vec{v}_2$, \textbf{justify that Span($\vec{v}_1, \vec{v}_2$) is the same as Span($\vec{v}_1, \vec{v}_2 - \alpha\vec{v}_1$).}
+
+\ws{\vspace{75px}}
+\sol {
+The definition of span is all vectors that can be "reached" using a linear combination of a set of vectors. So,
+$$span(\vec{v_1}, \vec{v_2}) = \vec{v}_{i}=\beta_{1} \vec{v}_{1}+\beta_{2} \vec{v}_{2} \text { for arbitrary } \vec{v}_{i} \text { and all real } \beta_{1}, \beta_{2}$$
+Following a similar train of thought,
+$$\begin{aligned} \operatorname{span}\left(\vec{v}_{1}, \vec{v}_{2}-\alpha \vec{v}_{1}\right) &=\beta_{3} \vec{v}_{1}+\beta_{4}\left(\vec{v}_{2}-\alpha \vec{v}_{1}\right) \\ &=\beta_{3} \vec{v}_{1}+\beta_{4} \vec{v}_{2}-\beta_{4} \alpha \vec{v}_{1} \\ &=\left(\beta_{3}-\beta_{4} \alpha\right) \vec{v}_{1}+\beta_{4} \vec{v}_{2} \end{aligned}$$
+All $\alpha$ and $\beta$ are arbitrary constants that we can set. If we set $\beta_4 = \beta_2$ and $\beta_3 = \beta_1 + \alpha\beta_2$, then these spans are the same!
+}
+
+\qitem Let us iteratively generate the orthonormal set $S'$ from $S$. Start by arbitrarily picking a vector $\vec{v}_1$ from $S$: \textbf{how can we create a new vector $\vec{u}_1$ for $S'$ so that it spans the same space as the original vector, yet ensures that orthonormality is preserved for our new set?}
+
+\ws{\vspace{75px}}
+
+\sol {
+ Since we are only taking into consideration a single vector, we do not need to worry about orthogonality. So,
+$$\vec{u}_1 = \frac{\vec{v}_1}{\norm{\vec{v}_2}}$$
+}
+
+\qitem Now, consider the next vector $\vec{v}_2$ in $S$. \textbf{How can we convert $\vec{v}_2$ to some $\vec{u}_2$ that is orthonormal with respect to the $\vec{u}_1$ that we've already added to $S'$?}
+
+\ws{\vspace{75px}}
+
+\sol {
+Now, we do need to consider orthogonality. In order for two vectors $\vec{u}, \vec{v}$ to be orthogonal, their dot product has to be 0. In other words, this means that there is nothing--no trace, no component--of $\vec{u} \text { in } \vec{v}$, and vice versa. We can do this by defining the following:
+$$\vec{p_2} = \vec{v_2} - (\vec{v_2}^T\vec{w_1})\vec{w_1}$$
+By subtracting the projection of $\vec{v_2}$ onto $\vec{w_1}$, we are removing the $\vec{w_1}$ component of $\vec{v_2}$ from $\vec{v_2}$. So, $\vec{p_2}$ is now orthogonal to $\vec{w_1}$, and mutual orthogonality is preserved for all vectors in our new set $S'$. $\vec{p_2}$ also needs to be normalized, so:
+$$\vec{w_2} = \frac{\vec{p_2}}{|\vec{p_2}|}$$
+}
+
+\qitem \textbf{Write out the process for creating an arbitrary vector $\vec{u}_i$ for our orthonormal set $S'$.}
+
+\ws{\vspace{75px}}
+
+\sol {
+Define the following vector:
+$$\vec{p_i} = \vec{v_i} - \sum_{j=1}^{i-1}(\vec{v_i}^T\vec{w_j})\vec{w_j}$$
+By subtracting the component of every other vector already in $S'$, this ensures that our new vector $\vec{w_i}$ is orthogonal. Then, we normalize this:
+ $$\vec{w_i} = \frac{\vec{p_i}}{|\vec{p_i}|}$$
+Rinse and repeat for all vectors in $S$ to generate a new, orthonormal set $S'$ that we can use in place of $S$.
+}
+
+\qitem \textbf{OPTIONAL:}
+Let $A = \begin{bmatrix} 
+-1 & -1 & 1 \\
+1 & 3 & 3 \\
+-1 & -1 & 5 \\
+1 & 3 & 7 \end{bmatrix}$.
+
+We will use Gram-Schmidt to find an orthonormal basis $U = \begin{bmatrix} \vec{u}_{1} & \vec{u}_{2} & \vec{u}_{3} \end{bmatrix}$ for the $\text{Col}(A).$
+
+\begin{enumerate}
+  \qitem \textbf{Find $\vec{u}_{1}$.}
+
+  \meta {
+    It really is up to you, how you teach Gram-Schmidt, but I prefer to make all of the vectors orthogonal first, and then normalize at the end, once I've found an orthogonal set of vectors $\{ \vec{q}_{1}, \cdots \vec{q}_{n} \}.$
+  }
+
+  \ws{\vspace{75px}}
+  \sol {
+    For the first vector, we do not need to worry about orthogonality. Therefore we just have to normalize.
+    $$\vec{u}_{1} = \frac{\vec{a}_{1}}{\norm{\vec{a}_{1}}} = \frac{1}{\sqrt{4}} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} = 
+    \begin{bmatrix} -\frac{1}{2} \\ \frac{1}{2} \\ -\frac{1}{2} \\ \frac{1}{2} \end{bmatrix}$$
+  }
+
+  \qitem \textbf{Find $\vec{u}_{2}$.}
+
+  \ws{\vspace{75px}}
+  \sol {
+    We first compute $\vec{q}_{2}$ as a vector orthogonal to $\vec{u}_{1}$ by subtracting the projection of $\vec{a}_{2}$ onto $\vec{u}_{1}$
+    $$\vec{q}_{2} = \vec{a}_{2} - \innp{\vec{a}_{2}}{\vec{u}_{1}} \vec{u}_{1} = \vec{a}_{2} - \frac{1}{2} \innp{\vec{a}_{2}}{\vec{a}_{1}} \frac{1}{2} \vec{a}_{1}
+    = \begin{bmatrix} -1 \\ 3 \\ -1 \\ 3 \end{bmatrix} - 
+    \frac{8}{4} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix}$$
+    If we were to normalize this vector, we would get:
+    $$\vec{u}_{2} = \frac{1}{\sqrt{4}} \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} = 
+    \begin{bmatrix} \frac{1}{2} \\ \frac{1}{2} \\ \frac{1}{2} \\ \frac{1}{2} \end{bmatrix}$$
+  }
+
+  \qitem \textbf{Find $\vec{u}_{3}$.}
+
+  \ws{\vspace{100px}}
+  \sol {
+    We again compute $\vec{q}_{3}$ as a vector orthogonal to rest by subtracting its projections onto $\vec{a}_{1}$ and $\vec{a}_{2}.$
+    \begin{align*}
+    \vec{q}_{3} &= \vec{a}_{3} - \innp{\vec{a}_{3}}{\vec{u}_{1}} \vec{u}_{1} - \innp{\vec{a}_{3}}{\vec{u}_{2}} \vec{u}_{2} = 
+    \vec{a}_{3} - \frac{1}{4} \innp{\vec{a}_{3}}{\vec{a}_{1}} \vec{a}_{1} - \frac{1}{4} \innp{\vec{a}_{3}}{\vec{q}_{2}} \vec{q}_{2} \\
+    &= \begin{bmatrix} 1 \\ 3 \\ 5 \\ 7 \end{bmatrix} - \frac{4}{4} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} - 
+    \frac{16}{4} \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 3 \\ 5 \\ 7 \end{bmatrix} - \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} - \begin{bmatrix} 4 \\ 4 \\ 4 \\ 4 \end{bmatrix} = \begin{bmatrix} -2 \\ -2 \\ 2 \\ 2 \end{bmatrix}
+    \end{align*}
+    Normalizing $\vec{q}_{3},$ we get:
+    $$\vec{u}_{3} = \frac{1}{\sqrt{16}} \begin{bmatrix} -2 \\ -2 \\ 2 \\ 2 \end{bmatrix} = \begin{bmatrix} -\frac{1}{2} \\ -\frac{1}{2} \\ \frac{1}{2} \\ \frac{1}{2} \end{bmatrix}$$
+  }
+
+\end{enumerate}
+
+\end{enumerate}

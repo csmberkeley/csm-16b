@@ -10,19 +10,58 @@
 
 Now that we’ve taken a look at symmetric matrices, specifically $A^{T} A,$ we will investigate into the intuition behind the "Swiss-Army Knife" of Linear Algebra, the \textbf{Singular Value Decomposition.} You may have seen the following forms of the SVD of an m × n matrix A from lecture, homework, and discussion:
 \begin{equation}
-  A = U \Sigma V^{T} = \sum\limits_{i} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^T
+  A = U \Sigma V^{T} = \sum_{i=1}^{r} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^T
 \end{equation}
-Where $\sigma_{i}$ are referred to as the \textbf{singular values} and $\vec{u}_{i}, \vec{v}_{i}$ are the $i^{th}$ column of $U$ and $V$ respectively. 
+In the SVD, the $\sigma_{i}$ are strictly positive real numbers referred to as the \textbf{singular values}, $\vec{u}_{i}, \vec{v}_{i}$ are the $i^{th}$ column of orthonormal matrices $U$ and $V$ respectively, and $r = \operatorname{rank}(A)$.
 
-The Spectral Theorem which says that any \textbf{symmetric} matrix is orthogonally diagonalizable, will play an important role in this question. 
-This means that a symmetric matrix will always have n linearly independent eigenvectors that are all mutually orthogonal.
+An amazing result in Linear Algebra is the Spectral Theorem which says that any symmetric matrix is orthogonally diagonalizable. 
+This means that a \textit{symmetric matrix will always have $n$ linearly independent eigenvectors that are all mutually orthogonal.} In particular, we can choose the set to consist of unit eigenvectors with $\Vert \vec{v} \Vert = 1$, which makes it an \textit{orthonormal} set.
 
-We will start our investigation by looking at the eigenvectors of the matrix AT A.
+We will start our investigation by looking at the eigenvectors of the matrix $A^T A$, which we will first show is symmetric and has non-negative eigenvalues.
 
 \begin{enumerate}
 
-  \qitem Let $\vec{v}$ be a nonzero vector in $\mathbb{R}^n$ that is not in the $\text{Nul}(A).$ 
-  Show that if $\vec{v}$ is an eigenvector of $A^{T} A,$ with eigenvalue $\lambda,$ there exists an eigenvector $\vec{u}$ of $AA^{T}$ with eigenvalue $\lambda.$
+  \qitem Let $A$ be a matrix in $\mathbb{R}^{m \times n}$. \textbf{Show that the matrices $A^T A$ and $A A^T$ are symmetric.}
+  
+  \textit{Hint: This should be a very quick proof, using the definition of a symmetric matrix.}
+
+  \ws{\vspace{50px}}
+  \sol{
+    We use the definition of a symmetric matrix $B$ having the property $B = B^T$.
+    \begin{align*}
+      (A^T A)^T = A^T (A^T)^T = A^T A \\
+      (A A^T)^T = (A^T)^T A^T = A A^T
+    \end{align*}
+  }
+
+  \qitem \textbf{Show that $A^T A$ has non-negative eigenvalues.} A similar proof applies for $A A^T$.
+
+  \textit{Hint: Consider $\norm{A\vec{v}}_{2}^{2}.$ where $\vec{v}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$}
+
+  \ws{\vspace{75px}}
+
+  \sol {
+    $\norm{A\vec{v}}_{2}^{2} = (A \vec{v})^{T} (A \vec{v}) = \vec{v}^{T}A^{T} A \vec{v} = \vec{v}^{T} (\lambda \vec{v}) = \lambda \vec{v}^{T} \vec{v} = \lambda \norm{\vec{v}}_{2}^{2}.$ \vskip 1pt
+    Therefore we see that:
+    \begin{equation}
+      \lambda = \frac{\norm{A \vec{v}}_{2}^{2}}{\norm{\vec{v}}_{2}^{2}} \geq 0
+    \end{equation}
+    $\vec{v}$ is an eigenvector, so it must be nonzero, meaning its norm squared will be greater than 0. \vskip 1pt
+    $\norm{A\vec{v}}_{2}^{2}$ will also be greater than or equal to zero, but may be zero if $A \vec{v} = 0$ or $\vec{v} \in \text{Nul}(A).$
+  }
+\end{enumerate}
+
+Now that we've shown $A^T A$ and $A A^T$ to be symmetric with non-negative eigenvalues, we can continue our analysis to relate the eigenvectors of $A^T A$ with the eigenvectors of $A A^T$.
+
+\begin{enumerate}[resume]
+  \qitem In this part, we will show that the matrices $A^T A$ and $A A^T$ share eigenvalues and have a relationship between their eigenvectors.
+  
+  \begin{enumerate}
+  \qitem
+  Let $\vec{v}$ be a nonzero vector in $\mathbb{R}^n$ that is not in the $\text{Nul}(A).$ 
+  \textbf{Show that if $\vec{v}$ is an eigenvector of $A^{T} A$ with eigenvalue $\lambda,$ there exists an eigenvector of $AA^{T}$ with eigenvalue $\lambda$.} Write out what the corresponding eigenvector of $A A^T$ sharing the same eigenvalue is in terms of defined variables.
+
+  \ws{\vspace{100px}}
 
   \sol {
     Since $\vec{v}$ is an eigenvector of $A^{T} A,$ we know that $A^{T}A \vec{v} = \lambda \vec{v}.$ \vskip 1pt
@@ -36,10 +75,11 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
   }
 
   \qitem Let $\vec{u}$ be a nonzero vector in $\mathbb{R}^m$ that is not in the $\text{Nul}(A^{T}).$ 
-  Show that if $\vec{u}$ is an eigenvector of $AA^{T},$ with eigenvalue $\lambda,$ there must also be an eigenvector $\vec{v}$ of $A^{T} A$ with eigenvalue $\lambda.$
+  \textbf{Show that if $\vec{u}$ is an eigenvector of $AA^{T}$ with eigenvalue $\lambda,$ there must also be an eigenvector of $A^{T} A$ with eigenvalue $\lambda$.}
 
+  \ws{\vspace{100px}}
   \sol {
-    Since $\vec{v}$ is an eigenvector of $AA^{T},$ we know that $AA^{T} \vec{u} = \lambda \vec{u}.$ \vskip 1pt
+    Since $\vec{u}$ is an eigenvector of $AA^{T},$ we know that $AA^{T} \vec{u} = \lambda \vec{u}.$ \vskip 1pt
     If we left multiply by $A^{T}$ we see that 
     \begin{equation}
       A^{T}AA^{T} \vec{u} = A^{T} (\lambda \vec{u}) = \lambda (A^{T} \vec{u})
@@ -48,8 +88,13 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
     Therefore, we can say that $\vec{v} = A^{T} \vec{u}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$
     Again we note that this vector is in the $\text{Col}(A^{T}).$
   }
+  \end{enumerate}
 
-  \qitem We can pick $\vec{v}$ to be an eigenvector of $A^{T}A$ with unit norm. What would the norm of $A \vec{v},$ be?
+  \qitem We can pick $\vec{v}$ to be an eigenvector of $A^{T}A$ with unit norm. \textbf{Given this choice of $\vec{v}$, what is $\norm{A \vec{v}}$?}
+
+  Aside: Why was it important to show that $A^T A$ has non-negative eigenvalues?
+
+  \ws{\vspace{75px}}
 
   \sol {
     The Euclidean norm of a vector is the square root of its inner product with itself:
@@ -59,9 +104,9 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
     Note that we are allowed to take the square root and not end up with an imaginary answer since we showed that $\lambda\geq 0$ in the previous question in part (g).
   }
 
-  \qitem Going back to part (a), let's normalize $\vec{u}$ and $\vec{v}$ to have unit norm.
-  Can you give a relationship between $\vec{u}$ and $\vec{v}$ using the fact that they have unit norm?
+  \qitem Using the results from problem (c) and (d), \textbf{give a relationship between the unit eigenvector $\vec{v}$ of $A^T A$ with the corresponding unit eigenvector $\vec{u}$ of $A A^T$}, where they both share the same eigenvalue of their corresponding matrices.
 
+  \ws{\vspace{75px}}
   \sol {
     We showed in part (c) that if $\vec{v}$ had unit norm, $\norm{A \vec{v}} = \sqrt{\lambda}.$ \vskip 1pt
     In part (a) we showed that there exists an eigenvector $\vec{w} = A \vec{v}$ of $A A^{T}.$ 
@@ -74,12 +119,19 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
     This shows that $\sigma = \sqrt{\lambda}$ so we see that $A \vec{v} = \sqrt{\lambda} \vec{u}.$
   }
 
-  \qitem Now let $\vec{v}$ be nonzero vector in $\mathbb{R}^{n}$ that is also in the null space of $A.$
-  Show that $\vec{v}$ is an eigenvector of $A^{T} A$ with eigenvalue $0.$
+  \qitem So far, we've been considering vectors outside the null spaces of $A$ and $A^T$. We want to ensure that the SVD still maps vectors in these null spaces to $\vec{0}$.
+
+  \begin{enumerate}
+  
+  \qitem
+  Let $\vec{v}$ be nonzero vector in $\mathbb{R}^{n}$ that is also in the null space of $A$.
+  \textbf{Show that $\vec{v}$ is an eigenvector of $A^{T} A$ with eigenvalue $0.$}
 
   \meta {
     We're now going back to part (a) and considering the case in which $A \vec{v} = \vec{0}$ to show that vectors in the $\text{Nul}(A)$ are eigenvectors of $A^{T}A$ with eigenvalue $0.$
   }
+
+  \ws{\vspace{75px}}
 
   \sol {
     If $\vec{v} \in \text{Nul}(A),$ then $A \vec{v} = \vec{0}.$ Left multiplying, by $A^{T}$ we see that:
@@ -90,21 +142,37 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
   }
 
   \qitem Similarly, let $\vec{u}$ be nonzero vector in $\mathbb{R}^{m}$ that is also in the null space of $A^{T}.$
-  Show that $\vec{u}$ is an eigenvector of $AA^{T}$ with eigenvalue $0.$
+  \textbf{Show that $\vec{u}$ is an eigenvector of $AA^{T}$ with eigenvalue $0$.}
+
+  \ws{\vspace{75px}}
 
   \sol {
     If $\vec{u} \in \text{Nul}(A^{T}),$ then $A^{T} \vec{u} = \vec{0}.$ Left multiplying, by $A$ we see that:
     \begin{equation}
       A (A^{T} \vec{u}) = A \vec{0} = \vec{0} = 0 \cdot \vec{u}
     \end{equation}
-    Therefore, $\vec{u}$ is an eigenvector of $A A^{T}$ with eigenvalue $0.$
+    Therefore, $\vec{u}$ is an eigenvector of $A A^{T}$ with eigenvalue $0$.
   }
+  \end{enumerate}
 
+  \newpage
   \qitem We will finally bring everything together using all of the facts proven above. 
-  If $A$ is a $m \times n$ matrix, of rank $k < n,$ show that $AV_{k} = U_{k} \Sigma_{k}.$ 
-  Here, $V_{k}$ will be the $k$ eigenvectors of $A^{T}A$ in $\text{Col}(A^{T}), U_{k}$ will be the $k$ eigenvectors of $AA^{T}$ in $\text{Col}(A)$ and $\Sigma_{k}$ will be a diagonal matrix of the square roots of $\lambda_{1}, \dotsc, \lambda_{k}.$ This form of the SVD is called the \textbf{compact} SVD.
 
-  \textit{Hint: Try writing out the relationship between $\vec{v}_{i}$ and $\vec{u}_{i}$ and try turning these vector equations into a matrix equation.}
+  If $A$ is a $m \times n$ matrix, of rank $r < n$, \textbf{show that $AV_{r} = U_{r} \Sigma_{r}.$}
+
+  \begin{enumerate}
+  \item $V_{r}$ is a $n \times r$ matrix of the first $r$ eigenvectors of $A^{T}A$ in $\text{Col}(A^{T})$
+  \item $U_{r}$ is a $m \times r$ matrix of the first $r$ eigenvectors of $AA^{T}$ in $\text{Col}(A)$ 
+  \item $\Sigma_{r}$ is a $r \times r$ diagonal matrix of the singular values $
+  \sigma_1 = \sqrt{\lambda_{1}}, \dotsc, \sigma_r = \sqrt{\lambda_{r}}$, where the values are ordered from largest to smallest such that $\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_r > 0$
+  \end{enumerate}
+  This form of the SVD is called the \textbf{compact SVD}.
+
+  \textit{Hint 1: Try writing out the relationship between each $\vec{v}_{i}$ and $\vec{u}_{i}$ and convert these vector equations into a matrix equation.}
+
+  \textit{Hint 2: Remember that $U_r, V_r$ contain an orthonormal set of vectors. What special properties do these matrices have?}
+
+  \ws{\vspace{150px}}
 
   \sol {
     We've shown for eigenvectors of $A^{T} A, \ \vec{v}_{1}, \cdots, \vec{v_k} \in \text{Col}(A), \ A \vec{v}_{1} = \sigma_{1} \vec{u}_{1}, \cdots, A \vec{v_k} = \vec{u_k}.$ \\
@@ -126,7 +194,9 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
     0 & \cdots & \sigma_{k} \end{bmatrix}$$
   }
 
-  \qitem Now complete the $U$ and $V$ matrices using the remaining eigenvectors of $A^{T}A$ and $AA^{T}$ that are in the $\text{Nul}(A)$ and $\text{Nul}(A^T)$ to get the matrix equation $A V = U \Sigma.$ You will have to consider both cases when $m \geq n$ and $m < n.$ 
+  \qitem \textbf{Now, derive the full SVD by completing the $U$ and $V$ matrices using the remaining eigenvectors of $A^{T}A$ and $AA^{T}$ that are in the $\text{Nul}(A)$ and $\text{Nul}(A^T)$, resulting in the matrix equation $A V = U \Sigma$.} You will have to consider both cases when $m \geq n$ and $m < n.$ 
+
+  \ws{\vspace{200px}}
 
   \sol {
     We will consider the cases for when $m \geq n$ and $m < n.$ \\
@@ -156,7 +226,9 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
     In both cases, we see that $AV = U\Sigma .$
   }
 
-  \qitem Why does the above equation imply that $A = U \Sigma V^{T}?$
+  \qitem \textbf{Why does the above equation imply that $A = U \Sigma V^{T}?$} This is the \textbf{full SVD.}
+
+  \ws{\vspace{50px}}
 
   \sol {
     Since $V$ is an orthonormal matrix, we can right multiply by $V^{-1} = V^{T}$ to get:
@@ -165,9 +237,13 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
     \end{equation}
   }
 
+  \newpage
+
   \qitem \textbf{OPTIONAL:} The Singular Value Decomposition will compute the eigenvectors of $A^{T} A$ and $AA^{T}.$ 
   Based on the previous parts, we can make the realization that each of these eigenvectors are part of one of the four fundamental subspaces of $A: \text{Col}(A), \text{Nul}(A), \text{Col}(A^{T}), \text{Nul}(A^{T}).$
-  Show which eigenvectors of $A^{T} A$ and $AA^{T}$ belong to which subspaces of $\mathbb{R}^{n}$ and $\mathbb{R}^{m}.$ 
+  \textbf{Show which eigenvectors of $A^{T} A$ and $AA^{T}$ belong to which subspaces of $\mathbb{R}^{n}$ and $\mathbb{R}^{m}.$}
+
+  \ws{\vspace{100px}}
 
   \sol {
 
@@ -185,7 +261,9 @@ We will start our investigation by looking at the eigenvectors of the matrix AT 
     \text{Col}(A) &\perp \text{Nul}(A^{T}) \\
     \text{Col}(A^{T}) &\perp \text{Nul}(A)
   \end{align*}  
-  Show that this statement can be expressed using the eigenvectors of $A^{T}A$ and $AA^{T},$ and that they are in fact basis vectors for these fundamental subspaces.
+  \textbf{Show that this statement can be expressed using the eigenvectors of $A^{T}A$ and $AA^{T},$ and that they are in fact basis vectors for these fundamental subspaces.}
+
+  \ws{\vspace{100px}}
 
   \sol {
     We know from the Spectral Theorem, that $A^{T}A$ has $n$ linearly independent eigenvectors.

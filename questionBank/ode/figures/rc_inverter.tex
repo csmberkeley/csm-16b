@@ -1,0 +1,18 @@
+\begin{figure}[H]
+	\begin{centering}
+		\begin{circuitikz}[scale=0.8]
+				\draw (-1,4) 
+				to [V=$V_{in}$](-1, 2) to (-1,2) node[ground]{}; 
+				\draw (4,5) node[pmos, emptycircle](pm){} ;
+				\draw (4,3) node[nmos, ](nm){} ;
+				\draw (-1,4) to [R = $R$] (2,4) to [short] (2,5)
+				to (pm.gate);
+				\draw (pm.source) to [short, -*] (4,6) node[above]{$V_{DD}$};;
+				\draw (pm.drain) to (nm.drain);
+				\draw (2,4) to [short] (2, 3) to (nm.gate);
+				\draw (nm.source) to (4,2) node[ground]{};
+				\draw (4,4) [short] to [short, -*] (5,4) node[right]{$V_{out}$};
+		\end{circuitikz}
+		\caption{\label{fig:circuit}CMOS Inverter with Resistance}
+	\end{centering}
+\end{figure}

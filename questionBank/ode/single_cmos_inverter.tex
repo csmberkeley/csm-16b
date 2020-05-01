@@ -1,0 +1,232 @@
+% Authors: Naomi Sagan, Justin Yu
+
+\qns{RC Transistor Model}
+
+Consider a single CMOS inverter with a voltage input, except there is some resistance between the voltage source and the gates of the transistors.
+
+\vspace{-1em}
+
+\begin{center}
+    \input{\bank/ode/figures/rc_inverter}
+\end{center}
+
+\vspace{-4em}
+
+\begin{enumerate}
+
+\qitem First, let's introduce a way to model CMOS transistors.
+A transistor can be modeled with a capacitor between the gate $G$ and source $S$, an internal resistance, and a voltage-controlled switch between drain $D$ and $S$.
+
+\textbf{Using the NMOS and PMOS transistor models below, redraw the inverter as a simple RC circuit.}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \begin{circuitikz}
+            \draw (0,-2) node[ground,label=right:$S$] {}
+            to[switch,l_= $V_{GS} \geq V_{tn}$]
+            (0,0) to[R,-*,l=$R_{on}$,i<=$I_D$] ++(0,2)
+            node[label=left:$D$] {};;
+            \draw (0,-2) -- (-1,-2)
+            to[C,-*,l=$C_G$] ++(0,2) node[label=left:$G$] {};;
+            \draw (0,1.75) to [short,-*,l=$V_{out}$] ++ (1,0);;
+        \end{circuitikz}
+        \caption*{\label{fig:nmoscap} \small{NMOS Resistor-Switch-Capacitor Model}}
+    \end{subfigure}
+	\begin{subfigure}{0.45\linewidth}
+        \centering
+		\begin{circuitikz}
+			\draw (0, -2) node[label=left:$D$] {}
+			to[switch,l_= $V_{GS} \leq -|V_{tp}|$, *-] (0,0)
+			to[R, -*,l_=$R_{on}$, i<=$I_D$] ++(0, 2)
+			node[vcc,label=right:$S$] {};;
+			\draw (0, 2) -- (-1, 2)
+			to[C, -*, l_=$C_G$] ++(0, -2) node[label=left:$G$] {};;
+			\draw (0, -1.75) to [short, -*, l=$V_{out}$] ++(1,0);;
+		\end{circuitikz}
+		\caption*{\label{fig:pmoscap} \small{PMOS Resistor-Switch-Capacitor Model}}
+	\end{subfigure}
+\end{figure}
+
+% \noindent
+% \begin{figure}[ht]
+% \centering
+% \begin{subfigure}{.48\textwidth}
+% \flushleft
+% \begin{subfigure}{.3\textwidth}
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 0) node[pmos] (nmos) {};
+% \draw (nmos.G) node[left]{$G$};
+% \draw (nmos.S) node[left]{$S$};
+% \draw (nmos.D) node[left]{$D$};
+% \end{circuitikz}
+% \end{subfigure}
+% \centering
+% \begin{subfigure}{.2\textwidth}
+% \flushright\begin{circuitikz}[american] 
+% \draw (0, 1) node[ocirc]{} node[above]{$G$}
+%       to[short] (0, -1)
+%       to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
+% \draw (2, -1) node[ocirc]{} node[below]{$S$}
+%       to[switch, l_=$V_{SG} \geq |V_{tp}|$] (2, 1)
+%       to[R=$R_{on_, P}$] (2, 2.2)
+%       to[short] (2, 3.4)
+%       node[ocirc]{} node[above]{$D$} (2, 4);
+% \end{circuitikz}
+% \end{subfigure}
+% \caption{PMOS Transistor Model}
+% \end{subfigure}
+% \begin{subfigure}{0.48\textwidth}
+% \flushleft
+% \begin{subfigure}{.3\textwidth}
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 0) node[nmos] (nmos) {};
+% \draw (nmos.G) node[left]{$G$};
+% \draw (nmos.S) node[left]{$S$};
+% \draw (nmos.D) node[left]{$D$};
+% \end{circuitikz}
+% \end{subfigure}
+% \centering
+% \begin{subfigure}{.2\textwidth}
+% \flushright
+% \begin{circuitikz}[american] 
+% \draw (0, 1) node[ocirc]{} node[above]{$G$}
+%       to[short] (0, -1)
+%       to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
+% \draw (2, -1) node[ocirc]{} node[below]{$S$}
+%       to[switch, l_=$V_{GS} \geq V_{tn}$] (2, 1)
+%       to[R=$R_{on_, N}$] (2, 2.2)
+%       to[short] (2, 3.4)
+%       node[ocirc]{} node[above]{$D$};
+% % \draw (0, 0) to[open, v=$V_{GS}$] (1, -1);
+% \end{circuitikz}
+% \end{subfigure}
+% \caption{NMOS Transistor Model}
+% \end{subfigure}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \begin{subfigure}{.2\textwidth}
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 0) node[nmos] (nmos) {};
+% \draw (nmos.G) node[left]{$G$};
+% \draw (nmos.S) node[left]{$S$};
+% \draw (nmos.D) node[left]{$D$};
+% \end{circuitikz}
+% \end{subfigure}
+% \begin{subfigure}{.2\textwidth}
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 1) node[ocirc]{} node[above]{$G$}
+%       to[short] (0, -1)
+%       to[C = $C_{GS}$, v=$V_{GS}$] (2, -1);
+% \draw (2, -1) node[ocirc]{} node[below]{$S$}
+%       to[switch, l_=$V_{GS} \geq V_{tn}$] (2, 1)
+%       to[R=$R_{on_, N}$] (2, 2.2)
+%       to[short] (2, 3.4)
+%       node[ocirc]{} node[above]{$D$};
+% % \draw (0, 0) to[open, v=$V_{GS}$] (1, -1);
+% \end{circuitikz}
+% \end{subfigure}
+% \caption{NMOS Transistor Model}
+% \end{figure}
+
+% \centering
+% \begin{circuitikz}[american] 
+% \draw (0, 0) node[ocirc]{} node[above]{$G$};
+% \draw (1, -1) node[ocirc]{} node[below]{$S$} to[switch] (1, 1) node[ocirc]{} node[above]{$D$};
+% \draw (0, 0) to[open, v=$V_{GS}$] (1, -1);
+% \end{circuitikz}
+% % \caption{$V_{GS} > V_{th, N}$}
+
+\sol{
+    We begin by replacing the transistor elements with the Resistor-Switch-Capacitor model:
+
+    \begin{center}
+        \begin{circuitikz}[scale=0.8]
+                \draw (-2 ,4) 
+                to [V=$V_{in}$](-2, 2) to (-2, 2) node[ground]{}; 
+
+                \draw (-2,4) to [R = $R$, -*] (1, 4) node[right]{$G$}
+                    to [short] (1, 8)
+                    to [C = $C_{GS}$] (4, 8)
+                    to [short, -*] (4, 9)
+                    node[above]{$V_{DD}$};
+                \draw (4, 8) to [R=$R_{on, p}$] (4, 6)
+                    to [switch] (4, 4);
+
+                \draw (1, 4) to [short] (1, 0)
+                    to [C = $C_{GS}$, v=$V_{GS, N}(t)$] (4, 0);
+                \draw (4, 0) to (4, -1) node[ground]{};
+                \draw (4, 0) to [switch] (4, 2)
+                    to [R=$R_{on, n}$] (4, 4);
+
+                \draw (4,4) [short] to [short, -*] (5,4) node[right]{$V_{out}$};
+        \end{circuitikz}
+        % \caption{\label{fig:circuit}CMOS Inverter with Resistance}
+    \end{center}
+
+    Next, we can condense it down to the following simple RC circuit:
+
+    \begin{center}
+        \begin{circuitikz}[scale=0.8]
+                \draw (-2, 4) 
+                to [V_=$V_{in}$](-2, 1) to (-2, 1) node[ground]{}; 
+
+                \draw (-2,4) to [R = $R$, -*, i=$i_1$] (2, 4)
+                    node[right]{$G$}
+                    to [C = $C_{GS}$, i=$i_2$, -*] (2, 7)
+                    node[above]{$V_{DD}$};
+
+                \draw (2,4) to [C = $C_{GS}$, v=$V_{GS, N}(t)$, i=$i_3$] (2, 1)
+                    node[ground]{};
+        \end{circuitikz}
+    \end{center}
+    \newpage
+}
+
+\qitem
+We want to analyze the behavior of the inverter by solving for the gate voltage $V_{GS}$ \textit{of the bottom NMOS transistor} as a function of time. \textbf{Using KCL or KVL, write out a differential equation for $V_{GS}$.}
+
+\ws{\vspace{200px}}
+
+\sol {
+    Using KCL at the $G$ node:
+
+    \begin{align*}
+        i_1 &= i_2 + i_3 \\
+        \frac{V_{in} - V_{GS, N}(t)}{R} &= C_{GS} \frac{d}{dt} (V_{GS, N}(t) - V_{DD}) + C_{GS} \frac{d}{dt} V_{GS, N}(t) \\
+        \frac{V_{in} - V_{GS, N}(t)}{R} &= 2C_{GS} \frac{d}{dt} V_{GS, N}(t) \\
+        \frac{d}{dt} V_{GS, N}(t) &= -\frac{1}{2RC_{GS}} V_{GS, N}(t) + \frac{1}{2RC_{GS}} V_{in}
+    \end{align*}
+}
+
+\qitem 
+Assume that $V_{in}$ has been low ($V_{in} = 0$) for a long time and switches to high ($V_{in} = V_{DD}$) at time $t = 0$. \textbf{Solve for $V_{GS}(t)$ using the differential equation from the last part and the above initial condition.}
+
+\ws{\vspace{200px}}
+
+\sol{
+    Since we know that $V_{in}$ has been low for a long time before $t = 0$, the inverter has stabilized to the top PMOS transistor having $V_{GS, P}(0) = V_{DD}$ and the bottom NMOS transistor having $V_{GS, N}(0) = 0$. Thus, we can plug in this initial condition when solving the differential equation.
+
+	Using substitution of variables:
+	\[V_{GS, N}(t) = z(t) + V_{in}\]
+	\[\frac{dV_{GS, N}(t)}{dt}=\frac{d z(t) }{dt}\]
+	\[\frac{dz(t)}{dt} = - \frac{1}{2RC_{GS}}z(t)\]
+	\[z(t)=Ae^{-\frac{t}{2RC_{GS}}}\]
+
+	Now substituting back to find $V_{out}$:
+	\[V_{GS, N}(t)=Ae^{-\frac{t}{2RC_{GS}}} + V_{in}\]
+
+	Using our initial condition:
+	\[V_{GS, N}(0)= 0 = V_{in} + Ae^0 \]
+	\[A=-V_{in}\]
+	\[V_{GS, N}(t) = V_{in}\left(1-e^{-\frac{t}{2RC_{GS}}}\right) = V_{DD}\left(1-e^{-\frac{t}{2RC_{GS}}}\right) \]
+}
+
+\end{enumerate}

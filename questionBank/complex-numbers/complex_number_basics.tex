@@ -51,11 +51,13 @@ Some handy equations to switch between forms include:
 
 \end{center}
 
-\begin{enumerate}
-\qitem Use the formulas given above to convert between polar and rectangular form.
+\vspace{-15px}
 
 \begin{enumerate}
-\qitem Convert 10 + 12j to polar form.
+\qitem \textbf{Use the formulas given above to convert between polar and rectangular form.}
+
+\begin{enumerate}
+\qitem Convert $10 + 12j$ to polar form.
 
 \sol{
 $z = a + bj$. We can go from rectangular form to polar form by using the equation $z = |z|e^{j\theta}$, where $|z| = \sqrt{a^2 + b^2}$ and $\theta = \angle z = \tan^{-1}(\frac{b}{a})$.
@@ -76,7 +78,7 @@ $$ z = 22\cos(23) + 22j \sin(23) \approx -11.722 + -18.617j$$
 \end{enumerate}
 
 
-\qitem Plot the following on a polar grid:
+\qitem \textbf{Plot the following on a polar grid:}
 \begin{enumerate}
 
 \qitem {2}
@@ -127,7 +129,11 @@ $$ z = 22\cos(23) + 22j \sin(23) \approx -11.722 + -18.617j$$
 
 \end{enumerate}
 
-\qitem Calculate the magnitude and phase of the following:
+\qitem \textbf{Calculate the magnitude and phase of the following:}
+\meta {
+    Clarify to students that the magnitude of a complex number is $|a + bj| = \sqrt{a^2 + b^2}$, and the phase is $\theta = \text{atan2}(a ,b)$.
+}
+
 \begin{enumerate}
 
 \qitem {2}
@@ -165,7 +171,7 @@ $$\angle z = \angle z_a - \angle z_b = \tan^{-1}(\frac{2}{1}) - \tan^{-1}(\frac{
 \end{enumerate}
 
 
-\qitem Prove algebraically that $\frac{1}{j} = -j$.
+\qitem \textbf{Show that $\frac{1}{j} = -j$.}
 
 \sol{
 The key is to multiply the left-hand side of the equation by $\frac{j}{j}$: \\
@@ -175,12 +181,17 @@ $$= \frac{j}{-1} = -j$$
 
 \end{enumerate}
 
-A complex number, $z = a + bj$ has a complex conjugate, $\overline{z} = a - bj$.
-Note that the sum of a complex number and its conjugate is always real, but the difference between a complex number and its conjugate is always imaginary.
+A complex number, $z = a + bj$ has a \textbf{complex conjugate}, $\overline{z} = a - bj$. In polar coordinates, the equivalent expression is $\overline{re^{j\theta}} = re^{-j\theta}$.
+
+Note that the sum of a complex number and its conjugate is always purely real, but the difference between a complex number and its conjugate is always purely imaginary.
 
 \begin{enumerate}[resume]
 
-\qitem Use a polar graph to show that the sum of any complex number and its conjugate is always real.
+\qitem \textbf{Prove graphically that the sum of any complex number and its conjugate is always real.} \textit{Try plotting an an arbitrary complex number and its conjugate.}
+
+\ws{
+    \vspace{100px}
+}
 
 \sol{
 For complex number $z = a + bj$, its conjugate is $\bar{z} = a - bj$. If we add these two together, we get $z + \bar{z} = a + bj + a - bj = 2a + 0j$. The imaginary components cancel out exactly, so the resulting sum is always entirely real. This is illustrated by the following graph for $z = 1 + 1j$ and $\bar{z} = 1 - 1j$:
@@ -206,7 +217,13 @@ For complex number $z = a + bj$, its conjugate is $\bar{z} = a - bj$. If we add 
 }
 
 \qitem Recall that Euler's Formula states that $e^{j\theta} = \cos(\theta) + j\sin(\theta)$.
-Using Euler's identity, show that $\cos(\theta) = \frac{1}{2}(e^{j\theta} + e^{-j\theta})$.
+
+\textbf{Using Euler's identity, show the following identities}, which show that sinusoids are sums of complex exponentials:
+
+\begin{align*}
+    \cos(\theta) = \frac{e^{j\theta} + e^{-j\theta}}{2} \\
+    \sin(\theta) = \frac{e^{j\theta} - e^{-j\theta}}{2j}
+\end{align*}
 
 \sol{
 
@@ -215,9 +232,20 @@ Using Euler's identity, show that $\cos(\theta) = \frac{1}{2}(e^{j\theta} + e^{-
   Note that $e^{j\theta}$ has the complex conjugate $e^{-j\theta}$, which means:
 
   $$e^{-j\theta} = \cos(\theta) - j\sin(\theta)$$
-  $$e^{j\theta} +  e^{-j\theta} = \cos(\theta) + j\sin(\theta) + \cos(\theta) - j\sin(theta)$$
+  $$e^{j\theta} +  e^{-j\theta} = \cos(\theta) + j\sin(\theta) + \cos(\theta) - j\sin(\theta)$$
   $$e^{j\theta} +  e^{-j\theta} = 2\cos(\theta)$$
   $$cos(\theta) = \frac{1}{2}(e^{j\theta} +  e^{-j\theta})$$
+
+  We can also notice that this is true because $cos$ is an even function and $sin$ is an odd function, which gives the properties
+  $cos(-\theta) = cos(\theta)$ and $sin(-\theta) = -sin(\theta)$.
+
+  A similar approach can be used to find $sin(\theta)$:
+
+  \begin{align*}
+    e^{j\theta} - e^{-j\theta} &= cos(\theta) + jsin(\theta) - (cos(\theta) - jsin(\theta)) \\
+    &= 2jsin(\theta) \\
+    \implies sin(\theta) &= \frac{e^{j\theta} - e^{-j\theta}}{2j}
+  \end{align*}
 
 }
 

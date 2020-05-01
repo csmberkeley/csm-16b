@@ -16,7 +16,11 @@ The general procedure for solving this type of problem is: First, convert to the
 
 with initial conditions $x_1(0) = 3$ and $x_2(0) = 3$.
 
-Write out the differential equations and initial conditions in matrix/vector form.
+\textbf{Write out the differential equations and initial conditions in matrix/vector form.}
+
+\ws{
+	\vspace{75px}
+}
 
 \meta{
 	When we say differential matrix, we're referring to a matrix that performs the act of differentation on the state variable $\vec{x}.$
@@ -45,7 +49,11 @@ Write out the differential equations and initial conditions in matrix/vector for
 % \end{adjustwidth}
 
 
-\qitem Find the eigenvalues $\lambda_1, ~\lambda_2$ and eigenspaces for the differential equation matrix above.
+\qitem \textbf{Find the eigenvalues $\lambda_1, ~\lambda_2$ and eigenspaces for the differential equation matrix above.}
+
+\ws{
+	\vspace{100px}
+}
 
 \sol{
 	In order to find the eigenvalues of $A,$ we look at the determinant of $A - \lambda I.$
@@ -67,10 +75,16 @@ Write out the differential equations and initial conditions in matrix/vector for
 }
 
 
-\qitem Change coordinates into the eigenbasis to re-express the differential equations in terms of new variables $z_{1}(t), ~
-z_{2}(t)$. Let $\vec{z} = \begin{bmatrix} z_1 \\ z_2 \end{bmatrix}$ represent the vector $\vec{x}$ using the eigenbasis for its coordinate representation. 
-\textit{ i.e. find a matrix $\widetilde{A}$ such that $\frac{d}{dt} \vec{z}(t) = \widetilde{A} \vec{z}(t)$ 
-Also don't forget about the initial conditions.} \\
+\qitem
+\textbf{Change coordinates into the eigenbasis to re-express the differential equations in terms of new variables $z_{1}(t), ~
+z_{2}(t)$.}
+
+Let $\vec{z}(t) = \begin{bmatrix} z_1(t) \\ z_2(t) \end{bmatrix}$ represent the vector $\vec{x}$ using the eigenbasis for its coordinate representation. 
+\textit{Find a matrix $\widetilde{A}$ such that $\frac{d}{dt} \vec{z}(t) = \widetilde{A} \vec{z}(t)$. Don't forget about the initial conditions.}
+
+\ws{
+	\vspace{5em}
+}
 
 \meta {
 	$x_i$ coordinates are standard coordinates, while the $z_i$ coordinates are using the eigenbasis for representation.
@@ -121,7 +135,11 @@ And our initial condition is:
 $$\vec z_{\lambda}(0) = \begin{bmatrix}\frac{1}{3} & \frac{1}{3} \\ -\frac{4}{3} & -\frac{1}{3}\end{bmatrix}\begin{bmatrix} 3 \\ 3 \end{bmatrix} = \begin{bmatrix} 2 \\ -5 \end{bmatrix} $$
 }
 
-\qitem Solve the differential equation for $z_{i}(t)$ in the eigenbasis.
+\qitem \textbf{Solve the differential equation for $z_{1}(t)$, $z_{2}(t)$ in the eigenbasis.}
+
+\ws{
+	\vspace{75px}
+}
 
 \sol{
 Our initial condition is $$\vec{z}(0) = \begin{bmatrix} 2 \\ -5 \end{bmatrix}$$
@@ -137,7 +155,7 @@ $$z_{1}(t) = 2e^{-3t}$$
 $$z_{2}(t) = -5e^{3t}$$
 }
 
-\qitem Convert your solution back into the original coordinates to find $y_i(t)$.
+\qitem \textbf{Convert your solution back into the original coordinates to find $x_1(t)$, $x_2(t)$.}
 
 \sol{
 $$ \vec x(t) = V \vec z(t) =  \begin{bmatrix} -1 & -1 \\ 4 & 1\end{bmatrix}\begin{bmatrix} 2 e^{-3t} \\ -5 e^{3t}  \end{bmatrix} = \begin{bmatrix} -2e^{-3t} + 5 e^{3t}\\ 8e^{-3t}-5e^{3t} \end{bmatrix}$$

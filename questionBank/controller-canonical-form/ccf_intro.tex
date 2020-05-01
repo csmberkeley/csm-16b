@@ -1,6 +1,6 @@
 % Author: Yen-Sheng Ho
 
-\qns{Controllable Canonical Form Introduction}
+\qns{Controller Canonical Form Introduction}
 
 \meta {
   Note that the proof for CCF is unconventional in that we assume there exists a transformation $T$ from the standard to controller basis, and then we derive what the actual transformation is, and show that it can only exist when the system is controllable.
@@ -13,9 +13,9 @@ Consider a linear discrete time system below ($\vec{x} \in
 \end{align*}
 
 If the system is \textit{controllable},
-then there exists a transformation $\vec{z} = T\vec{x}$ (where $T$ is an invertible $n\times n$ matrix)
+then there exists a change of coordinates $\vec{z} = T\vec{x}$ (where $T$ is an invertible $n\times n$ matrix)
 such that in the transformed coordinates, the system is in
-\textit{controllable canonical form}, which is given by
+\textit{controller canonical form} (CCF), which is given by
 \begin{align*}
 \vec{z}(t+1) = \widetilde{A}\vec{z}(t) + \widetilde{\vec{b}} u(t) = \begin{bmatrix}
 0 & 1 & 0 & \cdots & 0 \\
@@ -32,14 +32,15 @@ u(t)
 \end{align*}
 
 The characteristic polynomials of the matrices $A$ and $\widetilde{A}$ are the same and given by
-\begin{align}\label{eq:poly}
-\mbox{det}(\lambda I - A ) = \mbox{det}(\lambda I - \widetilde{A} )
-= \lambda^n  - a_{n-1} \lambda^{n-1} - a_{n-2} \lambda^{n-2} - \ldots - a_0
-\end{align}
+\begin{align*}\label{eq:poly}
+\boxed{\mbox{det}(A - \lambda I) = \mbox{det}(\widetilde{A} - \lambda I)
+= \lambda^n  - a_{n-1} \lambda^{n-1} - a_{n-2} \lambda^{n-2} - \ldots - a_0}
+\end{align*}
 
 \begin{enumerate}
-\qitem Show that $\widetilde{A} = TAT^{-1}$ and $\widetilde{\vec{b}} = T\vec{b}$.
+\qitem \textbf{Show that $\widetilde{A} = TAT^{-1}$ and $\widetilde{\vec{b}} = T\vec{b}$.}
 
+\ws{\vspace{150px}}
 \sol{
 
 Starting from the original system, we have 
@@ -56,8 +57,10 @@ Comparing to the canonical form, we have
 \end{align*}
 }
 
-\qitem Show that $A$ and $\widetilde{A}$ have the same eigenvalues (\textit{Hint: let $\vec{v}$ be an eigenvector of $A$; use $T\vec{v}$ for $\widetilde{A}$})
+\qitem \textbf{Show that $A$ and $\widetilde{A}$ have the same eigenvalues.}
+\textit{Hint: let $\vec{v}$ be an eigenvector of $A$. Use $T\vec{v}$ as an eigenvector for $\widetilde{A}$.}
 
+\ws{\vspace{150px}}
 \sol{
 
 Let $\lambda$ and $\vec{v}$ be an eigenvalue and its corresponding eigenvector of $A$. That is, $A\vec{v} = \lambda \vec{v}$.
@@ -70,18 +73,39 @@ Next we consider $\widetilde{A}T\vec{v}$:
 \end{align*}
 We have shown that $\lambda$ is also an eigenvalue of $\widetilde{A}$ and its corresponding eigenvector is $T\vec{v}$.
 }
-\qitem Let the controllability matrices $C$ and $\widetilde{C}$ be $C = \begin{bmatrix}
-\vec{b} & A\vec{b} & \cdots & A^{n-1}\vec{b}
-\end{bmatrix}$
-and 
-$\widetilde{C} = \begin{bmatrix}
+
+\qitem Let's show that the characteristic polynomial has matching coefficients to the bottom row of $\widetilde{A}$ for a 2D system:
+$$\vec{z}(t + 1) = \begin{bmatrix} 0 & 1 \\ a_0 & a_1 \end{bmatrix} \vec{z}(t) + \begin{bmatrix} 0 \\ 1 \end{bmatrix}u(t)$$
+
+\textbf{Find the characteristic polynomial of this system in the CCF basis $\operatorname{det}(\widetilde{A} - \lambda I)$. Show that it matches the boxed formula above.}
+
+\ws{\vspace{100px}}
+\sol{
+  \begin{align*}
+    \operatorname{det}(\widetilde{A} - \lambda I) &= (-\lambda)(a_1 - \lambda) - 1(a_0) \\
+    &= \lambda^2 - a_1 \lambda - a_0
+  \end{align*}
+
+  This matches the formula, where $n = 2$.
+}
+
+\qitem Since we've shown that the eigenvalues of $\widetilde{A}$ in the new basis are equal to the original eigenvalues of the system, \textit{if we use system feedback to do eigenvalue placement in the CCF basis, then we'll have accomplished our goal.}
+
+The CCF basis provides a nice way to perform system feedback, since the characteristic polynomial is conveniently determined by the bottom row of the $\widetilde{A}$ matrix and our $\vec{b}$ vector allows us to arbitrarily modify the last row.
+
+Let the controllability matrix for the \textit{original basis} be:
+$$\mathcal{C} = \begin{bmatrix} \vec{b} & A\vec{b} & \cdots & A^{n-1}\vec{b} \end{bmatrix}$$
+
+Let the controllability matrix in the \textit{transformed CCF basis} be:
+$$\widetilde{\mathcal{C}} = \begin{bmatrix}
 \widetilde{\vec{b}} & \widetilde{A}\widetilde{\vec{b}} & \cdots & \widetilde{A}^{n-1}\widetilde{\vec{b}}
-\end{bmatrix}$, respectively.
-Show that $\widetilde{C} = TC$, which is equivalent to $T = \widetilde{C}C^{-1}$.
+\end{bmatrix}$$
+
+\textbf{Show that $\widetilde{\mathcal{C}} = T\mathcal{C}$, which is equivalent to $T = \widetilde{\mathcal{C}}\mathcal{C}^{-1}$.}
 
 \sol{
 \begin{align*}
-\widetilde{C} &= \begin{bmatrix}
+\widetilde{\mathcal{C}} &= \begin{bmatrix}
 \widetilde{\vec{b}} & \widetilde{A}\widetilde{\vec{b}} & \cdots & \widetilde{A}^{n-1}\widetilde{\vec{b}}
 \end{bmatrix} \\
 &= \begin{bmatrix}
@@ -90,8 +114,11 @@ T{\vec{b}} & (T{A}T^{-1})(T{\vec{b}}) & \cdots & (T{A}^{n-1}T^{-1})(T{\vec{b}})
 &= \begin{bmatrix}
 T{\vec{b}} & T{A}{\vec{b}} & \cdots & T{A}^{n-1}{\vec{b}}
 \end{bmatrix} \\
-&= TC
+&= T\mathcal{C} \\
+\implies T &= \widetilde{\mathcal{C}}\mathcal{C}^{-1}
 \end{align*}
+
+Notice that this transformation $T$ is only valid when $\mathcal{C}$ is invertible $\iff$ $\mathcal{C}$ is full rank (i.e. the system is controllable).
 }
 
 \end{enumerate}

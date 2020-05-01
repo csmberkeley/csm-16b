@@ -1,0 +1,118 @@
+% Authors: Justin Yu
+% Email: justinvyu@berkeley.edu
+
+\qns{CR Circuit}
+
+\meta {
+    This problem is primarily meant as extra practice for students to see and solve a simple differential equation.
+}
+
+We're already familiar with the charging RC circuit from the second problem of this worksheet, 
+but what happens if we flip the orientation of the circuit components and switch to discharging?
+
+% Assume that $V_{in}(t)=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$, and $C=\SI{10}{\micro\farad}$.
+Consider the CR circuit below:
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+        \draw (-1,4) 
+        to [V = $V_{in}(t)$] (-1,0)
+        (-1, 4) to [short] (1, 4)
+        % (-1,4) to [opening switch, l_=\mbox{$t = 0$} ] (1,4)
+        (1,4) to [C = $C$,i=$i_C(t)$, v = $V_C(t)$] (4,4)
+        (4,4) to [short] (6,4)
+        to [R = $R$, v = $V_{out}$] (6,0)
+        to [short] (-1,0);
+    \end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+
+\qitem \textbf{Write out the differential equation for the voltage $V_{C}(t)$ across the capacitor in terms of constants and $V_{in}(t)$.}
+
+\ws{
+\vspace{50px}
+}
+
+\sol {
+    KCL and Ohm's law at the $V_{out}$ node gives us:
+    \begin{align*}
+        C \frac{d V_C(t)}{dt} &= \frac{V_{in}(t) - V_C(t)}{R} \\
+        \implies \frac{d}{dt} V_C(t) &= - \frac{1}{RC} V_C(t) + \frac{1}{RC} V_{in}(t)
+    \end{align*}
+}
+
+\qitem 
+Assume that when $t\leq 0$, the capacitor has been fully charged with an input voltage $V_{DD}$, with the initial condition $V_C(t=0) = V_{DD}$.
+At $t=0$, the input voltage switches from high to low, so that $V_{in}(t) = 0$ for $t \geq 0$.
+
+\textbf{Plug in these conditions to the differential equation from the previous part and solve for $V_{C}(t)$ for $t \geq 0$.}
+
+\ws{
+\vspace{50px}
+}
+
+\sol{
+    We can plug in $V_{in}(t) = 0$ as given by the problem:
+    \begin{align*}
+        \frac{d}{dt} V_C(t) &= - \frac{1}{RC} V_C(t)
+    \end{align*}
+
+    Now, we see that this is a homogeneous differential equation with the general solution:
+    \begin{align*}
+        V_C(t) &= A e^{-\frac{1}{RC} t}
+    \end{align*}
+
+    We solve for $A$ by plugging in the initial condition $V_C(0) = V_{DD}$:
+    \begin{align*}
+        V_C(0) = V_{DD} &= A e^0 \\
+        \implies A &= V_{DD}
+    \end{align*}
+
+    Thus, the final solution for the voltage of the discharging capacitor is given by $V_C(t) = V_{DD} e^{- \frac{1}{RC} t}$.
+}
+
+\qitem \textbf{What is $V_{out}(t)$?} Sketch a plot of the voltage across the resistor over time, labeling the asymptote it reaches at steady-state.
+
+\ws{
+\vspace{30px}
+}
+
+\sol {
+    By KVL, $V_{out}(t) = V_{in}(t) - V_{C}(t) = -V_{C}(t)$.
+}
+
+\qitem \textbf{What is the steady-state voltage across the capacitor as $t \rightarrow \infty$?}
+
+\ws{
+\vspace{40px}
+}
+
+\sol {
+    \begin{align*}
+        \lim_{t \rightarrow \infty} V_C(t) &= \lim_{t \rightarrow \infty} V_{DD} (e^{-\frac{1}{RC}t}) \\
+        &= V_{DD} (0) \\
+        &= 0
+    \end{align*}
+}
+
+\qitem \textbf{What is the steady-state current across the capacitor as $t \rightarrow \infty$?}
+
+\ws{
+\vspace{40px}
+}
+
+\sol {
+    \begin{align*}
+        \lim_{t \rightarrow \infty} i_C(t) &= \lim_{t \rightarrow \infty} C \frac{d}{dt} V_C(t)  \\
+        &= \lim_{t \rightarrow \infty} C (\frac{d}{dt} V_{DD} (e^{-\frac{1}{RC}t})) \\
+        &= 0
+    \end{align*}
+}
+
+\qitem \textbf{What circuit element does the capacitor act like at steady-state ($t \rightarrow \infty$)?}
+
+\sol{
+    When completely discharged, it acts like a short circuit element, where the voltage across is 0, and the current through it is determined by the circuit components around it, which is 0 in this case.
+}
+
+\end{enumerate}
