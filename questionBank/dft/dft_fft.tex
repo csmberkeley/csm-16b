@@ -1,0 +1,204 @@
+\qns{Fast Fourier Transform}
+
+% Purpose of this question is to illustrate a particular use of the DFT matrix.
+% This question should help build intuition and solidify understanding of the DFT matrix.
+% Most students also have taken/will take 170, so this is a nice extension of 16b course material.
+% This problem is not entirely necessarily to 16b at all, but is a nice challenge for some students
+% who are looking for something more conceptual.
+
+Now that we've defined the DFT, aside from interpolation, what else can we do with it?
+
+In this question, we will explore using the DFT for fast polynomial multiplication, and ultimately come up with an algorithm that applies the DFT to a vector very quickly.
+
+Suppose that we have two $n$-degree polynomials:
+
+\begin{align*}
+A(x) = a_{0} + a_{1}x + a_{2}x^{2} + a_{3}x^{3} + \dots + a_{n}x^{n}\\
+B(x) = b_{0} + b_{1}x + b_{2}x^{2} + b_{3}x^{3} + \dots + b_{n}x^{n}\\
+\end{align*}
+
+We would like to multiply the two polynomials $A(x)$ and $B(x)$ together to get the $2n$ degree polynomial:
+
+\begin{align*}
+C(x) = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + \dots + c_{2n - 1}x^{2n - 1} + c_{2n}x^{2n}
+\end{align*}
+
+\begin{enumerate}
+
+\qitem
+
+Come up with a naive algorithm to multiply the two polynomials in $\O(n^{2})$ time. Reminder that $\O(n^{2})$\\
+time is the asymptotic runtime.
+
+\sol{
+  A simple algorithm is brute force multiplication. In this case we could multiply each element of $A(x)$
+  with all elements of $B(x)$. We would do this for all elements of $A(x)$. Then we could add like terms. In pseudocode:\\
+
+  \texttt{\noindent
+  initialize $C(x)$ \\
+  for each $a$ term in $A(x)$:\\
+  \hspace*{1cm} for each $b$ term in $B(x)$:\\
+  \hspace*{2cm}$C(x) += a * b$
+    }
+}
+
+\qitem
+
+At this point, a natural question to ask is can we make our algorithm any faster? Let's try using
+a point-value representation of our polynomials. Come up with an algorithm that computes $C(x)$ using a point-value representations.
+
+{\em HINT:
+ A point-value representation of a polynomial is the evaluation of a polynomial at a given input. An example would be $(x_{0}, y_{0})$ where $y_{0} = A(x_{0})$.
+}
+
+\sol{
+The crux of this problem is realizing that $C(x) = A(x) * B(x) \implies C(x_{i}) = A(x_{i}) * B(x_{i})$. This means that we can evaluate $A(x)$ and $B(x)$ on $n + 1$ distinct inputs to obtain point value representation, compute the point value representation of $C(x)$, and then take an inverse to compute the coefficient representation of $C(x)$.\\
+
+Thus, using $n + 1$ distinct choices of $x_{i}$, evaluate $A(x)$ and $B(x)$ on those $x_{i}$ so that we have\\ $\begin{bmatrix} A(x_{0}), A(x_{1}), \dots A(x_{n})\end{bmatrix}^{T}$ and $\begin{bmatrix} B(x_{0}), B(x_{1}), \dots B(x_{n})\end{bmatrix}^{T}$.\\
+
+Then we can perform pointwise multiplication to compute $\begin{bmatrix} C(x_{0}), C(x_{1}), \dots C(x_{n})\end{bmatrix}^{T}$. We can then create a system of linear equations and take an inverse in order to compute the coefficient of $C(x)$.
+
+Visually, we'd have the following:
+
+\begin{align*}
+  \begin{bmatrix}
+    1 & x_{0} & x_{0}^{2} & \dots & x_{0}^{n} \\
+    1 & x_{1} & x_{1}^{2} & \dots & x_{1}^{n} \\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    1 & x_{n} & x_{n}^{2} & \dots & x_{n}^{n}
+  \end{bmatrix}
+  \begin{bmatrix}
+    a_{0} \\
+    a_{1} \\
+    \vdots \\
+    a_{n}
+  \end{bmatrix}
+  = \begin{bmatrix}
+    A(x_{0}) \\
+    A(x_{1}) \\
+    \vdots \\
+    A(x_{n})
+  \end{bmatrix} \\
+  \begin{bmatrix}
+    1 & x_{0} & x_{0}^{2} & \dots & x_{0}^{n} \\
+    1 & x_{1} & x_{1}^{2} & \dots & x_{1}^{n} \\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    1 & x_{n} & x_{n}^{2} & \dots & x_{n}^{n}
+  \end{bmatrix}
+  \vspace{2mm}
+  \begin{bmatrix}
+    b_{0} \\
+    b_{1} \\
+    \vdots \\
+    b_{n}
+  \end{bmatrix}
+  = \begin{bmatrix}
+    B(x_{0}) \\
+    B(x_{1}) \\
+    \vdots \\
+    B(x_{n})
+  \end{bmatrix} \\
+  \vspace{2mm}
+  \begin{bmatrix}
+    1 & x_{0} & x_{0}^{2} & \dots & x_{0}^{n} \\
+    1 & x_{1} & x_{1}^{2} & \dots & x_{1}^{n} \\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    1 & x_{n} & x_{n}^{2} & \dots & x_{n}^{n}
+  \end{bmatrix}
+  \begin{bmatrix}
+    c_{0} \\
+    c_{1} \\
+    \vdots \\
+    c_{n}
+  \end{bmatrix}
+  = \begin{bmatrix}
+    C(x_{0}) \\
+    C(x_{1}) \\
+    \vdots \\
+    C(x_{n})
+  \end{bmatrix} \\
+\end{align*}
+From here, we can compute the coefficients of $C(x)$. If $\vec{c}$ is a vector of the coefficents, then $\vec{c} = M^{-1}\vec{C}$ where $M$ is the matrix and $\vec{C}$ is the vector of point value representation.
+}
+
+\qitem You may notice that naively computing the point value representation of $C(x)$ takes $O(n^{2})$ time and taking the inverse takes $O(n^{3})$ time, so our second algorithm is actually slower than the first algorithm. Let's see if we can fix this. Can we reduce the computation time of our point value representations by using the DFT matrix? If so, write an algorithm that has a runtime faster than $O(n^{2})$. Reducing the computation time of the inverse will be next part.
+
+{\em HINT:
+ Try using recursion and the DFT.
+}
+
+\sol{
+  When we are picking the points of the matrix $M$, the only constraint is that $M$ uses $n+1$ distinct points. Using the hint, we can pick our points to be the roots of unity. However, in constructing $M$, we want to reuse as much computation as possible in order to reduce runtime. We also want this construction to be recursive so that our runtime scales with size.
+
+  \vspace{2mm}
+
+  Suppose that we are looking at $M_{n}$, the matrix $M$ for our $C(x)$ polynomial. Notice how evaluating 1 and -1, two numbers that could end up in our matrix, have identical evaluations for about half of their row. For example, suppose that the zero row of $M$ are the powers of $1$ and that the $\frac{n}{2}$ row has the powers of $-1$. Every other column will have the same number. The only difference is in odd powers. This also implies that half of the computation of $C(x_{0})$ is identical to half the computation of $C(x_{1})$.
+
+  \vspace{2mm}
+
+  This idea can actually be generalized to all roots of unity! For example, for a given root $\omega_{N}^{i}$, there will be a corresponding $\omega_{N}^{2i}$ that will have identical evaulations for even powers. This idea can be recursively implemented through the following pseudocode (From CS170 Textbook: Algorithms by S. Dasgupta, C.H. Papadimitriou, and U.V. Vazirani):
+
+  \texttt{\noindent
+    \underline{function FFT}$(a, \omega)$:\\
+    Input: An array $a = (a_{0}, a_{1}, \dots, a_{n-1})$, for $n$ a power of 2\\
+    \hphantom{Input:}  A primitive $n$th root of unity, $\omega$\\
+    Output: $M_{n}(\omega)a$ where $M_{n}$ is the DFT matrix of size $n$ by $n$.\\
+    if $\omega == 1$: return $a$\\
+    $(s_0, s_1, \dots, s_{n/2 - 1}) = FFT((a_0, a_2, \dots, a_n-2), \omega^{2})$\\
+    $(s_{0}^{\prime}, s_{1}^{\prime}, \dots, s_{n/2 - 1}^{\prime}) = FFT((a_1, a_3, \dots, a_{n-1}), \omega^{2})$\\
+    for $j = 0$ to $n/2 - 1$:\\
+    \hphantom{for} $r_{j} = s_{j} + \omega^{j}s_{j}^{\prime}$\\
+    \hphantom{for} $r_{j+n/2} = s_{j} - \omega^{j}s_{j}^{\prime}$\\
+    return $(r_0, r_1, \dots, r_{n-1})$\\
+  }
+  Note that we can easily just pad zeroes when we don't have even powers. This won't affect runtime in any meaningful way.
+}
+
+\qitem
+What's the runtime of your algorithm from $(c)$?
+
+\sol{
+If we denote the runtime of something as a function $T$, then our runtime follows the recurrence of $T(n) = 2T(\frac{n}{2}) + O(N)$. This means that the runtime of a size n problem is equal to two problems half a size smaller with an additional linear time that comes from the for loop. This equals $O(n\log{n})$. Notice that this is the same runtime as merge sort.
+}
+
+\qitem
+Now that we can compute our point value representation of $C(x)$ very quickly, we turn to the problem of the inverse. How can we compute the inverse to get the coefficients of $C(x)$?
+
+{\em HINT:
+ Use properties of the DFT matrix.
+}
+
+\sol{
+The very powerful thing about the DFT matrix is that its inverse is just $\frac{1}{n}M^{*}$ where $*$ is taking the complex conjugate. Since the conjugate still maintains the property that squaring the $n$ roots of unity leads to $\frac{n}{2}$ roots, we can use the same algorithm with $omega$ values conjugated. Afterwards, we'd just normalize by $\frac{1}{n}$.
+}
+
+\qitem
+What is the runtime of taking the inverse?
+
+\sol{
+$O(n\log{n})$ Taking the inverse is the same as applying the psuedocode in part $c$ with conjugated $\omega$ values.
+}
+
+\qitem
+What is the overall runtime of performing polynomial multiplication then? Name the steps.
+
+\sol{
+The pseudocode from part $c$ is a way of applying the DFT matrix in $O(n\log{n})$ time. Thus, we just take the same steps as part $b$, but using our psuedocode. This leads to an overall runtime of $O(n\log{n})$. The steps are as follows:
+
+\begin{enumerate}
+
+  \item Compute $M \vec{a}$ to get $\vec{A}$ using the FFT algorithm.
+
+  \item Compute $M \vec{b}$ to get $\vec{B}$ using the FFT algorithm.
+
+  \item Compute $\vec{C}$ by multiplying the pairwise elements of $\vec{A}$ and $\vec{B}$.
+
+  \item return $M^{-1} \vec{C} = \frac{1}{n} \overline{ M \overline{\vec{C}}}$ using the FFT algorithm.
+
+\end{enumerate}
+
+Applying a constant number of our algorithm means our algorithm dominates. So our overall runtime is $O(n\log{n})$. Note that applying $\frac{1}{n}$ can just take place in the for loop our algorithm.
+This algorithm that we've illustrated is called the Fast Fourier Transform, which is a fast way of applying the DFT matrix.
+}
+
+\end{enumerate}
