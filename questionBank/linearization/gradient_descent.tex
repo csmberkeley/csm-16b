@@ -1,0 +1,61 @@
+\qns{Gradient Descent}
+
+% Purpose of this question is to create a problem that combines multiple topics in the course: system ID, linearization and regression.
+% This problem was created for students looking for problems different from CSM problems that are rather mecahnical.
+% Not only does this problem build more intuition into linearization, it does so by introducing a classical ML problem that gets explored in CS188 and CS189.
+
+In this problem, we will explore regression in the context of linearization in order to develop the gradient descent algorithm.
+
+Suppose that we have a system that has $n$ parameters, and we would like to approximate them.
+Recall that this is just a system ID problem. We find at least $n$ linearly independent data points, stack them in a matrix, and perform least squares. However, also recall that least squares minimizes the squared error.
+
+\begin{align*}
+\vec{x} = (A^{T}A)^{-1}A^{T}\vec{b} \\
+\text{minimizes } \lVert \vec{e} \rVert = \lVert A\vec{x} - \vec{b} \rVert ^{2}
+\end{align*}
+
+This is typically not a problem. But, what if we'd like to minimize a different type of error for our application.
+A relatively simple example would be trying to minimize $\lVert A\vec{x} - \vec{b} \rVert ^{3}$.
+A more famous example would be the Huber loss function.
+
+We now arrive at the general problem that the error we want to minimize may not necessarily be represented by squared loss, and thus we can't perform least squares.
+
+\begin{enumerate}
+
+\qitem
+The following is the Huber loss function for a given data point $(x_i, y_i)$ where $\delta$ is a tunable parameter by the user:
+\begin{align*}
+  e_{\delta} =
+  \begin{cases}
+    \frac{1}{2}(y_{i}-f(x_{i}))^{2} & \text{if } |y_i-f(x_i)| \leq \delta \\
+    \delta|y_{i}-f(x_{i})|-\frac{1}{2}\delta^{2} & \text{otheriwse}
+  \end{cases}
+\end{align*}
+
+Name some advantages and disadvantages of using Huber loss over using squared loss.
+
+\sol{
+There are a variety of answers, but generally speaking, the advantage for Huber loss is that our algorithm will be more robust to outliers if the $\delta$ parameter is tuned well.
+The disadvantage is that you actually have another parameter to tune or determine.
+This tuning parameter is similar to the $k$ parameter in the k-means algorithm.
+}
+
+\qitem
+Now that we have a general idea of how loss functions can vary, now we move on to how can we minimize the desired error.
+Suppose that we try guessing the $n$ parameters many times and pick the set of parameters that produces the smallest loss.
+Is there anything wrong with this approach?
+Why?
+
+\sol{
+The primary problem is that for each parameter, there could be an infinite set of possibilities to try.
+This infinte set only grows for each additional parameter.
+This also means that we may actually never find a reasonable answer.
+We may just end up picking a horrible set of parameters out of the small subset that we tested.
+}
+
+\qitem The problem with complete guessing is that we are never improving upon our guesses.
+Using what you know about gradients and linearization, how can we incrementally improve a guess?
+
+
+
+\end{enumerate}

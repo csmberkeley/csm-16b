@@ -3,8 +3,7 @@
 % Purpose of this question is to illustrate a particular use of the DFT matrix.
 % This question should help build intuition and solidify understanding of the DFT matrix.
 % Most students also have taken/will take 170, so this is a nice extension of 16b course material.
-% This problem is not entirely necessarily to 16b at all, but is a nice challenge for some students
-% who are looking for something more conceptual.
+% This problem is not entirely necessarily to 16b at all, but is a nice challenge for some students who are looking for something more conceptual.
 
 Now that we've defined the DFT, aside from interpolation, what else can we do with it?
 
@@ -27,8 +26,7 @@ C(x) = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + \dots + c_{2n - 1}x^{2n - 1} +
 
 \qitem
 
-Come up with a naive algorithm to multiply the two polynomials in $\O(n^{2})$ time. Reminder that $\O(n^{2})$\\
-time is the asymptotic runtime.
+Come up with a naive algorithm to multiply the two polynomials in $\O(n^{2})$ time. Reminder that $\O(n^{2})$ time is the asymptotic runtime.
 
 \sol{
   A simple algorithm is brute force multiplication. In this case we could multiply each element of $A(x)$
@@ -44,8 +42,7 @@ time is the asymptotic runtime.
 
 \qitem
 
-At this point, a natural question to ask is can we make our algorithm any faster? Let's try using
-a point-value representation of our polynomials. Come up with an algorithm that computes $C(x)$ using a point-value representations.
+At this point, a natural question to ask is can we make our algorithm any faster? Let's try using a point-value representation of our polynomials. Come up with an algorithm that computes $C(x)$ using a point-value representations.
 
 {\em HINT:
  A point-value representation of a polynomial is the evaluation of a polynomial at a given input. An example would be $(x_{0}, y_{0})$ where $y_{0} = A(x_{0})$.
