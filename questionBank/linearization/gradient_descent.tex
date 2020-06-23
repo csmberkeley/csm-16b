@@ -3,6 +3,7 @@
 % Purpose of this question is to create a problem that combines multiple topics in the course: system ID, linearization and regression.
 % This problem was created for students looking for problems different from CSM problems that are rather mecahnical.
 % Not only does this problem build more intuition into linearization, it does so by introducing a classical ML problem that gets explored in CS188 and CS189.
+%Another approach to this problem would be to teach it from the 1-D case and have them generalize that.
 
 In this problem, we will explore regression in the context of linearization in order to develop the gradient descent algorithm.
 
@@ -18,7 +19,7 @@ This is typically not a problem. But, what if we'd like to minimize a different 
 A relatively simple example would be trying to minimize $\lVert A\vec{x} - \vec{b} \rVert ^{3}$.
 A more famous example would be the Huber loss function.
 
-We now arrive at the general problem that the error we want to minimize may not necessarily be represented by squared loss, and thus we can't perform least squares.
+We now arrive at the general problem that the error we want to minimize may not necessarily be represented by squared loss, and thus we can't use least squares.
 
 \begin{enumerate}
 
@@ -32,7 +33,7 @@ The following is the Huber loss function for a given data point $(x_i, y_i)$ whe
   \end{cases}
 \end{align*}
 
-Name some advantages and disadvantages of using Huber loss over using squared loss.
+Name some advantages and disadvantages of trying to minimize Huber loss over squared loss.
 
 \sol{
 There are a variety of answers, but generally speaking, the advantage for Huber loss is that our algorithm will be more robust to outliers if the $\delta$ parameter is tuned well.
@@ -41,8 +42,8 @@ This tuning parameter is similar to the $k$ parameter in the k-means algorithm.
 }
 
 \qitem
-Now that we have a general idea of how loss functions can vary, now we move on to how can we minimize the desired error.
-Suppose that we try guessing the $n$ parameters many times and pick the set of parameters that produces the smallest loss.
+Now that we have a general idea of how loss functions can vary, we will create a general algorithm for any loss function.
+The naive attempt would be to we try guessing the $n$ parameters many times and pick the set of parameters that produces the smallest loss.
 Is there anything wrong with this approach?
 Why?
 
@@ -53,8 +54,80 @@ This also means that we may actually never find a reasonable answer.
 We may just end up picking a horrible set of parameters out of the small subset that we tested.
 }
 
-\qitem The problem with complete guessing is that we are never improving upon our guesses.
+\qitem
+The problem with a purely guess based strategy is that we are never improving upon our guesses.
 Using what you know about gradients and linearization, how can we incrementally improve a guess?
+Describe it qualitatively.
+
+\sol{
+  We know that for our $n$ parameters, there is a set of them, not necessarily unique, that minimizes the error of our given loss function.
+  In theory, there's a $n$ dimensional plot of parameters with the loss function.
+  Thus, what we could do is attempt to find the global minimum of this plot by using gradients and linearization.
+  In particular, we can calculate partial derivatives of our loss function with respect to individual parameters and update our parameters to move towards a minimum.
+
+  There may be a follow up question of why don't we just compute the global minimum using calculus?
+  The simple answer is that it can be incredibly difficult for super complex systems.
+}
+
+\qitem
+We denote a general loss function by $L(\vec{x}, b_{i})$ where the loss is computed with respect to a vector $\vec{x}$ of parameters and a single $b_{i}$ measurement. State your answer to the previous part mathematically.
+
+{\em HINT:
+ There may be a tunable parameter involved.
+}
+
+\sol{
+  We take our initial guess of our parameters and calculate the gradient.
+  Staying consistent with the notation already used. For one training point, we have
+  \begin{align*}
+    \vec{x} = \vec{x} - \alpha * \nabla_{L(\vec{x}, b_{i})}
+  \end{align*}
+  where $\alpha$ is a stepwise parameter that we get to choose. Note that the gradient calculated is with respect to the loss function, the current set of parameters, and the current measurement.
+}
+
+
+\qitem
+Using part $(d)$, create an algorithm that takes a set of guesses and continously improves a guess relative to a general loss function by using a set of measurements.
+
+\sol{
+  There's actually many variations of gradient descent. In particular, stochastic gradient descent and mini-batch gradient descent are two common examples.
+
+  Stochastic gradient descent incorporates a random single data points at a time while mini-batch incorporates small subsets of data at a time.
+
+\underline{Stochastic Gradient Descent}
+
+\texttt{\noindent
+init $\vec{x}$ \\
+for iteration 1, 2, $\dots$ \\
+\hspace*{1cm} pick random data point $j$ \\
+\hspace*{1cm} $\vec{x} = \vec{x} - \alpha * \nabla_{L(\vec{x}, b_{j})}$ \\
+}
+
+\underline{Mini-Batch Gradient Descent}
+
+\texttt{\noindent
+init $\vec{x}$ \\
+for iteration 1, 2, $\dots$ \\
+\hspace*{1cm} pick random subset of data points $I$ \\
+\hspace*{1cm} $\vec{x} = \vec{x} - \alpha * \sum_{i \in I}\nabla_{L(\vec{x}, b_{i})}$ \\
+}
+}
+
+
+\qitem
+The algorithm that you've just created is called gradient descent.
+What are some advantages or disadvantages of this algorithm?
+
+\sol{
+The biggest disadvantage of gradient descent is that it may end up finding a local minimum instead of a global minimum.
+Additionally, this algorithm is only approximate, so it's possible you may not even hit the local minimum properly.
+Though, by tuning the hyperparameter $\alpha$, you should get arbitrarily close.
+
+Some of advantages include:
+\begin{itemize}
+  
+\end{itemize}
+}
 
 
 
