@@ -97,7 +97,7 @@ Using part $(d)$, create an algorithm that takes a set of guesses and continousl
 \underline{Stochastic Gradient Descent}
 
 \texttt{\noindent
-init $\vec{x}$ \\
+initialize $\vec{x}$ \\
 for iteration 1, 2, $\dots$ \\
 \hspace*{1cm} pick random data point $j$ \\
 \hspace*{1cm} $\vec{x} = \vec{x} - \alpha * \nabla_{L(\vec{x}, b_{j})}$ \\
@@ -106,7 +106,7 @@ for iteration 1, 2, $\dots$ \\
 \underline{Mini-Batch Gradient Descent}
 
 \texttt{\noindent
-init $\vec{x}$ \\
+initialize $\vec{x}$ \\
 for iteration 1, 2, $\dots$ \\
 \hspace*{1cm} pick random subset of data points $I$ \\
 \hspace*{1cm} $\vec{x} = \vec{x} - \alpha * \sum_{i \in I}\nabla_{L(\vec{x}, b_{i})}$ \\
@@ -118,14 +118,22 @@ for iteration 1, 2, $\dots$ \\
 The algorithm that you've just created is called gradient descent.
 What are some advantages or disadvantages of this algorithm?
 
-\sol{
-The biggest disadvantage of gradient descent is that it may end up finding a local minimum instead of a global minimum.
-Additionally, this algorithm is only approximate, so it's possible you may not even hit the local minimum properly.
-Though, by tuning the hyperparameter $\alpha$, you should get arbitrarily close.
+\sol{\noindent
+
+Some disadvantages of gradient descent are:
+
+\begin{itemize}
+  \item You may end up finding a local minimum instead of a global minimum.
+  \item Ihis algorithm is only approximate, so it's possible you may not even hit the local minimum properly.
+\end{itemize}
 
 Some of advantages include:
+
 \begin{itemize}
-  
+  \item This algorithm can work for any general loss function.
+  \item The ability to constantly incorporate new data without having to recompute an entire matrix like least squares.
+  \item No need to calculate local/global minimum by hand.
+  \item Simple to implement and doesn't requires tons of computation.
 \end{itemize}
 }
 
