@@ -1,0 +1,162 @@
+\definecolor{lightlightgray}{rgb}{0.9, 0.9, 0.9}
+\qns{Phasors and Multiple Voltage Sources}
+
+\meta {
+    This problem shows how to use superposition to calculate the results of applying filters to signals with multiple frequencies.
+}
+
+You have a signal generator that produces a wave with two different frequencies, $\omega_a$ and $\omega_b$. 
+For instance, you could have a stereo (two-channel) audio signal that you are converting to a mono (one-channel) output.\\[0.8ex]
+You want to find a way to split the output of the generator into two separate signals, one with frequency $\omega_a$ and one with frequency $\omega_b$.
+
+\begin{enumerate}
+    \qitem You are told that you can model the device as follows: \\[0.8ex]
+    \begin{center}
+        \begin{circuitikz}[scale=0.8]
+            \node[draw,minimum width=8cm,minimum height=6.5cm, color=blue, fill=lightlightgray, anchor=south west] at (-1.5, -1) (box) {};
+            \draw (0,0)	
+            to[short, -o] (10.5,0)
+            (0, 3) to[sV = $v_a(t)$] (0, 0)
+            (0, 3) to[R=$R_1$] (0, 6)
+            (3, 3) to[sV = $v_b(t)$] (3, 0)
+            (3, 3) to[R=$R_2$] (3, 6)
+            (6.5, 5.4) node[op amp, yscale = -1] (opamp) {}
+            (0, 6) to[short] (opamp.+)
+            (opamp.-) to[short] (5, 3.5)
+            (5, 3.5) to[short] (8, 3.5)
+            (8, 3.5) to[short] (opamp.out)
+            (opamp.out) to[short, -o] (10.5, 5.4)
+            (10.5, 5.4) to[open, v=$v_{\text{out}}(t)$] (10.5, 0);
+        \end{circuitikz}
+    \end{center}
+    \begin{align*}
+        v_a(t) = V_0 \cos(\omega_a t + \phi_a) \\
+        v_b(t) = V_0 \cos(\omega_b t + \phi_b) 
+    \end{align*}
+    What is $v_\text{out}(t)$? \\
+    \sol {
+        You may recognize this as a \textbf{voltage summer} connected to a buffer and recall that the output voltage is
+        \begin{align*}
+            v_\text{out}(t) = \big(\frac{R_2}{R_1 + R_2}\big) v_a(t) + \big(\frac{R_1}{R_1 + R_2}\big) v_b(t)
+        \end{align*}
+        To derive that voltage, use \textit{superposition}. First, short the second voltage source:
+        \begin{center}
+            \begin{circuitikz}[scale=0.8]
+                \draw (0,0)	
+                to[short, -o] (10.5,0)
+                (0, 2) to[sV = $v_a(t)$] (0, 0)
+                (0, 2) to[R=$R_1$] (0, 4.5)
+                (3, 0) to[R=$R_2$] (3, 4.5)
+                (6.5, 3.9) node[op amp, yscale = -1] (opamp) {}
+                (0, 4.5) to[short] (opamp.+)
+                (opamp.-) to[short] (5, 1.5)
+                (5, 1.5) to[short] (8, 1.5)
+                (8, 1.5) to[short] (opamp.out)
+                (opamp.out) to[short, -o] (10.5, 3.9)
+                (10.5, 3.9) to[open, v=$v_{\text{out}}(t)$] (10.5, 0);
+            \end{circuitikz}
+        \end{center}
+        Recognizing this circuit as a \textbf{voltage divider}, we can solve for
+        \begin{align*}
+            v_\text{out, a}(t) = \big(\frac{R_2}{R_1 + R_2}\big) v_a(t)
+        \end{align*}
+        Similarly, we can short the first voltage source to get
+        \begin{align*}
+            v_\text{out, b}(t) = \big(\frac{R_1}{R_1 + R_2}\big) v_b(t)
+        \end{align*}
+        Summing the two results together, we get
+        \begin{align*}
+            v_\text{out}(t) = \big(\frac{R_2}{R_1 + R_2}\big) v_a(t) + \big(\frac{R_1}{R_1 + R_2}\big) v_b(t)
+        \end{align*}
+    }
+
+    \qitem You decide to attach the device to a high-pass filter: \\
+    \begin{center}
+        \begin{circuitikz}
+            \node[draw,minimum width=3cm,minimum height=3cm, color = blue, fill=lightlightgray, anchor=south west] at (0, 0) (box) {};
+            \draw (3, 2.5) to[R=$R$] (5, 2.5)
+            (5, 0.5) node[ground] (gnd) {}
+            (5, 2.5) to[L=$L$, v=$v_{\text{out}}$] (gnd)
+            (3, 0.5) to[short] (gnd);
+        \end{circuitikz}
+    \end{center}
+    What is $\widetilde{V}_\text{out}$, the output voltage in the phasor domain? \textit{Hint: use superposition.} \\
+    \sol {
+        Similar to part (a), you can solve this problem using superposition. The impedance of the inductor \textbf{depends on the frequency} of the voltage across it, so we want to look each \textit{voltage source separately}. \\[1ex]
+        If we short $v_b(t)$, the potential at the left of the resistor will be
+        $$\big(\frac{R_2}{R_2 + R_1}\big)v_a(t)$$
+        In the phasor domain, that voltage is
+        $$\widetilde{V}_{\text{in, a}} = \big(\frac{R_2}{R_2 + R_1}\big) V_0 e^{j\phi_a}$$
+        and the impedance of the inductor is
+        $$Z_L = j\omega_aL$$
+        Using the voltage divider formula (or using the transfer function of an RL high-pass filter), we get:
+        $$\widetilde{V}_\text{out, a} = \big(\frac{j\omega_a L/R}{1 + j\omega_a L/R}\big) \big(\frac{R_2}{R_2 + R_1}\big) V_0 e^{j\phi_a}$$
+        Likewise, if we short $v_a(t)$, we can follow the same process to get:
+        $$\widetilde{V}_\text{out, b} = \big(\frac{j\omega_b L/R}{1 + j\omega_b L/R}\big) \big(\frac{R_1}{R_2 + R_1}\big) V_0 e^{j\phi_b}$$
+        So, the overall output phasor is:
+        $$\widetilde{V}_\text{out} = \big(\frac{j\omega_a L/R}{1 + j\omega_a L/R}\big) \big(\frac{R_2}{R_2 + R_1}\big) V_0 e^{j\phi_a} + \big(\frac{j\omega_b L/R}{1 + j\omega_b L/R}\big) \big(\frac{R_1}{R_2 + R_1}\big) V_0 e^{j\phi_b}$$
+    }
+
+    \qitem Now that you understand how the device behaves when attached to filters, design a circuit with two outputs: one with the $\omega_a$ component of the signal and one with the $\omega_b$ component. \\[1ex]
+    Assume that $\omega_a = 100$ rad/s and $\omega_b = 10000$ rad/s.
+    You have access to 1$k\Omega$ resistors, and various capacitors and inductors. \textit{Be sure to specify the values of any elements you use!} \\
+    \sol {
+        In order to isolate the $\omega_a$ and $\omega_b$ components of the signal, you can have \textbf{two filters in parallel}. One filter should be \textbf{low-pass} to let the $\omega_a$ part through while attenuating the $\omega_b$ part. The other should be a \textbf{high-pass} filter to attenuate the $\omega_a$ component.
+        \begin{center}
+            \begin{circuitikz}
+                \node[draw,minimum width=3cm,minimum height=3cm, fill=lightlightgray, anchor=south west] at (0, 0) (box) {};
+                \draw (3, 2.5) to[R=$R$] (6, 2.5)
+                (9, 0.5) node[ground] (gnd) {}
+                (6, 2.5) to[C=$C$, v=$v_{\text{out, a}}(t)$] (6, 0.5)
+                (3.25, 2.5) to[short] (3.25, 4)
+                (3.25, 4) to[R=$R$] (9, 4)
+                (9, 4) to[short] (9, 3)
+                (9, 3) to[L=$L$, v=$v_{\text{out, b}}(t)$] (9, 1)
+                (9, 1) to[short] (gnd)
+                (3, 0.5) to[short] (gnd);
+            \end{circuitikz}
+        \end{center}
+        We are given that both resistors are $1k\Omega$, but we have to specify inductor and capacitor values. The cutoff frequencies of both filter should be between $\omega_a$ and $\omega_b$. \\[0.8ex]
+        For this example, we chose $\omega_{c, h} = 200$ and $\omega_{c, l} = 500$. $\omega_{c,h}$ is closer to $\omega_a$ and $\omega_{c,l}$ is closer to $\omega_b$ in order to increase the attenuation of the signals we want to exclude. \\[0.8ex]
+        This results in values of $L = 2H$ and $C = 5\mu F$. \\
+    }
+    \meta {
+        Students may try to create the following circuit:
+        \begin{center}
+            \begin{circuitikz}
+                \node[draw,minimum width=3cm,minimum height=3cm, fill=lightlightgray, anchor=south west] at (0, 0) (box) {};
+                \draw (3, 2.5) to[R=$R$] (6, 2.5)
+                (9, 0.5) node[ground] (gnd) {}
+                (6, 2.5) to[C=$C$, v=$v_{\text{out, a}}(t)$] (6, 0.5)
+                (6, 2.5) to[short] (9, 2.5)
+                (9, 2.5) to[L=$L$, v=$v_{\text{out, b}}(t)$] (gnd)
+                (3, 0.5) to[short] (gnd);
+            \end{circuitikz}
+        \end{center}
+        This won't work because the capacitor and inductor are in parallel, so they will have the same voltage across them!
+    }
+
+    \qitem Now assume the signal generator output includes a significant amount of noise at arbitrary frequencies, some of which may be close to $\omega_a$ and $\omega_b$. Explain how you would redesign your circuit from part (c). 
+    \textit{Hint: think about resonance.} \\
+    \sol {
+        In order to successfully isolate the $\omega_a$ and $\omega_b$ signals, we should use \textbf{bandpass filters} instead of high-pass and low-pass filters. We are given that some noise frequencies might be close the our signal frequencies, so \textbf{resonant (RLC) bandpass filters} would be most effective. \\[0.8ex]
+        The resulting circuit would look like the following:
+        \begin{center}
+            \begin{circuitikz}
+                \node[draw,minimum width=3cm,minimum height=3cm, fill=lightlightgray, anchor=south west] at (0, 0) (box) {};
+                \draw (3, 2.5) to[C=$C_a$] (5, 2.5)
+                (5, 2.5) to[L=$L_a$] (7, 2.5)
+                (10, 0.5) node[ground] (gnd) {}
+                (7, 2.5) to[R=$R$, v=$v_{\text{out, a}}(t)$] (7, 0.5)
+                (3.25, 2.5) to[short] (3.25, 4)
+                (3.25, 4) to[C=$C_b$] (6.5, 4)
+                (6.5, 4) to[L=$L_b$] (10, 4)
+                (10, 4) to[short] (10, 3)
+                (10, 3) to[R=$R$, v=$v_{\text{out, b}}(t)$] (10, 1)
+                (10, 1) to[short] (gnd)
+                (3, 0.5) to[short] (gnd);
+            \end{circuitikz}
+        \end{center}
+        We would choose component values such that $\omega_{n, a} = \sqrt{\frac{1}{L_a C_a}} = 100$ and $\omega_{n, b} = \sqrt{\frac{1}{L_b C_b}} = 1000$
+    }
+\end{enumerate}
