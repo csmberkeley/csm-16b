@@ -4,19 +4,21 @@
 
 In this question, we will prove basic and important properties of the DFT.
 
-The DFT matrix for a signal sampled at $N$ points is defined as follows:
+Suppose that we have the DFT matrix for a signal sampled at $N$ points is defined as follows:
 
 \begin{align*}
 F_N =
-\begin{bmatrix}
-1 & 1 & 1 & \cdots & 1 \\
-1 & \omega_N^{-1} & \omega_N^{-2} & \cdots & \omega_N^{-(N-1)} \\
-1 & \omega_N^{-2(1)} & \omega_N^{-2(2)} & \cdots & \omega_N^{-2(N-1)} \\
-1 & \omega_N^{-3(1)} & \omega_N^{-3(2)} & \cdots & \omega_N^{-3(N-1)} \\
-\vdots & \vdots & \vdots  & \ddots & \vdots \\
-1 & \omega_N^{-(N-1)(1)} & \omega_N^{-(N-1)(2)} & \cdots & \omega_N^{-(N-1)(N-1)} \\
-\end{bmatrix}
+  \begin{bmatrix}
+  1 & 1 & 1 & \cdots  & 1 \\
+  1 & \omega & \omega^2 & \cdots & \omega^{N-1} \\
+  1 & \omega^2 & \omega^4  & \cdots &  \omega^{2(N-1)}\\
+  \vdots & \vdots & \vdots & & \vdots \\
+  1 & \omega^{N-1} & \omega^{2(N-1)}  & \cdots  & \omega^{(N-1)(N-1)}
+  \end{bmatrix}
 \end{align*}
+
+{\em Note that the DFT we defined is commonly used as a polynomial basis.}
+
 
 \begin{enumerate}
 
@@ -29,16 +31,67 @@ Notice that it's easy to make the entire matrix orthogonal.
 \sol{
 In order to prove that the DFT columns are orthogonal, it suffices to show that an arbitrary column dot producted with any other column produces 0.
 
-Suppose we took the $i^{th}$ column and the $j^{th}$ column.
+\vspace{0.5em}
+
+Suppose we took the $k^{th}$ column and the $l^{th}$ column where we're zero indexing.
+
+\vspace{0.5em}
+
 We have
-$\vec{F_{N}[i] =
+$F_{N}[i] =
 \begin{bmatrix}
+1\\
+\omega^{k}\\
+\omega^{2k}\\
+\vdots\\
+\omega^{l(N-1)}\\
 \end{bmatrix}
-}$
+$
 and
-$\vec{F_{N}[j] = }$
+$F_{N}[j] =
+\begin{bmatrix}
+1\\
+\omega^{l}\\
+\omega^{2l}\\
+\vdots\\
+\omega^{l(N-1)}\\
+\end{bmatrix}
+$
+
+\vspace{0.5em}
+
+When we dot product the two columns together, we end up with a summation, which is just a geometric series. Defining $p = \omega^{k+l}$,
+
+\begin{align*}
+\sum^{N-1}_{b=0}(\omega^{bk})\omega^{bl} =  \sum^{N-1}_{b=0}\omega^{b(k+l)} =  \sum^{N-1}_{b=0}(\omega^{(k+l)})^{b} = \frac{1 - p^{N}}{1-p}
+\end{align*}
+
+Recall that $(\omega^{k+l})^{N}$ is just 1.
+Thus, our summation is 0 and columns of the DFT are orthogonal.
+
 }
 
+\qitem What happens when you take a column of a DFT matrix and dot product it with itself?
+
+\sol{
+You can just apply the same idea as part (a), and you should arrive at the conclusion that a DFT column dotted with itself results in $N$, the size of the matrix.
+}
+
+
+\qitem How do I make it so that the DFT matrix we defined becomes an orthogonal matrix?
+{\em HINT: An orthogonal matrix is a matrix that when multiplied with itself gives us the identity}
+
+\sol{
+We just need to normalize all the columns so that they're unit vectors.
+From part (b), that just means multiplying the matrix $F_{N}$ by the normalization factor $\frac{1}{\sqrt{N}}$.
+The matrix $\frac{1}{\sqrt{N}}{F_{N}}$ is called the synthesis matrix or orthonormal DFT basis.
+}
+
+\qitem What's the inverse of $F_{N}$?
+
+\sol{
+$\frac{1}{N}{F^{\dagger}_{N}}$
+}
 
 
 \end{enumerate}
