@@ -1,11 +1,12 @@
 %author Alexander Feng
 % This question arises from a natural question: DFT for diagonalization?
+% Credit to Gilbert Strang from MIT for setting the basis to write this question.
 
 \qns{DFT as a basis for Diagonalization}
 
 Looking at a DFT matrix, notice how the DFT matrix's columns could form a very nice basis.
 In fact, a natural question to ask is what types of matrices can be diagonalized by the DFT?
-Let's start with a motivating matrix.
+Let's start with a motivating example.
 
 \begin{enumerate}
 
@@ -14,7 +15,7 @@ What's the following matrix's eigenvectors?
 
 {\em HINT: Don't use the determinant. Try guessing and noticing the special properties of the matrix.}
 \begin{align*}
-  A = 
+  A =
 \begin{bmatrix}
 1 & 4 & 3 & 2 \\
 2 & 1 & 4 & 3 \\
@@ -71,10 +72,46 @@ Note that in gram schmidt, you would apply a normalization factor to each DFT ba
 }
 
 \qitem
-This may seem quite interesting.
+This seems quite interesting.
 Let's try generalizing the matrix from part (a).
 We define a permutation matrix as a matrix who has exactly one entry of 1 in each row.
-You can think of this as an identity matrix with all of its rows scrambled around.
-Write
+You can think of this as an identity matrix with all of its rows scrambled about.
+Write the matrix $A$ from part (a) as a sum of permutation matrices.
+
+\sol{
+What we find as our solution is the following:
+\begin{align*}
+A = 1I + 2
+\begin{bmatrix}
+0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+\end{bmatrix}
++ 3
+\begin{bmatrix}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+\end{bmatrix}
++ 4
+\begin{bmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 \\
+\end{bmatrix}
+\end{align*}
+}
+
+\qitem
+From part (b), you should notice that there's an interesting cyclic rotation of rows in the permutation matrices.
+We define the permutation matrix $P$ as follows.
+Write all the other permutation matrices from part (b) in terms of $P$.
+
+\sol{
+
+}
 
 \end{enumerate}
