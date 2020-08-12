@@ -5,15 +5,76 @@
 
 Looking at a DFT matrix, notice how the DFT matrix's columns could form a very nice basis.
 In fact, a natural question to ask is what types of matrices can be diagonalized by the DFT?
+Let's start with a motivating matrix.
 
 \begin{enumerate}
 
 \qitem
-What's the following 
+What's the following matrix's eigenvectors?
+
+{\em HINT: Don't use the determinant. Try guessing and noticing the special properties of the matrix.}
+\begin{align*}
+  A = 
+\begin{bmatrix}
+1 & 4 & 3 & 2 \\
+2 & 1 & 4 & 3 \\
+3 & 2 & 1 & 4 \\
+4 & 3 & 2 & 1 \\
+\end{bmatrix}
+\end{align*}
+
+\sol{
+The most obvious guess is try a vector of only ones because each row adds up to 10.
+This has eigenvalue 10.
+Afterwards, we can leverage the cyclic nature of the rows, and find another eigenvector in
 $\begin{bmatrix}
-
-
+1\\
+-1\\
+1\\
+-1\\
 \end{bmatrix}$
+This vector has eigenvalue -2.
+Taking a very wild guess, well try using gram schmidt to figure out the next eigenvectors.
+Perhaps we'll be lucky.
+What you'll find is that the other two eigenvectors are in fact the other two basis vectors for a size 4 DFT matrix!
+Thus, the eigenvectors (unnormalized) are:
+\begin{align*}
+  \{
+\begin{bmatrix}
+1\\
+1\\
+1\\
+1\\
+\end{bmatrix},
+\begin{bmatrix}
+1\\
+\omega\\
+\omega^{2}\\
+\omega^{3}\\
+\end{bmatrix},
+\begin{bmatrix}
+1\\
+\omega^{3}\\
+\omega^{6}\\
+\omega^{9}\\
+\end{bmatrix},
+\begin{bmatrix}
+1\\
+\omega^{4}\\
+\omega^{8}\\
+\omega^{12}\\
+\end{bmatrix}
+\}
+\end{align*}
 
+Note that in gram schmidt, you would apply a normalization factor to each DFT basis vector.
+}
+
+\qitem
+This may seem quite interesting.
+Let's try generalizing the matrix from part (a).
+We define a permutation matrix as a matrix who has exactly one entry of 1 in each row.
+You can think of this as an identity matrix with all of its rows scrambled around.
+Write
 
 \end{enumerate}
