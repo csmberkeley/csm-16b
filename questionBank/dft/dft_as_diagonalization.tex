@@ -107,11 +107,55 @@ A = 1I + 2
 
 \qitem
 From part (b), you should notice that there's an interesting cyclic rotation of rows in the permutation matrices.
-We define the permutation matrix $P$ as follows.
+We define the permutation matrix $P$ as follows:
+
 Write all the other permutation matrices from part (b) in terms of $P$.
+Then, rewrite all the matrix $A$ in terms of permutation matrices.
 
 \sol{
+You should find that if a given permutation matrix $P_{n}$ has $n$ cyclic row shifts away from the identity, then it can be written as $P_{n} = P^{n}$.
 
+For example, if we rewrote the solution to part (b) as $A = 1I + 2P_{1} + 3P_{2} + 4P_{3}$.
+
+We could rewrite it in terms of $P$ as $A = 1I + 2P^{1} + 3P^{2} + 4P^{3}$.
+
+You can verify this solution for yourself.
 }
 
+\qitem
+For the 4x4 case, notice that $P^{4} = I$.
+For the NxN case, it's simple to also prove that $P^{N} = I$.
+This stems from how $P$ multiply $P$ produces one circular row shift.
+Very quickly, we can see the nature of the permutation matrices as eerily similar to the roots of unity.
+Perhaps we can discern the relationship between a permutation matrix, its eigenvectors, and its eigenvalues.
+Given the permutation matrix $P$ as defined before.
+Suppose that we have the eigenvalue $\lambda$ and the vector
+\begin{align*}
+\vec{x} =
+\begin{bmatrix}
+x_{1}\\
+x_{2}\\
+x_{3}\\
+x_{4}
+\end{bmatrix}
+\end{align*}
+What's the relationship between each of the elements of $\vec{x}$ \hspace{0.2mm}?
 \end{enumerate}
+
+\sol{
+Multiplying everything out, we observe that
+\begin{align*}
+P\vec{x} =
+\lambda
+\begin{bmatrix}
+x_{2}\\
+x_{3}\\
+x_{4}\\
+x_{5}
+\end{bmatrix} \implies \\
+x_{1} = \lambda x_{2} \\
+x_{2} = \lambda x_{3} \\
+x_{3} = \lambda x_{4} \\
+x_{4} = \lambda x_{1} \\
+\end{align*}
+}
