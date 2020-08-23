@@ -166,6 +166,7 @@ x_{1} = \lambda x_{2} = \lambda^{2} x_{3} = \lambda^{3}x_{4} = \lambda^{4}x_{1}
 What set of numbers could constitute these eigenvalues?
 The roots of unity!
 For a matrix that can be written in terms of $P$, its eigenvalues and eigenvectors are the roots of unity and the DFT basis vectors!
+Though, we didn't prove it here rigorously, you can generalize the idea just illustrated to any size circulant matrix.
 }
 
 \qitem
@@ -181,7 +182,7 @@ C = c_{0}I + c_{1}P + c_{2}P^{2} + \dots + c_{n-1}P^{n-1}
 Note that $I = P^{N}$.
 When we multiply $C$ by any corresponding eigenvector that we'll call $\vec{q_{i}}$, we have the following:
 \begin{align*}
-C = c_{0}I\vec{q_{i}} + c_{1}P\vec{q_{i}} + c_{2}P^{2}\vec{q_{i}} + \dots + c_{n-1}P^{n-1}\vec{q_{i}}
+C\vec{q_{i}} = c_{0}I\vec{q_{i}} + c_{1}P\vec{q_{i}} + c_{2}P^{2}\vec{q_{i}} + \dots + c_{n-1}P^{n-1}\vec{q_{i}}
 \end{align*}
 Thus, the eigenvalues of a circulant matrix are a linear combination of the eigenvalues of the corresponding $P$ matrices.
 In other words, for an eigenvector $\vec{q_{i}}$, we have that:
@@ -191,5 +192,15 @@ In other words, for an eigenvector $\vec{q_{i}}$, we have that:
 where $j = 0, 1, \dots, n - 1$. Note that $w_{0} = 1$ and notice how this is a full set of eigenvalues.
 }
 
-\qitem 
+\qitem
+Using what we now know, what are the eigenvectors of any circulant matrix?
+
+\sol{
+The easiest way to figure out the answer to (f) out is to use a similar decomposition we used in part (e).
+We observe the following after pulling the eigenvector out:
+\begin{align*}
+C\vec{q_{i}} = c_{0}I\vec{q_{i}} + c_{1}P\vec{q_{i}} + c_{2}P^{2}\vec{q_{i}} + \dots + c_{n-1}P^{n-1}\vec{q_{i}} = (c_{0} + c_{1}\omega_{i} + c_{2}\omega_{i}^{2} + \dots + c_{n-1}\omega_{i}^{n-1})\vec{q_{i}}
+\end{align*}
+This tells us that the eigenvectors of $C$ are the same eigenvectors of $P$, which means the eigenvectors of a circulant matrix are the columns of the DFT matrix!
+}
 \end{enumerate}
