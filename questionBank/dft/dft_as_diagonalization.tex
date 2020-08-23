@@ -1,6 +1,7 @@
 %author Alexander Feng
 % This question arises from a natural question: DFT for diagonalization?
 % Credit to Gilbert Strang from MIT for setting the basis to write this question.
+% In particular, his book on Linear Algebra and Learning From Data Page 215.
 
 \qns{DFT as a basis for Diagonalization}
 
@@ -139,8 +140,8 @@ x_{3}\\
 x_{4}
 \end{bmatrix}
 \end{align*}
-What's the relationship between each of the elements of $\vec{x}$ \hspace{0.2mm}?
-\end{enumerate}
+What's the relationship between each of the elements of $\vec{x}$ and the eigenvalues?
+
 
 \sol{
 Multiplying everything out, we observe that
@@ -152,10 +153,43 @@ x_{2}\\
 x_{3}\\
 x_{4}\\
 x_{5}
-\end{bmatrix} \implies \\
+\end{bmatrix} \implies
+\begin{aligned}
 x_{1} = \lambda x_{2} \\
 x_{2} = \lambda x_{3} \\
 x_{3} = \lambda x_{4} \\
 x_{4} = \lambda x_{1} \\
+\end{aligned}
+\implies
+x_{1} = \lambda x_{2} = \lambda^{2} x_{3} = \lambda^{3}x_{4} = \lambda^{4}x_{1}
 \end{align*}
+What set of numbers could constitute these eigenvalues?
+The roots of unity!
+For a matrix that can be written in terms of $P$, its eigenvalues and eigenvectors are the roots of unity and the DFT basis vectors!
 }
+
+\qitem
+Matrices that can be decomposed in terms of permutation matrices are called circulant matrices.
+From wikipedia, ``a circulant matrix is a square matrix in which each row vector is rotated one element to the right relative to the preceding row vector''.
+Generalizing the information we've obtained from previous parts, what are the eigenvalues of any circulant matrix?
+
+\sol{
+Given a circulant matrix $C$, we know that it can be broken down as follows:
+\begin{align*}
+C = c_{0}I + c_{1}P + c_{2}P^{2} + \dots + c_{n-1}P^{n-1}
+\end{align*}
+Note that $I = P^{N}$.
+When we multiply $C$ by any corresponding eigenvector that we'll call $\vec{q_{i}}$, we have the following:
+\begin{align*}
+C = c_{0}I\vec{q_{i}} + c_{1}P\vec{q_{i}} + c_{2}P^{2}\vec{q_{i}} + \dots + c_{n-1}P^{n-1}\vec{q_{i}}
+\end{align*}
+Thus, the eigenvalues of a circulant matrix are a linear combination of the eigenvalues of the corresponding $P$ matrices.
+In other words, for an eigenvector $\vec{q_{i}}$, we have that:
+\begin{align*}
+\lambda_{i} = c_{0} + c_{1}\omega_{i} + c_{2}\omega_{i}^{2} + \dots + c_{n-1}\omega_{i}^{n-1}
+\end{align*}
+where $j = 0, 1, \dots, n - 1$. Note that $w_{0} = 1$ and notice how this is a full set of eigenvalues.
+}
+
+\qitem 
+\end{enumerate}
