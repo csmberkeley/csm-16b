@@ -78,8 +78,9 @@ You can just apply the same idea as part (a), and you should arrive at the concl
 }
 
 
-\qitem How do I make it so that the DFT matrix we defined becomes an orthogonal matrix?
-{\em HINT: An orthogonal matrix is a matrix that when multiplied with itself gives us the identity}
+\qitem
+How do I make it so that the DFT matrix we defined becomes an orthonormal matrix?
+{\em HINT: An orthonormal matrix is a matrix that when multiplied with itself gives us the identity}
 
 \sol{
 We just need to normalize all the columns so that they're unit vectors.
@@ -91,6 +92,24 @@ The matrix $\frac{1}{\sqrt{N}}{F_{N}}$ is called the synthesis matrix or orthono
 
 \sol{
 $\frac{1}{N}{F^{\dagger}_{N}}$
+}
+
+\qitem
+What's the sum of the roots of unity?
+
+\sol{
+The roots of unity perfectly slice the unit circle in $n$ pieces if we're working with $n$ roots.
+Thus, the sum of the roots is zero.
+Alternatively, you can use a geometric summation to prove that the roots of unity sum to 0.
+}
+
+\qitem
+Prove that multiplying the roots of unity by a nonzero number results in the same sum as not multiplying.
+
+\sol{
+Using a geometric summation from part (e), we can factor out the nonzero number.
+The summation still adds up to 0.
+Thus, multiplying the roots of unity by a nonzero number doesn't change the sum.
 }
 
 
