@@ -1,0 +1,40 @@
+%Authors: Kevin Zhu and Naomi Sagan
+
+\qns{Digital Logic and NAND gates}
+NAND gates are universal, which means that every boolean operation can be reprsented with a combination of NAND gates. In this problem, we'll examione the transister configuration of a NAND gate and then create an OR gate our of NAND gates. 
+
+\begin{enumerate}
+    \item A digital logic circuit typically consists of a pull-down network of NMOS transistors between the output and ground, and a pull-up nework of PMOS transistors between $V_on$ and the output. 
+    \begin{enumerate}
+        \qitem We want the pull-down network to connect the output to ground when A NAND B = 0 \\
+        When would A NAND B output 0? Design a pull-down netowrk for the NAND gate. 
+        \sol {
+        $$\text{A NAND B = 0 when A=1 and B = 1}$$
+        \input{\bank/transistors/figures/nand_pulldown}
+        }
+        \qitem We want the pull-up network to connect the output to $V_{DD}$ when A NAND B = 1 //
+        Design a pull-up network for the NAND gate
+        \sol{
+        \input{\bank/transistors/figures/nand_pullup}
+        }
+        \qitem Now put them together to create a NAND gate.
+        \sol{\bank/transistors/figures/nand}
+    \end{enumerate}
+    Now that we have successfylly created a NAND gate, let us create an OR gate from our NAND gates. 
+    \qitem First, lets create a intermediate tool to hell up. How do we get a inverter using just NAND gates.
+    \sol{
+    $$\text{NOT (A) = A NAND A}$$
+    \input{\bank/transistors/figures/NAND_inverter}
+    When A is 0, A NAND A = 1. Likewise when A =1, A NAND A = 0.
+    }
+    \qitem Now we can examine an OR gate. How can you make an OR gate using NOT and NAND gates?
+    
+    \emph{Hint: draw out a truthe table if you're stuck}
+    \sol{$$\text{A or B = (NOT A) NAND (NOTB)}$$}
+    \qitem Finally, replace the NOT gates with their NAND equivalents to make an OR gate solely out of NAND gates
+    \sol{$$\text{A or B = (NOT A) NAND (NOTB) = (A NAND A) NAND (B NAND B)}$$
+    }
+    \qitem Challenge: Now try making an XOR gate using only NAND gates.
+    \sol{You can rewrite A XOR B as (A or B) AND (A NAND B). Additionally, we can rewrite an AND gate as A AND B = NOT(A NAND B). Thus, we can plug in our gates that we have already created to get
+    \input{\bank/transistors/figures/XOR}}
+\end{enumerate}
