@@ -8,12 +8,12 @@
             \draw (0,2.7) node[left]{$B$} to (nand1.in 2);
             \draw (0,3.3) node[left]{$B$} to (nand1.in 1);
             \draw (4,2) node[nand port] (nand2) {};
-            \draw (nand1.out) to (2.5, 2.3) to (nand2.in 1)
+            \draw (nand1.out) to (2.5, 2.3) to (nand2.in 1);
             \draw (nand.out) to (2.5,1.7) to (nand2.in 2);
             \draw (2,5) node[nand port] (nand3) {};
             \draw (0,4.7) node[left]{$B$} to (nand3.in 2);
             \draw (0,5.3) node[left]{$A$} to (nand3.in 1);
-            \draw (6.5,3.5) node[nand port] (nand4) l
+            \draw (6.5,3.5) node[nand port] (nand4) {};
             \draw (nand2.out) to (5,2) to (nand4.in 2);
             \draw (nand3.out) to (5,5) to (nand4.in 1);
             \draw (8.4,3.5) node[nand port] (nand5) {};

@@ -18,7 +18,7 @@ NAND gates are universal, which means that every boolean operation can be reprse
         \input{\bank/transistors/figures/nand_pullup}
         }
         \qitem Now put them together to create a NAND gate.
-        \sol{\bank/transistors/figures/nand}
+        \sol{\input{\bank/transistors/figures/nand}}
     \end{enumerate}
     Now that we have successfylly created a NAND gate, let us create an OR gate from our NAND gates. 
     \qitem First, lets create a intermediate tool to hell up. How do we get a inverter using just NAND gates.
@@ -30,9 +30,10 @@ NAND gates are universal, which means that every boolean operation can be reprse
     \qitem Now we can examine an OR gate. How can you make an OR gate using NOT and NAND gates?
     
     \emph{Hint: draw out a truthe table if you're stuck}
-    \sol{$$\text{A or B = (NOT A) NAND (NOTB)}$$}
+    \sol{$$\text{A or B = (NOT A) NAND (NOT B)}$$
+	\input{\bank/transistors/figures/OR}}
     \qitem Finally, replace the NOT gates with their NAND equivalents to make an OR gate solely out of NAND gates
-    \sol{$$\text{A or B = (NOT A) NAND (NOTB) = (A NAND A) NAND (B NAND B)}$$
+    \sol{$$\text{A or B = (NOT A) NAND (NOT B) = (A NAND A) NAND (B NAND B)}$$
     }
     \qitem Challenge: Now try making an XOR gate using only NAND gates.
     \sol{You can rewrite A XOR B as (A or B) AND (A NAND B). Additionally, we can rewrite an AND gate as A AND B = NOT(A NAND B). Thus, we can plug in our gates that we have already created to get

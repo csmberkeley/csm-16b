@@ -8,9 +8,9 @@
             \draw (nm.gate) to [short, -*](3,1) node[left]{$V_{A}$};
             \draw (nm1.gate) to [short, -*](3, 3) node[left]{$V_{B}$};
             \draw (nm1.drain) to [short, -*] (6,4) node[above]{$V_{o}$};
-            \draw (nm1.source) to (nm.drain)
+            \draw (nm1.source) to (nm.drain);
 
-            \draw (nm.source) to (6,0) node[ground];
+            \draw (nm.source) to (6,0) node[ground]{};
         \end{circuitikz}
         \caption{\label{fig:circuit}NAND pulldown Gate}
 	\end{centering}
