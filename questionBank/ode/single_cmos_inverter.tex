@@ -15,9 +15,11 @@ Consider a single CMOS inverter with a voltage input, except there is some resis
 \begin{enumerate}
 
 \qitem First, let's introduce a way to model CMOS transistors.
-A transistor can be modeled with a capacitor between the gate $G$ and source $S$, an internal resistance, and a voltage-controlled switch between drain $D$ and $S$.
+A transistor can be modeled with a capacitor between the gate $G$ and source $S$, an internal resistance, and a voltage-controlled switch between drain $D$ and $S$.\\
 
-\textbf{Using the NMOS and PMOS transistor models below, redraw the inverter as a simple RC circuit.}
+Using the NMOS and PMOS transistor models below, redraw the inverter as a simple RC circuit. 
+
+\textit{Note: the voltage we are examining for this problem is $V_{GS}$ of the NMOS transistor.}
 
 \begin{figure}[H]
     \centering
@@ -191,7 +193,7 @@ A transistor can be modeled with a capacitor between the gate $G$ and source $S$
 }
 
 \qitem
-We want to analyze the behavior of the inverter by solving for the gate voltage $V_{GS}$ \textit{of the bottom NMOS transistor} as a function of time. \textbf{Using KCL or KVL, write out a differential equation for $V_{GS}$.}
+We want to analyze the behavior of the inverter by solving for the gate voltage $V_{GS}$ \textit{of the NMOS transistor} as a function of time. Using KCL or KVL, write out a differential equation for $V_{GS}$.
 
 \ws{\vspace{200px}}
 
@@ -207,7 +209,7 @@ We want to analyze the behavior of the inverter by solving for the gate voltage 
 }
 
 \qitem 
-Assume that $V_{in}$ has been low ($V_{in} = 0$) for a long time and switches to high ($V_{in} = V_{DD}$) at time $t = 0$. \textbf{Solve for $V_{GS}(t)$ using the differential equation from the last part and the above initial condition.}
+Assume that $V_{in}$ has been low ($V_{in} = 0$) for a long time and switches to high ($V_{in} = V_{DD}$) at time $t = 0$. Solve for $V_{GS}(t)$ using the differential equation from the last part and the above initial condition.
 
 \ws{\vspace{200px}}
 
