@@ -1,7 +1,7 @@
 \begin{figure}[H]
 	\begin{centering}
         \begin{circuitikz}
-            \draw [short](0,4) to [short, -*] (0,4.5) node[above]{$V_{DD}$};
+            \draw [short](0,4) to [short] (0,4.5) node[vdd, above]{$V_{DD}$};
             \draw (0,-2) to [C=$C_\ell$](0,0) to [R=$R$] (0,2) to[R = $R$] (0,4);
             \draw [short] (0,-2) to (0,-2) node[ground]{};
             \draw [short,-*] (0,0) to (1,0) node[right]{$V_o$};
