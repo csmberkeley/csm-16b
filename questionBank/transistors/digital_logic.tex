@@ -1,42 +1,67 @@
 %Authors: Kevin Zhu and Naomi Sagan
 
-\qns{Digital Logic and NAND gates} \\
-NAND gates are universal, which means that every boolean operation can be reprsented with a combination of NAND gates. In this problem, we'll examione the transister configuration of a NAND gate and then create an OR gate our of NAND gates. 
-
+\qns{OPTIONAL: Digital Logic and NAND gates} \\
+\textbf{Note: this problem is an extension of class material and is mostly out-of-scope for exams.} \\
+In this class, we're often asked to analyze logic gates. We can also look into how we build them. In this problem, we will create a NAND gate out of transistors, and then use NAND gates to construct an OR gate.
 \begin{enumerate}
-    \item A digital logic circuit typically consists of a pull-down network of NMOS transistors between the output and ground, and a pull-up nework of PMOS transistors between $V_{DD}$ and the output. 
+    \item \textit{Constructing a NAND gate}: A digital logic circuit typically consists of a pull-up network of PMOS transistors between $V_{DD}$ and the output, and a pull-down network of NMOS transistors between the output and ground. 
     \begin{enumerate}
+        \qitem We want the pull-up network to connect the output to $V_{DD}$ when A NAND B = 1.
+        \textbf{Design a pull-up network for the NAND gate.} \\
+        \sol{
+        \input{\bank/transistors/figures/nand_pullup}
+        }
+
+        \ws{\vspace{120px}}
+
         \qitem We want the pull-down network to connect the output to ground when A NAND B = 0 \\
-        When would A NAND B output 0? Design a pull-down netowrk for the NAND gate. \\
+        When would A NAND B output 0? \textbf{Design a pull-down network for the NAND gate.} \\
         \sol {
         $$\text{A NAND B = 0 when A=1 and B = 1}$$
         \input{\bank/transistors/figures/nand_pulldown}
         }
-        \qitem We want the pull-up network to connect the output to $V_{DD}$ when A NAND B = 1.
-        Design a pull-up network for the NAND gate. \\
-        \sol{
-        \input{\bank/transistors/figures/nand_pullup}
-        }
-        \qitem Now put the two networks together to create a NAND gate. \\
+
+        \ws{\vspace{120px}}
+
+        \qitem \textbf{Now put the two networks together to create a NAND gate}. \\
         \sol{\input{\bank/transistors/figures/nand}}
+
+        \ws{\vspace{180px}}
+
     \end{enumerate}
-    Now that we have successfully created a NAND gate, let us create an OR gate from NAND gates. 
-    \qitem First, let's create a intermediate tool to help us build our OR gate. How can we build an inverter using just NAND gates? \\
+    Fun fact: NAND gates are universal, which means that every boolean operation can be represented with a combination of NAND gates. Knowing this, let us create an OR gate from NAND gates. \\
+
+    \textbf{Note: These parts display how logic gates can be used but we will not focus on designing these logic operators in this class (this is a bit out of scope so don’t focus about studying this).}
+
+    \qitem First, let's create a intermediate tool to help us build our OR gate. \textbf{How can we build an inverter using just NAND gates?} \\
+    \ws{\vspace{90px}}
+
     \sol{
     $$\text{NOT (A) = A NAND A}$$
     \input{\bank/transistors/figures/NAND_inverter}
     When A is 0, A NAND A = 1. Likewise when A =1, A NAND A = 0.
     }
-    \qitem Now, let's examine an OR gate. How can you make an OR gate using NOT and NAND gates?
+    \qitem Now, let's examine an OR gate. \textbf{How can you make an OR gate using NOT and NAND gates?}
     
     \emph{Hint: draw out a truth table if you get stuck.} \\
+
+    \ws{\vspace{90px}}
+
     \sol{$$\text{A OR B = (NOT A) NAND (NOT B)}$$
 	\input{\bank/transistors/figures/OR}}
-    \qitem Finally, replace the NOT gates with their NAND equivalents to make an OR gate solely out of NAND gates. \\
+    \qitem \textbf{Finally, replace the NOT gates with their NAND equivalents to make an OR gate solely out of NAND gates.} \\
+
+    \ws{\vspace{90px}}
+
     \sol{$$\text{A or B = (NOT A) NAND (NOT B) = (A NAND A) NAND (B NAND B)}$$
     See the solution to part (c) for the logic gate diagram!
     }
-    \qitem Challenge: Now try making an XOR gate using only NAND gates. \\
+
+    \qitem \textbf{OPTIONAL CHALLENGE: Now try making an XOR gate using only NAND gates.} \\
+
+    \ws{\vspace{90px}}
+
+
     \sol{You can rewrite A XOR B as (A OR B) AND (A NAND B). Additionally, we can rewrite an AND gate as A AND B = NOT(A NAND B). Thus, we can plug in our gates that we have already created to get:
     \input{\bank/transistors/figures/XOR}}
 \end{enumerate}

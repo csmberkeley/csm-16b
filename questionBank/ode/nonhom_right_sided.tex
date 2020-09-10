@@ -27,13 +27,21 @@ Now consider the following non-homogeneous differential equation with initial co
     \ddt{}{t} x(t)  = \alpha x(t) + \beta, \ \forall t \geq 0
 \end{equation}
 
-
-To solve this, we will use a change of variables.
-Let $\widetilde{x}(t) = x(t) + \frac{\beta}{\alpha}$.
-
 \begin{enumerate}
+\qitem To solve this, we want to come up with a change of variables such that $\frac{d}{dt} \widetilde{x}(t) = \alpha \widetilde{x}(t)$. Write out $\widetilde{x}(t)$ in terms of $x(t)$. \\
+\sol {
+	We want our change of variables to satisfy two conditions:
+	\begin{align*}
+		\frac{d}{dt} \widetilde{x}(t) = \frac{d}{dt} x(t) \\
+		\alpha \widetilde{x}(t) = \alpha x(t) + \beta
+	\end{align*}
+	These two conditions are satisfied by
+	\begin{align*}
+		\widetilde{x}(t) = x(t) + \frac{\beta}{\alpha}
+	\end{align*}
+}
 
-\qitem \textbf{Try writing equation (\ref{eq:nh}) as a differential equation in terms of $\widetilde{x}(t)$.} \\
+\qitem Using the change of variables you just derived, \textbf{write equation (\ref{eq:nh}) and the initial condition of the differential equation in terms of $\widetilde{x}(t)$.} \\
 Don't forget about the initial condition!
 
 \ws{
@@ -200,7 +208,11 @@ $V_{\text{C}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.}
 	\[V_{out}(0)=0=V_{S}+A\]
 	\[A=-V_{S}\]
 	\[V_{out}(t)=V_{S}\left(1-e^{-\frac{t}{RC}}\right)\]
-	\[V_c(t) = V_S(1 - e^{-\frac{t}{\tau}}) \text{ where } \tau = RC \text{ ($\tau$ explained in next part)}\]
+	\[V_c(t) = V_S(1 - e^{-\frac{t}{\tau}}) \text{ where } \tau = RC\]
+}
+
+\meta{
+	Using this equation, you can see that the steady state voltage of the capacitor is $V_S$. As time goes to $\infty$, the $-V_S e^{-t/\tau})$ term (called the \textbf{transient response}) goes to 0, so the voltage approaches $V_S$ as the charges.
 }
 
 \end{enumerate}
