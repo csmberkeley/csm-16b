@@ -19,7 +19,7 @@ Let's analyze the following LR circuit, with the initial condition $i_L(0) = 0$ 
 
 \begin{center}
     \begin{circuitikz}[scale=0.8]
-        \draw (-1,4) 
+        \draw (-1,4)
         to [V = $V_{in}$] (-1,0)
         (-1,4) to [switch, l^=\mbox{$t = 0$} ] (1,4)
         (1,4) to [L = $L$,i=$i_L(t)$, v = $V_L(t)$] (4,4)
@@ -53,6 +53,11 @@ Let's analyze the following LR circuit, with the initial condition $i_L(0) = 0$ 
 \vspace{50px}
 }
 
+\meta {
+Emphasize that this is another nonhomogenous differential equation similar to the discharging capacitor.
+It may help to review the general form of a nonhomogenous differential equation.
+}
+
 \sol {
     \begin{align*}
         \frac{d}{dt} i_L(t) &= -\frac{R}{L}i_L(t) + \frac{V_{in}}{L} \\
@@ -61,6 +66,7 @@ Let's analyze the following LR circuit, with the initial condition $i_L(0) = 0$ 
 }
 
 \qitem \textbf{What is the steady-state current through the inductor as $t \rightarrow \infty$?} Sketch a plot of the current through the inductor over time, labeling the asymptote after reaching the steady-state.
+This should provide you with some intuition as to the physical behavior of an inductor once an inductor is at steady state.
 
 \ws{
 \vspace{3em}

@@ -114,16 +114,20 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
     \item \textbf{Case III:} If there is a unique real eigenvalue, the solution will look like a decaying exponential with rate of decay faster than that of (i).
     \end{itemize}
     Draw examples of what case I, II, and III look like.
-    Intuitively, why would an exponential with complex eigenvalues have a decaying envelope that contains oscillations?
+    Can you explain the intuition behind why these graphs look the way they do?
+    \textit{Hint: Euler's Formula states that $e^{i\theta} = \cos{\theta} + i\sin{\theta}$}
 
     % https://tex.stackexchange.com/questions/454298/damped-oscillation-graph-in-latex
     \sol{
-    This is what a potential example may look like where red is a decaying exponential.
+    The graph below illustrates what a potential example may look like where red is a decaying exponential.
     Blue represents a situation where we have a decaying exponential with oscillations.
     Black represents a decay with a faster rate of decay than red.
+
     For intuition on the oscillations, the reasoning lies behind Euler's theorem.
-    Specifically, $e^{i\theta} = \cos\theta + i\sin\theta$.
+    Specifically, Euler's states that $e^{i\theta} = \cos\theta + i\sin\theta$.
+    This means that if the magnitude of the exponential is decaying over time, but the eigenvalue is complex, we'll have a decaying sum of sines and cosines.
     In fact, if our exponential weren't decaying, we'd have everlasting oscillations!
+    This idea is explored more in the homework.
 
     \begin{tikzpicture}
         \begin{axis}[domain=0:5,samples=501,axis lines=center,
