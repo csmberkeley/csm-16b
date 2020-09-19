@@ -8,17 +8,17 @@
 \qns{Eigendecomposition and Change of Basis}
 
 \meta{
-  Please do a mini-lecture on change of basis similar to the opening paragraph of the change of coordinates question before doing this one.It is crucial that students understand change of basis, and how to convert from different bases first, before trying to understand eigendecomposition. It is up to you whether you want to mention the fact that all diagonalizable linear operators have a diagonal matrix representation given the correct choice of basis. 
+  Please do a mini-lecture on change of basis similar to the opening paragraph of the change of coordinates question before doing this one.It is crucial that students understand change of basis, and how to convert from different bases first, before trying to understand eigendecomposition. It is up to you whether you want to mention the fact that all diagonalizable linear operators have a diagonal matrix representation given the correct choice of basis.
 }
 
-\textbf{Diagonal matrices}, matrices where all entries outside of the diagonal are zero, are often desirable since they are easy to analyze. 
+\textbf{Diagonal matrices}, matrices where all entries outside of the diagonal are zero, are often desirable since they are easy to analyze.
 Determining properties such as rank and invertibility, are much simpler on a diagonal matrix as opposed to other non-diagonal matrices.
 The process of \textbf{changing to a basis} in which the linear operator has a diagonal matrix representation is called \textbf{eigendecomposition} or \textbf{diagonalization.} You can think of eigendecomposition as a change of basis to one entirely made up of eigenvectors.
 
 So what is a \textbf{change of basis}? Consider an arbitrary vector in $\mathbb{R}^2$: $\vec{x} = [ x_1 \text{ } x_2 ]^T$.
 When we write a vector in this form, we are representing it as a linear combination of the \textit{standard basis} vectors for $\mathbb{R}^2$: $\vec{x} = x_1 \begin{bsmallmatrix} 1 \\ 0 \end{bsmallmatrix} + x_2 \begin{bsmallmatrix} 0 \\ 1 \end{bsmallmatrix}$. Naturally, $x_1$ and $x_2$ are the \textit{coordinates} of $\vec{x}$ in the standard basis (as you would refer to them if you graphed $\vec{x}$ on a Cartesian plane).
 
-Now what if we wanted to represent that same vector in a different basis? 
+Now what if we wanted to represent that same vector in a different basis?
 For example, say you wanted to represent the same vector $\vec{x}$ using the set of basis vectors $\vec{v_1}$ and $\vec{v_2}$.
 This means that we need to find scalars $\alpha_1$ and $\alpha_2$ such that $\vec{x}$ can be written as a linear combination of these new basis vectors: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$.
 To do this, we can just setup and solve a system of linear equations of the form:
@@ -77,10 +77,12 @@ $$V = \begin{bmatrix}
 
 \qitem Let $\widetilde{\vec{x}}$ be the coordinates of $\vec{x}$ in the eigenbasis. This means that for some arbitrary vector represented in the eigenbasis $\widetilde{\vec{x}} = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$, the corresponding representation in standard coordinates is a linear combination of the columns of $V$: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$. \textbf{What is $\widetilde{\vec{x}}$ in terms of $V$ and $\vec{x}?$}
 
+(\textit{Hint: Write $\vec{x}$ in terms of $V$ and $\tilde{\vec{x}}$, then go from there.})
+
 \ws{\vspace{3em}}
 
 \meta{
-  The line $\alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} = V \widetilde{\vec{x}}$ is not the most intuitive. 
+  The line $\alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} = V \widetilde{\vec{x}}$ is not the most intuitive.
   It may require you showing on the board, why matrix vector multiplication can be seen as a linear combination of the columns.
 }
 
@@ -136,7 +138,7 @@ Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2
 }
 
 \sol {
-  $$\widetilde{\vec{x}} = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$$ 
+  $$\widetilde{\vec{x}} = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$$
 
   \begin{align*}
     \vec{y} &= A \vec{x} \\
@@ -259,13 +261,13 @@ Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2
 %   $$A - 5I = \begin{bmatrix}
 %   -4 & 4 \\
 %   2 & -2
-%  \end{bmatrix}$$ 
+%  \end{bmatrix}$$
 %  We can see that $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ is a basis for the null-space of $A - 5I.$
 
 %  $$A + I = \begin{bmatrix}
 %   2 & 4 \\
 %   2 & 4
-%  \end{bmatrix}$$ 
+%  \end{bmatrix}$$
 %  We can see that $\begin{bmatrix} -2 \\ 1 \end{bmatrix}$ is a basis for the null-space of $A + I.$
 % }
 
@@ -304,16 +306,16 @@ Let $\vec{y} = A \vec{x}$, and $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2
 % \qitem What is the relationship between $A, D$ and $V?$ In other words, how can you express $A$ using $D$ and $V?$
 
 % \sol {
-%   We saw from the previous part that $D = V^{-1} A V.$ 
+%   We saw from the previous part that $D = V^{-1} A V.$
 %   Therefore, $A = V D V^{-1}.$
 % }
 
-% \qitem When can a matrix not be diagonalized? 
+% \qitem When can a matrix not be diagonalized?
 % In other words, when does a linear operator not have a diagonal matrix representation?
 
 % \sol {
 %   A linear operator cannot have a diagonal matrix representation if it isn't possible to change to a basis made up of eigenvectors.
-%   Remember that a change of coordinates matrix must be invertible. 
+%   Remember that a change of coordinates matrix must be invertible.
 %   However, if a matrix does not have $n$ linearly independent eigenvectors, then it cannot have a change of basis matrix.
 % }
 
