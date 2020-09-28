@@ -1,0 +1,8 @@
+% Author: Alexander Feng Fall 2020
+\begin{center}
+\begin{circuitikz}[american voltages]
+    \draw node[ground]{} (0,0) to[sV, l = $V_{in}(t)$, invert]
+    (0,3) -- (0.25, 3) to[R = $R$] (3, 3) -- (4, 3) node[ocirc]{$ . V_{out}(t)$};
+    \draw (3,3) to[C, C = $C$] (3, 1.5) to[L, L = $L$] (3,0) node[ground]{};
+\end{circuitikz}
+\end{center}
