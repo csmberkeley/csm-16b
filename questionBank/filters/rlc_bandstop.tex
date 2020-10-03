@@ -28,10 +28,13 @@ Let's explore what happens when swap the location of the resistor with the locat
 \begin{enumerate}
 
 \qitem
-Write out the transfer function of figure 1.
+Write out the transfer function of figure 2.
 
 \meta{
-See if you can get students to guess what the behavior will ultimately be.
+See if you can get students to guess what the behavior will ultimately be based on the topology of the circuit and what their knowledge of resonancy tells them so far.
+In particular, during resonancy, the impedance of circuit elements cancel each other and cause a short.
+In the bandpass, this results in $Vout(t)$ being directly connected to the voltage source.
+In the bandstop, it results in a short to ground!
 }
 
 \sol{
@@ -89,7 +92,7 @@ Why is this specific filter called a \emph{resonsant} bandstop filter?
 
 \sol{
 The circuit's behavior can be thought of as the complement or opposite to the bandpass filter.
-While the bandpass filter allows a range of frequencies through, the bandstop/notch stops a particular frequency from passing through.
+While the bandpass filter allows a range of frequencies through, the bandstop/notch stops a particular range of frequencies from passing through.
 This is also why it'd be called bandstop or notch.
 Bandstop is opposite of bandpass.
 Notch comes from how the graph of the magnitude looks like there's a notch.

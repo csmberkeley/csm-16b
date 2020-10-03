@@ -6,7 +6,7 @@
 One very common use for AC circuits is as a \emph{filter}.
 A \emph{filter} is a circuit device that blocks a range of specific frequencies.
 
-In 16A, we discussed the input-output relationship through a term called gain, 
+In 16A, we discussed the input-output relationship through a term called gain,
 \begin{equation}
 G = \frac{V_{out}(t)}{V_{in}(t)}
 \end{equation}
@@ -18,16 +18,19 @@ The transfer function of a circuit is defined as
 H(j \omega) = \frac{\widetilde{V}_{out}}{\widetilde{V}_{in}}
 \end{equation}
 
-The transfer function depends on the frequency of the input voltage, and will be a complex number for a given frequency. 
+The transfer function depends on the frequency of the input voltage, and will be a complex number for a given frequency.
 
-When looking at filters, we will define a transfer function that explains the input-output relation for any given frequency and analyze its behavior. 
+When looking at filters, we will define a transfer function that explains the input-output relation for any given frequency and analyze its behavior.
 For the purposes of this question, we will consider various filter configurations, and study their behavior.
 
 \meta {
   For this problem, draw out approximate Bode plots on the board for your students, and have them discuss the trends. This may help them understand the idea of a frequency-dependent filter better. Make sure to specifically label the axes (magnitude or phase vs. frequency), which will also reinforce the idea that we are working in the frequency domain, not the time domain.
+
+  Additionally, try to introduce intuition into the response of a capacitor to low frequency and high frequency signals.
+  Understanding the intuition can help shorten the problem solving process for parts a and b and other phasor domain circuits with capacitors.
 }
 
-% Normally a voltage can be seen as a sum of multiple sinusoids with different frequencies. 
+% Normally a voltage can be seen as a sum of multiple sinusoids with different frequencies.
 % Using the idea of superposition in 16A, we can analyze circuits by considering each sinusoid independently, analyzing the effect of the filter for each specific frequency, and then adding up the results.
 
 % For example, a sinusoidal voltage with frequency $\omega$ will be
@@ -45,10 +48,10 @@ For the purposes of this question, we will consider various filter configuration
 %   v_{out}(t) = \sum_i \alpha_i H(j \omega_i) v(t, \omega_i)
 % .\]
 
-% \vspace{0.2 cm} 
+% \vspace{0.2 cm}
 
 % The practical consequence of the above assertion is that we can treat the superposition of signals of two different frequencies as if the two signals were separate.
-% For insopentance, if we supplied an AC circuit acting as a low-pass filter with the superposition of a 60 Hz signal and a 100 Hz noise signal, the high-frequency noise would be attenuated independently of the low-frequency signal. 
+% For insopentance, if we supplied an AC circuit acting as a low-pass filter with the superposition of a 60 Hz signal and a 100 Hz noise signal, the high-frequency noise would be attenuated independently of the low-frequency signal.
 
 % \vspace{0.2 cm}
 
@@ -66,6 +69,7 @@ For the purposes of this question, we will consider various filter configuration
   \ws{\vspace{50px}}
   \qitem \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j\omega)}$.}
   \ws{\vspace{50px}}
+  \qitem \textbf{Calculate the cutoff frequency of this circuit.}
 \end{enumerate}
 
 % Solution for part (a)
@@ -96,10 +100,15 @@ For the purposes of this question, we will consider various filter configuration
 
   \qitem For values of $\omega$ approaching $\infty$, $\abs{H(j\omega)}$ approaches $0$.
     In this case, $\widetilde{V}_{out} = 0$, meaning that high frequencies will be blocked by this filter.
-    
-    \vspace{0.1 cm} 
+
+    \vspace{0.1 cm}
 
     Since this filter allows low frequencies to go through and blocks high frequencies, it is called a \emph{low-pass filter}.
+
+  \qitem The cutoff frequency is the frequency that causes the magnitude of the transfer function to be $\frac{1}{\sqrt{2}}$.
+
+  Thus the cutoff frequency is $\omega = \frac{1}{RC}$.
+
 
 \end{enumerate}
 }
@@ -118,6 +127,7 @@ For the purposes of this question, we will consider various filter configuration
   \ws{\vspace{35px}}
   \qitem \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j \omega)}$.}
   \ws{\vspace{35px}}
+  \qitem \textbf{Calculate the cutoff frequency of this circuit.}
 \end{enumerate}
 
 % Solution for part (b)
@@ -148,9 +158,11 @@ For the purposes of this question, we will consider various filter configuration
   \item For values of $\omega$ approaching $\infty$, $\abs{H(j \omega)}$ approaches $1$.
     In this case, $\widetilde{V}_{out} = \widetilde{V}_{in}$, meaning high frequencies will pass through this filter.
 
-    \vspace{0.1 cm} 
+    \vspace{0.1 cm}
 
     Since this filter allows high frequencies to go through and blocks low frequencies, it is called a \emph{high-pass filter}.
+
+  \item  The magnitude of the transfer function is $\frac{1}{\sqrt{2}}$ when $\omega = \frac{1}{RC}$.
 
 \end{enumerate}
 }
@@ -158,6 +170,13 @@ For the purposes of this question, we will consider various filter configuration
 
 % Part(c)
 \qitem Consider the following cascaded filter (joined by a buffer):
+
+\meta{
+Ask students why the buffer is or isn't necessary.
+If we removed the buffer, what would we have to do?
+A useful exercise to tell students is to ask them to calculate what happens if the buffer is removed.
+Although the analysis does become more annoying, it's still very doable.
+}
 
 \input{\bank/filters/filter_transfer/fig_band_pass}
 
@@ -213,4 +232,3 @@ For the purposes of this question, we will consider various filter configuration
 
 
 \end{enumerate}
-

@@ -2,6 +2,12 @@
 
 \qns{Bode Plots for Filters}
 % \qcontributor{Ramsey Mardini, Naomi Sagan, Ryan Koh}
+
+\meta{
+Note that the solutions use straight line approximations since those are taught in class.
+The reality is that the true bode plots wouldn't look like this.
+}
+
 \begin{enumerate}
 
 \qitem First, consider the following transfer function of a Low-Pass Filter: \vskip 1pt
@@ -36,7 +42,7 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
             \addplot [blue,very thick] {mag(x)};
           \end{loglogaxis}
         \end{tikzpicture}
-        
+
         Phase (semi-log scale): According to our Bode plot approximation, the phase of $H(\omega)$ is 0 until $\frac{\omega_{c}}{10}$, after which it decreases linearly until $10\omega_{c}$, where it stays at $-\frac{\pi}{2}$.
         At $\omega_{c}$, the phase is exactly $-\frac{\pi}{4}$. \\
         \begin{tikzpicture}[
@@ -119,7 +125,7 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
             \addplot [blue,very thick] {mag(x)};
           \end{loglogaxis}
         \end{tikzpicture}
-        
+
         Phase (semi-log scale): According to our Bode plot approximation, the phase of $H(\omega)$ is $\frac{\pi}{2}$ until $\frac{\omega_{c}}{10}$, after which it decreases linearly until $10\omega_{c}$, where it stays at $0$.
         At $\omega_{c}$, the phase is  $-\frac{\pi}{4}$.
         \begin{tikzpicture}[
@@ -162,7 +168,7 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
   \end{figure}
 }
 
-\qitem What happens if we cascade these two filters together with a unity-gain buffer in between them? Consider the resulting transfer function: 
+\qitem What happens if we cascade these two filters together with a unity-gain buffer in between them? Consider the resulting transfer function:
   $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1} \cdot \frac{j\omega C_{2}R_{2}}{j\omega C_{2}R_{2} + 1}$
 \begin{enumerate}
   \qitem What are its cutoff frequencies?
@@ -177,7 +183,7 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
 
   \sol{
   For both the magnitude and the phase plots, you can "add" the high-pass filter to the low-pass filter.
-  
+
   \begin{figure}[h]
   \textbf{Magnitude plot:}
   \centering
@@ -231,7 +237,7 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
       ]
         \addplot [blue,very thick] {lowpass(x) * highpass(x)};
         \addlegendentry{band-pass}
-        
+
       \end{loglogaxis}
     \end{tikzpicture}
   \end{figure}
@@ -310,6 +316,13 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
       We can "add" the phases because $\angle(H_{high}(\omega) * H_{low}(\omega)) = \angle(H_{high}(\omega)) + \angle(H_{low}(\omega))$.
       }
     \end{enumerate}
+
+\meta{
+For the bandwith, an easy example can be observed using a notch filter and seeing the width of the gap in it.
+Tell students that for now, the Q-factor is just a metric for measuring resonancy and that a more deeper understanding of them is likely  not necessary.
+Though this can change depending on how far Prof. Sanders goes.
+}
+
 Now lets take a look at two more concepts, \textbf{bandwidth} and \textbf{Q-factor}. The bandwidth of a resonance
 circuit is the difference between its upper and lower cutoff frequencies. It can also be expressed as \textit{resonance frequency} divided by its \textit{Q-factor}:
 
@@ -336,7 +349,7 @@ Circuits that have low bandwidths relative to their center frequency will have h
     $$\Delta \omega = 10^{8} - 10^{5} = 9.99 \cdot 10^{7}$$
     }
     \qitem What is its Q-factor? I.e.: $\frac{\omega_{n}}{\Delta \omega}$, where $\omega_{n}$ is the center frequency of the band.
-    
+
     \sol{
     Symbolically:
     $$Q = \frac{\omega_{n}}{\Delta \omega} = \frac{1/2 \cdot (\frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}})}{\frac{1}{R_{1}C_{1}} - \frac{1}{R_{2}C_{2}}}$$
@@ -346,4 +359,4 @@ Circuits that have low bandwidths relative to their center frequency will have h
     $$Q \approx 0.501$$
     }
   \end{enumerate}
-\end{enumerate} 
+\end{enumerate}
