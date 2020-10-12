@@ -178,7 +178,7 @@ We can use MOSFETS to perform logic functions by implementing \textbf{pull-up} a
         \draw (nm1.source) to (nm.drain);
         \draw [short, *-] (4.5,3) to (4.5,5);
         \draw [short] (4.5,5) to (pm.gate);
-        \draw (pm1.drain) to (3.5,4) to [short] (6,4) 
+        \draw (pm1.drain) to (3.5,4) to [short, -*] (6,4) 
         (6, 4) to[short, -*] (6.5, 4) node[right]{$V_o$};
         \draw (nm.source) to (6,0) node[ground]{};
     \end{circuitikz}
@@ -261,7 +261,7 @@ Consider a CMOS inverter with a capacitor connected to the output. You can think
         (-1.25, -3) node[left] {$V_{in}$} to[short, *-] (nmos.gate);
     \end{circuitikz}
 \end{center}
-When the output switches from low to high, we can redraw the above circuit as follows:
+After the input switches from high to low (the output switches from low to high), we can redraw the above circuit as follows:
 \begin{center}
     \begin{circuitikz}[american]
         \draw (0, 0) to[V=$V_{DD}$] (0, -2) node[ground] {}
@@ -278,7 +278,7 @@ The capacitor stores energy while charging, the resistor dissipates energy, and 
     \item $\Delta E_{V_{DD}} = -(\Delta E_C + \Delta E_R) = CV_{DD}^2$. 
 \end{enumerate}
 
-When the output switches from low to high, the network can be represented as the following circuit:
+After the input switches from low to high (the output switches from high to low), the network can be represented as the following circuit:
 \begin{center}
     \begin{circuitikz}[american]
         \draw (0, 0) to[short] (0, -2) node[ground] {}
@@ -1052,7 +1052,20 @@ Consider an LRC circuit in the frequency domain:
     \end{circuitikz}
 \end{center}
 
-If our output is the voltage over the capacitor, the transfer function of this circuit is as follows:
+If our output is the voltage over the capacitor, you can derive the transfer function as follows: \\
+
+First, use the Voltage Divider relation to get the output in terms of the impedances of our circuit elements:
+\begin{align*}
+    V_{out} = \frac{Z_C}{Z_C + Z_L + Z_R} V_{in} = \frac{\frac{1}{j\omega C}}{\frac{1}{j\omega C} + j\omega L + R} V_{in} \\
+    H(j\omega) = \frac{V_{out}}{V_{in}} = \frac{\frac{1}{j\omega C}}{\frac{1}{j\omega C} + j\omega L + R}
+\end{align*}
+Now, we can manipulate the transfer function so that it's easier to analyze. In this case, we will make the numerator a constant and the denominator a polynomial in terms of $j\omega$. \\
+
+Multiply the numerator and denominator by $j\omega C$:
+\begin{align*}
+    H(j\omega) = \frac{1}{1 + (j\omega)^2LC + j\omega RC}
+\end{align*}
+Divide the numerator and denominator by $LC$:
 \begin{align*}
     H(j\omega) = \frac{1/LC}{(j \omega)^2 + j \omega R/L + 1/LC}
 \end{align*}
