@@ -199,7 +199,7 @@ for some unknown $\alpha$ and $\beta$.
     \begin{align*}
         u(t) = \begin{bmatrix} f_1 & f_2\end{bmatrix} x(t).
     \end{align*}
-\textbf{Find feedback coefficients $f_1$ and $f_2$ such that the resulting system is stable and has purely real eigenvalues.}
+\textbf{Find feedback coefficients $f_1$ and $f_2$ such that the resulting system is stable and has purely real and negative eigenvalues.}
 
 \textit{Note: you have some flexibility in terms of what feedback coefficients you choose. If you're stuck, start out by writing the characteristic polynomial in terms of $f_1$ and $f_2$, and then try plugging in different values $f_1$ and $f_2$.}
 
@@ -231,18 +231,36 @@ for some unknown $\alpha$ and $\beta$.
         \lambda^2 - 2\lambda f_2 - 4f_1 + 4 = 0.
     \end{align*}
 
-    In order for the system to be stable, the eigenvalues must have a negative real component. So, we must be able to factor the characteristic polynomial into the form
+    In order for the system to be stable, the eigenvalues must have a negative real component.
+    Using the quadratic formula, we know that for $a\lambda^2 + b\lambda + c = 0$,
     \begin{align*}
-        (\lambda + u) (\lambda + v) = 0,
+    \lambda = \frac{-b \pm \sqrt{b^{2} - 4ac}}{2a}
     \end{align*}
-    where $u$ and $v$ are both positive.
 
-    We also want the system to have purely real eigenvalues, so it must be in the form
+    In this case, $a = 1$,  $b = -2f_2$ , and $c = -4f_1 + 4$.
+    To get only a negative real component, the following must hold:
+    \begin{itemize}
+    \item $b^{2}-4ac \geq 0$ in order to not have an imaginary component.
+    \item $-b \pm \sqrt{b^{2} - 4ac} < 0$ in order for $\lambda$ to be negative.
+    \item $b > 0$ or else the numerator will be positive by condition 1.
+    \end{itemize}
+
+    Substituing in values for our first condition, we have
     \begin{align*}
-        \lambda^2 + b\lambda + c = 0,
+    b^2 \geq 4ac \implies 4f_{2}^{2} \geq -16f_1 + 16 \\
+     f_{2}^{2} \geq -4f_{1} + 4 \\
     \end{align*}
-    where $b$ and $c$ are both positive.
+    We can simplify our second condition by noticing that $\sqrt{b^{2} - 4ac}$ must be nonnegative.
+    Thus, we just need to analyze $-b + \sqrt{b^{2} - 4ac} < 0$ since fulfilling this condition implies the entire second condition is fulfilled.
+    Thus,
+    \begin{align*}
+    -b < -\sqrt{b^{2} - 4ac} \implies b > \sqrt{b^{2} - 4ac}\\
+    b^{2} > b^{2} - 4ac \\
+    4ac > 0 \\
+    f_1 > 1
+    \end{align*}
+    Finally, we also, add the restriction that $f_2 < 0$ by condition 3.
 
-    So, we can choose any $f_1 < 1$ and any $f_2 < 0$.
+
 }
 \end{enumerate}
