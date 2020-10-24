@@ -3,10 +3,9 @@
 
 \qns{An Introduction to Systems}
 
-In the next couple of worksheets, we will be examining systems. 
 Many physical systems such as the motion of a car, can be modeled using a system.
 Often times, when we are describing a system, we will have a \textbf{state variable $\vec{x},$}
-that will often be a multivariable function. 
+that will often be a multivariable function.
 For a given system, we can often write a differential equation describing its change over time as
 \begin{align}
 \ddt{\vec{x}(t)}{t} = f(\vec{x}(t), \vec{u}(t))
@@ -58,12 +57,12 @@ The initial conditions of the state variables are $x_{1}(0) = 2, \ x_{2}(0) = 3$
     }
 
     \qitem \textbf{Write out the system of differential equations the form of a general continuous time state-space model.}
-    
+
     \ws {
         \vspace{150px}
     }
     \sol{
-        $$\ddt{}{t}\vec{x}(t) = \begin{bmatrix} 3 & -2 \\ -1 & 5 \end{bmatrix} \begin{bmatrix} x_{1}(t) \\ x_{2}(t) \end{bmatrix} 
+        $$\ddt{}{t}\vec{x}(t) = \begin{bmatrix} 3 & -2 \\ -1 & 5 \end{bmatrix} \begin{bmatrix} x_{1}(t) \\ x_{2}(t) \end{bmatrix} + \vec{b}
         = \begin{bmatrix} 3 & -2 \\ -1 & 5 \end{bmatrix} \vec{x}(t) + \begin{bmatrix} 4 \\ 2 \end{bmatrix}$$
     }
 \end{enumerate}
