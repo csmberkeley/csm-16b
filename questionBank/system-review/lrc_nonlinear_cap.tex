@@ -1,0 +1,234 @@
+\qns{LRC Circuit With a Nonlinear Capacitor}
+
+In this problem, we'll consider an LRC circuit with a nonlinear capacitor, which we have drawn as a capacitor with a box around it.
+
+\begin{center}
+    \begin{circuitikz}[american, scale=0.8, transform shape]
+        \draw (0, 0) node[left]{$u(t)$} to[L=$L$, *-, i^>=$x_2(t)$] (3, 0)
+        (3, 0) to[R=$R$, -*] (6, 0)
+        (6, 0) to[short, -o] (6.5, 0) node[right] {$x_1(t)$}
+        (6, 0) to[C] (6, -2) node[ground] {};
+        \node[draw,minimum width=1cm,minimum height=1.5cm,anchor=north west] at (5.5,-0.3){};
+        \draw [line width=0.08cm] (5.5, -1.8) -- (6.5, -1.8);
+    \end{circuitikz}
+\end{center}
+
+We know that the capacitor has the following voltage-current relationship:
+\begin{align*}
+    \frac{d}{dt} v(t) = \exp\{\alpha i(t) + \beta\} - 1,
+\end{align*}
+for some unknown $\alpha$ and $\beta$.
+
+\begin{enumerate}
+    \qitem Before doing any circuit analysis, we must find the values $\alpha$ and $\beta$ that characterize our capacitor.
+
+    To do so, we attach the capacitor to a voltage source and a resistor. We then apply different voltage inputs and measure the initial $I_c$ and rate of change of $V_c$. \\
+
+    From this process, we get the data points 
+    \begin{align*}
+        (i_0,\, \frac{d}{dt}v_0),\, (i_1, \frac{d}{dt}v_1), \cdots, (i_n, \frac{d}{dt}v_n).
+    \end{align*}
+    \textbf{Given these data points, set up a least squares problem to find $\alpha$ and $\beta$.}
+    
+    \sol{
+        In order to perform least squares, we need a linear equation in terms of $\alpha$ and $\beta$. So, we need to do some algebraic manipulation on the capacitor's current-voltage relation.
+
+        We will add $1$ to both sides, and then take the natural log of both sides.
+        $$\frac{d}{dt} v(t) + 1 = \exp\{\alpha i(t) + \beta\}$$
+        \begin{equation}
+            \alpha i(t) + \beta = \ln\bigg(\frac{d}{dt} v(t) + 1\bigg) \label{eq:nonlin}
+        \end{equation}
+
+        Now, we want to write out an equation in the form
+        \begin{align*}
+            \vec{b} = D\begin{bmatrix}
+                \alpha \\ \beta
+            \end{bmatrix}.
+        \end{align*}
+
+        Using \eqref{eq:nonlin}, we can write out the following matrix-vector equation:
+
+        \begin{align*}
+            \begin{bmatrix}
+                \ln\bigg(\frac{d}{dt} v_0 + 1\bigg) \\
+                \vdots \\
+                \ln\bigg(\frac{d}{dt} v_n + 1\bigg) 
+            \end{bmatrix} = 
+            \begin{bmatrix}
+                i_0 & 1 \\
+                \vdots & \vdots \\
+                i_n & 1
+            \end{bmatrix} \begin{bmatrix}
+                \alpha \\ \beta
+            \end{bmatrix}.
+        \end{align*}
+
+        We can then use least squares to find our unknowns:
+        \begin{align*}
+            \begin{bmatrix} \alpha \\ \beta \end{bmatrix} =
+            (D^T D)^{-1} D^T \vec{b}.
+        \end{align*}
+    }
+
+    \qitem Assume we found $\alpha = 2$ and $\beta = 0$. 
+    
+    \textbf{Write out the state-space differential equations for our circuit} in terms the state variables $x_1$ and $x_2$ and input $u(t)$ labeled on the circuit above.
+
+    \sol {
+        Recall that we defined $x_1(t)$ as the voltage across the capacitor, $x_2(t)$ as the current through the inductor, and $u(t)$ as the potential to the left of the inductor.
+        
+        We can use the current-voltage relation for the nonlinear capacitor to get our first state-space equation:
+        \begin{align*}
+            \frac{d}{dt} x_1(t) = \exp\{2x_2(t)\} - 1.
+        \end{align*}
+
+        To get the second equation, use the current-voltage relation of the inductor:
+        \begin{align*}
+            \frac{d}{dt} x_2(t) = \frac{V_L(t)}{L} = \frac{u(t) - Ry_2(t) - y_1(t)}{L} \\
+            \frac{d}{dt} x_2(t) = \frac{1}{L} u(t) - \frac{1}{L} y_1(t)(t) - \frac{R}{L} y_2(t)
+        \end{align*}
+    }
+
+    \qitem \textbf{Now, linearize the system around operating point ($x_1$,\, $x_2$,\, $u$) = ($0$, $0$, $0$).} 
+    
+    Write the state-space equations in matrix-vector form.
+
+    \textit{Bonus: Is this linearization a good representation of the circuit for all values of $x_1$, $x_2$, and $u$? Explain.}
+
+    \sol {
+        The second equation is already linear, so we only have to linearize the first one:
+        \begin{align*}
+            \frac{d}{dt} x_1(t) = f(x_2(t)) = e^{2x_2(t)} - 1.
+        \end{align*}
+
+        Our operating point is ($x_1$,\, $x_2$,\, $u$) = ($0$, $0$, $0$), so our linear approximation is
+        \begin{align*}
+            \frac{d}{dt} x_1(t) = f(x_2(t) = 0) + \frac{d}{d x_2} f(x_2(t))\bigg\rvert_{x_2(t) = 0} (x_2(t) - 0) \\
+            \frac{d}{dt} x_1(t) = \big(e^{2 \cdot 0} - 1\big) + \big(2e^{2x_2(t)}\big)\bigg\rvert_{x_2(t) = 0} x_2(t) \\
+            \frac{d}{dt} x_1(t) = 2x_2(t)
+        \end{align*}
+
+        Now, we can write our state-space equations in matrix-vector form as follows:
+        \begin{align*}
+            \frac{d}{dt} \begin{bmatrix}
+                x_1(t) \\ x_2(t)
+            \end{bmatrix} =
+            \begin{bmatrix}
+                0 & 2 \\
+                -1/L & -R/L
+            \end{bmatrix} \begin{bmatrix}
+                x_1(t) \\ x_2(t)
+            \end{bmatrix} + 
+            \begin{bmatrix}
+                0 \\ 1/L
+            \end{bmatrix} u(t).
+        \end{align*}  
+
+        Note that this linearization assumes that our state is close to the operating point, i.e. $x_2(t)$ is always close to 0. If $x_2(t)$ is large, this linear approximation is no longer a good model for our system.      
+    }
+
+    \qitem For the rest of the problem, assume that $R = 0$ and $L = 1/2$.
+
+    \textbf{Find the eigenvalues of the system. Is it stable?}
+
+    \sol {
+        $R = 0$ and $L = 1/2$, so our state-space model is now:
+        \begin{align*}
+            \frac{d}{dt} \begin{bmatrix}
+                x_1(t) \\ x_2(t)
+            \end{bmatrix} =
+            \begin{bmatrix}
+                0 & 2 \\
+                -2 & 0
+            \end{bmatrix} \begin{bmatrix}
+                x_1(t) \\ x_2(t)
+            \end{bmatrix} + 
+            \begin{bmatrix}
+                0 \\ 2
+            \end{bmatrix} u(t).
+        \end{align*}
+
+        To find the eigenvalues, set the determinant of $A - \lambda I$ equal to $0$:
+        \begin{align*}
+            \lambda^2 + 4 = 0 \\
+            \lambda = \pm 2i
+        \end{align*}
+
+        This system is not stable (technically, marginally unstable) because the real component of the eigenvalues is nonnegative. 
+
+        Recall the LRC problem you saw in module 1: this is the undamped case, which means that the initial condition will only oscillate and never decay.
+    }
+
+    \qitem \textbf{Is the system controllable?}
+
+    \sol {
+        Yes, the system is controllable.
+
+        You can calculate the controllability matrix as
+        \begin{align*}
+            \mathcal{C} = \bigg\{
+                \begin{bmatrix} 0 \\ 2 \end{bmatrix},\,
+                \begin{bmatrix}
+                0 & 2 \\
+                -2 & 0
+            \end{bmatrix}
+            \begin{bmatrix} 0 \\ 2 \end{bmatrix}
+            \bigg\} = \bigg\{
+                 \begin{bmatrix} 0 \\ 2 \end{bmatrix},\,
+                  \begin{bmatrix} 4 \\ 0 \end{bmatrix}
+            \bigg\}
+        \end{align*}
+        The controllability matrix spans $\mathbb{R}^2$, so the system is controllable.
+    }
+
+    \qitem We want to apply feedback control to stabilize the system. Say we apply the input
+    \begin{align*}
+        u(t) = \begin{bmatrix} f_1 & f_2\end{bmatrix} x(t).
+    \end{align*}
+\textbf{Find feedback coefficients $f_1$ and $f_2$ such that the resulting system is stable and has purely real eigenvalues.}
+
+\textit{Note: you have some flexibility in terms of what feedback coefficients you choose. If you're stuck, start out by writing the characteristic polynomial in terms of $f_1$ and $f_2$, and then try plugging in different values $f_1$ and $f_2$.}
+
+\sol {
+    After applying feedback control, our system will be:
+
+    \begin{flalign*}
+        \frac{d}{dt} \vec{x}(t) &=
+            \begin{bmatrix}
+                0 & 2 \\
+                -2 & 0
+            \end{bmatrix} \vec{x}(t) + 
+            \begin{bmatrix}
+                0 \\ 2
+            \end{bmatrix} \begin{bmatrix}
+                f_1 & f_2
+            \end{bmatrix} \vec{x}(t) \\
+            &= \begin{bmatrix}
+                0 & 2 \\
+                2f_1 - 2 & 2f_2
+            \end{bmatrix} \vec{x}(t).
+    \end{flalign*}
+
+    Following the tip in the note, we will write out the characteristic polynomial in terms of $f_1$ and $f_2$.
+
+    \begin{align*}
+        \text{det} (A - \lambda I) = 0 \\
+        -\lambda(2f_2 - \lambda) - 4f_1 + 4 = 0 \\
+        \lambda^2 - 2\lambda f_1 - 4f_2 + 4 = 0.
+    \end{align*}
+
+    In order for the system to be stable, the eigenvalues must have a negative real component. So, we must be able to factor the characteristic polynomial into the form
+    \begin{align*}
+        (\lambda + u) (\lambda + v) = 0,
+    \end{align*}
+    where $u$ and $v$ are both positive.
+
+    We also want the system to have purely real eigenvalues, so it must be in the form
+    \begin{align*}
+        \lambda^2 + b\lambda + c = 0,
+    \end{align*}
+    where $b$ and $c$ are both positive.
+
+    So, we can choose any $f_1 < 0$ and any $f_2 < 1$.
+}
+\end{enumerate}
