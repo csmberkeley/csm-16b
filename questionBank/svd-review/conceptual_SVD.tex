@@ -14,13 +14,15 @@
   \qitem Is the compact SVD of an $n \times m$  matrix unique? if not, how many are there?
 
   \sol {
-    It isn’t unique, and there are actually $2^{m}$ different SVDs. While the Sigma matrix stays the same since it is arranged in increasing order, the $U$ and $V^{T}$ matrices have to stay in the same order. However, each of them can change their respective signs, meaning each of the m columns can be either negative or positive. Therefore, there are $2^{m}$ different SVDs for the same matrix. Note that in the full SVD, the rows/columns of the null space can be in any order.
+    It isn’t unique, and there are actually $2^{m}$ different SVDs. While the Sigma matrix stays the same since it is arranged in increasing order, the $U$ and $V^{T}$ matrices have to stay in the same order. 
+    However, each pair of corresponding columns in U and V can have a sign change -- we can have $u_{1}$ and $v_{1}$, or $-u_{1}$ and $-v_{1}$. 
+    Therefore, there are $2^{min(m,n)}$ different SVDs for the same matrix. Note that in the full SVD, the rows/columns of the null space can be in any order.
   }
 
   \qitem What does a zero singular value indicate in the original Matrix? 
 
   \sol {
-    A zero singular value indicates that the corresponding vectors in $U$ and $V^{T}$ have no change in the original matrix. This indicates the null space of the original matrix. In fact, the number of non-zero singular values is the same as the rank of the matrix.
+    A zero singular value indicates that the corresponding vectors in $U$ and $V^{T}$ have no effect on the original matrix. This indicates the null space of the original matrix. In fact, the number of non-zero singular values is the same as the rank of the matrix.
   }
 
   \qitem if you change one column in a matrix by a factor of $n$, what is the maximum change you can have on any singular value?
