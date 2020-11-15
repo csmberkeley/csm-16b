@@ -25,8 +25,8 @@ Your MSP can only provide a piecewise constant input voltage with interval $T$. 
                 v(t + T) - v(t) =  5(T + t)u(t) - 5tu(t) \\
                 v(t + T) = v(t) + 5Tu(t)
             \end{align*}
-            
-            \textit{Note: notice how the variable of integration is $\tau$ (not $t$) on the left and $v$ on the right. We move the $dt$ from the left hand side   
+
+            \textit{Note: notice how the variable of integration is $\tau$ (not $t$) on the left and $v$ on the right. We move the $dt$ from the left hand side
             to the right hand side using the same differential equations trick from module 1, so we are left with different bounds on eitherside to integrate.
             Also, as stated in the problem statement, we treat $u(t)$ as a constant.}
         }
@@ -35,7 +35,7 @@ Your MSP can only provide a piecewise constant input voltage with interval $T$. 
         \begin{align*}
             v_d(t + 1) = \alpha v_d(t) + u_d(t)
         \end{align*}
-        \sol{ 
+        \sol{
             Let us say that $v_d(t)$ is $v(t)$, and $v_d(t + 1)$ is $v(t + T)$.
             \begin{align*}
                 v_d(t + 1) = v_d(t) + 5Tu(t) \\
@@ -43,6 +43,8 @@ Your MSP can only provide a piecewise constant input voltage with interval $T$. 
             So, $\alpha = 1$ and $u_d(t) = 5Tu(t)$
         }
     \end{enumerate}
+
+    %\vspace{15cm}
 
     \qitem Now you want to examine your car's position in discrete time, knowing that
     \begin{align*}
