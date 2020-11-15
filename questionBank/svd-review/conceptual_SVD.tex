@@ -14,27 +14,34 @@
   \qitem Is the compact SVD of an $n \times m$  matrix unique? if not, how many are there?
 
   \sol {
-    It isn’t unique, and there are actually $2^{m}$ different SVDs. While the Sigma matrix stays the same since it is arranged in increasing order, the $U$ and $V^{T}$ matrices have to stay in the same order. 
-    However, each pair of corresponding columns in U and V can have a sign change -- we can have $u_{1}$ and $v_{1}$, or $-u_{1}$ and $-v_{1}$. 
+    It isn’t unique, and there are actually $2^{m}$ different SVDs. While the Sigma matrix stays the same since it is arranged in increasing order, the $U$ and $V^{T}$ matrices have to stay in the same order.
+    However, each pair of corresponding columns in U and V can have a sign change -- we can have $u_{1}$ and $v_{1}$, or $-u_{1}$ and $-v_{1}$.
     Therefore, there are $2^{min(m,n)}$ different SVDs for the same matrix. Note that in the full SVD, the rows/columns of the null space can be in any order.
   }
 
-  \qitem What does a zero singular value indicate in the original Matrix? 
+  \qitem What does a zero singular value indicate in the original Matrix?
 
   \sol {
-    A zero singular value indicates that the corresponding vectors in $U$ and $V^{T}$ have no effect on the original matrix. This indicates the null space of the original matrix. In fact, the number of non-zero singular values is the same as the rank of the matrix.
+    A zero singular value indicates that the corresponding vectors in $U$ and $V^{T}$ have no effect on the original matrix. This indicates the null space of the original matrix. In fact, the number of non-zero singular values is the same as the rank of the matrix. The easy way to observe this is through the outproduct form.
   }
 
   \qitem if you change one column in a matrix by a factor of $n$, what is the maximum change you can have on any singular value?
 
   \sol {
-  $n$. Its corresponding vectors can be shifted around (for example, the second largest singular value can become the first), but at most, we cannot change any vector more than what we are changing a column to be, and because of the properties of singular values (which are the square roots of the eigenvalues), any vector can change by at most the square root of $n$, the factor by which it was changed.
+  $n$. Its corresponding vectors can be shifted around (for example, the second largest singular value can become the first), but at most, we cannot change any vector more than what we are changing a column to be, and because of the properties of singular values (which are the square roots of the eigenvalues), any vector can change by at most $n$, the factor by which it was changed.
+  An example would be modifying one value of an identity matrix to be $n$.
   }
 
   \qitem What matrices would have only 1s as their singular values?
 
   \sol {
     Any unitary matrix ($U*U  = I$). For example, the rotation matrix. This has the same geometric idea as eigenvalues and diagonalization for these matrices.
+  }
+
+  \qitem Calculate the SVD of an orthonormal matrix $Q$. In other words, calculate the SVD of $Q$ where $Q^{T}Q = I$.
+
+  \sol{
+  Since this is a unitary matrix, the singular values are just one. Thus, a valid SVD is $Q = QII$.
   }
 
 \end{enumerate}
