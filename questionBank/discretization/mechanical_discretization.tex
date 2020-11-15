@@ -22,11 +22,11 @@ Your MSP can only provide a piecewise constant input voltage with interval $T$. 
             \begin{align*}
                 \frac{d}{dt} v(t) = 5u(t) \\
                 \int _{v(t)}^{v(t + T)} \, dv = \int_t^{t + T} 5u(\tau) \, d\tau \\
-                v(t + T) - v(t) =  5(T + t)u(t) - 5tu(t)
+                v(t + T) - v(t) =  5(T + t)u(t) - 5tu(t) \\
                 v(t + T) = v(t) + 5Tu(t)
             \end{align*}
             
-            \textit{Note: notice how the variable of integration is $\tau$ (not $t$ )on the left and $v$ on the right. We move the $dt$ from the left hand side   
+            \textit{Note: notice how the variable of integration is $\tau$ (not $t$) on the left and $v$ on the right. We move the $dt$ from the left hand side   
             to the right hand side using the same differential equations trick from module 1, so we are left with different bounds on eitherside to integrate.
             Also, as stated in the problem statement, we treat $u(t)$ as a constant.}
         }
