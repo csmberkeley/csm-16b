@@ -33,19 +33,19 @@ This solution is special in that it has \textbf{minimum norm.} That is, if we ha
 
   \sol {
     Since $A$ is an $m \times n$ matrix, $\Sigma$ will be also be $m \times n.$
-    We assumed that $n > m,$ and that $A$ is full rank, so $\Sigma$ will be a matrix with more columns than rows but will have a nonzero entry $\sigma_{i}$ in the $i^{th}$ row and column.
-    $$\Sigma = \begin{bmatrix} \sigma_{1} & 0 & \cdotss & 0 & \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 & \cdots & 0 \\ \vdots & \vdots & \ddots & \sigma_{m} & \cdots&  0 \end{bmatrix}$$
+    We assumed that $n > m$, and that $A$ is full rank, so $\Sigma$ will be a matrix with more columns than rows but will have a nonzero entry $\sigma_{i}$ in the $i^{th}$ row and column.
+    $\Sigma = \begin{bmatrix} \sigma_{1} & 0 & \cdots & 0 & \cdots & 0 \\ 0 & \sigma_{2} & \cdots & 0 & \cdots & 0 \\ \vdots & \vdots & \ddots & \sigma_{m} & \cdots &  0  \\ \end{bmatrix}$
   }
 
-  \qitem Note that this matrix $\Sigma$ does not have an inverse since it isn't square. 
+  \qitem Note that this matrix $\Sigma$ does not have an inverse since it isn't square.
   We can however, construct a matrix $\widetilde{\Sigma}$ such that $\widetilde{\Sigma} \Sigma = I_{n}.$
   What is this matrix $\widetilde{\Sigma}?$
 
   \sol {
     The matrix $\Sigma$ is almost diagonal. It has $0$ entries to the right of the $m^{th}$ column.
-    Also, since $A$ is full rank, all of the entries on the diagonal are nonzero. 
+    Also, since $A$ is full rank, all of the entries on the diagonal are nonzero.
     It follows that the following matrix will make $\widetilde{\Sigma} \Sigma = I_{n}.$
-    $$\widetilde{\Sigma} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\ 
+    $$\widetilde{\Sigma} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\
     \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
   }
 
@@ -53,8 +53,8 @@ This solution is special in that it has \textbf{minimum norm.} That is, if we ha
 
   \sol {
     The $U$ and $V$ matrices have orthonormal columns, meaning $U^{T} U = I_{m}$ and $V^{T} V = I_{n}$ \\
-    It follows from this fact that $U^{-1} = U^{T}$ and $V^{-1} = V^{T}.$ 
-  } 
+    It follows from this fact that $U^{-1} = U^{T}$ and $V^{-1} = V^{T}.$
+  }
 
   \qitem Use the special facts in the previous part about the $U, V,$ and $\Sigma$ matrices to "undo" the SVD.
 

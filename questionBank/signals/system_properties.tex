@@ -1,4 +1,4 @@
-\qns{Signal Properties}
+\qns{Discrete Signal Properties}
 
 Given the following systems, determine if they have the following properties:
 \begin{itemize}
@@ -7,3 +7,65 @@ Given the following systems, determine if they have the following properties:
   \item Linearity
   \item Time Invariance
 \end{itemize}
+
+\begin{enumerate}
+
+\qitem
+$y[n] = \max(x_1[n], x_2[n]) + x_3[n]$
+
+\sol{
+Causal, Stable, Time Invariant
+}
+
+\qitem
+$
+\begin{bmatrix}
+y_1[n] \\
+y_2[n] \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 1 \\
+0 & 3 \\
+\end{bmatrix}
+\begin{bmatrix}
+y_1[n-1] \\
+y_2[n-1] \\
+\end{bmatrix}
++
+\begin{bmatrix}
+x[n] \\
+x[n] \\
+\end{bmatrix}
+$
+
+\sol{
+Causal, Linear
+}
+
+\qitem
+$y[n] = \frac{1}{3}(x[n-1] + x[n] + x[n+1])$
+
+\sol{
+Stable, Time Invariant, Linear
+}
+
+\qitem
+$y[n] = \sum^{n}_{-\infty} a^{k}x[k]$
+
+\sol{
+Stable if $|a| < 1$, linear, time invariant, causal
+}
+
+\qitem
+$y[n] = x[n] \cdot x[n-1]$
+
+\sol{
+Stable, time invariant, causal
+}
+
+
+
+
+
+\end{enumerate}
