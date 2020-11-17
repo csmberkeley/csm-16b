@@ -11,13 +11,14 @@ Students are studying for the EECS16C exam, and the flow of students from Moffit
     \begin{tikzpicture}
         \node[circle, draw=black, minimum size=2cm] (Moffit) {Moffit};
         \node[circle, draw=black, minimum size=2cm] (OH) [right=of Moffit] {OH};
-        \draw [->] (Moffit.north east) to [bend left=15]  node[above] {0.3}  (OH.north west);
+        \draw [->] (Moffit.north east) to [bend left=15]  node[above] {0.2}  (OH.north west);
         \path (Moffit) edge [loop above] node {0.8} (Moffit);
         \path (OH) edge [loop above] node {0.4} (OH);
+        \draw [->] (OH.south west) to [bend left=15] node[below] {0.6} (Moffit.south east);
         \node (u_moffit) [left=of Moffit] {$0.5u[t]$};
         \draw [->] (u_moffit.east) to []  node[left] {}  (Moffit.west);
         \node (u_OH) [right=of OH] {$0.5u[t]$};
-        \draw [<-] (u_OH.west) to []  node[right] {}  (OH.east);
+        \draw [->] (u_OH.west) to []  node[right] {}  (OH.east);
     \end{tikzpicture}
 \end{align*}
 
