@@ -28,6 +28,7 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
         \sol{
             We can represent our state by the number of students in Moffit ($x_1$) and the number of students in Taejin's office hours ($x_2$).
         }
+    \vspace{2.5cm}
     \qitem Represent the flow of students between the two states as a matrix-vector discrete time system:
     \begin{align*}
         \vec{x}[t+1] =  A\vec{x}[t] + \vec{b}u[t]\\
@@ -37,7 +38,7 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
         \begin{align*}
             \begin{bmatrix}
                 x_1[t + 1] \\ x_2[t + 1]
-            \end{bmatrix} = 
+            \end{bmatrix} =
             \begin{bmatrix}
                 0.8 & 0.6 \\
                 0.2 & 0.4
@@ -50,39 +51,39 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
             \end{bmatrix} u[t]
         \end{align*}
     }
-
+    \vspace{8cm}
     \qitem Let $\vec{x}[0] = \vec{0}$, and $u[t] = 10$ for all values of $t$. \textbf{What is $\vec{x}[1]$? What is $\vec{x}[2]$?} \textbf{What is $||\vec{x}||$ as $t\rightarrow\infty$? Does that make sense in the context of our problem?}
-    
+
     \sol{
         \begin{align*}
-            \vec{x}[1] = A \vec{0} + 10 
+            \vec{x}[1] = A \vec{0} + 10
             \begin{bmatrix}
-                0.5 \\ 0.5 
-            \end{bmatrix} = 
-            \begin{bmatrix} 
-                5 \\ 5 
+                0.5 \\ 0.5
+            \end{bmatrix} =
+            \begin{bmatrix}
+                5 \\ 5
             \end{bmatrix} \\
-            \vec{x}[2] = A 
-            \begin{bmatrix} 
-                5 \\ 5 
-            \end{bmatrix} + 10 
-            \begin{bmatrix} 
-                0.5 \\ 0.5 
-            \end{bmatrix} = 
+            \vec{x}[2] = A
+            \begin{bmatrix}
+                5 \\ 5
+            \end{bmatrix} + 10
+            \begin{bmatrix}
+                0.5 \\ 0.5
+            \end{bmatrix} =
             \begin{bmatrix}
                 0.8 & 0.6 \\
                 0.2 & 0.4
-            \end{bmatrix} 
-            \begin{bmatrix}
-                5 \\ 5
-            \end{bmatrix} + 
-            \begin{bmatrix}
-                5 \\ 5
-            \end{bmatrix} = 
-            \begin{bmatrix} 
-                12 \\ 8 
             \end{bmatrix}
-        \end{align*}        
+            \begin{bmatrix}
+                5 \\ 5
+            \end{bmatrix} +
+            \begin{bmatrix}
+                5 \\ 5
+            \end{bmatrix} =
+            \begin{bmatrix}
+                12 \\ 8
+            \end{bmatrix}
+        \end{align*}
 
         The input to the system is always positive, and no students ever leave the system, so the magnitude of the state keeps on growing. So,
         \begin{align*}
@@ -91,37 +92,38 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
         This does not make sense in the context of our problem because it is impossible to have an infinite amount of students.
     }
 
+    \vspace{8cm}
     \qitem Let $\vec{x}[0] = \begin{bmatrix} 50 \\ 50 \end{bmatrix}$, and $u[t] = -4$ for all values of $t$. \textbf{What is $\vec{x}[1]$? What is $\vec{x}[2]$?} \textbf{What is $||\vec{x}||$ as $t\rightarrow\infty$? What sign are the elements of $\vec{x}$? Does that make sense in the context of our problem?}
 
 \sol{
         \begin{align*}
-            \vec{x}[1] = A 
-            \begin{bmatrix} 
-                50 \\ 50 
-            \end{bmatrix} - 4 
-            \begin{bmatrix} 
-                0.5 \\ 0.5 
+            \vec{x}[1] = A
+            \begin{bmatrix}
+                50 \\ 50
+            \end{bmatrix} - 4
+            \begin{bmatrix}
+                0.5 \\ 0.5
             \end{bmatrix} =
             \begin{bmatrix}
                 0.8 & 0.6 \\
                 0.2 & 0.4
-            \end{bmatrix} 
-            \begin{bmatrix} 
-                50 \\ 50 
-            \end{bmatrix} - 
-            \begin{bmatrix} 
-                2 \\ 2 
+            \end{bmatrix}
+            \begin{bmatrix}
+                50 \\ 50
+            \end{bmatrix} -
+            \begin{bmatrix}
+                2 \\ 2
             \end{bmatrix} =
             \begin{bmatrix}
                 68 \\ 28
             \end{bmatrix} \\
-            \vec{x}[2] = A 
-            \begin{bmatrix} 
-                68 \\ 28 
+            \vec{x}[2] = A
+            \begin{bmatrix}
+                68 \\ 28
             \end{bmatrix} - 4
-            \begin{bmatrix} 
-                0.5 \\ 0.5 
-            \end{bmatrix} = 
+            \begin{bmatrix}
+                0.5 \\ 0.5
+            \end{bmatrix} =
             \begin{bmatrix}
                 0.8 & 0.6 \\
                 0.2 & 0.4
@@ -131,7 +133,7 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
             \end{bmatrix} -
             \begin{bmatrix}
                 2 \\ 2
-            \end{bmatrix}  = 
+            \end{bmatrix}  =
             \begin{bmatrix} 69.2 \\ 22.8 \end{bmatrix}
         \end{align*}
         \textit{Note: it's ok that the state variables are not whole numbers! Think of them as the average number of students in Moffit and Taejin's OH.}
@@ -143,31 +145,32 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
         This does not make sense in the context of our problem because there is an infinitely negative amount of students in our system.
     }
 
+    \vspace{12cm}
     \qitem Let $\vec{x}[0] = \vec{0}$, $u[0] = 16$, and $u[t>0] = 0$. \textbf{What is $\vec{x}[1]$? What is $\vec{x}[2]$?} \textbf{What is the largest $||\vec{x}||$ can get as $t\rightarrow\infty$? Does that make sense in the context of our problem?}
 
     \sol {
         \begin{align*}
-            \vec{x}[1] = A \vec{0} + 16 
-            \begin{bmatrix} 
-                0.5 \\ 0.5 
-            \end{bmatrix} = 
+            \vec{x}[1] = A \vec{0} + 16
+            \begin{bmatrix}
+                0.5 \\ 0.5
+            \end{bmatrix} =
             \begin{bmatrix}
                 8 \\ 8
             \end{bmatrix} \\
-            \vec{x}[2] = A 
-            \begin{bmatrix} 
+            \vec{x}[2] = A
+            \begin{bmatrix}
                 8 \\ 8
             \end{bmatrix} + 0
-            \begin{bmatrix} 
-                0.5 \\ 0.5 
-            \end{bmatrix} = 
+            \begin{bmatrix}
+                0.5 \\ 0.5
+            \end{bmatrix} =
             \begin{bmatrix}
                 0.8 & 0.6 \\
                 0.2 & 0.4
             \end{bmatrix}
             \begin{bmatrix}
                 8 \\ 8
-            \end{bmatrix} = 
+            \end{bmatrix} =
             \begin{bmatrix} 11.2 \\ 4.8 \end{bmatrix}
         \end{align*}
 
@@ -177,5 +180,5 @@ where $u[t]$ is the number of students that start to study at timestep $t$. (i.e
         \end{align*}
         This \textit{does} make sense in the context of our problem because it is a finite, positive number.
     }
-    
+
 \end{enumerate}
