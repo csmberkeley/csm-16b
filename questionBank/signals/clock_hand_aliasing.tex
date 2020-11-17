@@ -24,9 +24,11 @@ The minute hand is moving around the clock every 10 seconds, or .1 Hz
 \qitem We are now trying to find the frequency of the minute-hand on a different broken clock. Same set up as above but now we are measuring at every 25 seconds. Here are the samples:
 (seconds, position), (0, 12:00), (25, 6:00), (50, 12:00), (75, 6:00)
 What is the minute-hand’s frequency?
-/sol{
+
+\sol{
 We can’t determine this frequency exactly. For instance, it could be the same as before (10 seconds per revolution, or .1 Hz) or it could be 8.333 seconds per revolution, or .12 Hz. The signal remains ambiguous.
 }
+
 \qitem What is the slowest you can sample a clock hand (given that you know its frequency) and still retain enough information to reconstruct the original signal?
 
 \sol{ half of it’s frequency, aka the Nyquist frequency. This is the sweet spot where if we sample at any higher frequency, we can reconstruct the signal, but if it’s any lower, it will be  
