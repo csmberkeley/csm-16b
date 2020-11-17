@@ -6,6 +6,11 @@
 
 \qns{Gram-Schmidt Process}
 
+\meta{
+Ask students why gram-schmidt might be useful?
+Examples include construction of SVD vectors, QR factorization (not taught), upper triangularization, etc.
+}
+
 A set of vectors is orthonormal \textbf{if and only if}:
 \begin{itemize}
     \item Any pair of vectors are orthogonal (for any vectors $\vec{u}, \vec{v} \in S$ where $\vec{u} \neq \vec{v}$, the angle between them is 90$^\circ$).
@@ -41,9 +46,9 @@ $$\vec{u}_1 = \frac{\vec{v}_1}{\norm{\vec{v}_2}}$$
 \ws{\vspace{75px}}
 
 \sol {
-Now, we do need to consider orthogonality. In order for two vectors $\vec{u}, \vec{v}$ to be orthogonal, their dot product has to be 0. In other words, this means that there is nothing--no trace, no component--of $\vec{u} \text { in } \vec{v}$, and vice versa. We can do this by defining the following:
-$$\vec{p_2} = \vec{v_2} - (\vec{v_2}^T\vec{w_1})\vec{w_1}$$
-By subtracting the projection of $\vec{v_2}$ onto $\vec{w_1}$, we are removing the $\vec{w_1}$ component of $\vec{v_2}$ from $\vec{v_2}$. So, $\vec{p_2}$ is now orthogonal to $\vec{w_1}$, and mutual orthogonality is preserved for all vectors in our new set $S'$. $\vec{p_2}$ also needs to be normalized, so:
+Now, we do need to consider orthogonality. In order for two vectors $\vec{u}, \vec{v}$ to be orthogonal, their dot product has to be 0. In other words, this means that there is nothing--no trace, no component--of $\vec{u} \text { in } \vec{v}$, and vice versa. We can do this by defining the following where:
+$$\vec{p_2} = \vec{v_2} - (\vec{v_2}^T\vec{u_1})\vec{u_1}$$
+By subtracting the projection of $\vec{v_2}$ onto $\vec{u_1}$, we are removing the $\vec{u_1}$ component of $\vec{v_2}$ from $\vec{v_2}$. So, $\vec{p_2}$ is now orthogonal to $\vec{u_1}$, and mutual orthogonality is preserved for all vectors in our new set $S'$. $\vec{p_2}$ also needs to be normalized, so:
 $$\vec{w_2} = \frac{\vec{p_2}}{|\vec{p_2}|}$$
 }
 
@@ -60,7 +65,7 @@ Rinse and repeat for all vectors in $S$ to generate a new, orthonormal set $S'$ 
 }
 
 \qitem \textbf{OPTIONAL:}
-Let $A = \begin{bmatrix} 
+Let $A = \begin{bmatrix}
 -1 & -1 & 1 \\
 1 & 3 & 3 \\
 -1 & -1 & 5 \\
@@ -78,7 +83,7 @@ We will use Gram-Schmidt to find an orthonormal basis $U = \begin{bmatrix} \vec{
   \ws{\vspace{75px}}
   \sol {
     For the first vector, we do not need to worry about orthogonality. Therefore we just have to normalize.
-    $$\vec{u}_{1} = \frac{\vec{a}_{1}}{\norm{\vec{a}_{1}}} = \frac{1}{\sqrt{4}} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} = 
+    $$\vec{u}_{1} = \frac{\vec{a}_{1}}{\norm{\vec{a}_{1}}} = \frac{1}{\sqrt{4}} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} =
     \begin{bmatrix} -\frac{1}{2} \\ \frac{1}{2} \\ -\frac{1}{2} \\ \frac{1}{2} \end{bmatrix}$$
   }
 
@@ -88,10 +93,10 @@ We will use Gram-Schmidt to find an orthonormal basis $U = \begin{bmatrix} \vec{
   \sol {
     We first compute $\vec{q}_{2}$ as a vector orthogonal to $\vec{u}_{1}$ by subtracting the projection of $\vec{a}_{2}$ onto $\vec{u}_{1}$
     $$\vec{q}_{2} = \vec{a}_{2} - \innp{\vec{a}_{2}}{\vec{u}_{1}} \vec{u}_{1} = \vec{a}_{2} - \frac{1}{2} \innp{\vec{a}_{2}}{\vec{a}_{1}} \frac{1}{2} \vec{a}_{1}
-    = \begin{bmatrix} -1 \\ 3 \\ -1 \\ 3 \end{bmatrix} - 
+    = \begin{bmatrix} -1 \\ 3 \\ -1 \\ 3 \end{bmatrix} -
     \frac{8}{4} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix}$$
     If we were to normalize this vector, we would get:
-    $$\vec{u}_{2} = \frac{1}{\sqrt{4}} \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} = 
+    $$\vec{u}_{2} = \frac{1}{\sqrt{4}} \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} =
     \begin{bmatrix} \frac{1}{2} \\ \frac{1}{2} \\ \frac{1}{2} \\ \frac{1}{2} \end{bmatrix}$$
   }
 
@@ -101,9 +106,9 @@ We will use Gram-Schmidt to find an orthonormal basis $U = \begin{bmatrix} \vec{
   \sol {
     We again compute $\vec{q}_{3}$ as a vector orthogonal to rest by subtracting its projections onto $\vec{a}_{1}$ and $\vec{a}_{2}.$
     \begin{align*}
-    \vec{q}_{3} &= \vec{a}_{3} - \innp{\vec{a}_{3}}{\vec{u}_{1}} \vec{u}_{1} - \innp{\vec{a}_{3}}{\vec{u}_{2}} \vec{u}_{2} = 
+    \vec{q}_{3} &= \vec{a}_{3} - \innp{\vec{a}_{3}}{\vec{u}_{1}} \vec{u}_{1} - \innp{\vec{a}_{3}}{\vec{u}_{2}} \vec{u}_{2} =
     \vec{a}_{3} - \frac{1}{4} \innp{\vec{a}_{3}}{\vec{a}_{1}} \vec{a}_{1} - \frac{1}{4} \innp{\vec{a}_{3}}{\vec{q}_{2}} \vec{q}_{2} \\
-    &= \begin{bmatrix} 1 \\ 3 \\ 5 \\ 7 \end{bmatrix} - \frac{4}{4} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} - 
+    &= \begin{bmatrix} 1 \\ 3 \\ 5 \\ 7 \end{bmatrix} - \frac{4}{4} \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} -
     \frac{16}{4} \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 3 \\ 5 \\ 7 \end{bmatrix} - \begin{bmatrix} -1 \\ 1 \\ -1 \\ 1 \end{bmatrix} - \begin{bmatrix} 4 \\ 4 \\ 4 \\ 4 \end{bmatrix} = \begin{bmatrix} -2 \\ -2 \\ 2 \\ 2 \end{bmatrix}
     \end{align*}
     Normalizing $\vec{q}_{3},$ we get:
