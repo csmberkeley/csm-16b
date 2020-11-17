@@ -1,29 +1,45 @@
+% Author: Risheek Pingili
+
+
+\qns{Clock Hand Aliasing}
+\qcontributor{Risheek Pingili}
+
 We would like to observe a haywire clock’s minute-hand as it travels around the clock in order to determine its true frequency.
 
+\meta{
+It may be nice to have a picture of a clock and draw out the samples. Important to understand the reasons for and how we sample signals in order to understand its limitations
+}
 
-a) We are told that the frequency is shorter than our sample time. We time the minute hand every 15 seconds, starting when the minute hand points to 12. We get the following samples: \\
-	(seconds, position), (0, 12:00), (15, 6:00), (30, 12:00), (45, 6:00) \\
+\begin{enumerate}
+\qitem We are told that the frequency is shorter than our sample time. We time the minute hand every 15 seconds, starting when the minute hand points to 12. We get the following samples:
+(seconds, position), (0, 12:00), (15, 6:00), (30, 12:00), (45, 6:00) 
 What is the minute-hand’s frequency?
-hint: there shouldn’t be a need for computation, try to work this out by testing different frequency intervals and seeing if it works out.
 
-\sol:
+\textit{Hint: there shouldn’t be a need for computation, try to work this out by testing different frequency intervals and seeing if it works out.}
+
+\sol{
 The minute hand is moving around the clock every 10 seconds, or .1 Hz
+}
 
-
-b) We are now trying to find the frequency of the minute-hand on a different broken clock. Same set up as above but now we are measuring at every 25 seconds. Here are the samples: \\
-(seconds, position), (0, 12:00), (25, 6:00), (50, 12:00), (75, 6:00) \\
+\qitem We are now trying to find the frequency of the minute-hand on a different broken clock. Same set up as above but now we are measuring at every 25 seconds. Here are the samples:
+(seconds, position), (0, 12:00), (25, 6:00), (50, 12:00), (75, 6:00)
 What is the minute-hand’s frequency?
- \sol:
-We can’t determine this frequency exactly. For instance, it could be the same as before (10 seconds per revolution, or .1 Hz) or it could be 8.333 seconds per revolution, or .12 Hz. The signal remains ambiguous. 
-c) What is the slowest you can sample a clock hand (given that you know its frequency) and still retain enough information to reconstruct the original signal?
+\sol{
+We can’t determine this frequency exactly. For instance, it could be the same as before (10 seconds per revolution, or .1 Hz) or it could be 8.333 seconds per revolution, or .12 Hz. The signal remains ambiguous.
+}
+\qitem What is the slowest you can sample a clock hand (given that you know its frequency) and still retain enough information to reconstruct the original signal?
 
-\sol: half of it’s frequency, aka the Nyquist frequency. This is the sweet spot where if we sample at any higher frequency, we can reconstruct the signal, but if it’s any lower, it will be  
+\sol{ half of it’s frequency, aka the Nyquist frequency. This is the sweet spot where if we sample at any higher frequency, we can reconstruct the signal, but if it’s any lower, it will be  
+}
 
-d) When will the minute-hand look like it’s not moving (again, assuming you know its frequency)?
+\qitem When will the minute-hand look like it’s not moving (again, assuming you know its frequency)?
 
-/sol when you sample it at exactly its frequency or any integer multiple.
+/sol{ when you sample it at exactly its frequency or any integer multiple.
+}
 
+\qitem What happens if you sample below the rate found in part c? (looks like it’s moving in reverse)
 
-e) What happens if you sample below the rate found in part c? (looks like it’s moving in reverse)
+/sol{ we saw this in part b: It can look like it is going in reverse.
+}
 
-/sol we saw this in part b: It can look like it is going in reverse.
+\end{enumerate}
