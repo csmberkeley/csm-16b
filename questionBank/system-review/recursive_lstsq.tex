@@ -1,0 +1,109 @@
+% Author: Alexander Feng
+% Email: alexfeng2000@berkeley.edu
+% Inspiration: https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-241j-dynamic-systems-and-control-spring-2011/readings/MIT6_241JS11_chap02.pdf
+
+\qns{Recursive Least Squares}
+
+In regression style problems, the general goal is to find a set of solutions that minimize an error.
+In the case of System ID, we have a system $A\vec{x} = \vec{b}$ and want to minimize the magnitude of the error vector.
+Recall that $A$ is a matrix of inputs and $\vec{b}$ is the vector of observed outputs.
+$\vec{x}$ is a vector of unknown parameters and $\vec{e} = A\vec{x} - \vec{b}$ is our error vector.
+
+The solution $\vec{x}$ that minimizes $||\vec{e}||$ is
+\begin{align*}
+\vec{x} = (A^{T}A)^{-1}A^{T}\vec{b}
+\end{align*}
+
+Recall that $A$ is a tall skinny matrix which we'll define to have dimensions $n \times m$.
+Thus, $\vec{x}$ will have dimensions $m \times 1$ and $\vec{b}$ will have dimensions $n \times 1$.
+
+\begin{enumerate}
+
+\qitem
+Suppose that we're performing System ID and have already computed $\vec{x}$. We suddenly get new data points. Should we continue using the $\vec{x}$ we originally computed? Why or why not? If we don't continue using $\vec{x}$, what should we do?
+
+\sol{
+You don't want to continue using the old $\vec{x}$ because new data can change your solution and what $\vec{x}$ minimizes the error across \emph{all} your data.
+The only exception to this is if you had perfect data for all old data and new data.
+Thus, we should perform an update to our solution $\vec{x}$.
+}
+
+\qitem
+Armed with our new data, why might it be a bad idea to recompute our entire least squares solution?
+
+\sol{
+Inverting a matrix is very costly and quite difficult, even for a powerful computer.
+You can imagine if we had tens of thousands of data points and only received a few hundred new points, inverting $(A^{T}A)$ would be a nightmare.
+}
+
+\qitem
+To simplify things, let's think about updating our least squares solution with just one data point.
+We'll also restrict our system to a single input and single output.
+Suppose that we have computed our least squares solution $\vec{x_k}$ for $k$ data points.
+We receive a new data point ($a_{k+1}$, $b_{k+1}$) and would like to compute the updated least squares solution $\vec{x_{k+1}}$.
+Formulate this as a new least squares problem.
+
+\sol{
+\begin{align*}
+\begin{bmatrix}
+\vec{b_k} \\
+b_{k+1}
+\end{bmatrix} =
+\begin{bmatrix}
+A_{k} \\
+a_{k+1}
+\end{bmatrix}
+\vec{x_{k + 1}} +
+\begin{bmatrix}
+\vec{e_k}\\
+e_{k+1}
+\end{bmatrix}
+\end{align*}
+}
+
+\qitem
+Starting off with $A^{T}A\vec{x} = A^{T}\vec{b}$, rewrite everything in terms of summations of the $A$ matrix's rows and columns.
+Define $A[i]$ as the $i^{th}$ column and $A\{i\}$ as the $i^{th}$ row.
+
+\textit{HINT: Try using the outerproduct form of matrix multiplication. If an inner product is $\vec{a}^{T}\vec{b}$, then what's an outerproduct?}
+
+\sol{
+\begin{align*}
+A^{T}A\vec{x} = A^{T}\vec{b} \\
+\left(\sum_{i = 1}^{k} A^{T}[i]A\{i\}\right)\vec{x} = \sum^{k}_{i=1}A^{T}[i]b_i
+\end{align*}
+where $[i]$ is indicing into the column and $\{i\}$ is the row.
+$b_{i}$ denotes the $i^{th}$ element in $\vec{b}$.
+Note that in some texts you may see a slightly different notation that what we use here.
+}
+
+\qitem
+If we define $Q_k = A^{T}A$, write out $\vec{x}_{k+1}$ in terms of $\vec{x}_{k}$, our previously computed solution, ($a_{k+1}$, $b_{k+1}$), $Q_k$, summations, and other known values.
+Although it's bad, just assume that we can invert $Q_{k}$, and correspondingly $A^{T}A$.
+We'll deal with that later.
+
+\sol{
+We get the following after substituting where $A$ is a matrix of our inputs, including our new data.
+\begin{align*}
+Q_{k+1} = A^{T}A = \left(\sum_{i = 1}^{k+1} A^{T}[i]A\{i\}\right) \\
+\vec{x}_{k+1} = Q^{-1}_{k+1}\left[Q_{k}\vec{x}_{k} + A^{T}[k+1]b_{k+1}\right] \\
+\end{align*}
+Notice that we now have a recursive way to update our least squares solution.
+
+Substituting $Q_{k+1} = Q_{k} + A^{T}[k+1]A\{k+1\}$, we get:
+\begin{align*}
+\vec{x}_{k+1} = \vec{x}_{k} + Q^{-1}_{k+1}A^{T}[k+1]\left(b_{k+1} - A\{k+1\}\vec{x}_{k}\right)
+\end{align*}
+}
+
+\qitem
+Why is this recursive solution actually not much of an improvement over just recomputing the entire least squares solution?
+
+\sol{
+It's not much of an improvement because we still have to invert $A^{T}A$!
+As it turns out however, there's also a recursive way to compute the inverse of $Q_{k+1}$ given $Q_{k}$ similar to how we can compute $x_{k+1}$ in terms of $x_{k}$ and our new datapoints, but we won't talk about it here.
+Using the recursive inversion technique for $A^{T}A$ results in an order of magnitude speed up over recomputing the entire least squares solution. 
+}
+
+
+\end{enumerate}
