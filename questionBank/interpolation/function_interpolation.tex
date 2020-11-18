@@ -10,20 +10,20 @@
 	\sol{ Since we have 4 data points to use, each at the interval (or $\delta$) of $\frac{\pi}{2}$, we can get our $\phi(x)$ for each point according to the equation
 	\begin{align*}
 	\phi(x) = \begin{cases}
-	                1-\frac{1-\mid x \mid}{\frac{\pi}{2}} & |x| \leq \delta \\
+	                1-\frac{\mid x \mid}{\frac{\pi}{2}} & |x| \leq \delta \\
 	      			0 & \text{else} \\
 	   		    \end{cases}
 	\end{align*}
 	Plugging in x for each point we get:
 	\begin{align*}
 	\phi (x) = \begin{cases}
-	                1-\frac{1-\mid x-\frac{\pi}{4} \mid}{\frac{\pi}{2}} & |x|\leq\delta \\
+	                1-\frac{\mid x-\frac{\pi}{4} \mid}{\frac{\pi}{2}} & |x|\leq\delta \\
 	      			0 & \text{else} \\
 	   		    \end{cases}
 	\end{align*}
 	\begin{equation*}
 	\phi(x) = \begin{cases}
-	                1-\frac{1-\mid x-\frac{3\pi}{4} \mid}{\frac{\pi}2} & |x|\leq\delta \\
+	                1-\frac{\mid x-\frac{3\pi}{4} \mid}{\frac{\pi}2} & |x|\leq\delta \\
 	      			0 & \text{else} \\
 	   		    \end{cases}
 	\end{equation*}
