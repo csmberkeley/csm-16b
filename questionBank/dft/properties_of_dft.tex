@@ -1,0 +1,118 @@
+%author Alexander Feng
+
+\qns{Important Properties of the DFT}
+
+In this question, we will prove basic and important properties of the DFT.
+
+Suppose that we have the DFT matrix for a signal sampled at $N$ points is defined as follows:
+
+\begin{align*}
+F_N =
+  \begin{bmatrix}
+  1 & 1 & 1 & \cdots  & 1 \\
+  1 & \omega & \omega^2 & \cdots & \omega^{N-1} \\
+  1 & \omega^2 & \omega^4  & \cdots &  \omega^{2(N-1)}\\
+  \vdots & \vdots & \vdots & & \vdots \\
+  1 & \omega^{N-1} & \omega^{2(N-1)}  & \cdots  & \omega^{(N-1)(N-1)}
+  \end{bmatrix}
+\end{align*}
+
+{\em Note that the DFT we defined is commonly used as a polynomial basis.}
+
+
+\begin{enumerate}
+
+\qitem
+Prove that the columns of the DFT matrix are orthogonal.
+{\em
+Notice that it's easy to make the entire matrix orthogonal.
+}
+
+\sol{
+In order to prove that the DFT columns are orthogonal, it suffices to show that an arbitrary column dot producted with any other column produces 0.
+
+\vspace{0.5em}
+
+Suppose we took the $k^{th}$ column and the $l^{th}$ column where we're zero indexing.
+
+\vspace{0.5em}
+
+We have
+$F_{N}[i] =
+\begin{bmatrix}
+1\\
+\omega^{k}\\
+\omega^{2k}\\
+\vdots\\
+\omega^{l(N-1)}\\
+\end{bmatrix}
+$
+and
+$F_{N}[j] =
+\begin{bmatrix}
+1\\
+\omega^{l}\\
+\omega^{2l}\\
+\vdots\\
+\omega^{l(N-1)}\\
+\end{bmatrix}
+$
+
+\vspace{0.5em}
+
+When we dot product the two columns together, we end up with a summation, which is just a geometric series. Defining $p = \omega^{k+l}$,
+
+\begin{align*}
+\sum^{N-1}_{b=0}(\omega^{bk})\omega^{bl} =  \sum^{N-1}_{b=0}\omega^{b(k+l)} =  \sum^{N-1}_{b=0}(\omega^{(k+l)})^{b} = \frac{1 - p^{N}}{1-p}
+\end{align*}
+
+Recall that $(\omega^{k+l})^{N}$ is just 1.
+Thus, our summation is 0 and columns of the DFT are orthogonal.
+
+}
+
+\qitem What happens when you take a column of a DFT matrix and dot product it with itself?
+
+\sol{
+You can just apply the same idea as part (a), and you should arrive at the conclusion that a DFT column dotted with itself results in $N$, the size of the matrix.
+}
+
+
+\qitem
+How do I make it so that the DFT matrix we defined becomes an orthonormal matrix?
+{\em HINT: An orthonormal matrix is a matrix that when multiplied with itself gives us the identity}
+
+\sol{
+We just need to normalize all the columns so that they're unit vectors.
+From part (b), that just means multiplying the matrix $F_{N}$ by the normalization factor $\frac{1}{\sqrt{N}}$.
+The matrix $\frac{1}{\sqrt{N}}{F_{N}}$ is called the synthesis matrix or orthonormal DFT basis.
+}
+
+\qitem What's the inverse of $F_{N}$?
+
+\sol{
+$\frac{1}{N}{F^{\dagger}_{N}}$
+}
+
+\qitem
+What's the sum of the roots of unity?
+
+\sol{
+The roots of unity perfectly slice the unit circle in $n$ pieces if we're working with $n$ roots.
+Thus, the sum of the roots is zero.
+Alternatively, you can use a geometric summation to prove that the roots of unity sum to 0.
+}
+
+\qitem
+Prove that multiplying the roots of unity by a nonzero number results in the same sum as not multiplying.
+
+\sol{
+Using a geometric summation from part (e), we can factor out the nonzero number.
+The summation still adds up to 0.
+Thus, multiplying the roots of unity by a nonzero number doesn't change the sum.
+}
+
+
+
+
+\end{enumerate}
