@@ -11,7 +11,7 @@ It may be nice to have a picture of a clock and draw out the samples. Important 
 }
 
 \begin{enumerate}
-\qitem We are told that the frequency is shorter than our sample time. We time the minute hand every 15 seconds, starting when the minute hand points to 12. We get the following samples:
+\qitem We are told that the frequency is shorter than our sample time. We time the minute hand every 15 seconds, starting when the minute hand points to 12. We get the following samples (which are above the nyquist frequency):
 (seconds, position), (0, 12:00), (15, 6:00), (30, 12:00), (45, 6:00) 
 What is the minute-hand’s frequency?
 
@@ -26,7 +26,7 @@ The minute hand is moving around the clock every 10 seconds, or .1 Hz
 What is the minute-hand’s frequency?
 
 \sol{
-We can’t determine this frequency exactly. For instance, it could be the same as before (10 seconds per revolution, or .1 Hz) or it could be 8.333 seconds per revolution, or .12 Hz. The signal remains ambiguous.
+We can’t determine this frequency exactly. For instance, it could be the same as before (10 seconds per revolution, or .1 Hz) or it could be 16.667 seconds per revolution, or .24 Hz. The signal remains ambiguous.
 }
 
 \qitem What is the slowest you can sample a clock hand (given that you know its frequency) and still retain enough information to reconstruct the original signal?
