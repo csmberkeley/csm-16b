@@ -31,7 +31,8 @@ When we apply the DFT to a vector of sample points, the elements of the resultin
 The first element (index 0) of $\vec{X}$ is $N$ times whatever constant/DC term is present in the signal. \\
 For every wave of the form $A\cos(\frac{2\pi}{N}(kt) + \phi)$, the $k^{\text{th}}$ index (again, zero-indexed) of $\vec{X}$ is $\frac{AN}{2}e^{j\phi}$,
 and the $(N - k)^{\text{th}}$ index of $\vec{X}$ is the complex conjugate of the $k^{\text{th}}$ element, or $\frac{AN}{2}e^{-j\phi}$.
-\meta{Feel free to skip (a) and (b) if your students have a good grasp on convolution.}
+\meta{
+At a high level, the DFT is extracting information about each frequency of the signal. It might be helpful to relate the DFT to convolution if your students have a good grasp on convolution.}
 
 \begin{enumerate}
 
@@ -132,6 +133,9 @@ We can get samples of a time-domain signal by evaluating it at different points 
 
 \qitem
 How do the elements of the $\vec{X}$ correspond to your original signal?
+{\em HINT:
+It might be helpful to look at the phasor representations for the signal.
+}
 
 \sol{
     The element at index $2$ is $N$ times the phasor representation of our signal with frequency $\frac{4\pi}{5}$,
