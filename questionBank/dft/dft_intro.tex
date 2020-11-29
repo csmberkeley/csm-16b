@@ -14,7 +14,7 @@ The DFT matrix for a signal sampled at $N$ points is defined as follows:
 
 \begin{align*}
 F_N =
-\begin{bmatrix}
+\frac{1}{\sqrt{N}} \begin{bmatrix}
 1 & 1 & 1 & \cdots & 1 \\
 1 & \omega_N^{-1} & \omega_N^{-2} & \cdots & \omega_N^{-(N-1)} \\
 1 & \omega_N^{-2(1)} & \omega_N^{-2(2)} & \cdots & \omega_N^{-2(N-1)} \\
@@ -28,9 +28,9 @@ Recall that $\omega_N$ is the basis $N^{th}$ root of unity, defined as $\omega_N
 
 \vspace{0.5em}
 When we apply the DFT to a vector of sample points, the elements of the resulting $\vec{X}$ correspond to the frequencies present in the signal. \\
-The first element (index 0) of $\vec{X}$ is $N$ times whatever constant/DC term is present in the signal. \\
-For every wave of the form $A\cos(\frac{2\pi}{N}(kt) + \phi)$, the $k^{\text{th}}$ index (again, zero-indexed) of $\vec{X}$ is $\frac{AN}{2}e^{j\phi}$,
-and the $(N - k)^{\text{th}}$ index of $\vec{X}$ is the complex conjugate of the $k^{\text{th}}$ element, or $\frac{AN}{2}e^{-j\phi}$.
+The first element (index 0) of $\vec{X}$ is $\sqrt{N}$ times whatever constant/DC term is present in the signal. \\
+For every wave of the form $A\cos(\frac{2\pi}{N}(kt) + \phi)$, the $k^{\text{th}}$ index (again, zero-indexed) of $\vec{X}$ is $\frac{A\sqrt{N}}{2}e^{j\phi}$,
+and the $(N - k)^{\text{th}}$ index of $\vec{X}$ is the complex conjugate of the $k^{\text{th}}$ element, or $\frac{A\sqrt{N}}{2}e^{-j\phi}$.
 \meta{
 At a high level, the DFT is extracting information about each frequency of the signal. It might be helpful to relate the DFT to convolution if your students have a good grasp on convolution.}
 
@@ -47,7 +47,7 @@ The columns of the DFT matrix are its basis vectors.
 Following the hint, the $k^{th}$ DFT basis vector is the $k^{th}$ column of the DFT matrix. For $N$ = 5 and an arbitrary $k$,
 \begin{align*}
 \vec{v_k} =
-\begin{bmatrix}
+\frac{1}{\sqrt{5}} \begin{bmatrix}
 1 \\
 e^{-kj\frac{2\pi}{5}} \\
 e^{-2kj\frac{2\pi}{5}} \\
@@ -55,7 +55,7 @@ e^{-3kj\frac{2\pi}{5}} \\
 e^{-4kj\frac{2\pi}{5}} \\
 \end{bmatrix}
 =
-\begin{bmatrix}
+\frac{1}{\sqrt{5}} \begin{bmatrix}
 1 \\
 e^{-\frac{2{\pi}kj}{5}} \\
 e^{-\frac{4{\pi}kj}{5}} \\
@@ -76,7 +76,7 @@ Use the general formula from the previous part to fill in the full matrix.
 Using the formula above, we get:
 \begin{align*}
 F_5 =
-\begin{bmatrix}
+\frac{1}{\sqrt{5}} \begin{bmatrix}
 1 & 1 & 1 & 1 & 1 \\
 1 & e^{-j\frac{2\pi}{5}} & e^{-2j\frac{2\pi}{5}} & e^{-3j\frac{2\pi}{5}} & e^{-4j\frac{2\pi}{5}} \\
 1 & e^{-2j\frac{2\pi}{5}} & e^{-4j\frac{2\pi}{5}} & e^{-6j\frac{2\pi}{5}} & e^{-8j\frac{2\pi}{5}} \\
@@ -126,7 +126,7 @@ We can get samples of a time-domain signal by evaluating it at different points 
     \begin{align*}
         \vec{X} =
         \begin{bmatrix}
-        0 && 0 && \frac{5}{2}e^{\frac{\pi}{2}j} && \frac{5}{2}e^{-\frac{\pi}{2}j} && 0
+        0 && 0 && \frac{\sqrt{5}}{2}e^{\frac{\pi}{2}j} && \frac{\sqrt{5}}{2}e^{-\frac{\pi}{2}j} && 0
         \end{bmatrix}^T
     \end{align*}
 }
@@ -150,14 +150,14 @@ f(t) = 3\cos(\frac{2\pi}{5}t)
 \begin{align*}
 f(t) = 3\cos(\frac{8\pi}{5}t)
 \end{align*}
-What do you get for your sample vector, and what do youout of the DFT for each signal?
+What do you get for your sample vector, and what do you get of the DFT for each signal?
 Is it what you expect? \\
 If it is not what you expect, think about why. What could you do to fix this?
 
 \meta{
     The motivation behind this part is to get students started thinking about aliasing.
     They should notice that they get the exact same $\vec{x}$ for the two signals, even though the signals have different frequencies.
-    Try to guide them towards the realization that we need to sample faster to pick up higher freuencies with the DFT.
+    Try to guide them towards the realization that we need to sample faster to pick up higher frequencies with the DFT.
 }
 
 \sol{
@@ -175,7 +175,7 @@ If it is not what you expect, think about why. What could you do to fix this?
     \begin{align*}
         \vec{X} =
         \begin{bmatrix}
-        0 && \frac{15}{2} && 0 && 0 && \frac{15}{2}
+        0 && \frac{3\sqrt{5}}{2} && 0 && 0 && \frac{3\sqrt{5}}{2}
         \end{bmatrix}^T
     \end{align*}
 
