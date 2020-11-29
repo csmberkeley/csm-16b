@@ -38,7 +38,7 @@ Suppose we took the $k^{th}$ column and the $l^{th}$ column where we're zero ind
 \vspace{0.5em}
 
 We have
-$F_{N}[i] =
+$F_{N}[k] =
 \begin{bmatrix}
 1\\
 \omega^{k}\\
@@ -48,7 +48,7 @@ $F_{N}[i] =
 \end{bmatrix}
 $
 and
-$F_{N}[j] =
+$F_{N}[l] =
 \begin{bmatrix}
 1\\
 \omega^{l}\\
@@ -88,10 +88,17 @@ From part (b), that just means multiplying the matrix $F_{N}$ by the normalizati
 The matrix $\frac{1}{\sqrt{N}}{F_{N}}$ is called the synthesis matrix or orthonormal DFT basis.
 }
 
-\qitem What's the inverse of $F_{N}$?
+\qitem What's the inverse of $F_{N}$ (not the orthonormal version from part c)?
+
+\meta { 
+$F^{\star}_{N}$
+Is the conjugate transpose of $F_N$.
+The Lecture uses $\frac{1}{\sqrt{N}}$ for the DFT Matrix.
+}
 
 \sol{
-$\frac{1}{N}{F^{\dagger}_{N}}$
+$\frac{1}{N}{F^{\star}_{N}}$
+%$\frac{1}{N}{F^{\dagger}_{N}}$
 }
 
 \qitem
@@ -104,7 +111,7 @@ Alternatively, you can use a geometric summation to prove that the roots of unit
 }
 
 \qitem
-Prove that multiplying the roots of unity by a nonzero number results in the same sum as not multiplying.
+"Prove that multiplying all the roots of unity by a nonzero number results in the same sum (as if multiplying had no effect)"
 
 \sol{
 Using a geometric summation from part (e), we can factor out the nonzero number.
