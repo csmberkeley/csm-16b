@@ -1,4 +1,4 @@
-\qns{DFT Secret Code}
+\qns{[OPTIONAL] DFT Secret Code}
 
 Your friend sends you a secret message in the form of a voltage signal, with a cipher that depends on the DFT of the signal. You decide to sample the signal at 2 Hz and get the following data:
 \newline
@@ -41,7 +41,7 @@ Your friend sends you a secret message in the form of a voltage signal, with a c
         Representing the $k^{\text{th}}$ DFT basis vector as $\vec{\phi}_k(n) = e^{jk(\pi/2)n}$, we can rewrite $\vec{x}$ as
         $$\vec{x} = \vec{\phi}_1 + 2\vec{\phi}_2 + \vec{\phi}_3$$
         So,
-        $$\vec{X} = \begin{bmatrix} 0 & 1 & 2 & 1 \end{bmatrix}^T$$
+        $$\vec{X} = \begin{bmatrix} 0 & \sqrt{N} & 2\sqrt{N} & \sqrt{N} \end{bmatrix}^T = \begin{bmatrix} 0 & 2 & 4 & 2 \end{bmatrix}^T$$
     }
 
     \qitem When you try to decode the message, you get nonsense! Why could this be the case? \\
@@ -88,7 +88,7 @@ Your friend sends you a secret message in the form of a voltage signal, with a c
         Representing the $k^{\text{th}}$ DFT basis vector as $\vec{\phi}_k(n) = e^{jk(\pi/5)n}$, we can rewrite $\vec{x}$ as
         $$\vec{x} = \vec{\phi}_2 + 2\vec{\phi}_5 + \vec{\phi}_8$$
         So,
-        $$\vec{X} = \begin{bmatrix} 0 & 0 & 1 & 0 & 0 & 2 & 0 & 0 & 1 & 0 \end{bmatrix}^T$$
+        $$\vec{X} = \begin{bmatrix} 0 & 0 & \sqrt{10} & 0 & 0 & 2\sqrt{10} & 0 & 0 & \sqrt{10} & 0 \end{bmatrix}^T$$
     }
 
 \end{enumerate}
