@@ -60,3 +60,105 @@ $$\Sigma^{\dagger} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0
 \textit{Note}: This is another, sometimes computationally easier, form of the pseudoinverse:
 $$\vec{u}_k = \mathcal{C}_k^T(\mathcal{C}_k\mathcal{C}_k^T)^{-1}\vec{x}(k)$$
 See Sp20: Note 11B for more information.
+
+\newpage
+
+\subsection*{Signals}
+\textbf{Sampling} \\
+
+\textbf{Convolution} \\
+With a discrete-time signal in our grasp, we will want to 
+
+\textbf{Interpolation} \\
+We saw that \textbf{sampling} lets us take a signal defined in continuous-time and convert it to a discrete-time representation.
+The inverse problem to this is \textbf{interpolation}, which is all about going from a discrete-time representation of a signal $x[i]$ to the continuous-time representation $x(t)$.
+
+\includegraphics[width=\textwidth]{figures/interp_ex}
+
+We may formalize the problem as follows: Given a discrete-time signal $x[i]$ with sampling period $\Delta$ (and therefore sampling frequency $\frac{1}{\Delta}$), we aim to generate a continuous-time signal $x(t)$ such that 
+
+\begin{equation*}
+\forall i \in \mathbb{Z}, x(i \Delta) = x[i]
+\end{equation*}
+
+In words, this means that our interpolated signal $x(t)$ must go through each sample from the discrete-time signal $x[i]$.
+This is the main point which causes interpolation to differ from \textbf{regression}.
+With regression, we also seek to extrapolate information from sampled data, however we don't seek to exactly fit the sampled data.
+Instead, we aim to find the best approximation.
+On the other hand, for a continuous-time signal to be a valid interpolation of a discrete-time signal, the continuous time signal \textbf{must} pass through each point specified by the discrete-time signal.
+\newline
+There are many ways to go about interpolation, but for 16B many of these ways all follow the same form.
+
+\textbf{Basis Functions} \\
+Recall that for a given vector space, we can form any vector in that vector space with a linear combination of a set of basis vectors.
+Similarly, we are going to view interpolation through the lens of representing a continuous time signal as a linear combination of shifted basis functions, with weights determined by values of the of the discrete time signal.
+\newline
+For a basis function $\phi(t)$ to be valid, it must satisfy
+
+\begin{equation*}
+    \phi(0) = 1
+\end{equation*}
+and
+\begin{equation*}
+    \phi(k \Delta) = 0, k \in \mathbb{Z} \setminus 0
+\end{equation*}
+
+With these conditions satisfied, $\phi(t)$ produces the following interpolation: 
+
+\begin{equation*}
+    x(t) = \sum_{k=-\infty}^{k=\infty} x[k] \phi(t - k \Delta)
+\end{equation*}
+
+Essentially, for every sample in our discrete-time signal, we shift our basis function to that sample, scale by the value of the sample, and and add together all these shifted and scaled basis functions to produce our interpolation. The previously established conditions on $\phi(t)$ ensure that this shifting, scaling, and adding results in a valid interpolation, which we prove by confirming $x(i \Delta) = x[i]$.
+\begin{equation*}
+    x(i \Delta) = \sum_{k=-\infty}^{k=\infty} x[k] \phi(i \Delta - k \Delta
+\end{equation*}
+Using the defined properties of our basis function $\phi(t)$, we can simplify the summation.
+\begin{align*}
+\phi(i \Delta - k \Delta)
+    &=
+    \begin{cases}
+        1 & i = k \\
+        0 & \text{otherwise} \\
+    \end{cases} \\
+\sum_{k=-\infty}^{k=\infty} x[k] \phi(i \Delta - k \Delta) &= x[i] \\
+x(i \Delta) &= x[i]
+\end{align*}
+
+Therefore, basis functions give us a valid interpolation. We will see different ways we can define our basis funtion to get many different interpolations, each with their own strenghts and drawbacks.
+
+\textbf{Zero-Order Hold Interpolation} \\
+The zero-order hold is the the interpolation we get when we hold the value of each sample in our discrete-time signal constant over the sampling interval.
+
+\includegraphics[width=\textwidth]{figures/zoh_ex}
+
+Formally, we may define the interpolation as
+\begin{equation*}
+    \forall i \in \mathbb{Z}, x(t) = x[i],\;t \in [i \Delta, (i + 1) \Delta
+\end{equation*}
+
+We can also define this interpolation using the basis function formulation.
+\begin{equation*}
+    \phi(t) = 
+    \begin{cases}
+    1 & t \in [0, \Delta) \\
+    0 & \text{otherwise} \\
+    \end{cases}
+\end{equation*}
+
+\textbf{Linear Interpolation} \\
+\includegraphics[width=\textwidth]{figures/lin_basis}
+
+
+\textbf{Polynomial Interpolation} \\
+
+\textbf{Sinc Interpolation} \\
+\includegraphics[width=\textwidth]{figures/sinc_basis}
+
+
+
+
+
+\textbf{Nyquist Sampling Theorem and Aliasing} \\
+
+
