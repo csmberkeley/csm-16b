@@ -1,0 +1,62 @@
+\renewcommand{\arraystretch}{1.25}
+\subsection*{Applications of the SVD}
+\textbf{Principal Component Analysis}
+
+\textit{Principal Component Analysis} (PCA) is a procedure that uses the SVD to analyze data by finding the directions of maximum "spread" or variation. Some of its uses include visualizing high dimensional data and revealing patterns that are useful to perform classification.\\
+\newline
+Below, we show the steps of performing PCA, as well as visualizations on a two dimensional dataset:
+
+\includegraphics[width=\textwidth]{figures/pca-steps}
+
+In summary,
+\begin{enumerate}
+    \item We first \textbf{demean} the data. If each datapoint is represented as a \textit{row}, then we are going to want to find the mean of each \textit{column} and subtract it from every element in that column to make it \textbf{zero-mean}. If each datapoint is a \textit{column}, we want every \textit{row} to be zero-mean.
+    \item If each datapoint is a \textit{row} (as in the previous example), the covariance matrix is $\frac{1}{n} \widetilde{X}^T\widetilde{X}$, and the \textit{principal components} are the \textbf{columns of $V$} in the SVD (eigenvectors of the covariance matrix). 
+    If each datapoint is a \textit{column}, the covariance matrix is $\frac{1}{n} \widetilde{X}\widetilde{X}^T$, and the \textit{principal components} correspond to the \textbf{columns of $U$}. \\
+    \newline
+    You can think of the covariance matrix as looking at the relation between the quantities we're measuring, and its eigenvectors as the directions in our data with the most variation.
+    \item When you have the principal components, you can \textbf{project datapoints onto the principal components} to see how much of each principal component contributes to that datapoint.
+\end{enumerate}
+
+\newpage
+\textbf{Minimum Norm Control} \\
+Say we have a controllable system of rank $n$:
+\begin{align*}
+    \vec{x}(k + 1) = A\vec{x}(k) + \vec{b}u(k)
+\end{align*}
+ and we want to reach a desired state $\vec{x}_f$ with $k > n$ control inputs. We know we can reach any state in $n$ timesteps, and there are infinitely many ways to reach $\vec{x}_f$ in $k > n$ timesteps. Using the SVD however, we can find the series of control inputs that has the minimum norm. \\
+ \newline
+ Recall from the section on control that we can use the following linear system to solve for the control inputs:
+ \begin{align*}
+    \vec{x}(k) = \mathcal{C}_k \vec{u}_k
+\end{align*}
+\begin{align*}
+    \vec{x}(k) = \begin{bmatrix}
+        \vec{b} & A\vec{b} & \cdots & A^{k - 1} \vec{b}
+    \end{bmatrix} \begin{bmatrix}
+        u(k - 1) \\ \vdots \\ u(0)
+    \end{bmatrix}
+ \end{align*}
+
+To solve for the minimum norm solution, we use the \textbf{Moore-Penrose Pseudoinverse}, a generalization of matrix inverses for rectangular matrices using the full SVD of a matrix. We denote the pseudoinverse with a dagger, and the solution will be $\vec{u}_k = \mathcal{C}_k^{\dagger} \vec{x}(k).$ 
+This solution is special because it has \textbf{minimum norm}; that is, if we have another solution $\vec{z},$ such that $\mathcal{C}_k \vec{z} = \vec{x}(k),$ then $\norm{\vec{u}_k} \leq \norm{z}.$
+
+To compute the pseudoinverse, we invert each element of the SVD one at a time:
+\begin{align*}
+    \mathcal{C}_k \vec{u}_k &= \vec{x}(k) \\
+    U \Sigma V^T \vec{u}_k &= \vec{x}(k)\\
+    (U^T U) \Sigma V^T \vec{u}_k &= U^T \vec{x}(k) \\
+    (\Sigma^{\dagger} \Sigma) V^T \vec{u}_k &= \Sigma^{\dagger} U^T \vec{x}(k) \\
+    (V V^T) \vec{u}_k &= V \Sigma^{\dagger} U^T \vec{x}(k) \\
+    \vec{u}_k &= V \Sigma^{\dagger} U^T \vec{x}(k) \\
+    \implies \vec{u}_k &= \mathcal{C}_k^{\dagger} \vec{x}(k)
+\end{align*}
+
+We can calculate $\Sigma^{\dagger}$ accordingly to produce an identity matrix such that the term $\Sigma^{\dagger}\Sigma$ disappears:
+
+$$\Sigma^{\dagger} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\ 
+    \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
+
+\textit{Note}: This is another, sometimes computationally easier, form of the pseudoinverse:
+$$\vec{u}_k = \mathcal{C}_k^T(\mathcal{C}_k\mathcal{C}_k^T)^{-1}\vec{x}(k)$$
+See Sp20: Note 11B for more information.
