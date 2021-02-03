@@ -27,8 +27,8 @@ with initial conditions $x_1(0) = 3$ and $x_2(0) = 3$.
 }
 
 \sol{
-	We define our state variable $\vec{x} = \begin{bmatrix}x_1(t) \\ x_2(t)\end{bmatrix}.$
-	$$\ddt{}{t} \vec{x}(t) = \begin{bmatrix}\frac{d}{dt}x_1(t) \\ \frac{d}{dt}x_2(t)\end{bmatrix} = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix}\begin{bmatrix}x_1(t) \\ x_2(t)\end{bmatrix} = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix} \vec{x}$$
+	We define our state variable $\vec{x}(t) = \begin{bmatrix}x_1(t) \\ x_2(t)\end{bmatrix}.$
+	$$\ddt{}{t} \vec{x}(t) = \begin{bmatrix}\frac{d}{dt}x_1(t) \\ \frac{d}{dt}x_2(t)\end{bmatrix} = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix}\begin{bmatrix}x_1(t) \\ x_2(t)\end{bmatrix} = \begin{bmatrix}5 & 2 \\ -8 & -5\end{bmatrix} \vec{x}(t)$$
 
 	The initial condition is:
     $$\vec{x}(0) = \begin{bmatrix}x_1(0) \\ x_2(0)\end{bmatrix} =\begin{bmatrix}3 \\ 3\end{bmatrix} $$
@@ -64,13 +64,13 @@ with initial conditions $x_1(0) = 3$ and $x_2(0) = 3$.
 	We can find the eigenspaces by looking at the null-spaces of $A - \lambda I.$
 
 	For $\lambda_1 = -3,$
-	$$ A + 3I = \begin{bmatrix} 5 - (-3) & 2 \\ -8 & -5 - (-3) \end{bmatrix} \vec v_{1} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
+	$$ (A + 3I) \vec v_{1}= \begin{bmatrix} 5 - (-3) & 2 \\ -8 & -5 - (-3) \end{bmatrix} \vec v_{1} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
     $$ \begin{bmatrix} 8 & 2 \\ -8 & -2 \end{bmatrix} \vec v_{1} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
     $$\vec v_{1} = \begin{bmatrix} -1 \\ 4\end{bmatrix} $$
 
 	For $\lambda_1 = 3,$
-	$$A - 3I = \begin{bmatrix} -4 + 2 & 1 \\ 2 & -3 + 2 \end{bmatrix} \vec v_{\lambda_2} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
-	$$ \begin{bmatrix} -2 & 1 \\ 2 & -1 \end{bmatrix} \vec v_{2} = \begin{bmatrix} 0 \\ 0\end{bmatrix}$$
+	$$ (A - 3I) \vec v_{2} = \begin{bmatrix} 5 - 3 & 2 \\ -8 & -5 - 3 \end{bmatrix} \vec v_{\lambda_2} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
+	$$ \begin{bmatrix} 2 & 2 \\ -8 & -8 \end{bmatrix} \vec v_{2} = \begin{bmatrix} 0 \\ 0\end{bmatrix}$$
 	$$\vec v_{2} = \begin{bmatrix} -1 \\ 1\end{bmatrix} $$
 }
 
