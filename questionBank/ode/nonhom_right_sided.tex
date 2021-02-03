@@ -4,7 +4,7 @@
 \qns{Non-homogeneous Differential Equations}
 
 \meta {
-	Prereqs: Solving a first-order homogeneous differential equation. 
+	Prereqs: Solving a first-order homogeneous differential equation.
 }
 
 Ordinary differential equations play a key role in modeling physical and electrical systems.
@@ -28,9 +28,15 @@ Now consider the following non-homogeneous differential equation with initial co
 \end{equation}
 
 \begin{enumerate}
-\qitem To solve this, we want to come up with a change of variables $\widetilde{x}(t)$ such that $\frac{d}{dt} \widetilde{x}(t) = \alpha \widetilde{x}(t)$. 
+\qitem To solve this, we want to come up with a change of variables $\widetilde{x}(t)$ such that $\frac{d}{dt} \widetilde{x}(t) = \alpha \widetilde{x}(t)$.
 
 \textbf{Write out $\widetilde{x}(t)$ in terms of $x(t)$.} \\
+
+\ws{
+	\vspace{75px}
+}
+
+
 \sol {
 	We want our change of variables to satisfy two conditions:
 	\begin{align*}
@@ -47,7 +53,7 @@ Now consider the following non-homogeneous differential equation with initial co
 Don't forget about the initial condition!
 
 \ws{
-	\vspace{75px}
+	\vspace{120px}
 }
 
 \meta {
@@ -55,26 +61,26 @@ Don't forget about the initial condition!
 }
 
 \sol{
-  Since $\alpha \widetilde{x}(t) = \alpha x(t) + \beta,$ and $\ddt{}{t}x(t) = \ddt{}{t}\widetilde{x}(t).$ 
+  Since $\alpha \widetilde{x}(t) = \alpha x(t) + \beta,$ and $\ddt{}{t}x(t) = \ddt{}{t}\widetilde{x}(t).$
   Substituting these values, we see that $\ddt{}{t}\widetilde{x}(t) = \alpha \widetilde{x}(t)$
-  The initial condition will be $\widetilde{x}(0) = x(0) + \beta / \alpha.$ 
+  The initial condition will be $\widetilde{x}(0) = x(0) + \beta / \alpha.$
 }
 
 \qitem \textbf{Does this equation look familiar? How can you solve this equation?}
 
 \ws{
-	\vspace{75px}
+	\vspace{100px}
 }
 
 \sol{
-  This is the homogeneous equation \eqref{eq:h} in terms of $\widetilde{x}(t)!$ 
+  This is the homogeneous equation \eqref{eq:h} in terms of $\widetilde{x}(t)!$
   Since this is a homogeneous differential equation, in terms of $\widetilde{x}(t),$ using the particular solution $x_p(t)$ provided above, our solution is $\widetilde{x}_{p}(t) = \widetilde{x}_{0} e^{\alpha t}.$
 }
 
 \qitem \textbf{What is the final solution $x(t)$?} Assume that $x(0) = x_0$ is a given constant.
 
 \ws{
-	\vspace{75px}
+	\vspace{100px}
 }
 
 \sol{
@@ -139,7 +145,7 @@ At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$
 
 \qitem \textbf{Write out the KCL equations associated with the circuit when the switch is closed.}
 
-\ws{\vspace{75px}}
+\ws{\vspace{120px}}
 
 \meta{
 	To simplify your circuit analysis, mark the negative end of the voltage source as ground.
@@ -158,7 +164,7 @@ At $t=0$, the switch closes. Assume that $V_s=\SI{5}{\volt}$, $R=\SI{100}{\ohm}$
 \qitem \textbf{Write out the differential equation for $V_{\text{C}}(t)$ after the switch closes.}
 
 \ws{
-\vspace{75px}
+\vspace{160px}
 }
 
 \meta{
@@ -186,8 +192,8 @@ Therefore, the voltage of the capacitor equals the voltage source: $V_{C}(t \to 
 $V_{\text{C}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.}
 
 \meta{
-	You can point at equation \eqref{eq:nhs} and find the appropriate values of $\alpha$ and $\beta,$ 
-	but let them know that they are still expected to know how to do the process below. 	
+	You can point at equation \eqref{eq:nhs} and find the appropriate values of $\alpha$ and $\beta,$
+	but let them know that they are still expected to know how to do the process below.
 }
 
 
@@ -198,7 +204,6 @@ $V_{\text{C}}(t)$ in terms of $V_{\text{s}}$, $R$, and $C$.}
 
 	Using substitution of variables:
 	\[x(t) = V_{out}(t)-V_{S}\]
-	\[V_{out}(t)=x(t)+V_{S}\]
 	\[\frac{dV_{out}(t)}{dt}=\frac{dx(t)}{dt}\]
 	\[\frac{dx(t)}{dt}+\frac{1}{RC}x(t)=0\]
 	\[x(t)=Ae^{-\frac{t}{RC}}\]
