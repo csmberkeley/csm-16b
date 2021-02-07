@@ -1,34 +1,34 @@
 % Author: Son Tran
 % Email: sontran@berkeley.edu
 
-\qns{Transfer Functions and Filters}
+\qns{Transfer Functions and Filters (Optional)}
 
-One very common use for AC circuits is as a \emph{filter}.
-A \emph{filter} is a circuit device that blocks a range of specific frequencies.
+Earlier in the worksheet we looked at the notion of phasors and how we can use them for circuits with sinusoidal inputs.
+However, we don't want to perform the earlier computation whenever we have a sinusoidal input.
+We want to understand the circuit from the perspective of an input/output relationship like we did for 16A (ie. voltage divider, amplifier, etc.).
 
-In 16A, we discussed the input-output relationship through a term called gain,
+In 16A, we commonly discussed the input-output relationship of circuits through a term called gain,
 \begin{equation}
 G = \frac{V_{out}(t)}{V_{in}(t)}
 \end{equation}
 
-We will now introduce a similar notion of gain, for frequency called a transfer function.
+Thus, we will now introduce a similar notion of gain, for frequency/phasor analysis called a transfer function.
 The transfer function of a circuit is defined as
 
 \begin{equation}
 H(j \omega) = \frac{\widetilde{V}_{out}}{\widetilde{V}_{in}}
 \end{equation}
 
-The transfer function depends on the frequency of the input voltage, and will be a complex number for a given frequency.
+Notice that the transfer function depends on the frequency of the input voltage, and will be a complex number for a given frequency.
 
-When looking at filters, we will define a transfer function that explains the input-output relation for any given frequency and analyze its behavior.
-For the purposes of this question, we will consider various filter configurations, and study their behavior.
+For the purposes of this question, we will consider various circuit configurations, and study their behavior.
 
-\meta {
-  For this problem, draw out approximate Bode plots on the board for your students, and have them discuss the trends. This may help them understand the idea of a frequency-dependent filter better. Make sure to specifically label the axes (magnitude or phase vs. frequency), which will also reinforce the idea that we are working in the frequency domain, not the time domain.
-
-  Additionally, try to introduce intuition into the response of a capacitor to low frequency and high frequency signals.
-  Understanding the intuition can help shorten the problem solving process for parts a and b and other phasor domain circuits with capacitors.
-}
+% \meta {
+%   For this problem, draw out approximate Bode plots on the board for your students, and have them discuss the trends. This may help them understand the idea of a frequency-dependent filter better. Make sure to specifically label the axes (magnitude or phase vs. frequency), which will also reinforce the idea that we are working in the frequency domain, not the time domain.
+%
+%   Additionally, try to introduce intuition into the response of a capacitor to low frequency and high frequency signals.
+%   Understanding the intuition can help shorten the problem solving process for parts a and b and other phasor domain circuits with capacitors.
+% }
 
 % Normally a voltage can be seen as a sum of multiple sinusoids with different frequencies.
 % Using the idea of superposition in 16A, we can analyze circuits by considering each sinusoid independently, analyzing the effect of the filter for each specific frequency, and then adding up the results.
@@ -58,7 +58,7 @@ For the purposes of this question, we will consider various filter configuration
 
 \begin{enumerate}
 % Part(a)
-\qitem Consider the following RC filter:
+\qitem Consider the following RC circuit:
 
 \input{\bank/filters/filter_transfer/fig_low_pass}
 
@@ -116,7 +116,7 @@ For the purposes of this question, we will consider various filter configuration
 \newpage
 
 % Part(b)
-\qitem Consider the following CR filter:
+\qitem Consider the following CR circuit:
 
 \input{\bank/filters/filter_transfer/fig_high_pass}
 
@@ -169,7 +169,7 @@ For the purposes of this question, we will consider various filter configuration
 
 
 % Part(c)
-\qitem Consider the following cascaded filter (joined by a buffer):
+\qitem Consider the following cascaded circuit (joined by a buffer):
 
 \meta{
 Ask students why the buffer is or isn't necessary.
