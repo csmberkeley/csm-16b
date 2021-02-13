@@ -144,9 +144,10 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
         &= \frac{d}{dt} CV_0 \cos(\omega t + \phi) \\
         &= CV_0 \frac{d}{dt} \cos(\omega t + \phi) \\
         &= CV_0 \frac{d}{dt} \left(\frac{1}{2}e^{j(wt+\phi)} + \frac{1}{2}e^{-j(wt+\phi)}\right)\\
+        &= CV_0 \left((j\omega)\frac{1}{2}e^{j(wt+\phi)} + -(j\omega)\frac{1}{2}e^{-j(wt+\phi)}\right)\\
         %&= \frac{d}{dt} \operatorname{Re}(CV_0 e^{j \phi} e^{j \omega t}) \\
         %&= \operatorname{Re}(\frac{1}{2} j \omega CV_0 e^{j \phi} e^{j \omega t}) \\
-        \implies \widetilde{I}_C &= \frac{1}{2} j \omega C V_0 e^{j \phi} 
+        \implies \widetilde{I}_C &= \frac{1}{2} j \omega C V_0 e^{j \phi}
     \end{align*}
 
     Thus, the impedance of a capacitor is:
@@ -181,8 +182,11 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
     \begin{align*}
         v_L(t) &= L \frac{d}{dt} i_L(t) \\
         &= \frac{d}{dt} L I_0 \cos(\omega t + \phi) \\
-        &= \frac{d}{dt} \operatorname{Re}(\frac{1}{2} L I_0 e^{j \phi} e^{j \omega t}) \\
-        &= \operatorname{Re}(\frac{1}{2} j \omega L I_0 e^{j \phi} e^{j \omega t}) \\
+        &= LI_0 \frac{d}{dt} \cos(\omega t + \phi) \\
+        &= LI_0 \frac{d}{dt} \left(\frac{1}{2}e^{j(wt+\phi)} + \frac{1}{2}e^{-j(wt+\phi)}\right)\\
+        &= LI_0 \left((j\omega)\frac{1}{2}e^{j(wt+\phi)} + -(j\omega)\frac{1}{2}e^{-j(wt+\phi)}\right)\\
+        %&= \frac{d}{dt} \operatorname{Re}(\frac{1}{2} L I_0 e^{j \phi} e^{j \omega t}) \\
+        %&= \operatorname{Re}(\frac{1}{2} j \omega L I_0 e^{j \phi} e^{j \omega t}) \\
         \implies \widetilde{V}_L &= \frac{1}{2} j \omega L I_0 e^{j \phi}
     \end{align*}
 
