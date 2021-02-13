@@ -3,12 +3,13 @@
 
 \qns{Phasor Analysis}
 
-\meta{Prereqs: An understanding of what a phasor is, and what impedances are in a circuit.}
+\meta{Prereqs: An understanding of what a phasor is, and what impedances are in a circuit.
+Note that we're grinding out these phasors in this worksheet for pedagogical reasons.}
 
 Any sinusoidal time-varying function $v(t)$, representing a voltage or a current, can be expressed in the form
 \begin{align}
 v(t) = \widetilde{V}e^{j\omega t} + \overline{\widetilde{V}}e^{-j\omega t},
-\end{align} 
+\end{align}
 For a sinusoidal cosine wave $v(t) = V_{0} \cos(\omega t + \phi),$ a phasor is defined as:
 $$\widetilde{V} = \frac{V_{0}}{2}e^{j\phi{}} \ \  \text{and its complex conjugate}  \ \ \overline{\widetilde{V}} = \frac{V_{0}}{2}e^{-j\phi{}}$$
 
@@ -42,11 +43,11 @@ Our goal is to obtain a solution for $V_{\text{C}}(t)$ and $i(t)$ with the sinus
 \qitem \textbf{Step 1: Convert $v(t)$ as a sum of complex exponentials}
 
 All voltages and currents with known sinusoidal functions should be expressed in the standard exponential format.
-Convert $v_s(t)$ into an exponential and write down its phasor representation $\widetilde{V}_s$.
+\textbf{Convert $v_s(t)$ into an exponential and write down its phasor representation $\widetilde{V}_s$.}
 
 % Note: To make things clear, the standard form of phasors in 16B will include the $\frac{1}{2}$ scalar.
 
-\ws{\vspace{100px}}
+\ws{\vspace{180px}}
 
 \sol{
 \begin{align}
@@ -55,7 +56,7 @@ v_s(t) = 8 \cos(\omega t - \frac{\pi}{4})
 
 The two formulas below will help us convert a sinusoid into a sum of exponentials:
 \begin{gather*}
-\cos(\theta) = \frac{1}{2} e^{j \theta} + \frac{1}{2} e^{-j \theta} \ \ \text{and} \ \ 
+\cos(\theta) = \frac{1}{2} e^{j \theta} + \frac{1}{2} e^{-j \theta} \ \ \text{and} \ \
 \sin(\theta) = \frac{1}{2j} e^{j \theta} - \frac{1}{2j} e^{-j \theta}
 \end{gather*}
 
@@ -86,12 +87,14 @@ The phasor is given by
 \qitem \textbf{Step 2: Transform circuits to phasor domain}
 
 The voltage source is represented by its phasor $\widetilde{V}_s$.
-The current $i(t)$ is related to its phasor counterpart $\widetilde{I}$. 
+The current $i(t)$ is related to its phasor counterpart $\widetilde{I}$.
 % by
 % \begin{align}
 % i(t) = \mathfrak{Re}[I e^{j\omega t}].
 % \end{align}
 What are the phasor representations of $R$ and $C$?
+
+\ws{\vspace{100px}}
 
 \sol{
 \begin{align}
@@ -109,7 +112,9 @@ Z_C &= \frac{1}{j\omega C}
 
 \qitem \textbf{Step 3: Cast KCL and/or KVL equations in phasor domain}
 
-Use Kirchhoff's laws to write down a loop equation that relates all phasors in Step 2. 
+Use Kirchhoff's laws to write down a loop equation that relates all phasors in Step 2.
+
+\ws{\vspace{100px}}
 
 \sol{
 By KCL, the current through the resistor is equal to the current through the capacitor.
@@ -123,7 +128,9 @@ $$\widetilde{V}_s = \widetilde{I} \frac{1}{j \omega C} + \widetilde{I} R = \wide
 \qitem \textbf{Step 4: Solve for unknown variables}
 
 Solve the equation you derived in Step 3 for $\widetilde{I}$ and $\widetilde{V_{\text{c}}}$.
-What is the polar form of $\widetilde{I}$ ($Ae^{i\theta}$, where $A$ is a positive real number)? 
+What is the polar form of $\widetilde{I}$ ($Ae^{i\theta}$, where $A$ is a positive real number)?
+
+\ws{\vspace{100px}}
 
 \sol{
 We first solve for the current $\widetilde{I}:$
@@ -156,7 +163,9 @@ $$\widetilde{V}_{\text{c}} = \frac{1}{10^{-3} j} \frac{2 \sqrt{2}}{10^{3}} = 2 \
 \qitem \textbf{Step 5: Transform solutions back to time domain}
 
 To return to time domain, we apply the fundamental relation between a sinusoidal function and its phasor counterpart.
-What is $i(t)$ and $v_{\text{c}}(t)$? What is the phase difference between $i(t)$ and $v_{\text{c}}(t)$? 
+What is $i(t)$ and $v_{\text{c}}(t)$? What is the phase difference between $i(t)$ and $v_{\text{c}}(t)$?
+
+\ws{\vspace{100px}}
 
 \sol{
 \begin{align}

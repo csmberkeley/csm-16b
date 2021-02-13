@@ -3,6 +3,8 @@
 
 \qns{Complex Numbers (Optional)}
 
+\meta{Tell students that it's not necessary to simplify some of the values as they can be quite complicated and unwieldy. For z = a + bj, you can tell students that b is scaling j, so j acts as a unit vector for the imaginary axis. Likewise, a is multiplying an implicit "1", so it is an "invisible" unit vector for the real axis}
+
 A complex number, $z$, is composed of a real part and imaginary part.
 If $z = a + bj$, then $\mathfrak{Re}(z) = a$ (the real portion equals a), and $\mathfrak{Im}(z) = b$ (the imaginary portion equals b).
 Complex numbers can be expressed in two ways:
@@ -59,6 +61,10 @@ Some handy equations to switch between forms include:
 \begin{enumerate}
 \qitem Convert $10 + 12j$ to polar form.
 
+\ws {
+    \vspace{75px}
+}
+
 \sol{
 $z = a + bj$. We can go from rectangular form to polar form by using the equation $z = |z|e^{j\theta}$, where $|z| = \sqrt{a^2 + b^2}$ and $\theta = \angle z = \tan^{-1}(\frac{b}{a})$.
 $$ z = 10 + 12j $$
@@ -68,6 +74,10 @@ $$ z = \sqrt{244}e^{j \, {\tan^{-1}(\frac{12}{10})}} \approx 15.620e^{0.876j}$$
 }
 
 \qitem Convert $22e^{23j}$ to rectangular form.
+
+\ws {
+    \vspace{75px}
+}
 
 \sol{
 Conversely, for $z = |z|e^{j\theta}$, we can go from polar form to rectangular form by using the equation $z = a + bj$, where $a = |z|\cos(\theta)$ and $b = |z|\sin(\theta)$. So, \\
@@ -127,6 +137,13 @@ $$ z = 22\cos(23) + 22j \sin(23) \approx -11.722 + -18.617j$$
 
 }
 
+\ws{
+\begin{tikzpicture}
+    \draw (0,-4)--(0,4) node[above] {$Im$} (-4,0)--(4,0) node[right] {$Re$};
+    \draw[dashed] (0,0) circle (3) circle (2) circle (1);
+\end{tikzpicture}
+}
+
 \end{enumerate}
 
 \qitem \textbf{Calculate the magnitude and phase of the following:}
@@ -138,6 +155,10 @@ $$ z = 22\cos(23) + 22j \sin(23) \approx -11.722 + -18.617j$$
 
 \qitem {2}
 
+\ws{
+  \vspace{75px}
+}
+
 \sol {
 $$z = 2 + 0j.$$
 $$|z| = \sqrt{2^2 + 0^2} = 2.$$
@@ -145,6 +166,10 @@ $$\angle z = \angle 2 = 0 \, \text{rad}. $$
 }
 
 \qitem $\frac{2}{2j}$
+
+\ws{
+  \vspace{75px}
+}
 
 \sol {
 $$ z = \frac{2}{2j} = (\frac{1}{j})(\frac{j}{j}) = \frac{j}{j^2} = -j = 0 - 1j.$$
@@ -154,6 +179,10 @@ $$\angle z = \angle -j = \frac{3\pi}{2} \, \text{rad}.$$
 
 \qitem $\frac{3j}{5}$
 
+\ws{
+  \vspace{75px}
+}
+
 \sol {
 $$z = 0 + \frac{3}{5}j.$$
 $$|z| = \sqrt{0^2 + \frac{3}{5}^2} = \frac{3}{5}.$$
@@ -161,6 +190,10 @@ $$\angle z = \angle \frac{3}{5}j = \frac{\pi}{2} \, \text{rad}.$$
 }
 
 \qitem $\frac{1+2j}{9+7j}$
+
+\ws{
+  \vspace{75px}
+}
 
 \sol {
 $$z = \frac{1+2j}{9+7j} = \frac{z_a}{z_b}.$$
@@ -172,6 +205,10 @@ $$\angle z = \angle z_a - \angle z_b = \tan^{-1}(\frac{2}{1}) - \tan^{-1}(\frac{
 
 
 \qitem \textbf{Show that $\frac{1}{j} = -j$.}
+
+\ws{
+  \vspace{75px}
+}
 
 \sol{
 The key is to multiply the left-hand side of the equation by $\frac{j}{j}$: \\
@@ -190,7 +227,7 @@ Note that the sum of a complex number and its conjugate is always purely real, b
 \qitem \textbf{Prove graphically that the sum of any complex number and its conjugate is always real.} \textit{Try plotting an an arbitrary complex number and its conjugate.}
 
 \ws{
-    \vspace{100px}
+    \vspace{140px}
 }
 
 \sol{

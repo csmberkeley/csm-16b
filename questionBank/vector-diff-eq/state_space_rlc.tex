@@ -17,7 +17,7 @@ Consider the circuit shown below:
     \end{circuitikz}
 \end{center}
 
-Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch changes state and connects to the voltage source $V_s$.
+Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch changes state and connects to the \text{bf}{constant} voltage source $V_s$.
 
 \meta {
     Explain what it means when the circuit reaches steady state.
@@ -28,7 +28,7 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
 	\qitem \textbf{Find the differential equation for $V_{out}$ for $t\geq0$.} \textit{Hint: Write out the KCL equation.}
 
     \ws {
-        \vspace{75px}
+        \vspace{120px}
     }
 
 	\meta {
@@ -61,7 +61,7 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
     \textbf{Set up a system of differential equations in the form $\vec{x}(t) = A \vec{x}(t)$. What are its initial conditions $\vec{x}(0)$?}
 
     \ws{
-        \vspace{75px}
+        \vspace{120px}
     }
     \sol{
     We know that at $t=0,$ $V_{out}=0$, $i_C=0$, and $i_L=0$. We also know that the voltage on a capacitor and the current through an inductor can't change instantaneously, so it follows that
@@ -76,7 +76,7 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
 	\qitem \textbf{Find the eigenvalues of $A$.}
 
     \ws {
-        \vspace{75px}
+        \vspace{120px}
     }
 
     \sol {
@@ -93,7 +93,7 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
     \qitem \textbf{When are the eigenvalues real, complex, and distinct?} \textit{Hint: When is there a negative under the square root?}
 
     \ws {
-        \vspace{100px}
+        \vspace{120px}
     }
 
     \sol {
@@ -113,9 +113,13 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
     \item \textbf{Case II:} If the eigenvalues are complex, the solution will have a decaying exponential envelope with oscillations inside.
     \item \textbf{Case III:} If there is a unique real eigenvalue, the solution will look like a decaying exponential with rate of decay faster than that of (i).
     \end{itemize}
-    Draw examples of what case I, II, and III look like.
-    Can you explain the intuition behind why these graphs look the way they do?
+
     \textit{Hint: Euler's Formula states that $e^{i\theta} = \cos{\theta} + i\sin{\theta}$}
+    Can you explain the intuition behind why these different eigenvalues have these different cases?
+
+    \meta {
+        Draw out these plots for your students for the three cases.
+    }
 
     % https://tex.stackexchange.com/questions/454298/damped-oscillation-graph-in-latex
     \sol{
@@ -139,10 +143,6 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
         \addplot[color=black, no marks, very thick, smooth] {(exp(-2 * x))};
         \end{axis}
     \end{tikzpicture}
-    }
-
-    \meta {
-        Draw out these plots for your students for the three cases.
     }
 
     \end{enumerate}
