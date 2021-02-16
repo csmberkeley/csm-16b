@@ -1,0 +1,28 @@
+\begin{document}
+
+\def\title{Test}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+\input{\bank/phasors/phasor_impedence_basics.tex}
+\newpage
+\input{\bank/vector-diff-eq/transient_analysis_short.tex}
+\newpage
+\input{\bank/phasors/rlc_circuit.tex}
+\newpage
+
+
+\end{qunlist}
+
+\end{document}
