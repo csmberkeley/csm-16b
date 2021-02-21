@@ -1,0 +1,40 @@
+\begin{document}
+
+\def\title{Worksheet 4}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+\input{\bank/filters/bode_filters.tex}
+
+\clearpage
+
+\input{\bank/filters/filter_design.tex}
+
+\clearpage
+
+\input{\bank/filters/rlc_bandstop.tex}
+
+\clearpage
+
+\input{\bank/statespace/state_space_intro.tex}
+
+\clearpage
+
+\input{\bank/discretization/discretization_intro.tex}
+
+
+
+\end{qunlist}
+
+\end{document}
