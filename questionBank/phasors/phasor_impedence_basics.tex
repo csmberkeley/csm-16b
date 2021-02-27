@@ -7,22 +7,35 @@
 
 \qitem What is Euler's identity?
 
+\ws{\vspace{30px}}
+
 \sol{
 	$e^{j\theta}=\cos(\theta)+j\sin(\theta)$
 }
 
 \qitem Check that $\cos(\theta)=\frac{1}{2}e^{j\theta}+\frac{1}{2}e^{-j\theta}$ holds using Euler's identity.
 
-
-\qitem Given the voltage signal \begin{equation}
-v(t) = V_0 \cos(\omega t + \phi_v)=\frac{V_0}{2}e^{j\omega t+j\phi_v}+\frac{V_0}{2}e^{-j\omega t-j\phi_v}=\frac{V_0}{2}e^{j\phi_v}e^{j\omega t}+\frac{V_0}{2}e^{-j\phi_v}e^{-j\omega t} \end{equation}, what is the phasor form of the signal?
+\ws{\vspace{30px}}
 
 \sol{
-	The coefficient of the $e^{j\omega t}$ term in Equation~\ref{eqn:voltage} is called the phasor form of this signal:
+$e^{-j\theta} = \cos(\theta) - j\sin(\theta)$ because cosine is an even function while sine is odd.
+Thus, $e^{-j\theta} + e^{j\theta} = 2\cos(\theta) \implies \cos(\theta)=\frac{1}{2}e^{j\theta}+\frac{1}{2}e^{-j\theta}$
+}
+
+
+\qitem What is the phasor form of the signal?
+\begin{equation}
+v(t) = V_0 \cos(\omega t + \phi_v) \end{equation}
+\ws{\vspace{30px}}
+
+\sol{
+	The coefficient of the $e^{j\omega t}$ term in equation $(1)$ is called the phasor form of this signal:
 \[\widetilde{V}=\frac{1}{2}V_0e^{j\phi_v}\]
 }
 
 \qitem What is the magnitude and phase of the expression $8 e^{j \frac{\pi}{3}}$?
+
+\ws{\vspace{30px}}
 
 \sol{
 	Magnitude is 8. Phase is $\frac{\pi}{3}$.
@@ -32,13 +45,18 @@ v(t) = V_0 \cos(\omega t + \phi_v)=\frac{V_0}{2}e^{j\omega t+j\phi_v}+\frac{V_0}
 
 \qitem Transform the signal $12 \cos(\omega t - \frac{3\pi}{4})$ to phasor domain, in the form $A e^{jB\pi}$.
 
+\ws{\vspace{30px}}
+
 \sol{
-	
+
 	The phasor form of the signal is $6 e^{j-\frac{3}{4}\pi}$.
 }
 
 
 \qitem What is the impedance of a capacitor $C$?
+
+\ws{\vspace{30px}}
+
 \sol{
 	$\frac{1}{j \omega C}$
 }
@@ -46,21 +64,33 @@ v(t) = V_0 \cos(\omega t + \phi_v)=\frac{V_0}{2}e^{j\omega t+j\phi_v}+\frac{V_0}
 
 
 \qitem What is the impedance of an inductor $L$?
+
+\ws{\vspace{30px}}
+
 \sol{
 	$j \omega L$
 }
 
 
 \qitem What is the impedance of a resistor $R$?
+
+\ws{\vspace{30px}}
+
 \sol{
 	$R$
-}à
+}
 
 
 \qitem What is the impedance of an resistor $R$ and a capacitor $C$ in parallel?
+
+\ws{\vspace{30px}}
+
 \sol{$\frac{R}{1+ j \omega RC}$}
 
 \qitem What is the impedance of an inductor $L$ and a capacitor $C$ in parallel?
+
+\ws{\vspace{30px}}
+
 \sol{ $\frac{j \omega L}{1 - \omega^{2} LC}$}
 
 

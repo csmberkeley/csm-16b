@@ -3,24 +3,24 @@
 
 \qns{Filter Design}
 
-Suppose you have been hired to design a biomedical sensor that can detect and output recordings of Alpha brainwaves in the frequency range $8 \, \text{Hz}$ to $12 \, \text{Hz}$. 
-Unfortunately, our sensor is faulty: it is also picking up Gamma brainwaves in the frequency range $40 \, \text{Hz}$ to $100 \, \text{Hz}$, interfering with our ability to get clean recordings of alpha brainwaves. 
+Suppose you have been hired to design a biomedical sensor that can detect and output recordings of Alpha brainwaves in the frequency range $8 \, \text{Hz}$ to $12 \, \text{Hz}$.
+Unfortunately, our sensor is faulty: it is also picking up Gamma brainwaves in the frequency range $40 \, \text{Hz}$ to $100 \, \text{Hz}$, interfering with our ability to get clean recordings of alpha brainwaves.
 We want to create a new design for our sensor that can remove this interference, giving us a clearer signal.
 
 \begin{enumerate}
-  \qitem What kind of filter could you use to remove this interference? 
-  
-  \sol { 
+  \qitem What kind of filter could you use to remove this interference?
+
+  \sol {
   We should use a low-pass filter. The interference is at a higher frequency than our desired signal, so we filter out the higher frequencies and keep the lower frequencies.
   }
-  
-  \qitem Assume we only have access to resistors and capacitors. \textbf{Sketch the corresponding filter circuit and write out its transfer function.} 
+
+  \qitem Assume we only have access to resistors and capacitors. \textbf{Sketch the corresponding filter circuit and write out its transfer function.}
 
   \sol {
   $$H(j \omega) = \frac{\widetilde{Z}_{out}}{\widetilde{Z}_{in}} = \frac{\frac{1}{j\omega C}}{R + \frac{1}{j \omega C}} = \frac{1}{1 + j\omega RC} = \frac{1}{1 + j \frac{\omega}{\omega_{c}}}$$.
 
   \input{\bank/filters/filter_transfer/fig_low_pass.tex}
-  }   
+  }
 
   \qitem $\omega_{c} = \frac{1}{RC}$ is the cutoff frequency which determines the frequency at which our filter starts attenuating the signal. \textbf{Should we maximize or minimize $\omega_{c}$ to remove as much of the interference as possible?}
 
@@ -32,13 +32,13 @@ We want to create a new design for our sensor that can remove this interference,
 
   \sol {
   20Hz. This is the lowest cutoff frequency we can choose; the Gamma brainwaves will be attenuated more if we choose 20Hz than 32Hz because the transfer function will start filtering at a lower frequency. 10Hz is too low and risks cutting off Alpha brainwaves.
-  }   
+  }
 
   \qitem We only have a 3.3 k$\Omega$ resistor in our workstation. What capacitor value should we use for our filter?
 
   \sol {
   If we want a cutoff frquency of 20Hz, then $f = \frac{\omega_{c}}{2 \pi} = \frac{1}{2 \pi RC} = 20Hz$. So, $C = \frac{1}{2 \pi \cdot 33 \cdot 10^{3} \Omega \cdot 20Hz} = 2.41 \, \mu$F.
-  }   
+  }
 
   \qitem Use a computer to plot the magnitude and phase response of this filter.
 
@@ -118,17 +118,20 @@ We want to create a new design for our sensor that can remove this interference,
     \end{axis}
   \end{tikzpicture}
   \end{figure}
-  }   
+  }
 
-  \qitem We can look at the magnitude phase plots of the previous part, realize that the performance our filter is rather poor. 
+  \qitem We can look at the magnitude phase plots of the previous part, realize that the performance our filter is rather poor.
   $|H(j \omega)|$ at $\SI{40}{\hertz}$ is still around $0.5.$ This is because the Alpha and Delta brainwaves are very close together in frequency, and it takes an entire magnitude for the magnitude of the transfer function to drop by a factor of $10.$ \vskip 1pt
   To combat this, we can cascade two of the low pass filters from the previous part with the same resistor and capacitor values, with a buffer in between as shown below:
 
   \input{\bank/filters/filter_transfer/fig_cascade_band_pass.tex}
 
-  What is the transfer function $H(j \omega),$ and see what the response looks like on a computer. In addition, what would happen if we cascaded a large number of filters together?
+  What is the transfer function $H(j \omega),$ and see what the response looks like on a computer. Why do we include the buffer? In addition, what would happen if we cascaded a large number of filters together?
 
   \sol {
+  We use a buffer to make our analysis easier.
+  Recall that a buffer compartmentalizes the input circuit and output circuit so that no loading occurs.
+
   The transfer function of this circuit would be the product of two low-pass transfer functions. \vskip 1pt
 
   \begin{equation}
@@ -163,7 +166,7 @@ We want to create a new design for our sensor that can remove this interference,
     grid=both, grid style={line width=.1pt, draw=gray!30},
     width=\textwidth * 0.8,
     height=\textwidth / 3.2,
-  ] 
+  ]
     \addplot [domain=8.001:11.999,green,very thick,samples = 200] {alpha(x)};
     \addlegendentry{Alpha Waves}
     \addplot [domain=40.001:100,red,very thick,samples = 200] {gamma(x)};
@@ -270,10 +273,10 @@ We want to create a new design for our sensor that can remove this interference,
   \qitem Where would you want to set the cutoff frequencies?
 
   \sol {
-    We currently want to capture Alpha brainwaves running at 8 to 12 Hz, while filtering out Gamma brainwaves at 40 to 100 Hz, and Delta brainwaves at 0.5 to 4 Hz. We want to space our cutoff frequences as far apart as possible, but also try to put the center frequency as the average of the desired frequency range. Therefore, to space away the Deltas while keeping the Alphas, the low frequency should be set to $\SI{6}{\hertz}.$ The high frequency can vary, You can pick a high cutoff of $\SI{14}{\hertz},$ to put $\SI{10}{\hertz}$ in the center, or you can also choose $\SI{26}{\hertz}$ in between $12$ and $40$ to create a much larger bandwith. 
+    We currently want to capture Alpha brainwaves running at 8 to 12 Hz, while filtering out Gamma brainwaves at 40 to 100 Hz, and Delta brainwaves at 0.5 to 4 Hz. We want to space our cutoff frequences as far apart as possible, but also try to put the center frequency as the average of the desired frequency range. Therefore, to space away the Deltas while keeping the Alphas, the low frequency should be set to $\SI{6}{\hertz}.$ The high frequency can vary, You can pick a high cutoff of $\SI{14}{\hertz},$ to put $\SI{10}{\hertz}$ in the center, or you can also choose $\SI{26}{\hertz}$ in between $12$ and $40$ to create a much larger bandwith.
   }
 
-  \qitem How can we calculate the cutoff frequencies for our filter in terms of R, L, and C? 
+  \qitem How can we calculate the cutoff frequencies for our filter in terms of R, L, and C?
 
   \meta {
     We use $\sqrt{\frac{1}{2}}$ since it is the half power point.
@@ -289,7 +292,7 @@ We want to create a new design for our sensor that can remove this interference,
     We take the square root of both sides, and taking the negative case into account,
     $$(1 - \omega^{2} LC) = \pm \omega RC$$
     Now, we can use the quadratic formula twice, and note that we'll have four solutions, but we will only consider the positive valued ones.
-    $$\omega = \pm \frac{R}{2L} + \sqrt{\big(\frac{R}{2L}\big)^2 + \frac{1}{LC}}$$ 
+    $$\omega = \pm \frac{R}{2L} + \sqrt{\big(\frac{R}{2L}\big)^2 + \frac{1}{LC}}$$
   }
 
   \qitem Let's pick values of $R, L,$ and $C$ to set our cutoff frequencies to those picked in part (i).
@@ -297,9 +300,9 @@ We want to create a new design for our sensor that can remove this interference,
 
   \sol {
     From the previous part, our cutoff frequencies are:
-    $$\omega_{h} = \frac{R}{2L} + \sqrt{\big(\frac{R}{2L}\big)^2 + \frac{1}{LC}}, \ \ \text{and} \ \ \omega_{l} = -\frac{R}{2L} + \sqrt{\big(\frac{R}{2L}\big)^2 + \frac{1}{LC}}.$$ 
+    $$\omega_{h} = \frac{R}{2L} + \sqrt{\big(\frac{R}{2L}\big)^2 + \frac{1}{LC}}, \ \ \text{and} \ \ \omega_{l} = -\frac{R}{2L} + \sqrt{\big(\frac{R}{2L}\big)^2 + \frac{1}{LC}}.$$
     This means that our bandwith is $\Delta \omega = \omega_{h} - \omega_{l} = \frac{R}{L}.$ \vskip 1pt
-    We want to design our circuit with bandwith $\omega = 2 \pi f.$ 
+    We want to design our circuit with bandwith $\omega = 2 \pi f.$
     We will pick a low cutoff frequency, $f_{l} = \SI{6}{\hertz}$ since that will give us the most bandwith possible and is equidistant from the Alpha and Delta waves. \vskip 1pt
     For the high frequency, we can pick $f_{h} = \SI{14}{\hertz},$ to put the center frequency at $\SI{10}{\hertz}.$ meaning our bandwith will be $\SI{8}{\hertz}$ or $\SI{16 \pi}{\radian\per\second}.$ \vskip 0.5pt
 
@@ -320,7 +323,7 @@ We want to create a new design for our sensor that can remove this interference,
   \begin{equation}
   |H(j \omega)| = \frac{\omega R C}{\sqrt{(1 - \omega^2 LC)^2 + (\omega RC)^2}}
   \end{equation}
-  Notice that our signal is attenuated for values of $f$ between $0.5$ and $4,$ and it is also attenuated for values of $f$ above $40.$ 
+  Notice that our signal is attenuated for values of $f$ between $0.5$ and $4,$ and it is also attenuated for values of $f$ above $40.$
   Lastly, for values of $f$ between $8$ and $\SI{12}{\hertz},$ the transfer function is close to $1.$ \vskip 1pt
 
   The plot of $|H(j \omega)|$ is below for both choices of $R,L,C:$
@@ -429,7 +432,7 @@ We want to create a new design for our sensor that can remove this interference,
   \qitem We again notice that while the filter is attenuating the necessary frequencies, it isn't doing that good of a job. Try plotting the responses if we had multiple filters cascaded with buffers similar to part (g).
 
   \sol {
-  We again first plot the response with one buffer. 
+  We again first plot the response with one buffer.
   Notice however, that if we increase the number of buffers, while we attenuate the Delta and Gamma waves, since we are taking the gain to the $n^{th}$ power, we lose a significant amount of gain. Therefore, a tradeoff of attenuating the noise vs getting a stronger gain must be made.
 
   \begin{figure}[h]

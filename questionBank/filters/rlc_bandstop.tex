@@ -49,6 +49,11 @@ H_{notch}(j\omega) = \frac{j(L\omega - \frac{1}{C\omega})}{R + j(L\omega - \frac
 \qitem
 What is the magnitude of the transfer function?
 
+\meta{
+If students are confused on how to calculate the magnitude, emphasize that the magnitude of a fraction is the same as the magnitude of the numerator divided by the denominator.
+You may also find it beneficial to go over the previous worksheets with complex number practice.
+}
+
 \sol{
 \begin{align*}
 \left | H_{notch}(j\omega) \right | =
@@ -58,6 +63,7 @@ What is the magnitude of the transfer function?
 
 \qitem
 Sketch the magnitude of this transfer function.
+\textit{HINT: The name of this question is bandstop filter. What do you think that means?}
 
 \sol{
 \begin{tikzpicture}
@@ -82,7 +88,15 @@ The magnitude of the transfer function is zero precisely when
 \begin{align*}
 L\omega = \frac{1}{C\omega}
 \end{align*}
+
+Everywhere else, the magnitude is approximately one.
+Notice that as $\omega \rightarrow \infty$ or $ \omega \rightarrow 0$, $|H(j\omega)| \approx 1$.
+The steepness of the curve is controlled by our parameters $R, C, \omega$.
+Knowing how fast or slow our curve changes isn't in scope for this course.
 }
+
+
+
 
 \qitem
 How would you describe the behavior of this circuit?
