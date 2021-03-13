@@ -20,6 +20,10 @@ with $x_1(t) = x(t)$ and $x_2(t) = \frac{d}{dt} x(t)$.
 
 \qitem What are the values of the $A$ matrix?
 
+\ws{
+\vspace{30px}
+}
+
 \sol {
 	$$
     A = \begin{bmatrix}
@@ -41,6 +45,10 @@ with $x_1(t) = x(t)$ and $x_2(t) = \frac{d}{dt} x(t)$.
 % }
 
 \qitem Is this continuous time system stable? How would you describe its behavior?
+
+\ws{
+\vspace{50px}
+}
 
 \sol{
 	The eigenvalues of the $A$ matrix will be $\pm j.$
@@ -79,6 +87,10 @@ To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 & k_2 \e
 \begin{enumerate}[resume]
 \qitem We will now try to use our knowledge of controllability to stabilize this system. Is this continuous time system controllable?
 
+\ws{
+\vspace{50px}
+}
+
 \meta {
   Make sure to emphasize that we can only pick every eigenvalue of the system if it is controllable.
   We can also make an unstable system stable, if we can control all of the unstable eigenvalues, but we would not be able to control \textbf{every} eigenvalue for the system.
@@ -95,6 +107,10 @@ To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 & k_2 \e
 }
 
 \item After plugging in our input, $u(t) = K\vec{x}(t),$ what will our new system be? How can you write out this system of differential equations in matrix/vector form?
+
+\ws{
+\vspace{100px}
+}
 
 \sol {
   We know that our $B$ matrix is: $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ and our input $u(t) = k_1 x_1(t) + k_2 x_2(t).$ \vskip 1pt
@@ -131,6 +147,11 @@ To do this, we set $u(t) = K\vec{x}(t)$, where $K = \begin{bmatrix} k_1 & k_2 \e
 \qitem We will define the new matrix derived in the previous part as $A_{cl}$ for the closed loop system.
 What are the eigenvalues of this new matrix $A_{cl}?$
 
+\ws{
+\vspace{125px}
+}
+
+
 \sol {
   We first compute the characteristic polynomial of $A_{cl}.$
   $$\text{det}(A_{cl} - \lambda I) =
@@ -148,6 +169,11 @@ What are the eigenvalues of this new matrix $A_{cl}?$
 \qitem Suppose $k_1 = 1$ and $k_2 = 2,$ what will the eigenvalues of this system be?
 How about when $k_1 = -1$ and $k_2 = -2$?
 
+\ws{
+\vspace{125px}
+}
+
+
 \sol{
 	If $k_1 = 1$ and $k_2 = 2,$ then the eigenvalues will be:
   $$1 \pm \frac{1}{2} \sqrt{4 - 4(1 - 1)} = 0, \ 2$$
@@ -159,6 +185,11 @@ How about when $k_1 = -1$ and $k_2 = -2$?
 }
 
 \qitem What values of $k_1$ and $k_2$ will remove the oscillatory behavior completely and still stabilize the system?
+
+\ws{
+\vspace{75px}
+}
+
 
 \meta{
 Have students sketch out/visualize and understand what varying k do to the eigenvalues.
