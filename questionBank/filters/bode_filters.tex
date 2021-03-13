@@ -8,6 +8,17 @@ Note that the solutions use straight line approximations since those are taught 
 The reality is that the true bode plots wouldn't look like this.
 }
 
+\begin{figure}[h]
+\begin{minipage}{.5\textwidth}
+\input{\bank/filters/filter_transfer/fig_low_pass.tex}
+\captionof{figure}{Low Pass Filter}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\input{\bank/filters/filter_transfer/fig_high_pass.tex}
+\captionof{figure}{High Pass Filter}
+\end{minipage}
+\end{figure}
+
 \begin{enumerate}
 
 \qitem First, consider the following transfer function of a Low-Pass Filter: \vskip 1pt
@@ -16,10 +27,33 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
     \begin{enumerate}
         \qitem What is its cutoff frequency?
 
+        \textit{Hint: Recall that the cutoff frequency is the frequency at which the magnitude of the transfer function is $\frac{1}{\sqrt{2}}$ .}
+
+        \ws{
+        \vspace{100px}
+        }
+
         \sol{
-        $\omega_{c} = \frac{1}{R_{1}C_{1}} = \frac{1}{10^{2} \cdot 10^{-10}} = 10^{8}$
+        The cutoff frequency for a lowpass filter is $\frac{1}{RC}$ as prior problems have shown.
+        Thus, $\omega_{c} = \frac{1}{R_{1}C_{1}} = \frac{1}{10^{2} \cdot 10^{-10}} = 10^{8}$
         }
         \qitem Sketch its phase and magnitude.
+
+        \ws{
+          \begin{figure}[h]
+            \centering
+            \begin{minipage}[b]{0.37\textwidth}
+            \includegraphics[width=1.0\textwidth]{\bank/transfer/figures/bodeblank}
+              \caption*{$|H(\omega)|$}
+
+            \end{minipage}
+            \hspace{2cm}
+            \begin{minipage}[b]{0.37\textwidth}
+            \includegraphics[width=1.0\textwidth]{\bank/transfer/figures/bodeblank}
+              \caption*{$\angle H(\omega)$}
+            \end{minipage}
+          \end{figure}
+        }
 
         \sol{
         Magnitude (log-log scale): According to our Bode plot approximation, the magnitude of $H(\omega)$ is 1 until $\omega_{c}$, after which it decreases linearly with a slope of 1. \\
@@ -69,22 +103,6 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
         \end{tikzpicture}
         }
 
-\ws{
-  \begin{figure}[!ht]
-    \centering
-    \begin{minipage}[b]{0.37\textwidth}
-    \includegraphics[width=1.0\textwidth]{\bank/transfer/figures/bodeblank}
-      \caption*{$|H(\omega)|$}
-
-    \end{minipage}
-    \hspace{2cm}
-    \begin{minipage}[b]{0.37\textwidth}
-    \includegraphics[width=1.0\textwidth]{\bank/transfer/figures/bodeblank}
-      \caption*{$\angle H(\omega)$}
-    \end{minipage}
-  \end{figure}
-}
-
   \meta{
   Intuition behind the magnitude bode plot approximation: until $\omega_{c}$, the $1$ term in the denominator is larger than the $\frac{j\omega}{\omega_{c}}$ term, so $1 + \frac{j\omega}{\omega_{c}}$ can be approximated as $1$, so the entire transfer function is approximated as $1$.
   After $\omega_{c}$, the $\frac{j\omega}{\omega_{c}}$ term in the denominator is larger, so the transfer function can be approximated as $\frac{1}{\frac{j\omega}{\omega_{c}}}$, or $\frac{\omega_{c}}{j\omega}$. \\
@@ -95,9 +113,15 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
   }
     \end{enumerate}
 
+\newpage
+
 \qitem Now consider the transfer function of a High-Pass Filter: $H(\omega) = \frac{j\omega C_{2}R_{2}}{j\omega C_{2}R_{2} + 1}$ where $R_{2} = 1 k\Omega$ and $C_{1} = 10 nF$
     \begin{enumerate}
         \qitem What is its cutoff frequency?
+
+        \ws{
+        \vspace{100px}
+        }
 
         \sol{
         $\omega_{c} = \frac{1}{R_{2}C_{2}} = \frac{1}{10^{3} \cdot 10^{-8}} = 10^{5}$
@@ -168,10 +192,16 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
   \end{figure}
 }
 
+\clearpage
+
 \qitem What happens if we cascade these two filters together with a unity-gain buffer in between them? Consider the resulting transfer function:
   $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1} \cdot \frac{j\omega C_{2}R_{2}}{j\omega C_{2}R_{2} + 1}$
 \begin{enumerate}
   \qitem What are its cutoff frequencies?
+
+  \ws{
+  \vspace{100px}
+  }
 
   \sol{
   The lower cutoff is the cutoff frequency of the high-pass filter:
@@ -181,12 +211,31 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
   }
   \qitem Sketch its phase and magnitude. \textit{Hint: How can we combine the plots of the individual filters together?}
 
+  \ws{
+    \begin{figure}[!ht]
+      \centering
+      \begin{minipage}[b]{0.37\textwidth}
+      \includegraphics[width=1.0\textwidth]{\bank/transfer/figures/bodeblank}
+        \caption*{$|H(\omega)|$}
+      \end{minipage}
+      \hspace{2cm}
+      \begin{minipage}[b]{0.37\textwidth}
+      \includegraphics[width=1.0\textwidth]{\bank/transfer/figures/bodeblank}
+        \caption*{$\angle H(\omega)$}
+      \end{minipage}
+    \end{figure}
+  }
+
   \sol{
   For both the magnitude and the phase plots, you can "add" the high-pass filter to the low-pass filter.
 
+
   \begin{figure}[h]
-  \textbf{Magnitude plot:}
+
+  \begin{center} \textbf{Magnitude plot:} \end{center}
+
   \centering
+
     \begin{tikzpicture}[
       declare function={
         highpass(\omega)= (\omega < 10^5) * (\omega / 10^5) +
@@ -317,46 +366,46 @@ $H(\omega) = \frac{1}{j\omega C_{1}R_{1} + 1}$ where $R_{1} = 100 \Omega$ and $C
       }
     \end{enumerate}
 
-\meta{
-For the bandwith, an easy example can be observed using a notch filter and seeing the width of the gap in it.
-Tell students that for now, the Q-factor is just a metric for measuring resonancy and that a more deeper understanding of them is likely  not necessary.
-Though this can change depending on how far Prof. Sanders goes.
-}
+% \meta{
+% For the bandwith, an easy example can be observed using a notch filter and seeing the width of the gap in it.
+% Tell students that for now, the Q-factor is just a metric for measuring resonancy and that a more deeper understanding of them is likely  not necessary.
+% Though this can change depending on how far Prof. Sanders goes.
+% }
 
-Now lets take a look at two more concepts, \textbf{bandwidth} and \textbf{Q-factor}. The bandwidth of a resonance
-circuit is the difference between its upper and lower cutoff frequencies. It can also be expressed as \textit{resonance frequency} divided by its \textit{Q-factor}:
-
-\begin{align}
-    bandwidth = \Delta \omega = f_{high} - f_{low} = \frac{\omega_n}{Q}
-\end{align}
-
-The Q-factor, or quality factor, of a circuit is the ratio of power stored to power dissipated, but can also be more simply thought of as the measure of how good a circuit is,
-where a higher Q-factor is often more desirable. This can be expressed mathematically as:
-
-\begin{align}
-    Q = \frac{\omega_{n}}{\Delta \omega}
-\end{align}
-
-\meta{
-Circuits that have low bandwidths relative to their center frequency will have higher Q-factors.
-}
-
-  \begin{enumerate}[resume]
-    \qitem Find the bandwidth of this circuit.
-
-    \sol{
-    $$\Delta \omega = \omega_{c,u} - \omega_{c,l} = \frac{1}{R_{1}C_{1}} - \frac{1}{R_{2}C_{2}}$$
-    $$\Delta \omega = 10^{8} - 10^{5} = 9.99 \cdot 10^{7}$$
-    }
-    \qitem What is its Q-factor? I.e.: $\frac{\omega_{n}}{\Delta \omega}$, where $\omega_{n}$ is the center frequency of the band.
-
-    \sol{
-    Symbolically:
-    $$Q = \frac{\omega_{n}}{\Delta \omega} = \frac{1/2 \cdot (\frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}})}{\frac{1}{R_{1}C_{1}} - \frac{1}{R_{2}C_{2}}}$$
-    $$Q = \frac{(R_{2}C_{2} + R_{1}C_{1})}{2 \cdot (R_{2}C_{2} - R_{1}C_{1})}$$
-    Numerically:
-    $$Q = \frac{\omega_{n}}{\Delta \omega} = \frac{1/2 (10^{8} + 10^{5})}{9.99 \cdot 10^{7}} = \frac{5.005 \cdot 10^{7}}{9.99 \cdot 10^{7}}$$
-    $$Q \approx 0.501$$
-    }
-  \end{enumerate}
+% Now lets take a look at two more concepts, \textbf{bandwidth} and \textbf{Q-factor}. The bandwidth of a resonance
+% circuit is the difference between its upper and lower cutoff frequencies. It can also be expressed as \textit{resonance frequency} divided by its \textit{Q-factor}:
+%
+% \begin{align}
+%     bandwidth = \Delta \omega = f_{high} - f_{low} = \frac{\omega_n}{Q}
+% \end{align}
+%
+% The Q-factor, or quality factor, of a circuit is the ratio of power stored to power dissipated, but can also be more simply thought of as the measure of how good a circuit is,
+% where a higher Q-factor is often more desirable. This can be expressed mathematically as:
+%
+% \begin{align}
+%     Q = \frac{\omega_{n}}{\Delta \omega}
+% \end{align}
+%
+% \meta{
+% Circuits that have low bandwidths relative to their center frequency will have higher Q-factors.
+% }
+%
+%   \begin{enumerate}[resume]
+%     \qitem Find the bandwidth of this circuit.
+%
+%     \sol{
+%     $$\Delta \omega = \omega_{c,u} - \omega_{c,l} = \frac{1}{R_{1}C_{1}} - \frac{1}{R_{2}C_{2}}$$
+%     $$\Delta \omega = 10^{8} - 10^{5} = 9.99 \cdot 10^{7}$$
+%     }
+%     \qitem What is its Q-factor? I.e.: $\frac{\omega_{n}}{\Delta \omega}$, where $\omega_{n}$ is the center frequency of the band.
+%
+%     \sol{
+%     Symbolically:
+%     $$Q = \frac{\omega_{n}}{\Delta \omega} = \frac{1/2 \cdot (\frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}})}{\frac{1}{R_{1}C_{1}} - \frac{1}{R_{2}C_{2}}}$$
+%     $$Q = \frac{(R_{2}C_{2} + R_{1}C_{1})}{2 \cdot (R_{2}C_{2} - R_{1}C_{1})}$$
+%     Numerically:
+%     $$Q = \frac{\omega_{n}}{\Delta \omega} = \frac{1/2 (10^{8} + 10^{5})}{9.99 \cdot 10^{7}} = \frac{5.005 \cdot 10^{7}}{9.99 \cdot 10^{7}}$$
+%     $$Q \approx 0.501$$
+%     }
+%  \end{enumerate}
 \end{enumerate}

@@ -66,11 +66,12 @@ Some handy equations to switch between forms include:
 }
 
 \sol{
-$z = a + bj$. We can go from rectangular form to polar form by using the equation $z = |z|e^{j\theta}$, where $|z| = \sqrt{a^2 + b^2}$ and $\theta = \angle z = \tan^{-1}(\frac{b}{a})$.
+$z = a + bj$. We can go from rectangular form to polar form by using the equation $z = |z|e^{j\theta}$, where $|z| = \sqrt{a^2 + b^2}$ and $\theta = \angle z = \atan2(b, a)$.
 $$ z = 10 + 12j $$
 $$ |z| = \sqrt{10^2 + 12^2} = \sqrt{244}$$
-$$ \angle z = \tan^{-1}(\frac{12}{10})$$
-$$ z = \sqrt{244}e^{j \, {\tan^{-1}(\frac{12}{10})}} \approx 15.620e^{0.876j}$$
+%$$ \angle z = \tan^{-1}(\frac{12}{10})$$
+$$ \angle z = \atan2(12, 10)$$
+$$ z = \sqrt{244}e^{j \, {\atan2(12/10)}} \approx 15.620e^{0.876j}$$
 }
 
 \qitem Convert $22e^{23j}$ to rectangular form.
@@ -198,7 +199,7 @@ $$\angle z = \angle \frac{3}{5}j = \frac{\pi}{2} \, \text{rad}.$$
 \sol {
 $$z = \frac{1+2j}{9+7j} = \frac{z_a}{z_b}.$$
 $$|z| = \frac{|z_a|}{|z_b|} = \frac{\sqrt{1^2 + 2^2}}{\sqrt{9^2 + 7^2}} = \frac{\sqrt{5}}{\sqrt{130}}. \approx 0.196.$$
-$$\angle z = \angle z_a - \angle z_b = \tan^{-1}(\frac{2}{1}) - \tan^{-1}(\frac{7}{9}) = 1.107 + 0.661 \approx 1.768 \, \text{rad}.$$
+$$\angle z = \angle z_a - \angle z_b = \atan2(2, 1) - \atan2(7, 9)) = 1.107 + 0.661 \approx 1.768 \, \text{rad}.$$
 }
 
 \end{enumerate}

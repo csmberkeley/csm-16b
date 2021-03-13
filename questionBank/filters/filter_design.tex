@@ -17,11 +17,20 @@ For the following, it's recommended that you graph the plots with a computer.
 \begin{enumerate}
   \qitem What kind of filter could you use to remove this interference?
 
+  \ws{
+  \vspace{75px}
+  }
+
   \sol {
   We should use a low-pass filter. The interference is at a higher frequency than our desired signal, so we filter out the higher frequencies and keep the lower frequencies.
   }
 
+
   \qitem Assume we only have access to resistors and capacitors. \textbf{Sketch the corresponding filter circuit and write out its transfer function.}
+
+  \ws{
+  \vspace{150px}
+  }
 
   \sol {
   $$H(j \omega) = \frac{\widetilde{Z}_{out}}{\widetilde{Z}_{in}} = \frac{\frac{1}{j\omega C}}{R + \frac{1}{j \omega C}} = \frac{1}{1 + j\omega RC} = \frac{1}{1 + j \frac{\omega}{\omega_{c}}}$$.
@@ -31,11 +40,19 @@ For the following, it's recommended that you graph the plots with a computer.
 
   \qitem $\omega_{c} = \frac{1}{RC}$ is the cutoff frequency which determines the frequency at which our filter starts attenuating the signal. \textbf{Should we maximize or minimize $\omega_{c}$ to remove as much of the interference as possible?}
 
+  \ws{
+  \vspace{75px}
+  }
+
   \sol {
   We should minimize the cutoff frequency. The transfer function will start filtering frequencies sooner, meaning that we maximize the amount by which higher frequencies are attenuated.
   }
 
   \qitem Say we can set our cutoff frequency to $10 \, \text{Hz}$, $20 \, \text{Hz}$, $32 \, \text{Hz}$, $100 \, \text{Hz}$, or $120 \, \text{Hz}$. Which is the best cutoff frequency, and why?
+
+  \ws{
+  \vspace{75px}
+  }
 
   \sol {
   20Hz. This is the lowest cutoff frequency we can choose; the Gamma brainwaves will be attenuated more if we choose 20Hz than 32Hz because the transfer function will start filtering at a lower frequency. 10Hz is too low and risks cutting off Alpha brainwaves.
@@ -43,11 +60,19 @@ For the following, it's recommended that you graph the plots with a computer.
 
   \qitem We only have a 3.3 k$\Omega$ resistor in our workstation. What capacitor value should we use for our filter?
 
+  \ws{
+  \vspace{75px}
+  }
+
   \sol {
   If we want a cutoff frquency of 20Hz, then $f = \frac{\omega_{c}}{2 \pi} = \frac{1}{2 \pi RC} = 20Hz$. So, $C = \frac{1}{2 \pi \cdot 33 \cdot 10^{3} \Omega \cdot 20Hz} = 2.41 \, \mu$F.
   }
 
   \qitem Use a computer to plot the magnitude and phase response of this filter.
+
+  \ws{
+  \vspace{200px}
+  }
 
   \sol {
   \newpage
@@ -134,6 +159,10 @@ For the following, it's recommended that you graph the plots with a computer.
   \input{\bank/filters/filter_transfer/fig_cascade_band_pass.tex}
 
   What is the transfer function $H(j \omega),$ and see what the response looks like on a computer. In addition, what would happen if we cascaded a large number of filters together?
+
+  \ws{
+  \vspace{200px}
+  }
 
   \sol {
   The transfer function of this circuit would be the product of two low-pass transfer functions. \vskip 1pt
@@ -263,6 +292,10 @@ For the following, it's recommended that you graph the plots with a computer.
 
   \qitem Now, let's say that our filter is successful at removing the interference we initially detected. We now notice that there is another source of interference--Delta brainwaves--in the frequency range 0.5Hz to 4Hz. \textbf{How could we modify our design to remove both sources of interference and get a clear recording of Alpha brainwaves?} Suppose you do not have access to an op-amp, but you do have access to an inductor.
 
+  \ws{
+  \vspace{200px}
+  }
+
   \sol {
   Replace our low-pass filter with a bandpass filter. This will attenuate both sources of noise and leave our frequency band for Alpha brainwaves intact for our sensor to record.
 
@@ -276,11 +309,19 @@ For the following, it's recommended that you graph the plots with a computer.
 
   \qitem Where would you want to set the cutoff frequencies?
 
+  \ws{
+  \vspace{100px}
+  }
+
   \sol {
     We currently want to capture Alpha brainwaves running at 8 to 12 Hz, while filtering out Gamma brainwaves at 40 to 100 Hz, and Delta brainwaves at 0.5 to 4 Hz. We want to space our cutoff frequences as far apart as possible, but also try to put the center frequency as the average of the desired frequency range. Therefore, to space away the Deltas while keeping the Alphas, the low frequency should be set to $\SI{6}{\hertz}.$ The high frequency can vary, You can pick a high cutoff of $\SI{14}{\hertz},$ to put $\SI{10}{\hertz}$ in the center, or you can also choose $\SI{26}{\hertz}$ in between $12$ and $40$ to create a much larger bandwith.
   }
 
   \qitem How can we calculate the cutoff frequencies for our filter in terms of R, L, and C?
+
+  \ws{
+  \vspace{200px}
+  }
 
   \meta {
     We use $\sqrt{\frac{1}{2}}$ since it is the half power point.
@@ -299,8 +340,14 @@ For the following, it's recommended that you graph the plots with a computer.
     $$\omega = \pm \frac{R}{2L} + \sqrt{\big(\frac{R}{2L}\big)^2 + \frac{1}{LC}}$$
   }
 
+  \clearpage
+
   \qitem Let's pick values of $R, L,$ and $C$ to set our cutoff frequencies to those picked in part (i).
   Suppose you have a $\SI{500}{\ohm}$ resistor. What values should you pick for your capacitior and inductor?
+
+  \ws{
+  \vspace{200px}
+  }
 
   \sol {
     From the previous part, our cutoff frequencies are:
@@ -320,7 +367,13 @@ For the following, it's recommended that you graph the plots with a computer.
     $$\big(\frac{R}{2L} \big)^2 + \frac{1}{LC} = 1024 \pi^2 \ \ \text{so} \ \ C = \frac{1}{L(1024 \pi^2 - (\frac{R}{2L})^2)} = \SI{40.8}{\micro\farad}$$
   }
 
+  \clearpage
+
   \qitem Plot the frequency response of the filter designed above using the resistor, capacitor and inductor values picked in the previous part. You should plot the frequency response on a computer.
+
+  \ws{
+  \vspace{200px}
+  }
 
   \sol {
   We can plot this on a computer by plugging in our values for $R, L, C$ into the magnitude equation:
@@ -434,6 +487,10 @@ For the following, it's recommended that you graph the plots with a computer.
   \end{figure}
   }
   \qitem We again notice that while the filter is attenuating the necessary frequencies, it isn't doing that good of a job. Try plotting the responses if we had multiple filters cascaded with buffers similar to part (g).
+
+  \ws{
+  \vspace{200px}
+  }
 
   \sol {
   We again first plot the response with one buffer.

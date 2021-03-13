@@ -58,7 +58,7 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
     }
     \qitem We will define our state variable $\vec{x}(t) = \begin{bmatrix} V_{out}(t) \\ \frac{d}{dt} V_{out}(t) \end{bmatrix}$.
 
-    \textbf{Set up a system of differential equations in the form $\vec{x}(t) = A \vec{x}(t)$. What are its initial conditions $\vec{x}(0)$?}
+    \textbf{Set up a system of differential equations in the form $\frac{d}{dt}\vec{x}(t) = A \vec{x}(t)$. What are its initial conditions $\vec{x}(0)$?}
 
     \ws{
         \vspace{120px}
@@ -114,8 +114,10 @@ Assume the circuit reaches steady state for $t<0.$ At time $t = 0,$ the switch c
     \item \textbf{Case III:} If there is a unique real eigenvalue, the solution will look like a decaying exponential with rate of decay faster than that of (i).
     \end{itemize}
 
-    \textit{Hint: Euler's Formula states that $e^{i\theta} = \cos{\theta} + i\sin{\theta}$}
     Can you explain the intuition behind why these different eigenvalues have these different cases?
+
+    \textit{Hint: Euler's Formula states that $e^{i\theta} = \cos{\theta} + i\sin{\theta}$}
+
 
     \meta {
         Draw out these plots for your students for the three cases.

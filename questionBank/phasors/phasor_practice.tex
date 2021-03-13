@@ -22,6 +22,10 @@ Consider the circuit below:
 
 \qitem Let $v_{in}(t) = \SI{10}{\volt}.$ When the system is at steady state, what is $v_{out}(t)?$
 
+\ws{
+\clearpage
+}
+
 \meta {
   Try to emphasize that DC is zero frequency, which explains why inductors act as shorts and capacitors act as opens.
 }
@@ -38,7 +42,7 @@ At DC, inductors act as shorts and capacitors act as opens. Thus, we can get rid
       (14,2) to [open,v^=$v_{out}(t)$](14,-2);
     \end{circuitikz}
   \end{center}
-  
+
   This is just a voltage divider.
   $$v_{out}=\frac{1}{1+2}v_{in}=\frac{10}{3}\text{ V}$$
  }
@@ -85,7 +89,7 @@ Now that we have the impedance of each component, we can treat them as resistors
       (14,2) to [open,v^=$\widetilde{V}_{out}$](14,-2);
     \end{circuitikz}
   \end{center}
-  
+
 Using "||" to denote two impedances in parallel:
 \begin{align*}
 Z_1 &= 2 + (1||j) = 2+\frac{j}{j+1} = \frac{2+3j}{1+j} \\

@@ -5,7 +5,8 @@
 One way to compose a bandpass filter is by combining a low pass and high pass filter via a buffer.
 Another way to compose a bandpass is to use a RLC circuit of the following form:
 
-\begin{figure}[h!]
+\begin{figure}[h]
+\begin{minipage}{0.5\textwidth}
 \begin{center}
 \begin{circuitikz}[american]
     \node[ground](g){};
@@ -15,26 +16,35 @@ Another way to compose a bandpass is to use a RLC circuit of the following form:
     \draw (output) to[R, l = $R$] ++(0, -3) node[ground]{};
 \end{circuitikz}
 \end{center}
-\caption{RLC Bandpass Filter}
+\captionof{figure}{RLC Bandpass Filter}
+\label{fig:bandpass}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\input{\bank/filters/filter_transfer/fig_rlc_bandstop}
+\label{fig:a}
+\captionof{figure}{Unknown Behavior}
+\end{minipage}
+
 \end{figure}
 
 Let's explore what happens when swap the location of the resistor with the location of the capacitor and inductor.
 
-\begin{figure}[h!]
-\input{\bank/filters/filter_transfer/fig_rlc_bandstop}
-\caption{Unknown Behavior}
-\end{figure}
+
 
 \begin{enumerate}
 
 \qitem
-Write out the transfer function of figure 2.
+Write out the transfer function of the circuit of unknown behavior.
 
 \meta{
 See if you can get students to guess what the behavior will ultimately be based on the topology of the circuit and what their knowledge of resonancy tells them so far.
 In particular, during resonancy, the impedance of circuit elements cancel each other and cause a short.
 In the bandpass, this results in $Vout(t)$ being directly connected to the voltage source.
 In the bandstop, it results in a short to ground!
+}
+
+\ws{
+\vspace{150px}
 }
 
 \sol{
@@ -49,6 +59,15 @@ H_{notch}(j\omega) = \frac{j(L\omega - \frac{1}{C\omega})}{R + j(L\omega - \frac
 \qitem
 What is the magnitude of the transfer function?
 
+\ws{
+\vspace{150px}
+}
+
+\meta{
+If students are confused on how to calculate the magnitude, emphasize that the magnitude of a fraction is the same as the magnitude of the numerator divided by the denominator.
+You may also find it beneficial to go over the previous worksheets with complex number practice.
+}
+
 \sol{
 \begin{align*}
 \left | H_{notch}(j\omega) \right | =
@@ -56,8 +75,16 @@ What is the magnitude of the transfer function?
 \end{align*}
 }
 
+\clearpage
+
 \qitem
 Sketch the magnitude of this transfer function.
+
+\textit{HINT: The name of this question is bandstop filter. What do you think that means?}
+
+\ws{
+\vspace{150px}
+}
 
 \sol{
 \begin{tikzpicture}
@@ -77,17 +104,33 @@ Notice that the magnitude of the transfer function is approximately one outside 
 When is the magnitude of the transfer function zero?
 When is it one?
 
+\ws{
+\vspace{150px}
+}
+
 \sol{
 The magnitude of the transfer function is zero precisely when
 \begin{align*}
 L\omega = \frac{1}{C\omega}
 \end{align*}
+
+Everywhere else, the magnitude is approximately one.
+Notice that as $\omega \rightarrow \infty$ or $ \omega \rightarrow 0$, $|H(j\omega)| \approx 1$.
+The steepness of the curve is controlled by our parameters $R, C, \omega$.
+Knowing how fast or slow our curve changes isn't in scope for this course.
 }
+
+
+
 
 \qitem
 How would you describe the behavior of this circuit?
 Why do you think circuits with this type of circuit behavior are classified as notch/bandstop filters?
 Why is this specific filter called a \emph{resonsant} bandstop filter?
+
+\ws{
+\vspace{150px}
+}
 
 
 \sol{
