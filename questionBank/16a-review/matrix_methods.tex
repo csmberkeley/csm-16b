@@ -4,10 +4,14 @@
 \qns{Matrix Computations in Linear Algebra}
 
 In this question, we will take a look at some matrix-vector multiplication methods that will serve to be useful later on in the course.
-For the purposes of this question, suppose $A$ is an $m\times n$ matrix with columns $\vec{a}_{1}, \cdots \vec{a}_{n}$ and $\vec{x}$ is a vector in $\mathbb{R}^{n}$ with entires $x_{1}, \cdots, x_{n}.$
+For the purposes of this question, suppose $A$ is an $m\times n$ matrix with columns $\vec{a}_{1}, \cdots \vec{a}_{n}$ and $\vec{x}$ is a vector in $\mathbb{R}^{n}$ with entries $x_{1}, \cdots, x_{n}.$
 
 \begin{enumerate}
   \item Let $\vec{y} = A \vec{x}.$ How can we represent $\vec{y}$ as a linear combination of the columns of $A?$
+
+  \ws{
+  \vspace{150px}
+  }
 
   \sol {
     We can show this numerically or see $\vec{y}$ as a linear combination of the columns of $A.$\\
@@ -17,14 +21,14 @@ For the purposes of this question, suppose $A$ is an $m\times n$ matrix with col
     | & | & | \\
     \vec{a}_{1} & \cdots & \vec{a}_{n} \\
     | & | & |
-    \end{bmatrix} \begin{bmatrix} x_{1} \\ \vdots \\ x_{n} \end{bmatrix} = 
+    \end{bmatrix} \begin{bmatrix} x_{1} \\ \vdots \\ x_{n} \end{bmatrix} =
     \begin{bmatrix}
     a_{11} & \cdots & a_{1n} \\
-    \vdots & \ddots & \vdots \\ 
+    \vdots & \ddots & \vdots \\
     a_{m1} & \cdots & a_{mn} \\
     \end{bmatrix} \begin{bmatrix} x_{1} \\ \vdots \\ x_{n} \end{bmatrix} \\
-    &= 
-    \begin{bmatrix} 
+    &=
+    \begin{bmatrix}
     a_{11} x_{1} + \dotsc + a_{1n} x_{n} \\
     \vdots \\
     a_{m1} x_{1} + \dotsc + a_{mn} x_{n}
@@ -35,7 +39,11 @@ For the purposes of this question, suppose $A$ is an $m\times n$ matrix with col
     We could also interpret the columns of $A$ as vectors that span the $\text{Col}(A),$ and $x_{1}, \dotsc, x_{n}$ are the coefficients of the linear combination.
   }
 
-  \item Let $\vec{y} = A^{T} \vec{x},$ and $\vec{x} \in \mathbb{R}^{m}.$ How can represent the individual entries of $\vec{y}$ as inner products of the columns of $A$ and $\vec{x}?$
+  \item Let $\vec{y} = A^{T} \vec{x},$ and $\vec{x} \in \mathbb{R}^{m}.$ How can we represent the individual entries of $\vec{y}$ as inner products of the columns of $A$ and $\vec{x}?$
+
+  \ws{
+  \vspace{150px}
+  }
 
   \sol {
     The matrix $A^{T}$ can be written in the following manner:
@@ -56,6 +64,10 @@ For the purposes of this question, suppose $A$ is an $m\times n$ matrix with col
 
   \item Now let $\vec{y} = A A^{T} \vec{x}.$ How can we represent $\vec{y}$ as a linear combination of the columns of $A?$
 
+  \ws{
+  \vspace{150px}
+  }
+
   \sol {
     Combining the information from both parts, we know that:
     $$A^{T} \vec{x} = \begin{bmatrix} \vec{a}_{1}^{T} \vec{x} \\ \vdots \\ \vec{a}_{n}^{T} \vec{x} \end{bmatrix}$$
@@ -64,4 +76,24 @@ For the purposes of this question, suppose $A$ is an $m\times n$ matrix with col
     Substituting in the values for $\vec{z} = A^{T} \vec{x},$ we get:
     $$\vec{y} = (\vec{a}_{1}^{T} \vec{x}) \vec{a}_{1} + \dotsc + (\vec{a}_{n}^{T} \vec{x}) \vec{a}_{n}$$
   }
+
+
+\item
+Suppose that we have the same matrix $A$ from earlier such that we have $AA^{T}\vec{x}$.
+How can we represent this as the sum of rank one matrices?
+\emph{HINT: What's the counter part to an inner product?}
+
+\ws{
+\vspace{150px}
+}
+
+\sol{
+In general, most of us are taught to think of a matrix computation as the sum of dot products.
+We can also think of a matrix computation as the sum of outer products.
+In particular
+\begin{equation*}
+AA^{T} = \sum^{N}_{i=1}a_{i}a^{T}_{i}
+\end{equation*}
+where $N$ is the number of columns of $A$ from earlier.
+}
 \end{enumerate}
