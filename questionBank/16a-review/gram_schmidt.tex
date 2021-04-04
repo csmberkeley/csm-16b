@@ -17,13 +17,17 @@ The Gram-Schmidt process is a method that allows us to take an arbitrary basis $
 
 \qitem Show that span($\vec{v_1}, \vec{v_2}$) is the same as span($\vec{v_1}, \vec{v_2} - \alpha\vec{v_1}$), where $\alpha$ is some arbitrary constant.
 
+\ws{
+\vspace{150px}
+}
+
 \sol {
   The definition of span is all vectors that can be "reached" using a linear combination of a set of vectors. Therefore,
-  $$\text{span}(\vec{v_1}, \vec{v_2}) = \{\vec{v} : \vec{v} = \beta_{1} \vec{v}_{1} + \beta_{2} \vec{v}_{2} \} \ \ \text{for arbitrary constants} \ \beta_{1}, \beta_{2}.$$ 
+  $$\text{span}(\vec{v_1}, \vec{v_2}) = \{\vec{v} : \vec{v} = \beta_{1} \vec{v}_{1} + \beta_{2} \vec{v}_{2} \} \ \ \text{for arbitrary constants} \ \beta_{1}, \beta_{2}.$$
   Following a similar train of thought,
-  $$\begin{aligned} \operatorname{span}\left(\vec{v}_{1}, \vec{v}_{2}-\alpha \vec{v}_{1}\right) 
-  &= \{\vec{v} : \vec{v} = \beta_{3} \vec{v}_{1}+\beta_{4}\left(\vec{v}_{2}-\alpha \vec{v}_{1}\right) \} \\ 
-  &= \{\vec{v} : \vec{v} = \beta_{3} \vec{v}_{1}+\beta_{4} \vec{v}_{2}-\beta_{4} \alpha \vec{v}_{1} \} \\ 
+  $$\begin{aligned} \operatorname{span}\left(\vec{v}_{1}, \vec{v}_{2}-\alpha \vec{v}_{1}\right)
+  &= \{\vec{v} : \vec{v} = \beta_{3} \vec{v}_{1}+\beta_{4}\left(\vec{v}_{2}-\alpha \vec{v}_{1}\right) \} \\
+  &= \{\vec{v} : \vec{v} = \beta_{3} \vec{v}_{1}+\beta_{4} \vec{v}_{2}-\beta_{4} \alpha \vec{v}_{1} \} \\
   &= \{\vec{v} : \vec{v} = \left(\beta_{3}-\beta_{4} \alpha\right) \vec{v}_{1}+\beta_{4} \vec{v}_{2} \} \ \ \text{for arbitrary constants} \ \beta_{3}, \beta_{4}.
   \end{aligned}$$
   All $\alpha$ and $\beta$ are arbitrary constants that we can set. If we set $\beta_4 = \beta_2$ and $\beta_3 = \beta_1 + \alpha\beta_2$, then these spans are the same!
@@ -31,12 +35,22 @@ The Gram-Schmidt process is a method that allows us to take an arbitrary basis $
 
 \qitem Let us iteratively generate the orthonormal set $U$ from $S$. Start by arbitrarily picking a vector $\vec{v}_{1}$ from $S.$ How can we create a new vector $\vec{u}_{1}$ for $U$ so that it spans the same space as the original vector, yet ensures that orthonormality is preserved for our new set?
 
+\ws{
+\vspace{150px}
+}
+
 \sol {
   Since we are only taking into consideration a single vector, we do not need to worry about orthogonality. We do however, need to make sure its norm is $1.$ So,
   $$\vec{u}_{1} = \frac{\vec{v}_{1}}{\norm{\vec{v}_{1}}}$$
 }
 
+\clearpage
+
 \qitem What is the projection of a vector $\vec{y}$ onto another vector $\vec{x}?$
+
+\ws{
+\vspace{150px}
+}
 
 \sol {
   The projection of an arbitrary vector $\vec{y}$ onto another vector $\vec{x}$ is:
@@ -47,7 +61,7 @@ The Gram-Schmidt process is a method that allows us to take an arbitrary basis $
   \begin{center}
     \includegraphics[width=4in]{\bank/inner-products/figures/projection.png}
   \end{center}
-  We want a vector of magnitude $\norm{\vec{y}} \cos \theta$ pointing in the $\vec{x}$ direction. 
+  We want a vector of magnitude $\norm{\vec{y}} \cos \theta$ pointing in the $\vec{x}$ direction.
   Therefore, to find the projection, we should find the magnitude of the projection and then multiply it by a unit vector in the $\vec{x}$ direction.
 
   To calculate the magnitude, we can remember that the cosine formula for inner products is:
@@ -56,38 +70,46 @@ The Gram-Schmidt process is a method that allows us to take an arbitrary basis $
   \end{equation}
   Substituting for $\cos(\theta),$ we see that the magnitude of the projection is:
   \begin{equation}
-    \text{proj}_{\vec{x}} \vec{y} = \frac{\innp{\vec{x}}{\vec{y}}}{\norm{\vec{x}}} 
+    \left\lVert \text{proj}_{\vec{x}} \vec{y} \right\rVert = \frac{\innp{\vec{x}}{\vec{y}}}{\norm{\vec{x}}}
   \end{equation}
   A unit vector in the $\vec{x}$ direction will be: $\frac{\vec{x}}{\norm{\vec{x}}}.$ \\
   We conclude by saying the projection will be:
   \begin{equation}
-    \text{proj}_{\vec{x}} \vec{y} = \frac{\innp{\vec{x}}{\vec{y}}}{\norm{\vec{x}}^{2}} \vec{x} 
+    \text{proj}_{\vec{x}} \vec{y} = \frac{\innp{\vec{x}}{\vec{y}}}{\norm{\vec{x}}^{2}} \vec{x}
   \end{equation}
 }
 
 
 \qitem Now, consider an arbitrary vector $\vec{v}_{2}$ in $S$. What is the projection of $\vec{v}_{2}$ onto $\vec{u}_{1}?$
 
+\ws{
+\vspace{150px}
+}
+
 \sol {
   If we plug in the values of $\vec{v}_{2}$ and $\vec{u}_{1}$ into the projection derived in the previous part, we will see that the projection is:
   \begin{equation}
-    \text{proj}_{\vec{u}_{1}} \vec{v}_{2} = \frac{\innp{\vec{v}_{2}}{\vec{u}_{1}}}{\norm{\vec{u}_{1}}^{2}} \vec{u}_{1} 
+    \text{proj}_{\vec{u}_{1}} \vec{v}_{2} = \frac{\innp{\vec{v}_{2}}{\vec{u}_{1}}}{\norm{\vec{u}_{1}}^{2}} \vec{u}_{1}
   \end{equation}
   Since $\vec{u}_{1}$ was constructed to have unit norm in part (b), the denominator will be 1, so the projection will be
   \begin{equation}
-    \text{proj}_{\vec{u}_{1}} \vec{v}_{2} = \innp{\vec{v}_{2}}{\vec{u}_{1}} \vec{u}_{1} 
+    \text{proj}_{\vec{u}_{1}} \vec{v}_{2} = \innp{\vec{v}_{2}}{\vec{u}_{1}} \vec{u}_{1}
   \end{equation}
 }
 
 \qitem How can we create $\vec{u}_{2}$ for our orthonormal set using the projection defined in the previous part? \\
 (Hint: Take a look at part (a))
 
-\sol {
-  Now, we must consider orthogonality as well since we have two vectors in our set. 
-  For two vectors $\vec{u}_{1}, \vec{u}_{2}$ to be orthogonal, their inner product must to be 0. 
-  In other words, this means that there is nothing--no trace, no component--of $\vec{u}_{1} \text { in } \vec{u}_{2}$, and vice versa. 
+\ws{
+\vspace{150px}
+}
 
-  We also know from part (a) that we can make $\vec{u}_{2}$ a linear combination of $\vec{u}_{1}$ and $\vec{v}_{2}$ without changing the span. 
+\sol {
+  Now, we must consider orthogonality as well since we have two vectors in our set.
+  For two vectors $\vec{u}_{1}, \vec{u}_{2}$ to be orthogonal, their inner product must to be 0.
+  In other words, this means that there is nothing--no trace, no component--of $\vec{u}_{1} \text { in } \vec{u}_{2}$, and vice versa.
+
+  We also know from part (a) that we can make $\vec{u}_{2}$ a linear combination of $\vec{u}_{1}$ and $\vec{v}_{2}$ without changing the span.
   In order to make $\vec{u}_{2}$ orthogonal to $\vec{u}_{1},$ we will subtract the projection of $\vec{v}_{2}$ onto $\vec{u}_{1}$ by doing the following:
   $$\vec{q_2} = \vec{v_2} - \innp{\vec{v}_{2}}{\vec{u_1}} \vec{u_1}$$
   Geometrically, it will look like the following:
@@ -95,21 +117,26 @@ The Gram-Schmidt process is a method that allows us to take an arbitrary basis $
     \includegraphics[width=3in]{\bank/inner-products/figures/gs_step_1.png}
   \end{center}
 
-  By subtracting the projection of $\vec{v}_{2}$ onto $\vec{u}_{1}$, we are removing the $\vec{u}_{1}$ component of $\vec{v}_{2}$ from $\vec{v}_{2}$. So, $\vec{q}_{2}$ is now orthogonal to $\vec{u}_{1}$, so mutual orthogonality is preserved for all vectors in our new set $U$. 
+  By subtracting the projection of $\vec{v}_{2}$ onto $\vec{u}_{1}$, we are removing the $\vec{u}_{1}$ component of $\vec{v}_{2}$ from $\vec{v}_{2}$. So, $\vec{q}_{2}$ is now orthogonal to $\vec{u}_{1}$, so mutual orthogonality is preserved for all vectors in our new set $U$.
   Lastly, we make sure that $\vec{u}_{2}$ is normalized, so:
   $$\vec{u}_{2} = \frac{\vec{q}_{2}}{\norm{\vec{q}_{2}}}$$
 }
 
+\ws{
+  \clearpage
+  }
+
 \qitem How can we use the information above to develop the process of Gram-Schmidt for all future vectors $\vec{v}_{3}, \cdots, \vec{v}_{n}?$ Write out the process for creating an arbitrary vector $\vec{u}_{i}$ for our orthonormal set $U$.
+
 
 \sol {
   If we try repeating the process for $\vec{v}_{3},$ we would have to make $\vec{u}_{3}$ orthogonal to both $\vec{u}_{1}$ and $\vec{u}_{2}.$
-  We can again do this by taking the projection of $\vec{3}$ onto both $\vec{u}_{1}$ and $\vec{u}_{2}$ simultaneously, and subtract the individual projections to make $\vec{q}_{3}$ orthogonal to both $\vec{u}_{1}$ and $\vec{u}_{2}.$
+  We can again do this by taking the projection of $\vec{v}_3$ onto both $\vec{u}_{1}$ and $\vec{u}_{2}$ simultaneously, and subtract the individual projections to make $\vec{q}_{3}$ orthogonal to both $\vec{u}_{1}$ and $\vec{u}_{2}.$
   Define the following vector:
   $$\vec{q}_{3} = \vec{v}_{3} - \innp{\vec{v}_{3}}{\vec{u}_{1}} \vec{u}_{1} - \innp{\vec{v}_{3}}{\vec{u}_{2}} \vec{u}_{2}$$
   Then we can normalize accordingly to make sure $\vec{u}_{3}$ has norm $1.$
   $$\vec{u}_{3} = \frac{\vec{q}_{3}}{\norm{\vec{q}_{3}}}$$
-  In general, we can do this for every vector by subtracting the component of every previous vector already in $U$, ensuring that our new vector $\vec{q}_{i}$ is orthogonal to the rest. 
+  In general, we can do this for every vector by subtracting the component of every previous vector already in $U$, ensuring that our new vector $\vec{q}_{i}$ is orthogonal to the rest.
   $$\vec{q}_{i} = \vec{v}_{i} - \sum\limits_{j = 1}^{i - 1} \innp{\vec{v}_{j}}{\vec{u}_{j}}$$
   And remember to normalize $\vec{q}_{i}.$
    $$\vec{u}_{i} = \frac{\vec{q}_{i}}{\norm{\vec{q}_{i}}}$$

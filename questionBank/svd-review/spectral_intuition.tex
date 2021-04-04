@@ -4,12 +4,16 @@
 
 \qcontributor{Taejin Hwang}
 
-An amazing result in Linear Algebra is the Spectral Theorem which says that any symmetric matrix is orthogonally diagonalizable. 
+An amazing result in Linear Algebra is the Spectral Theorem which says that any symmetric matrix is orthogonally diagonalizable.
 This means that a symmetric matrix will always have n linearly independent eigenvectors that are all mutually orthogonal.
 We will show that some of these properties are true for the symmetric matrix AT A to help motivate the SVD.
 
 \begin{enumerate}
   \qitem Show that $A^{T}A$ is a symmetric matrix.
+
+  \ws{
+  \vspace{150px}
+  }
 
   \sol {
     Remember that matrix $M$ is symmetric, if $M^{T} = M,$ therefore it remains to show that $(A^{T}A)^{T} = A^{T}A.$
@@ -17,8 +21,12 @@ We will show that some of these properties are true for the symmetric matrix AT 
     Applying the fact above, we see that $(A^{T}A)^{T} = A^{T} (A^{T})^{T} = A^{T} A.$
   }
 
-  \qitem Show that every eigenvalue $\lambda_{i}$ of $A^{T}A$ is greater than or equal to zero. \vskip 1pt 
+  \qitem Show that every eigenvalue $\lambda_{i}$ of $A^{T}A$ is greater than or equal to zero. \vskip 1pt
   \textit{Hint: Consider $\norm{A\vec{v}}_{2}^{2}.$ where $\vec{v}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$}
+
+  \ws{
+  \vspace{150px}
+  }
 
   \sol {
     $\norm{A\vec{v}}_{2}^{2} = (A \vec{v})^{T} (A \vec{v}) = \vec{v}^{T}A^{T} A \vec{v} = \vec{v}^{T} (\lambda \vec{v}) = \lambda \vec{v}^{T} \vec{v} = \lambda \norm{\vec{v}}_{2}^{2}.$ \vskip 1pt
@@ -32,6 +40,10 @@ We will show that some of these properties are true for the symmetric matrix AT 
 
   \qitem Show that if $\lambda_{i}$ and $\lambda_{j}$ are distinct eigenvalues of $A^{T} A,$ then the respective eigenvectors $\vec{v}_{i}$ and $\vec{v}_{j}$ are orthogonal. \\
   \textit{Hint: Write out the eigenvector relationships: $A^{T} A \vec{v}_{i} = \lambda_{i} \vec{v}_{i}$ and $A^{T} A \vec{v}_{j} = \lambda_{i} \vec{v}_{j}$ and then try taking the transpose of the second equation.}
+
+  \ws{
+  \vspace{150px}
+  }
 
   \sol {
     Let $\vec{v}_{i}$ and $\vec{v}_{j}$ be eigenvectors of $A^{T}A$ with distinct eigenvalues $\lambda_{i}$ and $\lambda_{j}.$ \vskip 1pt
@@ -56,12 +68,21 @@ We will show that some of these properties are true for the symmetric matrix AT 
 
   \qitem Show that if $A^{T}A$ has a repeated eigenvalue, $\lambda,$ meaning the eigenspace of $\lambda$ has dimension greater than or equal to two, we can pick an orthonormal basis for the eigenspace.
 
+  \ws{
+  \vspace{150px}
+  }
+
   \sol {
     We can pick an orthonormal basis for the eigenspace of $\lambda,$ by using Gram-Schmidt.
   }
 
   \qitem It can be shown through induction that the matrix $A^{T} A$ is has $n$ linearly independent eigenvectors. \\
   Conclude by showing that we can pick $n$ mutually orthonormal eigenvectors for the matrix $A^{T} A.$
+  \emph{HINT: Recall what gram-schmidt does.}
+
+  \ws{
+  \vspace{150px}
+  }
 
   \sol {
     We've shown that eigenvectors with distinct eigenvalues are orthogonal. \\
