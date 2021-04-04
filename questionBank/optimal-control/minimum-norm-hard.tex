@@ -20,7 +20,7 @@ Say we have a controllable system of rank $n$:
     \end{bmatrix}
  \end{align*}
 
-To solve for the minimum norm solution, we use the \textbf{Moore-Penrose Pseudoinverse}, a generalization of matrix inverses for rectangular matrices using the full SVD of a matrix. We denote the pseudoinverse with a dagger, and the solution will be $\vec{u}_k = \mathcal{C}_k^{\dagger} \vec{x}(k).$ 
+To solve for the minimum norm solution, we use the \textbf{Moore-Penrose Pseudoinverse}, a generalization of matrix inverses for rectangular matrices using the full SVD of a matrix. We denote the pseudoinverse with a dagger, and the solution will be $\vec{u}_k = \mathcal{C}_k^{\dagger} \vec{x}(k).$
 This solution is special because it has \textbf{minimum norm}; that is, if we have another solution $\vec{z},$ such that $\mathcal{C}_k \vec{z} = \vec{x}(k),$ then $\norm{\vec{u}_k} \leq \norm{z}.$
 
 To compute the pseudoinverse, we invert each element of the SVD one at a time:
@@ -36,7 +36,7 @@ To compute the pseudoinverse, we invert each element of the SVD one at a time:
 
 We can calculate $\Sigma^{\dagger}$ accordingly to produce an identity matrix such that the term $\Sigma^{\dagger}\Sigma$ disappears:
 
-$$\Sigma^{\dagger} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\ 
+$$\Sigma^{\dagger} = \begin{bmatrix} \frac{1}{\sigma_{1}} & 0 &  \cdots & 0 \\ 0 & \frac{1}{\sigma_{2}} & \cdots & 0 \\ \vdots & \vdots & \ddots & \frac{1}{\sigma_{m}} \\
     \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
 
 \textit{Note}: This is another, sometimes computationally easier, form of the pseudoinverse:
@@ -48,25 +48,25 @@ See Sp20: Note 11B for more information.
 You saw in lecture in the context of open-loop control, how we
 consider problems in which we have a wide
 matrix $A$ and solve $A \vec{x} = \vec{y}$ such that $\vec{x}$
-is a minimum norm solution:  
+is a minimum norm solution:
 \begin{align*}
-\norm{\vec{x}} \leq \norm{\vec{z}} 
+\norm{\vec{x}} \leq \norm{\vec{z}}
 \end{align*}
 for all $\vec{z}$ such that $A \vec{z} = \vec{y}$. You have worked out how to compute the appropriate ``pseudo-inverse'' for
 such wide matrices.
 
 But what if you weren't interested in just the norm of $\vec{x}$? What
 if you instead cared about minimizing the norm of a linear transformation $C\vec{x}$? For example, suppose that controls were more or less costly
-at different times. 
+at different times.
 
 The problem can be written out mathematically as:
 
-Given a wide matrix  $A$ and a matrix $C$ find $\vec{x}$ such that $A \vec{x} = \vec{y}$ and 
-$\norm{C\vec{x}} \leq \norm{C\vec{z}} $ for all 
+Given a wide matrix  $A$ and a matrix $C$ find $\vec{x}$ such that $A \vec{x} = \vec{y}$ and
+$\norm{C\vec{x}} \leq \norm{C\vec{z}} $ for all
 $\vec{z}$ such that $A \vec{z} = \vec{y}$.
 
 
-{\bf(10 pts)} Let's start with the case of $C$ being invertible. {\bfseries Solve
+Let's start with the case of $C$ being invertible. {\bfseries Solve
   this problem (i.e. find the optimal $\vec{x}$ with the minimum $\|C \vec{x}\|$) for the specific
   matrices and $\vec{y}$ given below. Show your work.}
 
@@ -74,7 +74,7 @@ It is fine to leave your answer as an explicit product of
 matrices and vectors.
 
 {\em (HINT: You might want to change variables to solve this
-  problem. Don't forget to change back!)} 
+  problem. Don't forget to change back!)}
 
 \begin{align*}
 A = \begin{bmatrix}
@@ -85,7 +85,7 @@ C = \begin{bmatrix}
 0 & 0 & 2\\
 0 & 1 & 0 \\
 2 & 0 & 0
-\end{bmatrix}, \quad 
+\end{bmatrix}, \quad
 \vec{y} = \begin{bmatrix}
 2 \\
 1
@@ -110,9 +110,9 @@ A &= (U_A = \begin{bmatrix}
 V^T_A = \begin{bmatrix}
 0& \frac{1}{\sqrt{2}}& \frac{1}{\sqrt{2}}  \\
 1 & 0 & 0 \\
-0& -\frac{1}{\sqrt{2}}& \frac{1}{\sqrt{2}}  
+0& -\frac{1}{\sqrt{2}}& \frac{1}{\sqrt{2}}
 \end{bmatrix}) \\
-C &= 
+C &=
 (U_C = \begin{bmatrix}
 -1 & 0 & 0  \\
 0 & 0 & 1 \\
@@ -128,7 +128,7 @@ C &=
 -1 & 0 & 0 \\
 0 & 1 & 0
 \end{bmatrix}) \\
-AC &= 
+AC &=
 (U_{AC} = \begin{bmatrix}
 0 & 1 \\
 1 & 0
@@ -142,7 +142,7 @@ AC &=
 0& 0 & 1 \\
 -\frac{1}{\sqrt{5}} & \frac{2}{\sqrt{5}} & 0
 \end{bmatrix}) \\
-AC^{-1} &= 
+AC^{-1} &=
 (U_{AC^{-1}} = \begin{bmatrix}
 0 & 1 \\
 1 & 0
@@ -158,26 +158,26 @@ AC^{-1} &=
 \end{bmatrix})
 \end{align}
 
-\sol{ 
+\sol{
 We already know to find the minimum-norm solution for the system of equations
 $$A\vec{x} = \vec{y}$$
 using the \textbf{Moore-Penrose Pseudoinverse}. \\
 
 To use that knowledge, we want to first change variables to the C-basis:
 $$\widetilde{x} = C\vec{x}$$
-Given an arbitrary vector 
+Given an arbitrary vector
 $$\vec{p} = C\vec{z}$$
 we get the new constraint $\norm{\widetilde{x}}
 \leq \norm{\vec{p}}$ for any vector $\vec{p}$ that satisfies
 something. What is this something? \\
 \newline
 
-Originally, we had $A \vec{x} = \vec{y}$ and, in the new basis, we have $\vec{x} = C^{-1} \widetilde{x}$. 
-So, the constraint that needs to be satisfied is 
+Originally, we had $A \vec{x} = \vec{y}$ and, in the new basis, we have $\vec{x} = C^{-1} \widetilde{x}$.
+So, the constraint that needs to be satisfied is
 $$AC^{-1} \widetilde{x} =
-\vec{y}$$ 
+\vec{y}$$
 
-This is a min-norm problem where the matrix multiplying the vector is $AC^{-1}$. 
+This is a min-norm problem where the matrix multiplying the vector is $AC^{-1}$.
 To solve this, we find the Moore-Penrose psuedoinverse of $AC^{-1}$:
 \begin{align}
 \widetilde{x} =
@@ -187,23 +187,23 @@ To solve this, we find the Moore-Penrose psuedoinverse of $AC^{-1}$:
 In this case, we use the compact form of the SVD so the $\Sigma$ matrix is square and therefore invertible.
 The compact SVD of $AC^{-1}$ is as follows:
 \begin{align}
-AC^{-1} &= 
+AC^{-1} &=
 (U = \begin{bmatrix}
 0 & 1 \\
 1 & 0
 \end{bmatrix})
 (\Sigma = \begin{bmatrix}
 \frac{\sqrt{5}}{2}  &   0 \\
-0 & 0.5  
+0 & 0.5
 \end{bmatrix})
 (V^T = \begin{bmatrix}
 \frac{1}{\sqrt{5}}&\frac{2}{\sqrt{5}} & 0 \\
-0 & 0 & 1 
+0 & 0 & 1
 \end{bmatrix}).
 \end{align}
 
 Calculating this out, we get that $\widetilde{x}
-= \begin{bmatrix}\frac{2}{5} \\ \frac{4}{5} \\ 4\end{bmatrix}$. 
+= \begin{bmatrix}\frac{2}{5} \\ \frac{4}{5} \\ 4\end{bmatrix}$.
 
 However since the original question was to find $\vec{x}$ we have one more substitution to arrive at our final answer:
 \begin{align}

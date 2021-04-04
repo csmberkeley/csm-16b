@@ -12,7 +12,7 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
 \begin{enumerate}[label=(\roman*)]
   \item \textbf{Step 1: Compute the symmetric matrix $A^{T} A$ or $A A^{T}.$} \vskip 1pt
   $A^{T}A$ will be of dimension $n \times n,$ and $AA^{T}$ will be of dimension $m \times m.$ \vskip 1pt
-  For a tall, skinny matrix, where $m > n,$ the SVD will be easier to calculate using $A^{T}A$ while for a short, fat matrix, where $m < n,$ the SVD will be easier to calculate using $AA^{T}.$ 
+  For a tall, skinny matrix, where $m > n,$ the SVD will be easier to calculate using $A^{T}A$ while for a short, fat matrix, where $m < n,$ the SVD will be easier to calculate using $AA^{T}.$
 
   \meta {
     $A^{T}A$ will be $n \times n$ and $AA^{T}$ will be $m \times m.$ We always want to pick the smaller matrix out of the two since eigendecomposition is a very tedious process.
@@ -22,16 +22,21 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
   If $m < n,$ find the eigenvalues ($\lambda_1, \ldots, \lambda_{m}$) and eigenvectors ($\vec{u}_{1}, \ldots, \vec{u}_{m}$) of $AA^{T}$ \vskip 1pt
   These eigenvectors will construct either the $U$ or $V$ matrices and by the spectral theorem for real symmetric matrices, we can pick these eigenvectors to be orthonormal.
 
-  \item \textbf{Step 3: Compute the singular values $\sigma_i = \sqrt{\lambda_i}$ where the $\lambda_i$ are the eigenvalues of $A^{T}A$ and $AA^{T},$ arranged in descending order.} \vskip 1pt 
-  We know these are all non-negative because $(A\vec{v}_i)^T(A\vec{v}_i) = \|A \vec{v}_i\|^2$ and $(A\vec{v}_i)^T(A\vec{v}_i) =\vec{v}_i^T(A^T A)\vec{v}_i = \lambda_i \vec{v}_i^T\vec{v}_i = \lambda_i$. 
+  \item \textbf{Step 3: Compute the singular values $\sigma_i = \sqrt{\lambda_i}$ where the $\lambda_i$ are the eigenvalues of $A^{T}A$ and $AA^{T},$ arranged in descending order.} \vskip 1pt
+  We know these are all non-negative because $(A\vec{v}_i)^T(A\vec{v}_i) = \|A \vec{v}_i\|^2$ and $(A\vec{v}_i)^T(A\vec{v}_i) =\vec{v}_i^T(A^T A)\vec{v}_i = \lambda_i \vec{v}_i^T\vec{v}_i = \lambda_i$.
 
   \item \textbf{Step 4: Find the corresponding vectors of the $U$ or $V$ matrix.}  \vskip 1pt
   If $m > n,$ we use the nonzero values of $\sigma_i,$ and $\vec{v}_i,$ to find corresponding vectors of the $U$ matrix, $\vec{u}_i$ by computing $\vec{u}_i = \frac{A\vec{v}_i}{\sigma_i}$. \\
   If $m < n,$ we use the nonzero values of $\sigma_i$ and $\vec{u}_i,$ to find corresponding vectors of the $V$ matrix, $\vec{v}_i$ by computing $\vec{v}_i = \frac{A^{T} \vec{u}_i}{\sigma_i}$
 
-  These are normalized since $\sigma_i = \|A \vec{v}_i\| = \|A^{T} \vec{u}_i \|$ by the argument above, and orthogonal since $(A\vec{v}_i)^T(A\vec{v}_j) = \vec{v}_i^T(A^T A)\vec{v}_j = \lambda_j \vec{v}_i^T\vec{v}_j = 0$ if $i \neq j$, since $V$ is an orthonormal matrix. 
+  These are normalized since $\sigma_i = \|A \vec{v}_i\| = \|A^{T} \vec{u}_i \|$ by the argument above, and orthogonal since $(A\vec{v}_i)^T(A\vec{v}_j) = \vec{v}_i^T(A^T A)\vec{v}_j = \lambda_j \vec{v}_i^T\vec{v}_j = 0$ if $i \neq j$, since $V$ is an orthonormal matrix.
 
   \item \textbf{Step 5: Use Gram-Schmidt to complete the $U$ or $V$ matrix} \vskip 1pt
+  \meta{
+  For this problem, we don't really need gram schmidt.
+  That's because we only have one vector in the nullspace.
+  If we had more vectors in the nullspace, then we'd need gram schmidt.
+  }
   We can complete the $U$ or $V$ matrix by adding the standard basis and performing Gram-Schmidt until we get an orthonormal basis of size $m$ or $n$ respectively.
 
   If $m > n$ we will find $\vec{u}_{n + 1}, \ldots, \vec{u}_{m}$ through Gram-Schmidt. \\
@@ -41,18 +46,20 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
 
 \end{enumerate}
 
-\newpage
-
 \begin{enumerate}
-  \qitem PRACTICE: Compute the SVD of 
+  \qitem PRACTICE: Compute the SVD of
 $$A = \begin{bmatrix}
     1 & 1 & 0 \\
     0 & 1 & 1 \\
-  \end{bmatrix}$$. 
+  \end{bmatrix}$$.
+
+  \ws{
+  \newpage
+  }
 
   \sol {
     \begin{enumerate}[label=(\roman*)]
-      \item \textbf{Step 1:} 
+      \item \textbf{Step 1:}
         The matrix $A$ is a $2 \times 3$ matrix. Therefore, we will compute $AA^{T}.$
         $$AA^{T} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$$
       \item \textbf{Step 2:}
@@ -79,9 +86,9 @@ $$A = \begin{bmatrix}
         $$\sigma_{1} = \sqrt{\lambda_{1}} = \sqrt{3}, \ \sigma_{2} = \sqrt{\lambda_{2}} = 1$$
       \item \textbf{Step 4:}
         We now solve for the vectors in the $V$ matrix through the equation $\vec{v}_i = \frac{A^{T} \vec{u}_i}{\sigma_i}$
-        $$\vec{v}_{1} = \frac{A^{T} \vec{u}_{1}}{\sqrt{3}} = 
+        $$\vec{v}_{1} = \frac{A^{T} \vec{u}_{1}}{\sqrt{3}} =
         \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix}$$
-        $$\vec{v}_{2} = \frac{A^{T} \vec{u}_{2}}{1} = 
+        $$\vec{v}_{2} = \frac{A^{T} \vec{u}_{2}}{1} =
         \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
       \item \textbf{Step 5:}
         We still have one last vector $\vec{v}_{3}$ to solve for. To do this, we compute the null-space of $A$ \\
@@ -92,8 +99,8 @@ $$A = \begin{bmatrix}
     \end{enumerate}
     The final result of our SVD will be:
     \begin{equation}
-      A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
-      \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} 
+      A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+      \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}
       \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
       -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\
       \frac{1}{\sqrt{3}} & - \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix}
@@ -104,16 +111,16 @@ $$A = \begin{bmatrix}
     \vskip 250pt
   }
 
-  \qitem PRACTICE: Compute the SVD of 
+  \qitem PRACTICE: Compute the SVD of
 $$A = \begin{bmatrix}
     1 & -1 \\
     0 & 1 \\
     1 & 0
-  \end{bmatrix}$$. 
+  \end{bmatrix}$$.
 
   \sol {
     \begin{enumerate}[label=(\roman*)]
-      \item \textbf{Step 1:} 
+      \item \textbf{Step 1:}
         The matrix $A$ is a $3 \times 2$ matrix. Therefore, we will compute $A^{T}A.$
         $$A^{T}A = \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}$$
       \item \textbf{Step 2:}
@@ -140,11 +147,11 @@ $$A = \begin{bmatrix}
         $$\sigma_{1} = \sqrt{\lambda_{1}} = \sqrt{3}, \ \sigma_{2} = \sqrt{\lambda_{2}} = 1$$
       \item \textbf{Step 4:}
         We now solve for the vectors in the $U$ matrix through the equation $\vec{u}_i = \frac{A \vec{v}_i}{\sigma_i}$
-        $$\vec{u}_{1} = \frac{A \vec{v}_{1}}{\sqrt{3}} = 
+        $$\vec{u}_{1} = \frac{A \vec{v}_{1}}{\sqrt{3}} =
         \begin{bmatrix} \frac{\sqrt{6}}{3} \\ -\frac{1}{\sqrt{6}} \\ \frac{1}{\sqrt{6}} \end{bmatrix}$$
-        $$\vec{u}_{2} = \frac{A \vec{v}_{2}}{1} = 
+        $$\vec{u}_{2} = \frac{A \vec{v}_{2}}{1} =
         \begin{bmatrix} 0 \\ \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
-      \item \textbf{Step 5:}n
+      \item \textbf{Step 5:}
         We still have one last vector $\vec{u}_{3}$ to solve for. To do this, we compute the null-space of $A^{T}$ \\
         A basis for the null-space of $A^{T}$ can be computed through Gaussian-Elimination as:
         $$\vec{u}_{3} = \begin{bmatrix} -1 \\ -1 \\ 1 \end{bmatrix}.$$
@@ -156,17 +163,8 @@ $$A = \begin{bmatrix}
       A = \begin{bmatrix} \frac{\sqrt{6}}{3} & 0 & -\frac{1}{\sqrt{3}} \\
       -\frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{3}} \\
       \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \end{bmatrix}
-      \begin{bmatrix} \sqrt{3} & 0  \\ 0 & 1 \\ 0 & 0 \end{bmatrix} 
+      \begin{bmatrix} \sqrt{3} & 0  \\ 0 & 1 \\ 0 & 0 \end{bmatrix}
       \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
     \end{equation}
   }
 \end{enumerate}
-
-
-
-
-
-
-
-
-
