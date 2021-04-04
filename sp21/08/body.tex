@@ -1,6 +1,6 @@
 \begin{document}
 
-\def\title{Test}
+\def\title{Worksheet 8}
 
 \newcommand{\qitem}{\qpart\item}
 
@@ -8,21 +8,18 @@
 \renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
 \renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
 \renewcommand{\theenumii}{\roman{enumii}.}
+    \maketitle
 
-\maketitle
-
-\vspace{0.5em}
-
+    \vspace{0.5em}
+    
 \begin{qunlist}
-
-\input{\bank/phasors/phasor_impedence_basics.tex}
-\newpage
-\input{\bank/vector-diff-eq/transient_analysis.tex}
-\newpage
-\input{\bank/phasors/rlc_circuit.tex}
-\newpage
-
-
+\input{\bank/svd-pca/svd_practice.tex}
+\clearpage
+\input{\bank/svd-pca/svd_expansion.tex}
+\clearpage
+\input{\bank/svd-review/moore-penrose.tex}
+\clearpage
+\input{\bank/optimal-control/minimum-norm-hard.tex}
+\clearpage
 \end{qunlist}
-
 \end{document}
