@@ -1,6 +1,6 @@
 % Author: Taejin Hwang
 
-\qns{The Frobenius Inner Product}
+\qns{The Frobenius Inner Product (Optional, Covered in HW)}
 
 We previously defined inner products as a way to multiply two vectors to get a scalar and saw numerous examples of the inner product used in $\mathbb{R}^{n}.$
 
@@ -22,17 +22,30 @@ In this question, we will investigate into the Frobenius norm, and its relation 
 \begin{enumerate}
   \item Let $A$ be an $m \times n$ matrix, and $U$ be a square matrix with orthonormal columns. Show that $\norm{UA}_{F} = \norm{A}_{F.}$
 
+  \ws{
+  \vspace{100px}
+  }
+
   \sol {
     $$\norm{UA}_{F} = \sqrt{\text{Trace}((UA)^{T} (UA))} = \sqrt{\text{Trace}(A^{T} U^{T} (UA))} = \sqrt{\text{Trace}(A^{T} A)} = \norm{A}_{F}.$$
   }
 
   \item Now let $V$ be another square matrix with orthonormal columns. Show that $\norm{AV}_{F} = \norm{A}_{F}.$
 
+  \ws{
+  \vspace{100px}
+  }
+
+
   \sol {
     $$\norm{AV}_{F} = \sqrt{\text{Trace}((AV)(AV)^{T})} = \sqrt{\text{Trace}(AVV^{T} A^{T})} = \sqrt{\text{Trace}(A A^{T})} = \norm{A}_{F}.$$
   }
 
-  \item Use the two facts above to show that $\norm{A}_{F} = \norm{\Sigma}.$
+  \item Use the two facts above to show that $\norm{A}_{F} = \norm{\Sigma}_{F}.$
+
+  \ws{
+  \vspace{100px}
+  }
 
   \sol {
     We know from the SVD that $A = U \Sigma V^{T}$ therefore, $\norm{A}_{F} = \norm{U \Sigma V^{T}}.$
@@ -40,6 +53,10 @@ In this question, we will investigate into the Frobenius norm, and its relation 
   }
 
   \item Conclude by saying that $\norm{A}_{F} = \sqrt{\sum\limits_{i = 1}^{n} \sigma_{i}^{2}}.$
+
+  \ws{
+  \vspace{100px}
+  }
 
   \sol {
     $\norm{A}_{F} = \norm{\Sigma}_{F} = \sqrt{\text{Trace}(\Sigma^{T} \Sigma)}.$ \\

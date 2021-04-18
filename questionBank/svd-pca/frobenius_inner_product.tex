@@ -22,11 +22,20 @@ In this question, we will investigate the Frobenius norm, and its relation to th
 \begin{enumerate}
   \item Let $A$ be an $m \times n$ matrix, and $U$ be a square matrix with orthonormal columns. Show that $\norm{UA}_{F} = \norm{A}_{F.}$
 
+  \ws{
+  \vspace{100px}
+  }
+
+
   \sol {
     $$\norm{UA}_{F} = \sqrt{\text{Trace}((UA)^{T} (UA))} = \sqrt{\text{Trace}(A^{T} U^{T} (UA))} = \sqrt{\text{Trace}(A^{T} A)} = \norm{A}_{F}.$$
   }
 
   \item Now let $V$ be another square matrix with orthonormal columns. Show that $\norm{AV}_{F} = \norm{A}_{F}.$
+
+  \ws{
+  \vspace{100px}
+  }
 
   \sol {
     $$\norm{AV}_{F} = \sqrt{\text{Trace}((AV)(AV)^{T})} = \sqrt{\text{Trace}(AVV^{T} A^{T})} = \sqrt{\text{Trace}(A A^{T})} = \norm{A}_{F}.$$
@@ -34,17 +43,25 @@ In this question, we will investigate the Frobenius norm, and its relation to th
 
   \item Use the two facts above to show that $\norm{A}_{F} = \norm{\Sigma}.$
 
+  \ws{
+  \vspace{100px}
+  }
+
   \sol {
     We know from the SVD that $A = U \Sigma V^{T}$ therefore, $\norm{A}_{F} = \norm{U \Sigma V^{T}}_{F}.$
-    Since $U$ and $V^{T}$ are both square matrices with orthonormal columns, 
+    Since $U$ and $V^{T}$ are both square matrices with orthonormal columns,
     $\norm{U \Sigma V^{T}}_{F} = \norm{\Sigma V^{T}}_{F} = \norm{\Sigma}_{F}.$
     Therefore it follows that $\norm{A}_{F} = \norm{\Sigma}_{F}.$
   }
 
   \item Conclude by saying that $\norm{A}_{F} = \sqrt{\sum\limits_{i = 1}^{n} \sigma_{i}^{2}}.$
 
+  \ws{
+  \vspace{100px}
+  }
+
   \sol {
-    $\norm{A}_{F} = \norm{\Sigma}_{F} = \sqrt{\text{Trace}(\Sigma^{T} \Sigma)}.$ 
+    $\norm{A}_{F} = \norm{\Sigma}_{F} = \sqrt{\text{Trace}(\Sigma^{T} \Sigma)}.$
     Since $\Sigma^{T} \Sigma$ is a diagonal matrix, that looks like:
     $$\begin{bmatrix}
     \sigma_{1}^{2} & \cdots & 0 \\

@@ -1,8 +1,8 @@
 % Author: Taejin Hwang
 
-\qns{Low Rank Approximation}
+\qns{Low Rank Approximation (Challenge)}
 
-Given a $m \times n$ matrix $A,$ of high rank, we want to see how we can best approximate this matrix $A$ using a lower rank matrix $A_{k}$ of rank $k << n.$ 
+Given a $m \times n$ matrix $A,$ of high rank, we want to see how we can best approximate this matrix $A$ using a lower rank matrix $A_{k}$ of rank $k << n.$
 
 Before we do this however, we will need to define a way to measure how large a matrix is, and how good our approximation is. Therefore, we will define the spectral norm of a matrix $\norm{A}_{2}$ as:
 \begin{equation}
@@ -30,6 +30,10 @@ and show that the optimal $B_{k}$ is in fact $A_{k}$ or the rank $k$ SVD approxi
 \begin{enumerate}
   \qitem What is the spectral norm of $\norm{A - A_{k}}_{2}?$
 
+  \ws{
+  \vspace{100px}
+  }
+
   \sol {
     We know from the SVD that $A = U \Sigma V^{T} = \sum\limits_{i = 1}^{n} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^{T}.$
     Therefore, $A - A_{k} = \sum\limits_{i = k + 1}^{n} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^{T}.$
@@ -39,11 +43,11 @@ and show that the optimal $B_{k}$ is in fact $A_{k}$ or the rank $k$ SVD approxi
 
 To show $A_{k}$ is optimal, we must show that $\norm{A - B_{k}}_{2} \geq \norm{A - A_{k}}_{2} = \sigma_{k+1}$ for any matrix $B_{k}$ of rank $k.$
 
-To do this, we will first consider a vector $\vec{y} = \alpha_{1} \vec{v}_{1} + \cdots + \alpha_{k + 1} \vec{v}_{k + 1}$ that is a linear combination of the first $k + 1$ vectors of the $V$ matrix of the SVD of $A.$ 
+To do this, we will first consider a vector $\vec{y} = \alpha_{1} \vec{v}_{1} + \cdots + \alpha_{k + 1} \vec{v}_{k + 1}$ that is a linear combination of the first $k + 1$ vectors of the $V$ matrix of the SVD of $A.$
 We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ and show that there must exist a vector $\vec{y}$ in both $S$ and $\text{Nul}(B_{k}).$
 
 \meta {
-  You may want to explain the intuition behind picking this specific $\vec{y}.$ 
+  You may want to explain the intuition behind picking this specific $\vec{y}.$
   We do this since we want to minimize $\norm{(A - B_{k}) \vec{x}}$ over all $\vec{x}.$
   Currently we know how to calculate $\norm{A \vec{v}_{i}}$ and the $B_{k}$ is the annoying part.
   We do however know that the null-space of $B_{k}$ is of dimension $n - k,$ and will therefore construct a subspace using these $\vec{v}_{i}$ that is large enough so that there must be a vector in both this subspace and the null-space of $B_{k}.$
@@ -54,6 +58,11 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
 \begin{enumerate}[resume]
   \qitem What is the dimension of the $\text{Nul}(B_{k})?$
 
+  \ws{
+  \vspace{200px}
+  }
+
+
   \sol {
     By the Rank-Nullity Theorem, we know that $\text{Rank}(B_{k}) + \text{dim Nul}(B_{k}) = n.$ \\
     Since $\text{Rank}(B_{k}) = k,$ we see that $\text{dim Nul}(B_{k}) = n - k.$
@@ -61,11 +70,21 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
 
   \qitem What is the dimension of $S?$
 
+  \ws{
+  \vspace{200px}
+  }
+
+
   \sol {
     Since $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \},$ and all of the vectors $\vec{v}_{i}$ are linearly independent, $R = \{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ forms a basis for $S$ meaning $S$ has dimension $k + 1.$
   }
 
   \qitem Both $B_{k}$ and $S$ are subspaces of $\mathbb{R}^{n}.$ What is $\text{dim Nul}(B_{k}) + \text{dim} \ S?$
+
+  \ws{
+  \vspace{200px}
+  }
+
 
   \sol {
     $\text{dim Nul}(B_{k}) + \text{dim} \ S = n - k + k + 1 = n + 1.$
@@ -74,10 +93,15 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
   \qitem How can we use the fact from the previous part to show that there must exist a vector $\vec{y} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}$ that is in both subspaces $\text{Nul}(B_{k})$ and $S?$
   \textit{Hint: Let R be a basis for $S$ and then create a basis for $B$ for the $\text{Nul}(B_{k})$ and look at the union of the two bases.}
 
+  \ws{
+  \vspace{200px}
+  }
+
+
   \sol {
-    We know that $R = \{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ is a basis for $S.$ 
+    We know that $R = \{ \vec{v}_{1}, \dotsc, \vec{v}_{k+1} \}$ is a basis for $S.$
     Since $\text{Nul}(B_{k})$ has dimension $n - k,$ we can pick a basis $B = \{ \vec{w}_{1}, \dotsc, \vec{w}_{n - k} \}$ for $\text{Nul}(B_{k}).$
-    Now if we look at $R \cup B,$ this is a set of $n + 1$ vectors that are in $\mathbb{R}^{n},$ so this set must be linearly dependent. 
+    Now if we look at $R \cup B,$ this is a set of $n + 1$ vectors that are in $\mathbb{R}^{n},$ so this set must be linearly dependent.
     This means that we can write $\vec{w}_{n - k}$ as a linear combination of the remaining vectors:
     $$\vec{w}_{n - k} = \alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1} + \beta_{1} \vec{w}_{1} + \dotsc + \beta_{n - k - 1} \vec{w}_{n - k - 1}.$$
     Subtracting over the $\vec{w}_{i}$ vectors, we see that
@@ -88,25 +112,40 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
 
   \qitem We will now put the constraint that $\norm{\vec{x}} = 1$ to simplify the problem. How can we rephrase $\norm{A - B_{k}}_{2}$ as an optimization problem with this constraint? \textit{Hint: Look at the definition of the spectral norm.}
 
+  \ws{
+  \vspace{200px}
+  }
+
+
   \sol {
-    Using the definition of the spectral norm, we see that 
-    $$\norm{A - B_{k}}_{2} = \max_{\vec{x} \neq 0} \frac{\norm{(A - B_{k}) \vec{x}}}{\norm{\vec{x}}}$$ 
-    If we put the constraint that $\norm{\vec{x}} = 1,$ then 
+    Using the definition of the spectral norm, we see that
+    $$\norm{A - B_{k}}_{2} = \max_{\vec{x} \neq 0} \frac{\norm{(A - B_{k}) \vec{x}}}{\norm{\vec{x}}}$$
+    If we put the constraint that $\norm{\vec{x}} = 1,$ then
     $$\norm{A - B_{k}}_{2} = \max_{\norm{\vec{x}} = 1} \norm{(A - B_{k}) \vec{x}}.$$
   }
 
-  \qitem What is the norm $\norm{\vec{y}}^{2}$ in terms of $\alpha_{1}, \dots, \alpha_{k+1}?$ 
+  \qitem What is the norm $\norm{\vec{y}}^{2}$ in terms of $\alpha_{1}, \dots, \alpha_{k+1}?$
   \textit{Hint: Remember that $\vec{v}_{i}$ is an eigenvector of $A^{T}A.$}
+
+  \ws{
+  \vspace{200px}
+  }
+
 
   \sol {
     Using the definition of a norm with respect to the inner product we get:
     $$\norm{\vec{y}}^{2} = \innp{\vec{y}}{\vec{y}} = \innp{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}{\alpha_{1} \vec{v}_{1} + \dotsc + \alpha_{k + 1} \vec{v}_{k + 1}}$$
     Then we can use the distributive properties of norms, and the fact that $\vec{v}_{i}$ are orthonormal to cancel the cross-terms.
-    $$\norm{\vec{y}}^{2} = \sum\limits_{i = 1}^{k + 1} \innp{\alpha_{i} \vec{v}_{i}}{\alpha_{i} \vec{v}_{i}} = 
+    $$\norm{\vec{y}}^{2} = \sum\limits_{i = 1}^{k + 1} \innp{\alpha_{i} \vec{v}_{i}}{\alpha_{i} \vec{v}_{i}} =
     \sum\limits_{i = 1}^{k + 1} \alpha_{i}^{2} \innp{\vec{v}_{i}}{\vec{v}_{i}} = \sum\limits_{i = 1}^{k + 1} \alpha_{i}^{2}$$
   }
 
-  \qitem What is $\norm{A \vec{v}_{i}}$ where $\vec{v}_{i}$ has norm 1? 
+  \qitem What is $\norm{A \vec{v}_{i}}$ where $\vec{v}_{i}$ has norm 1?
+
+  \ws{
+  \vspace{200px}
+  }
+
 
   \sol {
     We again apply the definition of a norm with respect to the inner product to get:
@@ -126,9 +165,14 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
     Since $\norm{A - B_{k}}_{2} = \max_{\norm{\vec{x}} = 1} \norm{(A - B_{k}) \vec{x}},$ is the maximum for all $\vec{x}$ in $\mathbb{R}^{n}$ of norm $1,$ it must be that $\norm{A - B_{k}}_{2} \geq \norm{(A - B_{k}) \vec{y}}$ where $\norm{\vec{y}} = 1.$
   }
 
+  \ws{
+  \vspace{200px}
+  }
+
+
   \sol {
-    Since we have shown that there exists a $\vec{y}$ that is a linear combination of the vectors in $S$ that is also in the $\text{Nul}(B_k),$ we want to show that the maximal $\norm{(A-B_k)} \vec{y}$ is still greater than some lower bound $\sigma_{k+1}.$ 
-    
+    Since we have shown that there exists a $\vec{y}$ that is a linear combination of the vectors in $S$ that is also in the $\text{Nul}(B_k),$ we want to show that the maximal $\norm{(A-B_k)} \vec{y}$ is still greater than some lower bound $\sigma_{k+1}.$
+
     $\vec{y}$ is in $\text{Nul}(B_{k}),$ so we can simplify $\norm{(A - B_{k}) \vec{y}}$ as:
     $$\norm{(A - B_{k}) \vec{y}} = \norm{A \vec{y} - B_{k} \vec{y}} = \norm{A \vec{y}}$$
     Plugging in for $\vec{y},$ and looking at $\norm{A \vec{y}}^{2},$ we get:
@@ -144,7 +188,3 @@ We will also define a subspace $S = \text{span}\{ \vec{v}_{1}, \dotsc, \vec{v}_{
   }
 
 \end{enumerate}
-
-
-
-
