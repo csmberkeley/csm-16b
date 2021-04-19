@@ -10,7 +10,7 @@ The kinetics of this pendulum over time can be represented by the following diff
 \begin{equation}
   \frac{d^{2} \theta}{dt^{2}} = -\frac{g}{L} \sin \theta - \frac{b}{m} \ddt{\theta}{t} + \frac{\cos \theta}{mL} u
 \end{equation}
-Where $m$ is the mass of the pendulum, $g$ is gravitational acceleration, $b$ is a damping coefficient due to air resistance, and $u(t)$ is an input force on the pendulum. We will also define the following state-variable $\vec{x}$ 
+Where $m$ is the mass of the pendulum, $g$ is gravitational acceleration, $b$ is a damping coefficient due to air resistance, and $u(t)$ is an input force on the pendulum. We will also define the following state-variable $\vec{x}$
 \begin{equation*}
   \vec{x} = \begin{bmatrix} x_{1} \\ x_{2} \end{bmatrix} = \begin{bmatrix} \theta \\ \omega \end{bmatrix} = \begin{bmatrix} \theta \\ \ddt{\theta}{t} \end{bmatrix}
 \end{equation*}
@@ -26,20 +26,20 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
 
 \begin{enumerate}
   \qitem \textbf{How can you write $\ddt{}{t} \vec{x}(t) = f(\vec{x}, u)$ as a vector differential equation?}
-  
+
   \ws {
     \vspace{75px}
   }
 
   \sol {
-    $$\ddt{}{t} \vec{x} 
-    = \ddt{}{t} \begin{bmatrix} \theta \\ \ddt{\theta}{t} \end{bmatrix} 
+    $$\ddt{}{t} \vec{x}
+    = \ddt{}{t} \begin{bmatrix} \theta \\ \ddt{\theta}{t} \end{bmatrix}
     = \begin{bmatrix} f_{1}(\vec{x}, u) \\ f_{2}(\vec{x}, u) \end{bmatrix}
     = \begin{bmatrix} \ddt{\theta}{t} \\ -\frac{g}{L} \sin \theta - \frac{b}{m} \ddt{\theta}{t} + \frac{\cos \theta}{m \cdot L} u(t) \end{bmatrix}$$
   }
 
   \newpage
-  \qitem \textbf{What are $J_{\vec{x}}$ and $J_{u}$ evaluated the equilibrium points $\vec{x}^{*} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}, u^{*} = 0$?}
+  \qitem \textbf{What are $J_{\vec{x}}$ and $J_{u}$ evaluated at the equilibrium points $\vec{x}^{*} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}, u^{*} = 0$?}
 
   \ws {
     \vspace{150px}
@@ -51,7 +51,7 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
 
   \sol {
     The individual functions $f_{1}, f_{2}$ in terms of the state variables $x_1, x_2$ and the input $u$ are
-    \begin{align*} 
+    \begin{align*}
       &f_{1}(x_{1}, x_{2}, u) = x_{2} \\
       &f_{2}(x_{1}, x_{2}, u) = -\frac{g}{L} \sin x_{1} - \frac{b}{m} x_{2} + \frac{\cos{x_1}}{mL} u
     \end{align*}
@@ -60,24 +60,24 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
     $$J_{\vec{x}} =
     \begin{bmatrix} \frac{\partial f_{1}}{\partial x_{1}} & \frac{\partial f_{1}}{\partial x_{2}} \\
     \frac{\partial f_{2}}{\partial x_{1}} & \frac{\partial f_{2}}{\partial x_{2}}
-    \end{bmatrix} = 
+    \end{bmatrix} =
     \begin{bmatrix} 0 & 1 \\
-    -\frac{g}{L} \cos x_{1} & -\frac{b}{m} 
-    \end{bmatrix} = 
+    -\frac{g}{L} \cos x_{1} & -\frac{b}{m}
+    \end{bmatrix} =
     \begin{bmatrix} 0 & 1 \\
-    -\frac{g}{L} \cos x_1 - \frac{\sin{x_1}}{mL} u & -\frac{b}{m} 
+    -\frac{g}{L} \cos x_1 - \frac{\sin{x_1}}{mL} u & -\frac{b}{m}
     \end{bmatrix}
     $$
     The Jacobian for $u$ is:
     $$J_{u} =
     \begin{bmatrix} \frac{\partial f_{1}}{\partial u} \\ \frac{\partial f_{2}}{\partial u} \end{bmatrix} =
-    \begin{bmatrix} 0 \\ \frac{\cos x_{1}}{mL} \end{bmatrix} = 
+    \begin{bmatrix} 0 \\ \frac{\cos x_{1}}{mL} \end{bmatrix} =
     \begin{bmatrix} 0 \\ \frac{\cos \theta}{mL} \end{bmatrix}
     $$
     Evaluating at the operating point, $\vec{x}^{*}, u^{*}$ we get:
     $$J_{\vec{x}} |_{\vec{x} = \vec{x}^{*}} =
     \begin{bmatrix} 0 & 1 \\
-    -\frac{g}{L} & -\frac{b}{m} 
+    -\frac{g}{L} & -\frac{b}{m}
     \end{bmatrix} \hspace{0.3 cm}
     J_{u} |_{u = u^{*}} =
     \begin{bmatrix} 0 \\ \frac{1}{mL} \end{bmatrix}
@@ -90,10 +90,10 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
   }
   \sol {
     The state-space form will be:
-    $$\ddt{}{t} \delta_{x}(t) = 
+    $$\ddt{}{t} \delta_{x}(t) =
     \begin{bmatrix} 0 & 1 \\
-    -\frac{g}{L} & -\frac{b}{m} 
-    \end{bmatrix} \vec{\delta}_{\vec{x}}(t) + 
+    -\frac{g}{L} & -\frac{b}{m}
+    \end{bmatrix} \vec{\delta}_{\vec{x}}(t) +
     \begin{bmatrix} 0 \\ \frac{1}{mL} \end{bmatrix} \vec{\delta}_{u}(t)
     $$
   }
@@ -107,7 +107,7 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
   \sol {
     The eigenvalues of this system, are the eigenvalues of the $J_{\vec{x}}$ matrix:
     $$\begin{bmatrix} 0 & 1 \\
-    -\frac{g}{L} & -\frac{b}{m} 
+    -\frac{g}{L} & -\frac{b}{m}
     \end{bmatrix}$$
     The determinant of $J_{\vec{x}} - \lambda I$ is:
     $$\text{det} \bigg( \begin{bmatrix} -\lambda & 1 \\
@@ -127,7 +127,7 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
   % \sol {
   %   Remember that a system is stable, when $\mathfrak{Re}(\lambda_{i}) < 0$ for all $i.$
   %   For this system, $\mathfrak{Re}(\lambda_{1}) = \mathfrak{Re}(\lambda_{2}) = -\frac{b}{2m}$ meaning the system will be stable when $\frac{b}{2m} > 0.$
-  %   Therefore, the system is indeed stable, when $b = 2$ and $m = 2.$ 
+  %   Therefore, the system is indeed stable, when $b = 2$ and $m = 2.$
   % }
 
   % \qitem Is this system controllable?
@@ -137,23 +137,23 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
   % }
 
   % \sol {
-  %   We can claim that this system is controllable, since it is in Controllable Canonical Form. 
+  %   We can claim that this system is controllable, since it is in Controllable Canonical Form.
   %   Alternatively we can also compute the controllability matrix as:
-  %   $$\mathcal{C} = 
-  %   \begin{bmatrix} 
+  %   $$\mathcal{C} =
+  %   \begin{bmatrix}
   %   0 & \frac{1}{mL} \\
   %   \frac{1}{mL} & -\frac{b}{m^{2} L}
   %   \end{bmatrix}$$
-  %   Since $\frac{1}{mL}$ cannot be zero, the second column cannot be a scalar multiple of the first. 
+  %   Since $\frac{1}{mL}$ cannot be zero, the second column cannot be a scalar multiple of the first.
   %   Therefore, the controllability matrix is full rank, and the system is controllable.
   % }
 
-  % \qitem Now suppose that there is a strong wind pushing our pendulum which changes the dynamics so that $b = -2.$ 
+  % \qitem Now suppose that there is a strong wind pushing our pendulum which changes the dynamics so that $b = -2.$
   % Show that this system is unstable.
 
   % \meta {
   %   Remember that linearization is an approximation to a system at a given operating point.
-  %   Since the linearization is defined in terms of $\delta_{\vec{x}}(t),$ the distance from the operating point, 
+  %   Since the linearization is defined in terms of $\delta_{\vec{x}}(t),$ the distance from the operating point,
   %   if a linearization is unstable, it means that the error of the approximation will be unbounded as you get farther away from the operating point.
   % }
 
@@ -165,16 +165,16 @@ where $J_{\vec{x}}$ and $J_{u}$ are the respective Jacobians of $f$ with respect
 
   % \sol {
   %   Plugging these values in, we see that the system is indeed in Controllable Canonical Form:
-  %   $$\ddt{}{t} \delta_{x}(t) = 
-  %   \begin{bmatrix} 
+  %   $$\ddt{}{t} \delta_{x}(t) =
+  %   \begin{bmatrix}
   %   0 & 1 \\
   %   -20 & 1
-  %   \end{bmatrix} \vec{\delta}_{\vec{x}}(t) + 
+  %   \end{bmatrix} \vec{\delta}_{\vec{x}}(t) +
   %   \begin{bmatrix} 0 \\ 1 \end{bmatrix} \vec{\delta}_{u}(t)
   %   $$
   % }
 
-  % \qitem  We will use the fact that this system is in Controllable Canonical Form to stabilize the system. 
+  % \qitem  We will use the fact that this system is in Controllable Canonical Form to stabilize the system.
   % Design a feedback controller so that the eigenvalues of the system will be $\lambda_{1} = -2, \ \lambda_{2} = -3.$
 
   % \sol {

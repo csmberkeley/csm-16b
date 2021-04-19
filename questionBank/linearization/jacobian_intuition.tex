@@ -22,12 +22,15 @@ Let the operating point about which you linearize the system be
     \end{align*}
     \begin{enumerate}[label = (\roman*)]
         \item First, take $x_2$ as constant. What is the linear approximation of $f_1(x_1, x_2^{*})$? \\
+        \ws{
+        \vspace{100px}
+        }
         \sol{
             If we take $x_2$ as constant, the approximation of $f_1$ is as follows:
             \begin{align*}
                 f_1(x_1, x_2^{*}) \approx f_1(x_1^{*}, x_2^{*}) + \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x*}} (x_1 - x_1^{*})
             \end{align*}
-            Notice that $f_1(\vec{x}^{*}) = 0$, so 
+            Notice that $f_1(\vec{x}^{*}) = 0$, so
             \begin{align*}
                 f_1(x_1, x_2^{*}) \approx \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x*}} (x_1 - x_1^{*})
             \end{align*}
@@ -35,12 +38,15 @@ Let the operating point about which you linearize the system be
             \begin{align*}
                 f_1(x_1, x_2^{*}) \approx 3(x_1^{*})^2(x_1 - x_1^{*})
             \end{align*}
-            Plugging in $x_1^{*} = 0$, we get
+            Thus, we get
             \begin{align*}
                 f_1(x_1, x_2^{*}) \approx 0
             \end{align*}
         }
         \item Now, take $x_1$ as constant. What is the linear approximation of $f_1(x_1^{*}, x_2)$? \\
+        \ws{
+        \vspace{100px}
+        }
         \sol{
             If we take $x_1$ as constant, the approximation of $f_1$ is as follows:
             \begin{align*}
@@ -55,7 +61,10 @@ Let the operating point about which you linearize the system be
                 f_1(x_1^{*}, x_2) \approx \cos(x_2^{*}) \cdot x_2 = x_2
             \end{align*}
         }
-        \item Now, what is $f_1(x_1, x_2)$ linearized around $\vec{x}$? \\
+        \item Now, what is $f_1(x_1, x_2)$ linearized around $\vec{x}^{*}$? \\
+        \ws{
+        \vspace{100px}
+        }
         \sol{
             To find the linear approximation of $f_1$ with respect to both $x_1$ and $x_2$, add the approximation of $f_1$ that depends on $\frac{\partial f_1}{\partial x_1}$ to the approximation that depends on $\frac{\partial f_1}{\partial x_2}$.
             \begin{align*}
@@ -69,6 +78,9 @@ Let the operating point about which you linearize the system be
     \end{enumerate}
 
     \qitem Using the same process as in part (a), find the linear approximation of $f_2$ about $\vec{x}^{*}$. \\
+    \ws{
+    \vspace{100px}
+    }
     \sol {
         First, find the partial derivative of $f_2$ with respect to $x_1$, evaluated at the operating point $\vec{x} = \vec{0}$:
         \begin{align*}
@@ -87,7 +99,7 @@ Let the operating point about which you linearize the system be
 
     \qitem Now, we want to approximate $\vec{f}(\vec{x}) = \begin{bmatrix} f_1(\vec{x}) \\ f_2(\vec{x}) \end{bmatrix}$ around $\vec{x} = \vec{0}$ as a matrix-vector equation.
     \begin{align*}
-        \vec{f}(\vec{x}) \approx \vec{f}{\vec{x}^{*}} + J_{\vec{x}}(\vec{x} - \vec{x}^{*})
+        \vec{f}(\vec{x}) \approx \vec{f}({\vec{x}^{*}}) + J_{\vec{x}}(\vec{x} - \vec{x}^{*})
     \end{align*}
     Fill in the Jacobian, $J_{\vec{x}}$, by finding the constants $a, b, c, d$ that complete the following equation:
     \begin{align*}
@@ -102,12 +114,15 @@ Let the operating point about which you linearize the system be
         \begin{bmatrix}
             a & b \\
             c & d
-        \end{bmatrix} 
+        \end{bmatrix}
         \begin{bmatrix}
             x_1 - x_1^{*} \\
             x_2 - x_2^{*}
         \end{bmatrix}
     \end{align*}
+    \ws{
+    \vspace{100px}
+    }
 
     \sol{
         $a$ is the component of the approximation of $f_1$ that multiplies $x_1$:
@@ -140,7 +155,7 @@ Let the operating point about which you linearize the system be
         \begin{bmatrix}
             0 & 1 \\
             2 & -1
-        \end{bmatrix} 
+        \end{bmatrix}
         \begin{bmatrix}
             x_1 - 0 \\
             x_2 - 0
@@ -148,7 +163,7 @@ Let the operating point about which you linearize the system be
         \begin{bmatrix}
             0 & 1 \\
             2 & -1
-        \end{bmatrix} 
+        \end{bmatrix}
         \begin{bmatrix}
             x_1 \\
             x_2
