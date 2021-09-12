@@ -10,13 +10,13 @@ As a reminder, if the following conditions are met the system will be stable:
 
 \item For discrete time systems of the form:
 \begin{equation}
-\vec{x}(t+1) = A\vec{x}(t) + Bu(t) + \vec{w}(t)
+\vec{x}[t+1] = A\vec{x}[t] + Bu[t] + \vec{w}[t]
 \end{equation}
 All eigenvalues of the matrix A, $\lambda_{i},$ have magnitude $|\lambda_{i}| < 1.$
 
 \item For continuous time systems of the form:
 \begin{equation}
-\ddt{}{t} \vec{x}(t) = A\vec{x}(t) + Bu(t) + \vec{w}(t)
+\ddt{}{t} \vec{x}[t] = A\vec{x}[t] + Bu[t] + \vec{w}[t]
 \end{equation}
 All eigenvalues of the matrix A, $\lambda_{i},$ have real part $\mathfrak{Re}(\lambda_{i})< 0.$
 \end{itemize}
@@ -25,17 +25,17 @@ All eigenvalues of the matrix A, $\lambda_{i},$ have real part $\mathfrak{Re}(\l
 
 \qitem According to your boss, the first robot, GLaDOS, can be described with the following discrete time system:
 \begin{equation*}
-    \vec{x}(t+1) =
+    \vec{x}[t+1] =
     \begin{bmatrix}
     \frac{3}{8} & \frac{1}{8}\\
     \frac{1}{8} & \frac{3}{8}\\
     \end{bmatrix}
-    \vec{x}(t) +
+    \vec{x}[t] +
     \begin{bmatrix}
     1\\
     0\\
     \end{bmatrix}
-    u(t)
+    u[t]
 \end{equation*}
 
 Is she stable?
@@ -57,7 +57,7 @@ Is she stable?
 \end{bmatrix} \Big) = \big(\frac{3}{8} - \lambda{}\big)\big(\frac{3}{8} - \lambda{}\big) - \big(\frac{1}{8}\big)\big(\frac{1}{8}\big) \\
 &= \lambda{}^2 - \frac{3}{4}\lambda{} + \frac{1}{8} = \big(\lambda{} - \frac{1}{2}\big)\big(\lambda{} - \frac{1}{4}\big) = 0\\
 \end{align*}
-Therefore, we see that 
+Therefore, we see that
 $$
 \lambda{} = \frac{1}{2}, \frac{1}{4}$$
 
@@ -67,17 +67,17 @@ Since the system is a discrete time system, and both eigenvalues have magnitude 
 \qitem Your boss now gives you data on the P-body robot. Is she stable?
 Her motion is described with the following discrete time system:
 \begin{equation*}
-    \vec{x}(t + 1) =
+    \vec{x}[t + 1] =
     \begin{bmatrix}
     -2 & -1\\
     1 & -2\\
     \end{bmatrix}
-    \vec{x}(t) +
+    \vec{x}[t] +
     \begin{bmatrix}
     1\\
     1\\
     \end{bmatrix}
-    u(t)
+    u[t]
 \end{equation*}
 
 \sol {
@@ -99,17 +99,17 @@ Now your boss gives you data on a more advanced robot, Atlas.
 Is he stable?
 His movements can be described with the following continuous time system:
 \begin{equation*}
-    \frac{d}{dt}\vec{x}(t) =
+    \frac{d}{dt}\vec{x}[t] =
     \begin{bmatrix}
     -2 & -1\\
     1 & -2\\
     \end{bmatrix}
-    \vec{x}(t) +
+    \vec{x}[t] +
     \begin{bmatrix}
     1\\
     1\\
     \end{bmatrix}
-    u(t)
+    u[t]
 \end{equation*}
 
 \sol{
@@ -121,17 +121,17 @@ His movements can be described with the following continuous time system:
 \qitem Lastly, your boss gives you data on the Wheatley robot. Is he stable?
 His motion is described with the following discrete time system:
 \begin{equation*}
-    \vec{x}(t+1) =
+    \vec{x}[t+1] =
     \begin{bmatrix}
     \frac{\sqrt{3}}{2} & -\frac{1}{2}\\
     \frac{1}{2} & \frac{\sqrt{3}}{2}\\
     \end{bmatrix}
-    \vec{x}(t) +
+    \vec{x}[t] +
     \begin{bmatrix}
     0\\
     1\\
     \end{bmatrix}
-    u(t)
+    u[t]
 \end{equation*}
 
 \sol {
