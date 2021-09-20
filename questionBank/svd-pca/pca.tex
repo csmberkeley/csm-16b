@@ -46,6 +46,11 @@ In this question, we will look at how to compute a Principal Component Analysis,
     After finishing this mechanical question, draw out the principal components so students can see which direction they are pointing in.
   }
 
+
+  \ws{
+  \vspace{200px}
+  }
+
 	\sol {
     The mean of the first column is $\mu_{1} = \frac{5 + 7 + 11 + 5}{4} = 7,$ and the mean of the second column is $\mu_{2} = \frac{-6 + 0 - 4 - 6}{4} = -4.$
     Therefore, our demeaned matrix will be:
@@ -90,6 +95,10 @@ In this question, we will look at how to compute a Principal Component Analysis,
     \includegraphics[width=4in]{\bank/svd-pca/figures/2d_data_new.PNG}
   \end{center}
 
+  \ws{
+  \vspace{200px}
+  }
+
 	\sol {
     Looking at the data, we should try to draw the first and second principal component centered at the mean, and in the direction of maximal spread.
     \begin{center}
@@ -101,6 +110,10 @@ In this question, we will look at how to compute a Principal Component Analysis,
 	}
 
 	\qitem From the previous 2D-data set project the data onto the first principal component
+
+  \ws{
+  \vspace{200px}
+  }
 
 
 	\sol {
@@ -118,6 +131,10 @@ In this question, we will look at how to compute a Principal Component Analysis,
 	}
 
 	\qitem Suppose we represent our data matrix $A$ differently. Now, each data point is aggregated as a column vector, instead of a row vector. How does this change how we find our principal components?
+
+  \ws{
+  \vspace{200px}
+  }
 
 	\sol {
     If we aggregated data into a matrix $A$ by columns, instead of rows, then the transpose of this matrix, $A^{T}$ would be how we set up PCA using the row convention.

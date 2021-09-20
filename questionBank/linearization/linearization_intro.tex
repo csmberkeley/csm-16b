@@ -52,14 +52,14 @@ The process of creating a linear approximation for a nonlinear function is calle
 
 The main ideas for linearization will come from Taylor Expansion, in which we'll give a first order approximation for a function around a point $x^{*}$ as
 \begin{equation} \label{eqn:ta}
-  f(x) = f(x^{*}) + \frac{f'(x^{*})}{1!} (x - x^{*}) = f(x^{*}) + f'(x^{*}) (x - x^{*})
+  f(x) \approx f(x^{*}) + \frac{f'(x^{*})}{1!} (x - x^{*}) = f(x^{*}) + f'(x^{*}) (x - x^{*})
 \end{equation}
 
 This is a first order approximation because we stop the taylor series approximation after the first term.
 We could easily have a nth order approximation by taking more derivatives.
 
 \meta {
-  We like to pick operating points $x^{*}$ in which $f(x^{*}) = 0$ since it will simplify $f(x) = f'(x^{*}) (x - x^{*}).$
+  We like to pick operating points $x^{*}$ in which $f(x^{*}) = 0$ since it will simplify equation 1 to $f(x) = f'(x^{*}) (x - x^{*}).$
 }
 
 Let's now take a look at the differential equation:
@@ -77,12 +77,12 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
   }
   \sol {
     Using the first order Taylor expansion formula given in \eqref{eqn:ta}, we get:
-    $$f(x) = f(x^{*}) + f'(x^{*}) (x - x^{*})$$
+    $$f(x) \approx f(x^{*}) + f'(x^{*}) (x - x^{*})$$
     The derivative of $\sin(x)$ is $\cos(x)$ so plugging in for $x^{*} = 0,$ we get:
-    $$f(x) = -\sin(0) - \cos(0) (x - 0) = -x$$
+    $$f(x) \approx -\sin(0) - \cos(0) (x - 0) = -x$$
   }
 
-  \qitem We will now look at a small window of $x(t)$ around $x^{*}$ and let $x(t) = x^{*} + \delta_{x}(t)$ where $\delta_{x}(t)$ is small enough so the error of the Taylor approximation is small.
+  \qitem We will now look at a small window of $x(t)$ around $x^{*}$ and let $x(t) \approx x^{*} + \delta_{x}(t)$ where $\delta_{x}(t)$ is small enough so the error of the Taylor approximation is small.
   \textbf{Plug in this $x(t)$ into the original differential equation \eqref{eqn:nl} and use the first order Taylor approximation derived in the previous part to come up with a new differential equation in terms of $\delta_{x}(t).$}
 
   \ws {
@@ -90,7 +90,7 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
   }
 
   \sol {
-    Plugging in $x(t) = x^{*} + \delta_{x}(t),$ we'll get:
+    Plugging in $x(t) \approx x^{*} + \delta_{x}(t),$ we'll get:
     $$f(x) = -x = -x^{*} - \delta_{x}(t) = -\delta_{x}(t)$$
     Differentiating $x(t),$ and noticing that $x^{*}$ is a constant (zero in this case), we get:
     $$\ddt{}{t} x(t) = \ddt{}{t} \delta_{x}(t)$$
@@ -130,7 +130,7 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
 
   \sol {
     The solution derived in the previous part was $\delta_{x}(t) = \delta_{x}(0) e^{-t}.$
-    Converting back to $x(t),$ we see that the new linearized approximation is $x(t) = x^{*} + \delta_{x}(t) = \delta_{x}(t) = \delta_{x}(0) e^{-t}.$
+    Converting back to $x(t),$ we see that the new linearized approximation is $x(t) \approx x^{*} + \delta_{x}(t) = \delta_{x}(t) = \delta_{x}(0) e^{-t}.$
     This solution is stable since $\delta_{x}(t) \leq \delta_{x}(0)$ for all values of $t \geq 0.$
     If the linearization satisfies the smallness assumption, meaning $\delta_{x}(0)$ is small enough that $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t),$ then the linearization will be valid for all values of $t \geq 0.$
   }

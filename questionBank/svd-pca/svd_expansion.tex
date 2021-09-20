@@ -1,6 +1,10 @@
 \qns{SVD Expansion}
 \qcontributor{Elena Jia}
 
+\meta{
+  This problem should gear students towards thinking of the SVD as a sum of outerproducts.
+}
+
 
 Given the matrix $$A = \frac{1}{\sqrt{50}} \begin{bmatrix}
     3\\
@@ -19,9 +23,9 @@ Given the matrix $$A = \frac{1}{\sqrt{50}} \begin{bmatrix}
     of matrix $A$ in the form $U \Sigma V^T$.} Note the ordering of the singular values in $\Sigma$ should be from the largest to smallest.
 
 {\em HINT: You don't have to compute any eigenvalues for this.   Some
-  useful observations are that 
+  useful observations are that
 $$\begin{bmatrix}
-    3, 
+    3,
     4
   \end{bmatrix} \begin{bmatrix}
     -4\\
@@ -46,7 +50,7 @@ $$\begin{bmatrix}
     1  \end{bmatrix} \| = \sqrt{2}.$$ }
 
 \sol {
-  
+
   % Observe that $$\begin{bmatrix}
   %   3\\
   %   4
@@ -59,7 +63,7 @@ $$\begin{bmatrix}
   % \end{bmatrix} \cdot \begin{bmatrix}
   %   1\\
   %   1
-  % \end{bmatrix} = 0. $$ 
+  % \end{bmatrix} = 0. $$
 
   Since the singular value decomposition can be written in the form $$A = \sum_{i=1}^{2} \sigma_{i}\vec{u_{i}}\vec{v_{i}}^T,$$ we can derive $$\vec{u_{1}} = \begin{bmatrix}
     -\frac{4}{5} \\
@@ -80,7 +84,7 @@ $$\begin{bmatrix}
   $$ A = \begin{bmatrix}
     -\frac{4}{5} & \frac{3}{5} \\
     \frac{3}{5} & \frac{4}{5}
-  \end{bmatrix} 
+  \end{bmatrix}
   \begin{bmatrix}
     3 & 0 \\
     0 & 1

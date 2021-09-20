@@ -1,9 +1,9 @@
 % Author: Elena Jia, Taejin Hwang
 % Emails: taejin@berkeley.edu
 
-\qns{SVD Practice}
+\qns{SVD Practice (Review)}
 
-In this question, we will go through the indivudal steps of finding the Singular Value Decomposition of an $m \times n$ matrix $A.$
+This is a review of the individudal steps of finding the Singular Value Decomposition of an $m \times n$ matrix $A.$
 
 The final answer will be of the form $A = U \Sigma V^{T}$ where $U$ is a $m \times m$ orthonormal matrix, $V$ is a $n \times n$ orthonormal matrix, and $\Sigma$ is a $m \times n$ matrix that is a diagonal matrix with $0$s padded on the right or below depending on the dimensions $m$ and $n.$
 
@@ -12,21 +12,21 @@ We give the following procedure to compute the SVD of a $m \times n$ matrix $A.$
 \begin{enumerate}[label=(\roman*)]
   \item \textbf{Step 1: Compute the symmetric matrix $A^{T} A$ or $A A^{T}.$} \vskip 1pt
   $A^{T}A$ will be of dimension $n \times n,$ and $AA^{T}$ will be of dimension $m \times m.$ \vskip 1pt
-  For a tall, skinny matrix, where $m > n,$ the SVD will be easier to calculate using $A^{T}A$ while for a short, fat matrix, where $m < n,$ the SVD will be easier to calculate using $AA^{T}.$ 
+  For a tall, skinny matrix, where $m > n,$ the SVD will be easier to calculate using $A^{T}A$ while for a short, fat matrix, where $m < n,$ the SVD will be easier to calculate using $AA^{T}.$
 
   \item \textbf{Step 2: Find the eigenvalues and eigenvectors of $A^{T} A$ or $AA^{T}.$} \vskip 1pt
   If $m > n,$ find the eigenvalues ($\lambda_1, \ldots, \lambda_{n}$) and eigenvectors ($\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_{n}$) of $A^TA$. \\
    If $m < n,$ we find the eigenvalues ($\lambda_1, \ldots, \lambda_{m}$) and eigenvectors ($\vec{u}_{1}, \ \vec{u}_{2}, \ldots, \vec{v}_{m}$) of $AA^{T}.$ \\
    By the spectral theorem for real symmetric matrices, these eigenvectors are orthonormal.
 
-  \item \textbf{Step 3: Compute the singular values $\sigma_i = \sqrt{\lambda_i}$ where $\lambda_i$ are the sorted in descending order eigenvalues of $A^TA$ or $AA^{T}.$} \vskip 1pt 
-  We know these are all non-negative because $(A\vec{v}_i)^T(A\vec{v}_i) = \|A \vec{v}_i\|^2$ and $(A\vec{v}_i)^T(A\vec{v}_i) =\vec{v}_i^T(A^T A)\vec{v}_i = \lambda_i \vec{v}_i^T\vec{v}_i = \lambda_i$. The corresponding normalized eigenvectors $\vec{v}_i$ form the $V$ matrix. 
+  \item \textbf{Step 3: Compute the singular values $\sigma_i = \sqrt{\lambda_i}$ where $\lambda_i$ are the sorted in descending order eigenvalues of $A^TA$ or $AA^{T}.$} \vskip 1pt
+  We know these are all non-negative because $(A\vec{v}_i)^T(A\vec{v}_i) = \|A \vec{v}_i\|^2$ and $(A\vec{v}_i)^T(A\vec{v}_i) =\vec{v}_i^T(A^T A)\vec{v}_i = \lambda_i \vec{v}_i^T\vec{v}_i = \lambda_i$. The corresponding normalized eigenvectors $\vec{v}_i$ form the $V$ matrix.
 
   \item \textbf{Step 4: Find the corresponding vectors of the $U$ or $V$ matrix}  \vskip 1pt
   If $m > n,$ we use the nonzero values of $\sigma_i,$ and $\vec{v}_i,$ to find corresponding vectors of the $U$ matrix, $\vec{u}_i$ by computing $\vec{u}_i = \frac{A\vec{v}_i}{\sigma_i}$. \\
   If $m < n,$ we use the nonzero values of $\sigma_i$ and $\vec{u}_i,$ to find corresponding vectors of the $V$ matrix, $\vec{v}_i$ by computing $\vec{v}_i = \frac{A^{T} \vec{u}_i}{\sigma_i}$
 
-  These are normalized since $\sigma_i = \|A \vec{v}_i\| = \|A^{T} \vec{u}_i \|$ by the argument above, and orthogonal since $(A\vec{v}_i)^T(A\vec{v}_j) = \vec{v}_i^T(A^T A)\vec{v}_j = \lambda_j \vec{v}_i^T\vec{v}_j = 0$ if $i \neq j$, since $V$ is an orthonormal matrix. 
+  These are normalized since $\sigma_i = \|A \vec{v}_i\| = \|A^{T} \vec{u}_i \|$ by the argument above, and orthogonal since $(A\vec{v}_i)^T(A\vec{v}_j) = \vec{v}_i^T(A^T A)\vec{v}_j = \lambda_j \vec{v}_i^T\vec{v}_j = 0$ if $i \neq j$, since $V$ is an orthonormal matrix.
 
   \item \textbf{Step 5 (for finding the full SVD): Use Gram-Schmidt to complete the $U$ or $V$ matrix} \vskip 1pt
   If $m > n$ we can complete the $U$ matrix by finding $\vec{u}_{n + 1}, \ldots, \vec{u}_{m}$ through Gram-Schmidt. \\
@@ -45,179 +45,170 @@ Recall the following SVD forms:
   Full SVD          & $A = U \Sigma V^T$ \\ \hline
 \end{tabular} \end{center}
 
-\newpage
-\begin{enumerate}
-  \qitem Given the matrix: 
-  $$A = \begin{bmatrix}
-    1 & 1 & 0 \\
-    0 & 1 & 1 \\
-  \end{bmatrix}$$
-
-  \textbf{Compute the following:}
-  \begin{enumerate}
-  \item compact SVD
-  \item outer product SVD
-  \item full SVD
-  \end{enumerate}
-
-  \sol {
-    \begin{enumerate}[label=(\roman*)]
-      \item \textbf{Step 1:} 
-        The matrix $A$ is a $2 \times 3$ matrix. Therefore, we will compute $AA^{T}.$
-        $$AA^{T} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$$
-      \item \textbf{Step 2:}
-        We then compute the eigenvalues and eigenvectors of $A A^{T}.$
-        \begin{align*}
-          \text{det}(AA^{T} - \lambda I) &=
-          \text{det}\Big(\begin{bmatrix}
-          2 - \lambda  & 1\\
-          1 & 2 - \lambda \\
-          \end{bmatrix} \Big) \\
-          &= (2 - \lambda)^{2} - 1 = \lambda^{2} - 4 \lambda + 3 = (\lambda - 3)(\lambda - 1) = 0
-        \end{align*}
-        The eigenvalues will then be $\lambda = 3, 1.$
-        To find the eigenvectors of $AA^{T},$ we look at the null-space of $AA^{T} - \lambda I.$
-        $$AA^{T} - 3I = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}$$
-        A basis for the null-space of $AA^{T} - 3I$ is:
-        $$\vec{u}_{1} = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
-        $$AA^{T} - I = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$$
-        A basis for the null-space of $AA^{T} - I$ is:
-        $$\vec{u}_{2} = \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
-        Remember that these vectors form the $U$ matrix.
-      \item \textbf{Step 3:}
-        The singular values are computed by taking the square root of the eigenvalues of $AA^{T}.$
-        $$\sigma_{1} = \sqrt{\lambda_{1}} = \sqrt{3}, \ \sigma_{2} = \sqrt{\lambda_{2}} = 1$$
-      \item \textbf{Step 4:}
-        We now solve for the vectors in the $V$ matrix through the equation $\vec{v}_i = \frac{A^{T} \vec{u}_i}{\sigma_i}$
-        $$\vec{v}_{1} = \frac{A^{T} \vec{u}_{1}}{\sqrt{3}} = 
-        \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix}$$
-        $$\vec{v}_{2} = \frac{A^{T} \vec{u}_{2}}{1} = 
-        \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
-      \item \textbf{Step 5:}
-        We still have one last vector $\vec{v}_{3}$ to solve for. To do this, we compute the null-space of $A$ \\
-        A basis for the null-space of $A$ can be computed through Gaussian-Elimination as:
-        $$\vec{v}_{3} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}.$$
-        We however, must normalize $\vec{v}_{3}$ so that $V$ has orthonormal columns. As a result, we see that
-        $$\vec{v}_{3} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ - \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}.$$
-    \end{enumerate}
-    The final result of our full SVD will be:
-    \begin{equation}
-      A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
-      \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} 
-      \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
-      -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\
-      \frac{1}{\sqrt{3}} & - \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix}
-    \end{equation}
-
-    The compact SVD is:
-    \begin{equation}
-      A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
-      \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \end{bmatrix} 
-      \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
-      -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \end{bmatrix}
-    \end{equation}
-
-    The outer product SVD is:
-    \begin{equation}
-      A = \sqrt{3} \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \end{bmatrix}
-        + 1 \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \end{bmatrix}
-    \end{equation}
-  }
-
-  \newpage
-  \qitem Given the matrix: 
-  $$A = \begin{bmatrix}
-    1 & -1 \\
-    0 & 1 \\
-    1 & 0
-  \end{bmatrix}$$. 
-
-  \textbf{Compute the following:}
-  \begin{enumerate}
-  \item compact SVD
-  \item outer product SVD
-  \item full SVD
-  \end{enumerate}
-
-  \sol {
-    \begin{enumerate}[label=(\roman*)]
-      \item \textbf{Step 1:} 
-        The matrix $A$ is a $3 \times 2$ matrix. Therefore, we will compute $A^{T}A.$
-        $$A^{T}A = \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}$$
-      \item \textbf{Step 2:}
-        We then compute the eigenvalues and eigenvectors of $A A^{T}.$
-        \begin{align*}
-          \text{det}(AA^{T} - \lambda I) &=
-          \text{det}\Big(\begin{bmatrix}
-          2 - \lambda  & -1\\
-          -1 & 2 - \lambda \\
-          \end{bmatrix} \Big) \\
-          &= (2 - \lambda)^{2} - 1 = \lambda^{2} - 4 \lambda + 3 = (\lambda - 3)(\lambda - 1) = 0
-        \end{align*}
-        The eigenvalues will then be $\lambda = 3, 1.$
-        To find the eigenvectors of $AA^{T},$ we look at the null-space of $AA^{T} - \lambda I.$
-        $$AA^{T} - 3I = \begin{bmatrix} -1 & -1 \\ -1 & -1 \end{bmatrix}$$
-        A basis for the null-space of $AA^{T} - 3I$ is:
-        $$\vec{u}_{1} = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \end{bmatrix}$$
-        $$AA^{T} - I = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$$
-        A basis for the null-space of $AA^{T} - I$ is:
-        $$\vec{u}_{2} = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
-        Remember that these vectors form the $V$ matrix.
-      \item \textbf{Step 3:}
-        The singular values are computed by taking the square root of the eigenvalues of $AA^{T}.$
-        $$\sigma_{1} = \sqrt{\lambda_{1}} = \sqrt{3}, \ \sigma_{2} = \sqrt{\lambda_{2}} = 1$$
-      \item \textbf{Step 4:}
-        We now solve for the vectors in the $U$ matrix through the equation $\vec{u}_i = \frac{A \vec{v}_i}{\sigma_i}$
-        $$\vec{u}_{1} = \frac{A \vec{v}_{1}}{\sqrt{3}} = 
-        \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix}$$
-        $$\vec{u}_{2} = \frac{A \vec{v}_{2}}{1} = 
-        \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
-      \item \textbf{Step 5:}
-        We still have one last vector $\vec{u}_{3}$ to solve for. To do this, we compute the null-space of $A$ \\
-        A basis for the null-space of $A$ can be computed through Gaussian-Elimination as:
-        $$\vec{u}_{3} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}.$$
-        We however, must normalize $\vec{u}_{3}$ so that $V$ has orthonormal columns. As a result, we see that
-        $$\vec{u}_{3} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ - \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}.$$
-    \end{enumerate}
-    The final result of our SVD will be:
-    \begin{equation}
-      A = 
-      \begin{bmatrix}
-      \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\
-      \frac{\sqrt{6}}{3} & 0 & -\frac{1}{\sqrt{3}} \\
-      \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \end{bmatrix}
-      \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}
-      \begin{bmatrix}
-      \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
-      -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
-    \end{equation}
-
-    The compact SVD is:
-    \begin{equation}
-      A = 
-      \begin{bmatrix}
-      \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} \\
-      \frac{\sqrt{6}}{3} & 0 \\
-      \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} \\ \end{bmatrix}
-      \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \end{bmatrix}
-      \begin{bmatrix}
-      \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
-      -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix} 
-    \end{equation}
-
-    The outer product SVD is:
-    \begin{equation}
-      A = \sqrt{3} \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
-        + 1 \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
-    \end{equation}
-  }
-\end{enumerate}
-
-
-
-
-
-
-
-
-
+% \newpage
+% \begin{enumerate}
+%   \qitem Given the matrix:
+%   $$A = \begin{bmatrix}
+%     1 & 1 & 0 \\
+%     0 & 1 & 1 \\
+%   \end{bmatrix}$$
+%
+%   \textbf{Compute the following:}
+%   \begin{enumerate}
+%   \item compact SVD
+%   \item outer product SVD
+%   \item full SVD
+%   \end{enumerate}
+%
+%   \sol {
+%     \begin{enumerate}[label=(\roman*)]
+%       \item \textbf{Step 1:}
+%         The matrix $A$ is a $2 \times 3$ matrix. Therefore, we will compute $AA^{T}.$
+%         $$AA^{T} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$$
+%       \item \textbf{Step 2:}
+%         We then compute the eigenvalues and eigenvectors of $A A^{T}.$
+%         \begin{align*}
+%           \text{det}(AA^{T} - \lambda I) &=
+%           \text{det}\Big(\begin{bmatrix}
+%           2 - \lambda  & 1\\
+%           1 & 2 - \lambda \\
+%           \end{bmatrix} \Big) \\
+%           &= (2 - \lambda)^{2} - 1 = \lambda^{2} - 4 \lambda + 3 = (\lambda - 3)(\lambda - 1) = 0
+%         \end{align*}
+%         The eigenvalues will then be $\lambda = 3, 1.$
+%         To find the eigenvectors of $AA^{T},$ we look at the null-space of $AA^{T} - \lambda I.$
+%         $$AA^{T} - 3I = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}$$
+%         A basis for the null-space of $AA^{T} - 3I$ is:
+%         $$\vec{u}_{1} = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
+%         $$AA^{T} - I = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$$
+%         A basis for the null-space of $AA^{T} - I$ is:
+%         $$\vec{u}_{2} = \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
+%         Remember that these vectors form the $U$ matrix.
+%       \item \textbf{Step 3:}
+%         The singular values are computed by taking the square root of the eigenvalues of $AA^{T}.$
+%         $$\sigma_{1} = \sqrt{\lambda_{1}} = \sqrt{3}, \ \sigma_{2} = \sqrt{\lambda_{2}} = 1$$
+%       \item \textbf{Step 4:}
+%         We now solve for the vectors in the $V$ matrix through the equation $\vec{v}_i = \frac{A^{T} \vec{u}_i}{\sigma_i}$
+%         $$\vec{v}_{1} = \frac{A^{T} \vec{u}_{1}}{\sqrt{3}} =
+%         \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix}$$
+%         $$\vec{v}_{2} = \frac{A^{T} \vec{u}_{2}}{1} =
+%         \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
+%       \item \textbf{Step 5:}
+%         We still have one last vector $\vec{v}_{3}$ to solve for. To do this, we compute the null-space of $A$ \\
+%         A basis for the null-space of $A$ can be computed through Gaussian-Elimination as:
+%         $$\vec{v}_{3} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}.$$
+%         We however, must normalize $\vec{v}_{3}$ so that $V$ has orthonormal columns. As a result, we see that
+%         $$\vec{v}_{3} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ - \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}.$$
+%     \end{enumerate}
+%     The final result of our full SVD will be:
+%     \begin{equation}
+%       A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+%       \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}
+%       \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
+%       -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\
+%       \frac{1}{\sqrt{3}} & - \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix}
+%     \end{equation}
+%
+%     The compact SVD is:
+%     \begin{equation}
+%       A = \begin{bmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+%       \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \end{bmatrix}
+%       \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \\
+%       -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \end{bmatrix}
+%     \end{equation}
+%
+%     The outer product SVD is:
+%     \begin{equation}
+%       A = \sqrt{3} \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{\sqrt{6}}{3} & \frac{1}{\sqrt{6}} \end{bmatrix}
+%         + 1 \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \end{bmatrix}
+%     \end{equation}
+%   }
+%
+%   \newpage
+%   \qitem Given the matrix:
+%   $$A = \begin{bmatrix}
+%     1 & -1 \\
+%     0 & 1 \\
+%     1 & 0
+%   \end{bmatrix}$$.
+%
+%   \textbf{Compute the following:}
+%   \begin{enumerate}
+%   \item compact SVD
+%   \item outer product SVD
+%   \item full SVD
+%   \end{enumerate}
+%
+%   \sol {
+%     \begin{enumerate}[label=(\roman*)]
+%       \item \textbf{Step 1:}
+%         The matrix $A$ is a $3 \times 2$ matrix. Therefore, we will compute $A^{T}A.$
+%         $$A^{T}A = \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}$$
+%       \item \textbf{Step 2:}
+%         We then compute the eigenvalues and eigenvectors of $A A^{T}.$
+%         \begin{align*}
+%           \text{det}(AA^{T} - \lambda I) &=
+%           \text{det}\Big(\begin{bmatrix}
+%           2 - \lambda  & -1\\
+%           -1 & 2 - \lambda \\
+%           \end{bmatrix} \Big) \\
+%           &= (2 - \lambda)^{2} - 1 = \lambda^{2} - 4 \lambda + 3 = (\lambda - 3)(\lambda - 1) = 0
+%         \end{align*}
+%         The eigenvalues will then be $\lambda = 3, 1.$
+%         To find the eigenvectors of $AA^{T},$ we look at the null-space of $AA^{T} - \lambda I.$
+%         $$AA^{T} - 3I = \begin{bmatrix} -1 & -1 \\ -1 & -1 \end{bmatrix}$$
+%         A basis for the null-space of $AA^{T} - 3I$ is:
+%         $$\vec{u}_{1} = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \end{bmatrix}$$
+%         $$AA^{T} - I = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$$
+%         A basis for the null-space of $AA^{T} - I$ is:
+%         $$\vec{u}_{2} = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
+%         Remember that these vectors form the $V$ matrix.
+%       \item \textbf{Step 3:}
+%         The singular values are computed by taking the square root of the eigenvalues of $AA^{T}.$
+%         $$\sigma_{1} = \sqrt{\lambda_{1}} = \sqrt{3}, \ \sigma_{2} = \sqrt{\lambda_{2}} = 1$$
+%       \item \textbf{Step 4:}
+%         We now solve for the vectors in the $U$ matrix through the equation $\vec{u}_i = \frac{A \vec{v}_i}{\sigma_i}$
+%         $$\vec{u}_{1} = \frac{A \vec{v}_{1}}{\sqrt{3}} =
+%         \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix}$$
+%         $$\vec{u}_{2} = \frac{A \vec{v}_{2}}{1} =
+%         \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix}$$
+%       \item \textbf{Step 5:}
+%         We still have one last vector $\vec{u}_{3}$ to solve for. To do this, we compute the null-space of $A$ \\
+%         A basis for the null-space of $A$ can be computed through Gaussian-Elimination as:
+%         $$\vec{u}_{3} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}.$$
+%         We however, must normalize $\vec{u}_{3}$ so that $V$ has orthonormal columns. As a result, we see that
+%         $$\vec{u}_{3} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ - \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}.$$
+%     \end{enumerate}
+%     The final result of our SVD will be:
+%     \begin{equation}
+%       A =
+%       \begin{bmatrix}
+%       \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\
+%       \frac{\sqrt{6}}{3} & 0 & -\frac{1}{\sqrt{3}} \\
+%       \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \end{bmatrix}
+%       \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}
+%       \begin{bmatrix}
+%       \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+%       -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+%     \end{equation}
+%
+%     The compact SVD is:
+%     \begin{equation}
+%       A =
+%       \begin{bmatrix}
+%       \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{2}} \\
+%       \frac{\sqrt{6}}{3} & 0 \\
+%       \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} \\ \end{bmatrix}
+%       \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \end{bmatrix}
+%       \begin{bmatrix}
+%       \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+%       -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+%     \end{equation}
+%
+%     The outer product SVD is:
+%     \begin{equation}
+%       A = \sqrt{3} \begin{bmatrix} \frac{1}{\sqrt{6}} \\ \frac{\sqrt{6}}{3} \\ \frac{1}{\sqrt{6}} \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+%         + 1 \begin{bmatrix} -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}
+%     \end{equation}
+%   }
+% \end{enumerate}

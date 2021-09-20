@@ -2,10 +2,10 @@
 
 \qns{Moore-Penrose Pseudo Inverse}
 
-\meta {
-  If students ask about proving the minimality of the Moore-Penrose Pseudo Inverse, refer back to the last part of the SVD Intuition question.
-  The minimality is connected to the $\text{Col}(A^{T})$ and $\text{Nul}(A)$ and picking "weights" that are solely in $\text{Col}(A^{T})$ and making all of the weights for $\text{Nul}(A)$ zero.
-}
+% \meta {
+%   If students ask about proving the minimality of the Moore-Penrose Pseudo Inverse, refer back to the last part of the SVD Intuition question.
+%   The minimality is connected to the $\text{Col}(A^{T})$ and $\text{Nul}(A)$ and picking "weights" that are solely in $\text{Col}(A^{T})$ and making all of the weights for $\text{Nul}(A)$ zero.
+% }
 
 We've seen many different ways to solve the matrix-vector equation:
 \begin{equation}
@@ -25,11 +25,19 @@ This solution is special in that it has \textbf{minimum norm.} That is, if we ha
 \begin{enumerate}
   \qitem Let's start with the original equation $A \vec{x} = \vec{b}.$ What is the formula for the SVD of $A?$
 
+  \ws{
+    \vspace{100px}
+  }
+
   \sol {
     The SVD of $A$ is $A = U \Sigma V^{T}.$
   }
 
   \qitem We will first assume that $A$ is full row rank or $\text{Rank}(A) = m$ and try undoing the SVD. What will the $\Sigma$ matrix look like?
+
+  \ws{
+    \vspace{100px}
+  }
 
   \sol {
     Since $A$ is an $m \times n$ matrix, $\Sigma$ will be also be $m \times n.$
@@ -41,6 +49,10 @@ This solution is special in that it has \textbf{minimum norm.} That is, if we ha
   We can however, construct a matrix $\widetilde{\Sigma}$ such that $\widetilde{\Sigma} \Sigma = I_{n}.$
   What is this matrix $\widetilde{\Sigma}?$
 
+  \ws{
+    \vspace{100px}
+  }
+
   \sol {
     The matrix $\Sigma$ is almost diagonal. It has $0$ entries to the right of the $m^{th}$ column.
     Also, since $A$ is full rank, all of the entries on the diagonal are nonzero.
@@ -49,7 +61,13 @@ This solution is special in that it has \textbf{minimum norm.} That is, if we ha
     \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$$
   }
 
+  \newpage
+
   \qitem What is special about the $U$ and $V$ matrices in the SVD?
+
+  \ws{
+    \vspace{100px}
+  }
 
   \sol {
     The $U$ and $V$ matrices have orthonormal columns, meaning $U^{T} U = I_{m}$ and $V^{T} V = I_{n}$ \\
@@ -57,6 +75,10 @@ This solution is special in that it has \textbf{minimum norm.} That is, if we ha
   }
 
   \qitem Use the special facts in the previous part about the $U, V,$ and $\Sigma$ matrices to "undo" the SVD.
+
+  \ws{
+    \vspace{100px}
+  }
 
   \sol {
     We first write out the original equation combined with the SVD:
@@ -81,6 +103,10 @@ This solution is special in that it has \textbf{minimum norm.} That is, if we ha
 
   \meta {
     This uses the compact SVD derived in the SVD intution question.
+  }
+
+  \ws{
+    \vspace{100px}
   }
 
   \sol {

@@ -14,8 +14,8 @@ This means that $u(t)$ is an \emph{interpolation} of $u(k)$ -- specifically a \e
 Another important use of interpolation is in \emph{reconstruction} of a continuous-time signal that was converted to a discrete-time system previously.
 Consider a continuous-time audio signal, for example.
 In order to be stored in digital memory, or to be transmitted digitally, this signal must be sampled into discrete-time.
-However, the human ear hears in continuous-time. 
-So when the time comes to listen to the audio signal, the signal must be interpolated \emph{back} into continuous-time. 
+However, the human ear hears in continuous-time.
+So when the time comes to listen to the audio signal, the signal must be interpolated \emph{back} into continuous-time.
 In other words, the original signal must be reconstructed.
 An interesting and practical question is whether or not we can ever reconstruct the signal \emph{perfectly} from the samples; we haven't shown you the tools needed to answer that question yet, but you'll want to keep it in mind.
 
@@ -23,7 +23,7 @@ The essential strategy for interpolating a signal is to express the interpolatio
 \begin{equation*}
  y(t) = \sum_i \alpha_i \phi_i(t),
 \end{equation*}
-where the $\alpha_i$ weights on functions $\phi_i(t)$ are determined by the specific discrete-time samples $y_d(k)$ in question. 
+where the $\alpha_i$ weights on functions $\phi_i(t)$ are determined by the specific discrete-time samples $y_d(k)$ in question.
 From this general starting point, two specific methods emerge: the method of \emph{interpolation by basis functions}, and the method of \emph{interpolation by global polynomials}.
 
 \section{Interpolation by Basis Functions}
@@ -35,7 +35,7 @@ In this method, we construct the interpolation rather directly, as
 where $\phi(t)$ is a \emph{basis function}
 \footnote{Based on the similarity of the name, you probably suspect that basis functions are related to the basis of a vector space in some way.
 This is actually correct, in a way, but an exploration of this relationship is sadly out of scope.}
-of our choosing. 
+of our choosing.
 The basis function $\phi$ may be any function we like that has the following two properties:
 \begin{itemize}
  \item $\phi(0)=1$;
@@ -44,8 +44,8 @@ The basis function $\phi$ may be any function we like that has the following two
 That is, the function is $1$ when $k=0$ and $0$ at all other $k$ multiples of $\Delta$.
 These two properties ensure that the $y(t)$ we constructed in the summation above satisfies $y(k\delta)=y_d(k)$.
 
-This method gives us lots of interpolation schemes. 
-For every new basis function we come up with, we get a new interpolation scheme. 
+This method gives us lots of interpolation schemes.
+For every new basis function we come up with, we get a new interpolation scheme.
 Several common interpolation schemes can be written in terms of basis functions.
 For example, zero-order hold (ZOH) interpolation can be expressed using a box-shaped basis function in this way:
 
@@ -73,12 +73,12 @@ The sinc function is differentiable and \emph{band-limited}, the importance of w
 
 \section{Interpolation by Global Polynomials}
 
-Another method of interpolation is to find a polynomial that passes through the discrete-time data. 
+Another method of interpolation is to find a polynomial that passes through the discrete-time data.
 In other words, we can construct $y(t)$ as
 \begin{equation*}
  y(t) = \sum_{i=0}^{N-1} a_i t^i,
 \end{equation*}
-where the $a_i$ are chosen in such a way that $y(k\Delta)=y_d(k)$. 
+where the $a_i$ are chosen in such a way that $y(k\Delta)=y_d(k)$.
 That is, we are summing polynomials $t^i$ weighted by $a_i$ to reconstruct the continuous-time signal.
 Notice that, since $t^i$ do not satisfy the basis function properties, this method is distinct from the basis function method.
 
@@ -106,7 +106,7 @@ y_d(0) \\ y_d(1) \\ y_d(2) \\ \vdots \\ y_d(N-1)
 a_1 \\ a_2 \\ \vdots \\ a_{N-1}
 \end{bmatrix},
 \end{equation*}
-which we will write as $\vec{y} = V \vec{a}$ for brevity. Now we can solve for $\vec a$ to get the interpolating polynomial, as long as the matrix $V$ is invertible. 
+which we will write as $\vec{y} = V \vec{a}$ for brevity. Now we can solve for $\vec a$ to get the interpolating polynomial, as long as the matrix $V$ is invertible.
 
 It turns out that the determinant of this matrix is
 \begin{equation*}
