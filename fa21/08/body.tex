@@ -1,6 +1,6 @@
 \begin{document}
 
-\def\title{Worksheet 9}
+\def\title{Worksheet 8}
 
 \newcommand{\qitem}{\qpart\item}
 
@@ -8,28 +8,26 @@
 \renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
 \renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
 \renewcommand{\theenumii}{\roman{enumii}.}
-    \maketitle
 
-    \vspace{0.5em}
+\maketitle
 
-    
+\vspace{0.5em}
+
 \begin{qunlist}
 
-\input{\bank/inner-products/frobenius_inner_product}
+\input{\bank/inner-products/matrix_methods.tex}
+\newpage
 
-\clearpage
+\input{\bank/inner-products/orthogonality.tex}
+\newpage
 
-\input{\bank/inner-products/orthogonality}
+\input{\bank/omp-review/projections.tex}
+\newpage
 
-\clearpage
+\input{\bank/svd-pca/spectral_intuition.tex}
+\newpage
 
-\input{\bank/16a-review/least_squares}
 
-%\clearpage
-
-%\input{\bank/16a-review/q_least_squares_ohms_law}
-
-\clearpage
 \end{qunlist}
 
 \end{document}
