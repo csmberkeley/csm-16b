@@ -131,7 +131,7 @@ Plugging in $\omega=\omega_c$ will give us the peak value of the transfer functi
   
 }
 
-\qitem \textbf{Draw the Bode plot of $H_R(\omega)$ two more times, but change $R$ to be $\SI{20}{\ohm}$, then $\SI{200}{\kilo\ohm}$.}
+\qitem \textbf{(Practice) Draw the Bode plot of $H_R(\omega)$ two more times, but change $R$ to be $\SI{20}{\ohm}$, then $\SI{200}{\kilo\ohm}$.}
 
 \sol{
 
@@ -155,40 +155,40 @@ Every other part of the Bode plot is the same as the plot in part (e).
   
 }
 
-\qitem \textbf{Find $\omega_{c1}$ and $\omega_{c2}$ of $H_R(\omega)$ for $R = \SI{20}{\ohm}$, $R=\SI{2}{\kilo\ohm}$, and $R= \SI{200}{\kilo\ohm}$.}
+% \qitem \textbf{Find $\omega_{c1}$ and $\omega_{c2}$ of $H_R(\omega)$ for $R = \SI{20}{\ohm}$, $R=\SI{2}{\kilo\ohm}$, and $R= \SI{200}{\kilo\ohm}$.}
 
-\sol{
+% \sol{
 
-While we said that the corner frequencies were at $10^6 \si{\radian\per\second}$ in part (e), that was only for the Bode plot approximation. $10^6 \si{\radian\per\second}$ is actually the center frequency. To get the corner frequencies, we need to find the values of $\omega$ where $|H_R(\omega)| = \frac{1}{\sqrt{2}}$.
-\begin{align*}
-\omega_{c1,c2}&=\sqrt{\left(\frac{R}{2L}\right)^2+\frac{1}{LC}} \pm \frac{R}{2L} \\
-R &= \SI{20}{\ohm} \to \omega_{c1} = \SI{9.9005e5}{\radian\per\second}, \omega_{c2} = \SI{1.01e6}{\radian\per\second} \\
-R &= \SI{2000}{\ohm} \to \omega_{c1} = \SI{4.1421e5}{\radian\per\second}, \omega_{c2} = \SI{2.4142e6}{\radian\per\second} \\
-R &= \SI{200000}{\ohm} \to \omega_{c1} = \SI{0.05e5}{\radian\per\second}, \omega_{c2} = \SI{2e8}{\radian\per\second}
-\end{align*}
-}
+% While we said that the corner frequencies were at $10^6 \si{\radian\per\second}$ in part (e), that was only for the Bode plot approximation. $10^6 \si{\radian\per\second}$ is actually the center frequency. To get the corner frequencies, we need to find the values of $\omega$ where $|H_R(\omega)| = \frac{1}{\sqrt{2}}$.
+% \begin{align*}
+% \omega_{c1,c2}&=\sqrt{\left(\frac{R}{2L}\right)^2+\frac{1}{LC}} \pm \frac{R}{2L} \\
+% R &= \SI{20}{\ohm} \to \omega_{c1} = \SI{9.9005e5}{\radian\per\second}, \omega_{c2} = \SI{1.01e6}{\radian\per\second} \\
+% R &= \SI{2000}{\ohm} \to \omega_{c1} = \SI{4.1421e5}{\radian\per\second}, \omega_{c2} = \SI{2.4142e6}{\radian\per\second} \\
+% R &= \SI{200000}{\ohm} \to \omega_{c1} = \SI{0.05e5}{\radian\per\second}, \omega_{c2} = \SI{2e8}{\radian\per\second}
+% \end{align*}
+% }
 
-\qitem \textbf{Which of the three values of $R$ gives the largest bandwidth? Which gives the highest $Q$?}
+% \qitem \textbf{Which of the three values of $R$ gives the largest bandwidth? Which gives the highest $Q$?}
 
-\sol{
+% \sol{
 
-\begin{align*}
-BW &= \omega_{c2}-\omega_{c1} \\
-BW(\SI{20}{\ohm}) &= \SI{2e4}{\radian\per\second} \\
-BW(2000\Omega) &= \SI{2e6}{\radian\per\second} \\ 
-BW(200000\Omega) &= \SI{2e8}{\radian\per\second}
-\end{align*}
-$R=\SI{200}{\kilo\ohm}$ gives the highest bandwidth.
+% \begin{align*}
+% BW &= \omega_{c2}-\omega_{c1} \\
+% BW(\SI{20}{\ohm}) &= \SI{2e4}{\radian\per\second} \\
+% BW(2000\Omega) &= \SI{2e6}{\radian\per\second} \\ 
+% BW(200000\Omega) &= \SI{2e8}{\radian\per\second}
+% \end{align*}
+% $R=\SI{200}{\kilo\ohm}$ gives the highest bandwidth.
 
-\begin{align*}
-Q = \frac{\omega_0}{BW} &= \frac{10^6 \si{\radian\per\second}}{BW} \\
-Q(\SI{20}{\ohm}) &= 50 \\
-Q(2000\Omega) &= 0.5 \\ 
-Q(200000\Omega) &=  0.005
-\end{align*}
-$R=\SI{20}{\ohm}$ gives the highest $Q$.
+% \begin{align*}
+% Q = \frac{\omega_0}{BW} &= \frac{10^6 \si{\radian\per\second}}{BW} \\
+% Q(\SI{20}{\ohm}) &= 50 \\
+% Q(2000\Omega) &= 0.5 \\ 
+% Q(200000\Omega) &=  0.005
+% \end{align*}
+% $R=\SI{20}{\ohm}$ gives the highest $Q$.
 
-}
+% }
 
 \begin{comment}
 \qitem Given the actual frequency response of $H_R(\omega)$ for $R = \SI{20}{\ohm}$, $R=\SI{2}{\kilo\ohm}$, and $R= \SI{200}{\kilo\ohm}$, what is different between the Bode plots and the actual responses? Label on each graph what type of damping the circuit experiences.
