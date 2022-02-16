@@ -145,14 +145,14 @@ if $\vec{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix},$ and $[\vec{x}]_S = \beg
     Therefore, we take the following steps.
 
     1. Let's first make our input into $B$ in $\beta$ coordinates. 
-    $$\text{Let } \vec{v} = V \vec{x}.$$
+    $$\text{Let } V \vec{v} = \vec{x}.$$
     2. Now if we input $\vec{v}$ we will get some output:
     $$\vec{w} = B \vec{v}.$$
     3. However, $\vec{w}$ is in $\beta$ coordinates, so we must convert back to standard coordinates using $V^{-1}.$
-    $$\vec{y} = V^{-1} \vec{w}$$
+    $$V^{-1} \vec{y} =  \vec{w}$$
     4. Cascading all of our matrix multiplications, we end up with:
-    $$\vec{y} = V^{-1} B V \vec{x}.$$
-    Therefore, we can see that $A = V^{-1} B V.$
+    $$\vec{y} = V B V^{-1} \vec{x}.$$
+    Therefore, we can see that $A = V B V^{-1} .$
 
     The following can also be represented in this state diagram: 
 
