@@ -16,7 +16,7 @@ All eigenvalues of the matrix A, $\lambda_{i},$ have magnitude $|\lambda_{i}| < 
 
 \item For continuous time systems of the form:
 \begin{equation}
-\ddt{}{t} \vec{x}[t] = A\vec{x}[t] + Bu[t] + \vec{w}[t]
+\ddt{}{t} \vec{x}(t) = A\vec{x}(t) + Bu(t)+ \vec{w}(t)
 \end{equation}
 All eigenvalues of the matrix A, $\lambda_{i},$ have real part $\mathfrak{Re}(\lambda_{i})< 0.$
 \end{itemize}
@@ -99,17 +99,17 @@ Now your boss gives you data on a more advanced robot, Atlas.
 Is he stable?
 His movements can be described with the following continuous time system:
 \begin{equation*}
-    \frac{d}{dt}\vec{x}[t] =
+    \frac{d}{dt}\vec{x}(t) =
     \begin{bmatrix}
     -2 & -1\\
     1 & -2\\
     \end{bmatrix}
-    \vec{x}[t] +
+    \vec{x}(t) +
     \begin{bmatrix}
     1\\
     1\\
     \end{bmatrix}
-    u[t]
+    u(t)
 \end{equation*}
 
 \sol{
