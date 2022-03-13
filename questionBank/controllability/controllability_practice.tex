@@ -3,15 +3,15 @@
 \qns{Controllability Practice}
 
 Consider the system 
-\[\vec{x}[t + 1] = 
+\[\vec{x}[i + 1] = 
 \begin{bmatrix}
     0 & 1 & -2 \\
     0 & 2 & 0 \\
     -1 & 1 & 0
-\end{bmatrix} \vec{x}[t] + 
+\end{bmatrix} \vec{x}[i] + 
 \begin{bmatrix}
     2 \\ 0 \\ 0
-\end{bmatrix} u[t]\]
+\end{bmatrix} u[i]\]
 
 \begin{enumerate}
     \qitem \textbf{What is the controllability matrix, $\mathcal{C}$, for this system?}
@@ -128,15 +128,15 @@ Consider the system
 \end{enumerate}
 
 Now, consider the system, with $A$ modified slightly:
-\[\vec{x}[t + 1] = 
+\[\vec{x}[i+1] = 
 \begin{bmatrix}
     0 & 1 & 0 \\
     0 & 2 & -2 \\
     -1 & 1 & 0
-\end{bmatrix} \vec{x}[t] + 
+\end{bmatrix} \vec{x}[i] + 
 \begin{bmatrix}
     2 \\ 0 \\ 0
-\end{bmatrix} u[t]\]
+\end{bmatrix} u[i]\]
 
 \begin{enumerate}[resume]
   \qitem \textbf{What is the controllability matrix, $\mathcal{C}$, for this system? What is its column space?}
@@ -161,7 +161,7 @@ Now, consider the system, with $A$ modified slightly:
     The controllability matrix has rank 3, so the system is controllable.
   }
 
-  \qitem \textbf{Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? Two timesteps? Three?}
+  \qitem \textbf{Starting at $\vec{x}[0] = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? Two timesteps? Three?}
 
   \ws{\vspace{100px}}
   \sol {

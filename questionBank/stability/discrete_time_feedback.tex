@@ -3,18 +3,18 @@
 
 \begin{enumerate}
 
-\qitem Consider the scalar system: $x[i+1] = 1.5 x[i] + u[i]$. Given the controller $u[i] = k x[i]$, for what value of $k$ can we have the system to behave like:$x[i+1] = \lambda x[i]$ where $\lambda = 0.7$?
+\qitem Consider the scalar system: $x[i+1] = 1.5 x[i] + u[i]$. Given the controller $u[i] = f x[i]$, for what value of $f$ can we have the system to behave like:$x[i+1] = \lambda x[i]$ where $\lambda = 0.7$?
 
 \sol{
-	To make the system's eigenvalue be 0.7, we can choose $k=-0.8$.
+	To make the system's eigenvalue be 0.7, we can choose $f=-0.8$.
 }
 
 
 \qitem Given the system $\vec{x}[i+1]  = \left [ \begin{array}{cc} 3&0\\0&5 \end{array}\right] \vec{x}[i] + \left[\begin{array}{c}1\\0 \end{array}\right] u_1[i]+ \left[\begin{array}{c}0\\1 \end{array}\right] u_2[i]$.
-Let $u_1[i] = k_1 x_1[i]$ and $u_2[i] = k_2 x_2[i]$. What value of $k_1$ and $k_2$ would make the system stable with eigenvalues $\lambda_1 = \lambda_2 = \frac{1}{2}$?
+Let $u_1[i] = f_1 x_1[i]$ and $u_2[i] = f_2 x_2[i]$. What value of $f_1$ and $f_2$ would make the system stable with eigenvalues $\lambda_1 = \lambda_2 = \frac{1}{2}$?
 
-\sol{We can choose $k_1= -2.5$ and
-$k_2= -4.5$.}
+\sol{We can choose $f_1= -2.5$ and
+$f_2= -4.5$.}
 
 
 
@@ -27,12 +27,12 @@ $k_2= -4.5$.}
 
 \qitem Given the matrix $\begin{bmatrix}
 2  & 1 \\
--3 + 2k_1 & 4+2k_2
+-3 + 2f_1 & 4+2f_2
 \end{bmatrix}$,
-what should $k_1$ and $k_2$ be for the matrix to have eigenvalues $\lambda_1=\frac{1}{2}$ and $\lambda_2=\frac{-1}{3}$?
+what should $f_1$ and $f_2$ be for the matrix to have eigenvalues $\lambda_1=\frac{1}{2}$ and $\lambda_2=\frac{-1}{3}$?
 
 \sol{
-Coefficient match to find $k_1 = \frac{-1}{4}$ and $k_2 = \frac{-35}{12}$
+Coefficient match to find $f_1 = \frac{-1}{4}$ and $f_2 = \frac{-35}{12}$
 }
 
 
@@ -41,13 +41,13 @@ Coefficient match to find $k_1 = \frac{-1}{4}$ and $k_2 = \frac{-35}{12}$
 
 
 \qitem Given the matrix $\begin{bmatrix}
-2+ k_1  & 7 +k_2 \\
+2+ f_1  & 7 +f_2 \\
 3 & -1
 \end{bmatrix}$,
-what should $k_1$ and $k_2$ be for the matrix to have eigenvalues $\lambda_1=5$ and $\lambda_2=2$?
+what should $f_1$ and $f_2$ be for the matrix to have eigenvalues $\lambda_1=5$ and $\lambda_2=2$?
 
 \sol{
-Coefficient match to find $k_1 = 6$ and $k_2 = -13$
+Coefficient match to find $f_1 = 6$ and $f_2 = -13$
 }
 
 
@@ -56,7 +56,7 @@ Coefficient match to find $k_1 = 6$ and $k_2 = -13$
 
 
 
-\qitem Given the system $\vec{x}[t+1]  = \left [ \begin{array}{cc} 2&-1\\1&2 \end{array}\right] \vec{x}[t] + \left[\begin{array}{c}0\\1 \end{array}\right] u[t]$.
+\qitem Given the system $\vec{x}[i+1]  = \left [ \begin{array}{cc} 2&-1\\1&2 \end{array}\right] \vec{x}[i] + \left[\begin{array}{c}0\\1 \end{array}\right] u[i]$.
 Is the system stable?
 
 \sol{
@@ -74,29 +74,29 @@ Characteristic polynomial:
 
 
 
-\qitem Given the feedback controller $u[t] = K\vec{x}[t]$ for the previous system, where
+\qitem Given the feedback controller $u[i] = F\vec{x}[i]$ for the previous system, where
 $K = \begin{bmatrix}
-k_1 & k_2
-\end{bmatrix}$. What should $k_1$ and $k_2$ be for the system to reach $\vec{x}[t]=0$ from any states in 2 time steps?
+f_1 & f_2
+\end{bmatrix}$. What should $f_1$ and $f_2$ be for the system to reach $\vec{x}[i]=0$ from any states in 2 time steps?
 
 
 \sol{
 \begin{align*}
 \intertext{The system can be written as:}
-\vec{x}[t+1] &= (A+BK)\vec{x}[t]
+\vec{x}[i+1] &= (A+BF)\vec{x}[i]
 \intertext{For this system to converge in 2 steps, we need:}
 \lambda_1=\lambda_2&=0
-\intertext{Where $\lambda_1$ and $\lambda_2$ are the eigenvalues of $(A+BK)$}
-A+BK &= \begin{bmatrix}
+\intertext{Where $\lambda_1$ and $\lambda_2$ are the eigenvalues of $(A+BF)$}
+A+BF &= \begin{bmatrix}
 2 & -1 \\
-1+k_1 & 2+k_2
+1+f_1 & 2+f_2
 \end{bmatrix}
 \intertext{Characteristic polynomial:}
-(2-\lambda)(2+k_2-\lambda)+1+k_1 &= \lambda^2+\lambda(-4-k_2)+5+k_1+2k_2
+(2-\lambda)(2+f_2-\lambda)+1+f_1 &= \lambda^2+\lambda(-4-f_2)+5+f_1+2f_2
 \intertext{Coefficient match to:}
 (\lambda+0)(\lambda+0) &= \lambda^2 \\
--4-k_2 &= 0 \Rightarrow k_2 = -4 \\
-5+k_1+2k_2 = 5+k_1-8 &= 0 \Rightarrow k_1=3
+-4-f_2 &= 0 \Rightarrow f_2 = -4 \\
+5+f_1+2f_2 = 5+f_1-8 &= 0 \Rightarrow f_1=3
 \end{align*}
 }
 
@@ -140,29 +140,29 @@ A+BK &= \begin{bmatrix}
 
 
 
-% \qitem Using state feedback, find $k_1$ and $k_2$ that makes the system stable with $\lambda_1=\lambda_2=-2$
+% \qitem Using state feedback, find $f_1$ and $f_2$ that makes the system stable with $\lambda_1=\lambda_2=-2$
 
 % \sol{
 % State feedback sets the input $u(t) = \begin{bmatrix}
-% k_1 & k_2
+% f_1 & f_2
 % \end{bmatrix} x(t)$
 % \begin{align*}
-% \frac{dx}{dt}&=(A+BK)x(t) = \begin{bmatrix}
+% \frac{dx}{dt}&=(A+BF)x(t) = \begin{bmatrix}
 % 3 & 1 \\
-% 5+3k_1 & -1+3k_2
+% 5+3f_1 & -1+3f_2
 % \end{bmatrix} \\
-% \text{det}(\lambda I-(A+BK)) &= \lambda^2-(2+3k_2)\lambda-8+9k_2-3k_1 = 0
+% \text{det}(\lambda I-(A+BF)) &= \lambda^2-(2+3f_2)\lambda-8+9f_2-3f_1 = 0
 % \intertext{We need to coefficient match with:}
 % (\lambda+2)(\lambda+2)&=\lambda^2+4\lambda+4 \\
-% -2+3k_2 &= 4 \Rightarrow k_2=-2 \\
-% -8+9k_2-3k_1 &= 4 \\
-% -8-18-3k_1 &=4 \Rightarrow k_1 = -10
+% -2+3f_2 &= 4 \Rightarrow f_2=-2 \\
+% -8+9f_2-3f_1 &= 4 \\
+% -8-18-3f_1 &=4 \Rightarrow f_1 = -10
 % \end{align*}
 % }
 
 
 
-\qitem Given the system  $\vec{x}[t+1] = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} \vec{x}[t] + \begin{bmatrix} 0 \\ 1 \end{bmatrix} u[t]$. Is the system controllable? What should $k_1$ and $k_2$ be to put the eigenvalues of the system at $\lambda = -1 \pm j$
+\qitem Given the system  $\vec{x}[i+1] = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} \vec{x}[i] + \begin{bmatrix} 0 \\ 1 \end{bmatrix} u[i]$. Is the system controllable? What should $f_1$ and $f_2$ be to put the eigenvalues of the system at $\lambda = -1 \pm j$
 
 \sol{
 The controllability matrix
@@ -174,42 +174,42 @@ has full rank. So the system is controllable.
 
 A state feedback controller has the form
 \[
-u[t] = K\vec{x}[t] = \begin{bmatrix} k_1 & k_2 \end{bmatrix} \begin{bmatrix} x_1[t] \\ x_2[t] \end{bmatrix}.
+u[i] = F\vec{x}[i] = \begin{bmatrix} f_1 & f_2 \end{bmatrix} \begin{bmatrix} x_1[i] \\ x_2[i] \end{bmatrix}.
 \]
 With this control the closed loop system is
 \[
-\vec{x}[t+1] = (A + BK) \vec{x}[t] = \begin{bmatrix} 0 & 1 \\ k_1 & k_2 \end{bmatrix} \vec{x}[t].
+\vec{x}[i+1] = (A + BF) \vec{x}[i] = \begin{bmatrix} 0 & 1 \\ f_1 & f_2 \end{bmatrix} \vec{x}[i].
 \]
 The characteristic equation of the closed loop system is
 \[
-0 = \det(A - \lambda I) = \det \begin{bmatrix} -\lambda & 1 \\ k_1 & k_2 - \lambda \end{bmatrix} = \lambda^2 - k_2 \lambda - k_1.
+0 = \det(A - \lambda I) = \det \begin{bmatrix} -\lambda & 1 \\ f_1 & f_2 - \lambda \end{bmatrix} = \lambda^2 - f_2 \lambda - f_1.
 \]
 The desired closed loop characteristic equation is
 \[
 0 = (\lambda - (-1 + j))(\lambda - (-1 - j)) = \lambda^2 + 2 \lambda + 2
 \]
-So we should choose $k_1 = k_2 = -2$.
+So we should choose $f_1 = f_2 = -2$.
 
 }
 
 
 
-\qitem Given the system $ \vec{z}[t+1] = \begin{bmatrix}
+\qitem Given the system $ \vec{z}[i+1] = \begin{bmatrix}
 0 & 1 & 0 \\
 0 & 0 & 1 \\
 0 & 5 & 11
 \end{bmatrix}
-\vec{z}[t] +
+\vec{z}[i] +
 \begin{bmatrix}
 0 \\ 0 \\ 1
-\end{bmatrix} u[t]$. Design state feedback so that the system has eigenvalue $0,1/2,-1/2$.
+\end{bmatrix} u[i]$. Design state feedback so that the system has eigenvalue $0,1/2,-1/2$.
 
 \sol{
 The closed loop system in $z$ coordinates is given by
 \[
-\widetilde{A} + \widetilde{B} \widetilde{K} = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ k_1 & k_2 +5 & k_3 +11 \end{bmatrix}
+\widetilde{A} + \widetilde{B} \widetilde{F} = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ f_1 & f_2 +5 & k_3 +11 \end{bmatrix}
 \]
-which has characteristic polynomial $\lambda^3 + (-11 -k_3) \lambda^2 + (-5 -k_2) \lambda - k_1$. To place the eigenvalues at 0, 1/2, -1/2, the desired characteristic polynomial is $\lambda(\lambda - \frac{1}{2})(\lambda + \frac{1}{2}) = \lambda^3 - \frac{1}{4} \ \lambda$. So we should choose $k_1 = 0, k_2 = \frac{-19}{4}, k_3 = -11$.
+which has characteristic polynomial $\lambda^3 + (-11 -k_3) \lambda^2 + (-5 -f_2) \lambda - f_1$. To place the eigenvalues at 0, 1/2, -1/2, the desired characteristic polynomial is $\lambda(\lambda - \frac{1}{2})(\lambda + \frac{1}{2}) = \lambda^3 - \frac{1}{4} \ \lambda$. So we should choose $f_1 = 0, f_2 = \frac{-19}{4}, k_3 = -11$.
 
 }
 
