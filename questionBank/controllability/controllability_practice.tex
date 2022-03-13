@@ -1,15 +1,17 @@
+
+   
 \qns{Controllability Practice}
 
 Consider the system 
-\[\vec{x}(t + 1) = 
+\[\vec{x}[t + 1] = 
 \begin{bmatrix}
     0 & 1 & -2 \\
     0 & 2 & 0 \\
     -1 & 1 & 0
-\end{bmatrix} \vec{x}(t) + 
+\end{bmatrix} \vec{x}[t] + 
 \begin{bmatrix}
     2 \\ 0 \\ 0
-\end{bmatrix} u(t)\]
+\end{bmatrix} u[t]\]
 
 \begin{enumerate}
     \qitem \textbf{What is the controllability matrix, $\mathcal{C}$, for this system?}
@@ -38,16 +40,16 @@ Consider the system
 
     \sol{
         The controllability matrix has rank 2, so this system is not controllable.
-        Note that the initial state $\vec{x}(0)$ has no effect on whether a system is controllable.
+        Note that the initial state $\vec{x}[0]$ has no effect on whether a system is controllable.
     }
 
-    \qitem \textbf{Starting at $\vec{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? Two timesteps? Three?}
+    \qitem \textbf{Starting at $\vec{x}[0] = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, what possible states can we reach after one timestep? Two timesteps? Three?}
     
     \ws{\vspace{150px}}
 
     \sol{
         For one timestep,
-        \[\vec{x}(1) = 
+        \[\vec{x}[1] = 
         \begin{bmatrix}
             0 & 1 & -2 \\
             0 & 2 & 0 \\
@@ -58,55 +60,55 @@ Consider the system
         \end{bmatrix}
         + \begin{bmatrix}
             2 \\ 0 \\ 0
-        \end{bmatrix} u(0)\]
+        \end{bmatrix} u[0]\]
 
         Simplifying, we get
-        \[\vec{x}(1) =
+        \[\vec{x}[1] =
         \begin{bmatrix} 
             0 \\ 0 \\ -1 
         \end{bmatrix} + 
         \begin{bmatrix} 
-            2u(0) \\ 0 \\ 0 
+            2u[0] \\ 0 \\ 0 
         \end{bmatrix} = 
         \begin{bmatrix} 
-            2u(0) \\ 0 \\ -1 
+            2u[0] \\ 0 \\ -1 
         \end{bmatrix}\]
 
-        Since $u(0)$ is an input we have control over, we can set it arbitrarily, and reach any state of the form 
+        Since $u[0]$ is an input we have control over, we can set it arbitrarily, and reach any state of the form 
         \[ \begin{bmatrix} c_1 \\ 0 \\ -1\end{bmatrix}. \]
         For two timesteps,
-        \[\vec{x}(2) = 
+        \[\vec{x}[2] = 
         \begin{bmatrix}
             0 & 1 & -2 \\
             0 & 2 & 0 \\
             -1 & 1 & 0
         \end{bmatrix} 
         \begin{bmatrix} 
-            2u(0) \\ 0 \\ -1
+            2u[0] \\ 0 \\ -1
         \end{bmatrix}
         + \begin{bmatrix}
             2 \\ 0 \\ 0
-        \end{bmatrix} u(1) = 
+        \end{bmatrix} u[1] = 
         \begin{bmatrix} 
-            2 + 2u(1) \\ 0 \\ -2u(0)
+            2 + 2u[1] \\ 0 \\ -2u[0]
         \end{bmatrix}\]
-        Again, since we have control over $u(0)$ and $u(1)$, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$. \\
+        Again, since we have control over $u[0]$ and $u[1]$, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$. \\
         \newline
         For 3 timesteps,
-        \[\vec{x}(3) = 
+        \[\vec{x}[3] = 
         \begin{bmatrix}
             0 & 1 & -2 \\
             0 & 2 & 0 \\
             -1 & 1 & 0
         \end{bmatrix} 
         \begin{bmatrix} 
-            2 + 2u(1) \\ 0 \\ -2u(0)
+            2 + 2u[1] \\ 0 \\ -2u[0]
         \end{bmatrix}
         + \begin{bmatrix}
             2 \\ 0 \\ 0
-        \end{bmatrix} u(2) = 
+        \end{bmatrix} u[2] = 
         \begin{bmatrix} 
-            4u(0) + 2u(2) \\ 0 \\ -2 - 2u(1)
+            4u[0] + 2u[2] \\ 0 \\ -2 - 2u[1]
         \end{bmatrix}\]
         As with 2 timesteps, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ c_2 \end{bmatrix}$.
     }
@@ -126,15 +128,15 @@ Consider the system
 \end{enumerate}
 
 Now, consider the system, with $A$ modified slightly:
-\[\vec{x}(t + 1) = 
+\[\vec{x}[t + 1] = 
 \begin{bmatrix}
     0 & 1 & 0 \\
     0 & 2 & -2 \\
     -1 & 1 & 0
-\end{bmatrix} \vec{x}(t) + 
+\end{bmatrix} \vec{x}[t] + 
 \begin{bmatrix}
     2 \\ 0 \\ 0
-\end{bmatrix} u(t)\]
+\end{bmatrix} u[t]\]
 
 \begin{enumerate}[resume]
   \qitem \textbf{What is the controllability matrix, $\mathcal{C}$, for this system? What is its column space?}
@@ -164,7 +166,7 @@ Now, consider the system, with $A$ modified slightly:
   \ws{\vspace{100px}}
   \sol {
     For one timestep, 
-    \[\vec{x}(1) = 
+    \[\vec{x}[1] = 
     \begin{bmatrix}
         0 & 1 & 0 \\
         0 & 2 & -2 \\
@@ -175,47 +177,47 @@ Now, consider the system, with $A$ modified slightly:
     \end{bmatrix}
     + \begin{bmatrix}
         2 \\ 0 \\ 0
-    \end{bmatrix} u(0) =
+    \end{bmatrix} u[0] =
     \begin{bmatrix} 
-        2u(0) \\ 0 \\ -1 
+        2u[0] \\ 0 \\ -1 
     \end{bmatrix}\]
     So, we can reach any state of the form $\begin{bmatrix} c_1 \\ 0 \\ -1 \end{bmatrix}$. \\
     \newline
 
     For two timesteps,
-    \[\vec{x}(2) = 
+    \[\vec{x}[2] = 
     \begin{bmatrix}
         0 & 1 & 0 \\
         0 & 2 & -2 \\
         -1 & 1 & 0
     \end{bmatrix} 
     \begin{bmatrix} 
-        2u(0) \\ 0 \\ -1 
+        2u[0] \\ 0 \\ -1 
     \end{bmatrix}
     + \begin{bmatrix}
         2 \\ 0 \\ 0
-    \end{bmatrix} u(1) =
+    \end{bmatrix} u[1] =
     \begin{bmatrix} 
-        2u(1) \\ 2 \\ -2u(0) 
+        2u[1] \\ 2 \\ -2u[0] 
     \end{bmatrix}\]
     We can reach any state of the form $\begin{bmatrix} c_1 \\ 2 \\ c_2 \end{bmatrix}$. \\
     \newline
 
     For three timesteps,
-    \[\vec{x}(3) = 
+    \[\vec{x}[3] = 
     \begin{bmatrix}
         0 & 1 & 0 \\
         0 & 2 & -2 \\
         -1 & 1 & 0
     \end{bmatrix} 
     \begin{bmatrix} 
-        2u(1) \\ 2 \\ -2u(0) 
+        2u[1] \\ 2 \\ -2u[0] 
     \end{bmatrix}
     + \begin{bmatrix}
         2 \\ 0 \\ 0
-    \end{bmatrix} u(2) =
+    \end{bmatrix} u[2] =
     \begin{bmatrix} 
-        2 + 2u(2) \\ 4 + 4u(0) \\ 2 - 2u(1) 
+        2 + 2u[2] \\ 4 + 4u[0] \\ 2 - 2u[1] 
     \end{bmatrix}\] 
     We can reach any state in $\mathbb{R}^3$ in three timesteps.
   }
