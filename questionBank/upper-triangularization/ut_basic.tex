@@ -1,0 +1,305 @@
+% Author: Nareauphol (Gavin) Liu
+
+\qns{Upper Triangularization}
+
+\qcontributor{Nareauphol Liu}
+
+Recall that before we solved the system of differential equation $\frac{d}{dt}\vec{x}(t) = A\vec{x}(t) + \vec{b}u(t)$ using 
+the change of basis $V$ which contained the eigenvectors of A. The result of the transformation showed that $V^{-1}AV = D$ 
+became the diagonal matrix 
+\[
+  D = \begin{bmatrix}
+    \lambda_1 & ... & 0 \\
+    \vdots & \ddots & \vdots \\
+    0 & ... & \lambda_n
+  \end{bmatrix}
+\]
+where $\lambda_1, ..., \lambda_n$ are the eigenvalues of $A$
+
+However, the underlying assumption for this transformation is that our matrix $A$ was diagonalizable. In such a case that 
+our matrix $A$ is not diagonalizable, we can still solve the system of differential equation using upper triangularization by 
+solving it "bottom-up" using backwards substitution. 
+
+\begin{enumerate}
+  \qitem Give an example of a 2x2 matrix that is not diagonalizable. Explain why we can't use our original trick $D = V^{-1}AV$
+
+  \ws{
+  \vspace{150px}
+  }
+
+  \sol {
+    Any answer can suffice but the most common example of a non-diagonalizable matrix is 
+    \[
+    A = \begin{bmatrix}
+        1 & 1 \\
+        0 & 1
+    \end{bmatrix}
+    \]
+
+    where is has only one repeated eigenvalue $\lambda = 1$ and the corresponding eigenvector 
+    $\begin{bmatrix}
+        1 \\
+        0 
+    \end{bmatrix}$
+    We can no longer use $D = V^{-1}AV$ becomes we need 2 eigenvectors to construct the $V$ basis but we only have 1 eigenvector.
+  }
+   
+
+  \qitem Explain how we can use upper triangularization to solve the system of differential equation using backwards substitution.\\
+  \textit{Hint: Which differential equation can we solve immediately? Can we use that solution to help us in anyway?}
+
+    \sol {
+    For simplicity, we will assume $\vec{b} = 0$ to have our general system of differential equation to be
+
+    \[
+    \frac{d}{dt}\vec{x}(t) = \begin{bmatrix}
+        \lambda_1 & a & ... & b & c \\
+        0 & \lambda_2 & ...  & d & e\\
+        \vdots & 0 & \ddots & \lambda_{n-1} & f \\
+        0 & 0 & ... & 0 & \lambda_n
+        \end{bmatrix}
+        \vec{x}(t)
+    \]
+        
+    Notice that we can solve the differential of the the bottom most row 
+    \[ 
+    \frac{d}{dt}x_n(t) = \lambda_nx(t) 
+    \] 
+
+    to be $x_n(t) = x_n(0)e^{\lambda_n t}$. Notice that in the row above it, the differential equation is at the form 
+    \[ 
+    \frac{d}{dt}x_{n-1}(t) = \lambda_{n-1}x(t) + fx_n(t). 
+    \]
+    
+    Since we've solved for $x_n(t)$ previously, we can simply plug 
+    in the solution at the $n-1$ row and our differential equation becomes of the form $\frac{d}{dt}x(t) = \lambda x(t) + u(t)$ 
+    which we know how to solve using the integral solution. We can repeat this process and solve each differential equation 
+    at the each row bottom-up. This is what "backwards substitution" means. 
+  }
+
+  \ws{
+  \vspace{150px}
+  }
+
+
+  \qitem We will now perform upper triangularization on a non-diagonalizable 2x2 matrix. 
+  \[
+  A = \begin{bmatrix}
+      1 & 1 \\
+      -1 & 3 \\
+  \end{bmatrix}
+  \]Show that 
+    $\vec{u_1} = \begin{bmatrix}
+        1 \\
+        1 
+    \end{bmatrix}$ is an eigenvector of $A$ and find its corresponding eigenvalue 
+    \ws{
+    \vspace{150px}
+    }
+
+  \sol {
+    Recall that $A\vec{v} = \lambda \vec{v}$ for any eigenvector-eigenvalue pair. We can simply multiply $A$ and $\vec{u_1}$ to get 
+    $A\vec{u_1} = \begin{bmatrix}
+        2 \\
+        2 
+    \end{bmatrix}$
+    and clearly we can see that corresponding eigenvalue is $\lambda = 2$
+  }
+  \qitem Using this eigenvector and the appropriate basis vectors, find an orthonormal basis $U$ for the matrix $A$ 
+  using the Gram-Schimdt algorithm. What do you notice about running the Gram-Schimdt algorithm with more vectors that needs
+  to span a certain subspace? How does Gram-Schimdt handle this? 
+  
+  \ws{
+  \vspace{150px}
+  }
+  \meta {
+      If the students are still confused about Gram-Schimdt, this is the perfect place to go through the algorithm again in 
+      great detail since it is essential to Upper-Triangularization. Also, please show Anish's video on the Gram-Schimdt algorithm 
+      pictorically \href{https://www.youtube.com/watch?v=79Ss_HkwthE}{here}
+  }
+
+  \sol {
+    We can find an orthonormal basis for any matrix using the Gram-Schimdt algorithm by filling in the basis vectors of $R^3$
+    Thus we simply run the Gram-Schimdt algorithm on the matrix
+    \[
+    S = \begin{bmatrix}
+        1 & 1 & 0 \\
+        1 & 0 & 1
+    \end{bmatrix}
+    \]
+
+    Running the Gram-Schimdt algorithm gets us 
+
+    $\vec{u_1} = \begin{bmatrix}
+        \sqrt{2}/2 \\
+        \sqrt{2}/2  
+    \end{bmatrix}$ since the norm of this vector is $\sqrt{2}$
+
+
+    $\vec{u_2} = \vec{s_2} - proj_{\vec{u_1}}\vec{s_2} = \begin{bmatrix}
+        1/2 \\
+        -1/2
+    \end{bmatrix}$ 
+
+    Now we normalize $\vec{u_2}$ to be 
+    $
+    \begin{bmatrix}
+        \sqrt{2}/2\\
+        -\sqrt{2}/2
+    \end{bmatrix}
+    $
+    
+    $\vec{u_3} = \vec{s_3} - proj_{\vec{u_1}}\vec{s_3} - proj_{\vec{u_2}}\vec{s_3} = 
+    \begin{bmatrix}
+        0 \\
+        0 
+    \end{bmatrix}$ \\
+
+    Since we added more vectors than we need to span $R^2$, Gram-Schimdt automatically will output one zero vector and we simply 
+    discard this vector. This is because we are inputting one more vector into our basis than we need. The zero vector implies that
+    the extra vector is linearly dependent to the other vectors. Intuitively this makes sense since if we put $n+1$ vectors into 
+    Gram-Schmidt to try to span $R^N$, we should only need $n$ vectors, and thus it will always output one zero vector. 
+    Thus our orthonormal basis $U$ for $A$ is 
+    \[
+    U = \begin{bmatrix}
+    \sqrt{2}/2 &  \sqrt{2}/2\\
+    \sqrt{2}/2 &  -\sqrt{2}/2
+    \end{bmatrix}
+    \]
+
+    }
+
+    \qitem The next step is to compute the smaller submatrix $Q = U^TAU$. Compute $Q$. What do you notice about the matrix 
+    $Q$? What is interesting about the diagonals of $Q$?
+    \ws{
+    \vspace{150px}
+    }
+
+    \sol{
+        \[
+        Q =  \begin{bmatrix}
+            \sqrt{2}/2 &  \sqrt{2}/2\\
+            \sqrt{2}/2 &  -\sqrt{2}/2
+            \end{bmatrix}^T 
+            \begin{bmatrix}
+                1 & 1 \\
+                -1 & 3 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+                \sqrt{2}/2 &  \sqrt{2}/2\\
+                \sqrt{2}/2 &  -\sqrt{2}/2
+            \end{bmatrix} =
+        \begin{bmatrix}
+            2 &  2\\
+            0 &  2
+        \end{bmatrix}
+        \]
+
+        Notice that the matrix is upper triangular and the diagonals of $Q$ corresponds to the eigenvalues of $Q$
+    }
+
+
+    \qitem Notice that we have computed $U^TAU = Q = \begin{bmatrix}
+        \lambda_1 &  2\\
+        0 &  \lambda_2
+    \end{bmatrix}$. Show that you can write $A = U \begin{bmatrix}
+        \lambda_1 &  2\\
+        0 &  \lambda_2
+    \end{bmatrix} U^T$
+    \textit{Hint: What is special about the matrix $U$?}
+
+    \ws{
+    \vspace{150px}
+    }
+
+    \meta {
+        It might be helpful to first try to get them to show that $U^T = U^{-1}$ for any orthonormal matrix $U$. From there, 
+        have them convince themselves that $UU^T = U^TU = I$
+    }
+
+    \sol {
+        From earlier, we can write $Q =  U^T A U$. Since $U$ is an orthonormal matrix, we can show that 
+        \[
+        Q =  U^T A U 
+        \]
+
+        Multiply both sides with $U$ to get
+        \[
+            UQ = UU^TAU = AU 
+        \]
+
+        Multiply both sides with $U^T$ to get
+        \[ 
+            UQU^T = AUU^T = A
+        \]
+
+        Thus we finally have
+        \[
+        A =  UQU^T = U \begin{bmatrix}
+            \lambda_1 &  2\\
+            0 &  \lambda_2 \end{bmatrix}  U^T
+        \]
+    }
+
+    \qitem What should we pick our basis $U$ such that we can upper triangularize our matrix $A$?
+
+    \ws{
+    \vspace{150px}
+    }
+
+    \sol {
+        We should pick $U = \begin{bmatrix}
+            \sqrt{2}/2 &  \sqrt{2}/2\\
+            \sqrt{2}/2 &  -\sqrt{2}/2
+            \end{bmatrix}$ in order to upper triangularize our matrix as we have shown in part (e)
+    }
+
+    \qitem Notice that we got lucky that we only needed to run Gram-Schimdt once to find a basis which 
+    upper triangularizes our 2x2 matrix $A$. For higher dimension matrices, however, this is not the case 
+    and multiple iterations of part (d)-(f) is required to construct such basis. For a general matrix $nxn$, 
+    how many times do we need to perform Gram-Schimdt in order to construct a basis that upper-triangularizes $A$? 
+
+    \ws{
+    \vspace{150px}
+    }
+
+    \meta {
+        This is a conceptually difficult question for students who are struggling. It is advised
+        and probably more helpful if you use the example for a 3x3 matrix in Discussion 9A here  
+        \href{https://www.eecs16b.org/discussion/dis09B.pdf}{here} and show that you need to run
+        Gram-Schimdt twice in order to construct the $U$ basis which upper-triangularizes the 3x3 matrix $A$ 
+
+    }
+
+    \sol {
+        We need to run it $n-1$ times to construct an orthonormal basis to upper-triangularize our matrix $A$. This is because 
+        for higher dimensional matrix, running Gram-Schmidt once doesn't guarantee
+        an upper triangular matrix when multiplying $U^TAU$ because you'll produce a smaller submatrix which isn't upper
+        triangular. Thus we will need to keep repeating the process on smaller submatrices  until the 2x2 case since the smaller submatrix of that is a 1x1 matrix, which is a scalar. 
+    }
+
+    \qitem In your own words, write down the general algorithm for upper-triangularizating an $nxn$ matrix $A$ 
+
+    \meta {
+        Feel free to add your own touch to the algorithm. The solution is the general guideline to what the algorithm does. 
+        Also remind them that in an exam setting, students won't get any matrix bigger than a 3x3 matrix and homework
+        will have a numerical problem for them to do which would solidify their understanding of upper-triangularization
+    }
+
+    \ws{
+    \vspace{150px}
+    }
+
+    \sol {
+        Step 1: Find an eigenvalue-eigenvector pair for $A$. \\
+        Step 2: Using the appropriate basis vectors and the eigenvector from Step 1, 
+        run Gram-Schimdt to construct an orthonormal basis. Don't forget to throw out 
+        $\vec{0}$ since we have one extra vector everytime we do this step. \\
+        Step 3: Repeat Step 1 and 2 on the smaller submatrix until the 2x2 case. \\
+        Step 4: Using what Gram-Schimdt outputs, construct the orthonormal basis $U$.
+    }
+
+    
+
+  
+\end{enumerate}
