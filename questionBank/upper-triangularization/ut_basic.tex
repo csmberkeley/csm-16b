@@ -21,7 +21,7 @@ our matrix $A$ is not diagonalizable, we can still solve the system of different
 solving it "bottom-up" using backwards substitution. 
 
 \begin{enumerate}
-  \qitem Give an example of a 2x2 matrix that is not diagonalizable. Explain why we can't use our original trick $D = V^{-1}AV$
+  \qitem Give an example of a $2\times2$ matrix that is not diagonalizable. Explain why we can't use our original trick $D = V^{-1}AV$.
 
   \ws{
   \vspace{150px}
@@ -36,7 +36,7 @@ solving it "bottom-up" using backwards substitution.
     \end{bmatrix}
     \]
 
-    where is has only one repeated eigenvalue $\lambda = 1$ and the corresponding eigenvector 
+    where there is only one repeated eigenvalue $\lambda = 1$ and the corresponding eigenvector 
     $\begin{bmatrix}
         1 \\
         0 
@@ -45,22 +45,21 @@ solving it "bottom-up" using backwards substitution.
   }
    
 
-  \qitem Explain how we can use upper triangularization to solve the system of differential equation using backwards substitution.\\
-  \textit{Hint: Which differential equation can we solve immediately? Can we use that solution to help us in anyway?}
-
-    \sol {
-    For simplicity, we will assume $\vec{b} = 0$ to have our general system of differential equation to be
-
-    \[
+  \qitem For this given upper triangular system of differential equations
+  \[
     \frac{d}{dt}\vec{x}(t) = \begin{bmatrix}
-        \lambda_1 & a & ... & b & c \\
-        0 & \lambda_2 & ...  & d & e\\
-        \vdots & 0 & \ddots & \lambda_{n-1} & f \\
+        \lambda_1 & a & ... & A_{1,n-1} & A_{1, n} \\
+        0 & \lambda_2 & ...  & A_{2,n-1} & A_{2,n}\\
+        \vdots & 0 & \ddots & \lambda_{n-1} & A_{n-1,n} \\
         0 & 0 & ... & 0 & \lambda_n
         \end{bmatrix}
         \vec{x}(t)
     \]
-        
+  Explain how we can use upper triangularization to solve the system of differential equation.\\
+  \textit{Hint: Which differential equation can we solve immediately? Can we use that solution to backward substitute in anyway?}
+
+    \sol {
+   
     Notice that we can solve the differential of the the bottom most row 
     \[ 
     \frac{d}{dt}x_n(t) = \lambda_nx(t) 
@@ -68,7 +67,7 @@ solving it "bottom-up" using backwards substitution.
 
     to be $x_n(t) = x_n(0)e^{\lambda_n t}$. Notice that in the row above it, the differential equation is at the form 
     \[ 
-    \frac{d}{dt}x_{n-1}(t) = \lambda_{n-1}x(t) + fx_n(t). 
+    \frac{d}{dt}x_{n-1}(t) = \lambda_{n-1}x(t) + A_{n-1,n}x_n(t). 
     \]
     
     Since we've solved for $x_n(t)$ previously, we can simply plug 
@@ -82,7 +81,7 @@ solving it "bottom-up" using backwards substitution.
   }
 
 
-  \qitem We will now perform upper triangularization on a non-diagonalizable 2x2 matrix. 
+  \qitem We will now perform upper triangularization on a non-diagonalizable $2\times2$ matrix. 
   \[
   A = \begin{bmatrix}
       1 & 1 \\
@@ -92,7 +91,7 @@ solving it "bottom-up" using backwards substitution.
     $\vec{u_1} = \begin{bmatrix}
         1 \\
         1 
-    \end{bmatrix}$ is an eigenvector of $A$ and find its corresponding eigenvalue 
+    \end{bmatrix}$ is an eigenvector of $A$ and find its corresponding eigenvalue. 
     \ws{
     \vspace{150px}
     }
@@ -105,22 +104,24 @@ solving it "bottom-up" using backwards substitution.
     \end{bmatrix}$
     and clearly we can see that corresponding eigenvalue is $\lambda = 2$
   }
-  \qitem Using this eigenvector and the appropriate basis vectors, find an orthonormal basis $U$ for the matrix $A$ 
-  using the Gram-Schimdt algorithm. What do you notice about running the Gram-Schimdt algorithm with more vectors that needs
-  to span a certain subspace? How does Gram-Schimdt handle this? 
+  \qitem Using this eigenvector and some appropriate basis vectors of $R^2$, find an orthonormal basis $U$ for the column space of $A$ 
+  using the Gram-Schmidt algorithm. What do you notice about running the Gram-Schmidt algorithm with more vectors that needs
+  to span a certain subspace? How does Gram-Schmidt handle this? 
+
   
   \ws{
   \vspace{150px}
   }
   \meta {
-      If the students are still confused about Gram-Schimdt, this is the perfect place to go through the algorithm again in 
-      great detail since it is essential to Upper-Triangularization. Also, please show Anish's video on the Gram-Schimdt algorithm 
-      pictorically \href{https://www.youtube.com/watch?v=79Ss_HkwthE}{here}
+      If the students are still confused about Gram-Schmidt, this is the perfect place to go through the algorithm again in 
+      great detail since it is essential to Upper-Triangularization. Also, please show Anish's video on the Gram-Schmidt algorithm 
+      pictorically \underline{\href{https://www.youtube.com/watch?v=79Ss_HkwthE}{here}}
   }
 
   \sol {
-    We can find an orthonormal basis for any matrix using the Gram-Schimdt algorithm by filling in the basis vectors of $R^3$
-    Thus we simply run the Gram-Schimdt algorithm on the matrix
+      
+    We can find an orthonormal basis for any matrix using the Gram-Schmidt algorithm by filling in the basis vectors of $R^3$
+    Thus we simply run the Gram-Schmidt algorithm on the columns of the matrix below 
     \[
     S = \begin{bmatrix}
         1 & 1 & 0 \\
@@ -128,7 +129,7 @@ solving it "bottom-up" using backwards substitution.
     \end{bmatrix}
     \]
 
-    Running the Gram-Schimdt algorithm gets us 
+    Running the Gram-Schmidt algorithm gets us 
 
     $\vec{u_1} = \begin{bmatrix}
         \sqrt{2}/2 \\
@@ -155,7 +156,7 @@ solving it "bottom-up" using backwards substitution.
         0 
     \end{bmatrix}$ \\
 
-    Since we added more vectors than we need to span $R^2$, Gram-Schimdt automatically will output one zero vector and we simply 
+    Since we added more vectors than we need to span $R^2$, Gram-Schmidt automatically will output one zero vector and we simply 
     discard this vector. This is because we are inputting one more vector into our basis than we need. The zero vector implies that
     the extra vector is linearly dependent to the other vectors. Intuitively this makes sense since if we put $n+1$ vectors into 
     Gram-Schmidt to try to span $R^N$, we should only need $n$ vectors, and thus it will always output one zero vector. 
@@ -169,7 +170,7 @@ solving it "bottom-up" using backwards substitution.
 
     }
 
-    \qitem The next step is to compute the smaller submatrix $Q = U^TAU$. Compute $Q$. What do you notice about the matrix 
+    \qitem The next step is to compute $Q = U^TAU$. Compute $Q$. What do you notice about the matrix 
     $Q$? What is interesting about the diagonals of $Q$?
     \ws{
     \vspace{150px}
@@ -195,7 +196,7 @@ solving it "bottom-up" using backwards substitution.
         \end{bmatrix}
         \]
 
-        Notice that the matrix is upper triangular and the diagonals of $Q$ corresponds to the eigenvalues of $Q$
+        Notice that the matrix is upper triangular and the diagonals of $Q$ corresponds to the eigenvalues of $A$
     }
 
 
@@ -205,7 +206,7 @@ solving it "bottom-up" using backwards substitution.
     \end{bmatrix}$. Show that you can write $A = U \begin{bmatrix}
         \lambda_1 &  2\\
         0 &  \lambda_2
-    \end{bmatrix} U^T$
+    \end{bmatrix} U^T$.
     \textit{Hint: What is special about the matrix $U$?}
 
     \ws{
@@ -241,49 +242,63 @@ solving it "bottom-up" using backwards substitution.
         \]
     }
 
-    \qitem What should we pick our basis $U$ such that we can upper triangularize our matrix $A$?
-
-    \ws{
-    \vspace{150px}
-    }
-
-    \sol {
-        We should pick $U = \begin{bmatrix}
-            \sqrt{2}/2 &  \sqrt{2}/2\\
-            \sqrt{2}/2 &  -\sqrt{2}/2
-            \end{bmatrix}$ in order to upper triangularize our matrix as we have shown in part (e)
-    }
-
-    \qitem Notice that we got lucky that we only needed to run Gram-Schimdt once to find a basis which 
-    upper triangularizes our 2x2 matrix $A$. For higher dimension matrices, however, this is not the case 
-    and multiple iterations of part (d)-(f) is required to construct such basis. For a general matrix $nxn$, 
-    how many times do we need to perform Gram-Schimdt in order to construct a basis that upper-triangularizes $A$? 
+    \qitem Now let's extend this to a $3\times3$ matrix. Play around with the Jupyter Notebook to see the process of 
+    upper triangularizing a $3\times3$ matrix.  
 
     \ws{
     \vspace{150px}
     }
 
     \meta {
-        This is a conceptually difficult question for students who are struggling. It is advised
-        and probably more helpful if you use the example for a 3x3 matrix in Discussion 9A here  
-        \href{https://www.eecs16b.org/discussion/dis09B.pdf}{here} and show that you need to run
-        Gram-Schimdt twice in order to construct the $U$ basis which upper-triangularizes the 3x3 matrix $A$ 
-
+        It is advised and probably more helpful if you go through the discussion worksheet and solutions here 
+        \underline{\href{https://www.eecs16b.org/discussion/dis09A.pdf}{here}} and walk them through 
+        the Jupyter Notebook Datahub link carefully and show that you need to run
+        Gram-Schmidt twice in order to construct the $U$ basis which upper triangularizes the $3\times3$ matrix $A$ 
     }
 
     \sol {
-        We need to run it $n-1$ times to construct an orthonormal basis to upper-triangularize our matrix $A$. This is because 
-        for higher dimensional matrix, running Gram-Schmidt once doesn't guarantee
-        an upper triangular matrix when multiplying $U^TAU$ because you'll produce a smaller submatrix which isn't upper
-        triangular. Thus we will need to keep repeating the process on smaller submatrices  until the 2x2 case since the smaller submatrix of that is a 1x1 matrix, which is a scalar. 
+        On Jupyter Notebook 
     }
 
-    \qitem In your own words, write down the general algorithm for upper-triangularizating an $nxn$ matrix $A$ 
+    % \qitem What should we pick our basis $U$ such that we can upper triangularize our matrix $A$?
+
+    % \ws{
+    % \vspace{150px}
+    % }
+
+    % \sol {
+    %     We should pick $U = \begin{bmatrix}
+    %         \sqrt{2}/2 &  \sqrt{2}/2\\
+    %         \sqrt{2}/2 &  -\sqrt{2}/2
+    %         \end{bmatrix}$ in order to upper triangularize our matrix as we have shown in part (e)
+    % }
+
+    \qitem Notice that we got lucky that we only needed to run Gram-Schmidt once to find a basis which 
+    upper triangularizes our $2\times2$ matrix $A$. For higher dimension matrices like the $3\times3$ matrix in the Jupyter Notebook, 
+    however, this is not the case  and multiple iterations of part (d)-(f) is required to construct such basis. 
+    For a general matrix $n\times n$,  how many times do we need to perform Gram-Schmidt in order to 
+    construct a basis that upper triangularizes $A$? 
+
+    \textit{Hint: In the $3\times3$ matrix example in the Jupyter Notebook, how many times was Gram-Schmidt algorithm ran?
+    Why did it run that many times?}
+
+    \ws{
+    \vspace{150px}
+    }
+
+    \sol {
+        We need to run it $n-1$ times to construct an orthonormal basis to upper triangularize our matrix $A$. This is because 
+        for higher dimensional matrix, running Gram-Schmidt once doesn't guarantee
+        an upper triangular matrix when multiplying $U^TAU$ because you'll produce a smaller submatrix which isn't upper
+        triangular. Thus we will need to keep repeating the process on smaller submatrices  until the $2\times2$ case since the smaller submatrix of that is a 1x1 matrix, which is a scalar. 
+    }
+
+    \qitem In your own words, write down the general algorithm for upper triangularizating an $n\times n$ matrix $A$. 
 
     \meta {
         Feel free to add your own touch to the algorithm. The solution is the general guideline to what the algorithm does. 
-        Also remind them that in an exam setting, students won't get any matrix bigger than a 3x3 matrix and homework
-        will have a numerical problem for them to do which would solidify their understanding of upper-triangularization
+        Also remind them that in an exam setting, students won't get any matrix bigger than a $3\times3$ matrix and homework
+        will have a numerical problem for them to do which would solidify their understanding of upper triangularization
     }
 
     \ws{
@@ -293,10 +308,10 @@ solving it "bottom-up" using backwards substitution.
     \sol {
         Step 1: Find an eigenvalue-eigenvector pair for $A$. \\
         Step 2: Using the appropriate basis vectors and the eigenvector from Step 1, 
-        run Gram-Schimdt to construct an orthonormal basis. Don't forget to throw out 
+        run Gram-Schmidt  to construct an orthonormal basis. Don't forget to throw out 
         $\vec{0}$ since we have one extra vector everytime we do this step. \\
-        Step 3: Repeat Step 1 and 2 on the smaller submatrix until the 2x2 case. \\
-        Step 4: Using what Gram-Schimdt outputs, construct the orthonormal basis $U$.
+        Step 3: Repeat Step 1 and 2 on the smaller submatrix until the $2\times2$ case. \\
+        Step 4: Using what Gram-Schmidt outputs, construct the orthonormal basis $U$.
     }
 
     
