@@ -1,4 +1,4 @@
-\qns{Fun with Inductors}
+\qns{Fun with Inductors (Challenge)}
 \qcontributor{Arda Sahiner}
 
 \begin{enumerate}
@@ -86,13 +86,14 @@ $$c_1 = \frac{ (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(1 - e^{-\frac{R_2}{L}t_
 $$c_1 = (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})$$
 Thus, we have
 $$i_L(t) = \frac{V_{in}}{R_1} + (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})e^{-\frac{R_1}{L}t}$$
-for $t>t_1$. 
+for $t>t_1$.
 We also see that as $t \to \infty$, $i_L(t)$ for $t > t_1$ becomes:
 $$i_L(t=\infty) = \frac{V_{in}}{R_1} + (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})e^{-\frac{R_1}{L}\infty}$$
 $$i_L(t=\infty) = \frac{V_{in}}{R_1} + (\frac{V_{in}}{R_2} - \frac{V_{in}}{R_1})(e^{\frac{R_1}{L}t_1} - e^{\frac{R_1 - R_2}{L}t_1})(0)$$
 $$i_L(t=\infty) = \frac{V_{in}}{R_1} = i_L(0)$$
 
-Thus, if we turn $S_2$ back off and $S_1$ back on as was described in this part, we will eventually revert back to the initial state from which we started! Specifically, if $R_2 > R_1$, $i_L(t)$ at $t = t_1$ will be less than our initial condition $i_L(0)$, and $i_L(t)$ will rise to $i_L(0)$ over time. 
+Thus, if we turn $S_2$ back off and $S_1$ back on as was described in this part, we will eventually revert back to the initial state from which we started! Specifically, if $R_2 > R_1$, $i_L(t)$ at $t = t_1$ will be less than our initial condition $i_L(0)$, and $i_L(t)$ will rise to $i_L(0)$ over time.
 }
+\ws{\newpage \ }
 
 \end{enumerate}

@@ -17,22 +17,22 @@ We define a system to be controllable if: \textbf{given a set of inputs, we can 
 
 \ws{\vspace{75px}}
 \sol {
-  Using the state space model $\vec{x}(t + 1) = A \vec{x}(t) + B \vec{u}(t),$
-  $$\vec{x}(1) = A \vec{x}(0) + B \vec{u}(0) = A \vec{0} + B \vec{u}(0) = B \vec{u}(0)$$
+  Using the state space model $\vec{x}[i + 1] = A \vec{x}[i] + B \vec{u}[i],$
+  $$\vec{x}[1] = A \vec{x}[0] + B \vec{u}[0] = A \vec{0} + B \vec{u}[0] = B \vec{u}[0]$$
   At time step $t = 2,$
-  $$\vec{x}(2) = A \vec{x}(1) + B \vec{u}(1) = A (B \vec{u}(0)) + B \vec{u}(1)$$
+  $$\vec{x}[2] = A \vec{x}[1] + B \vec{u}[1] = A (B \vec{u}[0]) + B \vec{u}[1]$$
 }
 
 \qitem \textbf{Given these two observations and the initial condition $\vec{x}[0] = \vec{0}$, where can $\vec{x}$ reach in our state space reach after 2 time steps (i.e. at $t = 2$)?}
 \ws{\vspace{100px}}
 \sol {
   From the previous part, we know that
-  $$\vec{x}(2) = A (B \vec{u}(0)) + B \vec{u}(1) = AB \vec{u}(0) + B \vec{u}(1)$$
+  $$\vec{x}[2] = A (B \vec{u}[0]) + B \vec{u}[1] = AB \vec{u}[0] + B \vec{u}[1]$$
   Let's say $B$ has two columns, although we can generalize this for any number of columns. \vskip 1pt
   We can then equivalently write out our equation as:
-  $$\vec{x}(2) = \begin{bmatrix} A \vec{b}_{1} & A \vec{b}_{2} \end{bmatrix} \begin{bmatrix} u_{1}(0) \\ u_{2}(0) \end{bmatrix} + 
-  \begin{bmatrix} \vec{b}_{1} & \vec{b}_{2} \end{bmatrix} \begin{bmatrix} u_{1}(1) \\ u_{2}(1) \end{bmatrix} = 
-  u_{1}(0) A \vec{b}_{1} + u_{2}(0) A \vec{b}_{2} + u_{1}(1) \vec{b}_{1} + u_{2}(1) \vec{b}_{2}.$$
+  $$\vec{x}[2] = \begin{bmatrix} A \vec{b}_{1} & A \vec{b}_{2} \end{bmatrix} \begin{bmatrix} u_{1}[0] \\ u_{2}[0] \end{bmatrix} + 
+  \begin{bmatrix} \vec{b}_{1} & \vec{b}_{2} \end{bmatrix} \begin{bmatrix} u_{1}[1] \\ u_{2}[1] \end{bmatrix} = 
+  u_{1}[0] A \vec{b}_{1} + u_{2}[0] A \vec{b}_{2} + u_{1}[1] \vec{b}_{1} + u_{2}[1] \vec{b}_{2}.$$
   Since $\vec{u}$ is a vector we have full control over, we can reach anywhere in:
   $$\text{span}(A \vec{b}_{1}, A \vec{b}_{2}, \vec{b}_{1}, \vec{b}_{2})$$
   In general, we could reach anywhere in the span of the columns of $B$ and $AB.$
@@ -41,12 +41,12 @@ We define a system to be controllable if: \textbf{given a set of inputs, we can 
 \qitem \textbf{Given $n$ observations, where in our state space can $\vec{x}$ reach at time $t = n?$}
 \ws{\vspace{100px}}
 \sol {
-  We will start off in a similar manner by writing out $\vec{x}(3)$ in terms of $\vec{x}(2)$ and $\vec{u}(2).$
-  $$\vec{x}(3) = A \vec{x}(2) + B \vec{u}(2) =  A (AB \vec{u}(0) + B \vec{u}(1)) + B \vec{u}(2) = A^2 B \vec{u}(0) + AB \vec{u}(1) + B \vec{u}(2).$$
+  We will start off in a similar manner by writing out $\vec{x}(3)$ in terms of $\vec{x}[2]$ and $\vec{u}[2].$
+  $$\vec{x}(3) = A \vec{x}[2] + B \vec{u}[2] =  A (AB \vec{u}[0] + B \vec{u}[1]) + B \vec{u}[2] = A^2 B \vec{u}[0] + AB \vec{u}[1] + B \vec{u}[2].$$
   Using a similar argument as the previous part, we will see that we can reach anywhere in the span of the columns of $B, \ AB, \ A^{2} B.$ We can continue doing this, and see that after $n$ time steps,
   \begin{align*}
-  \vec{x}(n) &= A \vec{x}(n - 1) + B \vec{u}(n - 1) \\
-  &= A^{n - 1}B \vec{u}(0) + A^{n - 2}B \vec{u}(1) + A^{n - 3}B \vec{u}(2) + \cdots + AB \vec{u}(n - 2) + B \vec{u}(n - 1)
+  \vec{x}[i] &= A \vec{x}[i - 1] + B \vec{u}[i - 1] \\
+  &= A^{n - 1}B \vec{u}[0] + A^{n - 2}B \vec{u}[1] + A^{n - 3}B \vec{u}[2] + \cdots + AB \vec{u}[i - 2] + B \vec{u}[i - 1]
   \end{align*}
   Therefore, after $n$ timesteps, we can reach anywhere in the span of the columns of $\{ B, \ AB, \ A^2 B, \cdots, A^{n-1} B \}.$
 }

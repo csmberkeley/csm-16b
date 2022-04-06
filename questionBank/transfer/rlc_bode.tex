@@ -72,25 +72,44 @@ Multiplying the numerator and denominator by $j\omega C$ gives
 }
 
 \qitem \textbf{Sketch the Bode plots of $H_C(\omega)$, $H_L(\omega)$, and $H_R(\omega)$ when $R =\SI{2}{\kilo\ohm}$.}
+\meta{Poles are out of scope for 16B This semester. Even though we have 2nd order filters, Students only need to know how to make bode plots out of a transfer function. There is more nuance than this for 2nd or higher order filters, but it should be out of scope for this class.
 
-\sol{
+    It might be good to mention that for the first to parts of part e, even though we have 3 circuit components, they're set up in series such that the filter is like a first order filter with $Z_R Z_L$ as the first impedence, and $Z_C$ as the second impedence, so it behaves closer to a first order filter.
+
+
+}
+
+
+    \sol{
 
 $H_C(\omega)$:
 
-Let's look at the poles. It is a second order transfer function of the form $\left(\frac{j\omega}{\omega_c}\right)^2+j\omega \frac{2\xi}{\omega_c}+1$, where $\omega_c = \frac {1} {\sqrt {LC}} =  \frac {1}{\sqrt{10^{-3}10^{-9}}} = 10^6 \si{\radian\per\second}$.
-This means that there are 2 poles at $10^6 \si{\radian\per\second}$.
+%Let's look at the poles. It is a second order transfer function of the form $\left(\frac{j\omega}{\omega_c}\right)^2+j\omega \frac{2\xi}{\omega_c}+1$, where $\omega_c = \frac {1} {\sqrt {LC}} =  \frac {1}{\sqrt{10^{-3}10^{-9}}} = 10^6 \si{\radian\per\second}$.
+%This means that there are 2 poles at $10^6 \si{\radian\per\second}$.
 
-Zeros:
+%Zeros:
 
-Since the numerator has no frequency terms, there are no zeros.
+%Since the numerator has no frequency terms, there are no zeros.
 
-We have 2 poles and no zeros, which means that this will be a low pass filter with a cutoff frequency of $10^6 \si{\radian\per\second}$, with a \SI{-2}{\per\decade} rolloff.
+%We have 2 poles and no zeros, which means that this will be a low pass filter with a cutoff frequency of $10^6 \si{\radian\per\second}$, with a \SI{-2}{\per\decade} rolloff.
 
-To find the magnitude in the flatband for a low pass filter, we look at the magnitude when all frequency terms are 0. For this filter, we just get a magnitude of $\frac{1}{1} = 1$.
+%To find the magnitude in the flatband for a low pass filter, we look at the magnitude when all frequency terms are 0. For this filter, we just get a magnitude of $\frac{1}{1} = 1$.
 
-As for phase, the two poles will cause a phase shift starting at $10^5 \si{\radian\per\second}$ at a rate of $\frac{\ang{-90}}{\text{dec}}$ ($\frac{\ang{-45}}{\text{dec}}$ per pole) until a decade past the corner frequency. This results in the Bode plot below.
 
-  \begin{figure}[H]\centering
+To find the magnitude in a filter, we look at the magnitude when all frequency terms are 0. For this filter, we get a magnitude of $\frac{1}{1} = 1$.
+
+Similarly, if we take a the limit of frequency to $\infty$, we get a magnitude of $\frac{1}{\omega^2} = 0$
+
+To find the cutoff frequency, we need to set this into a form that we can set this into a form that we can easily solve for $H_C(j\omega)= \frac{1}{\sqrt{2}}$.
+
+This is similar to having two first order (only two circuit elements) filters multiplied together, where the combined magnitude of the filter will have a form of $(\frac{1}{1 + \frac{j\omega}{\omega_c}})^2 = \frac{1}{(\frac{j\omega}{\omega_c})^2 + j\omega \frac{2E}{\omega_c} + 1}$ where $\omega_c$ is our cutoff frequency and $E$ is an expression involving $R$, $C$, and $L$ (that can be ignored). In this form, we can see that $\omega_c = \sqrt{1/LC} = 10^6$
+
+%As for phase, the two poles will cause a phase shift starting at $10^5 \si{\radian\per\second}$ at a rate of $\frac{\ang{-90}}{\text{dec}}$ ($\frac{\ang{-45}}{\text{dec}}$ per pole) until a decade past the corner frequency. This results in the Bode plot below.
+
+As for phase, the cut off frequency at $10^6$ will cause a phase shift starting at $10^5 \omega$  until a decade $10^7 \omega$ past the cutoff frequency. This results in the Bode plot below.
+
+
+    \begin{figure}[H]\centering
   \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/q1e_fc_fixed.png}
   \caption{Bode plot of $H_C(\omega)$}
   \end{figure}
@@ -131,7 +150,7 @@ Plugging in $\omega=\omega_c$ will give us the peak value of the transfer functi
   
 }
 
-\qitem \textbf{Draw the Bode plot of $H_R(\omega)$ two more times, but change $R$ to be $\SI{20}{\ohm}$, then $\SI{200}{\kilo\ohm}$.}
+\qitem \textbf{(Practice) Draw the Bode plot of $H_R(\omega)$ two more times, but change $R$ to be $\SI{20}{\ohm}$, then $\SI{200}{\kilo\ohm}$.}
 
 \sol{
 
@@ -155,40 +174,40 @@ Every other part of the Bode plot is the same as the plot in part (e).
   
 }
 
-\qitem \textbf{Find $\omega_{c1}$ and $\omega_{c2}$ of $H_R(\omega)$ for $R = \SI{20}{\ohm}$, $R=\SI{2}{\kilo\ohm}$, and $R= \SI{200}{\kilo\ohm}$.}
+% \qitem \textbf{Find $\omega_{c1}$ and $\omega_{c2}$ of $H_R(\omega)$ for $R = \SI{20}{\ohm}$, $R=\SI{2}{\kilo\ohm}$, and $R= \SI{200}{\kilo\ohm}$.}
 
-\sol{
+% \sol{
 
-While we said that the corner frequencies were at $10^6 \si{\radian\per\second}$ in part (e), that was only for the Bode plot approximation. $10^6 \si{\radian\per\second}$ is actually the center frequency. To get the corner frequencies, we need to find the values of $\omega$ where $|H_R(\omega)| = \frac{1}{\sqrt{2}}$.
-\begin{align*}
-\omega_{c1,c2}&=\sqrt{\left(\frac{R}{2L}\right)^2+\frac{1}{LC}} \pm \frac{R}{2L} \\
-R &= \SI{20}{\ohm} \to \omega_{c1} = \SI{9.9005e5}{\radian\per\second}, \omega_{c2} = \SI{1.01e6}{\radian\per\second} \\
-R &= \SI{2000}{\ohm} \to \omega_{c1} = \SI{4.1421e5}{\radian\per\second}, \omega_{c2} = \SI{2.4142e6}{\radian\per\second} \\
-R &= \SI{200000}{\ohm} \to \omega_{c1} = \SI{0.05e5}{\radian\per\second}, \omega_{c2} = \SI{2e8}{\radian\per\second}
-\end{align*}
-}
+% While we said that the corner frequencies were at $10^6 \si{\radian\per\second}$ in part (e), that was only for the Bode plot approximation. $10^6 \si{\radian\per\second}$ is actually the center frequency. To get the corner frequencies, we need to find the values of $\omega$ where $|H_R(\omega)| = \frac{1}{\sqrt{2}}$.
+% \begin{align*}
+% \omega_{c1,c2}&=\sqrt{\left(\frac{R}{2L}\right)^2+\frac{1}{LC}} \pm \frac{R}{2L} \\
+% R &= \SI{20}{\ohm} \to \omega_{c1} = \SI{9.9005e5}{\radian\per\second}, \omega_{c2} = \SI{1.01e6}{\radian\per\second} \\
+% R &= \SI{2000}{\ohm} \to \omega_{c1} = \SI{4.1421e5}{\radian\per\second}, \omega_{c2} = \SI{2.4142e6}{\radian\per\second} \\
+% R &= \SI{200000}{\ohm} \to \omega_{c1} = \SI{0.05e5}{\radian\per\second}, \omega_{c2} = \SI{2e8}{\radian\per\second}
+% \end{align*}
+% }
 
-\qitem \textbf{Which of the three values of $R$ gives the largest bandwidth? Which gives the highest $Q$?}
+% \qitem \textbf{Which of the three values of $R$ gives the largest bandwidth? Which gives the highest $Q$?}
 
-\sol{
+% \sol{
 
-\begin{align*}
-BW &= \omega_{c2}-\omega_{c1} \\
-BW(\SI{20}{\ohm}) &= \SI{2e4}{\radian\per\second} \\
-BW(2000\Omega) &= \SI{2e6}{\radian\per\second} \\ 
-BW(200000\Omega) &= \SI{2e8}{\radian\per\second}
-\end{align*}
-$R=\SI{200}{\kilo\ohm}$ gives the highest bandwidth.
+% \begin{align*}
+% BW &= \omega_{c2}-\omega_{c1} \\
+% BW(\SI{20}{\ohm}) &= \SI{2e4}{\radian\per\second} \\
+% BW(2000\Omega) &= \SI{2e6}{\radian\per\second} \\ 
+% BW(200000\Omega) &= \SI{2e8}{\radian\per\second}
+% \end{align*}
+% $R=\SI{200}{\kilo\ohm}$ gives the highest bandwidth.
 
-\begin{align*}
-Q = \frac{\omega_0}{BW} &= \frac{10^6 \si{\radian\per\second}}{BW} \\
-Q(\SI{20}{\ohm}) &= 50 \\
-Q(2000\Omega) &= 0.5 \\ 
-Q(200000\Omega) &=  0.005
-\end{align*}
-$R=\SI{20}{\ohm}$ gives the highest $Q$.
+% \begin{align*}
+% Q = \frac{\omega_0}{BW} &= \frac{10^6 \si{\radian\per\second}}{BW} \\
+% Q(\SI{20}{\ohm}) &= 50 \\
+% Q(2000\Omega) &= 0.5 \\ 
+% Q(200000\Omega) &=  0.005
+% \end{align*}
+% $R=\SI{20}{\ohm}$ gives the highest $Q$.
 
-}
+% }
 
 \begin{comment}
 \qitem Given the actual frequency response of $H_R(\omega)$ for $R = \SI{20}{\ohm}$, $R=\SI{2}{\kilo\ohm}$, and $R= \SI{200}{\kilo\ohm}$, what is different between the Bode plots and the actual responses? Label on each graph what type of damping the circuit experiences.
