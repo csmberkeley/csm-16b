@@ -2,9 +2,9 @@
 
 \qns{Minimum Norm Solution \& Pseudoinverse}
 
-The Moore-Penrose Pseudo-Inverse is essentially a way to calculate "inverses" of \textbf{wide matrices}. The cardinal problem of linear algebra is solving the problem $A\vec{x} = \vec{b}$. If $A$ is square, we can use Gaussian elimination to solve the problem. If $A$ is tall, the system is overdefined (i.e. more equations than unknowns), and we can use Least Squares to find the solution that minimizes the error, i.e. the quantity $||A\vec{x} - \vec{b}||$. If $A$ is wide, the system is underdefined (i.e. fewer equations than unknowns), so there are infinitely many solutions to the system (infinitely many $\vec{x}$ that solve the equation). So, which solution is the "best" one? In many situations, we want to choose the solution that has the \textbf{smallest norm}. It's useful to think of this as the "shortest vector" that satisfies the equation.
+The Moore-Penrose Pseudoinverse is essentially a way to calculate "inverses" of \textbf{wide matrices}. The cardinal problem of linear algebra is solving the problem $A\vec{x} = \vec{b}$. If $A$ is square, we can use Gaussian elimination to solve the problem. If $A$ is tall, the system is overdetermined (i.e. more equations than unknowns), and we can use Least Squares to find the solution that minimizes the error, i.e. the quantity $\lVert A\vec{x} - \vec{b} \rVert$. If $A$ is wide, the system is underdetermined (i.e. fewer equations than unknowns), so there are infinitely many solutions to the system (infinitely many $\vec{x}$ that solve the equation). So, which solution is the "best" one? In many situations, we want to choose the solution that has the \textbf{smallest norm}. It's useful to think of this as the "shortest vector" that satisfies the equation.
 
-The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of $A$, the Moore-Penrose Pseudo-Inverse $A^\dagger$ gives the "smallest/shortest" solution vector $\vec{x}$ as $\vec{x} = A^\dagger \vec{b}$, such that $A\vec{x} = \vec{b}$. And this is guaranteed!
+The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of $A$, the Moore-Penrose Pseudoinverse $A^\dagger$ gives the "smallest/shortest" solution vector $\vec{x}$ as $\vec{x} = A^\dagger \vec{b}$, such that $A\vec{x} = \vec{b}$. And this is guaranteed!
 
 \begin{enumerate}
 	%% part a
@@ -57,6 +57,7 @@ The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of
 
   %% part d
   \qitem Geometrically, what is the minimum norm solution to the problem? (\textit{Hint:} Which vector among the solutions to the problem has the shortest length?)
+  
   \meta{
   	Make sure to mention to students why this particular solution is the shortest one. You can think of any other solution (which will lie on the blue dotted line) as the red solution \textit{plus} some component along the blue line. But the component along the blue line doesn't help the solve the problem in some sense, all it does is add length to the solution vector. The vector that "solves the problem without wasting any energy" is the $\begin{bmatrix} \frac{2}{5} \\ \frac{4}{5} \end{bmatrix}$ vector. We try to prove this in general in parts h) and i).
   }
@@ -158,6 +159,10 @@ The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of
   	\vspace{100 px}
   }
   
+  \sol{
+  	For all $n \in N(A)$, $A(x^* + n) = Ax^* + An = Ax^* = b$.
+  }
+  
   %% part i
   \qitem Show that if $\vec{x}^*$ is orthogonal to the nullspace, then the norm of $\vec{x}^*$ is less than the norm of all $\vec{x}^* + \vec{n}$ for $\vec{n}$ in the nullspace of $A$.
   
@@ -168,10 +173,10 @@ The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of
   \sol{
     For all vectors $x^* + n$ in the set of solutions to $Ax = b$, 
     \begin{align*}
-        ||x^* + n||^2 &= \langle x^* + n, x^* + n \rangle \\
+        \lVert x^* + n\rVert^2 &= \langle x^* + n, x^* + n \rangle \\
         &= \langle x^*, x^* \rangle + \langle x^*, n \rangle + \langle n, x^* \rangle + \langle n, n \rangle \\
-        &= ||x^*||^2 + ||n||^2 \\
-        & \geq ||x^*||^2
+        &= \lVert x^* \rVert ^2 + \lVert n \rVert ^2 \\
+        & \geq \lVert x^* \rVert ^2
     \end{align*}
     So $x^*$ has smallest norm.
   }
