@@ -1,6 +1,6 @@
 % Author: Ben Liao, Jason Zhang, Olivia Huang, Sylvia Jin
 
-\qns{Minimum Norm Solution & Pseudoinverse}
+\qns{Minimum Norm Solution \& Pseudoinverse}
 
 The Moore-Penrose Pseudo-Inverse is essentially a way to calculate "inverses" of \textbf{wide matrices}. The cardinal problem of linear algebra is solving the problem $A\vec{x} = \vec{b}$. If $A$ is square, we can use Gaussian elimination to solve the problem. If $A$ is tall, the system is overdefined (i.e. more equations than unknowns), and we can use Least Squares to find the solution that minimizes the error, i.e. the quantity $||A\vec{x} - \vec{b}||$. If $A$ is wide, the system is underdefined (i.e. fewer equations than unknowns), so there are infinitely many solutions to the system (infinitely many $\vec{x}$ that solve the equation). So, which solution is the "best" one? In many situations, we want to choose the solution that has the \textbf{smallest norm}. It's useful to think of this as the "shortest vector" that satisfies the equation.
 
@@ -43,7 +43,7 @@ The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of
   \ws{
     \begin{figure}[H]
     \centering
-    \includegraphics[width=.5\textwidth]{plane_blank.jpg}
+    \includegraphics[width=.5\textwidth]{\bank/min-norm/figures/plane_blank.jpg}
     \end{figure}
   }
 
@@ -51,7 +51,7 @@ The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of
     The line consisting of points $a\begin{bmatrix} -2 \\ 1 \end{bmatrix} + \begin{bmatrix} \frac{2}{5} \\ \frac{4}{5} \end{bmatrix}$ for $a \in \mathbb{R}$.
     \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{sol_c.png}
+    \includegraphics[width=0.9\textwidth]{\bank/min-norm/figures/sol_c.png}
     \end{figure}
   }
 
@@ -68,7 +68,7 @@ The point: given a wide matrix $A$ and a vector $\vec{b}$ in the output space of
     The minimum norm solution is perpendicular to the line of solutions. To find the numerical solution, you might find the equation of the line that passes through the origin and intersects the line of solutions at a perpendicular angle. This is the line $y = 2x$. The vector along that line that reaches the line of solutions is $\begin{bmatrix} \frac{2}{5} \\ \frac{4}{5} \end{bmatrix}$.
     \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{sol_d.png}
+    \includegraphics[width=0.9\textwidth]{\bank/min-norm/figures/sol_d.png}
     \end{figure}
   }
 
