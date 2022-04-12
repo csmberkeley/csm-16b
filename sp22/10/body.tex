@@ -1,0 +1,32 @@
+\begin{document}
+
+\def\title{Worksheet 9}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+    \maketitle
+
+    \vspace{0.5em}
+
+    
+\begin{qunlist}
+
+\input{\bank/svd-pca/pca.tex}
+
+\clearpage
+\input{\bank/linearization/linearization_intro.tex}
+
+\clearpage
+\input{\bank/linearization/jacobian_intuition.tex}
+
+\clearpage
+\input{\bank/linearization/nonlinear_pendulum.tex}
+
+
+\end{qunlist}
+
+\end{document}
