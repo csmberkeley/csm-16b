@@ -82,56 +82,56 @@ Therefore, we will linearize this system by taking an \textbf{equilibrium point}
     $$f(x) \approx -\sin(0) - \cos(0) (x - 0) = -x$$
   }
 
-  \qitem We will now look at a small window of $x(t)$ around $x^{*}$ and let $x(t) \approx x^{*} + \delta_{x}(t)$ where $\delta_{x}(t)$ is small enough so the error of the Taylor approximation is small.
-  \textbf{Plug in this $x(t)$ into the original differential equation \eqref{eqn:nl} and use the first order Taylor approximation derived in the previous part to come up with a new differential equation in terms of $\delta_{x}(t).$}
+  % \qitem We will now look at a small window of $x(t)$ around $x^{*}$ and let $x(t) \approx x^{*} + \delta_{x}(t)$ where $\delta_{x}(t)$ is small enough so the error of the Taylor approximation is small.
+  % \textbf{Plug in this $x(t)$ into the original differential equation \eqref{eqn:nl} and use the first order Taylor approximation derived in the previous part to come up with a new differential equation in terms of $\delta_{x}(t).$}
 
-  \ws {
-    \vspace{100px}
-  }
+  % \ws {
+  %   \vspace{100px}
+  % }
 
-  \sol {
-    Plugging in $x(t) \approx x^{*} + \delta_{x}(t),$ we'll get:
-    $$f(x) = -x = -x^{*} - \delta_{x}(t) = -\delta_{x}(t)$$
-    Differentiating $x(t),$ and noticing that $x^{*}$ is a constant (zero in this case), we get:
-    $$\ddt{}{t} x(t) = \ddt{}{t} \delta_{x}(t)$$
-    Therefore, the linearized differential equation represented by \eqref{eqn:nl} will be:
-    \begin{equation}
-      \ddt{}{t} \delta_{x}(t) = -\delta_{x}(t)
-    \end{equation}
-  }
+  % \sol {
+  %   Plugging in $x(t) \approx x^{*} + \delta_{x}(t),$ we'll get:
+  %   $$f(x) = -x = -x^{*} - \delta_{x}(t) = -\delta_{x}(t)$$
+  %   Differentiating $x(t),$ and noticing that $x^{*}$ is a constant (zero in this case), we get:
+  %   $$\ddt{}{t} x(t) = \ddt{}{t} \delta_{x}(t)$$
+  %   Therefore, the linearized differential equation represented by \eqref{eqn:nl} will be:
+  %   \begin{equation}
+  %     \ddt{}{t} \delta_{x}(t) = -\delta_{x}(t)
+  %   \end{equation}
+  % }
 
-  \qitem \textbf{What is the solution to the new differential equation derived in the previous part, in terms of $\delta_{x}(t)$?}
+  % \qitem \textbf{What is the solution to the new differential equation derived in the previous part, in terms of $\delta_{x}(t)$?}
 
-  \ws {
-    \vspace{75px}
-  }
-  \meta {
-    It is important to emphasize here that this $\delta_{x}(t)$ is no longer a function of $x$ rather, it is a function of the distance to $x.$
-    This however, does not matter since when we are doing system analysis, we rarely care about the actual solution to this system, rather we care about its behavior.
-  }
+  % \ws {
+  %   \vspace{75px}
+  % }
+  % \meta {
+  %   It is important to emphasize here that this $\delta_{x}(t)$ is no longer a function of $x$ rather, it is a function of the distance to $x.$
+  %   This however, does not matter since when we are doing system analysis, we rarely care about the actual solution to this system, rather we care about its behavior.
+  % }
 
-  \sol {
-    This is a first order homogenous differential equation, with zero input.
-    Therefore, the solution will be:
-    \begin{equation}
-      \delta_{x}(t) = \delta_{x}(0) e^{-t}
-    \end{equation}
-  }
+  % \sol {
+  %   This is a first order homogenous differential equation, with zero input.
+  %   Therefore, the solution will be:
+  %   \begin{equation}
+  %     \delta_{x}(t) = \delta_{x}(0) e^{-t}
+  %   \end{equation}
+  % }
 
-  \qitem \textbf{Using the solution for $\delta_{x}(t),$ what is the new linearized approximation for $x(t)?$ Is this approximation valid for all values of $t?$}
+  % \qitem \textbf{Using the solution for $\delta_{x}(t),$ what is the new linearized approximation for $x(t)?$ Is this approximation valid for all values of $t?$}
 
-  \ws {
-    \vspace{75px}
-  }
+  % \ws {
+  %   \vspace{75px}
+  % }
 
-  \meta {
-    Remember that linearization is an approximation to a system as well, and some linearizations are considered stable, meaning that it will be accurate for all values of $t$ whereas some will be unstable, meaning they only work in a small neighborhood around $x^{*}.$ The smallness assumption says that $\delta_{x}(t)$ should be small enough such that the approximation $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t)$ is valid.
-  }
+  % \meta {
+  %   Remember that linearization is an approximation to a system as well, and some linearizations are considered stable, meaning that it will be accurate for all values of $t$ whereas some will be unstable, meaning they only work in a small neighborhood around $x^{*}.$ The smallness assumption says that $\delta_{x}(t)$ should be small enough such that the approximation $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t)$ is valid.
+  % }
 
-  \sol {
-    The solution derived in the previous part was $\delta_{x}(t) = \delta_{x}(0) e^{-t}.$
-    Converting back to $x(t),$ we see that the new linearized approximation is $x(t) \approx x^{*} + \delta_{x}(t) = \delta_{x}(t) = \delta_{x}(0) e^{-t}.$
-    This solution is stable since $\delta_{x}(t) \leq \delta_{x}(0)$ for all values of $t \geq 0.$
-    If the linearization satisfies the smallness assumption, meaning $\delta_{x}(0)$ is small enough that $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t),$ then the linearization will be valid for all values of $t \geq 0.$
-  }
+  % \sol {
+  %   The solution derived in the previous part was $\delta_{x}(t) = \delta_{x}(0) e^{-t}.$
+  %   Converting back to $x(t),$ we see that the new linearized approximation is $x(t) \approx x^{*} + \delta_{x}(t) = \delta_{x}(t) = \delta_{x}(0) e^{-t}.$
+  %   This solution is stable since $\delta_{x}(t) \leq \delta_{x}(0)$ for all values of $t \geq 0.$
+  %   If the linearization satisfies the smallness assumption, meaning $\delta_{x}(0)$ is small enough that $f(x) \approx f(x^{*}) + f'(x^{*}) \delta_{x}(t),$ then the linearization will be valid for all values of $t \geq 0.$
+  % }
 \end{enumerate}
