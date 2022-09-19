@@ -39,12 +39,12 @@ At DC, inductors act as shorts and capacitors act as opens. Thus, we can get rid
   $$v_{out}=\frac{1}{1+2}v_{in}=\frac{10}{3}\text{ V}$$
  }
 
-\qitem Find $v_{out}(t)$ for an input $v_{in}(t) = 10\text{ sin}(10^4t+30^\circ)$ V. Your final answer should be in the time domain. (Hint: atan$(\frac{4}{3})\approx 51^\circ$).
+\qitem Find $v_{out}(t)$ for an input $v_{in}(t) = 10\sin(10^4t+30^\circ)$ V. Your final answer should be in the time domain. (Hint: atan$(\frac{4}{3})\approx 51^\circ$).
 
 \sol{
 Since our input is purely sinusoidal, we can convert everything to the frequency domain.
 \begin{align*}
-v_{in}(t) &= 10\text{ sin}(10^4t+30^\circ)=10\text{ cos}(10^4t+30^\circ-90^\circ)=10\text{ cos}(10^4t-60^\circ) \\
+v_{in}(t) &= 10\sin(10^4t+30^\circ)=10\cos(10^4t+30^\circ-90^\circ)=10\cos(10^4t-60^\circ) \\
 \widetilde{V}_{in} &= 5e^{-j60^\circ} \\
 \omega &= \SI{e4}{\radian}
 \intertext{The impedance of a resistor is the same as its resistance}
@@ -91,7 +91,7 @@ Z_2 &= (1+j)||(1-j) = \frac{(1+j)(1-j)}{(1+j)+(1-j)} = \frac{2}{2} = 1 \\
 \frac{1+j}{3+4j} &= \frac{\sqrt{2}}{5}e^{j(45^\circ-51^\circ)} = \frac{\sqrt{2}}{5}e^{-j6^\circ} \\
 \widetilde{V}_{out} &=\frac{\sqrt{2}}{5}e^{-j6^\circ} \widetilde{V}_{in}=\frac{\sqrt{2}}{5}e^{-j6^\circ}5e^{-j60^\circ}=\sqrt{2}e^{-j66^\circ} \\
 \intertext{Converting back to time domain:}
-v_{out}(t) &= 2\sqrt{2}\text{ cos}(10^4t-66^\circ)\text{ V}
+v_{out}(t) &= 2\sqrt{2}\cos(10^4t-66^\circ)\text{ V}
 \end{align*}
 }
 \end{enumerate}
