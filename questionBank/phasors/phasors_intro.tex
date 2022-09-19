@@ -3,11 +3,11 @@
 
 \qns{Introduction to Phasor Domain and Impedance}
 
-\meta{
-Tell students that there's a $\frac{1}{2}$ in this semester's definition of the phasor.
-Let them know that they may find definitions of phasors (like other semesters of 16b) where the $\frac{1}{2}$ is omitted.
-Be sure to tell them that this doesn't change anything at all since we end up factoring it out later anyways.
-}
+% \meta{
+% Tell students that there's a $\frac{1}{2}$ in this semester's definition of the phasor.
+% Let them know that they may find definitions of phasors (like other semesters of 16b) where the $\frac{1}{2}$ is omitted.
+% Be sure to tell them that this doesn't change anything at all since we end up factoring it out later anyways.
+% }
 
 We consider sinusoidal voltages and currents of the general form:
 
@@ -33,32 +33,32 @@ where:
 \end{enumerate}
 
 We know from Euler's identity that $e^{j\theta}=\cos(\theta)+j\sin(\theta)$. Using this identity, we can obtain an expression for $\cos(\theta)$ in terms of an exponential:
-%\[\cos(\theta)=\operatorname{Re}(e^{j\theta})=\operatorname{Re}[\cos(\theta)+j\sin(\theta)]\]
-\[\cos(\theta)=\frac{e^{j\theta} + e^{-j\theta}}{2}\]
+\[\cos(\theta)=\operatorname{Re}(e^{j\theta})=\operatorname{Re}[\cos(\theta)+j\sin(\theta)]\]
+% \[\cos(\theta)=\frac{e^{j\theta} + e^{-j\theta}}{2}\]
 Extending this to our voltage signal from above:
-% \[v(t) = V_0 \cos(\omega t + \phi_v)=\operatorname{Re}(\frac{1}{2} V_0 e^{j\omega t + j\phi_v}) = \operatorname{Re}(\underbrace{\frac{1}{2}{V_0 e^{j\phi_v}}}_{\widetilde{V}} e^{j\omega t})\]
-\[v(t) = V_0 \cos(\omega t + \phi_v)=V_0 \left(\frac{e^{j(\omega t +\phi_v)} + e^{-j(\omega t +\phi_v)}}{2}\right)\]
+\[v(t) = V_0 \cos(\omega t + \phi_v)=\operatorname{Re}(V_0 e^{j\omega t + j\phi_v}) = \operatorname{Re}(\underbrace{V_0 e^{j\phi_v}}_{\widetilde{V}} e^{j\omega t})\]
+% \[v(t) = V_0 \cos(\omega t + \phi_v)=V_0 \left(\frac{e^{j(\omega t +\phi_v)} + e^{-j(\omega t +\phi_v)}}{2}\right)\]
 \vspace{-10px}
 
 Now, since we know that the circuit will not change the frequency of the signal (since we saw that the solutions to the systems of differential equations will only produce linear combinations of solutions in the form $e^{j\omega t}$ with the same frequency $\omega$), we can drop the $e^{j\omega t}$ term, as long as we remember that all signals related to the voltage will be sinusoidal with angular frequency $\omega$.
-We can then notice that the second term in the expression is just the conjugate of the first term:
-\[v(t) = V_0\frac{e^{j\phi}}{2}e^{j\omega t} + V_0 \overline{\frac{e^{j\phi}}{2}e^{j\omega t}}\]
-This means that we just need to analyze the component that isn't $e^{jwt}$ and by symmetry don't have to look at the conjugate.
+% We can then notice that the second term in the expression is just the conjugate of the first term:
+% \[v(t) = V_0\frac{e^{j\phi}}{2}e^{j\omega t} + V_0 \overline{\frac{e^{j\phi}}{2}e^{j\omega t}}\]
+% This means that we just need to analyze the component that isn't $e^{jwt}$ and by symmetry don't have to look at the conjugate.
 The result is called the phasor form of this signal:
-\[\boxed{\widetilde{V}=\frac{1}{2}V_0e^{j\phi_v}}\]
+\[\boxed{\widetilde{V}=V_0e^{j\phi_v}}\]
 
 The phasor representation contains the \textbf{magnitude} $V_0$ and \textbf{phase} $\phi_v$ of the signal, but not the time-varying portion. Phasors let us handle sinusoidal signals much more easily, letting us use circuit analysis techniques that we already know to analyze AC circuits. \textit{Note that we can only use this if we know that our signal is a sinusoid.}
 
 Within this standard form, the phasor domain representation is as follows. The general equation that relates cosines to phasors is below, where $\widetilde{V}$ is the phasor.
 %\[V_0 \cos(\omega t + \phi_v)=\operatorname{Re}(\frac{1}{2}\widetilde{V}e^{j\omega t})\]
-\[x(t) = A \cos(\omega t + \phi_v) \implies \widetilde{X} =  \frac{1}{2}V_0e^{j\phi_v} \]
+\[x(t) = A \cos(\omega t + \phi_v) \implies \widetilde{X} =  V_0e^{j\phi_v} \]
 
 In summary, the standard forms for voltage and current phasors are given below:
 \begin{center} \begin{tabular}{|c|c|c|}
 \hline
         & Time Domain                         & Phasor Domain \\ \hline
-Voltage & $v(t) = V_0 \cos(\omega t + \phi_v)$ & $\widetilde{V} = \frac{1}{2} V_0 e^{j\phi_v}$ \\ %= \operatorname{Re}(\frac{1}{2} V_0 e^{j\phi_v} e^{j \omega t})$ & $\widetilde{V} = \frac{1}{2} V_0 e^{j\phi_v}$ \\
-Current & $i(t) = I_0 \cos(\omega t + \phi_i)$ & $\widetilde{I} = \frac{1}{2} I_0 e^{j\phi_i}$ \\%= \operatorname{Re}(\frac{1}{2} I_0 e^{j\phi_i} e^{j \omega t})$ & $\widetilde{I} = \frac{1}{2} I_0 e^{j\phi_i}$ \\
+Voltage & $v(t) = V_0 \cos(\omega t + \phi_v)$ & $\widetilde{V} = V_0 e^{j\phi_v}$ \\ %= \operatorname{Re}(\frac{1}{2} V_0 e^{j\phi_v} e^{j \omega t})$ & $\widetilde{V} = \frac{1}{2} V_0 e^{j\phi_v}$ \\
+Current & $i(t) = I_0 \cos(\omega t + \phi_i)$ & $\widetilde{I} = I_0 e^{j\phi_i}$ \\%= \operatorname{Re}(\frac{1}{2} I_0 e^{j\phi_i} e^{j \omega t})$ & $\widetilde{I} = \frac{1}{2} I_0 e^{j\phi_i}$ \\
 \hline
 \end{tabular} \end{center}
 
@@ -103,11 +103,11 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
 \ws{\vspace{35px}}
 
 \sol{
-    Using the given $i_R(t)$, we can pull out the phasor representation $\widetilde{I}_R = \frac{1}{2} I_0 e^{j \phi}$. To find $\widetilde{V}_R$, we first find $v_R(t)$ in time domain using the Ohm's law relationship. This gives %$v_R(t) = Ri_R(t) = RI_0 \cos(\omega t + \phi) = \operatorname{Re}(\frac{1}{2}RI_0e^{j \phi}e^{j \omega t})$.
+    Using the given $i_R(t)$, we can pull out the phasor representation $\widetilde{I}_R = I_0 e^{j \phi}$. To find $\widetilde{V}_R$, we first find $v_R(t)$ in time domain using the Ohm's law relationship. This gives %$v_R(t) = Ri_R(t) = RI_0 \cos(\omega t + \phi) = \operatorname{Re}(\frac{1}{2}RI_0e^{j \phi}e^{j \omega t})$.
     $v_R(t) = Ri_R(t) = RI_0 \cos(\omega t + \phi)$.
-    Pulling out the phasor, we have $\widetilde{V}_R =\frac{1}{2} RI_0 e^{j \phi}$.
+    Pulling out the phasor, we have $\widetilde{V}_R = RI_0 e^{j \phi}$.
 
-    This leads us to conclude the impedance of a resistor is: $Z_R = \frac{\widetilde{V}_R}{\widetilde{I}_R} = \frac{\frac{1}{2}RI_0 e^{j \phi}}{\frac{1}{2}I_0 e^{j \phi}} = R$.
+    This leads us to conclude the impedance of a resistor is: $Z_R = \frac{\widetilde{V}_R}{\widetilde{I}_R} = \frac{RI_0 e^{j \phi}}{I_0 e^{j \phi}} = R$.
 
     This means that the $\widetilde{I}-\widetilde{V}$ relationship in phasor domain is purely real.
 }
@@ -135,7 +135,7 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
     We're given:
     \begin{align*}
         v_C(t) &= V_0 \cos(\omega t + \phi) \\
-        \implies \widetilde{V}_C &= \frac{1}{2} V_0 e^{j \phi}
+        \implies \widetilde{V}_C &= V_0 e^{j \phi}
     \end{align*}
 
     We apply the capacitor relationship to get the current through the capacitor as a function of time:
@@ -143,17 +143,17 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
         i_C(t) &= C \frac{d}{dt} v_C(t) \\
         &= \frac{d}{dt} CV_0 \cos(\omega t + \phi) \\
         &= CV_0 \frac{d}{dt} \cos(\omega t + \phi) \\
-        &= CV_0 \frac{d}{dt} \left(\frac{1}{2}e^{j(wt+\phi)} + \frac{1}{2}e^{-j(wt+\phi)}\right)\\
-        &= CV_0 \left((j\omega)\frac{1}{2}e^{j(wt+\phi)} + -(j\omega)\frac{1}{2}e^{-j(wt+\phi)}\right)\\
-        %&= \frac{d}{dt} \operatorname{Re}(CV_0 e^{j \phi} e^{j \omega t}) \\
-        %&= \operatorname{Re}(\frac{1}{2} j \omega CV_0 e^{j \phi} e^{j \omega t}) \\
-        \implies \widetilde{I}_C &= \frac{1}{2} j \omega C V_0 e^{j \phi}
+        % &= CV_0 \frac{d}{dt} \left(\frac{1}{2}e^{j(wt+\phi)} + \frac{1}{2}e^{-j(wt+\phi)}\right)\\
+        % &= CV_0 \left((j\omega)\frac{1}{2}e^{j(wt+\phi)} + -(j\omega)\frac{1}{2}e^{-j(wt+\phi)}\right)\\
+        &= \frac{d}{dt} \operatorname{Re}(CV_0 e^{j \phi} e^{j \omega t}) \\
+        &= \operatorname{Re}(j \omega CV_0 e^{j \phi} e^{j \omega t}) \\
+        \implies \widetilde{I}_C &= j \omega C V_0 e^{j \phi}
     \end{align*}
 
     Thus, the impedance of a capacitor is:
     \begin{align*}
         Z_C &= \frac{\widetilde{V}_C}{\widetilde{I}_C} \\
-        &= \frac{\frac{1}{2} V_0 e^{j \phi}}{\frac{1}{2} j \omega C V_0 e^{j \phi}} \\
+        &= \frac{V_0 e^{j \phi}}{j \omega C V_0 e^{j \phi}} \\
         &= \frac{1}{j\omega C}
     \end{align*}
 }
@@ -175,7 +175,7 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
     We're given:
     \begin{align*}
         i_L(t) &= I_0 \cos(\omega t + \phi) \\
-        \implies \widetilde{I}_L &= \frac{1}{2} I_0 e^{j \phi}
+        \implies \widetilde{I}_L &= I_0 e^{j \phi}
     \end{align*}
 
     We apply the inductor relationship to get the voltage across the inductor as a function of time:
@@ -183,17 +183,17 @@ In this problem, we will \textit{derive the impedances of resistors, capacitors,
         v_L(t) &= L \frac{d}{dt} i_L(t) \\
         &= \frac{d}{dt} L I_0 \cos(\omega t + \phi) \\
         &= LI_0 \frac{d}{dt} \cos(\omega t + \phi) \\
-        &= LI_0 \frac{d}{dt} \left(\frac{1}{2}e^{j(wt+\phi)} + \frac{1}{2}e^{-j(wt+\phi)}\right)\\
-        &= LI_0 \left((j\omega)\frac{1}{2}e^{j(wt+\phi)} + -(j\omega)\frac{1}{2}e^{-j(wt+\phi)}\right)\\
-        %&= \frac{d}{dt} \operatorname{Re}(\frac{1}{2} L I_0 e^{j \phi} e^{j \omega t}) \\
-        %&= \operatorname{Re}(\frac{1}{2} j \omega L I_0 e^{j \phi} e^{j \omega t}) \\
-        \implies \widetilde{V}_L &= \frac{1}{2} j \omega L I_0 e^{j \phi}
+        % &= LI_0 \frac{d}{dt} \left(\frac{1}{2}e^{j(wt+\phi)} + \frac{1}{2}e^{-j(wt+\phi)}\right)\\
+        % &= LI_0 \left((j\omega)\frac{1}{2}e^{j(wt+\phi)} + -(j\omega)\frac{1}{2}e^{-j(wt+\phi)}\right)\\
+        &= \frac{d}{dt} \operatorname{Re}(L I_0 e^{j \phi} e^{j \omega t}) \\
+        &= \operatorname{Re}(j \omega L I_0 e^{j \phi} e^{j \omega t}) \\
+        \implies \widetilde{V}_L &= j \omega L I_0 e^{j \phi}
     \end{align*}
 
     Thus, the impedance of an inductor is:
     \begin{align*}
         Z_L &= \frac{\widetilde{V}_L}{\widetilde{I}_L} \\
-        &= \frac{\frac{1}{2} j \omega L I_0 e^{j \phi}}{\frac{1}{2} I_0 e^{j \phi}} \\
+        &= \frac{j \omega L I_0 e^{j \phi}}{I_0 e^{j \phi}} \\
         &= j\omega L
     \end{align*}
 }
