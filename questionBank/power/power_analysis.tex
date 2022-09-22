@@ -1,0 +1,59 @@
+\DeclareSIUnit{\var}{VAR}
+\DeclareSIUnit{\voltampere}{VA}
+
+\qns{Power Analysis}
+\qcontributor{Bryan Ngo}
+
+\meta{This problem is taken from Hambley's \emph{Electrical Engineering: Principles and Applications}, 7th edition, Problem 5.80.}
+
+Consider the following circuit:
+
+\begin{center}
+\begin{circuitikz}
+    \draw (0, 2) to[V_={\(1000 \sqrt{2}\), \ang{0}, \(\omega = 377\)}] (0, 0) to[short] (2, 0) to[R=\SI{100}{\ohm}] (2, 2) to[short] (0, 2);
+    \draw (2, 2) to[short] (4, 2) to[C=\SI{10}{\micro\farad}] (4, 0) to[short] (2, 0);
+\end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+    \qitem Find the phasor \(I\) through the circuit.
+
+    \sol{
+        Converting to the phasor domain,
+        \begin{center}
+        \begin{circuitikz}
+            \draw (0, 2) to[sV_={\(\widetilde{V} = 1000 \sqrt{2} e^{j377}\)}] (0, 0) to[short] (2, 0) to[generic, l_={\(Z_R = \SI{100}{\ohm}\)}] (2, 2) to[short] (0, 2);
+            \draw (2, 2) to[short] (5, 2) to[generic={\(Z_C = j\) \SI{3.77}{\milli\ohm}}] (5, 0) to[short] (2, 0);
+        \end{circuitikz}
+        \end{center}
+        We can see that the combined impedance is
+        \begin{center}
+        \begin{circuitikz}
+            \draw (0, 2) to[sV_={\(\widetilde{V} = 1000 \sqrt{2} e^{j377}\)}] (0, 0) to[short] (2, 0) to[generic, l_={\(Z_{tot} = \frac{Z_R Z_C}{Z_R + Z_C}\)}] (2, 2) to[short] (0, 2);
+        \end{circuitikz}
+        \end{center}
+        Then, we can find the current phasor by calculating \(\widetilde{I} = \frac{\widetilde{V}}{Z_{tot}}\).
+        From this, we get \(\widetilde{I} = 15.11 \angle \ang{20.66} \unit{\ampere}\).
+    }
+
+    \qitem Find the power, reactive power, and apparent power.
+
+    \sol{
+        The real power is
+        \begin{equation*}
+            P = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \cos(\arg(Z_{tot})) = \SI{10}{\kilo\watt}
+        \end{equation*}
+        The reactive power is
+        \begin{equation*}
+            Q = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \sin(\arg(Z_{tot})) = \SI{-3.370}{\kilo\var}
+        \end{equation*}
+        The apparent power is \(\frac{1}{2} |\widetilde{V}| |\widetilde{I}| = \SI{10.55}{\kilo\voltampere}\).
+    }
+
+    \qitem Find the power factor, and state whether it is lagging or leading.
+
+    \sol{
+        The power factor is \(\cos(\arg(Z_{tot})) = 0.9476 = 94.76\%\).
+        Since the circuit is an RC circuit, it is leading.
+    }
+\end{enumerate}
