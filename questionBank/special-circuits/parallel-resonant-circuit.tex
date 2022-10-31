@@ -1,0 +1,61 @@
+
+\qns{Parallel Resonant Circuit}
+\qcontributor{Anirudh Rengarajan}
+
+\begin{enumerate}
+    \qitem Find the $L$ and $C$ values for a parallel resonant circuit that has $R=\SI{10}{\kilo\ohm}$, $f_0 = \SI{1}{\mega\hertz}$, and $B=\SI{100}{\kilo\hertz}$. You are also told that $\mathbf{I} = 10^{-3}\angle{0^\circ} \ \si{\ampere}$. 
+    
+
+    \begin{center}
+        \begin{circuitikz}
+            \draw(0,0)
+                to[I, l_ = ${\mathbf{I} = 10^{-3}\angle{0^\circ}}$] (0,3);
+            \draw(0,3)
+                to[short] (9,3)
+                to[C=${C = ?}$] (9,0)
+                to[short] (0,0);
+            \draw(3,3)
+                to[R=${R = \SI{10}{\kilo\ohm}}$] (3,0);
+            \draw(6,3)
+                to[L=${L = ?}$] (6,0);
+        \end{circuitikz}
+    \end{center}
+
+         \qitem Calculate the current phasors through each of the elements at resonance.
+        
+
+        \sol{
+            First, we compute the quality factor of the circuit.
+            \begin{equation}
+                Q_p = \frac{f_0}{B} = \frac{10^6}{10^5} = 10
+            \end{equation}
+            Using the equation:
+            \begin{equation}
+                Q_p = \frac{R}{2\pi f_0 L}
+            \end{equation}
+            and rearranging, we can solve for inductance:
+            \begin{equation}
+                L = \frac{R}{2 \pi f_0 Q_p} = \frac{10^4}{2\pi \times 10^6 \times 10} = \SI{159.2}{\micro\henry}
+            \end{equation}
+            Similarly, rearranging the equation:
+            \begin{equation}
+                Q_p = 2 \pi f_0 C R
+            \end{equation}
+            we can solve for $C$:
+            \begin{equation}
+                C = \frac{Q_p}{2 \pi f_0 R} = \frac{10}{2\pi \times 10^6 \times 10^4} = \SI{159.2}{\pico\farad}
+            \end{equation}
+            At resonance, the voltage is given by:
+            \begin{equation}
+                \mathbf{V_\mathrm{out}} = \mathbf{I}R = \pqty{10^{-3}\angle{0^\circ}}\times 10^4 = 10\angle{0^\circ} \; \si{\volt}
+            \end{equation}
+            and currents can be solved using the impedances:
+            \begin{align}
+                \mathbf{I_R} &= \frac{\mathbf{V_\mathrm{out}}}{R} = \frac{10\angle{0^\circ}}{10^4} = 10^{-3} \angle{0^\circ} \; \si{\ampere} \\ 
+                \mathbf{I_L} &= \frac{\mathbf{V_\mathrm{out}}}{\j 2 \pi f_0 L} = \frac{10 \angle{0^\circ}}{\j 10^3} = 10^{-2} \angle{-90^\circ} \ \si{\ampere} \\
+                \mathbf{I_C} &= \frac{\mathbf{V_\mathrm{out}}}{\frac{-\j}{2\pi f_0 C}} = \frac{10\angle{0^\circ}}{-\j 10^3} = 10^{-2} \angle{90^\circ} \ \si{\ampere}
+            \end{align}
+        }
+\end{enumerate}
+
+

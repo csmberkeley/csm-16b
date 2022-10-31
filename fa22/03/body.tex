@@ -1,0 +1,30 @@
+\begin{document}
+
+\def\title{Worksheet 3}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+
+\input{\bank/transfer/bode_plots_reboot}
+\newpage
+\input{\bank/transfer/rlc_bode}
+\newpage
+\input{\bank/filters/rlc_bandstop}
+\newpage
+\input{\bank/special-circuits/parallel-resonant-circuit}
+\newpage
+
+\end{qunlist}
+
+\end{document}
