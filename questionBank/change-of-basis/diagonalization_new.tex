@@ -1,7 +1,7 @@
-% Author: Tony Li
+% Authors: Tony Li, and authors of diagonalization.tex
 % Email: songli@berkeley.edu
 
-\qns{Diagonalization}
+\qns{Diagonalization and Diagonalizability}
 
 \textbf{Diagonal matrices}, matrices where all entries outside of the diagonal are zero.
 Diagonal matrices come handy in terms of solving systems of linear equations, solving for vector case of differential equations, finding out the determinant, etc. 
@@ -19,13 +19,15 @@ $$A = \begin{bmatrix}
   2 & 2 \\
   5 & -1
   \end{bmatrix}$$
-Can you explain why $A$ has two eigenvalues and in a more general case, how many eigenvalues does a n by n matrix have?
+\textbf{Can you explain why $A$ has two eigenvalues and in a more general case, how many eigenvalues does a n by n matrix have?}
 \ws{
 \vspace{30px}
 }
+
 \meta{
   Introduce how we solve for eigenvalues and eigenvectors.
 }
+
 \sol{
   Based on the definition, we know $A\vec{v}=\lambda\vec{v}$, then we can write it into another form, $(A-{\lambda}I_n)\vec{v}=0$, where $I_n$
   is the identity matrix. As a result, since $\vec{v}$ can not be a zero vector, $(A-{\lambda}I_n)\vec{v}=0$ is a homogenous linear system solving for $\vec{v}$.
@@ -34,7 +36,7 @@ Can you explain why $A$ has two eigenvalues and in a more general case, how many
   Plase note that, $\lambda$'s could be complex numbers.
 }
 
-\qitem Find eigenvalues ${\lambda}_1$ and ${\lambda}_2$ and their corresponding eigenvectors $\vec{v_1}$ and $\vec{v_2}$, where ${\lambda}_1\le{\lambda}_2$,
+\qitem \textbf{Find eigenvalues ${\lambda}_1$ and ${\lambda}_2$ and their corresponding eigenvectors $\vec{v_1}$ and $\vec{v_2}$}, where ${\lambda}_1\le{\lambda}_2$,
 and both of the eigenvectors have length 1.
 
 \ws{
@@ -42,7 +44,32 @@ and both of the eigenvectors have length 1.
 }
 
 \sol{
-  Todo
+  $$det(A-{\lambda}I_n)=det(\begin{bmatrix}
+    2-\lambda & 2\\
+    5 & -1-\lambda
+  \end{bmatrix})=(2-\lambda)(-1-\lambda)-2\times5={\lambda}^2-\lambda-12=0$$
+  \newline After solving the quadratic equation above, We have ${\lambda}_1=-3$ and ${\lambda}_2=4$.
+  Let's plug two eigenvalues into $(A-{\lambda}I_n)\vec{v}=0$.
+  $$\begin{bmatrix}
+    2-{\lambda}_1 & 2\\
+    5 & -1-{\lambda}_1 
+  \end{bmatrix}\vec{v_1} = \begin{bmatrix}
+    5 & 2\\
+    5 & 2
+  \end{bmatrix}\vec{v_1}=0$$
+  $$\Rightarrow \vec{v_1}=\begin{bmatrix}
+    2C\\
+    -5C\\
+  \end{bmatrix}, C\in\mathbb{R}$$
+  Since $\vec{v_1}$ has length 1, then $$\vec{v_1}=\begin{bmatrix}
+    \frac{2}{\sqrt{29}}\\
+    \frac{-5}{\sqrt{29}}
+  \end{bmatrix}$$
+  \newline Similarly, we would have 
+  $$\vec{v_2}=\begin{bmatrix}
+    \frac{1}{\sqrt{2}}\\
+    \frac{1}{\sqrt{2}}
+  \end{bmatrix}$$
 }
 
 \end{enumerate}
@@ -58,26 +85,64 @@ $$\Lambda = \begin{bmatrix}
   0 & {\lambda}_2
   \end{bmatrix}$$
 \begin{enumerate}[resume]
-\qitem Now, we need to prove that $A=V{\Lambda}V^{-1}$. 
+\qitem Now, we need to \textbf{prove that $A=V{\Lambda}V^{-1}$}. Assume that $V$ is invertible.
 \newline \emph{Hint:}First, transform the above equation into the form $AV=V{\Lambda}$. Then, expand $V$ and $\Lambda$ with
 matrices provided above.
 \ws{\vspace{100px}}
+
 \meta{
   Show students that the procedure in the solution is applicable to prove $A=V{\Lambda}V^{-1}$, even if A is n by n.
 }
+
 \sol{
-  Todo
+  Based on the definition of eigenvalues and eigenvectors, let $\vec{v_1}$, $\vec{v_2}$,..., $\vec{v_n}$ be n eigenvectors
+  of the n by n matrix $A$, and their corresponding eigenvalues are ${\lambda}_1$, ${\lambda}_2$,..., ${\lambda}_n$.
+  Now, we have $V=[\vec{v_1}, \vec{v_2}, ..., \vec{v_n}]$.
+  $$AV=A[\vec{v_1}, \vec{v_2}, ..., \vec{v_n}]=[A\vec{v_1}, A\vec{v_2}, ..., A\vec{v_n}]=[{\lambda}_1\vec{v_1}, {\lambda}_2\vec{v_2}, ..., {\lambda}_n\vec{v_n}]$$
+  $$=[\vec{v_1}, \vec{v_2}, ..., \vec{v_n}]\begin{bmatrix}
+    {\lambda}_1&0&0&...\\
+    0&{\lambda}_2&0&...\\
+    ...&...&...&...\\
+    0&0&...&{\lambda}_n
+  \end{bmatrix}=V\Lambda$$
 }
-\qitem Now you know that in order to diagonalize a given matrix, we need to calculate eigenvalues and eigenvectors first. When is a matrix diagonalizable?
-If a matrix is diagonalizable, does it imply that the matrix is also invertible? In the opposite direction, is an invertible matrix always diagonalizable?
+\qitem Now you know that in order to diagonalize a given matrix, we need to calculate eigenvalues and eigenvectors first. However, there is still a premise we need to deal with: \textbf{when is a matrix diagonalizable?
+If a matrix is diagonalizable, does it imply that the matrix is also invertible? In the opposite direction, is an invertible matrix always diagonalizable?}
+\ws{\vspace{40px}}
+
 \meta{
   The essence of this question is to tell students that invertibility does not work here, and most students would tend to use invertibility
   to explain diagonalizability.
 }
+
 \sol {
-  Todo
+  If we look at the steps of proving $A=V{\Lambda}V^{-1}$, we made assumption that proving $A=V{\Lambda}V^{-1}$ is equivalent to
+  proving $AV=V\Lambda$. The only difference here is whether $V$, or the eigenbasis, is invertible. Therefore, if a matrix is diagonalizable,
+  its eigenbasis should have n linearly independent eigenvectors, or the eigenbasis is invertible, or the determinant of eigenbasis is not 0.
+  \newline The invertibility of the matrix itself does not imply its diagonalizability, and the diagonalizability also does not imply invertibility.
+  \newline Counterexample of the first claim: 
+  $$M=\begin{bmatrix}
+    1&1\\
+    0&1
+  \end{bmatrix}$$
+  Here, $M$ is invertible since $det(M)\ne0$, but it have two equal-value eigenvalues 1, which means that two eigenvectors can not be not
+  linearly independent, so it is not diagonalizable.
+  \newline Counterexample of the second claim:
+  $$N=\begin{bmatrix}
+    0&0\\
+    0&1
+  \end{bmatrix}$$
+  In this case, $N$ is diagonalizable, since it has two distinct eigenvalues ${\lambda}_1=0$ and ${\lambda}_2=1$. Eigenvectors corresponding to distinct eigenvalues are linearly independent.
+  However, $N$ is not invertible, because $det(N)=0$.
 }
-\qitem Let $\widetilde{\vec{x}}$ be the coordinates of $\vec{x}$ in the eigenbasis. This means that for some arbitrary vector represented in the eigenbasis $\widetilde{\vec{x}} = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$, the corresponding representation in standard coordinates is a linear combination of the columns of $V$: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$. \textbf{What is $\widetilde{\vec{x}}$ in terms of $V$ and $\vec{x}?$}
+\end{enumerate}
+Let's now concentrate on the diagonalization with help of change of basis. We'll explore the diagonalization more clearly from the
+perspective of change of basis.
+\begin{enumerate}[resume]
+
+\qitem Let $\widetilde{\vec{x}}$ be the coordinates of $\vec{x}$ in the eigenbasis. 
+This means that for some arbitrary vector represented in the eigenbasis $\widetilde{\vec{x}} = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix}$, 
+the corresponding representation in standard coordinates is a linear combination of the columns of $V$: $\vec{x} = \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}$. \textbf{What is $\widetilde{\vec{x}}$ in terms of $V$ and $\vec{x}?$}
 
 (\textit{Hint: Write $\vec{x}$ in terms of $V$ and $\tilde{\vec{x}}$, then go from there.})
 
