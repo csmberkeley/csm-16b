@@ -1,0 +1,201 @@
+% Author: Tony Li
+% Email: songli@berkeley.edu
+
+\qns{Phasor Analysis Practice}
+
+We have learnt how to transform a sinusoidal voltage or current input in time domain to the phasor domain, and by now you are also capable
+of finding the impedances of resistors, inductors, and capacitors. Please use the following tables as reference. 
+\begin{center} \begin{tabular}{|c|c|c|}
+\hline
+        & Time Domain                         & Phasor Domain \\ \hline
+Voltage & $v(t) = V_0 \cos(\omega t + \phi_v)$ & $\widetilde{V} = V_0 e^{j\phi_v}$ \\ 
+Current & $i(t) = I_0 \cos(\omega t + \phi_i)$ & $\widetilde{I} = I_0 e^{j\phi_i}$ \\
+\hline
+\end{tabular} \end{center}
+
+The following table contains the impedances of normal circuit components. $C$, $R$, and $L$ are the capacitance, resistance, and inductance we have 
+already known. $\omega$ is the frequency in the phasor domain, and $j$ is the imaginary number $\sqrt{-1}$.  
+\begin{center} \begin{tabular}{|c|c|}
+    \hline
+            & Impedance   \\ \hline
+    Resistor & $Z_R=R$    \\
+    Capacitor & $Z_C=\frac{1}{j{\omega}C}$ \\
+    Inductor & $Z_I=j{\omega}L$\\
+    \hline
+    \end{tabular} \end{center}
+
+You can use the table provided below to transform one form of the given complex number to another form. In the polar form and Euler's form,
+the length $r$ and angle $\theta$ are the same. $r$ in the phasor domain is equivalent to the amplitude.
+
+\begin{table}[ht]\begin{center}\begin{adjustbox}{width=1\textwidth} \begin{tabular}{|c|c|c|c|}
+        \hline
+            Given Form                                & General Form  & Polar Form & Euler's Form \\ \hline
+        $z=r(\cos(\theta)+j\sin(\theta))$& $a=r\cos(\theta)$ and $b=r\sin(\theta)$            & ...   & $r=r$ and $\theta=\theta$ \\ \hline
+        $z=re^{j\theta}$                 & $a=r\cos(\theta)$ and $b=r\sin(\theta)$            & $r=r$ and $\theta=\theta$            & ...\\ \hline
+        $z=a+bj$                         & ...      & $r=\sqrt{a^2+b^2}$  & $r=\sqrt{a^2+b^2}$ \\
+                                         &          & and $\theta={\tan}^{-1}(\frac{b}{a})$ &  and $\theta={\tan}^{-1}(\frac{b}{a})$\\
+        \hline
+        \end{tabular} \end{adjustbox}\end{center}\end{table}
+
+The reason why we need phasor analysis is that we can employ the full power of the complex numbers. It is challenging to 
+directly obtain the sinusoidal voltages accross the components from the sinusoidal voltage inputs, because the calculation on differatiating
+multiple $\sin$'s and $\cos$'s are not easy. Euler's form or the exponentials are useful because of their nice derivatives. In the time domain,
+we need to solve for a system of differential equations because both voltage and current are changing through time. However, in phasor domain,
+we only need to solve for a system of linear equations. 
+
+We'll walk through the phasor analysis procedure in the circuit with a sinusoidal voltage source below:
+
+	\begin{center}
+		\begin{circuitikz}
+			\draw (0,3)
+			to[vsourcesin=$ $, l_=$V_s$] (0,0)
+			(0,3) -- (2,3)
+			to[R = $R$, v=$V_R(t)$] (4,3)
+			to[short,i>= \mbox{$i(t)$}] (6,3)
+			to[C = $C$, v=$V_C(t)$] (6,0)
+                        to[L = $L$, v=$V_L(t)$] (0,0)
+			to[short] (0,0);
+		\end{circuitikz}
+	\end{center}
+
+The voltage source is given by
+\begin{align}
+V_s(t) = 8 \sin(\omega t + \frac{\pi}{4}),
+\end{align}
+with $\omega = 10^3$ rad/s, $R = 1$ $\text{k}\Omega$, $C = 1$ $\mu\text{F}$, and $L = 1-\frac{\sqrt{3}}{3}$ $\text{H}$.
+
+We need to find the solutions for $V_C(t)$, $V_L(t)$, and $i(t)$ with the sinusoidal voltage source $V_s(t)$.
+
+\begin{enumerate}
+
+\qitem
+\textbf{Step 1: Write independent sources(inputs) as exponentials.}
+
+First try to convert all $\sin$'s into $\cos$'s, and then find out the phase.
+\textbf{Convert $V_s(t)$ into the Euler's Form and write down its phasor representation $\widetilde{V}_s$}. \textit{Hint:} $\cos(\alpha)=\sin(\alpha+\frac{\pi}{2})$
+
+\ws{\vspace{100px}}
+
+\sol{
+$$ V_s(t) = 8 \cos(\omega t - \frac{\pi}{4}) = \operatorname{Re}(8e^{j (-\frac{\pi}{4})} e^{j \omega t}) $$
+The phase is $-\frac{\pi}{4}$, $\implies \widetilde{V}_s = 8e^{j (-\frac{\pi}{4})} $
+}
+
+\qitem \textbf{Step 2: Transform circuits elements to phasor domain impedances.}
+
+The voltage source is represented by its phasor $\widetilde{V}_s$.
+The current $i(t)$ is related to its phasor counterpart $\widetilde{I}$. 
+
+\textbf{What are the phasor representations of $R$, $C$, and $L$?}
+
+\ws{\vspace{80px}}
+
+\sol{
+$ Z_R = R$, $Z_C = \frac{1}{j\omega C}$, $Z_L = j{\omega}L$
+}
+
+\qitem \textbf{Step 3: Apply all circuit laws you know to the circuit and establish a system of linear equations.}
+
+All of the circuit laws we used in the time domain can be applied in the phasor domain.
+$$\text{Kirchhoff's Current Law:} \sum_{el}\widetilde{I}_{el}=0$$
+$$\text{Nodal Voltage Analysis:} \sum\frac{\widetilde{V}_j-\widetilde{V}_k}{z_{jk}}=0$$
+$$\text{Ohm's Law:} \widetilde{V}_{el}=\widetilde{I}_{el}z_{el}$$
+
+In the phasor domain, we can even treat all resistors, capacitors, and inductors as loads shown below, and
+we do not even care about the inductance and capacitance in the phasor domain. 
+
+\begin{center}
+        \begin{circuitikz}
+                \ctikzset{resistor = european}
+                \draw (0,3)
+                to[vsourcesin=$ $, l_=$V_s$] (0,0)
+                (0,3) -- (2,3)
+                to[R = $z_R$, v=$\widetilde{V}_R$] (4,3)
+                to[short,i>= \mbox{$\widetilde{I}$}] (6,3)
+                to[R = $z_C$, v=$\widetilde{V}_C$] (6,0)
+                to[R = $z_L$, v=$\widetilde{V}_L$] (0,0)
+                to[short] (0,0);
+        \end{circuitikz}
+\end{center}
+
+\textbf{Now, find out $\widetilde{V}_s$ in terms of $\widetilde{I}$, $C$, $R$, $L$, $\omega$, and $j$}.
+
+\ws{\vspace{120px}}
+
+\sol{
+By KCL, the current through the resistor is equal to the current through the capacitor.
+$$i(t) = i_{R}(t) = i_{\text{C}}(t) \Rightarrow \widetilde{I} = \widetilde{I}_R = \widetilde{I}_C = \widetilde{I}_L$$
+Sum of the voltages across the resistor, capacitor, and inductors is equal to that of the source.
+$$V_{s}(t) = V_{C}(t) + V_{R}(t) + V_{L}(t) \Rightarrow \widetilde{V}_s = \widetilde{V}_{C} + \widetilde{V}_{R} + \widetilde{V}_L$$
+Substituting the impedances in, we get:
+$$\widetilde{V}_s = \widetilde{I}(\frac{1}{j \omega C} + R + j{\omega}L)$$
+}
+
+\qitem \textbf{Step 4: Solve for unknown variables}
+
+Just plug the values we got above into the linear equations, and \textbf{find out $\widetilde{I}$ and $\widetilde{V}_L$}. The solutions could look
+complicated, but the problem aims to help you sharpen your complex number calculation skills.
+
+\ws{\vspace{150px}}
+
+\meta{
+Please show students how to transform one complex number into another form, and normally Euler's form is the easiest form to perform multiplication and division.
+}
+\sol{
+$$\widetilde{I} = \frac{\widetilde{V}_s}{R + \frac{1}{j \omega C} + j{\omega}L} = \frac{8 e^{-j\frac{\pi}{4}}}{10^3 \Omega + \frac{1}{j(1000)10^{-6}\text{F}} + j(1000)(1-\frac{\sqrt{3}}{3})\text{H}}$$
+$$= \frac{8 e^{-j\frac{\pi}{4}}}{1000-1000\frac{\sqrt{3}}{3}j}=\frac{8 e^{-j\frac{\pi}{4}}}{\frac{2000}{3}\sqrt{3} e ^{-j\frac{\pi}{6}}}=\frac{\sqrt{3}}{250}e^{-j\frac{\pi}{12}}$$
+
+$$V_L=\widetilde{I}{\times}z_L=\frac{\sqrt{3}}{250}e^{-j\frac{\pi}{12}}{\times}j(1000)(1-\frac{\sqrt{3}}{3})=\frac{\sqrt{3}}{250}e^{-j\frac{\pi}{12}}{\times}1000{\times}(1-\frac{\sqrt{3}}{3})e^{j\frac{\pi}{2}}=(-4+4\sqrt{3})e^{j\frac{5}{12}\pi}$$
+}
+
+\qitem \textbf{Step 5: Transform solutions back to time domain}
+
+This step is our final step, and we can just use the phasor/time domain table above. After finishing this question, you will find that
+you don't even need to have multiple differential equations to cope with this sort of quesiton. Every component has the same frequency, and that's 
+why we can use phasor analysis, because we only need focus on the phases and amplitudes. 
+
+\textbf{What is $i(t)$ and $V_{L}(t)$}? 
+
+\ws{\vspace{80px}}
+
+\sol{
+$$|i(t)|=|\widetilde{I}|=|\frac{\sqrt{3}}{250}e^{-j\frac{\pi}{12}}|=\frac{\sqrt{3}}{250}$$
+$$\angle i(t)=\angle \widetilde{I} = -\frac{\pi}{12} \Rightarrow i(t)=|i(t)|\angle i(t)=\frac{\sqrt{3}}{250} \angle -\frac{\pi}{12}$$
+This one way of representing $i(t)$, or $i(t)$ can be also written as $i(t)=\frac{\sqrt{3}}{250}cos(\omega t - \frac{\pi}{12})$
+
+Similarly, we can write $V_{L}(t)$ as:
+$$V_{L}(t)=(-4+4\sqrt{3})cos(\omega t+\frac{5}{12}\pi)$$
+}
+
+\qitem \textbf{Optional:} This question is generated by chatGPT. 
+
+A circuit consists of a 50 $\Omega$ resistor, a 100 mH inductor and a 10 $\mu$F capacitor in series.
+The voltage source has a peak voltage of 100 V and a frequency of 1 kHz. 
+Calculate the total impedance of the circuit, the phase angle between the voltage and current, and the current through the circuit.
+\textit{Notice:} The unit of frequency is kHz, which is equivalent to $2\pi \times 1000$ $rad/s$
+
+\sol{ 
+The answer is also provided by AI. Unfortunately, AI's answer is wrong, and I have to manually change it.
+
+The impedance of the circuit is given by:
+$$Z = R + j\omega L + \frac{1}{j\omega C} = 50 + j(2\pi \times 1000 \times 0.1)$$
+$$ + \frac{1}{j(2\pi \times 1000 \times 10\times 10^{-6})} = 50 + j126.6 -j15.92 \approx 50 + j110.68 \Omega$$
+
+where R is the resistance, L is the inductance, C is the capacitance, $\omega$ is the angular frequency, and j is the imaginary unit.
+
+The phase angle between the voltage and current can be found using the impedance and the voltage:
+
+$$ \theta = \tan^{-1}\left(\frac{\text{Im}(Z)}{\text{Re}(Z)}\right) = \tan^{-1}\left(\frac{110.68}{50}\right) \approx 66.8^\circ $$
+
+
+The current through the circuit can be found using Ohm's law:
+
+$$ I = \frac{V_p}{|Z|} = \frac{100}{\sqrt{50^2 + 110.68^2}} \approx 0.655 \text{A}$$
+
+To represent the current through the circuit as a phasor, we can write:
+
+$$ I = I_p \angle \theta_i = 0.655 \angle -66.8^\circ$$
+
+where $\theta_i$ is the phase angle of the current.
+}
+\end{enumerate}
