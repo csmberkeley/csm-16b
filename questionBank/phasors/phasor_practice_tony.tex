@@ -14,7 +14,7 @@ Current & $i(t) = I_0 \cos(\omega t + \phi_i)$ & $\widetilde{I} = I_0 e^{j\phi_i
 \end{tabular} \end{center}
 
 The following table contains the impedances of normal circuit components. $C$, $R$, and $L$ are the capacitance, resistance, and inductance we have 
-already known. $\omega$ is the frequency in the pahsor domain, and $j$ is the imaginary number $\sqrt{-1}$.  
+already known. $\omega$ is the frequency in the phasor domain, and $j$ is the imaginary number $\sqrt{-1}$.  
 \begin{center} \begin{tabular}{|c|c|}
     \hline
             & Impedance   \\ \hline
@@ -27,7 +27,7 @@ already known. $\omega$ is the frequency in the pahsor domain, and $j$ is the im
 You can use the table provided below to transform one form of the given complex number to another form. In the polar form and Euler's form,
 the length $r$ and angle $\theta$ are the same. $r$ in the phasor domain is equivalent to the amplitude.
 
-\begin{center} \begin{tabular}{|c|c|c|c|}
+\begin{table}[ht]\begin{center}\begin{adjustbox}{width=1\textwidth} \begin{tabular}{|c|c|c|c|}
         \hline
             Given Form                                & General Form  & Polar Form & Euler's Form \\ \hline
         $z=r(\cos(\theta)+j\sin(\theta))$& $a=r\cos(\theta)$ and $b=r\sin(\theta)$            & ...   & $r=r$ and $\theta=\theta$ \\ \hline
@@ -35,7 +35,7 @@ the length $r$ and angle $\theta$ are the same. $r$ in the phasor domain is equi
         $z=a+bj$                         & ...      & $r=\sqrt{a^2+b^2}$  & $r=\sqrt{a^2+b^2}$ \\
                                          &          & and $\theta={\tan}^{-1}(\frac{b}{a})$ &  and $\theta={\tan}^{-1}(\frac{b}{a})$\\
         \hline
-        \end{tabular} \end{center}
+        \end{tabular} \end{adjustbox}\end{center}\end{table}
 
 The reason why we need phasor analysis is that we can employ the full power of the complex numbers. It is challenging to 
 directly obtain the sinusoidal voltages accross the components from the sinusoidal voltage inputs, because the calculation on differatiating
@@ -99,7 +99,7 @@ $ Z_R = R$, $Z_C = \frac{1}{j\omega C}$, $Z_L = j{\omega}L$
 All of the circuit laws we used in the time domain can be applied in the phasor domain.
 $$\text{Kirchhoff's Current Law:} \sum_{el}\widetilde{I}_{el}=0$$
 $$\text{Nodal Voltage Analysis:} \sum\frac{\widetilde{V}_j-\widetilde{V}_k}{z_{jk}}=0$$
-$$\text{Ohm's Laws:} \widetilde{V}_{el}=\widetilde{I}_{el}z_{el}$$
+$$\text{Ohm's Law:} \widetilde{V}_{el}=\widetilde{I}_{el}z_{el}$$
 
 In the phasor domain, we can even treat all resistors, capacitors, and inductors as loads shown below, and
 we do not even care about the inductance and capacitance in the phasor domain. 
