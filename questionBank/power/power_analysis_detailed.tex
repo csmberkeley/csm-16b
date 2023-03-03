@@ -1,0 +1,101 @@
+\DeclareSIUnit{\var}{VAR}
+\DeclareSIUnit{\voltampere}{VA}
+
+\qns{Power Analysis}
+
+Consider the following circuit:
+
+\begin{center}
+    \begin{circuitikz}
+    \draw (0,3)
+    to[vsourcesin=$ $, l_=$V_s$] (0,0)
+    (0,3) -- (0.3,3)
+    to[R = $R$, v=$V_R(t)$] (4,3)
+    to[short] (6,3); 
+    \draw (4,3) to[C = $C$, v=$V_C(t)$] (4,0);
+    \draw (6,3) to[L = $L$, v=$V_L(t)$] (6,0);
+    \draw (0,0) to[short,i<= \mbox{$i(t)$}] (6,0);
+    \end{circuitikz}
+\end{center}
+$\omega=1000 rad/s$, $V_s(t)=1000 \sqrt{2} cos(1000t+\frac{\pi}{2})$, $R=1000\Omega$, $C=1{\mu}\text{F}$, $L=0.5\text{H}$.
+\begin{enumerate}
+    \qitem First we need to transform the whole circuit from time domain to pahsor domain. Please \textbf{redraw the circuit} with only
+    $\widetilde{V}$, $\widetilde{I}$, and all impedances of the circuit components.
+    
+    \sol{
+        \begin{center}
+            \begin{circuitikz}
+            \ctikzset{resistor = european}
+            \draw (0,3)
+            to[vsourcesin=$ $, l_=$\widetilde{V}$] (0,0)
+            (0,3) -- (0.3,3)
+            to[R = $R$, v=$\widetilde{V}_R$] (4,3)
+            to[short] (6,3);
+            \draw (4,3) to[R = $Z_C$, v=$\widetilde{V}_C$] (4,0);
+            \draw (6,3) to[R = $Z_L$, v=$\widetilde{V}_L$] (6,0);
+            \draw (0,0) to[short,i<= \mbox{$\widetilde{I}$}] (6,0);
+            \end{circuitikz}
+        \end{center}
+    }
+    \qitem \textbf{Find the phasor $\widetilde{I}$ through the circuit and the total impedance $Z_{tot}$ of the circuit.}
+    \ws{\vspace{60px}}
+    \sol{
+        To find the phasor current $\widetilde{I}$, we need to solve for the total impedance of the circuit and use Ohm's Law in phasor form. The impedance of the circuit is given by
+        \begin{align*}
+            Z_{tot} &= R + \frac{1}{\frac{1}{Z_L} + \frac{1}{Z_C}} \\
+            &= R + \frac{1}{\frac{1}{j \omega L} + \frac{1}{\frac{1}{j \omega C}}} \\
+            &= 1000 + \frac{1}{\frac{1}{j(1000)(0.5\text{H})} + \frac{1}{\frac{1}{j(1000)10^{-6}\text{H}}}} \\
+            &= 1000 + 1000j \\
+            &= 1000e^{\frac{\pi}{4}j}.
+        \end{align*}
+        The phasor voltage can be represented in Euler's form as $\widetilde{V_s}=1000\sqrt{2}e^{\frac{\pi}{2}j}$.
+
+        The phasor current $\widetilde{I}$ can then be found as
+        \begin{align*}
+            \widetilde{I} &= \frac{\widetilde{V}_s}{Z_{tot}} \\
+            &= \frac{1000\sqrt{2}e^{\frac{\pi}{2}j}}{1000e^{\frac{\pi}{4}j}} \\
+            &= \sqrt{2}e^{\frac{\pi}{4}j}.
+        \end{align*}
+        }
+
+    \qitem \textbf{Find the real power, reactive power, and apparent power.} \textit{Hint:} 
+    $$\text{apparent power}=\frac{1}{2} |\widetilde{V}| |\widetilde{I}|$$
+    $$\text{reactive power}=\frac{1}{2} |\widetilde{V}| |\widetilde{I}| sin(\angle(Z_{tot}))$$
+    $$\text{real power}=\frac{1}{2} |\widetilde{V}| |\widetilde{I}| cos(\angle(Z_{tot}))$$
+    \ws{\vspace{60px}}
+    \sol{
+        The real power is
+        \begin{equation*}
+            P = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \cos(\angle(Z_{tot})) = \SI{1}{\kilo\watt}
+        \end{equation*}
+        The reactive power is
+        \begin{equation*}
+            Q = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \sin(\angle(Z_{tot})) = \SI{1.414}{\kilo\var}
+        \end{equation*}
+        The apparent power is \(\frac{1}{2} |\widetilde{V}| |\widetilde{I}| = \SI{1.414}{\kilo\voltampere}\).
+    }
+
+    \qitem Find the power factor, and state whether it is lagging or leading. \textit{Hint:}
+    $$\text{power factor}=\frac{\text{true power}}{\text{apparent power}}=cos({\theta}_d),$$ where ${\theta}_d$ is phase difference
+    betweent voltage and the current of the circuit.
+    \ws{\vspace{60px}}
+    \sol{
+        $\text{power factor}=cos(\text{phase difference between voltage and current})=cos(|\angle(Z_{tot})|)=cos(\frac{\pi}{4})=\frac{\sqrt{2}}{2}$. 
+        \newline Two essential properties we need to be aware of:
+        \newline 1. If the current reaches its peak value up to $\frac{\pi}{2}$ later than the voltage, the power factor is lagging, and the circuit's load is inductive.
+        \newline 2. If the current reaches its peak value up to $\frac{\pi}{2}$ ahead of the voltage, the power factor is leading, and the circuit's load is capacitive.
+        From the phasor representation to the time domain, we know that $i(t)=\sqrt{2}cos(1000t+\frac{\pi}{4})$.
+        The phase of $V_s(t)$ is $\frac{\pi}{2}$, and the phase of $i(t)$ is $\frac{\pi}{4}$.
+        One way to check when the current or voltage reaches its peak value is just to check when the term inside $cos$ becomes $2\pi$.
+        In this case, when $t=\frac{\frac{7}{4}\pi}{1000}$, the current reaches its maximum. However, when $t=\frac{\frac{6}{4}\pi}{1000}$,
+        the voltage reaches its maximum. The current comes later, so the power factor is lagging. 
+        Alternatively, based on the value of reactive power, we know that it is positive, so the power factor is lagging.
+        
+    }
+
+    \qitem Based on the previous question, \textbf{is the circuit's load resistive, inductive, or capacitive?}
+    \ws{\vspace{60px}}
+    \sol{
+        Since the power factor is lagging, the cicuit's load is inductive.
+    }
+\end{enumerate}
