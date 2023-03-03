@@ -1,0 +1,209 @@
+% Authors: Tony Li
+% Emails: songli@berkeley.edu
+
+\qns{Thevenin's and Norton's Equivalent Circuit}
+
+In this set, we will review two useful theorems that you might have learned in previous physics classes.
+\textbf{Thevenin's Theorem} states that we can replace entire network by an equivalent circuit that contains only an independent voltage source in series with an impedance (resistor) such that the current-voltage relationship at the load is unchanged.
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[american]
+    \draw (6, 0) node[ocirc, label=right:\(B\)]{} to[short] (4, 0) to[R] (2, 0) to[V] (0, 0) to[short] (0, 4) to[V] (2, 4) to[I, invert] (4, 4) to[short] (6, 4) node[ocirc, label=right:\(A\)]{};
+    \draw (2, 0) to[R] (2, 4);
+    \draw (4, 0) to[I] (4, 2) to[R] (4, 4);
+
+    \path[draw=black, thick, -Triangle] (7, 2) -- (9, 2);
+
+    \draw (12, 1) node[ocirc, label=right:\(B\)]{} to[short] (10, 1) to[V, invert] (10, 3) to[R] (12, 3) node[ocirc, label=right:\(A\)]{};
+  \end{circuitikz}
+  \caption{Thevenin's Equivalent Circuit}
+  \label{fig:thevenin-example}
+\end{figure}
+As shown above, we have a linear electrical network, containing only voltage sources, curretn sources, resistors, and two terminals A and B.
+The circuit can be always transformed to an equivalent circuit with only one voltage source, one resistor, and two terminals A and B.
+By using this theorem, we can largely simplfy the circuit.
+A more easier way to understand this is that we can use a black box to include everything connecting to two terminals, and then replace the black box with a voltage source and a resistor in series.
+
+\textbf{Norton's Thereom} is identical to Thevenin's Theorem except that the equivalent circuit is an independent current source in parallel with an impedance (resistor).
+Therefore, the Norton equivalent circuit is a source transformation of the Thevenin equivalent circuit.
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[american]
+    \draw (6, 0) node[ocirc, label=right:\(B\)]{} to[short] (4, 0) to[R] (2, 0) to[V] (0, 0) to[short] (0, 4) to[V] (2, 4) to[I, invert] (4, 4) to[short] (6, 4) node[ocirc, label=right:\(A\)]{};
+    \draw (2, 0) to[R] (2, 4);
+    \draw (4, 0) to[I] (4, 2) to[R] (4, 4);
+
+    \path[draw=black, thick, -Triangle] (7, 2) -- (9, 2);
+
+    \draw (12, 1) node[ocirc, label=right:\(B\)]{} to[short] (10, 1) to[I] (10, 3) to[short] (12, 3) node[ocirc, label=right:\(A\)]{};
+    \draw (11, 1) to[R] (11, 3);
+  \end{circuitikz}
+  \caption{Norton's Equivalent Circuit}
+  \label{fig:norton-example}
+\end{figure}
+Quite similar to Thevenin's theorem, we can replace a linear electrical network with a current source and a resistor in parallel.Note that, the power source can be non-constant, which means that we could have an AC circuit.
+As a result, we need to use impedances at a given frequency substituting the resistances.
+
+First, let's assume that the voltage source is ideal and does not have any internal resistance.
+In a non-ideal case, we need to add one more resistor beside the voltage source to represent the internal resistance of the voltage source.
+However, for an ideal current source, it has infinite internal resistance.
+Then use KVL, KCL, and Ohm's Law to find out the resistance and voltage in the Thevenin's equivalent circuit.
+Similar procedure also applies to the Norton's equivalent circuit.
+
+For the following problems, we will first try to obtain the Thevenin's equivalent circuit of the following circuit.
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[american]
+    \draw (7, 0) node[ocirc, label=right:\(B\)]{} to[short] (0, 0) node[ground]{} to[V, l2=\(V_s\) and \SI{25}{\volt}, invert] (0, 2) to[R, l2=\(R_1\) and \SI{5}{\ohm}, l2 valign=b] (3, 2) to[short] (5, 2) to[R, l2=\(R_3\) and \SI{4}{\ohm}, l2 valign=b] (7, 2) node[ocirc, label=right:\(A\)]{};
+    \draw (3, 0) to[R, l2=\(R_2\) and \SI{20}{\ohm}] (3, 2);
+    \draw (5, 0) to[I, l2=\(I_s\) and \SI{3}{\ampere}] (5, 2);
+  \end{circuitikz}
+  \caption{Circuit to examine}
+  \label{fig:q3}
+\end{figure}
+
+\begin{enumerate}
+  % Part(a)
+  \qitem
+   First, we need to create an imaginary wire connecting to terminal \(A\) and \(B\), and also a terminal \(C\).
+   \begin{figure}[H]
+    \centering
+    \begin{circuitikz}[american]
+      \draw (7, 0)  to[short] (0, 0) node[ground]{} to[V, l2=\(V_s\) and \SI{25}{\volt}, invert] (0, 2) to[R, l2=\(R_1\) and \SI{5}{\ohm}, i=\(I_{R_1}\), l2 valign=b] (3, 2) node[ocirc, label=above:\(C\)]{} to[short] (5, 2) to[R, l2=\(R_3\) and \SI{4}{\ohm}, i<^=\(I_{R_3}\), l2 valign=b] (7, 2);
+      \draw (3, 0) to[R, l2=\(R_2\) and \SI{20}{\ohm}, i_=\(I_{R_2}\)] (3, 2);
+      \draw (5, 0) to[I, l2=\(I_s\) and \SI{3}{\ampere}] (5, 2);
+      \draw (7, 2) node[ocirc, label=right:\(A\)]{} to[short, i=\(I_{AB}\)] (7, 0) node[ocirc, label=right:\(B\)]{};
+    \end{circuitikz}
+    \caption{Determining short-circuit current}
+    \label{fig:q3a}
+  \end{figure}
+  Denote the voltage at terminal \(C\) as $V_c$.
+  What are the magnitudes of the currents $I_{R_1}$, $I_{R_2}$, $I_{R_3}$?
+  By using KCL, can you derive an equation including all four currents?
+
+  \meta {
+    Please ask students why it is important to use KCL?
+    How do we know that by using KCL we can get the value of $V_c$?
+    $I_{R_2}$ is negative because the direction of the current $I_{R_2}$ is from ground to terminal C.
+    It does not mean that the magnitude of $I_{R_2}$ is negative.
+    In KCL, whether the current is negative or postive is determined by its direction.
+  }
+
+  \sol{
+    We create the following node voltage equations by KCL:
+    \begin{align*}
+      I_{R_1} &= \frac{V_s - V_c}{R_1} \\
+      I_{R_2} &= -\frac{V_c}{R_2} \\
+      I_{R_3} &= -\frac{V_c}{R_3} \\
+      I_s + I_{R_1} + I_{R_2} + I_{R_3} &= 0 \\
+    \end{align*}
+    Because we have created a wire from terminal \(A\) to \(B\), terminal \(A\) is grounded now.
+    Plugging in, we get
+    \begin{align*}
+      I_s + \frac{V_s - V_c}{R_1} - \frac{V_c}{R_2} - \frac{V_c}{R_3} &= 0 \\
+      I_s + \frac{V_s}{R_1} - V_c \left(\frac
+      {1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}\right) &= 0 \\
+      \implies V_c = \frac{I_s + \frac{V_s}{R_1}}{\frac
+      {1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}} &= \SI{16}{\volt}
+    \end{align*}
+  }
+
+  % Part(b)
+  \qitem After establishing the equation, you should be able to find out $V_C$.
+  Based on the value of $V_C$, what is the magnitude of $I_{ab}$?
+  $I_{ab}$ is called \textbf{short-circuit current}, it is the current that actually flow from A to B if you connect two terminals in the equivalent circuit.
+
+  \sol {
+    Apply KCL at terminal A, and we get
+    \begin{equation*}
+      I_{ab} = -I_{R_3} = \frac{V_c}{R_3} = \SI{4}{\ampere}
+    \end{equation*}
+  }
+
+  %part c
+  \qitem Then, suppose that there is \textbf{no such imaginary wire across A and B}.
+  Let's focus on finding the value of the \textbf{Thevenin Equivalent Resistance} $R_{th}$.
+  To calculate the Thevenin equivalent resistance, remove all power sources from the original circuit.
+  The voltage sources are short-circuited and current sources are opened.
+  What is $R_{th}$, the total resistance between terminal A and B in the remaining circuit? \\
+  \emph{Hint:} The remaining circuit now only has three resistors. $R_1$ and $R_2$ are now in parallel and $R_3$ is in series with $R_1$ and $R_2$.
+  \begin{figure}[H]
+    \centering
+    \begin{circuitikz}
+      \draw (7, 0) node[ocirc, label=right:\(B\)]{} to[short] (0, 0) node[ground]{} to[short] (0, 2) to[R, l2=\(R_1\) and \SI{5}{\ohm}, l2 valign=b] (3, 2) to[short] (5, 2) to[R, l2=\(R_3\) and \SI{4}{\ohm}, l2 valign=b] (7, 2) node[ocirc, label=right:\(A\)]{};
+      \draw (3, 0) to[R, l2=\(R_2\) and \SI{20}{\ohm}] (3, 2);
+      % \draw (5, 0) to[I, l2=\(I_s\) and \SI{3}{\ampere}] (5, 2);
+    \end{circuitikz}
+    \caption{Circuit with nulled sources}
+    \label{fig:q3b}
+  \end{figure}
+  \meta {
+    We need the imaginary wire to calculate the short-circuit current $I_{ab}$ in Thevenin's equivalent circuit.
+    Now, deleting that wire helps us to find out the total resistance between A and B $R_{th}$.
+    Why is the voltage source like a wire and the current source like an open-circuit?
+    Because we are using ideal power sources, and the voltage source has no internal resistance and the current source has infinite internal resistance.
+  }
+
+  \sol {
+    Now the voltage source acts like a wire, and the total resistance between \(A\) and \(B\) is
+    \begin{equation*}
+      R_{tg} = R_1 \parallel R_2 + R_3 = \frac{R_1 R_2}{R_1 + R_2} + R_3 = \SI{8}{\ohm}
+    \end{equation*}
+  }
+
+  % Part(d)
+  \qitem We are almost done! Now, it's time to draw our Thevenin's equivalent circuit.
+  \begin{figure}[H]
+    \centering
+    \begin{circuitikz}
+      \draw (2, 0) node[ocirc, label=right:\(B\)]{} to[short] (0, 0) to[V, l=\(V_{th}\), invert] (0, 2) to[R, l=\(R_{th}\)] (2, 2) node[ocirc, label=right:\(A\)]{};
+    \end{circuitikz}
+    \caption{Thevenin equivalent circuit for this problem}
+    \label{fig:q3d}
+  \end{figure}
+  What are the values of $V_{th}$ and $R_{th}$? \\
+  \emph{Hint:} What law should we use to get $V_{th}$? Remember $I_{ab}$ is the short-circuit current.
+
+  \meta {
+    Please explain thoroughly why we need the imaginary current at the first place.
+    If we want to get $V_{th}$ in the equivalent circuit, we need to connect two terminals first in the equivalent cicuit, and then apply Ohm's Law.
+  }
+
+  \sol{
+    $R_{th}$ is just what we have found previously as \SI{8}{\ohm}.
+    $V_{th} = I_{ab} \cdot R_{th} = \SI{32}{\volt}$, by Ohm's Law.
+  }
+  \end{enumerate}
+
+  Now we know how to get a Thevenin's Equivalent Circuit, but how do we get a Norton's Equivalent Circuit?
+  In this question we will look at how to use Thevenin's Circuit to get the Norton's Circuit.
+
+  \begin{enumerate}[resume]
+  % Part(e)
+  \qitem Let's look at the same graph, Figure 3. You have already obtained the value of the short-circuit current $I_{ab}$ and
+  the total resistance $R_{th}$ between the terminal A and B. Why don't we just use both of the values to find out $I_{th}$ and $R_{th}$ in the Norton's equivalent circuit shown below?
+  \begin{figure}[H]
+    \centering
+    \begin{circuitikz}
+      \draw (2, 0) node[ocirc, label=right:\(B\)]{} to[short] (0, 0) to[I, l=\(I_{th}\)] (0, 2) to[short] (2, 2) node[ocirc, label=right:\(A\)]{};
+      \draw (1, 0) to[R, l_=\(R_{th}\)] (1, 2);
+    \end{circuitikz}
+    \caption{Norton equivalent circuit for this problem}.
+    \label{fig:q4e}
+  \end{figure}
+  \meta {
+    Explain that why we can use the same data we got previously. We can still apply Ohm's Law to get $I_{th}$ and $R_{th}$.
+  }
+
+  \sol {
+    $R_{th}$ in Norton is equal to $R_{th}$ in Thevenin for the same circuit, because if you consider the current source has an open-circuit, $R_{th}$ in Norton is also the total resistance between terminal A and B.
+    That is, $R_{th} = \SI{8}{\ohm}$ and $I_{th} = \frac{V_{ab}}{R_{th}} = \SI{4}{\ampere}$.
+    Two helpful properties of Thevenin and Norton equivalences:
+    \begin{enumerate}
+      \item Thevenin resistance and Norton resistance are equal.
+      \item Thevenin voltage is equal to the Norton current times the Norton resistance.
+      That is, \(V_{th} = I_n \cdot R_{th}\).
+    \end{enumerate}
+  }
+
+\end{enumerate}

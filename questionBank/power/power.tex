@@ -1,0 +1,111 @@
+\DeclareSIUnit{\var}{VAR}
+\DeclareSIUnit{\voltampere}{VA}
+
+\qns{Power Analysis}
+\qcontributor{Tony Li}
+
+
+A purely resistive(non-inductive) circuit is a circuit that has inductance so small that at its typical frequency, its reactance is insignificant
+compared to its resistance. Or, we can even say that the circuit does not have any inductances and capacitances. In a purely resistive circuit, the utilized voltage is consumed by overwhelming the ohmic resistance of the circuit.
+
+\meta {
+    Please explain what reactance is and its relationship with resistance to students.
+}
+\begin{enumerate}
+
+\qitem Suppose that there is a purely resistive AC circuit, and the voltage source has the voltage $v(t)=V_mcos(\omega t)$ and the current through
+the circuit is $i(t)=I_mcos(\omega t)$. \textbf{What is the average power of the circuit $P_{avg}$?} \textit{Definition:}$P(t)=v(t)i(t)$, and $P_{avg}=\frac{1}{T}\int_{0}^{T}P(t)dt$,
+where $T$ is a period of the circuit. \textit{Hint:} $cos(2\alpha)=cos^2(\alpha)-sin^2(\alpha)$
+
+\ws{\vspace{80px}}
+
+\sol{
+    $$P_{avg}=\frac{1}{T}\int_{0}^{T}v(t)i(t)dt=\frac{1}{T}\int_{0}^{T}V_m I_m cos^2(\omega t)dt=\frac{1}{T}\int_{0}^{T}V_m I_m \frac{cos(2 \omega t) + 1}{2}dt$$
+    $$=\frac{I_m V_m}{2T}[\frac{1}{2 \omega}sin(2 \omega t) + t]_{0}^{T}= \frac{I_m V_m}{2T}T=\frac{I_m V_m}{2}$$
+}
+\end{enumerate}
+
+A purely inductive circuit is a circuit that only contains inductance and not any other resistances or capacitances. Therefore, if the voltage of the voltage source
+is $v(t)$ and the current throught the circuit is $i(t)$, and the inductance of the circuit is $L$, then we can say that $v(t)=L\frac{di(t)}{dt}$. The current lags behind the voltage 
+by an angle of $\frac{\pi}{2}$.
+
+\begin{enumerate}[resume]
+
+\qitem Suppose that there is a purely inductive AC circuit, and the voltage source has the voltage $v(t)=V_mcos(\omega t)$ and the current through
+the circuit is $i(t)=I_mcos(\omega t-\frac{\pi}{2})$. \textbf{What is the average power of the circuit $P_{avg}$?} \textit{Hint:} $sin(2\alpha)=2sin(\alpha)cos(\alpha)$
+
+\ws{\vspace{80px}}
+
+\sol{
+    $$P_{avg}=\frac{1}{T}\int_{0}^{T}v(t)i(t)dt=\frac{1}{T}\int_{0}^{T}V_m I_m cos(\omega t)cos(\omega t -\frac{\pi}{2})dt=\frac{1}{T}\int_{0}^{T}V_m I_m cos(\omega t)sin(\omega t )dt$$
+    $$=\frac{I_m V_m}{T}\int_{0}^{T}\frac{sin(2\omega t)}{2}dt=\frac{I_m V_m}{2T}[-\frac{1}{2 \omega}cos(2 \omega t)]_{0}^{T}= \frac{I_m V_m}{2T}(0)=0$$
+}
+\end{enumerate}
+
+A purely capacitive circuit is a circuit that only contains capacitance and not any other resistances or inductances. Therefore, if the voltage of the voltage source
+is $v(t)$ and the current throught the circuit is $i(t)$, and the capacitance of the circuit is $C$, then we can say that $i(t)=C\frac{dv(t)}{dt}$. The voltage lags behind the current
+by an angle of $\frac{\pi}{2}$.
+Consider the following circuit:
+
+\begin{enumerate}[resume]
+
+\qitem Suppose that there is a purely capacitive AC circuit, and the voltage source has the voltage $v(t)=V_mcos(\omega t-\frac{\pi}{2})$ and the current through
+the circuit is $i(t)=I_mcos(\omega t)$. \textbf{What is the average power of the circuit $P_{avg}$?} 
+
+\ws{\vspace{80px}}
+
+\sol{
+    $$P_{avg}=\frac{1}{T}\int_{0}^{T}i(t)v(t)dt=\frac{1}{T}\int_{0}^{T}V_m I_m cos(\omega t)cos(\omega t -\frac{\pi}{2})dt=\frac{1}{T}\int_{0}^{T}V_m I_m cos(\omega t)sin(\omega t )dt$$
+    $$=\frac{I_m V_m}{T}\int_{0}^{T}\frac{sin(2\omega t)}{2}dt=\frac{I_m V_m}{2T}[-\frac{1}{2 \omega}cos(2 \omega t)]_{0}^{T}= \frac{I_m V_m}{2T}(0)=0$$
+}
+
+\end{enumerate}
+
+Now let's deal with the general case of calculating the power of a circuit. Suppose that there is an AC circuit, and the voltage source has the voltage $v(t)=V_mcos(\omega t+{\theta}_1)$ and the current through
+the circuit is $i(t)=I_mcos(\omega t + {\theta}_2)$. 
+
+\begin{enumerate}[resume]
+
+\qitem \textbf{Can you find $P(t)$ and try to simplify it into the form of which we can find the integral}?  \textit{Hint:} Use the Euler's Form to make the calculation easier.
+$cos(\alpha)=\frac{e^{j\alpha} + e^{-j\alpha}}{2}$
+
+\ws{\vspace{100px}}
+
+\meta{
+    Please explain to students why we choose to use Euler's form. We can not take the integral on a cosine times cosine, but we 
+    can use exponential form we know to transform a cosine times cosine into a cosine plus cosine, then the integral would be much 
+    easier to perform on the summation than directly on the product. 
+}
+
+\sol{
+    $$P(t)=v(t)i(t)=V_mI_mcos(\omega t + {\theta}_1)cos(\omega t + {\theta}_2)$$
+    $$=\frac{V_m}{2}(e^{j(\omega t + {\theta}_1)} + e^{j(-\omega t - {\theta}_1)})\cdot\frac{I_m}{2}(e^{j(\omega t + {\theta}_2)} + e^{j(-\omega t - {\theta}_2)})$$
+    $$=\frac{V_mI_m}{2}(\frac{e^{j(2 \omega t+{\theta}_1+{\theta}_2)} + e^{-j(2 \omega t+{\theta}_1+{\theta}_2)}}{2} + \frac{e^{j({\theta}_1-{\theta}_2)} + e^{-j({\theta}_1-{\theta}_2)}}{2})$$
+    $$=\frac{V_mI_m}{2}(cos(2 \omega t +{\theta}_1+{\theta}_2) + cos({\theta}_1-{\theta}_2))$$
+}
+ 
+\qitem \textbf{By integrating $P(t)$, prove that} $$P_{avg}=\frac{V_mI_m}{2}cos({\theta}_1-{\theta}_2)$$
+
+\ws{\vspace{100px}}
+
+\sol{
+    $$P_{avg}=\frac{1}{T}\int_{0}^{T}P{T}dt=\frac{1}{T}\frac{V_mI_m}{2}(\int_{0}^{T}cos(2 \omega t+ {\theta}_1+{\theta}_2)dt + \int_{0}^{T}cos({\theta}_1-{\theta}_2)dt)$$
+    $$=\frac{1}{T}\frac{V_mI_m}{2}[(\frac{1}{2 \omega}sin(2 \omega t + {\theta}_1 + {\theta}_2))|^{T}_{0} + Tcos({\theta}_1-{\theta}_2)]$$
+    $$=\frac{1}{T}\frac{V_mI_m}{2}[0+Tcos({\theta}_1-{\theta}_2)]=\frac{V_mI_m}{2}cos({\theta}_1-{\theta}_2)$$
+    Note that $sin(2 \omega T + {\theta}_1 + {\theta}_2)=sin(2 \omega 0 + {\theta}_1 + {\theta}_2)$, because two times are seperated by one period $T$.
+
+}
+
+\end{enumerate}
+Let ${\theta}_d={\theta}_1-{\theta}_2$. Compared to the power of a purely resistive circuit without any capcitances and inductances, we see that 
+because of the existance of inductances and capacitances, $P_{avg}$ is less than or equal to that of the purely resistive circuit. We call $cos({\theta}_d)$ 
+the power factor. 
+
+\meta {
+    Please briefly explain what apparent power and reactive powers are.
+}
+Also we introduce three concepts related to the power factor: Reactive Power, True Power, and Apparent Power, and here are several properties of the power factor you should know:
+\newline 1. $\text{power factor}=\frac{\text{true power}}{\text{apparent power}}=cos({\theta}_d)$
+\newline 2. $\text{apparent power}^2=\text{true power}^2+\text{reactive power}^2$
+\newline 3. If the current reaches its peak value up to $\frac{\pi}{2}$ later than the voltage, the power factor is lagging, and the circuit's load is inductive.
+\newline 4. If the current reaches its peak value up to $\frac{\pi}{2}$ ahead of the voltage, the power factor is leading, and the circuit's load is capacitive.
