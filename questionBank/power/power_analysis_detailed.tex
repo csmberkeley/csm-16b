@@ -46,15 +46,15 @@ $\omega = \SI{1000}{\radian\per\second}$, $V_s(t)=1000 \sqrt{2} \cos(1000t+\frac
             &= R + \frac{1}{\frac{1}{j \omega L} + \frac{1}{\frac{1}{j \omega C}}} \\
             &= 1000 + \frac{1}{\frac{1}{j(1000)(0.5\text{H})} + \frac{1}{\frac{1}{j(1000)10^{-6}\text{H}}}} \\
             &= 1000 + 1000j \\
-            &= 1000e^{\frac{\pi}{4}j}.
+            &= 1000\sqrt{2}e^{\frac{\pi}{4}j}.
         \end{align*}
         The phasor voltage can be represented in Euler's form as $\widetilde{V_s}=1000\sqrt{2}e^{\frac{\pi}{2}j}$.
 
         The phasor current $\widetilde{I}$ can then be found as
         \begin{align*}
             \widetilde{I} &= \frac{\widetilde{V}_s}{Z_{tot}} \\
-            &= \frac{1000\sqrt{2}e^{\frac{\pi}{2}j}}{1000e^{\frac{\pi}{4}j}} \\
-            &= \sqrt{2}e^{\frac{\pi}{4}j}.
+            &= \frac{1000\sqrt{2}e^{\frac{\pi}{2}j}}{1000\sqrt{2}e^{\frac{\pi}{4}j}} \\
+            &= e^{\frac{\pi}{4}j}.
         \end{align*}
         }
 
@@ -68,11 +68,11 @@ $\omega = \SI{1000}{\radian\per\second}$, $V_s(t)=1000 \sqrt{2} \cos(1000t+\frac
     \sol{
         The real power is
         \begin{equation*}
-            P = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \cos(\angle(Z_{tot})) = \SI{1}{\kilo\watt}
+            P = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \cos(\angle(Z_{tot})) = \SI{0.5}{\kilo\watt}
         \end{equation*}
         The reactive power is
         \begin{equation*}
-            Q = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \sin(\angle(Z_{tot})) = \SI{1.414}{\kilo\var}
+            Q = \frac{1}{2} |\widetilde{V}| |\widetilde{I}| \sin(\angle(Z_{tot})) = \SI{0.5}{\kilo\var}
         \end{equation*}
         The apparent power is \(\frac{1}{2} |\widetilde{V}| |\widetilde{I}| = \SI{1.414}{\kilo\voltampere}\).
     }
@@ -86,7 +86,7 @@ $\omega = \SI{1000}{\radian\per\second}$, $V_s(t)=1000 \sqrt{2} \cos(1000t+\frac
         \newline Two essential properties we need to be aware of:
         \newline 1. If the current reaches its peak value up to $\frac{\pi}{2}$ later than the voltage, the power factor is lagging, and the circuit's load is inductive.
         \newline 2. If the current reaches its peak value up to $\frac{\pi}{2}$ ahead of the voltage, the power factor is leading, and the circuit's load is capacitive.
-        From the phasor representation to the time domain, we know that $i(t)=\sqrt{2}\cos(1000t+\frac{\pi}{4})$.
+        \newline From the phasor representation to the time domain, we know that $i(t)=\cos(1000t+\frac{\pi}{4})$.
         The phase of $V_s(t)$ is $\frac{\pi}{2}$, and the phase of $i(t)$ is $\frac{\pi}{4}$.
         One way to check when the current or voltage reaches its peak value is just to check when the term inside $\cos$ becomes $2\pi$.
         In this case, when $t=\frac{\frac{7}{4}\pi}{1000}$, the current reaches its maximum. However, when $t=\frac{\frac{6}{4}\pi}{1000}$,
