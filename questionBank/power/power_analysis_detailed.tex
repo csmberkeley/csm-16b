@@ -44,7 +44,7 @@ $\omega = \SI{1000}{\radian\per\second}$, $V_s(t)=1000 \sqrt{2} \cos(1000t+\frac
         \begin{align*}
             Z_{tot} &= R + \frac{1}{\frac{1}{Z_L} + \frac{1}{Z_C}} \\
             &= R + \frac{1}{\frac{1}{j \omega L} + \frac{1}{\frac{1}{j \omega C}}} \\
-            &= 1000 + \frac{1}{\frac{1}{j(1000)(0.5\text{H})} + \frac{1}{\frac{1}{j(1000)10^{-6}\text{H}}}} \\
+            &= 1000 + \frac{1}{\frac{1}{j(1000)(0.5\text{H})} + \frac{1}{\frac{1}{j(1000)10^{-6}\text{F}}}} \\
             &= 1000 + 1000j \\
             &= 1000\sqrt{2}e^{\frac{\pi}{4}j}.
         \end{align*}
@@ -78,7 +78,7 @@ $\omega = \SI{1000}{\radian\per\second}$, $V_s(t)=1000 \sqrt{2} \cos(1000t+\frac
     }
 
     \qitem Find the power factor, and state whether it is lagging or leading. \textit{Hint:}
-    $$\text{power factor}=\frac{\text{true power}}{\text{apparent power}}=\cos({\theta}_d),$$ where ${\theta}_d$ is phase difference
+    $$\text{power factor}=\frac{\text{real power}}{\text{apparent power}}=\cos({\theta}_d),$$ where ${\theta}_d$ is phase difference
     betweent voltage and the current of the circuit.
     \ws{\vspace{60px}}
     \sol{
