@@ -92,9 +92,9 @@ and for the purposes of this question, assume that $\lambda$ is a real number.
     
     We can first use the triangle inequality:
     $$\abs{x_{p}(t)} = \abs{x(0) e^{\lambda t} + \int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau} \leq 
-    \abs{x(0) e^{\lambda t}} + \abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)}}$$
+    \abs{x(0) e^{\lambda t}} + \abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau}$$
     We already know that $x(0) e^{\lambda t}$ is bounded by $x(0)$ when $\lambda < 0.$ Therefore
-    $$\abs{x_{p}(t)} \leq \abs{x(0)} + \abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)}}$$
+    $$\abs{x_{p}(t)} \leq \abs{x(0)} + \abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau}$$
     It now remains to show that the integral is bounded as well. 
     We start by pulling out the magnitude of $e^{\lambda t}$ out of the absolute value.
     $$\abs{\int\limits_{0}^{t} u(\tau) e^{\lambda(t - \tau)} d \tau} = 
