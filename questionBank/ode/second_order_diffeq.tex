@@ -1,0 +1,77 @@
+\qns{Introduction to Second Order Differential Equations}
+\qcontributor{Jessica Fan, Olivia Huang}
+
+Take a RLC circuit in series. We will examine the behavior of this circuit with different R, L, and C values.
+
+\input{\bank/ode/figures/second_order_rlc}
+
+\begin{enumerate}
+
+\qitem Using your knowledge of I-V relationships of inductors and capacitors, write out a KVL equation that represents the behavior of this circuit.
+
+\meta{
+    Current is consistent in the circuit as all components are in series.
+}
+
+\ws{\vspace{125px}}
+
+\sol{
+    $$-V_{dd} + V_L  + V_R + V_C = 0$$
+    $$V_L = L\frac{dI}{dt} = LC \frac{d^2V_C}{dt^2}$$
+    $$C\frac{dV_C}{dt}$$
+    $$V_R = RI = RC \frac{dV_C}{dt}$$
+    $$LC \frac{d^2V_C}{dt^2} + RC \frac{dV_C}{dt} + V_C = V_{dd}$$
+}
+
+\qitem What is the steady state solution of $V_C(t)$?
+
+\sol{
+    At steady state, $\frac{dV_C}{dt} = 0$, so we can set $V_{dd} = V_C(\infty)$.
+}
+
+\qitem Solve for the solution of the homogenous differential equation.
+
+\meta{
+    See https://www.youtube.com/watch?v=NW9JfMvIsxw for explanation of the general form of the solution. Also shown in Fa23 Lecture slides.
+}
+
+\ws{\vspace{125px}}
+
+\sol{
+    We can guess an exponential solution using the characteristic polynomial. We replace $\frac{dV_C}{dt}$ as r:
+    $$LCr^2 + RCr + 1 = 0$$
+    Dividing the equation by $\frac{1}{LC}$, we get
+    $$r^2 + \frac{R}{L}r + \frac{1}{LC} = 0$$
+    Solving for r,
+    $$r = \frac{-\frac{R}{L} \pm \sqrt{\frac{R}{L}^2 - \frac{4}{LC}}}{2}$$
+    $$V_C(t) = C_0 e^{\frac{-\frac{R}{L} + \sqrt{\frac{R}{L}^2 - \frac{4}{LC}}}{2}t} + C_1 e^{\frac{-\frac{R}{L} - \sqrt{\frac{R}{L}^2 - \frac{4}{LC}}}{2}t}$$
+    Where $C_0$ and $C_1$ are determined by the initial conditions of $V_C$.
+}
+
+\qitem Let's analyze our solution. Under what conditions will we 
+
+\begin{enumerate}
+
+\qitem Have two real exponent terms?
+
+\sol{
+    $$\sqrt{\frac{R}{L}^2 - \frac{4}{LC}} > 0$$
+    Under these conditions, our circuit will experience \textbf{overdamping}, better written as $\sqrt{\frac{R}{2L}^2 - \frac{1}{LC}} > 0$.
+}
+
+\qitem Have only one exponent term?
+
+\sol{
+    $$\sqrt{\frac{R}{L}^2 - \frac{4}{LC}} = 0$$
+   Under these conditions, our circuit will experience \textbf{critical damping}.
+}
+
+\qitem Have two complex exponent terms?
+
+\sol{
+    $$\sqrt{\frac{R}{L}^2 - \frac{4}{LC}} < 0$$
+    Under these conditions, our circuit will experience \textbf{underdamping}.
+}
+
+\end{enumerate}
+\end{enumerate}
