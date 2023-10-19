@@ -104,7 +104,7 @@ if $\vec{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix},$ and $[\vec{x}]_V = \beg
   \begin{enumerate}[resume]
   %part c
   \qitem Let $[\vec{x}]_V$ be a vector using $V$ coordinates, and $V$ be a change of coordinates matrix from the $V$ basis to the standard basis. \\
-  How can we represent $[\vec{x}]_V$ in terms kf $\vec{x}$ and $V?$
+  How can we represent $[\vec{x}]_V$ in terms of $\vec{x}$ and $V?$
   \sol {
     We are given a matrix $V$ that converts $V$ coordinates to standard coordinates. 
     This means that $V^{-1}$ will be the matrix that converts standard coordinates to the $V$ coordinates.
@@ -165,8 +165,8 @@ if $\vec{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix},$ and $[\vec{x}]_V = \beg
       \centering
       \begin{tikzpicture}[node distance = 2cm, thick]%
         \node (1) {$\vec{x}$};
-        \node (2) [right=of 1] {$[\vec{x}]_V$};
-        \node (3) [below=of 2] {$\vec{w}$};
+        \node (2) [right=of 1] {$\vec{y}$};
+        \node (3) [below=of 2] {$[\vec{y}]_V$};
         \node (4) [below=of 1] {$[\vec{x}]_V$};
         \draw[->] (1) -- node [midway,above] {$A$} (2);
         \draw[->] (1.240) -- node [midway,left]{$V^{-1}$} (4.120);
