@@ -1,0 +1,27 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 9}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/upper-triangularization/ut_basic}
+\newpage
+\input{\bank/svd-pca/spectral_intuition}
+\newpage
+\input{\bank/svd-pca/spectral_norm_proof}
+\newpage
+\end{qunlist}
+
+\end{document}
