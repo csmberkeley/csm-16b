@@ -14,7 +14,7 @@ The principal components, and PCA can be interpreted as solving the following pr
 
 We showed in the previous question that $A_{k} = \sum\limits_{i = 1}^{k} \sigma_{i} \vec{u}_{i} \vec{v}_{i}^{T}$ solves the first problem, and the eigenvector of largest eigenvalue of $A^{T}A,$ $\vec{v}_{1}$ solves the second problem. Therefore, we will utilize the SVD in order to perform PCA for a matrix $A$ through the following process:
 \begin{itemize}
-  \item Normalize $A$ by calculating the mean $\mu_{i}$ of each row and subtracting it from every value in the row. The resulting matrix is denoted as $\tilde{A}$, centering our data at the mean (graphically setting (0,0) to be the mean).
+  \item Normalize $A$ by calculating the mean $\mu_{i}$ of each variable and subtracting it from every value in the row or column, depending on how the data is aggregated. The resulting matrix is denoted as $\tilde{A}$, centering our data at the mean (graphically setting (0,0) to be the mean).
   \item Find the SVD of $\tilde{A}$ such that $\tilde{A} = U \Sigma V^T$. It may be helpful to refer to last week's worksheet for computing the SVD.
   \item The principal components will be the vectors in the $V$ matrix of the SVD of $\tilde{A}.$
   Usually only the first few vectors are taken from this $V$ matrix, since we want to represent our data with as few dimensions as possible.
