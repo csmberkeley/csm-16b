@@ -1,0 +1,31 @@
+\begin{document}
+
+\def\title{Worksheet 1}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+
+
+\input{\bank/ode/input_ode}
+\newpage
+\input{\bank/ode/transistor_switch_model.tex}
+\newpage
+\input{\bank/ode/inductor_intro.tex}
+\newpage
+
+
+
+\end{qunlist}
+
+\end{document}
