@@ -43,8 +43,8 @@ Take a RLC circuit in series. We will examine the behavior of this circuit with 
     Dividing the equation by $\frac{1}{LC}$, we get
     $$r^2 + \frac{R}{L}r + \frac{1}{LC} = 0$$
     Solving for r,
-    $$r = \frac{-\frac{R}{L} \pm \sqrt{\frac{R}{L}^2 - \frac{4}{LC}}}{2}$$
-    $$V_C(t) = C_0 e^{\frac{-\frac{R}{L} + \sqrt{\frac{R}{L}^2 - \frac{4}{LC}}}{2}t} + C_1 e^{\frac{-\frac{R}{L} - \sqrt{\frac{R}{L}^2 - \frac{4}{LC}}}{2}t}$$
+    $$r = \frac{-\frac{R}{L} \pm \sqrt{(\frac{R}{L})^2 - \frac{4}{LC}}}{2}$$
+    $$V_C(t) = C_0 e^{\frac{-\frac{R}{L} + \sqrt{(\frac{R}{L})^2 - \frac{4}{LC}}}{2}t} + C_1 e^{\frac{-\frac{R}{L} - \sqrt{\frac{R}{L}^2 - \frac{4}{LC}}}{2}t}$$
     Where $C_0$ and $C_1$ are determined by the initial conditions of $V_C$.
 }
 
@@ -55,21 +55,21 @@ Take a RLC circuit in series. We will examine the behavior of this circuit with 
 \qitem Have two real exponent terms?
 
 \sol{
-    $$\sqrt{\frac{R}{L}^2 - \frac{4}{LC}} > 0$$
+    $$\sqrt{(\frac{R}{L})^2 - \frac{4}{LC}} > 0$$
     Under these conditions, our circuit will experience \textbf{overdamping}, better written as $\sqrt{\frac{R}{2L}^2 - \frac{1}{LC}} > 0$.
 }
 
 \qitem Have only one exponent term?
 
 \sol{
-    $$\sqrt{\frac{R}{L}^2 - \frac{4}{LC}} = 0$$
+    $$\sqrt{(\frac{R}{L})^2 - \frac{4}{LC}} = 0$$
    Under these conditions, our circuit will experience \textbf{critical damping}.
 }
 
 \qitem Have two complex exponent terms?
 
 \sol{
-    $$\sqrt{\frac{R}{L}^2 - \frac{4}{LC}} < 0$$
+    $$\sqrt{(\frac{R}{L})^2 - \frac{4}{LC}} < 0$$
     Under these conditions, our circuit will experience \textbf{underdamping}.
 }
 
