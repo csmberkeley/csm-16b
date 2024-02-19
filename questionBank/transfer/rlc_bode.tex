@@ -1,5 +1,5 @@
 \qns{RLC Circuit}
-\qcontributor{Kyle Tanghe}
+\qcontributor{Kyle Tanghe, Damanic Luck}
 
 In this question, we will take a look at an electrical systems described by second-order differential equations and analyze it in the phasor domain. Consider the circuit below where $\tilde{V_{\text{s}}}$ is a sinusoidal signal, $L = \SI{1}{\milli\henry}$, and $C = \SI{1}{\nano\farad}$:
 
@@ -72,47 +72,47 @@ Multiplying the numerator and denominator by $j\omega C$ gives
 }
 
 \qitem \textbf{Sketch the Bode plots of $H_C(\omega)$, $H_L(\omega)$, and $H_R(\omega)$ when $R =\SI{2}{\kilo\ohm}$.}
-\meta{Poles are out of scope for 16B This semester. Even though we have 2nd order filters, Students only need to know how to make bode plots out of a transfer function. There is more nuance than this for 2nd or higher order filters, but it should be out of scope for this class.
+\meta
+{Emphasize that students factor the numerator and denominator of their transfer function so its easier to plot. This means students should rearrange their transfer function into rational transfer function form. We can plot by noticing that poles ($w_{pn}$) and zeros ($w_{zn}$) appear in the denominator and numerator, respectively, and constant (K) in this form: 
+\[K \cdot \frac{(j\omega)^{z0} \cdot \Pi_{k=1}^n(1 \pm j \frac{\omega}{\omega_{zk}})}{(j\omega)^{p0} \cdot \Pi_{k=1}^n(1 \pm j \frac{\omega}{\omega_{pk}})} \] 
+Also go over why we can superimpose each component's individual bode plot and "add" it up together at the end.
+% Poles are out of scope for 16B This semester. Even though we have 2nd order filters, Students only need to know how to make bode plots out of a transfer function. There is more nuance than this for 2nd or higher order filters, but it should be out of scope for this class. (This is the original text, commenting it out to write new explanation.)
 
-    It might be good to mention that for the first to parts of part e, even though we have 3 circuit components, they're set up in series such that the filter is like a first order filter with $Z_R Z_L$ as the first impedence, and $Z_C$ as the second impedence, so it behaves closer to a first order filter.
-
-
+    % It might be good to mention that for the first to parts of part e, even though we have 3 circuit components, they're set up in series such that the filter is like a first order filter with $Z_R Z_L$ as the first impedence, and $Z_C$ as the second impedence, so it behaves closer to a first order filter.
 }
 
 
     \sol{
+    $H_C(\omega)$:
 
-$H_C(\omega)$:
+    Let's look at the poles. It is a second order transfer function of the form $\left(\frac{j\omega}{\omega_c}\right)^2+j\omega \frac{2\xi}{\omega_c}+1$, where $\omega_c = \frac {1} {\sqrt {LC}} =  \frac {1}{\sqrt{10^{-3}10^{-9}}} = 10^6$. There are two frequency terms in the denominator so there are two poles.
+    This means that there are 2 poles at $\omega_c = 10^6$.
+    
+    Zeros:
+    
+    Since the numerator has no frequency terms, there are no zeros.
+    
+    We have 2 poles and no zeros, which means that this will be a low pass filter with a cutoff frequency of $\omega = 10^6$, with a -20 dB/decade rolloff \textit{per} pole. This means we have a -40 db/decade rolloff at $\omega=10^6$.
+     
+    To find the magnitude in the flatband for a low pass filter, we look at the magnitude when all frequency terms are 0. For this filter, we just get a magnitude of $\frac{1}{1} = 1$, or 0 dB. 
+    
+    % To find the magnitude in a filter, we look at the magnitude when all frequency terms are 0. For this filter, we get a magnitude of $\frac{1}{1} = 1$.
+    
+    % Similarly, if we take a the limit of frequency to $\infty$, we get a magnitude of $\frac{1}{\omega^2} = 0$
+    
+    To find the cutoff frequency, we need to set this into the rational transfer function form so that we can easily solve for $H_C(j\omega)= \frac{1}{\sqrt{2}}$. In.other words, we can model it in the form below to later pattern match what our cutoff frequency is .
+    \[(\frac{1}{1 + \frac{j\omega}{\omega_c}})^2 = \frac{1}{(\frac{j\omega}{\omega_c})^2 + j\omega \frac{2E}{\omega_c} + 1}\] 
+    where $\omega_c$ is our cutoff frequency and $E$ is an expression involving $R$, $C$, and $L$. In this form, we can see that $\omega_c = \sqrt{1/LC} = 10^6$
+    
+    %As for phase, the two poles will cause a phase shift starting at $10^5 \si{\radian\per\second}$ at a rate of $\frac{\ang{-90}}{\text{dec}}$ ($\frac{\ang{-45}}{\text{dec}}$ per pole) until a decade past the corner frequency. This results in the Bode plot below.
+    
+    As for phase, the cut off frequency at $\omega_c = 10^6$ will cause a phase shift starting at $10^5 \omega$ (one decade before $\omega_c$) until a decade $10^7 \omega$ (one decade after $\omega_c$) past the cutoff frequency. This results in the Bode plot below.
 
-%Let's look at the poles. It is a second order transfer function of the form $\left(\frac{j\omega}{\omega_c}\right)^2+j\omega \frac{2\xi}{\omega_c}+1$, where $\omega_c = \frac {1} {\sqrt {LC}} =  \frac {1}{\sqrt{10^{-3}10^{-9}}} = 10^6 \si{\radian\per\second}$.
-%This means that there are 2 poles at $10^6 \si{\radian\per\second}$.
-
-%Zeros:
-
-%Since the numerator has no frequency terms, there are no zeros.
-
-%We have 2 poles and no zeros, which means that this will be a low pass filter with a cutoff frequency of $10^6 \si{\radian\per\second}$, with a \SI{-2}{\per\decade} rolloff.
-
-%To find the magnitude in the flatband for a low pass filter, we look at the magnitude when all frequency terms are 0. For this filter, we just get a magnitude of $\frac{1}{1} = 1$.
-
-
-To find the magnitude in a filter, we look at the magnitude when all frequency terms are 0. For this filter, we get a magnitude of $\frac{1}{1} = 1$.
-
-Similarly, if we take a the limit of frequency to $\infty$, we get a magnitude of $\frac{1}{\omega^2} = 0$
-
-To find the cutoff frequency, we need to set this into a form that we can set this into a form that we can easily solve for $H_C(j\omega)= \frac{1}{\sqrt{2}}$.
-
-This is similar to having two first order (only two circuit elements) filters multiplied together, where the combined magnitude of the filter will have a form of $(\frac{1}{1 + \frac{j\omega}{\omega_c}})^2 = \frac{1}{(\frac{j\omega}{\omega_c})^2 + j\omega \frac{2E}{\omega_c} + 1}$ where $\omega_c$ is our cutoff frequency and $E$ is an expression involving $R$, $C$, and $L$ (that can be ignored). In this form, we can see that $\omega_c = \sqrt{1/LC} = 10^6$
-
-%As for phase, the two poles will cause a phase shift starting at $10^5 \si{\radian\per\second}$ at a rate of $\frac{\ang{-90}}{\text{dec}}$ ($\frac{\ang{-45}}{\text{dec}}$ per pole) until a decade past the corner frequency. This results in the Bode plot below.
-
-As for phase, the cut off frequency at $10^6$ will cause a phase shift starting at $10^5 \omega$  until a decade $10^7 \omega$ past the cutoff frequency. This results in the Bode plot below.
-
-
-    \begin{figure}[H]\centering
-  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/q1e_fc_fixed.png}
-  \caption{Bode plot of $H_C(\omega)$}
-  \end{figure}
+      \begin{figure}[H]\centering
+  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/hc.png}
+  % \caption{Bode plot of $H_C(\omega)$}
+   \end{figure}
+  % \input{\bank/transfer/figures/hc}
 
 $H_L(\omega)$:
 
@@ -124,10 +124,11 @@ This results in a high pass filter with a corner frequency at $10^6 \si{\radian\
 
 To find the magnitude in the flatband for a high pass filter, we look at the magnitude when everything but the highest order frequency terms is zero. Since this transfer function is second order, we look at the $\omega^2$ terms and get a magnitude of $\frac{(j\omega)^2LC}{(j\omega)^2LC} = 1$
 .
-  \begin{figure}[H]\centering
-  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/q1e_hl_fixed.png}
-  \caption{Bode plot of $H_L(\omega)$}
-  \end{figure}
+   \begin{figure}[H]\centering
+   \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/hl.png}
+  % \caption{Bode plot of $H_L(\omega)$}
+   \end{figure}
+  % \input{\bank/transfer/figures/hl}
   
 $H_R(\omega)$:
 
@@ -143,10 +144,11 @@ Plugging in $\omega=\omega_c$ will give us the peak value of the transfer functi
  |H_{R}(\omega = \omega_c)|&= \frac{\SI{2000}{\ohm}\sqrt{10^{-9}\si{\farad}}}{\sqrt{10^{-3}\si{\henry}}} = 2
 \end{align*}
 
-  \begin{figure}[H]\centering
-  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/q1e_hr_fixed.png}
-  \caption{Bode plot of $H_R(\omega)$}
-  \end{figure}
+   \begin{figure}[H]\centering
+   \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/hr.png}
+  % \caption{Bode plot of $H_R(\omega)$}
+   \end{figure}
+  % \input{\bank/transfer/figures/hr}
   
 }
 
@@ -163,14 +165,18 @@ R = \SI{200}{\kilo\ohm} \to |H(\omega_c)| &= \frac{2 \cdot 10^5\sqrt{10^{-9}}}{\
 
 Every other part of the Bode plot is the same as the plot in part (e).
   \begin{figure}[H]\centering
-  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/q1f_20_fixed.png}
-  \caption{Bode plot of $H_R(\omega)$ for $R = \SI{20}{\ohm}$}
+  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/hr_20.png}
+  % \caption{Bode plot of $H_R(\omega)$ for $R = \SI{20}{\ohm}$}
   \end{figure}
   
     \begin{figure}[H]\centering
-  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/q1f_200k_fixed.png}
-  \caption{Bode plot of $H_R(\omega)$ for $R = \SI{200}{\kilo\ohm}$}
+  \includegraphics[width=0.8\textwidth]{\bank/transfer/figures/hr_200.png}
+  % \caption{Bode plot of $H_R(\omega)$ for $R = \SI{200}{\kilo\ohm}$}
   \end{figure}
+
+  % \input{\bank/transfer/figures/hr_20}
+
+  % \input{\bank/transfer/figures/hr_200}
   
 }
 
