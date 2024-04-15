@@ -1,0 +1,27 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 9}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/svd-review/svd_practice}
+\newpage
+\input{\bank/svd-review/moore-penrose}
+\newpage
+\input{\bank/min-norm/minimum_norm}
+\newpage
+\end{qunlist}
+
+\end{document}
