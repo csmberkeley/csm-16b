@@ -17,7 +17,14 @@ and allow the writing process to be collaborative.
 Inside each semester's directory, there are subfolders for each week's worksheets. Inside that folder, let's say 01/, there will be multiple LaTeX files: ws01.tex, meta01.tex, and sol01.tex. Compiling each and everyone of these files will output the worksheet, meta, and solutions respectively. The body.tex file is used to pick and choose which questions will go onto the worksheet.
 
 ## `questionBank/`
-Inside the `questionBank/` directory, there are subfolders for each questions by topic. Inside a topic, let's say ode, there will be multiple LaTeX files such as rc_circuit.tex and mech_ode.tex. Each individual file corresponds to a single question. If you want to see what your LaTeX output looks like, the next section will explain how to do so. The reason for keeping the worksheets and the questions separate is so that the code is maintainable for future semesters. In addition, for future semesters, we can pick and choose questions that we want to reuse or to take out questions that are no longer in scope.
+Inside the `questionBank/` directory, there are subfolders for each questions by topic.
+Inside a topic, let's say ode, there will be multiple LaTeX files such as rc_circuit.tex 
+and mech_ode.tex. Each individual file corresponds to a single question. If you want to 
+see what your LaTeX output looks like, the next section will explain how to do so. The 
+reason for keeping the worksheets and the questions separate is so that the code is 
+maintainable for future semesters. In addition, for future semesters, we can pick and 
+choose questions that we want to reuse or to take out questions that are no longer in 
+scope.
 
 ## `test/` and `testing/`
 The sole purpose of the testing folder is to have an environment in which you can create test question.tex files and compile them in the `test` folder. For the purposes of the repository, please do not add/commit/or push your changes in this folder or the `test` folder. The `test` folder is an identical environment as the other numbered folders. You can pick and choose which questions to compile using the appropriate commands. It will make more sense on how to test code once looking at the repository.
