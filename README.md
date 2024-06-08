@@ -14,7 +14,11 @@ and allow the writing process to be collaborative.
     testing/            - Testing directory
 
 ## `fa19/`
-Inside each semester's directory, there are subfolders for each week's worksheets. Inside that folder, let's say 01/, there will be multiple LaTeX files: ws01.tex, meta01.tex, and sol01.tex. Compiling each and everyone of these files will output the worksheet, meta, and solutions respectively. The body.tex file is used to pick and choose which questions will go onto the worksheet.
+Inside each semester's directory, there are subfolders for each week's worksheets. 
+Inside that folder, let's say 01/, there will be multiple LaTeX files: ws01.tex, meta01.
+tex, and sol01.tex. Compiling each and everyone of these files will output the 
+worksheet, meta, and solutions respectively. The body.tex file is used to pick and 
+choose which questions will go onto the worksheet.
 
 ## `questionBank/`
 Inside the `questionBank/` directory, there are subfolders for each questions by topic.
