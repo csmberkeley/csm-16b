@@ -103,7 +103,7 @@ Using patch mode is recommended when staging changes to ensure only that only th
 
 Once satisfied, you can commit your changes and give it a descriptive but short message.
 
-    git commit -m "Finished RLC Circuit question"
+    git commit -m "changed RLC Circuit diagram dimensions"
 
 clean and push the branch to Github origin.
 
