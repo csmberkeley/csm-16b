@@ -27,7 +27,12 @@ in the future. Having question bank separate from semester gives the freedom to 
 choose which to reuse or remove.
 
 ## `test/` and `testing/`
-The sole purpose of the testing folder is to have an environment in which you can create test question.tex files and compile them in the `test` folder. For the purposes of the repository, please do not add/commit/or push your changes in this folder or the `test` folder. The `test` folder is an identical environment as the other numbered folders. You can pick and choose which questions to compile using the appropriate commands. It will make more sense on how to test code once looking at the repository.
+The sole purpose of the testing folder is to have an environment in which you can create 
+test question.tex files and compile them in the `test` folder. For the purposes of the 
+repository, please do not add/commit/or push your changes in this folder or the `test` 
+folder. The `test` folder is an identical environment as the other numbered folders. You 
+can pick and choose which questions to compile using the appropriate commands. It will 
+make more sense on how to test code once looking at the repository.
 
 # Installation Requirements
     git               - https://git-scm.com/downloads
