@@ -4,7 +4,8 @@ This directory contains all the material developed for CSM 16B.
 
 For developing, please read through [`LaTeX-best-practices.md`](./00-LaTeX-best-practices.md) for a list of guidelines for writing LaTeX, and the following guide on [`Git`](https://rogerdudler.github.io/git-guide/)
 
-The documents here are written in LaTeX by a large team. Adhering to these guidelines will help contain bitrot and needless/conflicting replication, produce a more uniform look, and make the writing process easier.
+The documents here are written in LaTeX by a team. Adhering to these guidelines will help avoid conflict resolution
+and allow the writing process to be collaborative.
 
 # Organization of this repository
 
@@ -56,7 +57,7 @@ After cloning the repository and setting up LaTeX, pull in any updates from Gith
 
 Then, create a new branch off master and give it a descriptive name.
 
-    git checkout -b taejin
+    git checkout -b taejin/rlc_circuits
 
 ## 3. Making changes
 
@@ -95,5 +96,5 @@ clean and push the branch to Github origin.
 
 ## 4. Pull request
 To integrate your changes into the codebase, come back to this online repo and create a new pull request for the branch. Then assign the current maintainers for review, apply relevant labels, and set the milestone to the current release target.
-To avoid merge conflicts, it is important to make sure you are working a piece separate from someone else.
+To avoid merge conflicts, it is important to keep in-sync with team members if you are working on the same piece of code.
 
