@@ -4,7 +4,8 @@ This directory contains all the material developed for CSM 16B.
 
 For developing, please read through [`LaTeX-best-practices.md`](./00-LaTeX-best-practices.md) for a list of guidelines for writing LaTeX, and the following guide on [`Git`](https://rogerdudler.github.io/git-guide/)
 
-The documents here are written in LaTeX by a large team. Adhering to these guidelines will help contain bitrot and needless/conflicting replication, produce a more uniform look, and make the writing process easier.
+The documents here are written in LaTeX by a team. Adhering to these guidelines will help avoid conflict resolution
+and allow the writing process to be collaborative.
 
 # Organization of this repository
 
@@ -13,13 +14,29 @@ The documents here are written in LaTeX by a large team. Adhering to these guide
     testing/            - Testing directory
 
 ## `fa19/`
-Inside each semester's directory, there are subfolders for each week's worksheets. Inside that folder, let's say 01/, there will be multiple LaTeX files: ws01.tex, meta01.tex, and sol01.tex. Compiling each and everyone of these files will output the worksheet, meta, and solutions respectively. The body.tex file is used to pick and choose which questions will go onto the worksheet.
+Inside each semester's directory, there are subfolders for each week's worksheets. 
+Inside that folder, let's say 01/, there will be multiple LaTeX files: ws01.tex, meta01.
+tex, and sol01.tex. Compiling each and everyone of these files will output the 
+worksheet, meta, and solutions respectively. The body.tex file is used to pick and 
+choose which questions will go onto the worksheet.
 
 ## `questionBank/`
-Inside the `questionBank/` directory, there are subfolders for each questions by topic. Inside a topic, let's say ode, there will be multiple LaTeX files such as rc_circuit.tex and mech_ode.tex. Each individual file corresponds to a single question. If you want to see what your LaTeX output looks like, the next section will explain how to do so. The reason for keeping the worksheets and the questions separate is so that the code is maintainable for future semesters. In addition, for future semesters, we can pick and choose questions that we want to reuse or to take out questions that are no longer in scope.
+Inside the `questionBank/` directory, there are subfolders for each questions by topic.
+Inside a topic, let's say ode, there will be multiple LaTeX files such as rc_circuit.tex 
+and mech_ode.tex. Each individual file corresponds to a single question. If you want to 
+see what your LaTeX output looks like, the next section will explain how to do so. The 
+reason for keeping the worksheets and the questions separate is so that future semesters 
+can quickly plug-in from question bank. For example, a question may no longer be in scope
+in the future. Having question bank separate from semester gives the freedom to pick and
+choose which to reuse or remove.
 
 ## `test/` and `testing/`
-The sole purpose of the testing folder is to have an environment in which you can create test question.tex files and compile them in the `test` folder. For the purposes of the repository, please do not add/commit/or push your changes in this folder or the `test` folder. The `test` folder is an identical environment as the other numbered folders. You can pick and choose which questions to compile using the appropriate commands. It will make more sense on how to test code once looking at the repository.
+The sole purpose of the testing folder is to have an environment in which you can create 
+test question.tex files and compile them in the `test` folder. For the purposes of the 
+repository, please do not add/commit/or push your changes in this folder or the `test` 
+folder. The `test` folder is an identical environment as the other numbered folders. You 
+can pick and choose which questions to compile using the appropriate commands. It will 
+make more sense on how to test code once looking at the repository.
 
 # Installation Requirements
     git               - https://git-scm.com/downloads
@@ -56,7 +73,10 @@ After cloning the repository and setting up LaTeX, pull in any updates from Gith
 
 Then, create a new branch off master and give it a descriptive name.
 
-    git checkout -b taejin
+    git checkout -b taejin/rlc_circuits
+
+To ensure two people don't create the same branch name, use a [slash](https://stackoverflow.com/a/68010041)
+to separate the creator from the feature.
 
 ## 3. Making changes
 
@@ -86,14 +106,14 @@ Using patch mode is recommended when staging changes to ensure only that only th
 
 Once satisfied, you can commit your changes and give it a descriptive but short message.
 
-    git commit -m "Finished RLC Circuit question"
+    git commit -m "changed RLC Circuit diagram dimensions"
 
 clean and push the branch to Github origin.
 
     make clean
-    git push origin taejin
+    git push origin taejin/rlc_circuits
 
 ## 4. Pull request
 To integrate your changes into the codebase, come back to this online repo and create a new pull request for the branch. Then assign the current maintainers for review, apply relevant labels, and set the milestone to the current release target.
-To avoid merge conflicts, it is important to make sure you are working a piece separate from someone else.
+To avoid merge conflicts, it is important to keep in-sync with team members if you are working on the same piece of code.
 
