@@ -75,6 +75,9 @@ Then, create a new branch off master and give it a descriptive name.
 
     git checkout -b taejin/rlc_circuits
 
+To ensure two people don't create the same branch name, use a [slash](https://stackoverflow.com/a/68010041)
+to separate the creator from the feature.
+
 ## 3. Making changes
 
 Make changes as you would normally and commit them incrementally. Write descriptive commit messages and break larger changes into smaller parts.
@@ -108,7 +111,7 @@ Once satisfied, you can commit your changes and give it a descriptive but short 
 clean and push the branch to Github origin.
 
     make clean
-    git push origin taejin
+    git push origin taejin/rlc_circuits
 
 ## 4. Pull request
 To integrate your changes into the codebase, come back to this online repo and create a new pull request for the branch. Then assign the current maintainers for review, apply relevant labels, and set the milestone to the current release target.
