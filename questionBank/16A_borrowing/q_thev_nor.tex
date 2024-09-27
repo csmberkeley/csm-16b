@@ -1,0 +1,277 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Spring 2023
+
+\qns{Equivalence}
+
+\textbf{Learning Goal:} To build an understanding of Thevenin and Norton equivalent circuits.
+
+
+\meta{
+If students are not yet familiar with series and parallel resistors, review set-up and equations for series and parallel resistors. (If necessary, derive equations for series/parallel resistors using $I_{\text{test}}$ and $V_{\text{test}}$.)
+
+\begin{center}
+\begin{circuitikz}[scale = 0.7, transform shape]
+\draw (0, 0)
+to [short] ++(0, 4)
+to [short] ++(2, 0)
+to [R = $R_1$] ++(0, -2)
+to [R = $R_2$] ++(0, -2)
+to [short] ++(-2, 0)
+;
+\draw (2, 2)
+to [short, -o] ++(2, 0)
+node[right] {$A$}
+(2, 0) 
+to [short, -o] ++(2, 0)
+node[right] {$B$};
+\end{circuitikz}
+\hspace{15mm}
+\begin{circuitikz}[scale = 0.7, transform shape]
+\draw (0, 0)
+to [short] ++(0, 4)
+to [short] ++(2, 0)
+to [R = $R_1$] ++(0, -2)
+to [R = $R_2$] ++(0, -2)
+to [short] ++(-2, 0)
+;
+\draw (2, 4)
+to [short, -o] ++(2, 0)
+node[right] {$A$}
+(2, 0) 
+to [short, -o] ++(2, 0)
+node[right] {$B$};
+\end{circuitikz}
+\hspace{15mm}
+\begin{circuitikz}[scale = 0.7, transform shape]
+\draw (0, 4)
+to [R = $R_1$] ++(0, -2)
+to [R = $R_2$] ++(0, -2)
+;
+\draw (0, 4)
+to [short, -o] ++(2, 0)
+node[right] {$A$}
+(0, 0) 
+to [short, -o] ++(2, 0)
+node[right] {$B$};
+\end{circuitikz}
+\end{center}
+
+Ensure that students understand that depending on where the terminals $A$ and $B$ are, how we collapse the circuit (whether in series or in parallel) may change.
+}
+
+\begin{enumerate}
+
+\item Find the Thevenin and Norton equivalent circuits for the circuit below, where each resistor has resistance $R$.
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+        \draw (0, 0)
+        to [V = $V_1$, invert] ++(0, 4)
+        to [R = $R$] ++(2, 0)
+        to [R = $R$] ++(0, -4)
+        to [short] ++(-2, 0)
+        (2, 4)
+        to [short] ++(4, 0)
+        (2, 0)
+        to [short] ++(4, 0)
+        (8, 0)
+        to [V, l_= $V_2$, invert] ++(0, 4)
+        to [R, l_= $R$] ++(-2, 0)
+        to [R, l_= $R$] ++(0, -4)
+        to [short] ++(2, 0)
+        (4, 4)
+        to [short, -o] ++(0, -1)
+        node[below] {$A$}
+        (4, 0)
+        to [short, -o] ++(0, 1)
+        node[above] {$B$};
+        \draw (4, 0) node[ground]{};
+    \end{circuitikz}
+\end{center}
+
+\sol{
+We can first solve for the Thevenin voltage $V_{Th}$, which is the open circuit voltage $V_{AB}$. We can use any circuit-solving method to determine this voltage, but here, we'll use superposition.
+
+First, we turn on $V_1$ and zero out all other independent sources. We will solve for node potential $u_{A, V_1}$
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+        \draw (0, 0)
+        to [V = $V_1$, invert] ++(0, 4)
+        to [R = $R$] ++(2, 0)
+        to [R = $R$] ++(0, -4)
+        to [short] ++(-2, 0)
+        (2, 4)
+        to [short] ++(4, 0)
+        (2, 0)
+        to [short] ++(4, 0)
+        (8, 0)
+        to [short] ++(0, 4)
+        to [R, l_= $R$] ++(-2, 0)
+        to [R, l_= $R$] ++(0, -4)
+        to [short] ++(2, 0)
+        (4, 4) node[above] {$u_{A, V_1}$}
+        to [short, *-o] ++(0, -1)
+        node[below] {$A$}
+        (4, 0)
+        to [short, -o] ++(0, 1)
+        node[above] {$B$};
+        \draw (4, 0) node[ground]{};
+    \end{circuitikz}
+\end{center}
+
+We can collapse the two resistors on the right, and redraw our circuit in a way that is easier to understand, though still preserving the nodes of the original circuit. Since the two resistors on the right are in parallel, their equivalent resistance when collapsed is $\dfrac{R \cdot R}{R + R} = \dfrac{R}{2}$.
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+        \draw (0, 0)
+        to [V = $V_1$, invert] ++(0, 4)
+        to [R = $R$] ++(2, 0)
+        to [R = $R$] ++(0, -4)
+        to [short] ++(-2, 0)
+        (2, 4)
+        to [short, -*] ++(2, 0)
+        node[above] {$u_{A, V_1}$}
+        to [short, -o] ++(2, 0)
+        node[right] {$A$}
+        (2, 0)
+        to [short, -o] ++(4, 0)
+        node[right] {$B$}
+        (4, 4)
+        to [R = $\dfrac{R}{2}$] ++(0, -4);
+        \draw (0, 0) node[ground]{};
+    \end{circuitikz}
+\end{center}
+
+We collapse the two right-most resistors again, giving an equivalent resistance of $\dfrac{R \cdot \frac{R}{2}}{R + \frac{R}{2}} = \dfrac{R}{3}$. This produces the circuit below:
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+        \draw (0, 0)
+        to [V = $V_1$, invert] ++(0, 4)
+        to [R = $R$, -*] ++(4, 0)
+        to [R = $\dfrac{R}{3}$] ++(0, -4)
+        to [short] ++(-4, 0)
+        (4, 4)
+        node[above] {$u_{A, V_1}$}
+        to [short, -o] ++(2, 0)
+        node[right] {$A$}
+        (2, 0)
+        to [short, -o] ++(4, 0)
+        node[right] {$B$};
+        \draw (0, 0) node[ground]{};
+    \end{circuitikz}
+\end{center}
+
+This is a voltage divider circuit, so $V_{AB, V_1}$ can be calculated as follows:
+
+\[
+u_{A, V_1} - 0 = u_{A, V_1} = \dfrac{\frac{R}{3}}{R + \frac{R}{3}}V_1 = \dfrac{1}{4}V_1
+\]
+
+We can then turn on $V_2$ and zero out all other independent sources. By symmetry, $u_{A, V_2}$ should be equal to $\dfrac{1}{4}V_2$. We then return to our original circuit, and we have 
+\[
+V_{Th} = V_{AB} = u_{A} - 0 = \dfrac{1}{4}V_1 + \dfrac{1}{4}V_2 = \dfrac{1}{4}(V_1 + V_2)
+\]
+
+Now, we find the Thevenin resistance, $R_{Th}$. In order to do so, we can zero out all independent sources, and calculate the equivalent resistance between terminals $A$ and $B$. When we zero out all independent sources, we are left with 
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+        \draw (0, 0)
+        to [short] ++(0, 4)
+        to [R = $R$] ++(2, 0)
+        to [R = $R$] ++(0, -4)
+        to [short] ++(-2, 0)
+        (2, 4)
+        to [short] ++(4, 0)
+        (2, 0)
+        to [short] ++(4, 0)
+        (8, 0)
+        to [short] ++(0, 4)
+        to [R, l_= $R$] ++(-2, 0)
+        to [R, l_= $R$] ++(0, -4)
+        to [short] ++(2, 0)
+        (4, 4)
+        to [short, -o] ++(0, -1)
+        node[below] {$A$}
+        (4, 0)
+        to [short, -o] ++(0, 1)
+        node[above] {$B$};
+    \end{circuitikz}
+\end{center}
+
+which can be redrawn into four resistors in parallel, as shown below:
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+        \draw (8, 0)
+        node[right] {$B$}
+        to [short, o-] ++(-8, 0)
+        to [R = $R$] ++(0, 4)
+        to [short, -o] ++(8, 0)
+        node[right] {$A$}
+        (2, 0)
+        to [R = $R$] ++(0, 4)
+        (4, 0)
+        to [R = $R$] ++(0, 4)
+        (6, 0)
+        to [R = $R$] ++(0, 4);
+    \end{circuitikz}
+\end{center}
+
+The equivalent resistance between the two terminals is then $R_{Th} = R_{eq} = (\dfrac{1}{R} + \dfrac{1}{R} + \dfrac{1}{R} + \dfrac{1}{R})^{-1} = \frac{R}{4}$. The Thevenin resistance is equal to the Norton resistance, so we do not need to recompute the Norton resistance.
+
+We can compute the Norton current, $I_{No}$ either through computing the short circuit current from terminal $A$ to $B$, or by computing $I_{No} = \dfrac{V_{Th}}{R_{Th}}$. Since we already have the Thevenin voltage and resistance, we can directly compute the Norton current:
+\[
+I_{No} = \dfrac{V_{Th}}{R_{Th}} = \dfrac{\frac{1}{4}(V_1 + V_2)}{\frac{R}{4}} = \dfrac{V_1 + V_2}{R}
+\]
+
+Now, we can draw the Thevenin and Norton equivalent circuits:
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (4, 0)
+    node[right] {$B$}
+    to [short, o-] ++(-4, 0)
+    to [V = $\dfrac{1}{4}(V_1 + V_2)$, invert] ++(0, 4)
+    to [R = $\dfrac{R}{4}$, -o] ++(4, 0)
+    node[right] {$A$};
+    \end{circuitikz}
+    \hspace{20mm}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (4, 0)
+    node[right] {$B$}
+    to [short, o-] ++(-4, 0)
+    to [I, l = $\dfrac{V_1 + V_2}{R}$] ++(0, 4)
+    to [short, -o] ++(4, 0)
+    node[right] {$A$}
+    (2, 4)
+    to [R = $\dfrac{R}{4}$] ++(0, -4);
+    \end{circuitikz}
+\end{center}
+}
+
+\item Suppose we wanted to add a $R\Omega$ resistor between terminals $A$ and $B$. What would be the voltage across this resistor? What if we added a $\frac{R}{4}\Omega$ resistor?
+
+\sol{
+
+We can use the Thevenin and Norton equivalent circuits to save us computation time. The I-V relationship should be preserved at the terminals $A$ and $B$. If we wanted to find the voltage across a new load resistor $R_L$, we could compute
+\[
+V_{L} = \dfrac{R_L}{R_{Th} + R_L} \cdot V_{Th}
+\]
+
+For a load resistor of resistance $R$, this would evaluate to 
+\[
+V_L = \dfrac{R}{\frac{R}{4} + R} \cdot \dfrac{1}{4}(V_1 + V_2) = \dfrac{1}{5}(V_1 + V_2)
+\]
+
+For a load resistor of resistance $\dfrac{R}{4}$, the voltage divider would divide the voltage exactly in half, so 
+\[
+V_L = \dfrac{1}{2}V_{Th} = \dfrac{1}{8}(V_1 + V_2)
+\]
+
+}
+
+\end{enumerate}
