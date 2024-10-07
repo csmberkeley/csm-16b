@@ -1,0 +1,222 @@
+% Author: Anna Chou
+% Email: menghuichou@berkeley.edu
+% SP22 CSM 
+
+\qns{Capacitor with Different Suppliers}
+
+\textbf{Learning Goal: }Understand the relationship of current and voltage of capacitor with different type of sources.
+
+\meta{Make sure student know the math behind the equations. May want to introduce why people want to use AC sources when using capacitors (looking at the behavior of each plot may help :) Is circumstance in part b dangerous? (Yes!! voltage goes to infinite and that is horrible) Is circumstance in part d useful? (No since current is always zero).}
+
+
+Draw I-t curve and V-t curve on the same plot for the following circumstances with a capacitor $C$. 
+
+\begin{enumerate}
+    
+    \item In parallel With an independent AC square-wave current source in a period of T.
+        Here is a picture for your reference:)
+        \begin{center}
+        	\begin{circuitikz}[american voltages, american currents] 
+        		\draw (0, 0) to [I, l=$I_s(t)$] (0, 4) -- (2, 4) to [C=$C$] (2, 0) -- (0, 0);
+        		\draw (0, 0) to [short, -o] (6, 0);     
+        		\draw (2, 4) to [short, -o] (6, 4);
+        		\draw (6, 3.8) to [open, v= $V(t)$](6, 0.2);
+        		\draw (-3, 1.7) to (-2.6, 1.7) to (-2.6, 2.3) to (-2.2, 2.3) to (-2.2, 1.7) to (-1.8, 1.7) to (-1.8, 2.3) to (-1.4, 2.3);
+        	\end{circuitikz}
+        \end{center}
+    
+        \sol{
+            When a constant current source is applied to a capacitor, we know that the voltage obeys the following equation
+            \begin{align} \label{eq:cap_voltage}
+            V_C(t) = \frac{I}{C} t + V_C(0).
+            \end{align}
+            Our periodic current source $I_s$ is constant from $t=0$ to $t=\frac{T}{2}$, so we can apply equation \ref{eq:cap_voltage} over this time period. We know the initial voltage is zero, so:
+            \begin{align*}
+            V(t) = \frac{I}{C}t \quad \text{when } 0\leq t \leq \frac{T}{2}
+            \end{align*}
+            
+            In order to figure out what happens next, let's consider a more generic version of equation \ref{eq:cap_voltage}:
+            \begin{align} \label{eq:cap_voltage2}
+            V_C(t) = \frac{I}{C} (t-t_0) + V_C(t_0).
+            \end{align}
+            
+            With this equation, we can consider an arbitrary starting time $t_0$ instead of always starting at $t=0$. Plugging in $t_0=0$ yields equation \ref{eq:cap_voltage}. Like equation \ref{eq:cap_voltage}, the above equation is only true when the current is constant.
+            
+            The next time period with constant current is from $t=\frac{T}{2}$ to $t=T$. Over this time, the current through the capacitor is $-I$. Since we are starting at time $\frac{T}{2}$, we set $t_0 = \frac{T}{2}$ and plug into equation \ref{eq:cap_voltage2}.\\
+            
+            \begin{align*}
+            V(t) &= \frac{-I}{C}\left(t-\frac{T}{2}\right) + V\left(\frac{T}{2}\right) \\
+            V(t) &= \frac{-I}{C}\left(t-\frac{T}{2}\right) + \frac{I T}{2C} \\
+            \end{align*}
+            
+            Combining with our previous relationship yields:
+            
+            \begin{equation*} 
+            V_C(t) = 
+            \begin{cases}
+            	\frac{I}{C}t & \text{when } 0\leq t \leq \frac{T}{2} \\
+            	\frac{-I}{C}\left(t-\frac{T}{2}\right) + \frac{I T}{2C}
+            	&
+            	\text{when }  \frac{T}{2} < t \leq T
+            \end{cases}
+            \end{equation*}
+            
+            Since this is periodic, we can apply the same method for the rest of the time nodes.
+        
+            \begin{center}
+            	\begin{tikzpicture}
+                	\begin{axis}[
+                	xmin=-5, xmax=60,
+                	ymin=-160, ymax=160,
+                	axis lines=center,
+                	axis on top=true,
+                	grid style={dashed},
+                	xlabel={\emph{$t$}},
+                	ylabel={\color{red}{\emph{$I_s(t)$}}},
+                	yticklabels={,,},
+                	xticklabels={,,},
+                	width=6in,
+                	height=3in,
+                	]
+                	\addplot [draw=red,thick] coordinates {(0, 0) 
+                		(0, 100) (10, 100)
+                		(10, -100) (20, -100)
+                		(20, 100) (30, 100)
+                		(30, -100) (40, -100)
+                		(40, 100) (50, 100)
+                		(50, -100) (60, -100)};
+                	\node [left,color=red] at (axis cs:  0, 100) {$I$}; 
+                	\node [left,color=red] at (axis cs:  0, -100) {$-I$}; 
+                	\node [below,color=red] at (axis cs:  19, 0) {$T$};
+                	\node [below,color=red] at (axis cs:  9, 0) {$\frac{T}{2}$};
+                	\node [below,color=red] at (axis cs:  39, 0) {$2T$}; 
+                	\node [below,color=red] at (axis cs:  29, 0) {$\frac{3T}{2}$};
+                	% voltage
+                	\node[left, color=blue] at (axis cs: 0, 145) {$V(t)$};
+                	\addplot [draw=blue,thick] coordinates{ (0,0) (10, 45) (20, 0)(30, 45)(40, 0)(50, 45)(60, 0)};
+                	\node [above, color=blue] at (axis cs: 2, 25) {slope = $\frac{I}{C}$};
+                	\node [above, color=blue] at (axis cs: 18, 25) {slope = $-\frac{I}{C}$};
+                	%\node [above, color=blue] at (axis cs: 10,50) {$V = \frac{IT}{2C}$};
+                	\end{axis}
+            	\end{tikzpicture}
+            \end{center}
+        }
+    \item In parallel with an independent DC current source.
+    
+        \sol{
+            This is similar to the last one, but instead of having negative current sometime, we have a constant positive current throughout the time. As you expected, the voltage will go infinite.
+            
+            \begin{center}
+            	\begin{tikzpicture}
+                	\begin{axis}[
+                	xmin=-5, xmax=60,
+                	ymin=-160, ymax=300,
+                	axis lines=center,
+                	axis on top=true,
+                	grid style={dashed},
+                	xlabel={\emph{$t$}},
+                	ylabel={\color{red}{\emph{$I_s(t)$}}},
+                	yticklabels={,,},
+                	xticklabels={,,},
+                	width=6in,
+                	height=3in,
+                	]
+                	\addplot [draw=red,thick] coordinates { 
+                		(0, 100) (60, 100)
+                		};
+                	\node [left,color=red] at (axis cs:  0, 100) {$I$}; 
+                	\node [left,color=red] at (axis cs:  0, -100) {$-I$}; 
+                	\node [below,color=red] at (axis cs:  19, 0) {$T$};
+                	\node [below,color=red] at (axis cs:  9, 0) {$\frac{T}{2}$};
+                	\node [below,color=red] at (axis cs:  39, 0) {$2T$}; 
+                	\node [below,color=red] at (axis cs:  29, 0) {$\frac{3T}{2}$};
+                	% voltage
+                	\node[left, color=blue] at (axis cs: 0, 145) {$V(t)$};
+                	\addplot [draw=blue,thick] coordinates{ (0,0) (60, 270)};
+                	\node [above, color=blue] at (axis cs: 2, 25) {slope = $\frac{I}{C}$};
+                	%\node [above, color=blue] at (axis cs: 18, 25) {slope = $-\frac{I}{C}$};
+                	%\node [above, color=blue] at (axis cs: 10,50) {$V = \frac{IT}{2C}$};
+                	\end{axis}
+            	\end{tikzpicture}
+            \end{center}
+        }
+    
+    
+    \item In series with an independent AC sine-wave voltage source in a period of T.
+    
+        \sol{
+            
+            Recall the voltage and current's equation of capacitor $I = C\frac{dV}{dt}$, when we take the derivative of voltage equation (sine wave) for current, current becomes a cosine wave on the plot.
+            
+            \begin{center}
+            	\begin{tikzpicture}
+                	\begin{axis}[
+                	xmin=-5, xmax=60,
+                	ymin=-160, ymax=160,
+                	axis lines=center,
+                	axis on top=true,
+                	grid style={dashed},
+                	xlabel={\emph{$t$}},
+                	ylabel={\color{blue}{\emph{$V(t)$}}},
+                	yticklabels={,,},
+                	xticklabels={,,},
+                	width=6in,
+                	height=3in,
+                	]
+                	% voltage
+                	\draw[thick, blue] (50,160) sin (75,260) cos (100,160) sin (125,60) cos (150,160) sin (175,260) cos (200,160) sin (225, 60) cos (250, 160) sin (275, 260) cos (300,160) sin (325, 60) cos (350,160) sin (375,260) cos (400,160) sin (425,60) cos (450,160) sin (475,260) cos (500,160) sin (525, 60) cos (550, 160) sin (575, 260) cos (600, 160) sin (625, 60);
+                	
+                	\node [left,color=blue] at (axis cs:  0, 100) {$V$}; 
+                	\node [left,color=blue] at (axis cs:  0, -100) {$-V$}; 
+                	\node [below,color=blue] at (axis cs:  19, 0) {$T$};
+                	\node [below,color=blue] at (axis cs:  9, 0) {$\frac{T}{2}$};
+                	\node [below,color=blue] at (axis cs:  39, 0) {$2T$}; 
+                	\node [below,color=blue] at (axis cs:  29, 0) {$\frac{3T}{2}$};
+                	% current
+                	\node[left, color=red] at (axis cs: 0, 145) {$I_s(t)$};
+                	\draw[thick, red] (50,260) cos (75,160) sin (100,60) cos (125,160) sin (150,260) cos (175,160) sin (200,60) cos (225, 160) sin (250, 260) cos (275, 160) sin (300,60) cos (325, 160) sin (350,260) cos (375,160) sin (400,60) cos (425,160) sin (450,260) cos (475,160) sin (500,60) cos (525, 160) sin (550, 260) cos (575, 160) sin (600, 60) cos (625, 160);
+                	%\node [above, color=blue] at (axis cs: 10,50) {$V = \frac{IT}{2C}$};
+                	\end{axis}
+            	\end{tikzpicture}
+            \end{center}
+        }
+        
+    \item In series with an independent DC voltage source.
+    
+        \sol{
+            The key here is still how familiar you are with the equation $I = C\frac{dV}{dt}$. Instead of periodic equation for voltage, now the voltage is constant. When you take the derivative of that for current, the current becomes zero.
+        
+            \begin{center}
+            	\begin{tikzpicture}
+                	\begin{axis}[
+                	xmin=-5, xmax=60,
+                	ymin=-160, ymax=160,
+                	axis lines=center,
+                	axis on top=true,
+                	grid style={dashed},
+                	xlabel={\emph{$t$}},
+                	ylabel={\color{blue}{\emph{$V(t)$}}},
+                	yticklabels={,,},
+                	xticklabels={,,},
+                	width=6in,
+                	height=3in,
+                	]
+                	% voltage
+                	\addplot [draw=blue,thick] coordinates {(0, 100) 
+                		(60, 100)};
+                	\node [left,color=blue] at (axis cs:  0, 100) {$V$}; 
+                	\node [left,color=blue] at (axis cs:  0, -100) {$-V$}; 
+                	\node [below,color=blue] at (axis cs:  19, 0) {$T$};
+                	\node [below,color=blue] at (axis cs:  9, 0) {$\frac{T}{2}$};
+                	\node [below,color=blue] at (axis cs:  39, 0) {$2T$}; 
+                	\node [below,color=blue] at (axis cs:  29, 0) {$\frac{3T}{2}$};
+                	% current
+                	\node[left, color=red] at (axis cs: 0, 145) {$I_s(t)$};
+                	\addplot [draw=red,thick] coordinates{ (0,0) (60, 0)};
+                	%\node [above, color=blue] at (axis cs: 10,50) {$V = \frac{IT}{2C}$};
+                	\end{axis}
+            	\end{tikzpicture}
+            \end{center}
+        }
+    
+\end{enumerate}

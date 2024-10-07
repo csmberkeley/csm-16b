@@ -1,0 +1,96 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Fall 2022
+
+% node[label={[font=\footnotesize]above:$u_1$}] {}
+
+\qns{NVA for a Current Divider}
+
+\textbf{Learning Goal:} The goal of this question is to use NVA to derive the equation of a current divider.
+
+\meta{}
+
+\begin{enumerate}
+
+\item Use NVA to solve for $u_1$, $i_{R_1}$, and $i_{R_2}$ in terms of $I_s$, $R_1$, and $R_2$. 
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0)
+to [isource, i = $I_s$,] (0, 3)
+to [short, -*] (2.5, 3) node[label={[font=\footnotesize]:$u_1$}]{}
+to [short] (5, 3)
+to [R = $R_2$, i = $i_{R_2}$] (5, 0)
+to [short] (0, 0);
+
+\draw (2.5, 3)
+to [R = $R_1$, i = $i_{R_1}$] (2.5, 0);
+
+\node[ground] (0, -1) {};
+
+\end{circuitikz}
+\end{center}
+
+\sol{
+
+The node potentials and currents are already labeled for us, so we can write equations for our elements. First, we write the Ohm's Law equations for each resistor:
+\begin{gather*}
+    u_1 - 0 = i_{R_1}R_1 \\
+    u_1 - 0 = i_{R_2}R_2
+\end{gather*}
+Then, we write the KCL equation for our $u_1$ node:
+\begin{gather*}
+    I_s = i_{R_1} + i_{R_2}
+\end{gather*}
+
+Let's first solve for $i_{R_1}$.
+
+\begin{gather*}
+    i_{R_1}R_1 = i_{R_2}R_2 \rightarrow i_{R_2} = \frac{i_{R_1}R_1}{R_2} \\
+    I_s = i_{R_1} + i_{R_2} \\
+    I_s =  i_{R_1} + \frac{i_{R_1}R_1}{R_2} = i_{R_1}(\frac{R_1}{R_2} + 1) \\
+    i_{R_1} = I_s\cdot \frac{R_2}{R_1 + R_2}
+\end{gather*}
+
+Now, let's solve for $i_{R_2}$
+
+\begin{gather*}
+    i_{R_1}R_1 = i_{R_2}R_2 \rightarrow i_{R_1} = \frac{i_{R_2}R_2}{R_1} \\
+    I_s = i_{R_1} + i_{R_2} \\
+    I_s = \frac{i_{R_2}R_2}{R_1} + i_{R_2} = i_{R_2}(\frac{R_2}{R_1} + 1) \\
+    i_{R_2} = I_s\cdot \frac{R_1}{R_1 + R_2}
+\end{gather*}
+
+Now, let's solve for $u_1$:
+
+\begin{gather*}
+u_1 = R_1 \cdot i_{R_1} = R_1 \cdot I_s\cdot \frac{R_2}{R_1 + R_2} \\
+u_1 = I_s \cdot \frac{R_1R_2}{R_1 + R_2}
+\end{gather*}
+
+}
+
+\item The circuit above is a current divider circuit. How do the voltages across $R_1$ and $R_2$ compare?
+
+\sol{
+The voltage across the two resistors is the same. The two resistors are in parallel, and share the same two end nodes, $u_1$ and ground.
+}
+
+\item Observe the junction where the current splits into two branches. Does more current pass through the branch with higher or lower resistance? (If $R_1$ had a higher resistance than $R_2$, would more current pass through the branch with $R_1$ or $R_2$?)
+
+\sol{
+Resistors `resist' the flow of current. The same current is being split into two different branches: $I_s = i_{R_1} + i_{R_2}$. If the current through one branch increases, the current through the other branch must decrease, so that the still sum to the current source's current, $I_s$. 
+
+Since the voltage across the two resistors is the same, we have $i_{R_1}R_1 = i_{R_2}R_2$. If $R_1$ is greater than $R_2$, but the voltage across the resistors is the same, then $i_{R_1}$ must be less than $i_{R_2}$. More current passes through the branch with lower resistance, so more current would pass through the $R_2$ branch.
+}
+
+\item How does the current divider formula derived in part (a) reflect the relationship observed in part (c)?
+
+\sol{
+
+$i_{R_2}$, the current through the branch of the $R_2$ resistor, has equation $i_{R_2} = I_s\cdot \frac{R_1}{R_1 + R_2}$; the $R_1$ resistance is in the numerator of the equation. Similarly, $i_{R_1}$, the current through the branch of the $R_1$ resistor, has equation $i_{R_1} = I_s\cdot \frac{R_2}{R_1 + R_2}$; the $R_2$ resistance is in the numerator of the equation.
+
+If the resistance of one branch increases, more current passes through the opposite branch.
+}
+
+\end{enumerate}
