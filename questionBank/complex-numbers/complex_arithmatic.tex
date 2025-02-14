@@ -1,0 +1,63 @@
+% Authors: Jinsheng Li
+% Emails: ljs233233@berkeley.edu
+
+\qns{Complex Number Arithmatic}
+
+\begin{enumerate}
+% Part (a)
+\qitem For two complex numbers in Cartesian Form, $z_1 = a + jb$ and $z_2 = c + jd$:
+\begin{enumerate}
+\item What is $|z_1|$?
+\item What is $\angle z_1$?
+\item What is $z_1 + z_2$? 
+\item What is $z_1 - z_2$? 
+\item What is $z_1 \cdot z_2$? 
+\item What is $z_1 / z_2$? 
+\end{enumerate}
+
+\sol{
+\[ |z_1| = \sqrt{a^2 + b^2} \]
+\[ \angle z_1 = \arctan(b/a) \]
+\[z_1 + z_2 = (a + c) + j(b + d)\]
+\[z_1 - z_2 = (a - c) + j(b - d)\]
+\[z_1 * z_2 = (ac - bd) + j(ad + bc)\]
+\[\frac{z_1}{z_2} = \frac{(ac + bd) + j(bc - ad)}{c^2 + d^2}\]
+}
+
+% Part (b)
+\qitem For two complex numbers in Polar Form, $z_1 = r_1e^{j\theta_1}$ and $z_2 = r_2e^{j\theta_2}$: 
+\begin{enumerate}
+\item What is $|z_1|$?
+\item What is $\angle z_1$?
+\item What is $z_1 + z_2$? 
+\item What is $z_1 - z_2$? 
+\item What is $z_1 \cdot z_2$? 
+\item What is $z_1 / z_2$? 
+\end{enumerate}
+
+\sol{
+\[ |z_1| = r_1 \]
+\[ \angle z_1 = \theta_1 \]
+\[z_1 + z_2 = \left( r_1\cos\theta_1 + r_2\cos\theta_2 \right) + j\left( r_1\sin\theta_1 + r_2\sin\theta_2 \right)\]
+\[z_1 - z_2 = \left( r_1\cos\theta_1 - r_2\cos\theta_2 \right) + j\left( r_1\sin\theta_1 - r_2\sin\theta_2 \right)\]
+\[z_1 \cdot z_2 = r_1r_2\,e^{j(\theta_1 + \theta_2)} \]
+\[\frac{z_1}{z_2} = \frac{r_1}{r_2}\,e^{j(\theta_1 - \theta_2)} \]
+}
+
+% Part (c)
+\qitem For two general complex numbers $z_1$ and $z_2$, answer in terms of $|z_1|$, $|z_2|$, $\angle z_1$, and $\angle z_2$:
+\begin{enumerate}
+\item What is $|z_1 \cdot z_2|$?
+\item What is $|z_1 / z_2|$?
+\item What is $\angle (z_1 \cdot z_2)$?
+\item What is $\angle (z_1 / z_2)$?
+\end{enumerate}
+
+\sol{
+\[ |z_1 \cdot z_2| = |z_1||z_2| \]
+\[ |z_1 / z_2| = |z_1| / |z_2| \]
+\[ \angle (z_1 \cdot z_2) = \angle z_1 + \angle z_2 \]
+\[ \angle (z_1 / z_2) = \angle z_1 - \angle z_2 \]
+}
+
+\end{enumerate}
