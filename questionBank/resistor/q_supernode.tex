@@ -1,0 +1,507 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\qns{Supernode}
+
+\sol{Prereq: Best placed after a super easy nodal analysis problem. \\
+Description: This shows how to deal with multiple voltage sources that don't share a ground when doing nodal analysis since we don't know how much current goes through a voltage sources.}
+
+In this question, we will explore how to deal with multiple voltage sources when doing nodal analysis. Throughout the problem, assume that $R_1 = 1 \Omega, R_2 = 2 \Omega, R_3 = 4 \Omega, R_4 = 4 \Omega, V_1 = 1 \mathrm{V}, V_2 = 2 \mathrm{V}, V_3 = 4 \mathrm{V}$. While it is good practice to symbolically solve problems before substituting specific numbers, for superposition it is often easiest to substitute before superposing the solwers.
+
+\begin{center}
+\begin{circuitikz}
+
+\draw(0,0) %Node A
+	to[short] ++(1,0)
+	to[short] ++(-1,0)
+	to[short] ++(0,1)
+	to[short] ++(0,-1)
+	to[short] node[ground] {} ++(0,-1);
+
+\draw(0,2) %Node B
+	to[short] ++(0,1)
+	to[short] ++(1,0);
+
+\draw(2,3) %Node C
+	to[short] ++(2,0)
+	to[short] ++(-1,0)
+	to[short] ++(0,-1);
+
+\draw(5,3)
+	to[short] ++(1,0)
+	to[short] ++(0,-1);
+
+\draw(6,1)
+	to[short] ++(0,-1)
+	to[short] ++(-1,0);
+
+\draw(2,0)
+	to[short] ++(2,0)
+	to[short] ++(-1,0)
+	to[short] ++(0,1);
+
+\draw(1,0) to[R=$R_1$] ++(1,0);
+\draw(1,3) to[R=$R_2$] ++(1,0);
+\draw(4,3) to[V=$V_2$] ++(1,0);
+\draw(4,0) to[V=$V_3$] ++(1,0);
+\draw(3,2) to[R=$R_3$] ++(0,-1);
+\draw(6,2) to[R=$R_4$] ++(0,-1);
+\draw(0,1) to[V=$V_1$,invert] ++(0,1);
+
+\end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+\qitem{Mark all the nodes. If you know the potential at the node, write down the value next to the node. If you don't know the value, then assign a variable for the potential.}
+
+\sol{
+
+$V_a, V_b, V_c, V_d$ are variables. We know the potentials at the node marked ground and at the node marked $V_1$. 
+	\begin{center}
+\begin{circuitikz}[line width=1pt]
+
+\draw[color=brown](0,0) %Node A
+	to[short, l^=$0V$] ++(0,0)
+	to[short] ++(1,0)
+	to[short] ++(-1,0)
+	to[short] ++(0,1)
+	to[short] ++(0,-1)
+	to[short] node[ground] {} ++(0,-1);
+
+\draw[color=green](0,2) %Node B
+	to[short] ++(0,1)
+	to[short, l^=$V_1$] ++(0,0)
+	to[short] ++(1,0);
+
+\draw[color=red](2,3) %Node C
+	to[short] ++(2,0)
+	to[short] ++(-1,0)
+	to node[above]{$V_a$} ++(0,0)
+	to[short] ++(0,-1);
+
+\draw[color=blue](5,3)
+	to[short] ++(1,0)
+	to[short, l_=$V_b$] ++(0,0)
+	to[short] ++(0,-1);
+
+\draw[color=magenta](6,1)
+	to[short] ++(0,-1)
+	to[short, l_=$V_c$] ++(0,0)
+	to[short] ++(-1,0);
+
+\draw[color=orange](2,0)
+	to[short] ++(2,0)
+	to[short] ++(-1,0)
+	to node[below] {$V_d$} ++(0,0)
+	to[short] ++(0,1);
+
+\draw(1,0) to[R=$R_1$] ++(1,0);
+\draw(1,3) to[R=$R_2$] ++(1,0);
+\draw(4,3) to[V=$V_2$] ++(1,0);
+\draw(4,0) to[V=$V_3$] ++(1,0);
+\draw(3,2) to[R=$R_3$] ++(0,-1);
+\draw(6,2) to[R=$R_4$] ++(0,-1);
+\draw(0,1) to[V=$V_1$,invert] ++(0,1);
+
+
+\end{circuitikz}
+\end{center}
+
+}
+
+\qitem {Mark current directions arbitrarily and corresponding polarities on each resistor. Note that if current goes from left to right, then the left side of the resistor is to be marked + and the right side must be marked -. This is the passive sign convention.}
+
+\sol{
+
+
+\begin{center}
+\begin{circuitikz}[line width=0.5pt]
+
+	\draw[color=brown](0,0) %Node A
+	to[short, l^=$0V$] ++(0,0)
+	to[short] ++(1,0)
+	to[short] ++(-1,0)
+	to[short] ++(0,1)
+	to[short] ++(0,-1)
+	to[short] node[ground] {} ++(0,-1);
+
+\draw[color=green](0,2) %Node B
+	to[short] ++(0,1)
+	to[short, l^=$V_1$] ++(0,0)
+	to[short] ++(1,0);
+
+\draw[color=red](2,3) %Node C
+	to[short] ++(2,0)
+	to[short] ++(-1,0)
+	to node[above]{$V_a$} ++(0,0)
+	to[short] ++(0,-1);
+
+\draw[color=blue](5,3)
+	to[short] ++(1,0)
+	to[short, l_=$V_b$] ++(0,0)
+	to[short] ++(0,-1);
+
+\draw[color=magenta](6,1)
+	to[short] ++(0,-1)
+	to[short, l_=$V_c$] ++(0,0)
+	to[short] ++(-1,0);
+
+\draw[color=orange](2,0)
+	to[short] ++(2,0)
+	to[short] ++(-1,0)
+	to node[below] {$V_d$} ++(0,0)
+	to[short] ++(0,1);
+
+\draw(1,0) to[R=$R_1$, v=$ $, l_=$\stackrel{i_1}{\longrightarrow}{R_1}$] ++(1,0);
+\draw(1,3) to[R=$R_2$, v=$ $, l_=$\stackrel{i_2}{\longrightarrow}{R_2}$] ++(1,0);
+\draw(4,3) to[V=$V_2$] ++(1,0);
+\draw(4,0) to[V=$V_3$] ++(1,0);
+\draw(3,2) to[R=$R_3$, v=$ $, l_=$\stackrel{i_3}{\downarrow}{R_3}$] ++(0,-1);
+\draw(6,2) to[R=$R_4$, v=$ $, l_=$\stackrel{i_4}{\downarrow}{R_4}$] ++(0,-1);
+\draw(0,1) to[V=$V_1$,invert] ++(0,1);
+
+\end{circuitikz}
+\end{center}
+}
+
+\sol{Might be a good idea to mark the nodes in the same fashion as the solutions for later parts!}
+
+\qitem{
+	Note that we define 4 nodes with unknown potentials. So we need 4 equations. Each of these nodes with unknown potential should give us one equation. \\
+	Write the equation for the first node with unknown potential. \\
+}
+\sol{
+	For the $V_a$ node, we have a problem. The problem is that we don't know what current enters the voltage source $V_2$. The fix here is to treat $V_a$ and $V_b$ combined as a super-node. Since we are considering 2 nodes at the same time, this 'supernode' better give us 2 equations! \\
+	We can get equation from the fact that the voltage source exists. \begin{equation} \label{supernode:1}V_a - V_b = V_2 \end{equation} 
+	For the other equation, let's consider:
+	(Sum of current entering nodes $V_a$ and $V_b$) = (Sum of current leading nodes $V_a$ and $V_b$). 
+
+	\textbf{Consider $V_a$}:
+	\begin{itemize}
+	\item $i_2$ enters $V_a$. 
+	\item $i_3$ leaves $V_a$. 
+\end{itemize}
+	\textbf{Consider $V_b$}: 
+	\begin{itemize}
+	\item$i_4$ leaves $V_b$. 
+\end{itemize}
+	$$i_2 = i_3 + i_4$$
+	\begin{equation} \label{supernode:2} \dfrac{V_1 - V_a}{R_2} = \dfrac{V_a - V_d}{R_3} + \dfrac{V_b - V_c}{R_4} \end{equation}
+}
+\sol{For equation ~\ref{supernode:2}, make sure students know that in the numerator, you have to write it as $V_+ - V_-$, depending on how you marked the polarities. But it is super important to mark the + where the current starts and - where it ends. This is passive sign convention. Make sure they do this right! Also, if students ask why (Sum of current entering nodes $V_a$ and $V_b$) = (Sum of current leading nodes $V_a$ and $V_b$) is something that we can use, show on the circuit that current cannot stay between $V_a$ and $V_b$. Any current that enters $V_a$ or $V_b$ must leave through $V_a$ or $V_b$}
+
+\qitem{
+	Write equations for all remaining unknown nodes. Solve for all the unknown potentials.
+}
+
+\sol{
+	Nodes $V_c$ and $V_d$ remain. Let's start at $V_c$. Again, we don't know what current enters $V_3$, so we do the same thing. Treat the 2 ends of the voltage source, $V_c$ and $V_d$ as a super-node. One equation we get is \begin{equation} \label{supernode:3} V_d - V_c = V_3 \end{equation}
+	The other equation comes from (Sum of current entering nodes $V_a$ and $V_b$) = (Sum of current leading nodes $V_a$ and $V_b$). \\
+
+	\textbf{Consider $V_c$:} 
+	\begin{itemize} \item $i_4$ enters. \end{itemize} 
+
+	\textbf{Consider $V_d$:} 
+	\begin{itemize} \item $i_3$ enters
+	\item $i_1$ enters. \end{itemize}
+
+	$$i_4 + i_3 + i_1 = 0$$
+	\begin{equation} \label{supernode:4} \dfrac{V_b - V_c}{R_4} + \dfrac{V_a-V_d}{R_3} + \dfrac{0-V_d}{R_1} = 0 \end{equation}
+
+	Equations (\ref{supernode:1}), (\ref{supernode:2}), (\ref{supernode:3}), (\ref{supernode:4}) are four equations for the four variables $V_a, V_b, V_c, V_d$ and can be solved uniquely. One fun fact is that these equations are guaranteed to be linearly independent as long as the circuit is not an impossible circuit (such as 2 current sources of differing values in series, or 2 voltage sources of different values in parallel).
+	
+	To summarize, we have:
+	\begin{align*}
+	    \begin{cases*}
+	    V_a - V_b = V_2\\
+	    \dfrac{V_1 - V_a}{R_2} = \dfrac{V_a - V_d}{R_3} + \dfrac{V_b - V_c}{R_4}\\
+	    V_d - V_c = V_3\\
+	    \dfrac{V_b - V_c}{R_4} + \dfrac{V_a-V_d}{R_3} + \dfrac{0-V_d}{R_1} = 0 \\
+	    \end{cases*}
+	    &\implies
+	    \begin{cases*}
+	    V_a - V_b = 2\\
+	    \dfrac{1-V_a}{2} = \dfrac{V_a - V_d}{4} + \dfrac{V_b - V_c}{4}\\
+	    V_d - V_c = 4\\
+	    \dfrac{V_b - V_c}{4} + \dfrac{V_a - V_d}{4} + \dfrac{-V_d}{1}\\
+	    \end{cases*}
+	\end{align*}
+	Solving the right set of equations, we find that $\boxed{V_a = \frac{1}{5}\text{V}, V_b = -\frac{9}{5}\text{V}, V_c=-\frac{18}{5}\text{V}, V_d=\frac{2}{5}\text{V}}$.
+}
+
+\qitem{
+	Now we will explore solving the circuit using superposition. To recall the process, which 2 sources will be suppressed when looking at each of the 3 sources. Will the other 2 sources be treated as open circuits or short circuits?
+}
+
+\sol{
+    For $V_1$, $V_2$ and $V_3$ will be shorted. For $V_2$, $V_1$ and $V_3$ will be shorted. For $V_3$, $V_1$ and $V_2$ will be shorted. When doing superposition and suppressing inputs, a voltage source is treated as a short and a current source is treated as an open.
+    
+    The reasoning for "zeroing" voltage/current sources is as follows: we define a voltage source as something that maintains a fixed voltage drop between the two terminals. If we "zero" that source, we are saying the voltage across the two terminals should be $0 \text{V}$. But that, by definition, has the same effect as connecting the two terminals with a wire, i.e. shorting it! So we say "zeroed" voltage sources are shorted. A similar argument leads us to find "zeroed" current sources are equivalent to open circuits.
+}
+
+\qitem{
+	Draw the superposition circuit for $V_1$ and solve this circuit.
+}
+
+\sol{
+
+    \begin{center}
+    \begin{circuitikz}[line width=0.5pt]
+    
+    	\draw[color=brown](0,0) %Node A
+    	to[short, l^=$0V$] ++(0,0)
+    	to[short] ++(1,0)
+    	to[short] ++(-1,0)
+    	to[short] ++(0,1)
+    	to[short] ++(0,-1)
+    	to[short] node[ground] {} ++(0,-1);
+    
+    \draw[color=green](0,2) %Node B
+    	to[short] ++(0,1)
+    	to[short, l^=$V_1$] ++(0,0)
+    	to[short] ++(1,0);
+    
+    \draw[color=red](2,3) %Node C
+    	to[short] ++(2,0)
+    	to[short] ++(-1,0)
+    	to node[above]{$V_a$} ++(0,0)
+    	to[short] ++(0,-1);
+    
+    \draw[color=blue](5,3)
+    	to[short] ++(1,0)
+    	to[short, l_=$V_b$] ++(0,0)
+    	to[short] ++(0,-1);
+    
+    \draw[color=magenta](6,1)
+    	to[short] ++(0,-1)
+    	to[short, l_=$V_c$] ++(0,0)
+    	to[short] ++(-1,0);
+    
+    \draw[color=orange](2,0)
+    	to[short] ++(2,0)
+    	to[short] ++(-1,0)
+    	to node[below] {$V_d$} ++(0,0)
+    	to[short] ++(0,1);
+    
+    \draw(1,0) to[R=$R_1$] ++(1,0);% v=$ $, l_=$\stackrel{i_1}{\longrightarrow}{R_1}$] ++(1,0);
+    \draw(1,3) to[R=$R_2$] ++(1,0); %v=$ $, l_=$\stackrel{i_2}{\longrightarrow}{R_2}$] ++(1,0);
+    \draw(4,3) to[short,l=$V_a \eq V_b$] ++(1,0);
+    \draw(4,0) to[short,l=$V_c \eq V_d$] ++(1,0);
+    \draw(3,2) to[R=$R_3$] ++(0,-1);%, v=$ $, l_=$\stackrel{i_3}{\downarrow}{R_3}$] ++(0,-1);
+    \draw(6,2) to[R=$R_4$] ++(0,-1);%, v=$ $, l_=$\stackrel{i_4}{\downarrow}{R_4}$] ++(0,-1);
+    \draw(0,1) to[V=$V_1$, invert] ++(0,1);
+    
+    \end{circuitikz}
+    \end{center}
+    
+    \begin{align*}
+    &\begin{cases*}
+        \dfrac{V_a - V_1}{R_2} + \dfrac{V_a - V_d}{R_3} + \dfrac{V_b - V_c}{R_4} = 0 \\
+    \dfrac{V_d}{R_1} + \dfrac{V_d - V_a}{R_3} + \dfrac{V_c - V_b}{R_4} = 0 \\
+    V_a = V_b \\
+    V_c = V_d 
+    \end{cases*}
+    &\implies
+    \begin{cases*}
+    \dfrac{V_a - V_1}{R_2} + \dfrac{V_a - V_d}{R_3} + \dfrac{V_a - V_d}{R_4} = 0 \\
+    \dfrac{V_d}{R_1} + \dfrac{V_d - V_a}{R_3} + \dfrac{V_d - V_a}{R_4} = 0
+    \end{cases*} 
+    \end{align*}
+    Solving for $V_a, V_b, V_c, \text{ and } V_d$ we find
+    \begin{align*}
+    \begin{cases*}
+    V_a = V_b = \dfrac{(R_1 R_2 + R_1 R_4 + R_3 R_4)}{R} V_1\\
+    V_d = V_c = \dfrac{R_1R_3 + R_1R_4}{R} V_1,
+    \end{cases*}&&
+    R \equiv R_1R_3+R_2R_3+R_1R_4+R_2R_4+R_3R_4
+    \end{align*}
+    Or, if you prefer solving with numbers first:
+    \begin{align*}
+        \begin{cases*}
+        \dfrac{V_a - 1}{2} + \dfrac{V_a - V_d}{4} + \dfrac{V_a - V_d}{4} = 0 \\
+        \dfrac{V_d}{1} + \dfrac{V_d - V_a}{4} + \dfrac{V_d - V_a}{4} = 0
+        \end{cases*}
+        &\implies
+        \boxed{
+        \begin{cases*}
+        V_a = \frac{3}{5}\\
+        V_b = \frac{3}{5}\\
+        V_c = \frac{1}{5}\\
+        V_d = \frac{1}{5}
+        \end{cases*}}
+    \end{align*}
+}
+
+\qitem{
+	Draw the superposition circuit for $V_2$ and write the equation that characterizes this circuit.
+}
+
+\sol{
+    \begin{center}
+    \begin{circuitikz}[line width=0.5pt]
+    
+    	\draw[color=brown](0,0) %Node A
+    	to[short, l^=$0V$] ++(0,0)
+    	to[short] ++(1,0)
+    	to[short] ++(-1,0)
+    	to[short] ++(0,1)
+    	to[short] ++(0,-1)
+    	to[short] node[ground] {} ++(0,-1);
+    
+    \draw[color=green](0,2) %Node B
+    	to[short] ++(0,1)
+    	to[short, l^=$V_1$] ++(0,0)
+    	to[short] ++(1,0);
+    
+    \draw[color=red](2,3) %Node C
+    	to[short] ++(2,0)
+    	to[short] ++(-1,0)
+    	to node[above]{$V_a$} ++(0,0)
+    	to[short] ++(0,-1);
+    
+    \draw[color=blue](5,3)
+    	to[short] ++(1,0)
+    	to[short, l_=$V_b$] ++(0,0)
+    	to[short] ++(0,-1)
+    	to[short] ++(0,-1);
+    
+    \draw[color=magenta](6,1)
+    	to[short] ++(0,-1)
+    	to[short, l_=$V_c$] ++(0,0)
+    	to[short] ++(-1,0);
+    
+    \draw[color=orange](2,0)
+    	to[short] ++(2,0)
+    	to[short] ++(-1,0)
+    	to node[below] {$V_d$} ++(0,0)
+    	to[short] ++(0,1);
+    
+    \draw(1,0) to[R=$R_1$] ++(1,0);% v=$ $, l_=$\stackrel{i_1}{\longrightarrow}{R_1}$] ++(1,0);
+    \draw(1,3) to[R=$R_2$] ++(1,0); %v=$ $, l_=$\stackrel{i_2}{\longrightarrow}{R_2}$] ++(1,0);
+    \draw(4,3) to[V,l=$V_2$] ++(1,0);
+    \draw(4,0) to[short,l=$V_c \eq V_d$] ++(1,0);
+    \draw(3,2) to[R=$R_3$] ++(0,-1);%, v=$ $, l_=$\stackrel{i_3}{\downarrow}{R_3}$] ++(0,-1);
+    \draw(6,2) to[R=$R_4$] ++(0,-1);%, v=$ $, l_=$\stackrel{i_4}{\downarrow}{R_4}$] ++(0,-1);
+    \draw(0,1) to[short, l=$V_1 \eq 0$] ++(0,1);
+    
+    \end{circuitikz}
+    \end{center}
+    \begin{align*}
+    \begin{cases*}
+    \dfrac{V_1 - V_a}{R_2} + \dfrac{V_1 - V_d}{R_1} = 0 \implies V_a = -2 V_d\\
+    \dfrac{V_d}{R_1} + \dfrac{V_d - V_a}{R_3} + \dfrac{V_c - V_b}{R_4} = 0 \implies 5V_d-V_a+V_c-V_b = 0\\
+    V_c = V_d\\
+    V_a = V_b + V_2 = V_b + 2\\
+    \end{cases*} 
+    \end{align*}
+    \begin{align*}
+    \begin{cases*}
+    V_a = -2V_d\\
+    6 V_d - 2V_a + 2 = 0 
+    \end{cases*}
+    &\implies
+    \boxed{
+    \begin{cases*}
+    V_a = \dfrac{2}{5} \\
+    V_b = -\dfrac{8}{5}\\
+    V_c = -\dfrac{1}{5} \\
+    V_d = -\dfrac{1}{5}
+    \end{cases*}}
+    \end{align*}
+
+}
+
+\qitem{
+	Draw the superposition circuit for $V_3$ and write the equation that characterizes this circuit.
+}
+
+\sol{
+
+    \begin{center}
+    \begin{circuitikz}[line width=0.5pt]
+    
+    	\draw[color=brown](0,0) %Node A
+    	to[short, l^=$0V$] ++(0,0)
+    	to[short] ++(1,0)
+    	to[short] ++(-1,0)
+    	to[short] ++(0,1)
+    	to[short] ++(0,-1)
+    	to[short] node[ground] {} ++(0,-1);
+    
+    \draw[color=green](0,2) %Node B
+    	to[short] ++(0,1)
+    	to[short, l^=$V_1$] ++(0,0)
+    	to[short] ++(1,0);
+    
+    \draw[color=red](2,3) %Node C
+    	to[short] ++(2,0)
+    	to[short] ++(-1,0)
+    	to node[above]{$V_a$} ++(0,0)
+    	to[short] ++(0,-1);
+    
+    \draw[color=blue](5,3)
+    	to[short] ++(1,0)
+    	to[short, l_=$V_b$] ++(0,0)
+    	to[short] ++(0,-1);
+    
+    \draw[color=magenta](6,1)
+    	to[short] ++(0,-1)
+    	to[short, l_=$V_c$] ++(0,0)
+    	to[short] ++(-1,0);
+    
+    \draw[color=orange](2,0)
+    	to[short] ++(2,0)
+    	to[short] ++(-1,0)
+    	to node[below] {$V_d$} ++(0,0)
+    	to[short] ++(0,1);
+    
+    \draw(1,0) to[R=$R_1$] ++(1,0);% v=$ $, l_=$\stackrel{i_1}{\longrightarrow}{R_1}$] ++(1,0);
+    \draw(1,3) to[R=$R_2$] ++(1,0); %v=$ $, l_=$\stackrel{i_2}{\longrightarrow}{R_2}$] ++(1,0);
+    \draw(4,3) to[short,l=$V_a \eq V_b$] ++(1,0);
+    \draw(4,0) to[V,l=$V_3$] ++(1,0);
+    \draw(3,2) to[R=$R_3$] ++(0,-1);%, v=$ $, l_=$\stackrel{i_3}{\downarrow}{R_3}$] ++(0,-1);
+    \draw(6,2) to[R=$R_4$] ++(0,-1);%, v=$ $, l_=$\stackrel{i_4}{\downarrow}{R_4}$] ++(0,-1);
+    \draw(0,1) to[short, l=$V_1 \eq 0$] ++(0,1);
+    
+    \end{circuitikz}
+    \end{center}
+    
+    \begin{align*}
+    \begin{cases*}
+    \dfrac{V_a-V_1}{R_2} + \dfrac{V_a - V_d}{R_3} + \dfrac{V_b - V_c}{R_4} = 0\\
+    \dfrac{V_d}{R_1} + \dfrac{V_d - V_a}{R_3} + \dfrac{V_c - V_b}{R_4} = 0 \\
+    V_d = V_c + V_3 = V_c + 4\\
+    V_a = V_b\\
+    V_1 = 0
+    \end{cases*}
+    &\implies
+    \begin{cases*}
+    \dfrac{V_a}{2} + \dfrac{V_a - V_d}{4} + \dfrac{V_b - V_c}{4} = 0 \\
+    V_d + \dfrac{V_d - V_a}{4} + \dfrac{V_c - V_b}{4} = 0 \\
+    V_d = V_c + 4
+    V_a = V_b
+    \end{cases*}
+    \end{align*}
+    We find that: $\boxed{V_a = -\frac{4}{5}\text{V}, V_b = -\frac{4}{5}\text{V}, V_c = -\frac{18}{5}\text{V}, V_d = \frac{2}{5}\text{V}}$
+}
+
+\qitem{
+    Find the unknown potentials as you did in in part (d), but now do so using the superposition theorem.
+}
+
+\sol{
+    By the superposition theorem, the actual potential values at nodes $V_a$ through $V_d$ are the linear sums of their corresponding potentials in the simpler circuits. Notice that we kept the ground in the same place for each of the simpler circuits! While the location of the ground does not matter, \textit{keeping it consistent does}. We add up the potentials and find that:
+    \begin{align*}
+        V_a &= \dfrac{3}{5} + \dfrac{2}{5} - \dfrac{4}{5} = \dfrac{1}{5}\\
+        V_b &= \dfrac{3}{5} - \dfrac{8}{5} - \dfrac{4}{5} = -\dfrac{9}{5} \\
+        V_c &= \dfrac{1}{5} - \dfrac{1}{5} - \dfrac{18}{5} = -\dfrac{18}{5} \\
+        V_d &= \dfrac{1}{5} - \dfrac{1}{5} + \dfrac{2}{5} = \dfrac{2}{5}
+    \end{align*}
+    Wow! The same potentials as we found using supernode/nodal analysis!
+}
+
+\end{enumerate}
+
+	
+
+

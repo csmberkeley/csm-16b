@@ -1,0 +1,521 @@
+% Author: Yannan Tuo, Sukrit Arora, Nikhil Dilip
+% Email: ytuo@berkeley.edu
+
+
+\qns{Thevenin Norton}
+In this question, you will explore Thevenin Norton equivalence. This is a way of represent the input/output characteristics of a complicated circuit by modeling it as a simple voltage/current source and resistor. Suppose you are given a circuit and 2 terminals A and B. The Thevenin equivalent circuit with respect to those terminals is a circuit of the following form:
+
+\begin{center}
+\begin{circuitikz}
+\draw(0,4)
+to[short] ++(0,-1)
+to[V_, l=$V_{oc}$] ++(0,-2)
+to[short] node[ground] {} ++(0,-2)
+to[short] ++(0,1);
+
+
+\draw(0,4)
+to[R = $R_{eq}$, *-o] ++(2, 0)
+to node[right] {$A$} ++(0,0);
+
+
+\draw(0, 0)
+to[short, *-o] ++(2,0)
+to node[right] {$B$} ++(0,0);
+\end{circuitikz}
+\end{center}
+
+where $V_{OC}$ and $R_{eq}$ are set so that the open circuit (OC) voltage between A and B, as well as the short circuit (SC) current through A and B, are the same as in the original circuit. And the Norton equivalent circuit is a circuit of the following form, with the same properties:
+
+\begin{center}
+\begin{circuitikz}
+\draw(0,4)
+to[short] ++(0,-1)
+to[I, l_=$I_{sc}$, invert] ++(0,-2)
+to[short] node[ground] {} ++(0,-2)
+to[short] ++(0,1);
+
+
+\draw(0,4)
+to[short, *-o] ++(3, 0)
+to node[right] {$A$} ++(0,0);
+
+\draw(2, 4)
+to[R = $R_{eq}$] ++ (0, -4);
+
+\draw(0, 0)
+to[short, *-o] ++(3,0)
+to node[right] {$B$} ++(0,0);
+\end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+\qitem{ 
+
+Consider the following circuit. Find the equivalent resistance across the A and B terminal.
+
+%feel free to modify this
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$8V$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-2)
+	to[short] ++(0,1);
+	
+	
+	\draw(0,4)
+	to[R, l = $R$] ++(2, 0)
+	to[I, l= $2A$] ++(0, -4)
+	to[R, l = $R$, i = $i$] ++(-2,0);
+	
+	\draw(2,4)
+	to[short] ++(2, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$A$} ++(0,0);
+	
+	\draw(4, 0)
+	to[short, *-o] ++(1,0)
+	to node[above] {$B$} ++(0,0);
+	
+	\draw(2, 0)
+	to[R, l = $R$] ++(2, 0)
+	to[R, l = $R$] ++(0,4);
+	
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+	%\draw(
+	%to[R] ++(0,-4)
+	%to[R] ++(-2,0)
+	%to[R, l=$7k\Omega$, v=$ $, i=$ $] ++(0,4)
+	%to[R, l=$6k\Omega$, v=$ $, i=$ $] ++(-2,0);
+
+	%\draw(2,0)
+	%to[short] ++(2,0)
+	%to[I, l=$3mA$] ++(0,4)
+	%to[short] ++(-2,0);
+	\end{circuitikz}
+	\end{center}
+
+}
+
+\meta {
+Ensure that the students understand how to convert back and forth between the two forms and where it is appropriate to use one over other. They should also be comfortable with finding resistances when voltage/current sources are involved.
+
+Also, probe their understanding about what happens if dependent sources are involved.
+
+}
+
+\meta{
+\textbf{Be careful} when using the equation $R_{th} = \frac{V_{\text{oc}}}{I_{\text{sc}}}$ because this fails under certain circumtances (see last semester's MT2 Thevenin equivalence question). It's fine to teach them this shortcut to use instead of $V_{\text{test}}$ and $I_{\text{test}}$, but make sure to emphasize that $V_{\text{test}}$/ $I_{\text{test}}$ never fails.
+}
+
+\ans{
+The first thing we want to do while solving for the equivalences is null out all our sources. \textbf{This is only possible if all the sources in the circuit are independent sources}.\\
+
+Recall that a null-ed voltage source is a short (because it adds no voltage, it is effectively a wire) and a null-ed out current source is an open circuit (because no current can flow).\\
+
+The resulting circuit would be:
+
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-3)
+	to[short] node[ground] {} ++(0,-2)
+	to[short] ++(0,1);
+	
+	
+	\draw(0,4)
+	to[R, l = $R$] ++(2, 0)
+	to[short, *-o] ++(0, -1);
+	
+	\draw(0, 0)
+	to[R, l = $R$] ++(2,0)
+	to[short, *-o] ++(0, 1);
+	
+	\draw(2,4)
+	to[short] ++(2, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$A$} ++(0,0);
+	
+	\draw(4, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$B$} ++(0,0);
+	
+	\draw(2, 0)
+	to[R, l = $R$] ++(2, 0)
+	to[R, l = $R$] ++(0,4);
+	
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+	%\draw(
+	%to[R] ++(0,-4)
+	%to[R] ++(-2,0)
+	%to[R, l=$7k\Omega$, v=$ $, i=$ $] ++(0,4)
+	%to[R, l=$6k\Omega$, v=$ $, i=$ $] ++(-2,0);
+
+	%\draw(2,0)
+	%to[short] ++(2,0)
+	%to[I, l=$3mA$] ++(0,4)
+	%to[short] ++(-2,0);
+	\end{circuitikz}
+	\end{center}
+
+Now that we have drawn our circuit, we need to trace all possible paths between A and B and calculate our equivalent resistance. \\
+
+We see we have the two paths colored below:\\
+
+    \begin{center}
+	\begin{circuitikz}
+
+	\draw[color=brown](0,4)
+	to[short] ++(0,-4);
+	
+	\draw(0, 0)
+	to[short] node[ground] {} ++(0,-1);
+	
+	
+	\draw[color=brown](0,4)
+	to[R, l = $R$] ++(2, 0);
+	
+	\draw(2, 4)
+	to[short, *-o] ++(0, -1);
+	
+	\draw[color=brown](0, 0)
+	to[R, l = $R$] ++(2,0);
+	
+	\draw(2,0)
+	to[short, *-o] ++(0, 1);
+	
+	\draw[color=brown](2,4)
+	to[short] ++(2, 0);
+	
+	\draw(4, 4)
+	to[short, *-o] ++(1,0)
+	to node[right] {$A$} ++(0,0);
+	
+	\draw(4, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$B$} ++(0,0);
+	
+	\draw[color=brown](2, 0)
+	to[R, l = $R$] ++(2, 0);
+	
+	\draw[color=red](4, 0)
+	to[R, l = $R$] ++(0,4);
+	
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+	%\draw(
+	%to[R] ++(0,-4)
+	%to[R] ++(-2,0)
+	%to[R, l=$7k\Omega$, v=$ $, i=$ $] ++(0,4)
+	%to[R, l=$6k\Omega$, v=$ $, i=$ $] ++(-2,0);
+
+	%\draw(2,0)
+	%to[short] ++(2,0)
+	%to[I, l=$3mA$] ++(0,4)
+	%to[short] ++(-2,0);
+	\end{circuitikz}
+	\end{center}
+
+And so we can calculate $R_{eq}=R\parallel(R+R+R)=\frac{1}{\frac{1}{R}+\frac{1}{3R}}=\frac{1}{\frac{4}{3R}}=\frac{3}{4}R$
+
+
+}
+\qitem{
+	Consider the following circuit. Find the Thevenin and Norton equivalent circuits.
+
+    %feel free to modify this
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$12V$] ++(0,-2) 
+	to[short] node[ground] {} ++(0,-2);
+	
+	\draw(0,4)
+	to[R, l = $10\Omega$] ++(2, 0)
+	to[cI, l_= $1.5i$, invert] ++(0, -4)
+	to[short] ++(-2,0);
+	
+	\draw(2,4)
+	to[R, l = $6\Omega$, i = $i$] ++(2, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$A$} ++(0,0);
+	
+	\draw(4, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$B$} ++(0,0);
+	
+	\draw(2, 0)
+	to[short] ++(2, 0)
+	to[R, l = $8\Omega$] ++(0,4);
+	
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+
+	\end{circuitikz}
+	\end{center}
+	
+% 	\begin{enumerate}[(i)]
+% 	    \item First, find $V_{OC}$
+% 	    \item Then, find $I_{SC}$
+% 	\end{enumerate}
+}
+
+\ans{
+
+Let us define some additional currents and voltages so that we can perform nodal analysis:
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$12V$] ++(0,-2) 
+	to[short] node[ground] {} ++(0,-2);
+	
+	\draw(0,4)
+	to[R, l = $10\Omega$, i_ = $i_1$] ++(2, 0)
+	to node[above] {$V_1$} ++(0,0)
+	to[cI, l_= $1.5i$, invert] ++(0, -4)
+	to[short] ++(-2,0);
+	
+	\draw(2,4)
+	to[R, l = $6\Omega$, i_ = $i$] ++(2, 0)
+	to node[above] {$V_{oc}$} ++(0,0)
+	to[short, *-o] ++(1,0);
+	
+	\draw(4, 0)
+	to node[right] {$-$} ++(0,0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$-$} ++(0,0);
+	
+	\draw(2, 0)
+	to[short] ++(2, 0)
+	to[R, l = $8\Omega$] ++(0,4);
+	
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+
+	\end{circuitikz}
+	\end{center}
+
+
+    i) First, we find the Thevenin voltage, which is the open circuit voltage labeled $V_{oc}$ across the $8\Omega$ resistor. \\
+
+    Let us perform nodal analysis at $V_2$;
+    \\KCL gives us:
+    $$i_1 + 1.5i = i$$
+    \\From Ohm's Law, we have
+    $$i_1 = \frac{12V-V_1}{10\Omega}$$
+    \\$$i = \frac{V_1 - V_{oc}}{6\Omega} = \frac{V_{oc}}{8\Omega}$$.
+
+    \\Note that the current across the $6\Omega$ resistor is the same as the current across the $8\Omega$ resistor because resistors in series share a current.
+    \\First, let us plug in our current values into the KCL equation:
+    \begin{align}
+        \frac{12V-V_1}{10\Omega} + 1.5\frac{V_{oc}}{8\Omega} = \frac{V_{oc}}{8\Omega}    \label{ex}
+    \end{align}
+    \\Then let's solve for $V_1$ in terms of $V_{oc}$:
+    \\$$V_1 - V_{oc} = \frac{6V_{oc}}{8\Omega}$$
+    \\$$V_1 = \frac{6V_{oc}}{8\Omega} + V_{oc} = \frac{14V_{oc}}{8\Omega}$$
+    \\Then, substitute $V_1$ into equation \eqref{ex}:
+    \\$$\frac{12V-\frac{14V_{oc}}{8\Omega}}{10\Omega} + 1.5\frac{V_{oc}}{8\Omega} = \frac{V_{oc}}{8\Omega}$$
+    \\Solving for $V_{oc}$, we get $V_{oc} = \frac{96}{9}V$, or approximately $10.67V$.
+    
+    
+    ii) Next, we want to find $I_{sc}$ at the terminals.
+We want to create a short at the terminals.
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$12V$] ++(0,-2) 
+	to[short] node[ground] {} ++(0,-2);
+	
+	\draw(0,4)
+	to[R, l = $10\Omega$] ++(2, 0)
+	to[cI, l_= $1.5i$, invert] ++(0, -4)
+	to[short] ++(-2,0);
+	
+	\draw(2,4)
+	to[R, l = $6\Omega$, i = $i$] ++(2, 0)
+	to[short, *-o] ++(1,0)
+    to[short, i = $I_{sc}$] ++(0, -4);
+
+	\draw(4, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$B$} ++(0,0);
+	
+	\draw(2, 0)
+	to[short] ++(2, 0)
+	to[R, l = $8\Omega$] ++(0,4);
+	
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+
+	\end{circuitikz}
+	\end{center}
+
+
+Then, the resistor is no longer on the path of the current. Let us also define some additional currents and voltages so that we can perform nodal analysis:
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$12V$] ++(0,-2) 
+	to[short] node[ground] {} ++(0,-2);
+	
+	\draw(0,4)
+	to[R, l = $10\Omega$, i_ = $i_1$] ++(2, 0)
+	to node[above] {$V_1$} ++(0,0)
+	to[cI, l_= $1.5i$, invert] ++(0, -4)
+	%to node[below] {$V_2$} ++(0,0)
+	to[short] ++(-2,0);
+	
+	\draw(2,4)
+	to[R, l = $6\Omega$, i = $i$] ++(2, 0)
+	to[short, *-o] ++(1,0)
+    to[short, i = $I_{sc}$] ++(0, -4);
+
+	\draw(4, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$B$} ++(0,0);
+	
+	\draw(2, 0)
+	to[short] ++(2, 0);
+	
+	%https://www.allaboutcircuits.com/technical-articles/thevenin-theorem-dependent-source-circuits/
+
+	\end{circuitikz}
+	\end{center}
+
+Now, using KCL at $V_1$, we get the equation:
+\\$$i_1 + 1.5i = I_{sc}$$
+\\Using Ohm's law, we can plug in the values for $i_1$:
+\\$$\frac{12V - V_1}{10} = i_1$$
+Also, note that $i = I_{sc}$
+\\Solve this equation for $V_1$.
+\\$$\frac{12V - V_1}{10} + 1.5\frac{V_1}{6}= \frac{V_1}{6}$$
+\\$$V_1 = 72V$$
+Then, solve for $I_{sc}$: $I_{sc} = i = \frac{V_1}{6}$
+\\$I_{sc} = \frac{72}{6} = 12A$
+
+\\Now, we can solve for $R_{eq}$: $R_{eq} = \frac{V_oc}{I_sc} = \frac{96/9}{12} = 0.889$
+}
+
+\qitem{
+Now, draw the Thevenin and Norton Equivalent Circuit
+}
+
+\ans{
+Thevenin Equivalent Circuit:
+\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_, l=$V_{oc} \text{=10.67V}$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-2)
+	to[short] ++(0,1);
+	
+	
+	\draw(0,4)
+	to[R = $.889\Omega$, *-o] ++(2, 0)
+	to node[right] {$A$} ++(0,0);
+	
+	
+	\draw(0, 0)
+	to[short, *-o] ++(2,0)
+	to node[right] {$B$} ++(0,0);
+	
+	\end{circuitikz}
+	
+	\end{center}
+	
+\\Norton Equivalent Circuit:
+	\begin{center}
+	
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[I, l_=$I_{sc} \text{=}12A$, invert] ++(0,-2)
+	to[short] node[ground] {} ++(0,-2)
+	to[short] ++(0,1);
+	
+	
+	\draw(0,4)
+	to[short, *-o] ++(3, 0)
+	to node[right] {$A$} ++(0,0);
+	
+	\draw(2, 4)
+	to[R = $.889\Omega$] ++ (0, -4);
+	
+	\draw(0, 0)
+	to[short, *-o] ++(3,0)
+	to node[right] {$B$} ++(0,0);
+
+	
+	\end{circuitikz}
+	
+	\end{center}
+}
+
+\qitem{
+You can find $R_{eq}$ by taking the ratio of $\frac{V_{OC}}{I_{SC}}$ from the previous part. But in this part, we will find $R_{eq}$ directly by using test voltages and currents. The idea is to zero out all independent sources in the circuit (not dependent sources though). Then, we attach a test voltage $V_{test}$ between A and B and calculate the value of $I_{test}$, which is the current through your test voltage. $R_{eq}$ will be equal to the ratio $\frac{V_{test}}{I_{test}}$. Find the value of $R_{eq}$ by this method, and compare it with the value of $\frac{V_{OC}}{I_{SC}}$
+}
+
+
+\ans{
+
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-3)
+	to[short] node[ground] {} ++(0,-2);
+	
+	\draw(0,4)
+	to[R, l = $10\Omega$, i_ = $i_1$] ++(2, 0)
+	to node[above] {$V_1$} ++(0,0)
+	to[cI, l_= $1.5i$, invert] ++(0, -4)
+	%to node[below] {$V_2$} ++(0,0)
+	to[short] ++(-2,0);
+	
+	\draw(2,4)
+	to[R, l = $6\Omega$, i = $i$] ++(2, 0)
+	to[short, *-o] ++(1,0)
+    to[V^ = $V_{test}$] ++(0, -4);
+
+	\draw(4, 0)
+	to[short, *-o] ++(1,0)
+	to node[right] {$B$} ++(0,0);
+	
+	\draw(2, 0)
+	to[short] ++(2, 0)
+	to[R, l = $8\Omega$, i_=$ $, invert] ++(0,4);
+
+	\end{circuitikz}
+	\end{center}
+
+Applying KCL at the $V_1$ node:
+$$\frac{0 - V_1}{10} + 1.5i = i$$
+$$\frac{V_1 - V_{test}}{6} = i$$
+
+Solving, we get
+$$\frac{V_1}{12} - \frac{V_1}{10} - \frac{V_{test}}{12} = 0$$
+$$\implies \frac{-V_1}{60} = \frac{V_{test}}{12}$$
+$$\implies V_1 = -5V_{test}$$
+
+Now, we can solve for the current between A and B.
+$$i = \frac{V_1 - V_{test}}{6} = \frac{-5V_{test} - V_{test}}{6} = -V_{test}$$.
+$$i_{BA} = \frac{V_{test} - 0}{8} - i = \frac{V_{test}}{8} + V_{test}= \frac{9}{8}V_{test}$$
+
+So, $R_{eq} = \frac{V_{test}}{i_{BA}} = \frac{8}{9} = 0.889$, which is the same as what we got before.
+}
+
+
+
+\end{enumerate}

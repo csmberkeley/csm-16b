@@ -1,0 +1,105 @@
+\qns{Voltage Divider Properties}
+
+Let's take a systematic look at the voltages across a resistor, and see how other components in the circuit can affect it. 
+Consider the following circuit:
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,0)
+	to[V_=$V$,invert] ++(0,5)
+ 	to[short] ++(3,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0,-1)
+	to[short] ++(0,-1)
+	to[R,l=$R_2$] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short] node[]{} ++(-3,0);
+    \end{circuitikz}
+\end{center}
+\begin{enumerate}
+\qitem Calculate the voltage drop across $R_1$ and $R_2$ using series resistance calculations.
+
+\ans{The current out of the voltage source is given by Ohm's law:
+\begin{align*}
+    i &= \frac{V}{R_{eq}} \\
+    i &= \frac{V}{R_1 + R_2}
+\end{align*}
+Again, by Ohm's law, we have that
+\begin{align*}
+V_{R_1} = i R_1 = V \frac{R_1}{R_1 + R_2} \\
+V_{R_2} = i R_2 = V \frac{R_2}{R_1 + R_2}
+\end{align*}}
+\clearpage
+\qitem Suppose we want to manipulate the voltage across $R_2$, but it's locked in a box with the voltage source, as denoted below. Can we use $R_1$ to manipulate $V_{R_2}$? What range of voltages can we achieve? 
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+    \filldraw[fill=gray!40!white,draw=black] (-1,-0.5) rectangle (4,7.5);
+    \draw(0,0)
+	to[V_=$V$,invert] ++(0,7)
+ 	to[short,-o] ++(5,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0,-1)
+	to[short,-o] ++(0,-1)
+	to[short] ++(-2,0)
+	to[short] ++(0,-1)
+	to[short] ++(1,0)
+	to[short,l=$V_{R_2}$,-o] ++(1,0)
+	-- ++(-2,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_2$] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short,-o] ++(2,0)
+	-- ++(-2,0)
+	to[short] ++(-3,0)
+	to[short] node[ground]{} ++(0,-1);
+	
+	\end{circuitikz}
+\end{center}
+
+\ans{Any voltage in the range $(0, V]$! Notice from the equations above that $V_{R_2} = V \frac{R_2}{R_{Total}}$. If we increase $R_1$ indefinitely, holding $R_2$ constant, we can make the fraction arbitrarily small. Intuitively, since the same current flows through both $R_1$ and $R_2$, they have to split the total voltage of the power source, and larger resistances correspond to larger voltage drops (by Ohm's Law). If we decrease $R_1$ to $0$, $V_{R_2} = V$, so the voltage can be at most whatever is supplied by the power source. That the voltage source limits the achievable voltage in the circuit is a concept we will see again when we cover clipping in op-amps.}
+\clearpage
+\qitem Now let's try using our new variable voltage source to power a light bulb with resistance $R_L$, where the threshold voltage for lighting the bulb is $6 \text{V}$. Find $R_1$ and $R_2$ so that the voltage across $R_2$ is this threshold voltage; that is, $V_{R_2} \equiv V_{out} = 6 \text{V}$. Assume we have a $12 \text{V}$ voltage source.
+
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+    \filldraw[fill=gray!40!white,draw=black] (-1,-0.5) rectangle (4,7.5);
+    \draw(0,0)
+	to[V_=$12 \text{V}$,invert] ++(0,7)
+ 	to[short,-o] ++(3,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0,-1)
+	to[short,-o] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short] ++(1,0)
+	to[short,l=$\quad \quad V_{out} \eq 6\text{V}$,-o] ++(1,0)
+	-- ++(-2,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_2$] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short,-o] ++(2,0)
+	-- ++(-2,0)
+	to[short] ++(-3,0)
+	to[short] node[ground]{} ++(0,-1);
+	
+ 	\draw(5,3)[dashed] 
+ 	-- ++(2,0); 
+ 	\draw(7,3)
+ 	to[lamp,l=$R_L$] ++(0,-3);
+%  	to[R,l=$R_L$] ++(0,-3);
+ 	\draw(7,0)[dashed]
+ 	-- ++(-2,0);
+	\end{circuitikz}
+\end{center}
+
+\ans{We want to split the voltage in half (from 12 to 6). Based on the voltage divider formula above, that means $R_1 = R_2 \equiv R$. Note that, under this condition, the voltage is evenly split regardless of what the actual resistance values are! While the current depends on actual resistance values, the voltage only depends on the ratio of resistances.}
+\clearpage
+\qitem Now that we found an $R_1$ and $R_2$ that seem to divide our voltage source appropriately, let's try to connect the bulb to the ends of $R_2$. Remember, the bulb has a resistance $R_L$. Calculate the voltage across $R_1$, $R_2$ and the light bulb when it is connected. Will the light bulb turn on?
+
+\ans{Let's reapply the voltage divider formula, but now notice that the "second" resistor is $R_2 \| V_L$!. When we change the resistance in a voltage divider circuit, the voltage across that resistance changes as well. We find that $V_{R_1} = V \frac{R}{R + R \| R_L} = 12\text{V} \frac{R}{R + \frac{R R_L}{R + R_L}} = 12\text{V} \frac{R + R_L}{R+2 R_L}$. The rest of the potential drop must be across the $R_2$-$R_L$ system, so we have $V_{R_2} = V_{\text{bulb}} = 12\text{V} \left(1 - \frac{R + R_L} {R + 2 R_L}\right) = 12\text{V} \frac{R_L}{R + 2 R_L} \leq 12\text{V} \frac{R_L}{2 R_L} = 6\text{V}$. 
+
+
+So the voltage \textit{decreased}, and the light bulb doesn't turn on. 
+
+
+The takeaway from this is that, while it may seem like the voltage divider can make voltage sources of arbitrary voltages, the act of connecting a component actually changes the output of the voltage divider. We will later learn about a way to stop a light bulb (or other devices that use up power) from ``affecting" the circuit that supplies power by placing a ``buffer" between the two.}
+\end{enumerate}
+\clearpage

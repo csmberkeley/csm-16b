@@ -1,0 +1,150 @@
+% Author: Emily Gosti, Yannan Tuo, Sukrit Arora
+% Email: egosti@berkeley.edu, ytuo@berkeley.edu, sukrit.arora@berkeley.edu
+
+\qns{Voltage Summers}
+
+\meta{
+Description: Show how to construct a voltage summer and give intuition on how to use it. This question can also be solved with superposition, but it's more time-saving to do nodal analysis so that's what is covered here. 
+}
+
+
+\begin{enumerate}
+
+\qitem{
+%https://www.allaboutcircuits.com/textbook/semiconductors/chpt-8/averager-summer-circuits/
+Calculate $V_{out}$ in terms of $V_1$ and $V_2$. Assume that $R_1 = R_2$.\\
+
+ \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp, yscale=-1] (opamp) {}
+    (opamp.+) node[left] {}
+    to[short] ++(-2, 0)
+    to[R = $R_1$] ++(-2,0)
+    to[V_ = $V_1$] ++(-2,0)
+    to[short] node[ground] {} ++(0,0)
+    (opamp.-) node[left] {}
+    to[short] ++(-1,0)
+    to[short] ++(0,-2)
+    to[short] ++(3.5, 0)
+    (opamp.out) node[right] {}
+    to[R = $R_4$] ++(0,-3)
+    to[R = $R_3$] ++(0, -1)
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \draw(-3, 0.5)
+    to[short] ++(0, -2)
+    to[R, l^ = $R_2$] ++(-2,0)
+    to[V_ = $V_2$] ++(-2, 0)
+    to[short] node[ground] {} ++(0,0);
+    
+    \end{circuitikz}
+    \end{center}
+}
+
+\meta{ The steps for calculating $V_{out}$ are: 
+\begin{enumerate}
+    \item Establish negative feedback 
+    \item Find $V^+$
+    \item Find $V^-$ using golden rules
+    \item Write $V_{out}$ in a voltage divider expression with $R_3$, $R_4$, and $V^-$. You can also just plug into the noninverting op amp formula (which is what the solution here does). Just be prepared to derive this formula since students might not have seen it or remember it.
+    \item Substitutions
+\end{enumerate}
+Students like to see "steps" for procedures, so it may be helpful to number your steps as you solve.
+
+}
+
+\ans{
+% To use superposition, we want to consider each of the sources individually. Let's first null out $V_2$ and consider just $V_1$.  Repeating this process again, but this time nulling $V_1$ instead of $V_2$...
+Let's look at $V_+$ in this circuit and try to find its value in terms of $V_1$ and $V_2$.
+$$V_+ = \frac{\frac{V_1}{R_1}+\frac{V_2}{R_2}}{\frac{1}{R_1}+\frac{1}{R_2}}$$
+Assuming $R_1 = R_2$,
+$$\frac{V_1 + V_2}{2}$$
+This circuit takes the average of the input voltages! So, when we feed in $V_+$ to a non-inverting op-amp, we get
+$$V_o = \frac{V_1 + V_2}{2}(1 + \frac{R_4}{R_3})$$
+}
+
+\qitem{
+What values should we select for $R_1$, $R_2$, $R_3$, and $R_4$ such that $V_{out} = V_1 + V_2$?
+}
+
+\ans{
+If we choose $R_3$ and $R_4$ such that the gain is 2, then we get $V_o = V_1 + V_2$. One viable set of values is $R_1 = 1$, $R_2 = 1$, $R_3 = 1$, $R_4 = 1$. $R_1$ and $R_2$ have to equal each other, as established in the previous part, but we need to choose $R_3$ and $R_4$ such that (1 + $\frac{R_4}{R_3}$) equals the number of voltages we are summing up. This cancels out the averaging effect of linking up all the voltages to each other.
+}
+
+\qitem{
+What would $V_{o}$ be if we added another voltage $V_3$ in the same configuration as $V_1$ and $V_2$? If we added $V_4$? How would we change the resistor values?
+}
+
+\ans{
+% We don't have to calculate $V_o$ using superposition again. We can simply follow the pattern that we established in parts (a) and (b) and add *insert here*. This is called a non-inverting voltage summer, which we can use to add up voltages when we design circuits.
+If we added another voltage $V_3$, $V_+$ would be $\frac{V_1 + V_2 + V_3}{3}$. This means, to get $V_o = V_1 + V_2 + V_3$, we have to adjust $R_3$ and $R_4$ such that the gain is 3 instead of 2. One possible such combination is $R_3 = 1$ and $R_4 = 2$.
+}
+
+\qitem{
+ Alternatively, we could also use an inverting op amp to build an inverting summer. Given $R_1 = R_2 = R_3 = R$, calculate the value of $V_{out}$ given the following circuit:
+
+   \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[short] ++(-1, 0)
+    to[R, l = $R_1$, *-o] ++(-2,0)
+    to[short, l = $V_{1}$] ++(0,0) 
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_3$, i = $i$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \draw (-2.2, 0.5)
+    to[short] ++(0, -2)
+    to[R, l = $R_2$, *-o] ++(-2,0)
+    to[short, l = $V_{2}$] ++(0,0)
+    
+    
+    \end{circuitikz}
+    \end{center}
+    
+}
+\ans{
+Let's call the current across $R_1$ $i_1$, and the current across $R_2$ $i_2$. Using KCL at the $V^-$ terminal, we have $i = i_1 + i_2$. The voltage at $V^- = 0$ because of our golden rules. Then, substituting in our values for the currents, we have $$\frac{V_o}{R_3} = \frac{0-V_1}{R_1} + \frac{0-V_2}{R_2}$$
+Since $R_1 = R_2 = R_3 = R$, we can simplify this to $$V_o = -V_1 + -V_2$$
+\\We see that $V_o$ is just the sum of all the input voltages, except negative. We can apply similar logic as in the previous parts to sum more voltages together.
+   \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[short] ++(-1, 0)
+    to[R, l = $R_1$, i = $i_1$] ++(-2,0)
+    to[short, *-o] ++(-1,0)
+    to[short, l = $V_{1}$] ++(0, 0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_3$, i = $i$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \draw (-2.2, 0.5)
+    to[short] ++(0, -2)
+    to[R, l = $R_2$, i = $i_2$] ++(-2,0)
+    to[short, *-o] ++(-1,0)
+    to[short, l = $V_{2}$] ++(0, 0)
+    
+    
+    \end{circuitikz}
+    \end{center}
+
+}
+
+\end{enumerate}

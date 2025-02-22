@@ -1,0 +1,214 @@
+% Author: Varsha Ramakrishnan, Henry Sun, Anwar Baroudi, Emily Gosti
+% Email: vio@berkeley.edu
+%tigerhs1998@berkeley.edu
+%mabaroudi*berkeley.edu
+
+
+\qns{It's a bird! It's a plane! No, it's superposition!}
+% Mudit has no freakin' idea what that title means...
+
+\begin{enumerate}
+\qitem{ 
+
+Solve the following circuit for $V_x$ using nodal analysis. Let $R_1 = 10 \Omega$, $R_2 = 5 \Omega$, $R_3 = 2 \Omega$, $V_1 = 7 V$, and $I_1 = 6 A$.
+
+%Full circuit for this question
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[R, l=$R_1$] ++(0,-2)
+	%to node[left] {$V_1$} ++(0,0)
+	to[V_=$V_1$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(2,4)
+	to[short, i=$i_2$] ++(-2, 0);
+	
+	\draw(2,4)
+	to[short, i=$i_3$] ++(2, 0);
+	
+	\draw(2,4)
+	to node[above] {$V_x$} ++(0,0)
+	to[I, l= $I_1$, invert] ++(0, -2)
+	to node[left] {$V_a$} ++(0,0)
+	to[R, l = $R_2$] ++(0, -2)
+	to[short] ++(-2,0);
+	
+	\draw(4, 4)
+	to[cV, l = $2I_2$] ++(0,-2)
+	to node[left] {$V_b$} ++(0,0)
+	to[R, l=$R_3$] ++(0,-2)
+	to[short] ++(-2, 0);
+	
+	\end{circuitikz}
+	\end{center}
+
+}
+
+\meta{
+
+Prerequsities: Understanding of linearity and superposition, and some familiarity with the idea of a voltage source supplying 0 volts or a current source supplying zero amps.
+Ensure that the students know what it means to 'turn off' a source (e.g. turning off a voltage source converts it into a wire).
+
+}
+
+\ans{
+Let us examine the case in which we see all currents flowing OUT of $V_x$:
+
+For the current flowing through $R_1$, $I_2$, we need to use Ohm's law. We know easily that above $R_1$ the voltage is $V_x$, as it is connected to the same node. Beneath, we have a voltage gain of $V_1$ from ground. (Remember, voltage sources power voltage differences rather than absolute values).
+Thus we have
+
+$$
+I_2 = \frac{V_x - V_1}{R_1}
+$$
+
+Since we're setting all currents as going out of $V_x$, we'll say the current going out on the branch with $I_1$ as $-I_1$. 
+
+Finally, the branch with dependent sources. The easiest way to find the current, again, is using the resistor $R_3$ and finding the current going through it. While the bottom terminal is connected to ground, what is the top terminal? 
+Say we followed the wire down from $V_x$. Then, when we cross the dependent voltage source, since sources power differences in voltage, we can say the voltage below it is equal to $V_b = V_x - 2I_2$.
+
+Thus, current through $R_3$, $I_3$ is 
+
+$$I_3 = \frac{V_x - 2I_2}{R_3}$$.
+
+We have the sum of currents equal to 0, as they are all going out.
+
+Thus,
+
+$$I_2 + (-I_1) + I_3 = 0$$
+$$\frac{V_x - V_1}{R_1} = I_1 - \frac{V_x - 2I_2}{R_3}$$
+
+Where $I_2$ is known. Thus we can solve this equation! Plugging in numbers,
+
+$$I_2 = \frac{V_x - 7}{10}$$
+$$\frac{V_x - 7}{10} = 6 - \frac{V_x - 2I_2}{2}$$
+$$\frac{V_x - 7}{10} = 6 - \frac{V_x - \frac{V_x - 7}{5}}{2}$$
+$$\frac{V_x - 7}{5} = 12 - V_x - \frac{V_x - 7}{5}$$
+$$V_x = 12$$
+
+}
+
+\qitem{
+Now solve the same circuit for $V_x$ using superposition.
+}
+
+\ans{
+
+Superposition circuit when removing the current source
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[R, l=$R_1$, v=$ $] ++(0,-2)
+	to[V_=$V_1$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(2,4)
+	to[short, i=$i_2$] ++(-2, 0);
+	
+	\draw(2,4)
+	to[short, i=$i_3$] ++(2, 0);
+	
+	\draw(2,4)
+	to node[above] {$V_x$} ++(0,0)
+	to[short, *-o] ++(0, -1);
+	
+	\draw(2,2)
+	to node[right] {$V_a$} ++(0,0)
+	to[R, l = $R_2$, v^<=$ $, *-o] ++(0, -2)
+	to[short] ++(-2,0);
+	
+	\draw(4, 4)
+	to[cV, l = $2I_2$] ++(0,-2)
+	to node[right] {$V_b$} ++(0,0)
+	to[R, l=$R_3$, v=$ $] ++(0,-2)
+	to[short] ++(-2, 0);
+	
+	\end{circuitikz}
+	\end{center}
+Setting this up, we get three equations, for $V_a$ we get:
+\[V_a = 0\]
+Next, lets observe the value of $I_2$ so that we can use that with the dependent source:
+\[I_2 = \frac{V_x - V_1}{R_1}\]
+Using this, we can now express the difference of voltage over the dependent source, i.e.:
+\[V_x - V_b = 2I_2 = 2\frac{V_x - V_1}{R_1}\]
+Next we note that in this version, that the current doesn't split anywhere, so $I_2 = -I_3$. So, we can find the voltage drop over $R_3$ as follows:
+\[\frac{0 - V_b}{R_3} = I_3 = -I_2 = -\frac{V_x - V_1}{R_1}\]
+
+So, repeating the above, our three equations are:
+\begin{align}
+    V_a = 0 \\
+    V_x - V_b = 2\frac{V_x - V_1}{R_1}\\
+    \frac{0 - V_b}{R_3} = -\frac{V_x - V_1}{R_1}
+\end{align}
+%%%%%%
+%YOOOO dont forget to fix this:
+%%%%%%
+Superposition circuit while removing the voltage source
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[R, l=$R_1$, v=$ $] ++(0,-2)
+	to[short] ++(0,-2)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(2,4)
+	to[short, i=$i_2$] ++(-2, 0);
+	
+	\draw(2,4)
+	to[short, i=$i_3$] ++(2, 0);
+	
+	\draw(2,4)
+	to node[above] {$V_x$} ++(0,0)
+	to[I, l= $I_1$, invert] ++(0, -2)
+	to node[right] {$V_a$} ++(0,0)
+	to[R, l = $R_2$, v^<=$ $] ++(0, -2)
+	to[short] ++(-2,0);
+	
+	\draw(4, 4)
+	to[cV, l = $2I_2$] ++(0,-2)
+	to node[right] {$V_b$} ++(0,0)
+	to[R, l=$R_3$, v=$ $] ++(0,-2)
+	to[short] ++(-2, 0);
+	
+	\end{circuitikz}
+	\end{center}
+
+Now, we will find the equivalent three equations for this form. Starting again with the voltage drop over $R_2$, we have:
+$$ \frac{0 - V_a}{R_2} = I_1 $$
+Next, again, let's find I_2:
+$I_2 = \frac{V_x - 0}{R_1} = \frac{V_x}{R_1}$
+Using this, we can find the difference over the dependent source:
+\[ V_x - V_b = 2I_2 = 2\frac{V_x}{R_1} \]
+Finally, we can express the voltage drop over $R_3$ via KCL:
+\[ I_1 = I_2 - I_3 = \frac{V_x}{R_1} - I_3 = \frac{V_x}{R_1} + \frac{0 - V_b}{R_3}\]
+We now again have three equations as follows:
+\begin{align}
+    \frac{0 - V_a}{R_2} = I_1 \\
+    V_x - V_b = 2\frac{V_x}{R_1}\\
+    I_1 = \frac{V_x}{R_1} + \frac{0 - V_b}{R_3}
+\end{align}
+Now, we just plug in the numbers we have into our 6 numbered equations, and add up the values for matching voltages, and as a result we get:\\
+
+For nulling the current source:
+$$-V_b = \frac{2(V_x - 7)}{10}$$
+%https://www.sharelatex.com/project/59a8a8e71dc5c27add7c6b78
+$$V_x + \frac{2(V_x - 7)}{10} = 2\frac{V_x - 7}{10}$$
+$$V_x = 0$$
+
+For nulling the voltage source:
+$$6 = \frac{V_x}{10} - \frac{V_b}{2}$$
+$$-V_b = 12 - \frac{V_x}{5}$$
+$$V_x - 12 + \frac{V_x}{5} = 2\frac{V_x}{10}$$
+$$V_x = 12$$
+
+Then, adding the two values for $V_x$ together,
+$$0 + 12 = 12$$
+
+We have verified that the answer we get for superposition is the same as the answer we get using nodal analysis.
+
+}
+
+\end{enumerate}

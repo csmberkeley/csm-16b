@@ -1,0 +1,254 @@
+%Author: Anwar Baroudi, Shreyas Parthasarathy, Nikhil Dilip, Aditya Baradwaj
+%Email: mabaroudi@berkeley.edu, shreyas.partha@berkeley.edu, ndilip@berkeley.edu
+
+\qns{Introduction to KVL, KCL}
+\begin{mdframed}
+    KVL: Kirchhoff's Voltage Law says that the sum of voltage drops going around a closed network (starting and ending at the same point) is 0
+
+    KCL: Kirchhoff's Current Law says that the sum of all currents flowing into a node are equal to the sum of all currents flowing out of a node. This is equivalent to saying that the sum of all currents flowing out of a node (representing flows in opposite direction as negative) is equal to the sum of all currents flowing into a node (again, representing flows in opposite direction as negative) which is equal to zero
+\end{mdframed}
+
+Consider the following circuit, with $R_1 = 2 \Omega$, $R_2 = 3 \Omega$, and $R_3 = 4 \Omega$:
+
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,4)
+	to[V_=$12 V$,invert] ++(0,-3);
+	
+ 	\draw(0,4)
+ 	to[short] node[ground]{} ++(4,0);
+ 	\draw(3,4)
+	to[short] ++(0,-3)
+	to[short] ++(-1,0)
+	to[R,l=$R_2$] ++(-1,0)
+	to[short] node[]{} ++(-1,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0,-1)
+	to[short] node[]{} ++(0,-1)
+	to[short] node[]{} ++(3,0)
+	to[short] ++(0,1)
+	to[R,l=$R_3$] ++(0,1)
+	to[short] node[]{} ++(0,1);
+    \end{circuitikz}
+\end{center}
+
+We will solve this picture using nothing but KCL and KVL in the following steps.
+\begin{enumerate}
+
+\qitem{
+    First, draw a reference point (ground) on the circuit, and label all the nodes $V_1$, $V_2$, etc.
+}
+
+\ans{
+    You should draw a ground on either side of the voltage source, and the 3 nodes (labelled any way) as shown below. We'll continue using this labeling convention for the rest of the problem.
+   \begin{center} 
+    \begin{circuitikz}
+    \draw(0,4)
+	to[V_=$12 V$,-*,invert] node[label={[font=\footnotesize]left:$V_1$}] {} ++(0,-3);
+	
+ 	\draw(0,4)
+ 	to[short] node[ground]{} ++(4,0);
+ 	\draw(3,4)
+	to[short,-*] node[label={[font=\footnotesize]right:$V_3$}] {} ++(0,-3)
+	to[short] ++(-1,0)
+	to[R,l=$R_2$] ++(-1,0)
+	to[short] node[]{} ++(-1,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0,-1)
+	to[short,-*] node[label={[font=\footnotesize]below:$V_2$}] {} ++(0,-1)
+	to[short] node[]{} ++(3,0)
+	to[short] ++(0,1)
+	to[R,l=$R_3$] ++(0,1)
+	to[short] node[]{} ++(0,1);
+    \end{circuitikz}
+    \end{center}
+}
+
+\qitem{
+    Next, draw the +s and -s on the resistors.
+}
+
+\ans{
+    While there is no incorrect way to do this (as long as you are consistent with the equations in future parts), the way of doing so that is consistent with the method used in this problem is: \\
+    For $R_1$, have the + be on the northside and the - on the southside.\\
+    For $R_2$, have the + be on the leftside and the - on the rightside. \\
+    For $R_3$, have the + be on the southside and the - on the northside.
+    
+   \begin{center} 
+    \begin{circuitikz}
+    \draw(0,4)
+	to[V,v=$12V$,-*,invert] node[label={[font=\footnotesize]left:$V_1$}] {} ++(0,-3);
+	
+ 	\draw(0,4)
+ 	to[short] node[ground]{} ++(4,0);
+ 	\draw(3,4)
+	to[short,-*] node[label={[font=\footnotesize]right:$V_3$}] {} ++(0,-3)
+	to[short] ++(-1,0)
+	to[R,l=$R_2$,v<=$ $] ++(-1,0)
+	to[short] node[]{} ++(-1,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$,v>=$ $] ++(0,-1)
+	to[short,-*] node[label={[font=\footnotesize]below:$V_2$}] {} ++(0,-1)
+	to[short] node[]{} ++(3,0)
+	to[short] ++(0,1)
+	to[R,l=$R_3$,v>=$ $] ++(0,1)
+	to[short] node[]{} ++(0,1);
+    \end{circuitikz}
+    \end{center}
+}
+\meta{
+    Make sure to go over what difference is made by the + and - location, namely the idea that Ohm's law is about $\Delta$V, not just V.
+}
+
+\qitem{
+    Finally, draw arrows indicating the direction of current, labeling them as $I_1$, $I_2$, etc.
+}
+
+\ans{
+    Once again, as long as you are consistent for the next part, there isn't a wrong answer, but our equations use: \\
+    $I_1$ is an arrow going south between the source and $V_1$. \\
+    $I_2$ is an arrow going east between $V_1$ and $V_3$ around $R_2$.\\
+    $I_3$ is an arrow going east between $V_2$ and $V_3$ around $R_3$. \\
+    $I_L$ is an arrow going west between ground and the negative terminal of the voltage source.
+    
+    Our drawn on circuit should now look something like:
+    
+   \begin{center} 
+    \begin{circuitikz}
+    \draw(0,4)
+	to[V,v=$12V$,-*,invert] node[label={[font=\footnotesize]left:$V_1$}] {} ++(0,-3);
+	
+ 	\draw(0,4)
+ 	to[short, i<=$i_L$] node[ground]{} ++(4,0);
+ 	\draw(3,4)
+	to[short,-*] node[label={[font=\footnotesize]right:$V_3$}] {} ++(0,-3)
+	to[short, i<=$i_2$] ++(-1,0)
+	to[R,l=$R_2$,v<=$ $] ++(-1,0)
+	to[short] node[]{} ++(-1,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$,v>=$ $] ++(0,-1)
+	to[short,-*,i=$i_1$] node[label={[font=\footnotesize]below:$V_2$}] {} ++(0,-1)
+	to[short, i=$i_3$] node[]{} ++(3,0)
+	to[short] ++(0,1)
+	to[R,l=$R_3$,v>=$ $] ++(0,1)
+	to[short] node[]{} ++(0,1);
+    \end{circuitikz}
+    \end{center}
+}
+
+\qitem{
+Now write all the equations given by Ohm's law, KCL and any voltages you can find relative to ground
+}
+
+\ans{
+    Ohm's Law ($\Delta V = RI$):
+    \begin{align*}
+        V_1 - V_2 &= 2I_1 \\
+        V_2 - V_3 &= 4I_3 \\
+        V_1 - V_3 &= 3I_2 
+    \end{align*}
+    
+    We also see that $V_1$ is $12V$ above ground and $V_3$ is connected to the same node as the ground, giving us:
+    \begin{align*}
+        V_1 &= 12V \\
+        V_3 &= 0V
+    \end{align*}
+    
+    And here are our KCL equations:
+    \begin{align*}
+        I_1 &= I_3 \\
+        I_L &= I_1 + I_2 \\
+        I_L &= I_2 + I_3
+    \end{align*}
+}
+
+\qitem{
+    Now that you have all equations written out, solve them to find all unknown voltages and currents.
+}
+\ans{
+    We can start off by finding equivalent values. For simplicity, let's keep everything in terms of $I_1$. If we substitute all of these into the Ohm's Law formula, we have the current equations:
+    
+    % \begin{align*}
+    %     V_1 - V_2 &= 2I_1 \\
+    %     V_2 - V_3 &= 4I_1 \\
+    %     V_1 - V_3 &= -3I_1
+    % \end{align*}
+    
+    % Let's solve these equations:
+    
+    % \begin{align*}
+    %     V_1 - V3 &= 12V \\
+    %     -3I_1 &= 12V \\
+    %     I_1 &= -4A
+    % \end{align*}
+    
+    % \begin{align*}
+    %     V_1 - V_2 &= 2I_1 \\
+    %     V_2 &= V_1 - 2I_1 \\
+    %     V_2 &= 12V - 2*(-4) \\
+    %     V_2 &= 12V - 8V \\
+    %     V_2 &= 4V
+    % \end{align*}
+    
+    Now, we have the following values:
+    
+    \begin{align*}
+        V_1 &= 12V \\
+        V_2 &= 8V \\
+        V_3 &= 0V \\
+        I_1 &= 2A \\
+        I_2 &= 4A \\
+        I_3 &= 2A
+    \end{align*}
+    
+    % Incorrect values:
+    % \begin{align*}
+    %     V_1 &= 12V \\
+    %     V_2 &= 4V \\
+    %     V_3 &= 0V \\
+    %     I_1 &= -4A \\
+    %     I_2 &= 4A \\
+    %     I_3 &= -4A
+    % \end{align*}
+}
+
+\qitem{
+Now, we're going to solve the same circuit with Nodal Analysis. Notice that in the previous part, you had many equations are variables (corresponding to both voltage and current). This may make the system more tedious to solve. Instead, Nodal Analysis allows us to write a system of equations that only involves the node voltages.
+
+Start by using the ground and voltage source to find any node voltages which are immediately known.
+}
+
+\ans{
+Because $V_3$ belongs to the same node as ground, we know $V_3 = 0 V$. Also, the voltage drop across the source is $12V$, which equals $V_1 - 0$. Therefore, $V_1 - 12 = 0 \implies V_1 = 12$. So, we know that:
+$$V_1 = 12 V$$
+$$V_3 = 0 V$$
+}
+
+\qitem{
+Then, Ohm's law to write a KCL equation for each node purely in terms of voltages and resistances.
+}
+
+\ans{
+Applying KCL at the node $V_2$, we have
+$$\frac{V_1 - V_2}{R_1} + \frac{V_3 - V_2}{R_3} = 0$$
+Note that we have just written each of the incoming currents in terms of the voltage drop across the corresponding resistors. At this point, we actually have enough information to solve the equation, because $V_1$ and $V_3$ are known quantities. Plugging them in, we get
+$$\frac{12 - V_2}{2} + \frac{0 - V_2}{4} = 0 \implies 6 - \frac{V_2}{2} - \frac{V_2}{4} = 0 \implies \frac{3}{4}V_2 = 6 \implies V_2 = 8V$$
+Now that we've solved for all the node voltages, we have implicitly solved the entire circuit! Because we can always use the node voltages to find any currents we want. In particular,
+$$I_1 = \frac{V_1 - V_2}{R_1} = \frac{12 - 8}{2} = 2 A$$
+$$I_2 = \frac{V_1 - V_3}{R_2} = \frac{12 - 0}{3} = 4 A$$
+$$I_3 = \frac{V_2 - V_3}{R_3} = \frac{8 - 0}{4} = 2 A$$
+And the current through the top loop is $I_2 + I_3 = 6A$ anticlockwise (applying KCL at the node $V_3$).
+}
+
+\qitem{
+When doing nodal analysis, would it have helped to write a KCL equation at nodes $V_1$ and $V_3$? Why or why not?
+}
+
+\ans{
+No, it would not have helped. We would have had to introduce an extra variable for the current through the top loop, and use this in each of our KCL equations. So it's ultimately the same problem, just with more equations and variables.
+\\
+There is also the issue that we now have a variable for current which we cannot turn into a voltage (becuase there is no resistor in the top loop. This is not desirable, since in nodal analysis we want all our equations to be in terms of voltages. No currents anywhere!
+\\
+It turns out that when doing in nodal analysis you can skip KCL for nodes which are directly adjacent to components like voltage sources. However, we don't lose any information, because we still incorporated the source voltage into the process of finding $V_1$ and $V_3$ in the beginning!
+}
+\end{enumerate}

@@ -1,0 +1,73 @@
+% Author: Henry Sun, Rohan Suresh, Sukrit Arora
+% Email: tigerhs1998@berkeley.edu, rohansuresh@berkeley.edu
+
+
+
+\qns{OpAmps as Comparators}
+\begin{enumerate}
+\qitem{Now you've learned about a new component, the operational amplifier. What can this circuit component be used for? How does it work?}
+
+\ans{
+This component can be used to compare two inputs, amplify the output of an input, or act as a buffer in the middle of a circuit.
+}
+
+\begin{circuitikz} \draw
+(0,0) node[op amp, yscale=-1] (opamp) {}
+(opamp.-) node[left] {$v_-$}
+(opamp.+) node[left] {$v_+$}
+(opamp.out) node[right] {$v_o$}
+(opamp.down) --++(0,0.5) node[vcc]{$V_{DD}$}
+(opamp.up) --++(0,-0.5) node[vee]{$V_{SS}$}
+;\end{circuitikz}
+\qitem{
+Above we have the basic schematic of the op-amp. What does each terminal mean? How do we determine the output voltage? Are there any constraints?
+}
+
+\ans{
+The $V_+$ and $V_-$ are the input terminals to the op-amp. The $V_{DD}$ and $V_{SS}$ are what power the op-amp, and are the values that the comparator will output. Finally $V_o$ is what the op-amp outputs, which is defined as $A(V_+-V_-)$ where $A$ is some large gain value.
+}
+
+\qitem{
+Much of EE16A will have our analysis be restricted to ideal op-amps. However, it is important to know non-ideal behaviors. What are some main differences between ideal and non-ideal op-amps?
+}
+
+\ans{
+Ideal op-amps: Infinite gain $A = \frac{V_o}{V_i}$ (where $V_i = V_+ - V_-$). This means that the gain will be infinity if there was no limit on the rails, but it cannot reach infinity because it gets clipped at the positive or negative rails. infinite input resistance, zero input current. Non-ideal op amps: finite gain, finite input resistance, finite input current.
+}
+
+\qitem{
+Below are some op-amp configurations. Please identify the output voltage $V_o$ for each.
+
+\begin{enumerate}
+\item{
+\begin{circuitikz} \draw
+(0,0) node[op amp, yscale=-1] (opamp) {}
+(opamp.-) node[left] {10V}
+(opamp.+) node[left] {5V}
+(opamp.out) node[right] {$v_o$}
+(opamp.down) --++(0,0.5) node[vcc]{20V}
+(opamp.up) --++(0,-0.5) node[vee]{-20V}
+;\end{circuitikz}
+}
+\item{
+\begin{circuitikz} \draw
+(0,0) node[op amp, yscale=-1] (opamp) {}
+(opamp.-) node[left] {$v_-$}
+(opamp.+) node[left] {$v_+$}
+(opamp.out) node[right] {$v_o$}
+(opamp.down) --++(0,0.5) node[vcc]{$V_{DD}$}
+(opamp.up) --++(0,-0.5) node[vee]{$V_{SS}$}
+;\end{circuitikz}
+}
+
+\end{enumerate}
+}
+
+\ans{
+\newline
+i. $V_o = -20V$
+\newline
+ii. $V_o = V_{DD}$ if $V_+ > V_-$, $V_o = V_{SS}$ if $V_- > V_+$
+}
+
+\end{enumerate}

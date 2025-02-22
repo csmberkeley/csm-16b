@@ -1,0 +1,121 @@
+% Lydia Lee, lydia.lee@berkeley.edu
+
+\qns{(PRACTICE) Just To Be Clear...}
+\begin{enumerate}
+
+\qitem\label{ques:source_power}{
+	Compute the power dissipated by the $1\si{\volt}$ voltage supply.
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[ground] () {}
+				to[V=$1\si{\volt}$, invert] ++(0,2)
+				to[R=$1\si{\ohm}$] ++(2,0)
+			(2,0) node[ground] () {}
+				to[V=$2\si{\volt}$, invert] ++(0,2);
+		\end{circuitikz}
+	\end{center}
+}
+
+\sol{
+	
+	Students sometimes (incorrectly) learn that voltage and current sources can only dissipate negative power. They may also ask you what happens if you choose the opposite direction for current; it means that the voltage of the left-side voltage source will be in opposition of passive sign convention, so so you get $-1\si{\ampere} \cdot -1\si{\volt} = 1\si{\watt}$
+}
+
+\ans{
+	
+	For convenience, we'll label some node voltages with respect to ground:
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[ground] () {}
+				to[V=$1\si{\volt}$, invert] ++(0,2)
+				to[R=$1\si{\ohm}$,*-*] ++(2,0)
+			(2,0) node[ground] () {}
+				to[V=$2\si{\volt}$, invert] ++(0,2);
+		\end{circuitikz}
+	\end{center}
+
+	Choosing a current direction and abiding by passive sign convention,
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[ground] () {}
+				to[V=$1\si{\volt}$, invert] ++(0,2)
+				to[R=$1\si{\ohm}$,*-*] ++(2,0) 
+			(2,0) node[ground] () {}
+				to[V=$2\si{\volt}$, invert] ++(0,2);
+			\draw[-latex] (2,3) -- (0,3) node[anchor=south] () {$I_R$};
+		\end{circuitikz}
+	\end{center}
+	\begin{align*}
+		I_R &= \frac{2\si{\volt}-1\si{\volt}}{1\si{\ohm}}\\
+			&= 1\si{\ampere}
+	\end{align*}
+	This is the same current that flows \emph{into} the positive terminal of the $1\si{\volt}$ source. Calculating the power dissipated by the source and abiding by passive sign convention:
+	\begin{align*}
+		P_{1\si{\volt}} &= 1\si{\ampere}\cdot 1\si{\volt}\\
+			&= 1\si{\watt}
+	\end{align*}
+	Note that this is a positive power dissipated by the voltage source!
+}
+
+\qitem\label{ques:parallel_series}{
+	Indicate if the following are true or false for the circuit below. Assume all resistor values are nonzero and finite.
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) coordinate (BASE) 
+				to[V=$V_S$, invert] ++(0,6)
+				to[short] ++(2,0) coordinate (TOPLEFT)
+				to[short] ++(2,0) coordinate (TOPRIGHT)
+			(TOPLEFT) to[R=$R_1$] ++(0,-3) coordinate (CENTERLEFT)
+			(TOPRIGHT) to[R=$R_2$] (TOPRIGHT |- CENTERLEFT) coordinate (CENTERRIGHT)
+			(CENTERLEFT) to[R=$R_5$] (CENTERRIGHT)
+			(CENTERLEFT) to[R=$R_3$] (CENTERLEFT |- BASE)
+			(CENTERRIGHT) to[R=$R_4$] (CENTERRIGHT |- BASE)
+				to[short] (BASE);
+		\end{circuitikz}
+	\end{center}
+	\begin{enumerate}
+		\item $R_1$ is in parallel with $R_2$
+		\item $R_5$ is in series with $R_1$
+		\item $R_3$ is in parallel with $R_4$
+		\item $R_1$ is in series with $R_3$
+	\end{enumerate}
+}
+
+\sol{
+
+	Students often use parallel and series combinations of resistors where they don't apply. Resistors can be neither in series nor in parallel, which is what happens here. 
+
+
+}
+\ans{
+	All of the statements are false!
+
+	Recall the definition of series and parallel:
+	\begin{itemize}
+		\item Components are in \emph{series} when they are on the same branch and are guaranteed to have the same current flowing through them \textbf{regardless of any circuit element's numerical value}.
+		\begin{center}
+			\begin{circuitikz}
+				\ctikzset{resistor = european}
+				\draw
+				(0,0) to[R] ++(3,0)
+					to[R] ++(3,0);
+			\end{circuitikz}			
+		\end{center}
+		\item Components are in \emph{parallel} when their ends are connected together (one connection for each side) and are guaranteed to have the same voltage drop across them \textbf{regardless of any circuit element's numerical value}. 
+		\begin{center}
+			\begin{circuitikz}
+				\ctikzset{resistor = european}
+				\draw
+				(0,0) to[R] ++(0,3)
+					to[short] ++(2,0)
+					to[R] ++(0,-3)
+					to[short] (0,0);
+			\end{circuitikz}			
+		\end{center}
+	\end{itemize}
+}
+\end{enumerate}

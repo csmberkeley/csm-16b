@@ -1,0 +1,182 @@
+% Author: Sukrit Arora
+% Email: sukrit.arora@berkeley.edu
+% Adapted version of Mudit Gupta's question
+
+\qns{Never fail at resistor equivalence}
+
+\sol{
+Description: derive intuition behind resistor equivalences. Learn about nodes and how to combine resistors in a real problem.
+}
+
+
+\begin{enumerate}
+
+\qitem{Using what you learned about resistance above ($R = \frac{\rho\cdot l}{A}$), explain what would happen if you connect two resistors in series.
+
+}
+
+\sol{Make sure to draw out resistors as boxes in series and parallel for parts (a) and (b) respectively. The answer only makes sense once it is drawn out.
+
+}
+
+\ans{
+Intuitively, the amount of impedance the current faces by going through the two resistors in series would
+just be the sum of the impedance faced by the current going through each individual of the resistor. Thus, for n resistors in series, $$R_{eq}=R_1+R_2+\dots+R_n$$
+}
+
+\qitem{Using the same resistance equation from part (a), explain what would happen if you connect two resistors in parallel.
+
+}
+\ans{
+Having resistors in parallel is like taking taking two boxes and combining them via their sides. This increases the cross-sectional area in the front. So intuitively, the equivalent resistance of resistors in parallel would be smaller than the resistance of the original resistors. In addition, intuitively, more current would choose to go to the side with less resistance. Thus, for n resistors in parallel,
+$$R_{eq}=\frac{1}{\frac{1}{R_1}+\frac{1}{R_2}+\dots+\frac{1}{R_n}}$$
+
+}
+\qitem{Now let's apply some of these ideas to a circuit. For the circuit below, mark all the nodes.
+
+\begin{center}
+\begin{circuitikz}
+\draw(0,0)
+	to[short] ++(2,0) 
+	to[R, l_=$2k\Omega$] ++(1,0)
+	to[short, -o] ++(4,0);
+\draw(0,0)
+	to[short] ++(0,1)
+	to[short] ++(1,0)
+	to[R=$2k\Omega$] ++(1,0)
+	to[short] ++(1,0)
+	to[R=$4k\Omega$] ++(1,0)
+	to[short] ++(1,0)
+	to[R=$2k\Omega$] ++(1,0)
+	to[short] ++(1,0);
+\draw(2.5,1)
+	to[short] (2.5,2);
+\draw(4.5,1)
+	to[short] (4.5, 0);
+\draw(7,1)
+	to[short] (7,2);
+\draw(0,2)
+	to[short, -o] ++(0,0)
+	to[short] ++(4,0)
+	to[R=$2k\Omega$] ++(1,0)
+	to[short] ++(2,0);
+\end{circuitikz}
+\end{center}
+
+
+}
+
+\sol{Mentors: at this point, explain the concept of nodes. Students may be confused as to what constitutes a node and what the properties of a node are. \\
+
+Here is how I like to teach it: keep a pencil (marker) at a wire, and keep going in all directions till you hit any components. Having multiple colors of markers helps a ton here! Otherwise draw little symbols. Forward slashed lines on one node, backward slashed on another, circles on another and so on. \\
+
+The property of a node is that the potential on it is the same. The convention is to mark a node with an alphabet, and then call the potential at that point $V_{a}$ for instance. \\
+}
+
+\ans{
+% I just spent like 40 minutes drawing and redrawing this thing because Circuitikz is a bitch and won't let me color things however I want and I am ranting in these comments.................
+\begin{center}
+\begin{circuitikz}[line width=1pt]
+\draw[color=red] (1,1) %NODE C
+	to[short, l=$C$] (0,1)
+	to[short] (0,0)
+	to[short] (2,0);
+
+\draw[color=blue] (6,1) %NODE D
+	to[short] ++(1,0)
+	to[short, l=$D$] ++(0,1)
+	to[short] ++(-2,0);
+
+\draw[color=green] (2,1) to [short] ++(1,0); %NODE A
+\draw[color=green] (0,2) %NODE A
+	to[short, -o, l=$A$] ++(0,0)
+	to[short] ++(4,0)
+	to[short] ++(-1.5,0)
+	to[short] ++(0, -1);
+
+
+\draw[color=brown] (4,1) to [short] ++(1,0); %NODE B
+\draw[color=brown] (3,0) to[short] ++(4,0) to[short, -o, l_=$B$] ++(0,0);
+\draw[color=brown] (4.5,1) to [short] ++(0,-1);
+
+
+\draw (2,0) to[R, l_=$2k\Omega$] ++(1,0);
+\draw (1,1) to[R, l_=$2k\Omega$] ++(1,0);
+\draw (5,1) to[R, l_=$2k\Omega$] ++(1,0);
+\draw (3,1) to[R, l_=$4k\Omega$] ++(1,0);
+\draw (4,2) to[R, l_=$2k\Omega$] ++(1,0);
+\end{circuitikz}
+\end{center}
+}
+
+\qitem
+Mark which nodes are 2-nodes and multi-nodes. 2 nodes are connected to only 2 components, and multi-nodes are connected to 3 or more components. \\
+\textit{\emph{Note:} Whenever nodes are marked across which equivalent resistance must be found, those are considered 'components' because something could be connected there.}
+
+\sol{Multinode and 2-node are not official vocabulary, just aids}
+
+\ans{
+	Nodes A and B are multi-nodes. Nodes C and D are 2-nodes.
+}
+
+\qitem
+Resistors that are connected to 2-nodes are considered to be in series. Redraw the circuit, and find the 2 and multi-nodes again after combining the resistors connected to 2 nodes. 
+
+\ans{
+
+Nodes C and D disappear and become nodes A and B.
+\begin{center}
+\begin{circuitikz}[line width=1pt]
+	\draw[color=brown] (1,1) %NODE C
+	to[short] (0,1)
+	to[short] (0,0)
+	to[short] (3,0);
+
+
+\draw[color=green] (6,1) %NODE D
+	to[short] ++(1,0)
+	to[short] ++(0,1)
+	to[short] ++(-2,0);
+
+\draw[color=green] (2,1) to [short] ++(1,0); %NODE A
+\draw[color=green] (0,2) %NODE A
+	to[short, -o, l=$A$] ++(0,0)
+	to[short] ++(5,0)
+	to[short] ++(-2.5,0)
+	to[short] ++(0, -1);
+
+
+\draw[color=brown] (4,1) to [short] ++(1,0); %NODE B
+\draw[color=brown] (3,0) to[short] ++(4,0) to[short, -o, l_=$B$] ++(0,0);
+\draw[color=brown] (4.5,1) to [short] ++(0,-1);
+
+
+
+\draw (1,1) to[R, l_=$4k\Omega$] ++(1,0);
+\draw (5,1) to[R, l_=$4k\Omega$] ++(1,0);
+\draw (3,1) to[R, l_=$4k\Omega$] ++(1,0);
+\end{circuitikz}
+\end{center}
+
+}
+
+\sol{Mentors please explain how to combine resistors in series. The simple idea is that since they are on a 2-node, you can drag one till you reach the other, and just write $R_1 + R_2$ on that.}
+
+\qitem
+	Now we should be left with only multi-nodes. So far, we have seen that any resistors connected to 2-nodes are in series. We will see what happens to resistors connected to multi-nodes. Begin by writing out the 2 nodes that each resistor is connected to.
+
+\ans{
+	The resistor on the left is connected to nodes $A$ and $B$.
+	The resistor on the middle is connected to nodes $A$ and $B$.
+	The resistor on the right is connected to nodes $A$ and $B$.
+}
+
+\qitem
+	If you have 2 or more resistors that are connected to the same 2 nodes, then they are in parallel. What does this mean for the 3 remaining resistors?
+
+\ans{
+	Since all 3 resistors are connected to nodes $A$ and $B$, they are all in parallel. The equivalent resistance is $\frac{4}{3}k\Omega$. Quick tip: if you have 2 resistors in parallel, both of whose resistance is $R$, then the equivalent resistance is $\frac{R}{2}$. Similarly, if you have 3 resistors in parallel, all three of whose resistance is $R$, then the equivalent resistance is $\frac{R}{3}$, and so on with 4 or more resistors of the same value.
+}
+
+\sol{If students don't realize the tip, show them by deriving it with the formula.}
+\end{enumerate}

@@ -1,0 +1,149 @@
+% Author: Yannan Tuo, Emily Gosti, Anwar Baroudi
+% Email: ytuo@berkeley.edu, egosti@berkeley.edu
+
+\qns{Introduction to Capacitors}
+
+\sol{
+\\Description: Introduction to capacitors.
+\\Prerequisite: Understanding of basic circuit components, voltage, current, resistors.
+\\Mentors: See lecture notes for definition supplements
+}
+
+In this problem, we will introduce the fundamental circuit components. 
+
+\begin{enumerate}
+
+\qitem{
+What is a capacitor?
+}
+
+\ans{
+Firstly, a capacitor is represented in this manner: 
+\begin{center} 
+	\begin{circuitikz}[line width=1pt]
+	\draw(0,0)
+		to[C, l_=$C$, v<=$ $] ++(0,1);
+	\end{circuitikz}
+	\end{center}
+
+Physically speaking, it is two conductive plates separated by some (usually non-conductive) material. The parameters of interest here are:\\
+$A$: the area of the surface of the plates that are facing each other.\\
+$\epsilon$: the permitivity of the material between the plates. \\
+$d$: the distance between the two plates.
+}
+
+\qitem{
+What is capacitance?
+}
+
+\ans{
+Capacitance (C) is the measure of how much charge (Q) can be stored for some given amount of voltage (V). It is often written as:
+\[C=\frac{Q}{V} \text{ or } Q = CV\]
+It can also be written as:
+$$C = \frac{\epsilon A}{d}$$
+where $\epsilon$ is the "permitivity" of the material between the plates of the capacitor, $A$ is the area of the surface of the plates facing each other, and $d$ is the distance between the two plates.
+}
+
+\qitem{What happens to the following circuit (specifically with respect to the voltage across and current through the capacitor) when
+\\a) the capacitor becomes fully charged?
+\\b) after the capacitor is fully charged, we remove the voltage source and replace it with a short?}
+
+\begin{center} 
+    \begin{circuitikz}
+	\draw(0,4)
+	to[V_, l=$V$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(0,4)
+	to[short] ++ (2, 0)
+	to[C, l^=$C$, v>=$ $, invert] ++(0, -2)
+	to[R, l = $R$] ++(-2, 0);
+	
+
+	\end{circuitikz}
+	\end{center}
+\ans{
+When the capacitor is fully charged, then there is no current flowing through the capacitor; $i = 0$.
+\begin{center} 
+    \begin{circuitikz}
+	\draw(0,4)
+	to[V_, l=$V$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(0,4)
+	to[short] ++ (2, 0)
+	to[C, l^=$C$, v>=$ $, i = $i$] ++(0, -2)
+	to[R, l = $R$] ++(-2, 0);
+	
+
+	\end{circuitikz}
+	\end{center}
+
+If we replace the voltage source with a short, then the capacitor starts discharging because of the voltage difference across the resistor.
+
+\begin{center} 
+    \begin{circuitikz}
+	\draw(0,4)
+	to[short, i = $i$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(0,4)
+	to[short] ++ (2, 0)
+	to[C, l^=$C$, v>=$ $] ++(0, -2)
+	to[R, l = $R$] ++(-2, 0);
+	
+
+	\end{circuitikz}
+	\end{center}
+}
+
+\qitem{Using physical properties of capacitors, derive the equation to find the equivalent capacitance for two capacitors in parallel, $C_1$ and $C_2$ in the figure below. Use this equation to find a relationship between the total charge of the two capacitors and the charge of each individual capacitor.
+
+\begin{center} 
+    \begin{circuitikz}
+	\draw(0,2)
+	to[C, l_=$C_1$, v>=$ $] ++(0,-2);
+	
+	
+	\draw(0,2)
+	to[short] ++(2,0)
+	to[C, l_=$C_2$, v>=$ $] ++(0, -2)
+	to[short] ++(-2,0);
+	
+	
+	\draw(1,2)
+	to[short, *-o] ++(0,1);
+	
+	\draw(1, 0)
+	to[short, *-o] ++(0, -1);
+	
+	
+
+	\end{circuitikz}
+	\end{center}
+}
+\ans{
+Recall the formula $C = \frac{\epsilon A}{d}$. Let $C_1$ have an area of $A_1$, and let $C_2$ have an area of $A_2$. We can think of these capacitors as having a combined area of $A_1 + A_2$, so $$C_{eq} = \frac{\epsilon (A_1+A_2)}{d} = \frac{\epsilon A_1}{d} + \frac{\epsilon A_2}{d} = C_1 + C_2$$
+Now, since $Q = CV$, the total charge $Q_{tot} = (C_1 + C_2)V$. We can leave $V$ as is because the voltage is the same across both capacitors, since they share the same nodes. Then,
+$$Q_{tot} = (C_1 + C_2)V = C_1V + C_2V = Q_1 + Q_2$$
+}
+
+\qitem {Using physical properties of capacitors, derive the equation for the equivalent capacitance of two capacitors in series.
+\begin{center} 
+    \begin{circuitikz}
+	\draw(0,4)
+	to[C, l_=$C_1$, v>=$ $] ++(0, -2)
+	to[C, l_=$C_2$, v>=$ $] ++(0, -2);
+	\end{circuitikz}
+	\end{center}
+}
+\ans{
+Let $C_1$ have a distance $d_1$ between its plates, and let $C_2$ have a distance $d_2$ between its plates. We can picture $C_1$ and $C_2$ as one capacitor with a combined distance $d_1 + d_2$. Then, assuming the areas for both capacitors are both $A$,  we have $C_{eq} = \frac{\epsilon A}{d_1 + d_2}$. To make the math simpler, we invert both sides:
+$$\frac{1}{C_{eq}} = \frac{d_1 + d_2}{\epsilon A} = \frac{d_1}{\epsilon A} + \frac{d_2}{\epsilon A} = \frac{1}{C_1} + \frac{1}{C_2}$$
+Inverting it back, we get:
+$$C_{eq} = \frac{1}{\frac{1}{C_1} + \frac{1}{C_2}} = \frac{C_1C_2}{C_1 + C_2}$$
+}
+\meta{Note: the equations for combining capacitors is the opposite of the equations for combining resistors. }
+
+
+\end{enumerate}

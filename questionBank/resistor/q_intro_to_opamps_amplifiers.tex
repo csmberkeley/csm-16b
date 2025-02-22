@@ -1,0 +1,153 @@
+% Author: Anwar Baroudi, Emily Gosti, Yannan Tuo
+% Email: mabaroudi, egosti, ytuo
+
+\qns{OpAmps as Amplifiers}
+
+\meta{Prereq: has seen intro to opamps as comparators; knows about $V_{out} = A(V_+ - V_-)$\\
+Description: explain the concept of feedback as a way to show why $V_+ = V_-$ during negative feedback, and then derive the inverting and non-inverting amplifier equations}
+
+%please draw a simple opamp here, where
+
+\begin{enumerate}
+    \qitem{In general, what is feedback? What are positive and negative feedback? And how do you introduce feedback into op-amps?}
+    
+    \ans{Feedback is the process by which an output feeds back into an input. Positive feedback is where a positive or negative output pours more positive or negative (respectively) into the input and causes a loop of growth (or shrinkage); think of momentum, where you put in work to move something, and then that movement causes that thing to keep moving faster. Negative feedback is where a positive or negative output introduces a negative or positive (respectively) input that tries to balance the output. Think of pushing a spring, you exerting energy will cause the spring to try to fight back in the other direction and balance out the energy you are putting in.\\
+    In an op-amp, we get a feedback loop if the output connects back to the input. }
+    
+        
+    \meta{Generally, if we want to have positive feedback, then we connect the output connects back to the positive input. However, this is not \textit{always} true. Similarly, for negative feedback, we generally connect back to the negative input; again, this is not always true, so make sure to consider the logic presented in the following parts.}
+    
+    % please draw a simple op-amp that uses positive feedback here, i.e. the $V_{in}$ goes into $V_-$ and the $V_{out}$ goes into $V_+$ 
+    \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[short, *-o]
+    ++(-1,0)
+    to[short, l = $V_{in}$] ++(0,0)
+    (opamp.+) node[left] {}
+    to[short] ++(-1,0)
+    to[short] ++(0,-2)
+    to[short] ++(3.5, 0)
+    (opamp.out) node[right] {}
+    to[R = $R$] ++(0,-3)
+    to[R = $R$] ++(0, -1)
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    % (opamp.up) --++(0,0.5) node[vcc]{$V_{DD}$}
+    % (opamp.down) --++(0,-0.5) node[vee]{$V_{SS}$};
+    
+    \end{circuitikz}
+    \end{center}
+    
+    \qitem{Referring to the above example of an op-amp employing positive feedback, start with the assumption that $V_+ = V_-$. Now, taking into account the fact that $V_{out} = A(V_+ - V_-)$ (where $A$ is some gain), try to raise $V_{out}$ (by messing with $V_{in}$) and observe what happens. Try to lower $V_{out}$ and observe that too.}
+    
+    \ans{When we raise $V_{out}$, for example by lowering $V_{in} = V_-$, we see that the now positive output comes back and is also raising $V_+$, leading to an even more positive output, which in turn leads to an even more positive output...until the op-amp eventually hits its rail. When we lower $V_{out}$ by raising $V_{in}$, our now negative $V_{out}$ feeds back into $V_+$, leading to an even more negative output, which leads to an even more negative output, etc.}
+    
+    \meta{amplifying op-amps DO have rails, don't forget that, they are just implied as opposed to explicit because they should never actually get in the way.}
+    
+    % please draw a simple op-amp that uses negative feedback here, i.e. the $V_{in}$ goes into $V_+$ and the $V_{out}$ goes into $V_-$ 
+    
+    \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp, yscale=-1] (opamp) {}
+    (opamp.+) node[left] {}
+    to[short, *-o] ++(-1,0)
+    to[short, l = $V_{in}$] ++(0,0)
+    (opamp.-) node[left] {}
+    to[short] ++(-1,0)
+    to[short] ++(0,-2)
+    to[short] ++(3.5, 0)
+    (opamp.out) node[right] {}
+    to[R = $R$] ++(0,-3)
+    to[R = $R$] ++(0, -1)
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \end{circuitikz}
+    \end{center}
+
+    \qitem{Now do the same with this above example of an op-amp that uses negative feedback}
+    
+    \ans{This time when we raise $V_{out}$, in this case by raising $V_{in} = V_+$, we get an increase to $V_-$, causing the difference $(V_+ - V_-)$ to shrink. If the difference is still positive then it will shrink again, if our $V_-$ ever overshoots and causes the whole thing to become negative, then $(V_+ - V_-)$ becomes positive and raises $V_-$ until we are at an equilibrium, that is where $V_+ = V_-$. Lowering $V_{out}$ by lowering $V_{in}$ has the same equalizing effect.\\
+    The takeaway from this is that in the case of negative feedback, there is no way for $V_+$ to not equal $V_-$, since if it does for a moment it will end up balancing back out. This is where we get that golden rule of negative feedback that $V_+ = V_-$!}
+    
+    \meta{Don't forget to emphasize while this golden rule ONLY applies to op-amps using negative feedback, the other golden rule $(I_+ = I_- = 0)$ applies to ALL op-amps}
+    
+    % please draw an inverting amplifier here with R_1 on the left and R_2 on top
+    
+    \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[R, l = $R_1$, *-o]
+    ++(-2,0)
+    to[short, l = $V_{in}$] ++(0,0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_2$, i = $i$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \end{circuitikz}
+    \end{center}
+    
+    \qitem{
+    In terms of the input $V_{in}$, what is $V_{out}$ for this circuit? What is the gain of this circuit?
+    }
+    
+    \ans{
+    We can use the golden rules of op-amps and nodal analysis to find $V_{out}$ as a function of $V_{in}$.
+    Since $V_+$ is connected to ground, and the golden rules state that $V_+ = V_-$, we can conclude that $V_- = 0 V$. In addition, since $I_+ = I_- = 0$, we know there is no current going into the op-amp, so all of the current from $V_{in}$ goes to $R_2$. Doing nodal analysis on $V_+$,
+    $$\frac{0 - V_{in}}{R_1} = \frac{V_{out} - 0}{R_2}$$
+    $$V_{out} = -V_{in}\frac{R_2}{R_1}$$
+    The gain is how much $V_{out}$ scales $V_{in}$, which is $-\frac{R_2}{R_1}$. This particular type of op-amp is called an \textit{inverting} amplifier since you can use this op-amp to negate and scale $V_{in}$ to the output you want.
+    }
+
+    
+    % please draw a non-inverting amplifier here R_1 on the bottom
+    
+    \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp, yscale=-1] (opamp) {}
+    (opamp.+) node[left] {}
+    to[short, *-o] ++(-1,0)
+    to[short, l = $V_{in}$] ++(0,0)
+    (opamp.-) node[left] {}
+    to[short] ++(-1,0)
+    to[short] ++(0,-2)
+    to[short] ++(3.5, 0)
+    (opamp.out) node[right] {}
+    to[R = $R_2$] ++(0,-3)
+    to[R = $R_1$] ++(0, -1)
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \end{circuitikz}
+    \end{center}
+
+    
+    \qitem{
+    Again, in terms of the input $V_{in}$, what is $V_{out}$ for this circuit? What is the gain?
+    }
+    
+    \ans{
+    Like we did in part (d), we can use the golden rules of op-amps and nodal analysis to find $V_{out}$ as a function of $V_{in}$.
+    We know that $V_+ = V_-$ because of the golden rules, and that $V_+ = V_{in}$. In addition, since $I_+ = I_- = 0$, all of the current from $V_{out}$ goes to ground. Doing nodal analysis on $V_-$,
+    $$\frac{V_{in} - 0}{R_1} = \frac{V_{out} - V_{in}}{R_2}$$
+    $$V_{out} = V_{in}\frac{R_2}{R_1} + V_{in} = V_{in}(\frac{R_2}{R_1} + 1)$$
+    The gain in this case is $\frac{R_2}{R_1} + 1$. This particular type of op-amp is called a \textit{non-inverting} amplifier, since with careful choice of $R_1$ and $R_2$, you can use this op-amp to scale $V_{in}$ to the output you want.
+    }
+    
+\end{enumerate}
