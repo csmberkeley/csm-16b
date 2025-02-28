@@ -1,0 +1,115 @@
+%Author: Jinsheng Li
+%Email: ljs233233@berkeley.edu
+\qcontributor{Jinsheng Li}
+
+\qns{Kirchhoff's Laws with Dependent Sources}
+
+Consider the following circuit:
+\begin{center}
+\begin{circuitikz}[american voltages] 
+\draw (0, 6) node[fill=black, circle, inner sep=1pt, label=above:{$V_{g1}$}]{};
+\draw (8, 6) node[fill=black, circle, inner sep=1pt, label=above:{$V_{g2}$}]{};
+\draw (16, 6) node[fill=black, circle, inner sep=1pt, label=above:{$V_{g3}$}]{};
+\draw (10, 0) node[ground]{};
+\draw (0, 0) 
+to[open](0, 6)
+to[short](2, 6)
+to[open, o-o, v=$V_1$](2, 2)
+to[short](6, 2)
+to[american resistor, l_=$R_2$](6, 6)
+to[short](10, 6)
+to[open](6, 6)
+to[short](4, 6)
+to[cisource, l=$k_1V_1$](4, 2)
+to[american resistor, l=$R_1$](4, 0)
+to[short](8, 0)
+to[american resistor, l=$R_3$](8, 6)
+to[open](10, 6)
+to[open, o-o, v=$V_2$](10, 0)
+to[short](8, 0)
+to[open](10, 0)
+to[short](14, 0)
+to[american resistor, l_=$R_4$](14, 6)
+to[short](16, 6)
+to[american resistor, l=$R_5$](16, 0)
+to[short](14, 0)
+to[open](14, 6)
+to[short](12, 6)
+to[cisource, l=$k_2V_2$](12, 0);
+\end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+
+\qitem Solve for $\frac{V_{g2}}{V_{g1}}$ using nodal analysis. 
+
+\sol{
+    Label the current through each resistor, and denote the node voltage below resistor 2 as $V_4$. 
+    \begin{center}
+    \begin{circuitikz}[american voltages] 
+    \draw (0, 6) node[fill=black, circle, inner sep=1pt, label=above:{$V_{g1}$}]{};
+    \draw (8, 6) node[fill=black, circle, inner sep=1pt, label=above:{$V_{g2}$}]{};
+    \draw (16, 6) node[fill=black, circle, inner sep=1pt, label=above:{$V_{g3}$}]{};
+    \draw (6, 2) node[fill=black, circle, inner sep=1pt, label=below:{$V_{4}$}]{};
+    \draw (10, 0) node[ground]{};
+    \draw (0, 0) 
+    to[open](0, 6)
+    to[short](2, 6)
+    to[open, o-o, v=$V_1$](2, 2)
+    to[short](6, 2)
+    to[american resistor, l_=$R_2$, i<=$I_2$, invert](6, 6)
+    to[short](10, 6)
+    to[open](6, 6)
+    to[short](4, 6)
+    to[cisource, l=$k_1V_1$](4, 2)
+    to[american resistor, l=$R_1$, i=$I_1$](4, 0)
+    to[short](8, 0)
+    to[american resistor, l=$R_3$, i<=$I_3$, invert](8, 6)
+    to[open](10, 6)
+    to[open, o-o, v=$V_2$](10, 0)
+    to[short](8, 0)
+    to[open](10, 0)
+    to[short](14, 0)
+    to[american resistor, l_=$R_4$, i<=$I_4$, invert](14, 6)
+    to[short](16, 6)
+    to[american resistor, l=$R_5$, i=$I_5$](16, 0)
+    to[short](14, 0)
+    to[open](14, 6)
+    to[short](12, 6)
+    to[cisource, l=$k_2V_2$](12, 0);
+    \end{circuitikz}
+    \end{center}
+    
+    KCL: 
+    \[ k_1V_1 + I_2 + I_3 = 0 \]
+    \[ k_1V_1 + I_2 - I_1 = 0 \]
+    The first equation gives us: 
+    \[ k_1(V_{g1} - V_4) + \frac{V_{g2} - V_4}{R_2} + \frac{V_{g2}}{R_3} = 0 \]
+    \[ V_4 = \frac{k_1 V_{g1} + V_{g2}(\frac{1}{R_2} + \frac{1}{R_3})}{k_1 + \frac{1}{R_2}} \]
+    The second equation gives us: 
+    \[ k_1(V_{g1} - V_4) + \frac{V_{g2} - V_3}{R_2} - \frac{V_{4}}{R_1} = 0 \]
+    \[ k_1V_{g1} + \frac{V_{g2}}{R_2} = V_4(k_1 + \frac{1}{R_2} + \frac{1}{R_1}) \]
+    Plug in the value of $V_4$, 
+    \[ k_1V_{g1} + \frac{V_{g2}}{R_2} = \Bigl(\frac{k_1 V_{g1} + V_{g2}(\frac{1}{R_2} + \frac{1}{R_3})}{k_1 + \frac{1}{R_2}} \Bigr)(k_1 + \frac{1}{R_2} + \frac{1}{R_1}) \]
+    \[ V_{g1}\Bigl( \frac{-\frac{k_1}{R_1}}{k_1 + \frac{1}{R_2}} \Bigr) = V_{g2}\Bigl( \frac{\frac{1}{R_1R_2} + \frac{1}{R_3}(k_1 + \frac{1}{R_1} + \frac{1}{R_2})}{k_1 + \frac{1}{R_2}} \Bigr) \]
+    \[ \frac{V_{g2}}{V_{g1}} = \frac{-k_1R_2R_3}{k_1R_1R_2 + R_1 + R_2 + R_3} \]
+}
+
+\qitem Solve for $\frac{V_{g3}}{V_{g2}}$ using nodal analysis. 
+
+\sol{
+    KCL: 
+    \[ k_2V_{g2} + I_4 + I_5 = 0 \]
+    \[ k_2V_{g2} + \frac{V_{g3}}{R_4} + \frac{V_{g3}}{R_5} = 0 \]
+    \[ k_2V_{g2} = -V_{g3}(\frac{1}{R_4} + \frac{1}{R_5}) \]
+    \[ \frac{V_{g3}}{V_{g2}} = \frac{-k_2R_4R_5}{R_4 + R_5} \]
+}
+
+\qitem Solve for $\frac{V_{g3}}{V_{g1}}$ using the results above. 
+
+\sol{
+\[ \frac{V_{g3}}{V_{g1}} = \frac{V_{g3}}{V_{g2}} \cdot \frac{V_{g2}}{V_{g1}} \]
+\[ \frac{V_{g3}}{V_{g1}} = \frac{k_1k_2R_2R_3R_4R_5}{(k_1R_1R_2 + R_1 + R_2 + R_3)(R_4 + R_5)} \]
+}
+
+\end{enumerate}
