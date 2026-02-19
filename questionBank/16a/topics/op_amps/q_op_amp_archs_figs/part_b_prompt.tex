@@ -1,0 +1,40 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+% Code for operational amplifier and comparator referenced from q_comparators.tex of CSM16A
+\begin{circuitikz}
+    \draw (0,0)
+        node[op amp,yscale=-1] (opamp) {}
+        (opamp.out) node[right]{}
+     ;
+	\draw
+	    (-0.2, -0.2)
+	        to [short] (0, -0.2)
+	        to [short] (0, 0.2)
+	        to [short] (0.2, 0.2);
+    \node[draw=none,text=black] at (0, 2) {$V_{DD}$};
+    \node[draw=none,text=black] at (0, -2) {$V_{SS}$};
+    
+    \draw
+        (opamp.-)
+            to [short] (-2, -0.5) node[ground]{}
+        (opamp.+)
+            to [short] (-3.5, 0.5)
+            to [R, l_=$3k\Omega$] (-4.5, 0.5)
+            to [short, -o] (-5.5, 0.5)
+            node[label=above:$V_{in}$]{}
+        (-3, 0.5)
+            to [short] (-3, 0)
+            to [R, l_=$1k\Omega$] (-3, -1) node[ground]{}
+        (0, 0.5)
+            to [short] (0, 1.5)
+            to [V, l^=$4V$] (1.5, 1.5) node[ground]{}
+        (0, -0.5)
+            to [short] (0, -1.5)
+            to [V, l^=$2V$] (1.5, -1.5) node[ground]{}
+        (opamp.out)
+            to [short, -o] (2, 0)
+            node[label=above:$V_{out}$]{}
+        ;
+    
+\end{circuitikz}

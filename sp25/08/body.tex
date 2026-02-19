@@ -1,0 +1,28 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 8}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/transfer/q_complicated.tex}
+\newpage
+\input{\bank/filters/rlc_bandstop.tex}
+\newpage
+\input{\bank/filters/bandpass.tex}
+\newpage
+\input{\bank/mt1-review/frequency_responses.tex}
+\end{qunlist}
+
+\end{document}

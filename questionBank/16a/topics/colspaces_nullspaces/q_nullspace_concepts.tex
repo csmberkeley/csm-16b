@@ -1,0 +1,196 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{Null Cap?}
+
+I am sorry about the puns. \\
+\textbf{Learning Goal}: Learn and Practice proofs regarding fundamental subspaces of a matrix. \\
+\meta{
+    Overall, these proof questions are attempting to spur discussions on "vector spaces" and ways to deal with them in the proof. This encourages students to partake in more complex proofs that require massaging the equation and using the definitions of subspaces. \\
+    A rank-nullity smudge problem was created at the same time of writing this question, but is now saved in the question bank repository for future usage.
+    
+}
+
+But anyways, you are now under surveilance of the EECS-Man, who would make you have Null Way Home unless you solve the Nullspace Challenges he sent you via a CSM worksheet.
+
+\begin{enumerate}
+    \item {
+        First of all, you'll try to answer these riddles and briefly explain the answer.
+        Is the nullspace of a matrix trivial if:
+        \begin{tasks}(2)
+            \task It has linearly dependent columns?
+            \task It has a unique solution for systems $A\vec{x} = \vec{b}$?
+            \task It is invertible?
+            \task It has an eigenvalue that is $0$?
+            \task Its determinant is non-zero?
+        \end{tasks}
+        
+    }
+    \meta {
+        \begin{bindenum}
+            \item Mentors can \textbf{use this question as a walkthrough for equivalent statements}.
+            \item This question is \textbf{review-purposed}.
+        \end{bindenum}
+        
+    }
+    \ans {
+        Let us travel through and inspect each subitems:
+        \begin{enumerate}
+            \item[a)] {
+                If the nullspace of a matrix is trivial, its columns are linearly independent.
+            }
+            \item[b)] {
+                If the nullspace of a matrix is trivial, its columns are linearly independent, so it will have a unique solution for systems $A\vec{x} = \vec{b}$.
+            }
+            \item[c)] {
+                If the nullspace of a matrix is trivial, its columns are linearly independent, so it will be invertible.
+            }
+            \item[d)] {
+                If a matrix's eigenvalues can be $0$, then the matrix itself already has multiple solutions to the system $A\vec{x} = 0\vec{x} = \vec{0}$. Therefore, it would not have a trivial nullspace. \\
+                In other words, if a matrix has trivial nullspace, its eigenvalues are all non-zero.
+            }
+            \item[e)] {
+                If the nullspace of a matrix is trivial, its columns are linearly independent, so its determinant would be non-zero.
+            }
+        \end{enumerate}
+    }
+    
+    \item {
+        Now the EECS-Man asks you about transposing a matrix. Prove that $N(A) = N(A^T A)$.
+        
+    }
+    \meta {
+        \begin{bindenum}
+            \item We are entering the difficulty spike a bit faster this time. This is \textbf{one of the first proofs students will rely on "massaging the equation"} to solve.
+        \end{bindenum}
+        
+    }
+    \ans {
+    \ans {
+        Nullspaces are sets of vectors. To prove that two sets are equal, we must prove that they contain the exact same collection of elements. \\
+        In the English language: for sets A and B to be equal, all elements of A must be in B and all elements of B must be in A. \\
+        There are two ways to put this symbolically:
+        \begin{enumerate}
+            \item $\forall x \in A (x \in B) \land \forall y \in B (y \in A)$
+            \item $A \subset B \land B \subset A$
+        \end{enumerate}
+        Again, both statements above expresses $A = B$.
+        Therefore, this proof is essentially a collection of two smaller proofs. \\
+        
+        \textbf{Proof 1: $\forall \vec{x} \in N(A) (\vec{x} \in N(A^TA))$} (all vectors in $N(A)$ are also in $N(A^TA)$)
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Let $\vec{x}$ be an arbitrary vector in $N(A)$. Then, by definition, 
+            \[A\vec{x} = \vec{0}\]
+            Multiplying both sides of the above equation by $A^T$, we acquire:
+            \[A^TA\vec{x} = A^T\vec{0} = \vec{0}\]
+            The above equation tells that $\vec{x}$ is by definition also in the nullspace of $A^TA$. \\
+            Therefore, for an arbitrary vector $\vec{x}$ in $N(A)$, it is also in $N(A^TA)$
+            Put symbolically, 
+            \[\forall \vec{x} \in N(A) (\vec{x} \in N(A^TA))\]
+        \end{minipage}
+        
+        \textbf{Proof 2: $\forall \vec{y} \in N(A) (\vec{y} \in N(A^TA))$} (all vectors in $N(A^TA)$ are also in $N(A)$)
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            This is a slightly trickier proof, but the overall logics and procedures are similar to what we have done above.
+            Let $\vec{y}$ be an arbitrary vector in $N(A^TA)$. Then, by definition, 
+            \[A^TA\vec{y} = \vec{0}\]
+            Multiplying both sides of the above equation by $\vec{y}^T$, we acquire:
+            \[\vec{y}A^TA\vec{y} = \vec{y}^T\vec{0} = 0\]
+            Let $\vec{v} = A\vec{y}$, then the expression $\vec{y}A^TA\vec{y}$ can be rewritten as:
+            \begin{align*}
+                \vec{y}A^TA\vec{y}
+                &= \vec{v}^T \vec{v} \\ &=
+                \begin{bmatrix} v_1 & \dots & v_n \end{bmatrix}
+                \begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix} \\
+                &= v_1^2 + \dots + v_n^2 \geq 0
+            \end{align*}
+            However, since $\vec{y}A^TA\vec{y} = 0$ and the expression is essentially a sum of squares of real numbers, it has to be that each components of the vector is 0. \\
+            Therefore, $A\vec{y} = 0$. \\
+            The above equation tells that $\vec{y}$ is by definition also in the nullspace of $A$. \\
+            Therefore, for an arbitrary vector $\vec{y}$ in $N(A^TA)$, it is also in $N(A)$
+            Put symbolically, 
+            \[\forall \vec{y} \in N(A) (\vec{y} \in N(A^TA))\]
+        \end{minipage}
+        
+        Having proven the above statements, we have successfully proven the prompt: $N(A) = N(A^TA)$.
+        
+    }
+    \begin{comment}
+    \item 
+        Vectors $\vec{x}$ and $\vec{y}$ are orthogonal if $\vec{x}^T \vec{y} = 0$. \\
+        Prove that for a matrix $A$, every vector in $N(A)$ is orthogonal to every vector in $Col(A^T)$.
+        
+    \ans {
+        Let $\vec{u} \in N(A)$, $\vec{v} \in Col(A^T)$. \\
+        Because $\vec{v} \in Col(A^T)$, let there exist another vector $\vec{b}$ containing the coefficients of $\vec{v}$ as a linear combination of $A^T$ columns. \\
+        Therefore, $\vec{v} = A^T \vec{b}$. \\
+        Now, let us inspect the expression $\vec{u}^T \vec{v}$:
+        \begin{align*}
+            \vec{u}^T \vec{v}
+            &= \vec{u}^T A^T \vec{b} \\
+            &= (A\vec{u})^T \vec{b} \\
+            &= \vec{0}^T \vec{b} \\
+            &= 0
+        \end{align*}
+        This occurred because $\vec{u} \in N(A)$, meaning $A \vec{u} = \vec{0}$. \\
+        Consequentially, for arbitrary $\vec{u}$, $\vec{v}$ in respectively $N(A)$, $Col(A^T)$: $\vec{u}^T \vec{v} = 0$. Therefore, all vectors in $N(A)$ are orthogonal to all vectors in $Col(A^T)$.
+        
+    }
+    \end{comment}
+    
+    \item {
+        Seeing that you have accomplished many challenges, the EECS-Man decided that the next question comes from Midterm 1, Spring 2020: \\
+        Let $A\in\R^{17\times32}$ satisfy $dim(Col(A))=9$. \\
+        How many linearly independent solutions can be found to the system of equations $A\vec{x}=\vec{0}$?
+        
+    }
+    \meta {
+        This is a good opportunity to \textbf{bring rank-nullity theorem into the discussion}!
+        
+    }
+
+    \ans {
+        The set of all solutions to the system of equations $A\vec{x}=\vec{0}$ is known as the nullspace of $A$, which we will denote here as $N(A)$. The number of vectors in its basis is known as the dimension of nullspace of A, which would be $dim(N(A))$. Meanwhile, it would also be the maximum amount of linearly independent solutions in the nullspace, since the basis of $N(A)$ will span $N(A)$ and contains the greatest set of linearly independent vectors that spans $N(A)$.\\
+        We may then support ourselves by the rank-nullity theorem, which asserts that for a matrix $M$ with $n$ columns:
+        \[n=dim(C(M))+dim(N(M))\]
+        In this case, the matrix $A$ has 32 columns and $dim(C(M))=9$, thus by the rank-nullity theorem $dim(N(M))=23$. Therefore, according to the above analyses, the maximum number of linearly independent solutions that can form any solution to the system $A\vec{x}=\vec{0}$ is equal to 23.\\
+        The above analysis thus shows us that, 23 linearly independent solutions can be found to that system of equation.
+        
+    }
+    
+    \item {
+        Given $A\vec{x} = \vec{b}$ is a system with unique solution, show why $A\vec{x} = k\vec{b}$ for a nonzero $k$ is also a system with unique solution.
+        
+    }
+    \meta {
+        \begin{bindenum}
+            \item This discussion utilizes both Gaussian Elimination and the concept of columnspace as a span.
+        \end{bindenum}
+    
+    }
+    \ans {
+        We are given that $A\vec{x} = \vec{b}$, which hints that the set of all columns of A is linearly independent. \\
+        To show that the system $A\vec{x} = k\vec{b}$ for a nonzero $k$ is also a system of unique solution, we can find a different way to express $k\vec{b}$ such that the system possesses a matrix of linearly independent columns. \\
+        Note that the vector $\vec{x}$ is different across the equations in the prompt. \\
+        \textbf{Approach 1}
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Having acquired the above information, and as we know $A\vec{x} = \vec{b}$:
+            \[k\vec{b} = kA\vec{x} = A(k\vec{x})\]
+            Which means the solution to a system $A\vec{y} = k\vec{b}$ would be $\vec{y} = k\vec{x}$, and since it is given by the prompt that there exists a unique $\vec{x}$, there can also only exist a unique $k\vec{x}$. \\
+            Therefore, the system $A\vec{x} = k\vec{b}$ also has a unique solution.
+        \end{minipage}
+        
+        \textbf{Approach 2}
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Since $A\vec{x} = \vec{b}$, $\vec{b} \in Col(A)$. \\
+            Because $Col(A)$ is a subspace, it must also be that for any scalar $\alpha$, $\alpha\vec{b} \in Col(A)$. \\
+            Therefore, $k\vec{b} \in Col(A)$, and $k\vec{b}$ is a linear combination of A's columns. Furthermore, because $A$ is hinted to have linearly independent columns, there can only exist one linear combination of $k\vec{b}$ from the columns of A. \\
+            In that sense, the system $A\vec{x} = k\vec{b}$ has a unique solution, such that $\vec{x}$ is the vector carrying the coefficients for the linear combination of columns of A that $k\vec{b}$ is.
+        \end{minipage}
+        
+    }
+\end{enumerate}

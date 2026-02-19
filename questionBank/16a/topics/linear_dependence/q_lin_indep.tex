@@ -1,0 +1,75 @@
+% Author: Anya Shrivastava
+% CSM16A Spring 2022
+\qns{Linear Independence}
+
+\begin{enumerate}
+% Part A
+\item Given a matrix \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} are the columns linearly independent? 
+
+\ans{
+
+Yes, because the matrix is already in reduced row echelon form and there is a pivot in each column, so the columns are linearly independent.
+}
+
+% Part B
+\item Given a matrix \begin{bmatrix} 1 & 2 \\ 1 & 2 \\ 1 & 2 \end{bmatrix}, are the columns linearly independent?
+
+\ans{
+
+No, because the columns are multiples of each other. 
+}
+
+% Part C
+\item Given a matrix \begin{bmatrix} 1 & 9 & 2 & 5 \\ 4 & 2 & 4 & 4 \\ 5 & 3 & 7 & 3 \end{bmatrix}, are the columns linearly independent?
+
+\meta{ 
+
+Draw out an example if necessary.
+}
+
+\ans{
+
+No, this can be done by inspection. In three dimensions, you can only have at most three columns linearly independent. This is because you need three linearly independent vectors to span all of R3. Having a fourth vector is redundant, which means that you can get the fourth vector through some linear combination of the three linearly independent vectors
+}
+
+%Part D
+\item Prove that given any three linearly independent vectors, you can span $\mathbb{R}^{3}$.
+
+\meta{
+It can be helpful to break proofs down for students into "What do we know?" and "What do we want to show?".
+}
+
+\ans{
+
+We know our three vectors are linearly independent, $\vec{v_1}$, $\vec{v_2}$, $\vec{v_3}$. \\
+
+We want to show that there are scalars $x_1$, $x_2$, $x_3$ such that:
+
+\begin{equation}
+    x_1 \vec{v_1} +  x_2 \vec{v_2} +  x_3 \vec{v_3} = \vec{b} \\
+\end{equation}
+
+where $\vec{b} \in \mathbb{R}^3$. \\
+
+If we rearrange (1) we can get:
+
+\begin{equation}
+    \begin{bmatrix} | & | & | \\ \vec{v_1} & \vec{v_2} & \vec{v_3} \\ | & | & |
+    \end{bmatrix}  
+    \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \vec{b} \\
+\end{equation}
+
+Now we are asking, is there a solution, $\vec{x} = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$, to (2)?
+
+We know our equation (2) has a unique solution, because the columns of the matrix are linearly independent. We also see that the matrix is square. Thus we can take the inverse of our matrix. \\
+
+Our solutions then is:
+
+\begin{equation}
+    \vec{x} = \mathbf{A}^{-1} \vec{b} \\
+\end{equation}
+
+Since we have a unique solution, we know we can get $\vec{b}$ to be any vector in $\mathbb{R}^3$ with our $\vec{x}$. Thus, we can span $\mathbb{R}^3$.
+}
+
+\end{enumerate} % End parts A to D

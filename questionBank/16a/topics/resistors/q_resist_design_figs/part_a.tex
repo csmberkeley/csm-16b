@@ -1,0 +1,22 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\begin{circuitikz}[american]
+    \draw
+        node[ground]{} (0, 0) 
+        to [V, l_=$V_S$, invert] (2, 0)
+        to [R, l_=$?\Omega$] (4, 0)
+        to [short] (7, 0) node[ground]{};
+    \node[
+        rectangle, draw, fill=white, minimum width=1.4cm, minimum height=0.8cm
+    ] at (5.5, 0) {$chip, R = 0\Omega$};
+\end{circuitikz}
+\begin{tabular}{c|cccc}
+    Material & $\rho$ $(\Omega m)$ & $L$ (m) & $w$ (m) & $h$ (m) \\
+    \hline
+    Copper & $2 \times {10}^{-8}$ & ${10}^{-5}$ & ${10}^{-4}$ & (i) \\
+    Iron & $1 \times {10}^{-7}$ & ${10}^{-5}$ & (ii) & ${10}^{-5}$ \\
+    Silicon & $6 \times {10}^{2}$ & (iii) & ${10}^{-4}$ & ${10}^{-4}$ \\
+    Silver & $1.5 \times {10}^{-8}$ & ${10}^{-4}$ & ${10}^{-5}$ & (iv) \\
+    Rubber & $1 \times {10}^{13}$ & (v) & ${10}^{-4}$ & ${10}^{-5}$ \\
+\end{tabular}

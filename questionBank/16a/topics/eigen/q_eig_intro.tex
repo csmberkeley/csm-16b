@@ -1,0 +1,348 @@
+\qns{Eigen Introduction}
+% Author: Drake Lin
+% Email: drakelin@berkeley.edu
+
+\textbf{Learning Goal:} The goal of this problem is to practice both intuitively and mechanically finding eigenvalues and their corresponding eigenvectors/eigenspaces.
+
+\textbf{Relevant Notes:} \href{https://eecs16a.org/lecture/Note9.pdf}{Note 9} Sections 9.2, 9.4, and 9.6 cover the process of finding eigenvalue-eigenvector pairs.
+
+\newcommand{\Amat}{\ensuremath{\begin{bmatrix}
+3 & 2  \\
+1 & 4
+\end{bmatrix}}}
+
+\meta{
+    To start, explain the concept of eigenvalues and eigenvectors both graphically and mechanically, highlighting why we want the determinant of $\mathbf{A} - \mathbf{I}\lambda$ to equal 0. The first few parts focus on intuition (try to prod students to the answer) while the latter parts are more mechanical so give the students time to do them themselves. 
+    One thing to explain since we removed it from the questions: nonsquare matrices don't have eigenvalues because the transformed vector would have a different dimension.
+    This problem is long so feel free to skip some parts based on how familiar the students are with the content
+}
+
+% In this problem, when asked for eigenvectors, you may simply state that the eigenvector comes from a set. For instance, you could state that any $\vec{x} \in \text{Colspace}(\mathbf{A})$ is an eigenvector. Also, note that when asked to find eigenvalues, only consider real eigenvalues for this problem. 
+
+\begin{enumerate}
+
+
+\item {
+    What are the eigenvalues and eigenvectors of the matrix $$\mathbf{B} = \begin{bmatrix} 5 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 5\end{bmatrix}$$
+
+}
+
+\meta{ 
+Make sure to remind students that this only works because the matrix is a diagonal matrix. Using Gaussian Elimination to reduce a matrix to diagonal and then doing this same strategy is not a correct way to calculate eigenvalues. 
+}
+
+
+
+\ans{
+    $\mathbf{B}$ is a scaling matrix which scales any vector by a factor of $5$. Formally, this means that given any vector $\vec{x}$, 
+    $$\mathbf{B}\vec{x} = 5\vec{x}$$
+    No matter what value of $\vec{x}\in\R^3$ we put in to this equation, the same scaling will be performed. Thus, this matrix has only one eigenvalue, $\lambda = 5$ and any $\vec{x} \in \mathbb{R}^3$ is an eigenvector. 
+}
+
+\item {
+    What are the eigenvalues and eigenvectors of the matrix $$\mathbf{C} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 6 & 0 \\ 0 & 0 & 10\end{bmatrix}$$
+}
+
+\ans{
+    $\mathbf{C}$ is a scaling matrix which scales each entry of a vector by a different amount: the first entry is kept constant, the second entry is scaled by 6, and the third entry is scaled by 10:
+    $$\mathbf{C}\vec{x} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 6 & 0 \\ 0 & 0 & 10\end{bmatrix}\begin{bmatrix}x_1 \\ x_2 \\ x_3\end{bmatrix} = \begin{bmatrix}x_1 \\ 6x_2 \\ 10x_3 \end{bmatrix}$$
+    Consider only the third row (we choose the third row here randomly - this idea works for any of the rows). The value of $x_3$ is inputted into the transformation, which outputs $10x_3$. So if we can somehow ignore the scaling operations of the other two rows, which scale by different amounts, we have found a $\lambda$, or eigenvalue. It turns out that there is a way to "select" for this, by setting $x_1 = x_2 = 0$. Then
+    $$\mathbf{C}\vec{x} = \mathbf{C}\begin{bmatrix}0 \\ 0 \\ x_3\end{bmatrix} = \begin{bmatrix}0 \\ 0 \\ 10x_3\end{bmatrix} = 10\vec{x}$$
+    So one eigenvalue is $10$ and one eigenvector is $\begin{bmatrix} 0 \\ 0 \\ 1\end{bmatrix}$. You can do a similar process for eigenvalues 6 and 1. Even though this matrix has linearly independent columns, that doesn't mean that every vector in the span of the columns is an eigenvector like in part a because here the eigenvalues are distinct.
+    
+}
+
+\item{
+    Consider a matrix that rotates a vector in $\mathbb{R}^2$ by $45^\circ$ counterclockwise about the origin in a coordinate plane. For instance, it rotates any vector along the x-axis to orient towards the $y=x$ line. This matrix is given as $$\mathbf{E} = \begin{bmatrix} \cos45 & -\sin45 \\ \sin45 & \cos45 \end{bmatrix} = \dfrac{\sqrt{2}}{2} \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}$$
+    What are the eigenvalues and eigenvectors of this matrix?
+}
+
+\meta{Draw a picture to show how the matrix applies the rotation. You could also draw how the complex eigenvalues look when explaining the solution.}
+
+\ans{
+   We recall the equation $\mathbf{A}\vec{x} = \lambda\vec{x}$ which describes eigenvalues and eigenvectors. Geometrically, the right hand side means that there exist some vectors $\vec{x}$ that are scaled by $\lambda$. The left hand side represents the transformation $\mathbf{A}$ which when applied to $\vec{x}$ causes this scaling. The act of "scaling" in a coordinate plane preserves the angle or direction of the vector, only changing its magnitude.
+   
+   For our matrix $\mathbf{E}$ that takes a vector and rotates it by $45^\circ$, it would be changing the direction of any original input vector. So there are no possible vectors that this matrix could scale, which also means that there are no real eigenvalues for this matrix either. 
+   
+   \textbf{Side note:} However, this doesn't mean that $\mathbf{E}$ has no eigenvalues at all. There are actually \textit{complex} eigenvalues! If you are curious about this topic, we recommend looking into \notes{Note 9: Section 9.6} to learn more.
+}
+
+\item{
+	Solve for the eigenvalue-eigenvector pairs for the following 2 by 2 matrix: \\
+	$$
+	\mathbf{A} = \Amat
+    $$
+    
+    Also find the eigenspaces.
+}
+
+
+\ans{
+	To solve for eigenvalues and eigenvectors, let's go back and review the definition of eigenvectors and eigenvalues:
+	\\
+	If $\vec{x}$ and $\lambda$ are the eigenvector and eigenvalue of $\mathbf{A}$, respectively, then the following equation holds:
+	
+	$$\mathbf{A}\vec{x} = \lambda\vec{x}$$
+	
+	Since the (appropriately sized) identity matrix is analogous to multiplying by 1 in arithmetic, we can say:
+
+    $$\mathbf{A}\vec{x} = \lambda \mathbf{I} \vec{x}$$
+	
+	Rearranging, we get:
+	
+	$$\mathbf{A}\vec{x} - (\lambda \mathbf{I}) \vec{x} = \vec{0}
+	$$
+	$$
+	(\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}
+	$$
+	
+	What does this look like? It looks similar to solving for the nullspace of $(\mathbf{A} - \lambda \mathbf{I})$!
+	
+	Assuming that there is a nontrivial nullspace, that also means that $\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) = 0$!
+	
+	Let's solve for $\lambda$ first:
+	
+	$$(\mathbf{A} - \lambda \mathbf{I}) = \Amat - \begin{bmatrix}
+	\lambda & 0 \\
+	0 & \lambda
+	\end{bmatrix}
+	$$
+	$$= \begin{bmatrix}
+	3 - \lambda & 2 \\
+	1 & 4 - \lambda
+	\end{bmatrix}$$
+	$$\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) = (3 - \lambda)(4 - \lambda) - 2$$
+	$$= 10 - 7\lambda + \lambda^2$$
+	$$= (\lambda - 5)(\lambda - 2)$$
+	By factoring:
+	$$\lambda = 5, 2$$
+	
+	Let's check: We've just solved for the eigenvalues. But what about the eigenvectors? 
+	
+	To do that, we plug in $\lambda$ into $(\mathbf{A} - \lambda \mathbf{I})$ and solve for the nullspace!
+	
+	For $\lambda = 5$:
+	
+	$$
+	(\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}
+	$$
+	$$\begin{bmatrix}
+	3 - \lambda & 2 \\
+	1 & 4 - \lambda
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix}= \vec{0}
+	$$
+	$$\begin{bmatrix}
+	-2 & 2 \\
+	1 & -1
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	By row reduction:
+	$$\begin{bmatrix}
+	1 & -1 \\
+	0 & 0
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	$$
+	x_1 = x_2 
+	$$
+	$$
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = 
+	\begin{bmatrix} 
+	1 \\
+	1
+	\end{bmatrix}x_2
+	$$
+	So the first pair is $$\lambda, \vec{x} = 5, \begin{bmatrix} 
+	1 \\
+	1
+	\end{bmatrix}$$ \\
+	Repeating for $\lambda = 2$, 
+	$$\begin{bmatrix}
+	3 - \lambda & 2 \\
+	1 & 4 - \lambda
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix}= \vec{0}
+	$$
+	$$\begin{bmatrix}
+	1 & 2 \\
+	1 & 2
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	$$\begin{bmatrix}
+	1 & 2 \\
+	0 & 0
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	$$
+	x_1 = -2x_2 
+	$$
+	$$
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = 
+	\begin{bmatrix} 
+	-2 \\
+	1
+	\end{bmatrix}x_2
+	$$
+	So, the second pair is
+	$$\lambda, \vec{x} = 2, 
+	\begin{bmatrix} 
+	-2 \\
+	1
+	\end{bmatrix}$$
+	The eigenspace is the space of all vectors $\vec{v}$ that satisfy the equation $\mathbf{A}\vec{v} = \lambda\vec{v}$. In this problem, we have two eigenspaces (one for each eigenvalue), and their basis vectors are the eigenvectors we found: 
+	$$E_{\lambda = 5} = \textrm{span}\left\{\begin{bmatrix}1\\1\end{bmatrix}\right\}$$
+	$$E_{\lambda = 2} = \textrm{span}\left\{\begin{bmatrix}-2\\1\end{bmatrix}\right\}$$
+	}
+
+\item{
+	Find the eigenvectors for matrix $\mathbf{A}$ given that we know that $\lambda_1 = 4, \lambda_2 = \lambda_3 = -2$ and that 
+	$$ \mathbf{A} = 
+	\begin{bmatrix} 1 & -3 & 3\\ 
+	               3 & -5 & 3\\
+	               6 & -6 & 4
+	\end{bmatrix}
+	$$
+	
+	Also find the eigenspaces.
+}
+
+\meta{The students do NOT know how to find the determinant of a $3\times3$ matrix. So mention that for matrices larger than $2\times2$, they do not need to mechanically calculate eigenvalues unless it's a diagonal matrix.}
+
+
+\ans{ 
+    Once the eigenvalues of a matrix have been found, we can find the eigenvectors by Gaussian Elimination.
+    
+    \underline{Step 1:} For each eigenvalue $\lambda$, we have $$(\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}$$
+    where $\vec{x}$ is the eigenvector associated with eigenvalue $\lambda$.
+
+    \underline{Step 2:} Find $\vec{x}$ in the nullspace of $(\mathbf{A} - \lambda \mathbf{I})$ by plugging in a value of  $\lambda$ and using Gaussian elimination to solve.
+
+    Case 1: $\lambda$ = 4. First, form the matrix $\mathbf{A} - 4\mathbf{I}$:
+    $$ \mathbf{A} - 4\mathbf{I} = 
+    \begin{bmatrix} 
+    1 & -3 & 3\\ 
+    3 & -5 & 3\\
+     6 & -6 & 4
+	\end{bmatrix} - 
+	\begin{bmatrix} 
+	4 & 0 & 0\\ 
+	0 & 4 & 0\\
+	0 & 0 & 4
+	\end{bmatrix} = 
+	\begin{bmatrix} 
+	-3 & -3 & 3\\ 
+	3 & -9 & 3\\
+	6 & -6 & 0
+	\end{bmatrix}
+	$$
+Then we use augmented matrix to solve for $\mathbf{A} - 4\mathbf{I}=\vec{0}$:	
+	\begin{align*}
+	\left[\begin{array}{ccc|c}
+		-3 & -3 & 3 & 0 \\
+		3 & -9 & 3 & 0\\
+		6 & -6 & 0 & 0
+	\end{array}\right] &\rightarrow
+	\left[\begin{array}{ccc|c}
+		1 & 1 & -1 & 0\\
+		3 & -9 & 3 & 0\\
+		6 & -6 & 0 & 0
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1 (\frac{-1}{3})$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 1 & -1 & 0\\
+		0 & -12 & 6 & 0\\
+		0 & -12 & 6 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 3R_1$ and $R_3  \leftarrow R_3 - 6R_1$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 1 & -1 & 0\\
+		0 & -2 & 1 & 0\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 - R_2$ and $R_2 \leftarrow R_2 (\frac{1}{6})$}\\
+\end{align*}
+
+We see that we have reached a row of 0s, which means that our last variable $x_3$ is the free variable in our system. Now, we can expand this matrix by putting it into a system of linear equations and solving for all the variables in terms of our free variable $x_3$:
+	$$x_1 +x_2 - x_3 = 0$$
+	$$-2x_2 + x_3 = 0$$
+	
+	$$x_2 = \frac{x_3}{2}$$
+	
+	$$x_1 + \frac{x_3}{2} - x_3 = 0$$
+	$$x_1 = \frac{x_3}{2}$$
+	
+	
+	$$
+    \vec{x} = \begin{bmatrix} \frac{x_3}{2} \\ \frac{x_3}{2} \\ x_3
+    \end{bmatrix}
+    $$
+    
+    $$
+    = x_3 \begin{bmatrix} \frac{1}{2} \\ \frac{1}{2} \\ 1
+    \end{bmatrix}, \quad \textrm{where}\quad x_3 \in \mathbb{R}
+    $$
+    
+    So an eigenvector for $\lambda = 4$ is $\vec{v}_1 =\begin{bmatrix} 1 \\ 1 \\ 2
+    \end{bmatrix}$. The corresponding eigenspace is 
+    $$E_{\lambda = 4} = \textrm{span}\left\{\begin{bmatrix}1\\1\\2\end{bmatrix}\right\}$$
+    Now, let's use this same technique to find the eigenvector for $\lambda = -2$.
+\\\\
+\meta{
+    Here might be a good time to ask your students how many eigenvectors the next value of lambda yields, considering that it has multiplicity 2.
+}
+\\\\
+    Case 2: Now let's plug in $\lambda = -2$ into $\mathbf{A-\lambda I}$ to get
+    $$
+    \mathbf{A} + 2\mathbf{I} = \begin{bmatrix} 3 & -3 & 3 \\ 3 & -3 & 3 \\ 6 & -6  & 6\end{bmatrix}
+    $$
+	Just like before, let's use Gaussian elimination to reduce the matrix. We can see that this will only take a few steps:
+    	\begin{align*}
+	\left[\begin{array}{ccc|c}
+		3 & -3 & 3 & 0 \\
+		3 & -3 & 3 & 0\\
+		6 & -6  & 6 & 0
+	\end{array}\right] &\rightarrow
+	\left[\begin{array}{ccc|c}
+	1 & -1 & 1 & 0\\ 
+	0 & 0 & 0 & 0\\
+	0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - R_1$; $R_3 \leftarrow R_3 - 2\cdot R_1$; $R_1 \leftarrow R_1 \cdot \frac{1}{3}$}
+\end{align*}
+
+    As we can see here, we have two rows of 0s, which means that we have two free variables ($x_2$ and $x_3$). Now we can take this matrix and write it as a linear system to get
+	$$x_1 - x_2 + x_3 = 0 \Rightarrow x_1 = x_2 - x_3$$
+	
+	Thus, 
+	
+	$$\vec{x} = \begin{bmatrix} x_2 - x_3 \\  x_2 \\ x_3 \end{bmatrix} = x_3 \begin{bmatrix} -1\\  0 \\ 1 \end{bmatrix} + x_2 \begin{bmatrix} 1 \\  1 \\ 0 \end{bmatrix}$$
+	which are the two eigenvectors associated with $\lambda = -2$. These eigenvectors form a basis for a two-dimensional eigenspace, 
+	$$E_{\lambda = -2} = \textrm{span}\left\{\begin{bmatrix}-1\\0\\1\end{bmatrix}, \begin{bmatrix}1\\1\\0\end{bmatrix}\right\}$$
+}
+
+\end{enumerate}

@@ -1,0 +1,154 @@
+\pgfplotsset{width=7cm,compat=1.16}
+\usepgfplotslibrary{polar}
+
+\qns{Simply Complex Problems}
+
+\meta{\begin{itemize}
+        \item Complex number problems for practice. 
+    \end{itemize}
+}
+
+\begin{enumerate}
+    \item Let $z_1 = x_1 + iy_1 = r_1 e^{i\theta_1}$ and $z_2 = x_2 + iy_2 = r_2 e^{i\theta_2}$. 
+    Find the real part and imaginary part of the product $z_1z_2$ and the quotient $z_1/z_2$ in terms of the Cartesian components $x_1$, $x_2$, $y_1$, and $y_2$. 
+    Then find the real and imaginary part of the product $z_1z_2$ and the quotient $z_1/z_2$ in terms of the polar components $r_1$, $r_2$, $\theta_1$, and $\theta_2$.
+    \sol {
+        We start with $z_1=x_1+iy_1$ and $z_2=x_2+iy_2$. Taking the product,
+        \begin{align*}
+            z_1z_2 &= (x_1+iy_1)(x_2+iy_2)=x_1x_2+i x_1y_2+i y_1x_2+i^2 y_1y_2 \\
+            &= (x_1x_2-y_1y_2)+i(x_1y_2+x_2y_1).
+        \end{align*}
+        
+        For the quotient,
+        \begin{align*}
+            \frac{z_1}{z_2}
+            &=\frac{x_1+iy_1}{x_2+iy_2}\cdot\frac{x_2-iy_2}{x_2-iy_2}
+            =\frac{x_1x_2- i x_1y_2+i y_1x_2- i^2 y_1y_2}{x_2^2+y_2^2}\\
+            &=\frac{x_1x_2+y_1y_2}{x_2^2+y_2^2}
+            +i\,\frac{x_2y_1-x_1y_2}{x_2^2+y_2^2}.
+        \end{align*}
+
+        Therefore,
+        \[ \Re(z_1z_2)=x_1x_2-y_1y_2,\quad \Im(z_1z_2)=x_1y_2+x_2y_1, \]
+        \[
+            \Re\!\left(\frac{z_1}{z_2}\right)=\frac{x_1x_2+y_1y_2}{x_2^2+y_2^2},\quad
+            \Im\!\left(\frac{z_1}{z_2}\right)=\frac{x_2y_1-x_1y_2}{x_2^2+y_2^2}.
+        \]
+
+        In polar variables,
+        \[
+            z_1z_2=(r_1e^{i\theta_1})(r_2e^{i\theta_2})=r_1r_2e^{i(\theta_1+\theta_2)},\qquad
+            \frac{z_1}{z_2}=\frac{r_1e^{i\theta_1}}{r_2e^{i\theta_2}}=\frac{r_1}{r_2}e^{i(\theta_1-\theta_2)}.
+        \]
+        Hence,
+        \[ \Re(z_1z_2)=r_1r_2\cos(\theta_1+\theta_2),\quad \Im(z_1z_2)=r_1r_2\sin(\theta_1+\theta_2), \]
+        \[
+            \Re\!\left(\frac{z_1}{z_2}\right)=\frac{r_1}{r_2}\cos(\theta_1-\theta_2),\quad
+            \Im\!\left(\frac{z_1}{z_2}\right)=\frac{r_1}{r_2}\sin(\theta_1-\theta_2).
+        \]
+    }    
+    \vspace{2in}
+
+    \item Let $z = x + iy = re^{i\theta}$ . Find $z^2$ and $|z|^2$ first in terms of $x$ and $y$ and then in terms of $r$ and $\theta$. Under what circumstances does $|z|^2 = z^2$?
+    \sol {
+        In Cartesian form $z=x+iy$,
+        \[
+            |z|^2=\bar z z=(x-iy)(x+iy)=x^2+y^2,\qquad
+            z^2=(x+iy)^2=x^2+2ixy-y^2.
+        \]
+
+        In polar form $z=re^{i\theta}$,
+        \[
+            |z|^2=\bar z z=(re^{-i\theta})(re^{i\theta})=r^2,\qquad
+            z^2=(re^{i\theta})^2=r^2e^{2i\theta}.
+        \]
+
+        If $|z|^2=z^2$, then
+        \[ x^2+y^2=x^2+2ixy-y^2 \;\;\Longrightarrow\;\; 2y^2-2ixy=0 \;\;\Longrightarrow\;\; y(y-ix)=0. \]
+        Since $x,y\in\mathbb{R}$, this forces $y=0$. Thus $|z|^2=z^2$ iff $z$ is purely real.
+    }
+    \vspace{2in}
+
+    \item Use Euler's formula on both sides of $e^{i(\alpha + \beta)} = e^{i\alpha}e^{i\beta}$ to derive the formulas for $\cos(\alpha + \beta)$ and $\sin(\alpha + \beta)$. 
+    \sol {
+        Using Euler's formula,
+        \[
+            e^{i(\alpha+\beta)}=e^{i\alpha}e^{i\beta}
+            \quad\Longrightarrow\quad
+            \cos(\alpha+\beta)+i\sin(\alpha+\beta)
+            =(\cos\alpha+i\sin\alpha)(\cos\beta+i\sin\beta).
+        \]
+
+        Equating real and imaginary parts gives
+        \[
+            \cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta,\qquad
+            \sin(\alpha+\beta)=\cos\alpha\sin\beta+\sin\alpha\cos\beta.
+        \]
+    }
+    \vspace{2in}
+
+    \item Let $z_1 = r_1 e^{i\theta_1}$ and $z_2 = r_2 e^{i\theta_2}$. Show that
+    \begin{equation}
+        |z_1 + z_2| = \sqrt{r_1^2 + r_2^2 + 2r_1r_2\cos(\theta_1 - \theta_2)}
+    \end{equation}
+    \sol {
+        Let $z_1=r_1e^{i\theta_1}$ and $z_2=r_2e^{i\theta_2}$. Then
+        \begin{align*}
+            |z_1+z_2|^2&=(z_1+z_2)^{\!*}(z_1+z_2)
+            =\bar z_1 z_1+\bar z_2 z_2+\bar z_1 z_2+\bar z_2 z_1\\
+            &=r_1^2+r_2^2+r_1r_2 e^{i(-\theta_1+\theta_2)}+r_1r_2 e^{i(-\theta_2+\theta_1)}\\
+            &=r_1^2+r_2^2+r_1r_2\bigl(e^{i(\theta_1-\theta_2)}+e^{-i(\theta_1-\theta_2)}\bigr)\\
+            &=r_1^2+r_2^2+2r_1r_2\cos(\theta_1-\theta_2).
+        \end{align*}
+        Therefore,
+        \[ |z_1+z_2|=\sqrt{\,r_1^2+r_2^2+2r_1r_2\cos(\theta_1-\theta_2)\,}. \]
+    }
+    \vspace{2in}
+
+    \item Use this result to show the triangle inequality, 
+    \begin{equation}
+        |z_1 + z_2| \leq |z_1| + |z_2|
+    \end{equation}
+    Under what conditions is this an equality? 
+    \sol {
+        Since $\cos(\theta_1-\theta_2)\le 1$, from (d) we get
+        \[ |z_1+z_2|\le \sqrt{\,r_1^2+r_2^2+2r_1r_2\,}=\sqrt{(r_1+r_2)^2}=r_1+r_2=|z_1|+|z_2|. \]
+        Equality holds when $\cos(\theta_1-\theta_2)=1$, i.e.\ when $\theta_1=\theta_2$ (the two numbers have the same phase).
+    }
+    \vspace{2in}
+
+    \item Show De Moivre's formula, 
+    \begin{equation}
+        (\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)
+    \end{equation}
+    \sol {
+        (De Moivre) From Euler,
+        \[
+            (e^{i\theta})^n=e^{in\theta}\quad\Longrightarrow\quad
+            (\cos\theta+i\sin\theta)^n=\cos(n\theta)+i\sin(n\theta).
+        \]
+    }
+    \vspace{2in}
+
+    \item Use De Moivre's formula to show the double angle formulas: 
+    \begin{equation}
+        \begin{dcases}
+            \cos 2\theta = \cos^2\theta - \sin^2\theta \\
+            \sin 2\theta = 2\cos\theta\sin\theta
+        \end{dcases}
+    \end{equation}
+    \sol {
+        \[
+            (\cos\theta + i\sin\theta)^2
+            = \cos^2\theta - \sin^2\theta + i\,(2\sin\theta\cos\theta)
+            = \cos(2\theta) + i\sin(2\theta).
+            \]
+            \[
+            \text{Hence}\quad
+            \cos(2\theta)=\cos^2\theta-\sin^2\theta,\qquad
+            \sin(2\theta)=2\sin\theta\cos\theta.
+        \]
+    }
+    \vspace{2in}
+
+\end{enumerate}

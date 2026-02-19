@@ -1,0 +1,31 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Intuition on Columnspace and Nullspace}
+
+\textbf{Learning Topic}: Rank-Nullity Theorem
+\begin{enumerate}
+    \setlength\itemsep{4em}
+    \item Let $A\in\R^{17\times32}$ satisfy $dim(C(A))=9$, where $C(A)$ denotes the columnspace of $A$. How many linearly independent solutions can be found to the system of equations $A\vec{x}=\vec{0}$?
+        
+    
+    \meta{
+        This question comes from Q8 of Spring 2020’s Midterm 1.
+        \begin{bindenum}
+            \item The general approach would be understanding the dimension of a columnspace and nullspace for such a matrix, and then finding useful mathematical shortcuts like rank-nullity theorem to support the solution.
+        \end{bindenum}
+        
+    }
+    \ans{
+        The set of all solutions to the system of equations $A\vec{x}=\vec{0}$ is known as the nullspace of $A$, which we will denote here as $N(A)$. The number of vectors in its basis is known as the dimension of nullspace of A, which would be $dim(N(A))$. \\
+        Meanwhile, it would also be the maximum amount of linearly independent solutions in the nullspace, since the basis of $N(A)$ will span $N(A)$ and contains the greatest set of linearly independent vectors that spans $N(A)$. \\
+        We may then support ourselves by the rank-nullity theorem, which asserts that for a matrix $M$ with $n$ columns:
+        \[n=dim(C(M))+dim(N(M))\]
+        In this case, the matrix $A$ has 32 columns and $dim(C(M))=9$, thus by the rank-nullity theorem $dim(N(M))=23$. Therefore, according to the above analyses, the maximum number of linearly independent solutions that can form any solution to the system $A\vec{x}=\vec{0}$ is equal to 23.\\
+        The above analysis thus shows us that, 23 linearly independent solutions can be found to that system of equation.
+        
+    }
+    
+\end{enumerate}

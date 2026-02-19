@@ -1,0 +1,131 @@
+%\newpage
+\qns{Fundamental Subspaces} [WALK-THROUGH]
+
+\textbf{Learning Goal:} The goal of this problem to practice finding the columnspace and nullspace of a matrix.
+
+Please look into \notes{Note 8 Section 8.2-8.4} to learn about the significance of columnspace and nullspace.
+
+Consider a matrix $\textbf{A}$:
+	$$\textbf{A} = \begin{bmatrix}
+		1 & -2 & 3 & 1 \\
+		0 & 1 & -1 & 0 \\
+		-1 & 1 & -2 & -1
+		\end{bmatrix}$$
+
+\begin{enumerate}
+%\setlength\itemsep{17em}
+\itemFind a basis for the column space of $\textbf{A}$. What is the dimension of this space?
+\vspace{5mm}
+
+\meta{
+
+\begin{itemize}
+\item Remind students that when picking the vectors for the basis of the span, it's important to pick the original column vectors rather than the reduced row echelon column vectors because we would lose vital information from A.
+
+\item Ensure that the vectors in the final span expression for the column space and null space are linearly independent.
+\end{itemize}
+
+}
+\vspace{5mm}
+
+\ans{
+
+	We row reduce $\textbf{A}$:
+	\begin{align*}
+	\left[\begin{matrix}
+		1 & -2 & 3 & 1 \\
+		0 & 1 & -1 & 0 \\
+		-1 & 1 & -2 & -1
+	\end{matrix}\right] &\rightarrow \left[\begin{matrix}
+		1 & -2 & 3 & 1\\
+		0 & 1 & -1 & 0\\
+		0 & -1 & 1 & 0
+\end{matrix}\right] \mbox{using $R_3 \leftarrow R_3 + R_1$}\\
+&\rightarrow \left[\begin{matrix}
+		1 & -2 & 3 & 1\\
+		0 & 1 & -1 & 0\\
+		0 & 0 & 0 & 0
+\end{matrix}\right] \mbox{using $R_3 \leftarrow R_2 + R_3$}\\
+&\rightarrow \left[\begin{matrix}
+		1 & 0 & 1 & 1\\
+		0 & 1 & -1 & 0\\
+		0 & 0 & 0 & 0
+\end{matrix}\right] \mbox{using $R_1 \leftarrow R_1 + 2R_2$}
+\end{align*}
+
+	We see that our pivots are in the first and second columns, so we can construct the column space using the first and second columns of A.
+
+	$$\text{C}(\textbf{A}) = \text{span}\left\{ 
+		\begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}, 
+		\begin{bmatrix} -2 \\ 1 \\ 1 \end{bmatrix}
+	\right\}$$
+
+	The dimension of this space is 2.
+}
+
+\itemFind a basis for the nullspace of $\textbf{A}$. What is the dimension of this space?
+\vspace{5mm}
+
+\meta{
+It’s helpful to double check if the dimensions of the nullspace and columnspace add up to the original number of columns we have in A.
+}
+\vspace{5mm}
+
+\ans{
+
+	Recall that the nullspace is set of all $\vec{x}$ such that $\textbf{A}\vec{x} = \vec{0}$.
+	Let the entries of $\vec{x}$ be $x_1, x_2, x_3, x_4$.
+
+	Use the row reduced echelon form of $\textbf{A}$ from the previous part of the problem, augmented with $\vec{0}$:
+	$$\left[ \begin{array}{c|c} 
+			\textbf{A} & \vec{0}
+		\end{array} \right] 
+		=
+		\left[ \begin{array}{cccc|c}
+			1 & -2 & 3 & 1 & 0\\
+			0 & 1 & -1 & 0 & 0 \\
+			-1 & 1 & -2 & -1 & 0
+		\end{array} \right]
+		\sim
+		\left[ \begin{array}{cccc|c}
+			1 & 0 & 1 & 1 & 0\\
+			0 & 1 & -1 & 0 & 0 \\
+			0 & 0 & 0 & 0 & 0
+		\end{array} \right]$$
+
+	Notice that the third and fourth column do not have pivots, i.e. $x_3$ and $x_4$ are the free variables. We can write the equations that this matrix represents as follows:
+	$$\begin{cases}
+		x_1 + x_3 + x_4 = 0\\
+		x_2 = x_3 = 0 \\
+		x_3 = x_3 \\
+		x_4 = x_4
+	\end{cases}$$
+	
+	$$\begin{cases}
+		x_1 = -x_3 - x_4 \\
+		x_2 = x_3 \\
+		0 = 0
+	\end{cases}$$
+
+	Rewrite $\vec{x}$:
+	\begin{align*}
+	\vec{x} &= \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{bmatrix} \\
+		&= \begin{bmatrix} - x_3 - x_4  \\ x_3 \\ x_3 \\ x_4 \end{bmatrix} \\
+		&= \begin{bmatrix} - x_3 \\ x_3 \\ x_3 \\ 0 \end{bmatrix} 
+			+ \begin{bmatrix} - x_4  \\ 0 \\ 0 \\ x_4 \end{bmatrix} \\
+		&= x_3 \begin{bmatrix} -1 \\ 1 \\ 1 \\ 0 \end{bmatrix}
+			+ x_4 \begin{bmatrix} - 1  \\ 0 \\ 0 \\ 1 \end{bmatrix}
+	\end{align*}
+
+	We can construct our nullspace from the above vectors:
+
+	$$\text{N}(\textbf{A}) = \text{span}\left\{ 
+		\begin{bmatrix} -1 \\ 1 \\ 1 \\ 0 \end{bmatrix},
+		\begin{bmatrix} - 1  \\ 0 \\ 0 \\ 1 \end{bmatrix}
+	\right\}$$
+
+	The dimension of this space is 2.
+}
+
+
+\end{enumerate}

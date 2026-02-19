@@ -1,0 +1,71 @@
+\noindent
+\textbf{Reference: Op-Amp Example Circuits}
+\renewcommand{\arraystretch}{2}
+\noindent
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c||c|}
+	\hline
+	Voltage Divider & Inverting Amplifier \\
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_voltage_divider}
+	\end{minipage} & 
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_inverting_amp_woref}
+	\end{minipage} \\
+ $V_{R_2} = V_S\left(\frac{R_2}{R_1 + R_2}\right)$ & 
+	$v_\text{out} = v_\text{in}\left(-\frac{R_f}{R_s}\right)$ \\
+ \hline
+         \hline
+ Noninverting Amplifier & Current Divider \\
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_noninverting_amp_woref}
+	\end{minipage} &
+	
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_current_divider}
+	\end{minipage} \\
+ $v_\text{out} = v_\text{in}\left(1 + \frac{R_\text{top}}{R_\text{bottom}}\right)$ & $I_1 = I_S\left(\frac{R_2}{R_1+R_2}\right)$ \\
+         \hline
+         \hline
+         Inverting Amplifier with Reference & Noninverting Amplifier with Reference\\
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_inverting_amp}
+	\end{minipage} &
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_noninverting_amp}
+	\end{minipage} \\	
+	$v_\text{out} = v_\text{in}\left(-\frac{R_f}{R_s}\right) + V_\text{REF}\left(\frac{R_f}{R_s} + 1\right)$ &
+	$v_\text{out} = v_\text{in}\left(1 + \frac{R_\text{top}}{R_\text{bottom}}\right) - V_\text{REF}\left(\frac{R_\text{top}}{R_\text{bottom}}\right)$
+	\\ \hline \hline
+	Voltage Summer & Unity Gain Buffer \\
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_voltage_summer}
+	\end{minipage} &
+	\begin{minipage}{0.3\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_voltage_buffer}
+	\end{minipage} \\
+	$V_\text{out} = V_1\left(\frac{R_2}{R_1 + R_2}\right) + V_2\left(\frac{R_1}{R_1 + R_2}\right)$&
+	$v_\text{out} = v_\text{in}$
+	\\ \hline
+
+	\end{tabular}
+\end{table}
+
+
+\renewcommand{\arraystretch}{1}
+
+
+
+
+
+
+

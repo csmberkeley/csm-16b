@@ -1,0 +1,147 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Fall 2022
+
+% node[label={[font=\footnotesize]above:$u_1$}] {}
+
+\qns{NVA for a Voltage Divider}
+
+\textbf{Learning Goal:} The goal of this question is to use NVA to derive the equation of a voltage divider.
+
+\meta{Remind students to follow passive sign convention, but that it does not matter how they choose to label their currents, as long as they are consistent.}
+
+\begin{enumerate}
+
+\item Use NVA to solve for $V_{AB}$ in terms of $V_s$, $R_1$, and $R_2$ in the circuit below. 
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0)
+to [V, v = $V_s$, invert] (0, 4)
+to [R = $R_1$] (4, 4)
+to [R = $R_2$] (4, 0)
+to [short] (0, 0);
+
+\draw (4, 4)
+to [short, -o] (5, 4) node[label={[font=\footnotesize]:$A$}]{}
+node[label={[font=\footnotesize]below:$+$}]{};
+
+\draw (4, 0)
+to [short, -o] (5, 0) 
+node[label={[font=\footnotesize]:$-$}]{}
+node[label={[font=\footnotesize]below:$B$}]{};
+
+\node[ground] (0, -1) {};
+
+\end{circuitikz}
+\end{center}
+
+\ans{
+
+\textbf{Step 1:} We can label each node with a node potential, as shown in the circuit below:
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0)
+to [V, v = $V_s$, *-, invert] (0, 4)
+
+to [R = $R_1$, *-] (4, 4)
+to [R = $R_2$] (4, 0)
+to [short] (0, 0);
+
+\draw (4, 4)
+to [short, *-o] (5, 4) node[label={[font=\footnotesize]:$A$}]{}
+node[label={[font=\footnotesize]below:$+$}]{};
+
+\draw (4, 0)
+to [short, *-o] (5, 0) 
+node[label={[font=\footnotesize]:$-$}]{}
+node[label={[font=\footnotesize]below:$B$}]{};
+
+\node[ground] (0, -1) {};
+
+\draw (0, 4) node[label={[font=\footnotesize]:$u_1$}] {};
+\draw (4, 4) node[label={[font=\footnotesize]:$u_2$}] {};
+\draw (4, 0) node[label={[font=\footnotesize]below:$u_3$}] {};
+
+\end{circuitikz}
+\end{center}
+
+\textbf{Step 2:} Then, we label each element with the current the passes through it, following passive sign convention:
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0)
+to [V, v = $V_s$, *-, i = $i_V$, invert] (0, 4)
+to [R = $R_1$, i = $i_1$, v=$ $, *-] (4, 4)
+to [R = $R_2$, i = $i_2$, v=$ $] (4, 0)
+to [short] (0, 0);
+
+\draw (0, 0.75) node[label=right:{$-$}]{};
+\draw (0, 3.25) node[label=right:{$+$}]{};
+
+\draw (4, 4)
+to [short, *-o] (5, 4) node[label={[font=\footnotesize]:$A$}]{}
+node[label={[font=\footnotesize]below:$+$}]{};
+
+\draw (4, 0)
+to [short, *-o] (5, 0) 
+node[label={[font=\footnotesize]:$-$}]{}
+node[label={[font=\footnotesize]below:$B$}]{};
+
+\node[ground] (0, -1) {};
+
+\draw (0, 4) node[label={[font=\footnotesize]:$u_1$}] {};
+\draw (4, 4) node[label={[font=\footnotesize]:$u_2$}] {};
+\draw (4, 0) node[label={[font=\footnotesize]below:$u_3$}] {};
+
+\end{circuitikz}
+\end{center}
+
+\textbf{Step 3:} Write KCL equations for each junction in the circuit:
+\begin{align*}
+    i_V + i_1 & = 0 \\
+    i_1 & = i_2 \\
+    i_2 + i_V & = 0 \\
+\end{align*}
+\textbf{Step 4:} Write the IV relationships of each element in the circuit, using Ohm's Law for resistors:
+\begin{align*}
+    u_1 - u_3 & = V_s \\
+    u_1 - u_2 & = i_1R_1 \\
+    u_2 - u_3 & = i_2R_2 \\
+    u_3 - 0 & = 0 \text{\ (ground)}
+\end{align*}
+\textbf{Step 5:} Simplify equations and solve. Keep in mind that our knowns are $V_s$, $R_1$, and $R_2$, and we want to determine node voltages and currents to find $V_{AB}$. Note that $V_{AB} = u_2 - u_3 = u_2 - 0 = u_2$.
+\begin{align*}
+    u_1 - u_3 & = u_1 - 0 = V_s \rightarrow u_1 = V_s \\
+    u_1 - u_2 & = V_s - u_2 = i_1R_1 \rightarrow i_1 = \frac{V_s - u_2}{R_1} \\
+    u_2 - u_3 & = u_2 - 0 = i_2R_2 \rightarrow i_2 = \frac{u_2}{R_2}
+    % u_1 - u_2 & = V_s - u_2 = i_1R_1 \rightarrow u_2 = V_s - i_1R_1 \\
+    % u_2 - u_3 & = u_2 - 0 = i_2R_2 \rightarrow i_2 = \frac{u_2}{R_2} \rightarrow i_1 = \frac{u_2}{R_2} \text{\ (as $i_1 = i_2$)}
+\end{align*}
+Now we use our KCL equations. Note that $i_1 = i_2$. We can then simplify as follows:
+\begin{align*}
+    i_1 & = i_2 \\
+    \frac{V_s - u_2}{R_1} & = \frac{u_2}{R_2} \\
+    V_s - u_2 & = u_2\frac{R_1}{R_2} \\
+    % i_1 & = \frac{u_2}{R_2} \\
+    % u_2 & = V_s - i_1R_1 \\
+    % u_2 & = V_s - u_2\frac{R_1}{R_2} \\
+    u_2 + u_2\frac{R_1}{R_2} & = V_s \\
+    u_2(1 + \frac{R_1}{R_2}) & = V_s \\
+    u_2(\frac{R_1 + R_2}{R_2}) & = V_s \\
+    u_2 & = V_s \cdot \frac{R_2}{R_1 + R_2}
+\end{align*}
+\[
+ \boxed{\text{Then,} $V_{AB} = u_2 = V_s \cdot \frac{R_2}{R_1 + R_2}$.}
+\]
+}
+
+\item If $V_s = 6V$, $R_1 = 3 \Omega$, and $R_2 = 9 \Omega$, what is the voltage drop across $R_2$? What is the voltage drop across $R_1$?
+
+\ans{
+
+We can use our voltage divider equation. The voltage drop across $R_2$ is $V_R_2 = V_s \cdot \frac{R_2}{R_1 + R_2} = 6 \cdot \frac{9}{3 + 9} = 4.5V$. The voltage drop across $R_1$ is $u_1 - u_2 = V_s - V_R_2$, which is $V_R_1 = 6 - 4.5 = 1.5V$.
+}
+
+\end{enumerate}

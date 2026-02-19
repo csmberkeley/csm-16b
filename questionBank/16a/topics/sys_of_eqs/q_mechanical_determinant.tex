@@ -1,0 +1,133 @@
+% Author: Cody Rawlings
+% Email: crawlings05@berkeley.edu
+% CSM16A Spring 2024
+\qns{Mechanical Determinants}
+
+\textbf{Learning Goal: More practice with solving for the determinant of a 3x3 matrix}
+\begin{bindenum}
+    \item Have students practice the method of solving for the determinant of a 3x3 matrix
+    \item Understanding the relationship between the value of the determinant and the number of solutions the equation $A\vec{x} = \vec{b}$ has.
+\end{bindenum}
+
+\meta{
+    Every technique usefull for solving this problem is given in the introduction, execpt for solving for a 2x2 determinant. I assume students already know how to do that, but if they don't, maybe you can start with explaining how to do that. 
+}
+
+The determinant of a 3x3 matrix is as follows:
+\begin{center}
+    $\left|\begin{array}{ccc} a_1 & a_2 & a_3 \\ a_4 & a_5 & a_6 \\ a_7 & a_8 & a_9\end{array}\right| = a_1\left|
+\begin{array}{cc}
+    a_5 & a_6 \\
+    a_8 & a_9 \\
+\end{array}
+\right| - a_2 \left|
+\begin{array}{cc}
+    a_4 & a_6 \\
+    a_7 & a_9 \\
+\end{array}
+\right| + a_3 \left|
+\begin{array}{cc}
+    a_4 & a_5 \\
+    a_7 & a_8 \\
+\end{array}
+\right|$
+\end{center}
+When solving the equation $A \Vec{x} = \Vec{b}$, the determinant gives the amount of solutions: \\
+\textbf{if} $det(A) = 0$: \\
+\indent $A \Vec{x} = \Vec{b}$ has 0 or $\infty$ solutions \\
+\textbf{else}: \\
+\indent $A \Vec{x} = \Vec{b}$ has 1 solution
+
+\begin{enumerate}
+    \item {
+        $A = \begin{bmatrix} 3 & 2 & 3 \\ -1 & 5 & -3 \\ 7 & -1 & -1\end{bmatrix}$ Find det(A).
+    }
+    \meta{
+        Simple algebra is useful for solving this subpart.
+    }
+    \ans{
+    \begin{align*}
+        det(A) &= 3 \left|
+        \begin{array}{cc}
+            5 & -3 \\
+            -1 & -1 \\
+        \end{array} \right|
+        -2\left|
+        \begin{array}{cc}
+            -1 & -3 \\
+            7 & -1 \\
+        \end{array} \right|
+        + 3 \left|
+        \begin{array}{cc}
+            -1 & 5 \\
+            7 & -1 \\
+        \end{array} \right| \\ 
+        &= 3(-5 - (-1)(-3)) -2((-1)(-1) - (-3)(7)) + 3((-1)(-1) - (5)(7)) \\
+        &= 3(-8) -2(22) + 3(-34) \\
+        &= -170
+    \end{align*}
+    }
+
+    \item {
+        $A = \begin{bmatrix}
+            0 & 1 & 0 \\ 5 & 1 & 3 \\ 2 & 2 & 4
+        \end{bmatrix}$ Find det(A) How many solutions does $A \Vec{x} = \Vec{0}$ have?
+    }
+    \meta{
+        Again, simple algebra is used to find the value of the determinant. The one and only solution for the equation is the zero vector. Make sure students know that the zero vector can be a solution for this equation beacuse we are not dealing with eigenvalues.
+    }
+    \ans{
+    \begin{align*}
+        det(A) &= 0 \left|
+        \begin{array}{cc}
+            1 & 3 \\
+            2 & 4 \\
+        \end{array} \right| -1 \left|
+        \begin{array}{cc}
+            5 & 3 \\
+            2 & 4 \\
+        \end{array} \right| + 0 \left|
+        \begin{array}{cc}
+            5 & 1 \\
+            2 & 2 \\
+        \end{array} \right| \\
+        &= -1((5)(4) - (2)(3)) \\
+        &= -14 \\
+    \end{align*}
+    \begin{center}
+        $A\Vec{x} = \Vec{0}$ has one solution: $\Vec{x} = \Vec{0}$
+    \end{center}
+    }
+
+    \item {
+    $A = \begin{bmatrix}
+        2 & 4 & -1 \\ 2 & 2 & 5\\ 6 & 8 & 9
+    \end{bmatrix}$ Find det(A). How many solutions does $A \Vec{x} = \Vec{0}$ have? 
+    }
+    \meta{
+        From the last part, $\vec{x} = \vec{0}$ is a solution for any A in $A \Vec{x} = \Vec{0}$, so the equation for A in this subpart has at least 1 solution. It can't have 0 solutions, so it must have infinitley many solutions.
+    }
+    \ans{
+    \begin{align*}
+        det(A) &= 2 \left|
+        \begin{array}{cc}
+            2 & 5 \\
+            8 & 9 \\
+        \end{array} \right| -4\left|
+        \begin{array}{cc}
+            2 & 5 \\
+            6 & 9 \\
+        \end{array} \right| + - 1\left|
+        \begin{array}{cc}
+            2 & 2 \\
+            6 & 8 \\
+        \end{array} \right| \\
+        &= 2((2)(9) - (5)(8)) - 4((2)(9) - (6)(5)) - 1((2)(8) - (2)(6)) \\
+        &= 2(-22) - 4(-12) - 1(4) \\
+        &= 0
+    \end{align*}
+        $A\Vec{x} = \Vec{0}$ has either zero solutions or infinite solutions. But $\Vec{x} = \Vec{0}$ is a solution, so $A\Vec{x} = \Vec{0}$ has infinite solutions.
+    }
+
+\end{enumerate}
+

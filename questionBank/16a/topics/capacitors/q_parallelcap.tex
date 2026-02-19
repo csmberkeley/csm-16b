@@ -1,0 +1,113 @@
+% Author: Christopher Duroiu
+% Email: chduroiu@berkeley.edu
+% CSM16A Spring 2024
+\qns{Parallel Capacitors}
+
+\textbf{Learning Goal: }
+\begin{bindenum}
+    \item Teach students how to apply capacitor voltage / current formulas
+    \item Teach students how to deal with sinusoidal inputs
+\end{bindenum}
+
+\begin{center}
+    \begin{circuitikz}[american]
+    \draw (0,3) to[sV, v=$V_{in}$] (0,0);
+    \draw (3,3) to[C, v=$C_1$] (3,0);
+    \draw (6,3) to[C, v=$C_2$] (6,0);
+    \draw (0,3) to (6,3);
+    \draw (0,0) to (6,0);
+    \draw (3,2.1) to[short, i=$I_1$] (3,2);
+    \draw (6,2.1) to[short, i=$I_2$] (6,2);
+    \end{circuitikz}
+\end{center}
+
+Suppose $V_{in}(t)$ = $2sin(x)$ and $C_{1} = 2F, C_{2} = 3F$
+
+\begin{enumerate}
+    \item {
+        Find the current $I_1$ after $2\pi$ seconds
+    }
+    \meta{\\
+        This question introduces a straightforward application of the capacitor-current equation
+    }
+    \ans{\\
+        We know the formula for the current entering a capacitor is $i_{C}(t) = C \frac{dv(t)}{dt}$ \\
+        \\
+        Thus, the current enter capacitor $C_1$ after $2\pi$ seconds is: \\
+        $i_{1}(t) = C_{1} \frac{dv(t)}{dt}$ \\
+        $V_{in}$ = $2sin(x)$ \\
+        $\frac{dv_{in}(t)}{dt}$ = $2cos(t)$ \\
+        $i_{1}(2\pi) = C_{1}*2cos(2\pi)$ \\
+        $i_{1}(2\pi) = C_{1}*2*1$ \\
+        $i_{1}(2\pi) = C_{1}*2*1$ \\
+        $i_{1}(2\pi) = 4 A.$ \\
+    }
+
+    \item {
+        Find the current $I_2$ after $3\pi$ seconds
+    
+    }
+    \meta{\\
+        This question introduces a straightforward application of the capacitor-current equation
+
+    }
+    \ans{\\
+        As in the previous question, we know \\
+        $i_{2}(3\pi) = C_{2} \frac{dv(3\pi)}{dt}$ \\
+        $\frac{dv_{in}(t)}{dt}$ = $2cos(t)$ \\
+        Thus \\
+        $i_{2}(3\pi) = C_{2}*2cos(3\pi)$ \\
+        $i_{2}(3\pi) = C_{2}*2*(-1)$ \\
+        $i_{2}(3\pi) = -6 A.$
+    }
+    \item {
+        Derive an expression for the equivalent capacitance between $C_1$ and $C_2$ and evaluate the numerical value
+    
+    }
+    \meta{\\
+        This question asks students to derive the parallel capacitor formula, practicing derivation
+
+    }
+    \ans{\\
+        $i_{1}(t) = C_{1} \frac{dv(t)}{dt}$ \\
+        $i_{2}(t) = C_{2} \frac{dv(t)}{dt}$ \\
+        $i_{t}(t) = i_{1}(t) + i_{2}(t)$ \\
+        $i_{t}(t) = C_{1} \frac{dv(t)}{dt} + C_{2} \frac{dv(t)}{dt}$ \\
+        $i_{t}(t) = (C_{1} + C_{2})\frac{dv(t)}{dt}$ \\
+        Thus, the equivalent capacitance is: \\
+        $C_{eq} = C_{1} + C_{2}$ \\
+        $C_{eq} = 2 + 3 = 5 F.$
+    }
+    \item {
+        Now, suppose our voltage source was replaced with a current source $i(t) = 3 A.$ as shown in the figure below \\
+        \begin{center}
+        \begin{circuitikz}[american]
+        \draw (0,0) to[I, v=$I_{in}$] (0,3);
+        \draw (3,3) to[C, v=$C_1$] (3,0);
+        \draw (6,3) to[C, v=$C_2$] (6,0);
+        \draw (0,3) to (6,3);
+        \draw (0,0) to (6,0);
+        \end{circuitikz}
+        \end{center}
+        \\
+        What is the voltage across capacitor $C_1$ after 2 seconds. Assume both capacitors are initially uncharged
+    }
+    \meta{\\
+        This question introduces the capacitor voltage formula for DC sources, again practicing derivation
+
+    }
+    \ans{\\
+        Replacing the capacitors with the equivalent capacitor $C_{eq}$ we have\\
+        $i_{t}(t) = C_{eq} \frac{dv(t)}{dt}$ \\
+        $\frac{i_{t}(t)}{C_{eq}} = \frac{dv(t)}{dt}$ \\
+        $\frac{i_{t}(t)dt}{C_{eq}} = dv(t)$ \\
+        $\int \frac{i_{t}(t)dt}{C_{eq}} = \int dv(t)$ \\
+        $\frac{i_{t}(t)}{C_{eq}}t = V_C(t) - V_0$ \\
+        $V_C(t) = \frac{i_{t}(t)}{C_{eq}}t + V_0$ \\
+        thus \\
+        $V_C(2) = \frac{i_{2}(t)}{C_{eq}}t + V_0$ \\
+        $V_C(2) = \frac{3(t)}{C_{eq}}t + 0$ \\
+        $V_C(2) = \frac{3*2}{5} + 0$ = 1.25 V.
+    }
+    
+\end{enumerate}

@@ -1,0 +1,112 @@
+% Author: Dylan Supencheck
+% Email: dylansupencheck@berkeley.edu
+
+% This question was written to gently introduce students to
+% the idea of proofs before they have learned any linear algebra.
+% As such, the proofs only require algebra. 
+% This was written for CSM drop-in section.
+
+\qns{Proof Preview}
+
+A proof shows a statement is true based on a starting set of facts. They are often of the form: "Given \emph{X} show that \emph{Y}". In this case, \emph{X} is your starting set of facts, often a definition or theorem. \emph{Y} is the statement you are trying to make clear is true.
+
+Let's walk through a couple proofs!
+
+\begin{enumerate}
+
+% Part A
+\item Given two odd integers, \emph{m} and \emph{n}, which can be expressed as
+\begin{align*}
+    m = 2a + 1 \\
+    n = 2b + 1
+\end{align*}
+with \emph{a} and \emph{b} being any arbitrary integers, show that the sum of \emph{m} and \emph{n} must be even.
+
+\begin{enumerate}[label=(\roman*)]
+% Part i
+\item \textbf{What are we given?}
+
+\ans {
+
+We're given two odd integers, and their form:
+\begin{align*}
+    m = 2a + 1 \\
+    n = 2b + 1
+\end{align*}
+}
+
+% Part ii
+\item \textbf{What do we need to show?}
+
+\ans {
+
+We want to show that $m + n = k$, where $k$ is an even integer.
+$$ k = 2c $$
+Assuming our c is an arbitrary integer.
+}
+
+% Part iii
+\item \textbf{How to go from ``what we are given'' to ``what we need to show'' :}\\
+Now manipulate the expression from (i) using mathematically logical steps to reach the expression from part (ii). 
+
+\ans {
+
+\begin{align*}
+    m + n = (2a + 1) + (2b + 1) \\
+    = 2a + 2b + 2 \\
+    = 2(a + b + 1) \\
+    = 2c\textnormal{, where $c = a + b + 1$ is an integer.}
+\end{align*}
+
+We've shown $m + n$ is $2c$, which is of the form of an even integer (note that $c$ is once again just some arbitrary integer). Thus, we can conclude the sum of $m$ and $n$ is even.  
+}
+\end{enumerate} % End parts (i) to (iii)
+
+% Part B
+\item Given two even integers, \emph{m} and \emph{n}, which can be expressed as
+\begin{align*}
+    m = 2a \\
+    n = 2b
+\end{align*}
+with \emph{a} and \emph{b} being any arbitrary integers, show that the sum of \emph{m} and \emph{n} must be even.
+
+\begin{enumerate}[label=(\roman*)]
+% Part i
+\item \textbf{What are we given?}
+
+\ans {
+
+We're given two even integers, and their form:
+\begin{align*}
+    m = 2a \\
+    n = 2b
+\end{align*}
+}
+
+% Part ii
+\item \textbf{What do we need to show?}
+
+\ans {
+
+We want to show that $m + n = k$, where $k$ is an even integer.
+$$ k = 2c $$
+Assuming our c is an arbitrary integer.
+}
+
+% Part iii
+\item \textbf{How to go from ``what we are given'' to ``what we need to show'' :}\\
+Now manipulate the expression from (i) using mathematically logical steps to reach the expression from part (ii). 
+
+\ans {
+
+\begin{align*}
+    m + n = 2a + 2b \\
+    = 2(a + b) \\
+    = 2k\textnormal{, where $k = a + b$ is an integer.}
+\end{align*}
+
+We've shown $m + n$ is $2k$, which is of the form of an even integer. Thus, we can conclude the sum of $m$ and $n$ is even.  
+}
+\end{enumerate} % End parts (i) to (iii)
+
+\end{enumerate} % End parts A to B

@@ -1,0 +1,33 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\begin{circuitikz}[american]
+    \draw
+        (0, 0) node[ground]{}
+            to [V, invert, l^=$V_S$] (0, 2)
+            to [short, -o] (1.27, 2)
+        (1.8, 2)
+            to [short, o-] (2, 2)
+            to [C, l^=$C_1$, v_=$ $] (4, 2)
+            to [short] (4, 0)
+            to [short] (0, 0)
+        (2, 2) node[circ, label=above:$u_1$]{}
+            to [C, l^=$C_1$, v_=$ $] (2, 0)
+        (4, 0)
+            to [short] (6, 0) node[ground]{}
+            to [C, l_=$C_3$, v_=$ $] (6, 2)
+            to [short] (6, 4) node[circ, label=above:$u_2$]{}
+            to [short] (5.5, 4)
+            to [C, l_=$C_2$, v_=$ $] (4.5, 4)
+            to [short, -o] (1.8, 4)
+        (0, 2)
+            to [short] (0, 4)
+            to [short, -o] (1.27, 4)
+        (4.5, 4)
+            to [short] (4.5, 0)
+        (5.5, 4)
+            to [short, -o] (5.5, 3.33)
+        (5.5, 2.8)
+            to [short, o-] (5.5, 0)
+        ;
+\end{circuitikz}

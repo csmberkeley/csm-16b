@@ -1,0 +1,62 @@
+\qns{Steady State}
+
+Find the eigenvalues of each of the following matrices. Which of these have a steady state?
+\begin{enumerate}
+    \item \[A=\begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}\]
+    \ans{
+        \[
+    \begin{aligned}
+    & A = \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix} \\
+    & A x = \lambda x \\
+    & (A - \lambda I) x = 0 \\
+    & \operatorname{det}(A - \lambda x) = 0 \\
+    & \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix} - \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix} = \begin{bmatrix} 3 - \lambda & 1 \\ 1 & 3 - \lambda \end{bmatrix} \\
+    & (3 - \lambda)(3 - \lambda) - 1 = 0 \\
+    & \lambda^{2} - 6 \lambda + 8 = 0 \\
+    & \lambda_{1} = 2, \quad \lambda_{2} = 4 \\
+    \end{aligned}
+    \]
+    }
+    \item \[
+        B=\begin{bmatrix} 
+        3 & 6 \\ 
+        2 & 5 
+        \end{bmatrix}
+        \]
+        \ans{
+            \[
+        \begin{aligned}
+        & B = \begin{bmatrix} 3 & 6 \\ 2 & 5 \end{bmatrix} \\
+        & B x = \lambda x \\
+        & (B - \lambda I) x = 0 \\
+        & \operatorname{det}(B - \lambda x) = 0 \\
+        & \begin{bmatrix} 3 & 6 \\ 2 & 5 \end{bmatrix} - \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix} = \begin{bmatrix} 3 - \lambda & 6 \\ 2 & 5 - \lambda \end{bmatrix} \\
+        & (3 - \lambda)(5 - \lambda) - 12 = 0 \\
+        & \lambda^{2} - 8 \lambda + 3 = 0 \\
+        & \lambda_{1} = 4 + \sqrt{13}, \quad \lambda_{2} = 4 - \sqrt{13} \\
+        \end{aligned}
+        \]
+        }
+    \item \[
+        C=\begin{bmatrix} 
+        2 & 0 \\ 
+        1 & 3 
+        \end{bmatrix}
+        \]
+        
+        \ans{
+            \[
+        \begin{aligned}
+        & C = \begin{bmatrix} 2 & 0 \\ 1 & 3 \end{bmatrix} \\
+        & C x = \lambda x \\
+        & (C - \lambda I) x = 0 \\
+        & \operatorname{det}(C - \lambda x) = 0 \\
+        & \begin{bmatrix} 2 & 0 \\ 1 & 3 \end{bmatrix} - \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix} = \begin{bmatrix} 2 - \lambda & 0 \\ 1 & 3 - \lambda \end{bmatrix} \\
+        & (2 - \lambda)(3 - \lambda) - 0 = 0 \\
+        & \lambda_{1} = 2, \quad \lambda_{2} = 3 \\
+        \end{aligned}
+        \]
+        
+        }
+        
+\end{enumerate}

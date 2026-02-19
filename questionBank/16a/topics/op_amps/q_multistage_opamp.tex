@@ -1,0 +1,105 @@
+% Author: Emily Gosti, Yannan Tuo, Sukrit Arora
+% Email: egosti@berkeley.edu, ytuo@berkeley.edu, sukrit.arora@berkeley.edu
+
+\qns{Multi-stage Amplifier}
+
+\textbf{Learning Goal:} The objective of this problem is to understand how multiple stages of op-amp circuits can be used to achieve a specific circuit gain.
+
+\textbf{Relevant Notes:} \notes{Note 19 Section 19.5} goes over inverting and non-inverting amplifiers.
+
+\meta{
+Highlight that it is not necessary to have a buffer between two inverting amplifiers. Although resistors $R_3$ and $R_4$ are drawing current from the first amplifier output, the first output $V_{o,1}$ is not going to change. This is because the output of an ideal op-amp can supply any current to the load without changing the output voltage. So in this case there will be no loading effect.
+
+Mention that loading effect will NOT occur if the second amplifier is not drawing any input current OR the first amplifier output voltage does not change.
+}
+
+
+\begin{enumerate}
+
+\item{What is the range of values that we can scale $V_{in}$ by when using a non-inverting op amp? (What are possible values for the gain?)
+}
+
+\ans{
+Recall that when using a non-inverting op amp, the equation for $V_{out}$  is given by
+$$V_{out}=V_{in}(1 + \frac{R_2}{R_1})$$ 
+where $R_2$ is the upper resistor and $R_1$ is the lower one (connected to ground).
+The circuit gain $G$ is represented by 
+$$G=\frac{V_{out}}{V_{in}}=1 + \frac{R_2}{R_1}$$
+We can choose any values for resistance from [0, $\infty$); then, the minimum gain would be 1 if we chose $R_2 = 0$; the maximum gain approaches infinity as we choose some very large $R_2$ and/or a very small $R_1$. Hence, the range of gains is from 1 to infinity, and our range of values for $V_{out}$ is [$V_{in}$, $\infty$).
+}
+
+\item{
+What is the range of values that we can scale $V_{in}$ by when using an inverting op amp? (What are the possible values for the gain?)
+}
+
+\ans{
+Recall that when using an inverting op amp, the equation for $V_{out}$ is  given by 
+$$V_{out}=-V_{in}\frac{R_2}{R_1}$$. 
+The circuit gain is represented by 
+$$G=-\frac{R_2}{R_1}$$. 
+
+Again, we can choose any values for resistance from [0, $\infty$); then, the minimum absolute value scaling would be 0 if we chose $R_2 = 0$; the maximum absolute value scaling approaches infinity as we choose some very large $R_2$ and/or a very small $R_1$. Hence, the range of gains is from 0 to -$\infty$, and our range of values for $V_{out}$ is also ($-\infty$, 0].
+
+}
+
+\item{
+Can you design a single inverting/ non-inverting amplifier with circuit gain $G=0.5$? If not, what range of gain values is not reachable using a single inverting op amp or a single non-inverting op amp? 
+}
+
+\ans{
+From part (a), we found that a non-inverting op amp can only reach gain values from [1, $\infty$). From part (b), we found that an inverting op amp can only reach gain values from (-$\infty$, 0]. So using only a single op-amp, we cannot reach values between (0, 1), specifically $G = 0.5$.
+}
+
+\item{
+How would you construct a circuit using inverting/ non-inverting amplifiers so that the overall circuit gain is $G=0.5$?
+}
+
+
+\ans{
+We can use two inverting op-amps to achieve overall gain $G = 0.5$. Say the first op-amp has gain $G_1$ and the second op-amp $G_2$, so $G = G_1G_2$. From part (b), these gains can take on values from (-$\infty$, 0], so multiplying them together helps reach $G = 0.5$.
+
+ \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[R, l = $R_1$, *-o]
+    ++(-2,0)
+    to[short, l = $V_{in}$] ++(0,0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_2$, i = $i$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, *-o] ++(0.5, 0)
+    to node[above] {$V_{o,1}$} ++(0,0)
+    to[short] ++(1, 0);
+    
+    
+    \draw (6,-0.5) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[R, l = $R_3$, *-o]    ++(-2,0)
+    to node[above] {$V_{in,2}$} ++(0,0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_4$, i = $i$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_{o}$, *-o] ++(0.5, 0);
+    
+    \end{circuitikz}
+    \end{center}
+    
+    For the first inverting op-amp, we have $G_1 = -\frac{R_2}{R_1}$, and for the second, $G_2 = -\frac{R_4}{R_3}$. Plugging these into the equation for $G$:
+    $$G = G_1G_2 = \frac{R_2R_4}{R_1R_3} = 0.5$$
+    $$R_1R_3 = 2R_2R_4$$
+    To reach out desired gain, we can pick any combination of $R_1$, $R_2$, $R_3$, and $R_4$ that satisfies this equation. One such solution is $R_1 = 200\si{\ohm}$ and $R_2 = R_3 = R_4 = 100\si{\ohm}$.
+}
+
+
+\end{enumerate}

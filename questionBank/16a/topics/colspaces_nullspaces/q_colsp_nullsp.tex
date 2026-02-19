@@ -1,0 +1,187 @@
+%\newpage
+\qns{Nullspace and Loss of Dimensionality} [WALK-THROUGH]
+
+\textbf{Learning Goal:} The goal of this problem to understand the relationship between nullspace and loss of dimensionality/ invertibilty.
+
+Please look into \notes{Note 8 Section 8.3} to learn how the dimension of the output space depends on the nullspace.
+
+Answer the following questions for all three parts:
+\begin{itemize}
+\item Find the columnspace and nullspace of the following matrices in terms of basis vectors. 
+\item What are the dimensions of the columnspace/nullspace? Remember that the Rank Nullity theorem shows that the number of columns of a matrix A = dim(N(A)) [nullity of matrix A] + dim(C(A)) [rank of matrix A]
+\item What kind of geometry is represented by the columnspace/nullspace?
+\item Is the matrix invertible?
+\end{itemize}
+
+\meta{\begin{itemize}
+\item IMPORTANT: Rank-Nullity theorem is being covered this semester. Make sure to explain the terms rank and nullity and what the theorem represents.
+\item Talk about the pattern we see comparing the three cases here. When the columspace loses dimension aka the matrix has less linearly independent columns and represents the redundant columns as linear combinations of the others, the nullspace gains dimension. When the nullspace becomes non-trivial, the matrix is non-invertible. Also, note that the dimension of the columnspace is not always equal to the number of columns in the matrix but rather it is equal to the number of linearly independent columns.
+\item Highlight how invertibility implies that we can reverse the process of matrix multiplication. If the dimension collapses, we cannot reverse the process. An analogy would be multiplying something with zero, where input cannot be retrieved from the output. Another analogy would be say you have a 3D object that casts a shadow on a wall. This transformation is from 3D to 2D. You cannot re-create the 3D object from just its 2D shadow, which implies the transformation of casting a shadow is not invertible.
+\item Remind students the definition of the nullspace and the columnspace. Let them know that the columnspace is the span of all columns in A, but the \textbf{basis} of the columnspace is only the set of all linearly independent columns of A.
+\end{itemize} }
+\begin{enumerate}
+%\setlength\itemsep{10em}
+\itemConsider a matrix $\textbf{P}$:
+	$$\textbf{P} = \begin{bmatrix}
+		1 & 0 & 0  \\
+		0 & 1 & 0  \\
+		0 & 0 & 1 
+		\end{bmatrix}$$
+		
+\ans{
+We see that the matrix $\mathbf{P}$ is already in the row-reduced form. We can see that all the columns are linearly independent. So they can form a basis for the columnspace.
+The basis for columnspace is:
+\begin{align*}
+\left\{ 
+		\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, 
+		\begin{bmatrix} 0 \\1 \\ 0 \end{bmatrix}, 
+		\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+	\right\}
+\end{align*}
+So the columnspace can be written as:
+\begin{align*}
+\text{C}(\textbf{P}) = \text{span}\left\{ 
+		\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, 
+		\begin{bmatrix} 0 \\1 \\ 0 \end{bmatrix}, 
+		\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+	\right\}
+\end{align*}
+Since there are three basis vector for the columspace, the dimension of columnspace is 3, i.e.
+\begin{align*}
+\text{dim}(\text{C}(\textbf{P}))=3
+\end{align*}
+The columnspace represents a 3 dimensional volume, i.e. $\mathbb{R}^3$.
+
+In order to find the nullspace, we can use the augmented matrix to solve for $\mathbf{P}\vec{x}=\vec{0}$:
+\[
+\left[\begin{array}{ccc|c}
+	1 & 0 & 0 & 0\\
+	0 & 1 & 0 & 0\\
+	0 & 0 & 1 & 0
+\end{array}\right]
+\]
+So the solution is $\vec{x}=\vec{0}$. The nullspace can be written as:
+\begin{align*}
+\text{N}(\textbf{P}) = \{\vec{0}\}
+\end{align*}
+Since the nullspace is the zero vector (which is considered dimensionless), the dimension of nullspace is 0, i.e.
+\begin{align*}
+\text{dim}(\text{N}(\textbf{P}))=0
+\end{align*}
+We call this nullspace \textbf{trivial}.
+The nullspace represents a point in $\mathbb{R}^3$, which is dimensionless.
+
+	Since the columns are linearly independent, the matrix is invertible.
+}
+
+\itemConsider a matrix $\textbf{Q}$:
+	$$\textbf{Q} = \begin{bmatrix}
+		1 & 0 & 1  \\
+		0 & 1 & 1  \\
+		0 & 0 & 0 
+		\end{bmatrix}$$
+		
+\ans{
+We see that the matrix $\mathbf{Q}$ is already in the row-reduced form. We can see that the first two columns are linearly independent. The third column is the summation of first and second column. So the first and second columns can form a basis for the columnspace.
+The basis for columnspace is:
+\begin{align*}
+\left\{ 
+		\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, 
+		\begin{bmatrix} 0 \\1 \\ 0 \end{bmatrix}
+	\right\}
+\end{align*}
+So the columnspace can be written as:
+\begin{align*}
+\text{C}(\textbf{Q}) = \text{span}\left\{ 
+		\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, 
+		\begin{bmatrix} 0 \\1 \\ 0 \end{bmatrix}
+	\right\}
+\end{align*}
+Since there are two basis vector for the columspace, the dimension of columnspace is 2, i.e.
+\begin{align*}
+\text{dim}(\text{C}(\textbf{Q}))=2
+\end{align*}
+The columnspace represents a 2 dimensional plane inside $\mathbb{R}^3$.
+
+In order to find the nullspace, we can use the augmented matrix to solve for $\mathbf{Q}\vec{x}=\vec{0}$:
+\[
+\left[\begin{array}{ccc|c}
+	1 & 0 & 1 & 0\\
+	0 & 1 & 1 & 0\\
+	0 & 0 & 0 & 0
+\end{array}\right]
+\]
+If we consider $x_3$ the free variable, we can evaluate $x_1$ and $x_2$:
+\begin{align*}
+x_1=-x_3\\ x_2 =-x_3
+\end{align*}
+
+So the solution is $\vec{x}=\begin{bmatrix} -x_3 \\-x_3 \\ x_3 \end{bmatrix}=x_3\begin{bmatrix} -1 \\-1 \\ 1 \end{bmatrix}$. The nullspace can be written as:
+\begin{align*}
+\text{N}(\textbf{Q}) = \text{span}\left\{ 
+		\begin{bmatrix} -1 \\ -1 \\ 1 \end{bmatrix}
+	\right\}
+\end{align*}
+Since nullspace has one basis vector, the dimension of nullspace is 1, i.e.
+\begin{align*}
+\text{dim}(\text{N}(\textbf{Q}))=1
+\end{align*}
+The nullspace represents a straight line in $\mathbb{R}^3$.
+
+	Since the columns are not linearly independent, the matrix is not invertible.
+}
+
+\itemConsider a matrix $\textbf{M}$:
+	$$\textbf{M} = \begin{bmatrix}
+		1 & 2 & 3  \\
+		0 & 0 & 0  \\
+		0 & 0 & 0 
+		\end{bmatrix}$$
+		
+\ans{
+We see that the matrix $\mathbf{Q}$ is already in the row-reduced form. We can see that both the second and third columns are the scalar multiples of the first column. So only one column is linearly independent (we can choose either, here let's choose the first column).
+The basis for columnspace is:
+\begin{align*}
+\left\{ 
+		\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
+	\right\}
+\end{align*}
+So the columnspace can be written as:
+\begin{align*}
+\text{C}(\textbf{M}) = \text{span}\left\{ 
+		\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
+	\right\}
+\end{align*}
+Since there is one basis vector for the columspace, the dimension of columnspace is 1, i.e.
+\begin{align*}
+\text{dim}(\text{C}(\textbf{M}))=1
+\end{align*}
+The columnspace represents a 1-dimensional line inside $\mathbb{R}^3$.
+
+In order to find the nullspace, we can use the augmented matrix to solve for $\mathbf{M}\vec{x}=\vec{0}$:
+\[
+\left[\begin{array}{ccc|c}
+	1 & 2 & 3 & 0\\
+	0 & 0 & 0 & 0\\
+	0 & 0 & 0 & 0
+\end{array}\right]
+\]
+If we consider both $x_2$ and $x_3$ to be the free variables, we can evaluate $x_1$:
+$$x_1=-2x_2-3x_3$$
+So the solution is $\vec{x}=\begin{bmatrix} -2x_2-3x_3 \\x_2\\ x_3 \end{bmatrix}=x_2\begin{bmatrix} -2 \\1 \\ 0 \end{bmatrix}+x_3\begin{bmatrix} -3 \\0 \\ 1 \end{bmatrix}$. The nullspace can be written as:
+\begin{align*}
+\text{N}(\textbf{M}) = \text{span}\left\{ 
+		\begin{bmatrix} -2 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix} -3 \\0 \\ 1 \end{bmatrix}
+	\right\}
+\end{align*}
+Since nullspace has two basis vectors, the dimension of nullspace is 2, i.e.
+\begin{align*}
+\text{dim}(\text{N}(\textbf{M}))=2
+\end{align*}
+The nullspace represents a plane in $\mathbb{R}^3$.
+
+	Since the columns are not linearly independent, the matrix is not invertible.
+}
+
+
+\end{enumerate}

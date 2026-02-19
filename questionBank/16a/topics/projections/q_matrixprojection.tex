@@ -1,0 +1,190 @@
+% Author: Christopher Duroiu
+% Email: chduroiu@berkeley.edu
+% CSM16A Spring 2024
+\qns{Matrix Projections}
+
+\textbf{Learning Goal: }
+\begin{bindenum}
+    \item Teach students how to derive the projection matrix for a particular matrix
+    \item Introduce students to elementary proofs regarding projections
+\end{bindenum}
+
+Suppose you are given the following 3x2 matrix:
+\[
+M = 
+\begin{bmatrix}
+    1 & 2 \\
+    2 & 3 \\
+    3 & 4 \\
+\end{bmatrix}
+\]
+\begin{enumerate}
+    \item {
+        Derive the projection matrix of M
+    
+    }
+    \meta{
+        This question is meant to help students solidify the standard process of deriving a projection matrix
+
+    }
+    \ans{
+        $P_M = M(M^TM)^{-1}M^T$
+        \\
+        \[
+        M^TM = 
+        \begin{bmatrix}
+            1 & 2 & 3\\
+            2 & 3 & 4\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 2 \\
+            2 & 3 \\
+            3 & 4 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            14 & 20 \\
+            20 & 29 \\
+        \end{bmatrix}
+        \]
+        
+        \[
+        \begin{bmatrix}
+            14 & 20 \\
+            20 & 29 \\
+        \end{bmatrix}^{-1}
+        = \frac{1}{6}
+        \begin{bmatrix}
+            29 & -20 \\
+            -20 & 14 \\
+        \end{bmatrix}
+        \]
+        \[
+        P_M = 
+        \begin{bmatrix}
+            1 & 2 \\
+            2 & 3 \\
+            3 & 4 \\
+        \end{bmatrix}
+        *
+        \frac{1}{6}
+        \begin{bmatrix}
+            29 & -20 \\
+            -20 & 14 \\
+        \end{bmatrix}
+        *
+        \begin{bmatrix}
+            1 & 2 & 3\\
+            2 & 3 & 4\\
+        \end{bmatrix}
+        = 
+        \begin{bmatrix}
+            5/6 & 1/3 & -1/6 \\
+            1/3 & 1/3 & 1/3 \\
+            -1/6 & 1/3 & 5/6 \\
+        \end{bmatrix}
+        \]
+    }
+
+    \item {
+        Show that this matrix is indeed a valid projection matrix
+    
+    }
+    \meta{
+        This question is meant to teach students how to mechanically show that a matrix is indeed a valid projection matrix
+
+    }
+    \ans{
+        To prove that the projection matrix is valid, we just show
+        $P_M^2 = P_M$
+        \[
+        \begin{bmatrix}
+            5/6 & 1/3 & -1/6 \\
+            1/3 & 1/3 & 1/3 \\
+            -1/6 & 1/3 & 5/6 \\
+        \end{bmatrix} ^ 2
+        =
+        \begin{bmatrix}
+            5/6 & 1/3 & -1/6 \\
+            1/3 & 1/3 & 1/3 \\
+            -1/6 & 1/3 & 5/6 \\
+        \end{bmatrix}
+        \]
+        Therefore, the projection matrix is valid
+        iii. find the projection of vector
+        \[
+        v = 
+        \begin{bmatrix}
+            1 \\
+            3 \\
+            4 \\
+        \end{bmatrix}
+        \]
+        onto the subspace spanned by the columns of A, using the projection matrix you derived.
+        \\
+        \[
+        Proj_M(\bar{v}) =
+        \begin{bmatrix}
+            5/6 & 1/3 & -1/6 \\
+            1/3 & 1/3 & 1/3 \\
+            -1/6 & 1/3 & 5/6 \\
+        \end{bmatrix} *
+        \begin{bmatrix}
+            1 \\
+            3 \\
+            4 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            7/6 \\
+            8/3 \\
+            25/6 \\
+        \end{bmatrix}
+        \]
+
+    }
+
+    \item {
+        Show that if a projection matrix M can be expressed in terms of a matrix A as $A(A^TA)^{-1}A^T$, then M satisfies the conditions for a valid projection matrix
+    
+    }
+    \meta{
+        This is a small proof type question meant to demonstrate that the very formula for a projeciton matrix proves its validity
+    }
+    \ans{
+        $P_M^2 = M(M^TM)^{-1}M^T * M(M^TM)^{-1}M^T$
+        \\
+        cancelling 
+        \\
+        $M(M^TM)^{-1} and M^TM$
+        \\
+        we have
+        \\
+        $P_M^2 = M(M^TM)^{-1}M^T = P_M$
+        \\
+        Proving that $P_M$ is a valid projection matrix
+    }
+
+    \item {
+        Show that if matrix M consists of orthonormal columns in the space $R^N$, then the projection of some vector $\bar{v} \in R^N$ onto $Span(M)$ is $Proj_{M} \bar{v}$ = $MM^T \bar{v}$
+    
+    }
+    \meta{
+        This is a slightly more complicated proof question intended to teach students how to apply orthogonal matrix principles to projection
+    }
+    \ans{
+        We know
+        \\
+        $P_M \bar{v}= M(M^TM)^{-1}M^T \bar{v}$
+        \\
+        However, since matrix M has orthonormal columns, we know
+        \\
+        $(M^TM)^{-1} = I^{-1} = I$
+        \\
+        thus
+        \\
+        $P_M \bar{v} = MIM^T$
+        \\
+        $P_M \bar{v} = MM^T \bar{v}$
+    }
+\end{enumerate}

@@ -1,0 +1,149 @@
+\qns{Circuit Components}
+
+% \textbf{Learning Goal:} .
+
+\meta{
+Introduction to basic circuit components.
+Mentors: do a mini lecture on what is charge, what is voltage, and what is current. See lecture notes for definitions. 
+}
+
+In this problem, we will introduce the fundamental circuit components. 
+
+\begin{enumerate}
+
+\item{
+What is a voltage source?
+}
+
+\meta{
+Ensure that students understand that the voltage source is enforcing a \textit{difference}.
+\begin{itemize}
+    \item When the negative end is grounded, the potential at the positive end is just the value of the voltage source $V$, since $0 + V = V$.
+    \item When the voltage source label is negative, ex. $V = -5$ volts, the potential at the positive end is 5 volts less than the potential at the negative end. Another way to think about this is to flip the sign of the voltage \textbf{and} flip the direction the source is oriented in.
+\end{itemize}
+}
+
+\ans{
+Firstly, a voltage source is represented in this manner: 
+\begin{center}
+    \begin{circuitikz}
+        \draw(0,0)
+	    to[V=$V$] ++(1,0);
+    \end{circuitikz}
+\end{center}
+
+A voltage source \textbf{guarantees} that the potential at its positive end (+) will be $V$ more than the potential at its negative end (-).
+}
+
+\item{
+ What is a current source?  
+}
+
+
+\ans{
+A current source is represented in this manner: 
+\begin{center}
+    \begin{circuitikz}
+        \draw(0,0)
+	     to[I, l=$I$] ++(1,0);
+    \end{circuitikz}
+\end{center}
+A current source \textbf{guarantees} that the current passing through the unit in the direction of the arrow will be its designated value. 
+}
+
+\item{What is voltage? What is a voltage drop?}
+
+\ans{
+Voltage is the difference in potential energy (per charge) between two points in a circuit. For our discussion, it suffices to think of voltage as a kind of driver for current. Current is the movement of charge over time. A voltage difference forces current to move from the point (node) that has higher voltage, to the point that has lower voltage. 
+
+A voltage drop is the voltage lost (decline of nodal voltage) across a circuit component. 
+}
+
+\item{Consider the figure below. If $V_1 \neq V_2$, what will happen to the circuit?
+
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,4)
+	%to[short] ++(0,-1)
+	to[V_=$V_1$] ++(0,-4)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(0,4)
+	to[short] ++(2,0)
+	to[V_=$V_2$] ++(0,-4)
+	to[short] ++(-2,0);
+    \end{circuitikz}
+\end{center}
+
+}
+
+\ans{
+% Let us designate the potential at the positive end of $V_1$ to be $V^+_1$, the potential at the negative end of $V_1$ to be $V^-_1$, the potential at the positive end of $V_2$ to be $V^+_2$, and the potential at the negative end of $V_2$ to be $V^-_2$. $V^-_1$ and $V^-_2$ are equal to 0 because of the ground. Then, the potential across $V_1$ is $V^+_1$, and the potential across $V_2$ is $V^+_2$. Since $V^+_1$ and $V^+_2$ are connected by a wire, they must be the same voltage; we know that a wire does not affect a circuit's behavior, so the voltage must stay constant across it. 
+% This means that $V^+_1 = V^+_2$. However, we know that the voltage potential $V^+_1 - V^-_1$ is not equal to $V^+_2 - V^-_1$ as given in the question. Hence, we see that we cannot have two voltage sources connected in this configuration.
+Let us designate the potential at the positive end of $V_1$ to be $V^+_1$, the potential at the negative end of $V_1$ to be $V^-_1$, the potential at the positive end of $V_2$ to be $V^+_2$, and the potential at the negative end of $V_2$ to be $V^-_2$. 
+
+Since the negative terminals are grounded, $V^-_1$ and $V^-_2$ must be equal to 0. Then, the potential across $V_1$ is $V^+_1 - 0 = V^+_1$, and the potential across $V_2$ is $V^+_2 - 0 = V^+_2$. Since $V^+_1$ and $V^+_2$ are connected by a wire and as such are part of the same node, they must have the same node potential; an ideal wire has no voltage drop across it. This means that $V^+_1 = V^+_2$. 
+
+However, if we return to the problem statement, we know that $V_1 = V^+_1 - V^-_1 = V^+_1 - 0 = V^+_1$ is not equal to $V_2 = V^+_2 - V^-_2 = V^+_2 - 0 = V^+_2$. This is a contradiction. Hence, we see we cannot have the two voltage sources connected in this configuration, where they share the same two end nodes but have different voltages across them.
+
+}
+
+\item {What happens in this case if $I_1 \neq I_2$?
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,0) 
+    to[I=$I_1$] ++(0,2)
+    to[I=$I_2$] ++(0,2);
+    \end{circuitikz}
+\end{center}
+}
+
+\ans{
+The current source at the bottom guarantees that $I_1$ current will pass through the wire, while the current source at the top guarantees that $I_2$ current will pass through that wire. This is a contradiction and is not theoretically possible in a circuit. 
+
+Also, observe the node between the two current sources. $I_1$ enters on one end, while $I_2$ leaves on the other end. We have different currents entering and leaving the node, which is not possible.
+}
+
+\item{
+What is a resistor? 
+}
+
+\ans{
+A resistor is represented in this manner: 
+\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,0)
+	to[R, v=$ $, i=$ $] ++(3,0);
+	\end{circuitikz}
+	\end{center}
+A resistor is a circuit unit designed to `resist' the flow of current. Following convention, there is a ``voltage drop'' across a resistor from the positive end to the negative end. The voltage drop across a resistor is $V_R = I_R R$, where $V_R$ is the voltage drop, $I_R$ is the current through the resistor and $R$ is the resistance of the resistor. 
+}
+
+\item{What is power? Or, how do we consider the amount of energy spent in a running circuit?}
+
+\ans{ 
+Power is the rate at which work is done, where work is in terms of electrical energy.
+
+For circuits, the power \textit{consumed} or \textit{dissipated} by a device is $P = IV$, where the current and voltage abide by passive sign convention. For resistors, we can use $P = IV = I \cdot IR = I^2R$ or $P = IV = \frac{V}{R} \cdot V = \frac{V^2}{R}$.
+
+\textbf{Common Misconceptions:}
+\begin{itemize}
+	\item Active components do not necessarily dissipate negative power! Consider the following circuit:
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[ground] () {}
+				to[V=$1\si{\volt}$, invert] ++(0,2)
+				to[R=$1\si{\ohm}$] ++(2,0)
+			(2,0) node[ground] () {}
+				to[V=$2\si{\volt}$, invert] ++(0,2);
+		\end{circuitikz}
+	\end{center}
+	When calculating the power dissipated by the LHS voltage source, we see the current flows counterclockwise about the circuit: $I_R = V_R/R = (2\si{\volt} - 1\si{\volt})/1\Omega = 2\si{\ampere}$ in the left direction. With passive sign convention, we calculate the power $P_{V_1} = 1\si{\volt} \times 1\si{\ampere}$, which is positive! The left-side voltage source is dissipating power.
+	
+	
+\end{itemize}
+}
+
+\end{enumerate}

@@ -1,0 +1,361 @@
+\qns{Summer Midterm 2 Problem: Misadventures with Measurements }
+% urmita@berkeley.edu, Summer 2020
+You are learning about voltmeter and ammeter in EECS 16A module 2. A voltmeter is an instrument used to measure the voltage difference between any two nodes in a circuit, while an ammeter measures the current through any circuit element. We can model the voltmeter and the ammeter as resistors: $R_{VM}$ and $R_{AM}$ respectively. 
+
+\begin{enumerate} [series = qn]
+\item Suppose we want to measure the voltage across nodes $a$ and $b$ ($v_\text{ab}$) for the circuit in Figure \ref{voltmeter} on the left. To accomplish this, we would connect the voltmeter across nodes $a$ and $b$, as shown on the right in Figure \ref{voltmeter}. 
+
+%Assume $R_1 = 100\si{\ohm}$
+%and $R_2 = 100\si{\ohm}$. 
+%$R_\text{ADC} = 1M\si{\ohm}$. Recall
+%that the SI prefix $M$ or Mega is $10^6$.  
+
+\begin{figure}[H]
+\begin{center}
+    \begin{circuitikz}
+        \draw(0,0)
+            to[V, l_=$V_S$, invert] ++(0,2)
+            to[short] ++(2,0)
+            to[R, l_=$R_1$] ++(0,-2)
+            to[short] ++(-2,0)
+            to[short] ++(2,0)
+            to[R, l_=$R_2$] ++(0,-2);
+            
+         \draw(2,2)
+            to[short, -o] ++(1,0) node[above]{$a$}
+            to[open, v^>=$V_\text{ab}$] ++(0,-4) node[below]{$b$}
+            to[short, o-] ++(-1,0) ;
+                       
+         \draw(6,0)
+            to[V, l_=$V_S$, invert] ++(0,2)
+            to[short] ++(2,0)
+            to[R, l_=$R_1$] ++(0,-2)
+            to[short] ++(-2,0)
+            to[short] ++(2,0)
+            to[R, l_=$R_2$] ++(0,-2)
+            ;
+            
+         \draw(8,2)
+            to[short, -o] ++(0.5,0)node[above]{$a$}
+            to[open, v^>=$V_\text{ab, meas}$] ++(0,-4)
+            to[short, o-] ++(-0.5,0);
+            
+         \draw(8.5,2)
+            to[short, o-] ++(2,0)
+            to[R, l^=$R_\text{VM}$] ++(0,-4)
+            to[short, -o] ++(-2,0) node[below]{$b$}
+            ;
+        \draw(9.5, 2.5)[dashed] 
+            to[short] ++(0,-5)
+            to[short] ++(2,0)
+            to[short] ++(0,5)
+            to[short] ++(-2, 0)
+            ;
+        
+        %\draw (3,2) to [open,v=$v_\text{ab}$] (3,-2);
+    \end{circuitikz}
+\end{center}
+\caption{Left: Circuit without the voltmeter connected, Right: Voltmeter measuring $V_\text{ab, meas}$}
+\label{voltmeter}
+\end{figure}
+ 
+If we assume that $R_{VM}\gg R_1, R_2$, what is the approximate value of voltage $V_\text{ab, meas}$?
+
+\begin{enumerate}
+\item $V_S \frac{R_{1} + R_{2}}{R_{1}}$
+\item $V_S \frac{R_1+R_2}{R_{1}+R_{2}+R_{VM}}$
+\item $V_S \frac{R_{2}}{R_{VM} + R_{2}}$
+\item $V_S$
+\item None of the above
+\end{enumerate}
+
+\ans{Correct answer: D
+}
+
+\ans{
+Using voltage divider rule:
+\begin{align}
+V_\text{ab, meas}=V_S \frac{R_{VM}}{R_{VM}+ R_{2}}\\
+\end{align}
+Since $R_{VM}\gg R_1, R_2$, $(R_{VM}+ R_{2})\approx {R_{VM}}$. Hence,
+\begin{align}
+V_\text{ab, meas}\approx V_S \frac{R_{VM}}{R_{VM}}\\
+\implies V_\text{ab, meas}\approx V_S
+\end{align}
+}
+
+
+
+\item For this part, let's assume that $V_S=5\si{\volt}$, $R_{VM}=990\si{\kilo\ohm}$ for Figure \ref{voltmeter}. (In this case, $R_{VM}$ is not ideal and might be comparable to $R_1$ and  $R_2$.) We see a discrepancy between $V_\text{ab}$ and  $V_\text{ab, meas}$. The percentage error is given by
+\begin{align}
+\%err=\frac{V_{ab}-V_\text{ab, meas}}{V_{ab}}\times 100\%
+\end{align} 
+Find all the combinations of $R_1$ and  $R_2$ that keeps the \% error below 1\%. 
+
+\begin{enumerate}
+\item $R_{1}=10\si{\kilo\ohm}$, $R_{2}=9.9\si{\kilo\ohm}$
+\item $R_{1}=9.9\si{\kilo\ohm}$, $R_{2}=20\si{\kilo\ohm}$
+\item $R_{1}=20\si{\kilo\ohm}$, $R_{2}=9.9\si{\kilo\ohm}$
+\item $R_{1}=10\si{\kilo\ohm}$, $R_{2}=11.1\si{\kilo\ohm}$
+\item $R_{1}=11.1\si{\kilo\ohm}$, $R_{2}=10.1\si{\kilo\ohm}$
+\end{enumerate}
+
+\ans{Correct answer: A, C
+}
+
+\ans{From the last part we have,
+\begin{align}
+V_\text{ab, meas}=V_S \frac{R_{VM}}{R_{VM}+ R_{2}}\\
+\end{align}
+Substituting the value of $V_\text{ab, meas}$, we have
+\begin{align}
+\%err=\frac{V_{ab}-V_\text{ab, meas}}{V_{ab}}\times 100\% <1\%\\
+\implies \frac{V_{S}-V_{S}\frac{R_{VM}}{R_2+R_{VM}}}{V_{S}}\times 100\% <1\%\\
+\implies \frac{R_2}{R_2+R_{VM}}<0.01\\
+\implies R_2< 0.01R_2 +0.01\times 990\si{\kilo\ohm}\\
+\implies 0.99R_2<9.9\si{\kilo\ohm}\\
+\implies R_2<9.9\si{\kilo\ohm}/0.99\\
+\implies R_2<10\si{\kilo\ohm}\\
+\end{align}
+}
+
+
+
+
+\item Now let us modify the previous circuit by short circuiting terminals: $a$ and $b$, as shown on the left of Figure \ref{ammeter}. Suppose we want to measure the current  through $R_2$. So we insert an ammeter in series with $R_2$,  as shown on the right in Figure \ref{ammeter}. 
+
+%Assume $R_1 = 100\si{\ohm}$
+%and $R_2 = 100\si{\ohm}$. 
+%$R_\text{ADC} = 1M\si{\ohm}$. Recall
+%that the SI prefix $M$ or Mega is $10^6$.  
+
+\begin{figure}[H]
+\begin{center}
+    \begin{circuitikz}
+        \draw(0,0)
+            to[V, l_=$V_S$, invert] ++(0,2)
+            to[short] ++(2,0)
+            to[R, l_=$R_1$] ++(0,-2)
+            to[short] ++(-2,0)
+            to[short] ++(2,0)
+            to[R, l_=$R_2$, invert, i^<=$I_{2}$] ++(0,-2)
+            to[short] ++(2,0)
+            to[short] ++(0,4)
+            to[short] ++(-2,0);
+         \draw(2,2)
+            to[short, -o] ++(1,0) node[above]{$a$}
+            to[open] ++(0,-4) node[below]{$b$}
+            to[short, o-] ++(-1,0) ;            
+                       
+         \draw(6,0)
+            to[V, l_=$V_S$, invert] ++(0,2)
+            to[short] ++(2,0)
+            to[R, l_=$R_1$] ++(0,-2)
+            to[short] ++(-2,0)
+            to[short] ++(2,0)
+            to[R, l_=$R_2$, invert, i^<=$I_\text{2, meas}$] ++(0,-2)
+            to[short, -o] ++(0,-0.5) node[left]{$b$}
+            to[R, l_=$R_\text{AM}$] ++(0,-2)
+            to[short] ++(2,0)
+            to[short] ++(0,6.5)
+            to[short, -o] ++(-1,0) node[above]{$a$}
+            to[short] ++(-1,0);
+            ;
+            
+        \draw(7, -2.6)[dashed] 
+            to[short] ++(0,-2)
+            to[short] ++(2,0)
+            to[short] ++(0,2)
+            to[short] ++(-2, 0)
+            ;
+        
+        %\draw (3,2) to [open,v=$v_\text{ab}$] (3,-2);
+    \end{circuitikz}
+\end{center}
+\caption{Left: Circuit without the ammeter connected, Right: ammeter measuring $I_{2}$}
+\label{ammeter}
+\end{figure}
+ 
+Assuming that $R_{AM}\ll R_1, R_2$, what is the approximate value of the current $I_\text{2, meas}$? 
+
+\begin{enumerate}
+\item $\frac{V_S}{R_{1}+ R_{2}}$
+\item $-\frac{V_S}{R_{1}+ R_{2}}$
+\item $\frac{V_S}{R_{1}+ R_{2}+R_{AM}}$
+\item $-\frac{V_S}{R_{1}+ R_{2}+R_{AM}}$
+\item $\frac{V_S}{R_{2}}$
+\item $-\frac{V_S}{R_{2}}$
+\item None of the above
+\end{enumerate}
+
+\ans{Correct answer: E
+}
+
+
+\ans{
+Using Ohm's law, we have:
+\begin{align}
+I_\text{2, meas}= \frac{V_S}{R_{2}+ R_{AM}}\\
+\end{align}
+Since $R_{AM}\ll R_1, R_2$, $(R_{2}+ R_{AM})\approx {R_{2}}$. Hence,
+\begin{align}
+I_\text{2, meas} \approx \frac{V_S}{R_{2}}\\
+\end{align}
+}
+
+
+\item A photoresistor is a special kind of resistor, whose resistance decreases when we shine light on it. We introduce a photoresistor, $R_{Ph}$ in the circuit from the last part, arriving at the circuit in Figure \ref{photo}. 
+Depending on the light intensity, $R_{Ph}$ varies between $100\si{\ohm}$ to $100\si{\kilo\ohm}$. Here we assume that $V_{S}=5\si{\volt}$, $R_{AM}=100\si{\ohm}$ (non-ideal and comparable to other resistors).
+
+
+\begin{figure}[H]
+\begin{center}
+    \begin{circuitikz}
+        \draw(0,0)
+            to[V, l_=$V_S$, invert] ++(0,2)
+            to[short] ++(2,0)
+            to[R, l_=$R_1$] ++(0,-2)
+            to[short] ++(-2,0)
+            to[short] ++(2,0)
+            to[R, l_=$R_2$] ++(0,-2)
+            to[short] ++(4,0)
+            to[R, l_=$R_\text{AM}$] ++(0,2)
+            to[phR, l_=$R_\text{Ph}$, i_<=$I_{Ph}$] ++(0,2)
+            to[short] ++(-4,0);
+            
+    \end{circuitikz}
+\end{center}
+\caption{Circuit with ammeter measuring $I_{Ph}$ through the photoresistor}
+\label{photo}
+\end{figure}
+ 
+We want the maximum current through $R_{Ph}$ to stay below $5\si{\milli\ampere}$, i.e. $\si{\milli\ampere}$.  Choose value(s) of $R_2$ to make sure that $I_{Ph}<5\si{\milli\ampere}$ for the full range of $R_{Ph}$. Choose all the options that are applicable.
+
+\begin{enumerate}
+\item $R_{2}=1\si{\kilo\ohm}$
+\item $R_{2}=820\si{\ohm}$
+\item $R_{2}=470\si{\ohm}$
+\item $R_{2}=0\si{\ohm}$
+\item $I_{Ph}$ does not depend on $R_2$
+\end{enumerate}
+
+\ans{Correct answer: A,B
+}
+
+\ans{
+Using Ohm's law, we have:
+\begin{align}
+I_{Ph}= \frac{V_S}{R_{2}+ R_{AM}+R_{Ph}}<5\si{\milli\ampere}\\
+\implies R_{2}+ R_{AM}+R_{Ph}>\frac{V_S}{5\si{\milli\ampere}}\\
+\implies R_2> \frac{V_S}{5\si{\milli\ampere}}-R_{AM}-R_{PD}\\
+\implies R_2> \frac{5}{5m}-100-100\\
+\implies R_2>800
+\end{align}
+
+}   
+
+
+
+\item For this part, let's assume that the voltmeter and ammeter are ideal, i.e. $R_{VM}=\infty$ and $R_{AM}=0\si{\ohm}$. 
+
+Values of $V_S$, $R_1$ and $R_2$ are unknown. Let us revisit the circuits from part (a) and (c).
+\begin{figure}[H]
+\begin{center}
+    \begin{circuitikz}
+         \draw(0,0)
+            to[V, l_=$V_S$, invert] ++(0,2)
+            to[short] ++(2,0)
+            to[R, l_=$R_1$] ++(0,-2)
+            to[short] ++(-2,0)
+            to[short] ++(2,0)
+            to[R, l_=$R_2$] ++(0,-2)
+            ;
+            
+         \draw(2,2)
+            to[short, -o] ++(0.5,0) node[above]{$a$}
+            to[open, v^>=$V_\text{ab, meas}$] ++(0,-4) node[below]{$b$}
+            to[short, o-] ++(-0.5,0) ;
+            
+         \draw(2.5,2)
+            to[short, o-] ++(2,0)
+            to[R, l^=$R_\text{VM}$] ++(0,-4)
+            to[short, -o] ++(-2,0)
+            ;
+
+            
+                       
+         \draw(8,0)
+            to[V, l_=$V_\text{S}$, invert] ++(0,2)
+            to[short] ++(2,0)
+            to[R, l_=$R_1$] ++(0,-2)
+            to[short] ++(-2,0)
+            to[short] ++(2,0)
+            to[R, l_=$R_2$, invert, i^<=$I_\text{2,meas}$] ++(0,-2) 
+            to[short, -o] ++(0, -0.5) node[left]{$b$}
+            to[R, l_=$R_{AM}$] ++(0,-2)
+            to[short] ++(2,0)
+            to[short] ++(0,6.5)
+            to[short, -o] ++(-0.3,0) node[above]{$a$}
+            to[short] ++(-1.7,0);
+            ;
+            
+        \draw(-1, 2.5)[dashed] 
+            to[short] ++(3.5,0)
+            to[short] ++(0,-5)
+            to[short] ++(-3.5,0)
+            to[short] ++(0,5)
+            ;
+         \draw(7, 2.5)[dashed] 
+            to[short] ++(4.5,0)
+            to[short] ++(0,-4.5)
+            to[short] ++(-4.5,0)
+            to[short] ++(0,4.5)
+            ;
+        
+        %\draw (3,2) to [open,v=$v_\text{ab}$] (3,-2);
+    \end{circuitikz}
+\end{center}
+\caption{Left: Voltmeter measuring $V_\text{ab, meas}$, Right: ammeter measuring $I_\text{2, meas}$}
+\label{thevenin}
+\end{figure}
+We measure $V_\text{ab, meas}=5\si{\volt}$ for the circuit on the left in Figure \ref{thevenin}, while we measure $I_\text{2, meas}=1\si{\milli\ampere}$ for the circuit on the right. We want to find the Thevenin equivalent of the circuit in the box between terminal $a$ and $b$, i.e. we need $V_{TH}$ and $R_{TH}$.
+Find the option that is correct. 
+
+\begin{enumerate}
+\item $V_{TH}=5\si{\volt}$, $R_{TH}=1\si{\kilo\ohm}$
+\item $V_{TH}=5\si{\volt}$, $R_{TH}=5\si{\kilo\ohm}$
+\item $V_{TH}=2.5\si{\volt}$, $R_{TH}=2.5\si{\kilo\ohm}$
+\item None of the above values are correct.
+\item We do not have enough information to find the Thevenin equivalent.
+\end{enumerate}
+\ans{Correct answer: B
+}
+
+
+\ans{From the circuit on the left side:
+\begin{align}
+V_{TH}=V_\text{ab, meas}\\
+\implies V_{TH}=5\si{\volt}
+\end{align}
+From the circuit on the right side, we have the short circuit current, $I_{SC}$:
+\begin{align}
+I_{SC}=I_\text{2, meas}\\
+\implies I_{SC}=1\si{\milli\ampere}
+\end{align}
+We can find the Thevenin resistance from:
+\begin{align}
+R_{TH}=\frac{V_{TH}}{I_{SC}}\\
+\implies R_{TH}=\frac{5\si{\volt}}{1\si{\milli\ampere}}\\
+\implies R_{TH}=5\si{\kilo\ohm}
+\end{align}
+}
+
+
+\end{enumerate}
+
+
+%You then modify the detection matrix by adding new column(s), so that 
+%\begin{align}
+%\mathbf{A}\begin{bmatrix} x \\ y \\ z \end{bmatrix}=\begin{bmatrix} u \\ v \\ w\end{bmatrix}. 
+%\end{align}
+  

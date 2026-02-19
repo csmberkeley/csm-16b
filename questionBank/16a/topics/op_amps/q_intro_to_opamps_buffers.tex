@@ -1,0 +1,147 @@
+% Author: Aditya Baradwaj
+% Email: abaradwaj@berkeley.edu
+
+\qns{Op Amps as Buffers}
+
+\textbf{Learning Goal:} This problem helps understand the operating principle of an op-amp buffer and how it helps with loading.
+
+\textbf{Relevant Notes:} goes different op-amp circuit topology and corresponding derivations.
+
+\meta{Show that the loading effect becomes less pronounced when the load resistance is higher, i.e. the load is drawing less current.}
+
+Now we will revisit a problem that you might have seen before, with our new knowledge of op-amps. We have access to a circuit inside a 'black box' as shown below, with two terminal coming out of it.
+
+\begin{enumerate}
+\item We need a voltage of $6 \text{V}$ power a light bulb with resistance $R_L$. Design $R_1$ and $R_2$ inside the black box so that the voltage across $R_2$ is exactly equal to this required voltage \textbf{when the bulb is not connected}; i.e. $V_{R_2} = V_{out} = 6 \text{V}$. 
+
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+    \filldraw[fill=gray!40!white,draw=black] (-1,-0.5) rectangle (4,7.5);
+    \draw(0,0)
+	to[V_=$12 \text{V}$,invert] ++(0,7)
+ 	to[short] ++(3,0)
+	to[R,l=$R_1$] ++(0,-4)
+	to [short] ++ (2, 0)
+	to [open, o-o, v^=$V_{out}$] ++ (0, -3)
+	to [short] ++ (-2, 0)
+	to [open] ++ (0,3)
+	to[R,l=$R_2$] ++(0,-3)
+	to[short] ++(-3,0)
+	to[short] node[ground]{} ++(0,-1);
+	
+	
+	
+ 	\draw(5,3)[dashed] 
+ 	-- ++(2,0); 
+ 	\draw(7,3)
+ 	to[lamp,l=$R_L$] ++(0,-3);
+%  	to[R,l=$R_L$] ++(0,-3);
+ 	\draw(7,0)[dashed]
+ 	-- ++(-2,0);
+	\end{circuitikz}
+\end{center}
+
+
+\sol{
+The voltage across $R_2$ is given by 
+\begin{align*}
+V_{R_2}=\frac{R_2}{R_1+R_2}\times 12 \si{\volt}
+\end{align*}
+If we set $V_{R_2}=6 \si{\volt}$, we get 
+\begin{align*}
+6 \si{\volt}&=\frac{R_2}{R_1+R_2}\times 12 \si{\volt}\\
+\implies R_1&=R_2
+\end{align*}
+For example, we can choose $R_1=R_2 =1\si{\kilo\ohm}$.
+}
+
+\item Now let us connect the bulb $R_L$ across $R_2$. What is the voltage across $R_1$, $R_2$ and $R_L$ when the bulb is connected when $R_L=R_2$? Use the values of $R_1$ and $R_2$ from the last part. Will the light bulb turn on?
+What happens if $R_L=2R_2$?
+
+\sol{
+When we connect the bulb across $R_2$, the equivalent circuit is the following:
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+
+    \draw(0,0)
+	to[V_=$12 \text{V}$,invert] ++(0,7)
+ 	to[short] ++(3,0)
+	to[R,l=$R_1$] ++(0,-4)
+	to [short] ++ (2, 0)
+	to [open, o-o, v^=$V_{out}$] ++ (0, -3)
+	to [short] ++ (-2, 0)
+	to [open] ++ (0,3)
+	to[R,l=$R_2 || R_L$] ++(0,-3)
+	to[short] ++(-3,0)
+	to[short] node[ground]{} ++(0,-1);
+	\end{circuitikz}
+\end{center}
+The voltage $V_{out}$ given by 
+\begin{align*}
+V_{out}=\frac{R_2||R_L}{R_1+R_2||R_L}\times 12 \si{\volt}
+\end{align*}
+
+When $R_L=R_2$:
+$$R_2||R_L=R_2||R_2=\frac{R_2}{2}.$$
+Hence $V_{out}$ is:
+\begin{align*}
+V_{out}=\frac{R_2||R_L}{R_1+R_2||R_L}\times 12 \si{\volt}=\frac{\frac{R_2}{2}}{R_1+\frac{R_2}{2}}\times 12 \si{\volt}=\frac{\frac{R_2}{2}}{R_2+\frac{R_2}{2}}\times 12 \si{\volt}= 4 \si{\volt}< 6 \si{\volt}
+\end{align*}
+So the bulb will not turn on.
+
+When $R_L=2R_2$:
+$$R_2||R_L=R_2||2R_2=\frac{2R_2}{3}.$$
+Hence $V_{out}$ is:
+\begin{align*}
+V_{out}=\frac{R_2||R_L}{R_1+R_2||R_L}\times 12 \si{\volt}=\frac{\frac{2R_2}{3}}{R_1+\frac{2R_2}{3}}\times 12 \si{\volt}=\frac{\frac{2R_2}{3}}{R_2+\frac{2R_2}{3}}\times 12 \si{\volt}= 4.8 \si{\volt} < 6 \si{\volt}
+\end{align*}
+Although, $V_{out}$ is now closer to $6 \si{\volt}$, the bulb will still not turn on.
+
+
+}
+
+\item Using your knowledge of op-amps, how could you resolve this issue of $V_{out}$ changing based on the value of $R_L$? Think about how you might use an op-amp buffer. 
+
+\sol{
+We can introduce a 'buffer' op-amp as shown below:
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+    \filldraw[fill=gray!40!white,draw=black] (-1,-0.5) rectangle (4,7.5);
+    \draw(0,0)
+	to[V_=$12 \text{V}$,invert] ++(0,7)
+ 	to[short] ++(3,0)
+	to[R,l=$R_1$] ++(0,-4)
+	to[short] ++(1,0)
+	to[short,l_=$ \quad V_{b} \eq 6\text{V}$,i=$I_+$] ++(1,0)
+	-- ++(-2,0)
+	to[R,l=$R_2$] ++(0,-3)
+	to[short] ++(-3,0)
+	to[short] node[ground]{} ++(0,-1);
+	
+	\draw(8,2.5) node[op amp, yscale=-1] (opamp) {};
+	
+ 	\draw(5,3) 
+ 	-- (opamp.+);
+ 	
+ 	\draw(opamp.-)
+ 	to[short, i<=$I_-$] ++(0,-2)
+ 	-- ++(3, 0)
+ 	to[short] (opamp.out);
+ 	
+ 	\draw(opamp.out)
+ 	to[short] ++(3,0)
+ 	to[lamp,l=$R_L$, i=$I_L$, v=$V_{out}$] ++(0,-3)
+ 	to[short] node[ground]{} ++(0,-1);
+	\end{circuitikz}
+\end{center}
+
+A buffer op amp effectively 'decouples' its input and output,
+It does this by preventing the bulb from drawing current from the black box circuit. Remember that the input currents of an ideal op-amp:
+$$I_+=I_-=0,$$
+while the output current $I_L$ can adjust itself to any extent, depending on the demand placed by $V_{out}$. 
+
+
+Let us use nodal analysis and the golden rules to formally solve this circuit.
+Firstly, we observe that the op-amp is in negative feedback configuration. Using the golden rules, we have that $V_+ = V_- = V_b = 6V$. Also, because the feedback connection is a short, $V_{out} = V_-$. Therefore, $V_{out} = V_b = 6V$. This is exactly what we want! The voltage across $R_L$  equals $V_{out} = 6V$, which is above the required voltage.
+}
+\end{enumerate}

@@ -1,0 +1,222 @@
+\qns{Intro to Circuit Solving}
+
+\textbf{Learning Goal:} The goal of this problem is to practice going through the main steps to solve circuits.
+
+\textbf{Relevant Notes:} \notes{Note 11B} introduces the circuit analysis procedure.
+
+\meta {Spend time on making sure students know how to set up the equations; that is, how to apply KCL and Ohm’s law to circuits. Focus more on the setup than mechanical solving. Remind students that depending on the directions of the currents they drew and which node they labeled as the reference ground node, their equations could look different but still be correct.}
+
+Solve the following circuit for all the branch currents and voltage differences across elements. Find the power dissipated in all elements. Follow the steps listed below to step through the problem.
+Use the following values for this problem:
+$V_S=5\si{\volt}$, $R_1=2\si{\kilo\ohm}$, $R_2=2\si{\kilo\ohm}$, $R_3=4\si{\kilo\ohm}$, and  $I_S=2\si{\milli\ampere}$.
+
+
+
+Solve the following circuit for all the branch currents and voltage differences across elements. Find the power dissipated in all elements. Follow the steps listed below to step through the problem. 
+
+
+\begin{center}
+\begin{circuitikz}
+    \draw
+    (0,0) coordinate (BASE)
+        to[V,l=$V_S$, invert] ++(0,4)
+        to[short] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.5)
+        to[R,l=$R_1$] ++(3,0)
+        to[short] ++(0,-.5) coordinate (RHS)
+    (LHS) to[short] ++(0,-.5)
+        to[R, l=$R_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+        to[R, l=$R_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+        to[I,l=$I_S$] (TOPRIGHT |- BASE)
+        to[short] (BASE);
+\end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+\itemSelect a reference node. [WALK-THROUGH]
+
+\ans {
+You can select any node in the circuit as the ground node.
+\begin{center}
+\begin{circuitikz}
+   \draw
+    (0,0) coordinate (BASE)
+        to[V,l=$V_S$, invert] ++(0,4)
+        to[short] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.5)
+        to[R,l=$R_1$] ++(3,0)
+        to[short] ++(0,-.5) coordinate (RHS)
+    (LHS) to[short] ++(0,-.5)
+        to[R, l=$R_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+        to[R, l=$R_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+        to[I,l=$I_S$] (TOPRIGHT |- BASE)
+        to[short] (BASE);
+      \draw (0,0) to[short] node[ground]{} (0,-1);
+\end{circuitikz}
+\end{center}
+} 
+\itemLabel nodes with voltage set by sources and the remaining nodes. [WALK-THROUGH]
+
+\ans{
+In this part, we label all the nodes except the reference.
+\begin{center}
+\begin{circuitikz} [american]
+    \draw
+    (0,0) coordinate (BASE)
+        to[V,l=$V_S$, invert] ++(0,4)
+        to[short] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.5)
+        to[R,l=$R_1$] ++(3,0)
+        to[short] ++(0,-.5) coordinate (RHS)
+    (LHS) to[short] ++(0,-.5)
+        to[R, l=$R_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+        to[R, l=$R_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) node[label={above:$u_2$}]{}
+    (TOPLEFT) to[short, *-] ++(2,0) coordinate (TOPRIGHT)
+        to[I,l=$I_S$] (TOPRIGHT |- BASE)
+        to[short] (BASE);
+      \draw (0,0) to[short, *-] node[ground]{} (0,-1);
+      \draw (0,4) to[short, *-] node[label={above:$u_1$}]{} (0,4);
+\end{circuitikz}
+\end{center}
+}
+
+\itemLabel element voltages and currents. [WALK-THROUGH]
+
+\meta{Again highlight that the current direction can be completely arbitrary, as long as the voltage polarity is consistent with it according to Passive Sign Convention.}
+
+\ans{
+We start with arbitrary current directions, you do not need to think about how charges are flowing at all. Then mark the element voltages according to Passive Sign Convention.
+
+We do not need the element voltage for the current source and the element current for the voltage source. However, you are free to label these as well.
+
+\begin{center}
+\begin{circuitikz}
+    \draw
+    (0,0) coordinate (BASE)
+        to[V,l=$V_S$, i=$i_{Vs}$, invert] ++(0,4) 
+        to[short] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.5)
+        to[R,l=$R_1$, v=$ $, i=$I_1$] ++(3,0)
+        to[short] ++(0,-.5) coordinate (RHS)
+    (LHS) to[short] ++(0,-.5)
+        to[R, l=$R_2$, v=$ $, i=$I_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+        to[R, l=$R_3$, v=$ $, i=$I_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) node[label={above:$u_2$}]{}
+    (TOPLEFT) to[short, *-] ++(2,0) coordinate (TOPRIGHT)
+        to[I, l=$I_S$, i=$I_4$, v>=$ $ ] (TOPRIGHT |- BASE)
+        to[short] (BASE);
+      \draw (0,0) to[short, *-] node[ground]{} (0,-1);
+      \draw (0,4) to[short, *-] node[label={above:$u_1$}]{} (0,4);
+      \draw (0,0) to [open, v<=$ $] ++ (0,4);
+
+\end{circuitikz}
+\end{center}
+}
+
+\itemWrite the KCL equations for all the nodes without a voltage source.
+
+\meta{Highlight the fact that we don't need to write KCL equations for nodes connected to a voltage source.}
+
+\ans{
+If a node is connected to a voltage source, the corresponding node voltage is set by the voltage source. So we do not write KCL equations for nodes with voltage sources.
+So write KCL equation for only node $u_2$:
+ $$I_1 + I_2 = I_3 + I_4$$
+}
+\itemWrite expressions for the element currents for resistors and current sources. Also write expressions for node voltages for the nodes connected to the voltage sources.
+
+\ans{
+We write expressions for resistor currents (using Ohm's Law) and current sources:
+$$I_1 = \frac{{V_R}_1}{R_1} = \frac{u_1 - u_2}{R_1}$$
+$$I_2 = \frac{{V_R}_2}{R_2} = \frac{u_1 - u_2}{R_2}$$
+$$I_3 = \frac{{V_R}_3}{R_3} = \frac{u_2 - 0}{R_3} = \frac{u_2}{R_3}$$
+$$I_4=I_S$$
+
+Then we write evaluate $u_1$, which is the node connected to the voltage source:
+$$u_1=V_S-0=V_S$$
+}
+
+\itemSubstitute element current expressions into the KCL equations.
+
+\ans{
+
+For node $u_2$: $$ \frac{u_1 - u_2}{R_1} + \frac{u_1 - u_2}{R_2} = \frac{u_2}{R_3} + I_s$$
+$$ \frac{V_S - u_2}{R_1} + \frac{V_S - u_2}{R_2} = \frac{u_2}{R_3} + I_s$$
+
+ Let us write this equation to group the coefficients of the unknowns together. This equation has one unknown, $u_2$.
+$$ u_2\left(\frac{1}{R_1} + \frac{1}{R_2}+ \frac{1}{R_3}\right)=V_S\left(\frac{1}{R_1} + \frac{1}{R_2}\right) -I_s $$
+
+}
+
+
+\itemSolve for the unknown node voltages (use Gaussian Elimination if necessary).
+
+\ans{
+We have the element values: $V_S=5\si{\volt}$, $R_1=2\si{\kilo\ohm}$, $R_2=2\si{\kilo\ohm}$, $R_3=4\si{\kilo\ohm}$, and  $I_S=2\si{\milli\ampere}$ .
+Plugging in these values, we have: 
+$$ u_2\left(\frac{1}{2000} + \frac{1}{2000}+ \frac{1}{4000}\right)=5\left(\frac{1}{2000} + \frac{1}{2000}\right) -0.002 $$
+
+Now, we can solve this equation to find $u_2$:
+\begin{align*}
+u_2\left(\frac{5}{4000}\right)&=0.003 \\
+ \implies u_2\left(\frac{5}{4000}\right)&=0.003 \\
+\implies u_2&=2.4\si{\volt}
+\end{align*}
+
+}
+
+\itemFind each elemental current and voltage.
+
+\meta{Highlight that we did not write the equation for current through voltage source earlier. However, now we can apply KCL to the nodes connected to voltage sources in order to find the current through voltage sources.}
+
+\ans{
+The current are the following:
+\begin{align*}
+I_1 = \frac{u_1 - u_2}{R_1}=\frac{5 - 2.4}{2000}=1.3\si{\milli\ampere}\\
+I_2 = \frac{u_1 - u_2}{R_2}=\frac{5-2.4}{2000}=1.3\si{\milli\ampere}\\
+I_3 = \frac{u_2}{R_3}=\frac{2.4}{4000}=0.6\si{\milli\ampere}\\
+I_4=I_S =2\si{\milli\ampere}\\
+I_{V_s}=-I_1-I_2=-1.3\si{\milli\ampere}-1.3\si{\milli\ampere}=-2.6\si{\milli\ampere}
+\end{align*}
+Then we calculate the element voltages:
+\begin{align*}
+V_{R1} = u_1 - u_2=5\si{\volt} - 2.4\si{\volt}=2.6\si{\volt}\\
+V_{R2} = u_1 - u_2=5\si{\volt} - 2.4\si{\volt}=2.6\si{\volt}\\
+V_{R3} = u_2 - 0=2.4\si{\volt}\\
+V_{Vs} = u_1 - 0=5\si{\volt}\\
+V_{Is} = u_2 - 0=2.4\si{\volt}
+\end{align*}
+
+
+}
+
+\itemFind the power dissipated by each element. Show that the power is conserved.
+
+\meta{Go over what are the units of power (Watts aka energy over time) and what it represents (basically the rate of energy usage). Mention that if there are multiple sources in a circuit it is not necessary for all the sources to deliver power. In some case, voltage/ current sources can dissipate power too.}
+
+\ans{ Dissipated power in each element can be calculated by multiplying the element current and element voltage. If the sign of dissipated power comes out negative, that means the corresponding element is delivering power.
+
+\begin{align*}
+P_{R1} = V_{R1}\times I_1=2.6\si{\volt}\times 1.3\si{\milli\ampere}=3.38\si{watt}\\
+P_{R2}=V_{R2}\times I_2 = 2.6\si{\volt}\times 1.3\si{\milli\ampere}=3.38\si{watt}\\
+P_{R3}=V_{R3}\times I_3 = 2.4\si{\volt}\times 0.6\si{\milli\ampere}=1.44\si{watt}\\
+P_{Vs} = V_{Vs}\times I_{Vs}=5\si{\volt}\times -2.6\si{\milli\ampere}=-13\si{watt}\\
+P_{Is}=V_{Is}\times I_4 = 2.4\si{\volt}\times 2\si{\milli\ampere}=4.8\si{watt}
+\end{align*}
+Summing up all the power variables we get:
+$$P_{R1}+P_{R2}+P_{R3}+P_{Is}+P_{Vs}=0.$$
+So power is conserved.
+}
+
+
+\end{enumerate}

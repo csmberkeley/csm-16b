@@ -1,0 +1,204 @@
+\qns{Counting Solutions}
+
+ \textbf{Learning Goal:} \textit{(This problem is meant to illustrate the different types of systems of equations. Some have a unique solution and others have no solutions or infinitely many solutions. )}\\ \\
+ 
+ For each of the following systems of linear equations, determine if there is a unique solution, no solution, or an infinite number of solutions. If there is a unique solution, find it. If there is an infinite number of solutions, describe the set of solutions. If there is no solution, explain why. \textbf{Show your work}.
+ 
+\begin{enumerate}
+
+
+\item
+\[
+\begin{array}{rcrcrl}
+	x & + & y & + & z &= 3\\
+	2x & + & 2y & + & 2z &= 5
+\end{array}
+\]
+
+\ans{
+
+ 
+\begin{align*}
+	\left[\begin{array}{ccc|c}
+		1 & 1 & 1 & 3\\
+		2 & 2 & 2 & 5
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+	1 & 1 & 1 & 3\\
+	0 & 0 & 0 & -1
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 2R_1$}
+\end{align*}
+
+No solution. The fact that there are fewer equations than there are unknowns immediately means that it is not possible to have a unique solution; however, this does not guarantee that there is a solution to begin with. From Gaussian Elimination, we can see that these equations are contradictory since $0 \neq -1$. In other words, no values of $x$, $y$, and $z$ can satisfy both equations simultaneously.
+}
+
+\item
+\[
+\begin{array}{rcrcrl}
+	& - & y & + & 2z &= 1\\
+	2x & & & + & z &= 2\\ 
+\end{array}
+\]
+
+\ans{
+ 
+Because there are two equations and three unknowns, we immediately see that there can be no unique solution. The question then becomes if there are an infinite number of solutions, or no solution at all. 
+
+\begin{align*}\left[
+	\begin{array}{ccc|c}
+		0 & -1 & 2 & 1\\
+		2 & 0 & 1 & 2\\
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+	2 & 0 & 1 & 2\\
+	0 & -1 & 2 & 1	
+\end{array}\right] \mbox{swapping $R_1$ and $R_2$}\\
+& \rightarrow \left[\begin{array}{ccc|c}
+	1 & 0 & \frac{1}{2} & 1\\
+	0 & -1 & 2 & 1
+\end{array}\right] \mbox{using $R_1 \leftarrow \frac{1}{2}R_1$}\\
+& \rightarrow \left[\begin{array}{ccc|c}
+	1 & 0 & \frac{1}{2} & 1\\
+	0 & 1 & -2 & -1
+\end{array}\right] \mbox{using $R_2 \leftarrow -R_2$}					
+\end{align*}
+
+We have now completed Gaussian elimination because we have a leading 1 in each row with zeros below that 1 in its column. In this way we can explicitly see that z is a free variable (x and y depend on z and there are no constraints on the value of z). Thus there are an infinite number of solutions. The set of infinite solutions has the form (for some $z \in \mathbb{R}$):
+
+\begin{align*}
+	x &= 1 - \frac{1}{2}z\\
+	y &= 2z - 1
+\end{align*}
+
+To get full credit it is enough to state "Infinite solutions" and give one possible solution that fits the form above.
+
+}
+
+\item
+\[
+\begin{array}{rcrl}
+	x & + & 2y &= 3\\
+	2x & - & y &= 1\\
+	3x & + & y &= 4
+\end{array}
+\]
+
+\ans{
+ 
+\begin{align*}
+	\left[\begin{array}{cc|c}
+		1 & 2 & 3\\
+		2 & -1 & 1\\
+		3 & 1 & 4
+	\end{array}\right] &\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & -5 & -5\\
+	3 & 1 & 4
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 2R_1$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & -5 & -5\\
+	0 & -5 & -5
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 - 3R_1$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & 1 & 1\\
+	0 & -5 & -5
+\end{array}\right] \mbox{using $R_2 \leftarrow -\frac{1}{5}R_2$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & 1 & 1\\
+	0 & 0 & 0										
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 + 5R_2$}\\
+&\rightarrow \left[
+\begin{array}{cc|c}
+	1 & 0 & 1\\
+	0 & 1 & 1\\
+	0 & 0 & 0										
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1 - 2R_2$}
+\end{align*}
+
+Unique solution, $\begin{bmatrix}
+x \\ y
+\end{bmatrix} =\begin{bmatrix}1\\1\end{bmatrix}$
+
+The system of linear equations at the end of the Gaussian Elimination above simply reads out
+\begin{align*}
+	x &= 1\\
+	y &= 1\\
+	0 &= 0
+\end{align*}
+}
+
+\item
+\[
+\begin{array}{rcrl}
+	x & + & 2y &= 3\\
+	2x & - & y &= 1\\
+	x & - & 3y &= -5
+\end{array}
+\]
+
+\ans{
+ 
+\begin{align*}
+	\left[\begin{array}{cc|c}
+		1 & 2 & 3\\
+		2 & -1 & 1\\
+		1 & -3 & -5
+	\end{array}\right] &\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & -5 & -5\\
+	1 & -3 & -5
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 2R_1$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & -5 & -5\\
+	0 & -5 & -8
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 - R_1$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & 1 & 1\\
+	0 & -5 & -8
+\end{array}\right] \mbox{using $R_2 \leftarrow -\frac{1}{5}R_2$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+	1 & 2 & 3\\
+	0 & 1 & 1\\
+	0 & 0 & -3
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 +5R_2$}
+\end{align*}
+
+No solution. 
+We can think of this to mean that there are no values of $x$ and $y$ which satisfy the conditions in all three equations simultaneously, because in order to satisfy all three equations, the last row $0 = -3$ would need to be true.
+
+}
+
+\item
+\[\left[
+\begin{array}{rcrl}
+	x & - & y &= 2\\
+	5x & - & 5y &= 10\\
+	3x & - & 3y &= 6
+\end{array}\right]
+\]
+
+\ans{
+	
+We can see that all three equations tell us the exact same information; that is, $x - y = 2$. For completeness
+\begin{align*}
+	\left[\begin{array}{cc|c}
+		1 & -1 & 2\\
+		5 & -5 & 10\\
+		3 & -3 & 6
+	\end{array}\right] &\rightarrow \left[\begin{array}{cc|c}
+										1 & -1 & 2\\
+										0 & 0 & 0\\
+										0 & 0 & 0
+									\end{array}\right] \longleftarrow R_2 - 5R_1 \mapsto R_2 \text{ and } R_3 - 3R_1 \mapsto R_3
+\end{align*}
+
+Infinite solutions, $\begin{bmatrix}
+x \\ y 
+\end{bmatrix} =\begin{bmatrix}t\\t - 2\end{bmatrix} \forall t \in \mathbb{R}$
+
+}
+
+\end{enumerate}

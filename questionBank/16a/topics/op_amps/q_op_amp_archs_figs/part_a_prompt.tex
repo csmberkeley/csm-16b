@@ -1,0 +1,33 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+% Code for operational amplifier and comparator comes from q_comparators.tex of CSM16A
+
+\begin{circuitikz}
+    \draw (0,0) node[op amp,yscale=-1] (opamp) { }
+      (-2.5, 0.5) to [short, i=$i_{+}$, o-] (opamp.+) 
+      (-2.5, -0.5) to [short, i=$i_{-}$, o-] (opamp.-) 
+      (opamp.out) node[right ] {$V_{out}$} 
+      ;
+    \node[draw=none,text=black] at (-2.8, 0.5) {$V_{+}$};
+    \node[draw=none,text=black] at (-2.8, -0.5) {$V_{-}$};
+    \draw (-0.2, -0.2) to [short] (0, -0.2) to [short] (0, 0.2) to [short] (0.2, 0.2);
+    \draw (0, 0.5) to [short, -o] (0, 1.0);
+    \node[draw=none,text=black] at (0, 1.5) {$V_{DD}$};
+    \draw (0, -0.5) to [short, -o] (0, -1.0);
+    \node[draw=none,text=black] at (0, -1.5) {$V_{SS}$};
+    
+    \draw[draw=black] (-11, -0.5) rectangle (-8, 0.5);
+    \node[] at (-9.5, 0) {Sound Sensor};
+    
+    \draw (-8, 0) to [short] (-7.5, 0);
+    
+    \draw[draw=black] (-7.5, -0.5) rectangle (-3.5, 0.5);
+    \node[] at (-5.5, 0) {Sound-Volt Converter};
+    
+    \draw (-3.5, 0) to [short, -o] (-3, 0);
+    
+    \draw
+        (3, -1) to [V, l^=$3V$, invert] (3, 1)
+        (4.5, -1) to [V, l^=$5V$, invert] (4.5, 1);
+\end{circuitikz}

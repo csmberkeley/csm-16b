@@ -1,0 +1,48 @@
+\qns{Span basics}
+
+
+\begin{enumerate}
+    \itemWhat is span $\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ ?
+
+    \ans{
+      span $\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ contains any vector $\vec{v}$ that can be written as
+      $$
+	\vec{v} = \alpha_1 \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix} + \alpha_2 \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}
+      $$
+
+      We realize that any vector whose last component is $0$ can be written in this form and any vector whose last component is nonzero cannot. Hence, the required span is the set of all vectors that can be written in the form $\begin{bmatrix}* \\ * \\ 0 \end{bmatrix}$.
+   }
+
+   \itemIs $\begin{bmatrix}5 \\ 5 \\ 0 \end{bmatrix}$ in span $\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ ?
+
+    \ans{
+      Yes. We realize from inspection that
+
+      \[
+	\begin{bmatrix}5 \\ 5 \\ 0 \end{bmatrix} = \frac{5}{3} \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix} + \frac{5}{3} \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}
+      \]
+    }
+
+    \itemWhat is a possible choice for $\vec{v}$ that would make span$\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}, \vec{v} \right\} = \mathbb{R}^3$ ?
+
+    \ans{
+      From part (a), we realize that any vector whose last component is 0 can be written as a linear combination of the two vectors already in the set. Hence, if we include, for example, $\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$ into the set, then we should be able to reach any vector in $\mathbb{R}^3$. Any vector whose last component is non-zero is a valid addition to the set to achieve the desired span. 
+    }
+
+    \itemFor what values of $b_1$, $b_2$, $b_3$ is the following system of linear equations consistent? (``Consistent'' means there is at least one solution.)
+    $$
+    \begin{bmatrix}1 & 2\\ 2 & 1 \\ 0 & 0 \end{bmatrix}\vec{x} = \begin{bmatrix}b_1 \\ b_2 \\ b_3 \end{bmatrix}
+    $$
+
+    \ans{
+      For the system of linear equations to be consistent, there must exist some $x$ such that the equality above holds. Performing matrix vector multiplication, we can rewrite the above equality as
+
+      $$
+	x_1 \begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix} + x_2 \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix} = \vec{b}
+      $$
+
+      The question now becomes: which vectors $\vec{b}$ can be written in the above form i.e as a linear combination of the columns of $A$? This is exactly the definition of span, and the answer must be the same as that from part (a).
+    }
+
+\end{enumerate}
+

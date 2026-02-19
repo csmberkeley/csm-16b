@@ -1,0 +1,191 @@
+% Author: Damanic Luck
+% Email: damanicluck@berkeley.edu
+% CSM16A Spring 2023
+% Note: This is a testing document to try to figure out how to make some circuit worksheets, there may be some bugs I'm not sure how to fix. I also made a few errors so i commented it out
+
+\qns{Beginning Circuit Analysis}
+
+\meta {
+The goal of this worksheet is to \textbf{familiarize students with NVA and passive sign convention and to calculate node voltages based on Ohm's Law, passive sign convention, KCL, and KVL. The point is not to actually solve for the node voltages.}
+
+Some items to remind students of if they are struggling initially: \\
+\begin{itemize}
+    \item Procedure for NVA includes labeling the nodes, labeling currents according to passive sign convention (+ to -), and labeling voltages across circuit elements
+    \item KCL: current flowing into a node = flowing out of a node
+    \item KVL: sum of voltages across the elements connected in a loop is equal to zero.
+\end{itemize}
+
+Before starting, make sure to do a mini-lecture or review on: \\
+\begin{itemize}
+    \item The IV relationship between a voltage source, current source, resistor, capacitor, open circuit, and write
+    \item Units and symbols for voltage, current, and resistance
+    \item Ohm's Law
+    \item Review of KCL and KVL
+\end{itemize}
+}
+
+\begin{enumerate}
+
+    %Question (a)
+    \item {
+    Follow the directions for this subpart to label the circuit according to passive sign convention and NVA.
+    \begin{enumerate}
+        \item Label each node of the of the following circuit with the following notation of $u_{i}$.
+        \item Label each side of the circuit components either positive (+) or negative (-). 
+        \item Represent currents as arrows and draw the currents that flow through each circuit component, denoted as $i_i$. \emph{Use your labeling from the previous part. Currents flow according to passive sign convention.}
+        \item Label the voltages across each circuit, denoted as $V_i$.\\
+        \begin{center}
+            % \begin{circuitikz}
+            %     \draw(0,0) to [vsource, l=$V_s$] (0, 4)
+            %     to [short, i=$i_1$] (2, 4)
+            %     to [R=$R_1$, i=$i_1$] (2, 0) -- (0, 0);
+            % \end{circuitikz}
+            \begin{circuitikz}
+                \draw(0,6) to [vsource, l=$V_s$] (0, 0);
+                \draw (0, 6)
+                to [R, l=$R_1$] (4, 6) 
+                to [R, l=$R_2$] (4, 3)
+                to (6, 3) node[label={[font=\footnotesize]above:$u_3$}]{}
+                to [R, l=$R_4$, *-] (6, 0)
+                to (0, 0);
+                \node[ground] (6,0) {};
+                \draw(4, 6) to (8, 6)
+                to [R, l=$R_3$] (8, 3)
+                to (6, 3);
+                % Drawing out the little things that stick out for V_out
+                % \draw (8, 3) to [short, -*] (10, 3);
+                % \draw (6, 0) to [short, -*] (10, 0);
+                % \draw (10, 3) to [open, v_>=$V_{out}$] (10, 0);
+            \end{circuitikz}
+        \end{center}
+    \end{enumerate}
+    }
+    \meta{Emphasize that they just need to keep their labeling \textbf{consistent}. They will get the same answer later anyways.\\}
+    
+    \ans {Please note that the ground node was omitted during the process of labeling. This is because rather than maybe writing a voltage across a circuit element as $u_i - u_{ground}$, it can be simplified to $u_i$ because $u_{ground}$ is 0V. By this logic, node $u_1$ is equal to $V_s$. \\
+        It's also okay if you labeled the circuit differently from this! As long as you adhere to passive sign convention and stay consistent with your labeling, you should arrive at the same answer for parts (b) and (c). Your final circuit should resemble something like the labeled circuit below with currents, voltages, and nodes labeled, although its okay if it is not exactly like it.
+        \begin{center}
+        \begin{circuitikz}
+            \draw(0,6) node[label={[font=\footnotesize]above:$u_1$}]{} to [vsource, l=$V_s$, *-] (0, 0);
+            \draw(0, 6) to [R, l=$R_1$, i=$i_1$, v_>=$V_1$, -*] (4, 6) node[label={[font=\footnotesize]above:$u_2$}]{}
+            to [R, l=$R_2$, i=$i_2$, v_>=$V_2$] (4, 3)
+            to [-*] (6, 3) node[label={[font=\footnotesize]above:$u_3$}]{}
+            to [R, l=$R_4$, i=$i_4$, v_>=$V_4$, *-] (6, 0)
+            to (0, 0);
+            \node[ground] (6,0) {};
+            \draw(4, 6) to (8, 6)
+            to [R, l=$R_3$, i=$i_3$, v_>=$V_3$] (8, 3)
+            to (6, 3);
+            % Drawing out the little things that stick out for V_out
+            % \draw (8, 3) to [short, -*] (10, 3);
+            % \draw (6, 0) to [short, -*] (10, 0);
+            % \draw (10, 3) to [open, v_>=$V_{out}$] (10, 0);
+        \end{circuitikz}
+        \end{center}
+
+    }
+
+    % Question(b)
+    \item Now that we've correctly labeled our circuit, lets begin the circuit analysis section!\\
+
+    Use KCL to determine the value of $u_3$ node in terms of any of the following: \emph{other node voltages}, $R_1, R_2, R_3, R_4$ and $V_s$ (not currents though!!). \textbf{Label circuit potential differences and currents.}  \emph{Hint: Write out your KCL or KVL equations according to NVA and passive sign convention. How can you manipulate these equations into solving for $u_3$?}
+
+    \ans {
+        For KCL equations, we write it as current(s) flowing into a node being equal to the current(s) flowing out of the node.\\
+        KCL at $u_2$: 
+        \begin{equation}
+            \tag{1}
+            i_1 = i_2 + i_3
+        \end{equation}
+        KCL at $u_3$:
+        \begin{equation}
+            \tag{2}
+            i_2 + i_3 = i_4
+        \end{equation}
+        Ohm's Law states that: 
+    \begin{equation}
+        \tag{3}
+        V = IR
+    \end{equation}
+    which $V$ is voltage (V), $I$ is current (A), and $R$ is resistance (ohms). This can also be rearranged to solve for current so that:
+    \begin{equation}
+        \tag{4}
+        I = \frac{V}{R}
+    \end{equation}
+
+    Rewrite equation (2), the second KCL equation, since it includes $i_4$. This is useful because $i_4$ can be simplified using Ohm's Law to get $u_3$. $i_4 = \frac{u_3}{R_4}$, which includes the desired node $u_3$:
+    \begin{equation}
+        \tag{5}
+        \frac{u_3}{R_4} = \frac{u_2-u_3}{R_2} + \frac{u_2-u_3}{R_3}
+    \end{equation}
+    Simplifying:
+    \begin{align*}
+        \tag{6}
+        u_3 &= (u_2-u_3) \bigg(\frac{R_4}{R_2} + \frac{R_4}{R_3} \bigg) \\
+        u_3 + u_3 \bigg(\frac{R_4}{R_2} + \frac{R_4}{R_3} \bigg) &= u_2 \bigg(\frac{R_4}{R_2} + \frac{R_4}{R_3}\bigg)\\
+        u_3 &= u_2 \bigg(\frac{R_4/R_2 + R_4/R_3}{1+\frac{R_4}{R_2} + \frac{R_4}{R_3}} \bigg)
+
+    \end{align*}
+
+    Depending on how you rearranged your KCL equations you may have a different equation. However, if your signs and methodology is correct, then if given real values, you would get the \textbf{same answer}.
+    }
+
+    % Question (c)
+    \item Let's analyze this circuit utilizing KVL now! As a reminder, you can write a KVL equation for a closed loop.
+    
+    Use KVL to determine the value of $u_3$ node in terms of \emph{currents (not other node voltages),}, $R_1, R_2, R_3, R_4$ and $V_s$. Please do not include node voltages in your final answer.
+
+    \meta {
+        Emphasize that answers may be different from each other, but \textbf{as long as they follow how they labeled their circuit and don't mess up on the signs / Ohm's Law, they have a valid answer.\\}
+    }
+    
+    \ans{
+        For KVL equations, we write the equations as a sum of voltages across the elements connected in a loop as being equal to zero. Going from a the (+) terminal to the (-) terminal means that you are going down in potential, so place a negative sign in front of the voltage for the circuit element.\\ 
+    
+    KVL equations:
+        \begin{equation}
+            \tag{7}
+            V_s - V_1 - V_2 - V_4 = 0
+       \end{equation}     
+       \begin{equation}
+            \tag{8}
+            V_s - V_1 - V_3 - V_4 = 0
+       \end{equation}
+
+    We should recognize that the voltage at node $u_3$ is equal to the the voltage across the resistor $V_4$ since $V_4 = u_3 - 0$. Therefore, we can rearrange for equation (7) to solve for node $u_3$.
+    \begin{equation}
+        \tag{9} 
+        u_3 = V_s - V_1 - V_3
+    \end{equation}
+
+    Utilizing equation (3), Ohm's Law, we can rewrite the solution as:
+    \begin{equation}
+        \tag{10}
+        u_3 = V_s - i_1R_1 - i_3R_3
+    \end{equation}
+    Depending on how you rearranged your KVL equations you may have a different equation. However, if your signs and methodology is correct, then if given real values, you would get the \textbf{same answer}.\\
+    
+    Depending on the circuit and what the question is asking you to calculate for, it may be easier to use KCL or KVL. However, if actually solving to get a numerical value, following NVA and passive sign convention consistently will get you to the \textbf{same answer} anyways. One process may have more steps than the other.
+
+    }
+\end{enumerate}
+    
+    % Substituting for $V_1$ and $V_3$ using Ohm's Law gives us:
+    % \begin{equation}
+    %     \tag{8}
+    %     V_{out} = V_s - \frac{u_1-u_2}{R_1} - \frac{u_3}{R_3}
+    % \end{equation}
+
+    % Keeping in mind that $u_1$ is equal to $V_s$, the final solution is: 
+    % \begin{equation}
+    %     \tag{9}
+    %     V_{out} = V_s - (V_s-u_2) - (u_2-u_3)
+    % \end{equation}
+
+    % Equation (9) is equal to:
+    % \begin{equation}
+    %     \tag{10}
+    %     V_{out} = u_3
+    % \end{equation}
+    
+    % You get the same solution if you used equation (3) rather than equation (4), using the same procedure.

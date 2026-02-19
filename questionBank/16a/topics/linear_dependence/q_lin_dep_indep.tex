@@ -1,0 +1,74 @@
+\qns{Graphical Linear Independence}
+
+\begin{questionmeta}
+    \begin{itemize}
+        \item Give students a mini-lecture on linear independence and dependence 
+        \item Try to provide geometric and algebraic understanding when going through the problems
+        \item The system of equations do not have step-by-step solutions, so please go through the process of solving if students have questions.
+    \end{itemize}
+\end{questionmeta}
+
+\textbf{Learning Goal:} The goal of this problem is to practice finding if vectors are linearly independent or dependent based on a graph.
+
+%\begin{enumerate}
+The following vectors $\vec{a} = \begin{bmatrix}2 \\ 1 \end{bmatrix}$, $\vec{b} = \begin{bmatrix}-3 \\ -1 \end{bmatrix}$, and $\vec{c} = \begin{bmatrix}-2 \\ 0 \end{bmatrix}$ are plotted below. 
+
+\begin{enumerate}
+    \item Determine if these vectors are linearly independent.
+    \item If they are linearly dependent, express one of the vectors as a linear combination of the other 2.
+
+    \begin{center}
+        \begin{tikzpicture}[scale=1.4]
+            % Axes
+            \draw[->] (-4,0) -- (4,0) node[right] {$x$};
+            \draw[->] (0,-2) -- (0,2) node[above] {$y$};
+            
+            % Vectors
+            \draw[->,thick] (0,0) -- (2,1) node[midway,above left] {$\vec{a}$};
+            \draw[->,thick] (0,0) -- (-3,-1) node[midway,below] {$\vec{b}$};
+            \draw[->,thick] (0,0) -- (-2,0) node[midway,above] {$\vec{c}$};
+        \end{tikzpicture}
+        \end{center}
+    
+    \ans{
+        $\vec{a}$, $\vec{b}$, $\vec{c}$ are linearly dependent because there is some linear combination of vectors that can be represented as another vector. We can see that $\vec{a}$ and $\vec{b}$ span $\mathbb{R}^2$, so a 3rd vector of the same dimension must be linearly dependent. 
+        
+        To express one vector as a linear combination of the other 2, we can represent $\vec{c}$ in terms of $\vec{a}$ and $\vec{b}$. To do this, we can set up a system of equations and solve. 
+        
+        \begin{align*}
+            -2 &= 2\alpha_1 - 3\alpha_2 \\
+            0 &= \alpha_1 - \alpha_2
+        \end{align*}
+
+        After solving this system, we get that $\alpha_1$ = 2 and $\alpha_2$ = 2. From this information we can see that a linear combination can be written in the following way: $\vec{c}$ = 2$\vec{a}$ + 2$\vec{b}$. 
+    }
+
+    \item Repeat parts (1) and (2) for the following vectors $\vec{a} = \begin{bmatrix}0.5 \\ 1 \end{bmatrix}$, $\vec{b} = \begin{bmatrix}3 \\ 1 \end{bmatrix}$, and $\vec{c} = \begin{bmatrix}1 \\ 2 \end{bmatrix}$ plotted below.
+    
+    \begin{center}
+        \begin{tikzpicture}[scale=1.4]
+            % Axes
+            \draw[->] (-4,0) -- (4,0) node[right] {$x$};
+            \draw[->] (0,-2) -- (0,3) node[above] {$y$};
+            
+            % Vectors
+            \draw[->,thick] (0,0) -- (0.5,1) node[midway, above left] {$\vec{a}$};
+            \draw[->,thick] (0,0) -- (3,1) node[midway,below] {$\vec{b}$};
+            \draw[->,thick] (0,0) -- (1,2) node[above right] {$\vec{c}$};
+        \end{tikzpicture}
+        \end{center}
+
+    \ans{
+        $\vec{a}$, $\vec{b}$, $\vec{c}$ are linearly dependent because of the same reason as the earlier set of vectors. We can see that $\vec{a}$ and $\vec{b}$ span $\mathbb{R}^2$, so a 3rd vector of the same dimension must be linearly dependent. Visually, we can also see that $\vec{c}$ is just a multiple of $\vec{a}$ since they have the same angle to the x-axis.
+        
+        To express one vector as a linear combination of the other 2, we can represent $\vec{c}$ in terms of $\vec{a}$ and $\vec{b}$. To do this, we can set up a system of equations and solve. 
+        
+        \begin{align*}
+            1 &= 0.5\alpha_1 + 3\alpha_2 \\
+            2 &= \alpha_1 + \alpha_2
+        \end{align*}
+
+        After solving this system, we get that $\alpha_1$ = 2 and $\alpha_2$ = 0. From this information we can see that a linear combination can be written in the following way: $\vec{c}$ = 2$\vec{a}$ + 0$\vec{b}$ or $\vec{c}$ = 2$\vec{a}$.
+    }
+
+\end{enumerate}

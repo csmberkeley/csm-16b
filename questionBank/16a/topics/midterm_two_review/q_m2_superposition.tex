@@ -1,0 +1,244 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Superposition}
+
+For this question, we will analyze the circuit shown below with the two current sources of strength $I_A$ and $I_B$ as inputs. It may be observed that the network of resistors shown in the circuit is symmetric.\\
+We will first solve this circuit for symmetric inputs $I_A=I_B$, then for anti-symmetric inputs $I_A=-I_B$. Using these two results, we will solve the circuit for arbitrary inputs $I_A$ and $I_B$.
+\begin{center}
+    \makebox[\linewidth]{
+        \includegraphics{../q_m2_superposition_figs/prompt.PNG}
+    }
+\end{center}
+\newpage
+
+\begin{enumerate}
+    \item\label{symmetric_input}{
+        Consider the following circuit with symmetric inputs $I_A=I_B=1A$. Using superposition, solve for the node voltages at the nodes marked $u_1$, $u_2$ and $u_3$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.85]{../q_m2_superposition_figs/symmetric_input.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes form Q7(a) of Fall 2020's Midterm 2.
+        
+    }
+    \ans{
+        To conduct superposition on this circuit analysis, let's divide the analysis into two parts.\\
+        \textbf{Part 1: Keeping source $I_A$}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Since we chose to keep $I_A$, the source $I_B$ becomes an open-circuit.\\
+            Using Ohm's Law on the $1\Omega$ resistor:
+            \begin{align*}
+                u_2 - 0
+                &= u_2 \\
+                &= (I_A)(1\Omega) = 1V
+            \end{align*}
+            \[\]
+            Then, seeing that the resistors between nodes $u_1$ and $u_2$ form a  structure where a $2\Omega$ and a $(2+4)\Omega$ resistor are parallel, we can use Ohm's Law again:
+            \begin{align*}
+                u_1 - u_2 
+                &= u_1 - 1V \\
+                &= (I_A)(2\Omega \parallel 6\Omega) \\
+                &= (1A)(1.5\Omega) = 1.5V\\
+                u_1 &= 1.5V + 1V = 2.5V
+            \end{align*}
+            Seeing that the node voltage at $u_3$ reflects a voltage divider circuit with the $4\Omega$ and $2\Omega$ resistors in series, we also acquire that:
+            \begin{align*}
+                u_3
+                &= u_2 + (u_1 - u_2)\frac{2\Omega}{2\Omega + 4\Omega} \\
+                &= 1V + (1.5V)(\frac{1}{3}) = 1.5V
+            \end{align*}
+            Another way to attain the same value for $u_3$ is to calculate the current across the right hand side $2\Omega$ resistor, which will provide similar computations as above. \\
+            End result:
+            \[\begin{cases}
+                u_1 = 2.5V \\
+                u_2 = 1V \\
+                u_3 = 1.5V
+            \end{cases}\]
+        \end{minipage}
+        
+        \textbf{Part 2: Keeping source $I_B$}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            We can either reoperate all analyses in Part 1, or realize that since the circuit structure is symmetric, it would just be that
+            \[\begin{cases}
+                u_{1,part2} = u_{3,part1} \\
+                u_{2,part2} = u_{2,part1} \\
+                u_{3,part2} = u_{1,part1}
+            \end{cases}\]
+            End result:
+            \[\begin{cases}
+                u_1 = 1.5V \\
+                u_2 = 1V \\
+                u_3 = 2.5V
+            \end{cases}\]
+        \end{minipage}
+        
+        Summing the above results:
+        \[\begin{cases}
+            u_1 = 2.5V + 1.5V = 4V \\
+            u_2 = 1V + 1V = 2V \\
+            u_3 = 1.5V + 2.5V = 4V
+        \end{cases}\]
+        
+    }
+    
+    \item\label{anti_symmetric_input}{
+        Consider the following circuit with anti-symmetric inputs $I_A=1A$ and $I_B=-1A$. Using superposition, solve for the node voltages at the nodes marked $u_1$, $u_2$ and $u_3$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.85]{../q_m2_superposition_figs/anti_symmetric_input.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes form Q7(b) of Fall 2020's Midterm 2.
+        
+    }
+    \ans{
+        To conduct superposition on this circuit analysis, let's divide the analysis into two parts.\\
+        \textbf{Part 1: Keeping source $I_A$}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Since this case is directly equivalent to the first part of analysis in part (a), we can directly reference its results.
+            End result:
+            \[\begin{cases}
+                u_1 = 2.5V \\
+                u_2 = 1V \\
+                u_3 = 1.5V
+            \end{cases}\]
+        \end{minipage}
+        
+        \textbf{Part 2: Keeping source $I_B$}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            We can either reoperate all analyses in Part 1, or realize that since the circuit structure is symmetric and it's just the current direction is reversed (or, the current quantity sign if slipped), it would just be that
+            \[\begin{cases}
+                u_{1,part2} = -u_{3,part1} \\
+                u_{2,part2} = -u_{2,part1} \\
+                u_{3,part2} = -u_{1,part1}
+            \end{cases}\]
+            End result:
+            \[\begin{cases}
+                u_1 = -1.5V \\
+                u_2 = -1V \\
+                u_3 = -2.5V
+            \end{cases}\]
+        \end{minipage}
+        
+        Summing the above results:
+        \[\begin{cases}
+            u_1 = 2.5V - 1.5V = 1V \\
+            u_2 = 1V - 1V = 0V \\
+            u_3 = 1.5V - 2.5V = -1V
+        \end{cases}\]
+    
+    }
+    
+    \item\label{amplified_symmetric_input}{
+        Now consider the following circuit, where $I_A=2A$ and $I_B=2A$; in other words, we double the current sources from part (a). Here, as well as in the earlier circuits, the node voltages $u_1$, $u_2$ and $u_3$ can be represented by the vector
+        \[\vec{u}=\begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}\]
+        Assume that when $I_A=I_B=1A$ as part (a), the solution was given by
+        \[\vec{u}
+          =\begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}
+          =\begin{bmatrix} \alpha \\ \beta \\ \alpha \end{bmatrix}
+        \]
+        What are the new node voltages,
+        \[\vec{u}=\begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}\]
+        in the following circuit, when $I_A=I_B=2A$?\\
+        Write your answer in terms of $\alpha$ and $\beta$. You do not need to use any of the work from parts (a) and (b) to solve this part.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_superposition_figs/amplified_symmetric_input.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes form Q7(c) of Fall 2020's Midterm 2.
+        
+    }
+    \ans{
+        Given that the Ohm's Law states $V = IR$, if I double the current across an element by two times, the voltage difference across it must also double: $2V = (2I)(R)$. \\
+        Using that, we can directly skip having to redo everything from part (a), and state that each node voltage will double since the currents across each elements were also doubled. \\
+        Therefore,
+        \[\vec{u} = 2\vec{u}_{1A} = 
+          \begin{bmatrix} 2\alpha \\ 2\beta \\ 2\alpha \end{bmatrix}
+        \]
+    
+    }
+    
+    \item\label{asymmetric_input}{
+        Assume that when $I_A=I_B=1A$ (also known as “common mode”), the node voltages were given by
+        \[\vec{u}_{cm}
+          =\begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}
+          =\begin{bmatrix} \alpha \\ \beta \\ \alpha \end{bmatrix}
+        \]
+        Also, assume that when $I_A=1A$ and $I_B=-1A$ (also known as “differential mode”), the node voltages were given by
+        \[\vec{u}_{dm}
+          =\begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}
+          = \begin{bmatrix} \gamma \\ 0 \\ -\gamma \end{bmatrix}
+        \]
+        Consider the circuit shown below, with current sources of strengths $I_A=6A$ and $I_B=2A$.\\
+        Find the node voltages, $\vec{u}=\begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}$ in terms of $\alpha$, $\beta$ and $\gamma$.\\
+        You do not need to use any of the work from parts (a) and (b) to solve this part. You do not have to use to NVA to solve this part, there is an easier solution.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_superposition_figs/asymmetric_input.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes form Q7(d) of Fall 2020's Midterm 2.
+        
+    }
+    \ans{
+        The above analyses of superposition tells us that we can in fact formulate the relationship between each node voltage and each input current as some form of linear transformation, such that for a matrix $A$ that denotes this transformation:
+        \[A\begin{bmatrix} I_A \\ I_B \\ 0 \end{bmatrix} = \vec{u}\]
+        For the sake of time, let us not derive $A$. We will also find that deriving the contents of $A$ is not necessary at all. \\
+        
+        Let us address the theoretically convenient aspects of $A$:\\
+        Since the only varying aspect across the symmetric input and antisymmetric input is their input currents (this might sound redundant, but it is important to realize), the matrix $A$ will only account for how the circuits' resistors are put and how strong their resistances are. Therefore, for both forms of input, the relationship between input current and node voltages all use the same transformation matrix $A$.\\
+        As for why we specifically use the three-dimensional vector \[\begin{bmatrix} I_A \\ I_B \\ 0 \end{bmatrix}\]
+        It's three dimensional for the linear transformation matrix $A$ to be square, and since the vector containing input currents would only need to contain two values, we might as well let the third unneeded value slot be 0. A transformation can still be formed without using a third-dimensional vector, but the transformation matrix $A$ will no longer be square, which makes it non-invertible and hard to deal with. \\
+        
+        Now that we are done with theoretical talk, let us write out how the transformation concretely looks for "common mode" and "differential mode":
+        \[\begin{cases}
+            \vec{u}_{cm}
+            = \begin{bmatrix} \alpha \\ \beta \\ \alpha \end{bmatrix}
+            = A \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix} \\
+            \vec{u}_{cm}
+            = \begin{bmatrix} \gamma \\ 0 \\ -\gamma \end{bmatrix}
+            = A \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix} \\
+        \end{cases}\]
+        Let the node voltages of this addressed system be expressed as $\vec{u}_sys$, written in terms of $\alpha$, $\beta$, $\gamma$, we may say that:
+        \[A \begin{bmatrix} I_A \\ I_B \\ 0 \end{bmatrix}
+          = A \begin{bmatrix} 6 \\ 2 \\ 0 \end{bmatrix}
+          = \vec{u}_sys
+        \]
+        And using the system of matrix-vector multiplications we written above:
+        \begin{align*}
+            A \begin{bmatrix} I_A \\ I_B \\ 0 \end{bmatrix}
+            &= A\Bigg(\begin{bmatrix} 4 \\ 4 \\ 0 \end{bmatrix}
+                + \begin{bmatrix} 2 \\ -2 \\ 0 \end{bmatrix}\Bigg) \\
+            &= 4\begin{bmatrix} \alpha \\ \beta \\ \alpha \end{bmatrix} + 
+                2\begin{bmatrix} \gamma \\ 0 \\ -\gamma \end{bmatrix} \\
+            &= \begin{bmatrix}
+                4\alpha + 2\gamma \\
+                4\beta \\
+                4\alpha - 2\gamma
+               \end{bmatrix} \\
+            &= \vec{u}_sys
+        \end{align*}
+        
+    }
+\end{enumerate}

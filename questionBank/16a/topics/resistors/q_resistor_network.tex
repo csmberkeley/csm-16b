@@ -1,0 +1,202 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Fall 2022
+
+% Qrrbrbirlbel's wire kink code for https://tex.stackexchange.com/questions/134067/circuitikz-wire-kink-thingy-when-wires-cross
+\tikzset{
+  declare function={% in case of CVS which switches the arguments of atan2
+    atan3(\a,\b)=ifthenelse(atan2(0,1)==90, atan2(\a,\b), atan2(\b,\a));},
+  kinky cross radius/.initial=+.125cm,
+  @kinky cross/.initial=+, kinky crosses/.is choice,
+  kinky crosses/left/.style={@kinky cross=-},kinky crosses/right/.style={@kinky cross=+},
+  kinky cross/.style args={(#1)--(#2)}{
+    to path={
+      let \p{@kc@}=($(\tikztotarget)-(\tikztostart)$),
+          \n{@kc@}={atan3(\p{@kc@})+180} in
+      -- ($(intersection of \tikztostart--{\tikztotarget} and #1--#2)!%
+             \pgfkeysvalueof{/tikz/kinky cross radius}!(\tikztostart)$)
+      arc [ radius     =\pgfkeysvalueof{/tikz/kinky cross radius},
+            start angle=\n{@kc@},
+            delta angle=\pgfkeysvalueof{/tikz/@kinky cross}180 ]
+      -- (\tikztotarget)}}}
+
+\qns{A Resistor Network Problem}
+
+\textbf{Learning Goal:} The goal of this question is to understand equivalent resistance.
+
+\meta{}
+
+\begin{enumerate}
+
+\item Calculate the equivalent resistance between the nodes $C$ and $S$.
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0)
+to [R = $R_1$] (0, 3)
+to [R = $R_2$, -*] (0, 6)
+to [short] (0, 7)
+to [short] (2, 7)
+to [short] (5, 4)
+to [R = $R_5$, -*] (8, 1)
+to [short] (8, 0)
+to [short] (6, 0)
+to [R = $R_6$] (4, 2)
+to [short] (2, 4)
+to [R = $R_3$, *-] (2, 0)
+to [short] (0, 0);
+
+\draw (0, 6)
+to [short] (2, 4);
+
+\draw (2.5, 3.5)
+to [R = $R_4$, *-*] (4, 5);
+
+\draw (8, 1) 
+to [short] (8, 2.5)
+to [short] (4.75, 5.75) coordinate (a-a)
+to [short] (6, 7)
+to [R = $R_7$] (8, 7)
+to [short] (8, 6)
+to [R = $R_8$, *-*] (8, 2.5) coordinate (a-b)
+to [short] (8, 1);
+
+\draw (4, 2) to [kinky cross=(a-a)--(a-b), kinky crosses=left] (8, 6);
+
+\draw (4, 2) to [short, *-*] (5.5, 3.5);
+
+\draw (7, 0) 
+to [short, -o] (7, -1) node[label = {[font=\footnotesize]below: $S$}];
+
+\draw (1, 0)
+to [short, -o] (1, -1) node[label = {[font=\footnotesize]below:$C$}];
+\end{circuitikz}
+\end{center}
+
+\ans{
+When we're given such a resistor network, it's helpful to identify what nodes the resistors share, to identify potential parallel and series configurations.
+
+Let's begin at the $C$ terminal: Resistors $R_1$ and $R_2$ share one end node (the node between the two resistors), but do not share any other nodes. We can consider $R_1$ and $R_2$ to be in a series configuration, meaning the equivalent resistance across them is $R_{1, 2} = R_1 + R_2$.
+
+If we collapse this circuit, we see that $R_{1, 2}$ is in parallel with $R_3$. Then, the equivalent resistance across $R_1$, $R_2$, and $R_3$ is $R_{1, 2, 3} = \frac{R_{1, 2}R_3}{R_{1, 2} + R_{3}} = \frac{R_1R_3 + R_2R_3}{R_1 + R_2 + R_3}$.
+
+Collapsing this left half of the resistive network, we should have an equivalent circuit as follows:
+
+\begin{center}
+\begin{circuitikz} 
+\draw (1, 0)
+to [R = $R_{1, 2, 3}$] (1, 5)
+to [short] (0, 6)
+to [short] (0, 7)
+to [short] (2, 7)
+to [short] (5, 4)
+to [R = $R_5$] (8, 1)
+to [short] (8, 0)
+to [short] (6, 0)
+to [R = $R_6$] (4, 2)
+to [short] (2, 4);
+
+\draw (0, 6)
+to [short] (2, 4);
+
+\draw (2.5, 3.5)
+to [R = $R_4$] (4, 5);
+
+\draw (8, 1) 
+to [short] (8, 2.5)
+to [short] (4.75, 5.75) coordinate (a-a)
+to [short] (6, 7)
+to [R = $R_7$] (8, 7)
+to [short] (8, 6)
+to [R = $R_8$] (8, 2.5) coordinate (a-b)
+to [short] (8, 1);
+
+\draw (4, 2) to [kinky cross=(a-a)--(a-b), kinky crosses=left] (8, 6);
+
+\draw (7, 0) 
+to [short, -o] (7, -1) node[label = {[font=\footnotesize]below: $S$}];
+
+\draw (1, 0)
+to [short, -o] (1, -1) node[label = {[font=\footnotesize]below:$C$}];
+\end{circuitikz}
+\end{center}
+
+Now, notice that the $R_4$ resistor is shorted. Its two end nodes are the same node. We can then eliminate the $R_4$ resistor from consideration. We are then left with just the right side of the circuit. Let's try to simplify this circuit by analyzing the nodes:
+
+\begin{center}
+\begin{circuitikz} 
+\draw (1, 0)
+to [R = $R_{1, 2, 3}$] (1, 4)
+to [short] (5, 4)
+to [R = $R_5$] (8, 1)
+to [short] (8, 0)
+to [short] (6, 0)
+to [R = $R_6$] (4, 2);
+
+\draw (8, 1) 
+to [short] (8, 2.5)
+to [short] (4.75, 5.75) coordinate (a-a)
+to [short] (6, 7)
+to [R = $R_7$] (8, 7)
+to [short] (8, 6)
+to [R = $R_8$] (8, 2.5) coordinate (a-b)
+to [short] (8, 1);
+
+\draw[blue] (4, 2) to [kinky cross=(a-a)--(a-b), kinky crosses=left] (8, 6);
+
+\draw[blue] (4.6, 1.4)
+to (4, 2);
+
+\draw[blue] (7.6, 7)
+to (8, 7)
+to (8, 4.8);
+
+\draw[blue] (1, 2.6)
+to (1, 4)
+to (5, 4)
+to (6, 3);
+
+\draw (7, 0) 
+to [short, -o] (7, -1) node[label = {[font=\footnotesize]below: $S$}];
+
+
+\draw (1, 0)
+to [short, -o] (1, -1) node[label = {[font=\footnotesize]below:$C$}];
+\end{circuitikz}
+\end{center}
+
+Observe that resistors $R_5$, $R_6$, $R_7$, and $R_8$ all share two end nodes: one blue node (the same node as that on the right end of $R_{1, 2, 3}$, and the node that $s$ belongs to. These four resistors are all in parallel. We can then simplify our circuit further to the following:
+
+\begin{center}
+\begin{circuitikz}
+\draw (0, 0)
+to [R = $R_{1, 2, 3}$, o-] (0, 4)
+to [short] (8, 4)
+to [R = $R_8$] (8, 1)
+to [short, -o] (8, 0);
+
+\draw (2, 1)
+to [short] (8, 1);
+
+\draw (2, 4)
+to [R = $R_5$] (2, 1);
+
+\draw (4, 4)
+to [R = $R_6$] (4, 1);
+
+\draw (6, 4)
+to [R = $R_7$] (6, 1);
+
+\end{circuitikz}
+\end{center}
+
+We can then use our series and parallel formulas to find the overall equivalent resistance between nodes $C$ and $S$:
+
+$R_{\text{parallel}} = (\frac{1}{R_5} + \frac{1}{R_6} + \frac{1}{R_7} + \frac{1}{R_8})^-1$
+
+$R_{eq} = R_{1, 2, 3} + R_{\text{parallel}}$
+
+}
+
+
+\end{enumerate}

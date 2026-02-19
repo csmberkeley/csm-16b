@@ -1,0 +1,181 @@
+\qns{Functional Pumps: Save the Bees!}
+
+\textbf{Learning Goal:} The goal of this problem is to teach students how to start with a state transition matrix and build a diagram based on it. Please review \notes{Note 5: Section 5.1} to understand this problem better. 
+
+\vspace{0.25cm}
+\meta{
+Reinforce student connection between a state transition matrix and state transition diagram. Since they are equivalent, we can go back and forth between them.
+
+% \textbf{Do NOT mention stability since students have not seen eigen-values/vectors.}
+}
+
+\vspace{0.25cm}
+Here's our diagram we'll fill in:
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=7cm,
+thick,main node/.style={circle,draw,font=\Large\bfseries}]
+  \node[main node] (1) {X\textsubscript{Red}};
+  \node[main node] (2) [below left of=1] {X\textsubscript{White}};
+  \node[main node] (3) [below right of=1] {X\textsubscript{Yellow}};
+
+  \path
+    (1) edge [bend left] node {} (2)
+    (1) edge [bend left] node {} (3)
+    (1) edge [loop above] node {} (1)
+    
+    (2) edge [bend left] node {} (1)
+    (2) edge [below left] node {} (3)
+    (2) edge [loop below] node {} (2)
+    
+    (3) edge [bend left] node {} (2)
+    (3) edge [bend left] node {} (1)
+    (3) edge [loop below] node {} (3);   
+    
+  %\draw[black, ultra thick] (1,1) rectangle (-0.5,2);
+\end{tikzpicture}
+\end{center}
+
+
+\begin{enumerate}
+
+\item{
+On a trip to Berkeley's Rose Garden, you run into a worried researcher. They need your help! The researcher has been carefully counting how many bees are on the three rose colors (red, white, and yellow) and where they move each minute. They have $\mathbf{M}$, a state transition matrix, but their diagram is lost! Help fill in the values on their diagram from the state transition matrix.  
+
+\begin{center}
+$\mathbf{M}$ = 
+\begin{bmatrix}
+0.5  & 0   & 0 \\
+0.25 & 0.5 & 1 \\
+0.25 & 0.5 & 0 \\
+\end{bmatrix}
+
+\vspace{0.25cm}
+$\vec{x}$ = 
+\begin{bmatrix}
+x\textsubscript{Red} \\
+x\textsubscript{White} \\
+x\textsubscript{Yellow} \\
+\end{bmatrix}
+
+\vspace{0.25cm}
+$\mathbf{M}x[n]$ = $x[n+1]$
+
+\end{center}
+
+}
+
+
+\ans{
+Remember what each element of our matrix represents:
+\vspace{0.25cm}
+\begin{center}
+$  
+\mathbf{M}=\begin{bmatrix}
+x\textsubscript{Red} \rightarrow x\textsubscript{Red} & x\textsubscript{White} \rightarrow x\textsubscript{Red} & x\textsubscript{Yellow} \rightarrow x\textsubscript{Red}\\
+x\textsubscript{Red} \rightarrow x\textsubscript{White} & x\textsubscript{White} \rightarrow x\textsubscript{White} & x\textsubscript{Yellow} \rightarrow x\textsubscript{White}\\
+x\textsubscript{Red} \rightarrow x\textsubscript{Yellow} & x\textsubscript{White} \rightarrow x\textsubscript{Yellow} & x\textsubscript{Yellow} \rightarrow x\textsubscript{Yellow}  \\
+\end{bmatrix}
+$
+\end{center}
+\vspace{0.25cm}
+
+The diagram can then be filled in as:
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=7cm,
+thick,main node/.style={circle,draw,font=\Large\bfseries}]
+  \node[main node] (1) {X\textsubscript{Red}};
+  \node[main node] (2) [below left of=1] {X\textsubscript{White}};
+  \node[main node] (3) [below right of=1] {X\textsubscript{Yellow}};
+
+  \path
+    (1) edge [bend left] node {0.25} (2)
+    (1) edge [bend left] node {0.25} (3)
+    (1) edge [loop above] node {0.5} (1)
+    
+    (2) edge [bend left] node {0} (1)
+    (2) edge [below left] node {0.5} (3)
+    (2) edge [loop below] node {0.5} (2)
+    
+    (3) edge [bend left] node {1} (2)
+    (3) edge [bend left] node {0} (1)
+    (3) edge [loop below] node {0} (3);   
+    
+
+\end{tikzpicture}
+\end{center}
+}
+
+\item{The researcher has a record of how many bees were on the three rose colors. In one moment, the bees were represented by $\vec{x} = 
+\begin{bmatrix}
+5 \\
+3 \\
+2 \\
+\end{bmatrix}$.
+How many bees were on each rose color two minutes after that moment? 
+}
+
+\meta{Note to students that N iterations of a state transition can be represented by raising our state transition matrix to the power of N.
+\vspace{0.25cm}
+}
+
+\ans{
+To find this, we can calculate:
+$$\mathbf{M}^2 \vec{x}[0] = \vec{x}[2]$$
+
+First, let's find $\mathbf{M}^2$. 
+\vspace{0.25cm}
+
+$$ \mathbf{M}^2 =
+\begin{bmatrix}
+0.5  & 0   & 0 \\
+0.25 & 0.5 & 1 \\
+0.25 & 0.5 & 0 \\
+\end{bmatrix} 
+\begin{bmatrix}
+0.5  & 0   & 0 \\
+0.25 & 0.5 & 1 \\
+0.25 & 0.5 & 0 \\
+\end{bmatrix} 
+= 
+\begin{bmatrix}
+0.25  & 0   & 0 \\
+0.5 & 0.75 & 0.5 \\
+0.25 & 0.25 & 0.5 \\
+\end{bmatrix}$$
+\vspace{0.25cm}
+
+Now, we can calculate $\mathbf{M}^2 \vec{x}[0] = \vec{x}[2]$ with our $\mathbf{M}^2$.
+\vspace{0.25cm}
+
+$$\mathbf{M}^2 \vec{x}[0] = \vec{x}[2]$$
+$$\begin{bmatrix}
+0.25  & 0   & 0 \\
+0.5 & 0.75 & 0.5 \\
+0.25 & 0.25 & 0.5 \\
+\end{bmatrix}
+\begin{bmatrix}
+5 \\
+3 \\
+2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1.25 \\
+5.75 \\
+3 \\
+\end{bmatrix}
+$$
+\vspace{0.25cm}
+
+So, $\vec{x}[2] = 
+\begin{bmatrix}
+1.25 \\
+5.75 \\
+3 \\
+\end{bmatrix}
+$
+}
+
+\end{enumerate}

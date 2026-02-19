@@ -1,0 +1,235 @@
+
+% Author: Aurelia Wang
+% Email: aureliawang@berkeley.edu
+% CSM16A Spring 2023
+
+% node[label={[font=\footnotesize]above:$u_1$}] {}
+
+\qns{Op-Amps with Switches}
+
+\creditnotes{
+    Aurelia, Spring 2023
+}
+
+\textbf{Learning Goal:} The goal of this question is to combine concepts through building an understanding of alternating inputs and capacitors in op amps.
+
+\meta{
+    \begin{itemize}
+        \item Quickly go over capacitor fundamentals, including how to derive the current on the capacitor.
+        \item Try to give a more physical explanation to the students if needed, such as how charge builds up on the surface of a capacitor and thus it becomes harder and harder to add more charge on. 
+        \item If needed, go over Op-Amp fundamentals and the golden rules.
+    \end{itemize}
+    
+}
+
+\vspace{5mm}
+
+Dr. Doofensmirtz is busy building his new evil creation. He plans on creating a huge satellite that will make everyone in the city tiny. \\
+To learn more about this evil device, you want to send in a spy to plant a receiver with sensors that will collect information about the evil device. 
+Some designers on your team come up with this general schematic to aid in building the receiver:
+
+\begin{center}
+            \begin{tikzpicture}
+                \node (g) [draw, minimum width = 2cm, minimum height=1.2 cm] {Antenna};
+                \node (system) [draw, minimum width = 3cm, minimum height=1.2 cm] at ($ (g) + (5cm, 0)$) {Gain};
+                \node (y) [draw, minimum width = 2cm, minimum height=1.2 cm] at ($ (system) + (5cm, 0)$) {Decoder};
+                \draw [->] (g.east) -- (system.west);
+                \draw [->] (system.east) -- (y.west);
+            \end{tikzpicture}
+        \end{center}
+
+\vspace{5mm}
+
+\begin{enumerate} 
+
+\item Let's first look at the "Antenna" block. Your engineering team came up with the IV Relationship of the antenna that will receive the most accurate information from the device, as well as the black box they tested with.
+
+\begin{center}
+    \includegraphics[scale = 0.2]{../q_op_amp_switches_figs/black_box_circuit.jpg}
+\end{center}
+
+Please model this IV relationship using both its Thevenin and Norton equivalent circuits. Label these diagrams:
+
+\begin{center}
+    \includegraphics[scale = 0.4]{../q_op_amp_switches_figs/thev_nort_equiv_circuits.png}
+\end{center}
+
+\ans{
+To construct both the Thevenin and Norton equivalents of a circuit, we know we need to find $V_{th}$, $R_{th} = R_{no}$, and $I_{no}$. \\
+Using our relationship of an IV curve, we know that the $V_{out}$ is where the line intersects the x-axis (a.k.a when $I_{out} = 0$, and that $I_{out}$ is where the line intersects the y-axis (a.k.a when $V_{out} = 0$. We see that $V_{out} = 2V$ and $I_{out} = -4A$, and we can now translate these values into $V_{th}$ and $I_{no}$. Observe that the voltage between nodes a and b, or $V_{out}$ is the same as $V_{th}$. Therefore, $V_{th} = 2V$. Also observe that while $I_{out}$ is flowing away from node a, while $I_{no}$ is flowing into it. Therefore, $I_{no} = -I_{out} = 4A$. \\
+Finally, recall that $slope = \frac{1}{R_{th}}$. The slope is 2, so $R_{th} = \frac{1}{2}$. As a sanity check, we know that $\frac{V_{th}}{I_{no}} = R_{th} = R_{no}$. This infact holds true because $\frac{2V}{4A} = \frac{1}{2}\si{\ohm}$
+}
+
+\vspace{5mm}
+
+\item Let's now look at the "Gain" section. We want to apply gain to the signal or else it will be significantly weakened when we want our Launchpad to process the information. Local experts give a basis for how this block should be implemented:
+
+\begin{center}
+  \begin{circuitikz} [american voltages]
+    \draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l=$R_f$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) to[R,l_=$R_s$] ++(-2,0)
+		to[open,o-o,v^=$v_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to ++(0,-2)
+		node[ground] () {};
+  \end{circuitikz}
+\end{center}
+
+Use $v_{test}$ and $i_{test}$ to find the Thevenin resistance of the circuit with respect to the $v_{out}$, and interpret your result.
+
+\vspace{10mm}
+
+\ans{
+    Applying $v_{test}$ and $i_{test}$:
+
+\begin{center}
+  \begin{circuitikz} [american voltages]
+    \draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l=$R_f$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short] ++(1,0)
+		to[V,v^=$v_\text{test}$, i^=$i_\text{test}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) to[R,l_=$R_s$] ++(-2,0)
+		to[open, o-o,v_=$v_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to ++(0,-2)
+		node[ground] () {};
+  \end{circuitikz}
+\end{center}
+
+This op-amp is in negative feedback, so $u_+ = 0V$ and therefore $u_- = 0V$. This creates a ground node between $R_s$ and $R_f$, thus reducing the Thevenin resistance of this circuit to $R_f$.
+
+The Thevenin resistance is just $R_f$. Therefore, we can technically "control" this circuit by using the Thevenin resistance.\\
+
+As a bonus, using the inverting amplifier equation, we see that $v_{thevenin} = v_{out} = -\frac{R_f}{R_s}v_{in}$.
+
+}
+
+\vspace{5mm}
+
+\item After combining the antenna block with the gain block, we get the following circuit:
+
+\begin{center}
+  \begin{circuitikz} [american voltages]
+    \draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l=$R_f$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) to[R,l_=$R_s$] ++(-2,0)
+            to[R, l=$R_\text{antenna,th}$] ++(0, -1.5)
+		to[sV,v_=$v_\text{antenna,th}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to ++(0,-2)
+		node[ground] () {};
+  \end{circuitikz}
+\end{center}
+
+Our team reports that  we should apply an overall gain with a magnitude of 10 to see best results. Please choose values of $R_s$ and $R_f$ to achieve this gain if the internal resistance $R_{antenna,th} = 100\si{\ohm}$. Note that there are multiple solutions.
+
+\vspace{5mm}
+\ans{
+    Using our knowledge of an inverting amplifier, we see that 
+    \begin{align}
+        v_{out} = -\frac{R_f}{R_s + R_{antenna,th}}v_{antenna,th} \\
+        v_{out} = -\frac{R_f}{R_s + 100\si{\ohm}}v_{antenna,th}
+    \end{align}
+
+    Gain is characterized as 
+    \begin{align}
+        \big|\frac{v_{out}}{v_{antenna,th}}\big| = 10
+    \end{align}
+
+    Therefore, 
+    \begin{align}
+        \frac{v_{out}}{v_{antenna,th}} = -\frac{R_f}{R_s + 100\si{\ohm}}
+    \end{align}
+
+    Any solution that provides this ratio would work. A possible correct answer would be $R_f = 10,000\si{\ohm}$ and $R_s = 900\si{\ohm}$
+}
+
+\vspace{5mm}
+
+\item Now, we look towards the decoder block. After consulting with your team once again, they provide you with the following circuit that models a decoder:
+
+\begin{center}
+  \begin{circuitikz} [american voltages]
+    \draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+            to[switch, l=0] ++(1, 0)
+		to[C, l^=$C_{decoder}$, i>_=$i_{decoder}$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{final}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) to[R,l_=$R_s$, i<_=$i_s$] ++(-2,0)
+		to[sV,v_=$v_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to ++(0,-2)
+		node[ground] () {};
+  \end{circuitikz}
+\end{center}
+
+Please find $v_{final}$ in terms of $v_{in}$, assuming that $v_{in}$ is a DC input. Do not evaluate the derivative in the final solution.
+
+\vspace{5mm}
+
+\ans{
+    Using KCL, we see that 
+    \begin{center}
+        \begin{align}
+            i_s = i_{decoder}
+            \end{align}
+    \end{center}
+    because the current flowing into $i_-$ is 0.
+
+    \vspace{2mm}
+
+    Using Golden Rules, we know that $u_-$, the voltage at the negative terminal of the op-amp, is 0 because the positive terminal of the op-amp is grounded. Therefore,
+    
+    \begin{center}
+        \begin{align}
+            \frac{v_{in} - u_-}{R_s} = C\frac{d(u_- - v_{final)}}{dt} \\
+            v_{in} = R_sC\frac{d(-v_{final})}{dt}
+        \end{align}
+    \end{center}
+}
+
+\item Say that $v_{in}$ is an alternating input dependent on time rather than a steady one. Solve for $v_{final}(t)$ if $v_{in}(t) = cos(t)$ and $v_{final}(0) = 5V$.
+
+\vspace{5mm}
+
+\ans{
+    Most of our answer from the previous part can be used. We just need to replace the constant $v_{in}$ and $v_{final}$ values with ones that are dependent on time: $v_{in}(t)$ and $v_{final}(t)$. Therefore,
+    
+    \begin{center}
+        \begin{align}
+            v_{in}(t) = R_sC\frac{d(-v_{final}(t))}{dt}
+        \end{align}
+    \end{center}
+
+    Taking the integral on both sides yields
+    \begin{align}
+    \int_{0}^{t} v_{in}(t) \,dt = R_sC\int_{0}^{t}\frac{d(-v_{final}(t))}{dt} \\
+    \int_{0}^{t} cos(t) \,dt = -R_sC\int_{0}^{t}\frac{d(v_{final}(t))}{dt} \\
+    sin(t)-sin(0) = -R_sC(v_{final}(t) - v_{final}(0)) \\
+    sin(t) = -R_sC(v_{final}(t) - 5V) \\
+    v_{final}(t) = \frac{sin(t)}{-R_sC} + 5V
+    \end{align}
+}
+
+\end{enumerate}

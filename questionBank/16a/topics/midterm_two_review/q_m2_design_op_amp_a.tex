@@ -1,0 +1,98 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Op-Amp Analysis}
+
+After finishing EE16A, you got the opportunity to work with Professor Vladimir. His group designs computer chips that communicate with light, and your job is to design the receiver. Your receiver connects to a photodetector, that can be modeled as current source.
+\begin{center}
+    \makebox[\linewidth]{
+        \includegraphics{../q_m2_design_op_amp_a_figs/photodetector.PNG}
+    }
+\end{center}
+When light is shining on the receiver, the current becomes $I_{ph} = 1\mu A$. Otherwise, with no light shining on the receiver the current is $I_{ph} = 0A$. The circuit should output $0V$ to the processor when there is light shining on the receiver, and output $1V$ to the processor when there is no light shining on the receiver.
+
+\begin{enumerate}
+    \item\label{design_circuit}{
+        Your friend suggests the following circuit to turn the current into a voltage. Find the output voltage, $V_{out}$ as a function of $I_{ph}$, and find a value of R such that the circuit outputs $0V$ when $I_{ph} = 1\mu A$.\\
+        Here, $I_{bias} = 0.5\mu A$ and $V_{ref} = 0.5V$. Show your work.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_op_amp_a_figs/design_circuit.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q9(a) of Spring 2019's Midterm 2.
+        
+    }
+    \ans{
+        To form an expression of $V_{out}$, we would need to solve this circuit. Therefore, let us first come up with a series of passive sign convention to maintain during the analysis. In the solution, $i_R$ is defined to flow towards the negative node of op-amp. \\
+        We can observe that $V_out - i_RR = V_-$. If we increase $V_out$, $V_-$ will increase and thus decrease the value of $V_+ - V_-$, leading to a decrease in $V_out$. An increase in output leads to a decrease in output, therefore, negative feedback exists. \\
+        We may apply the golden rules $V_+ = V_-$ and $i_+ = i_- = 0A$. In particular, the first described equation brings up $V_+ = V_- = V_{ref}$, while the second description facilitates the KCL equation at the negative terminal's node: 
+        \begin{align*}
+            i_in
+            &= (I_{ph} - I_{bias}) + i_R \\
+            &= 0 = i_{out}
+        \end{align*}
+        Now that we have these information, let's come up with an expression for $V_{out}$ in terms of $I_{ph}$:
+        \begin{align*}
+            V_{out}
+            &= V_- + i_RR \\
+            &= V_{ref} - (I_{ph} - I_{bias})R
+        \end{align*}
+        For outputting $0V$, the resistor must have a resistance value $R_0$ such that:
+        \[V_{ref} - (I_{ph} - I_{bias})R_0 = V_{out} = 0V\]
+        In analysis, at the end of algebra, the answer awaits:
+        \[R_0 = \frac{V_{out} - V_{ref}}{I_{bias} - I_{ph}} = 1M\Omega\]
+        
+    }
+    
+    \item\label{comparator_circuit}{
+        After building the circuit and testing it, you find that $I_{ph}$ varies as you get closer or further from light. This causes the output voltage of your circuit to not be precisely $0V$ or $1V$.\\
+        However, the processor needs exactly $0V$ when light is shining, and $1V$ when no light is shining. Vlad advises you add a comparator to your design. Let $I_{ph,light}$ denote the minimum current indicating there is enough light. \\
+        Finish the circuit below by calculating the value of $V_{comp}$ for the comparator. Also, select the polarity of the comparator by drawing a '+' or '-' in corresponding boxes in the diagram below.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_op_amp_a_figs/comparator_circuit.PNG}
+            }
+        \end{center}
+    
+    }
+    \meta{
+        This question comes from Q9(b) of Spring 2019's Midterm 2.
+        
+    }
+    \ans{
+        In a comparator of similar setup:
+        \[V_{out} = 
+            \begin{cases}
+                V_{DD} &V_+ > V_- \\
+                V_{SS} &V_+ < V_-
+            \end{cases}
+        \]
+        In the context of the prompt, $V_{DD} = 1V$ and $V_{SS} = 0V$. \\
+        Meanwhile, the prompt demands us to produce a comparator setup such that:
+        \[V_{out} = 
+            \begin{cases}
+                1V &V_{out,1} > V_{comp} \\
+                0V &V_{out,1} < V_{comp}
+            \end{cases}
+        \]
+        Therefore, the upper terminal connecting to $V_{out,1}$ should be positive '+', and the lower terminal connecting to $V_{comp}$ should be negative '-'. \\
+        Next we will determine $V_{comp}$. \\
+        According to the prompt: "The circuit should output $0V$ to the processor when there is light shining on the receiver, and output $1V$ to the processor when there is no light shining on the receiver". The trend is then that the higher $V_{out,1}$, the less light there is. Therefore, the reference voltage of comparator, $V_{comp}$, should be between the maximum voltage output when there is light (maximum $V_{out,1}$ recognizable as having light) and the maximum possible voltage output (1V). \\
+        Let $I_{ph,light}$ denote the minimum current indicating there is enough light, then:
+        \[V_{ref} - (I_{ph,light} - I_{bias})R_0 < V_{comp} < 1V\]
+        such that for any situation such that the output voltage is smaller than $V_{ref} - (I_{ph,light} - I_{bias})R_0$, it is recognized that light exists. \\
+        The ideal voltage for $V_{comp}$ to be would be the midpoint of range of all possible values; thus:
+        \begin{align*}
+            V_{comp}
+            &= \frac{V_{ref} - (I_{ph,light} - I_{bias})R + 1V}{2} \\
+            &= \frac{1.5V - (I_{ph,light} - I_{bias})R}{2}
+        \end{align*}
+        
+    }
+\end{enumerate}

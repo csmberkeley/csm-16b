@@ -1,0 +1,174 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Fall 2022
+
+\qns{A SuperPower Problem}
+
+\textbf{Learning Goal:} To build an understanding of both superposition and power in a circuit. 
+
+\meta{Make sure that students know not to use superposition to solve for power directly: power is \textbf{not} linear. Rather, we use superposition in this problem as a way to solve for node potentials and currents in the overall circuit that will then aid us in determining power.}
+
+Given the following circuit, calculate the power supplied/dissipated by each element if $R_1 = \frac{1}{4}\Omega$, $R_2 = 1\Omega$, $R_3 = 2\Omega$, $V_s = 2V$, and $I_s = 4A$. \textit{Note: We only use superposition to solve for \emph{currents} and \emph{voltages}. Remember that power is not linear, so we solve for currents and voltages in the overall circuit first, before calculating power}.
+
+\vspace{5mm}
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0) 
+to [isource, l = $I_s$] (0, 3)
+to [R = $R_1$] (2, 3) 
+to (6, 3)
+to [V, v = $V_s$] (6, 0)
+to (0, 0)
+(2, 3) 
+to [R = $R_2$] (2, 0)
+(4, 3)
+to [R = $R_3$] (4, 0)
+(3, 0) node[ground]{}
+;
+\end{circuitikz}
+\end{center}
+
+\ans{
+
+In order to solve this problem, we should first determine node voltages and currents across each component, as $P = IV$. Let's use superposition. We zero-out the voltage source to produce the graph on the left, and zero-out the current source to produce the graph on the right.
+
+\begin{circuitikz}
+\draw (0, 0) 
+to [isource, l = $I_s$] (0, 3) node[label={[font=\footnotesize]above:$u_{1I}$}]{}
+to [R = $R_1$, i>=$i_{R_1I}$] (2, 3) 
+to (6, 3)
+to [short, i>=$i_{V_sI}$] (6, 0)
+to (0, 0)
+(2, 3) 
+to [R = $R_2$, i>=$i_{R_2I}$] (2, 0)
+(4, 3)
+to [R = $R_3$, i>=$i_{R_3I}$] (4, 0)
+(3, 0) node[ground]{}
+;
+\end{circuitikz}
+\hspace{10mm}
+\begin{circuitikz}
+\draw (0, 0) 
+to [short, -o] (0, 1)
+(0, 3) to [short, -o] (0, 2)
+(0, 3)
+node[label={[font=\footnotesize]above:$u_{1V}$}]{}
+to [R = $R_1$, i>=$i_{R_1V}$] (2, 3) 
+to (6, 3)
+to [V, v = $V_s$, i<=$i_{V_sV}$] (6, 0)
+to (0, 0)
+(2, 3) 
+to [R = $R_2$, i>=$i_{R_2V}$] (2, 0)
+(4, 3)
+to [R = $R_3$, i>=$i_{R_3I}$] (4, 0)
+(3, 0) node[ground]{}
+;
+\end{circuitikz}
+
+\begin{tabular}{p{7.5cm} p{7.5cm}}
+
+We realize that $R_2$ and $R_3$ are shorted, so the current through each of these resistors is 0. The rightmost branch, where the voltage source was previously, has a current of $I_s$ passing through it. 
+
+Both ends of $R_2$ and $R_3$ are connected to the ground node. Now, we investigate $R_1$. By Ohm's Law, the voltage drop across $R_1$ from the left to the right is $V_1 = I_sR_1$. Since the right end of $R_1$ is 0 Volts (the same node as the ground node), the node potential $u_{1I}$ must be $u_{1I} - 0 = I_sR_1 \rightarrow u_{1I} = I_sR_1$. 
+
+In summary, from this half of the circuit diagram, we know the following: 
+
+$u_{1I} = I_sR_1$
+
+$i_{R_{1}I} = I_s$ \hspace{3em} $i_{V_{s}I} = I_s$
+
+$i_{R_{2}I} = 0$ \hspace{3em} $i_{R_{3}I} = 0$
+
+
+
+&
+
+Note that when we zero out the current source, we are left with a dangling $R_1$ resistor. There is no voltage drop across this resistor, since no current can pass through this branch. The node potentials at both the left and right ends of the resistor $R_1$ are then both $0 + V_s = V_s$.
+
+Now, we investigate the current. We use Ohm's Law. The current through $R_2$ is $i_{R_{2}V} = \frac{V_s - 0}{R_2} = \frac{V_s}{R_2}$. Similarly, the current through $R_2$ is $i_{R_{3}V} = \frac{V_s - 0}{R_3} = \frac{V_s}{R_3}$. Using KCL, the current through $V_s$ is $i_{V_sV} = i_{R_{2}V} + i_{R_{3}V} = V_s (\frac{1}{R_2} + \frac{1}{R_3})$. Note that we could also have determined this current using equivalent resistance and Ohm's Law.
+
+In summary, from this half of the circuit diagram, we know the following: 
+
+$u_{1V} = V_s$
+
+$i_{R_1V} = 0$ \hspace{4em} $i_{V_{s}V} = V_s (\frac{1}{R_2} + \frac{1}{R_3})$
+
+$i_{R_{2}V} = \frac{V_s}{R_2}$ \hspace{4em}$i_{R_{3}V} = \frac{V_s}{R_3}$
+
+\end{tabular}
+
+We now recombine our circuit back to our original circuit, and sum node voltages and currents (accounting for direction) back together.
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0) 
+to [isource, l = $I_s$] (0, 3)
+node[label={[font=\footnotesize]above:$u_{1}$}]{}
+to [R = $R_1$, i>=$i_{R_1}$] (2, 3) 
+to (6, 3)
+to [V, v = $V_s$, i>=$i_{V_s}$] (6, 0)
+to (0, 0)
+(2, 3) 
+to [R = $R_2$, i>=$i_{R_2}$] (2, 0)
+(4, 3)
+to [R = $R_3$, i>=$i_{R_3}$] (4, 0)
+(3, 0) node[ground]{}
+;
+\end{circuitikz}
+\end{center}
+
+We then calculate node voltages and currents. We pay attention to the direction of current that we defined in each circuit diagram.
+
+\begin{align*}
+u_1 &= u_{1I} + u_{1V} = I_sR_1 + V_s \\
+i_{R_1} &= i_{R_{1}I} + i_{R_{1}V} = I_s + 0 = I_s\\
+i_{R_2} &= i_{R_{2}I} + i_{R_{2}V} = 0 + \frac{V_s}{R_2} = \frac{V_s}{R_2} \\
+i_{R_3} &= i_{R_{3}I} + i_{R_{3}V} = 0 + \frac{V_s}{R_3} = \frac{V_s}{R_3} \\
+i_{V_s} &= i_{V_{s}I} - i_{V_{s}V} = I_s - V_s(\frac{1}{R_2} + \frac{1}{R_3})
+\end{align*}
+
+Now we have all the necessary values to calculate power. Calculate power via the equation $P = IV$. Make sure to follow passive sign convention: if current is flowing from point A to B, calculate voltage as a difference of $A - B$.
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l||l}
+Element & Power Expression \\
+\hline
+
+Current Source $I_s$ & $P = IV = I_s(0 - u_1) = I_s(0 - (I_sR_1 + V_s)) = 
+-I_s^2R_1 - I_sV_s$ \\
+
+Voltage Source $V_s$ & $P = IV = V_s(I_s - V_s(\frac{1}{R_2} + \frac{1}{R_3})) = I_sV_s - \frac{V_s^2}{R_2} - \frac{V_s^2}{R_3}$\\
+
+Resistor $R_1$ & $P = IV = I_s(I_sR_1) = I_s^2R_1$ \\
+
+Resistor $R_2$ & $P = IV = \frac{V_s}{R_2}V_s = \frac{V_s^2}{R_2}$ \\
+
+Resistor $R_3$ & $P = IV = \frac{V_s}{R_3}V_s = \frac{V_s^2}{R_3}$ \\
+\end{tabular}
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l||l}
+Element & Power Calculation, Values \\
+\hline
+
+Current Source $I_s$ & $P = -I_s^2R_1 - I_sV_s = -(4)^2(\frac{1}{4}) - (4)(2) = -12W$ \\
+
+Voltage Source $V_s$ & $P = I_sV_s - \frac{V_s^2}{R_2} - \frac{V_s^2}{R_3}
+= (4)(2) - \frac{(2)^2}{(1)} - \frac{(2)^2}{(2)} = 2W$\\
+
+Resistor $R_1$ & $P = I_s(I_sR_1) = I_s^2R_1
+= (4)^2(\frac{1}{4}) = 4W$ \\
+
+Resistor $R_2$ & $P = \frac{V_s^2}{R_2}
+= \frac{(2)^2}{(1)} = 4W$ \\
+
+Resistor $R_3$ & $P = \frac{V_s^2}{R_3}
+= \frac{(2)^2}{(2)} = 2W$ \\
+\end{tabular}
+
+Observe the table of expressions and the table of plugged-in values. To check your work, ensure that the power of all the elements sums to 0. The amount of power supplied and dissipated within a circuit should be 0.
+
+To determine whether power is dissipated or supplied, look at the sign of power: a negative power indicates power is being supplied, while a positive power indicates power is being dissipated. We can see that the current source supplies power, while all the other elements dissipate power.
+
+}

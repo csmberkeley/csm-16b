@@ -1,0 +1,26 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 9}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/16a/topics/op_amps/q_intro_to_opamps_buffers.tex}
+\newpage
+\input{\bank/16a/topics/op_amps/q_op_amp.tex}
+\newpage
+\input{\bank/16a/topics/op_amps/q_inverting_average_voltage.tex}
+\end{qunlist}
+
+\end{document}

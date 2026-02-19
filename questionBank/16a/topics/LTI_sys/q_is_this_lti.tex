@@ -1,0 +1,107 @@
+% Author: SooHyuk Cho
+% Email: soohyuk.cho@berkeley.edu
+% CSM16A Fall 2024
+\qns{Is This LTI?!}
+
+
+As a signal processing engineer, you are tasked with analyzing the properties of the following systems!
+Each of the following equations describes a relationship between an input signal $x$ and an output signal $y$ for all integers $n$ (Discrete-time system)  OR for all real number $t$ (Continuous-time system) for each different system. 
+
+For each system, determine if the system is (i) linear and (ii) time-invariant! Your answer for each property can be either "Yes", "No", or "Maybe".
+
+\begin{enumerate}[label=(\alph*)]
+    \item System $1$: $\displaystyle{y[n] = \frac{x[n] - x[n - 1]}{2}}$
+    \ans{
+        \begin{enumerate}[label=(\roman*)]
+            \item \textbf{Linear: Yes.} Let's test with the scaling property first. For some arbitrary \( \alpha \), we get the following expression when we scale output \( y(n) \) by \( \alpha \):
+            \[
+                \alpha y(n) = \alpha \frac{x(n) - x(n - 1)}{2} = \alpha \left(\frac{1}{2}x(n)\right) - \alpha \left(\frac{1}{2}x(n - 1)\right).
+            \]
+            Here, the RHS is the result we get by sclaing the inputs by \( \alpha \). This means that the scaling property holds. 
+            
+            Now, let's verify superposition. For the output $y_1(n) + y_2(n) = \frac{x_1(n) - x_1(n-1)}{2} + \frac{x_2(n) - x_2(n-1)}{2}$, we have
+            \[
+                \frac{x_1(n) - x_1(n-1)}{2} + \frac{x_2(n) - x_2(n-1)}{2} = \frac{(x_1(n) + x_2(n)) - (x_1(n - 1) + x_2(n - 1))}{2}
+            \]
+            The RHS is the result we get by having the inputs $x_1(n) + x_2(n)$, which means that the system satisfies the superposition property.
+
+            \item \textbf{Time-invariant: Yes.} Let's compare result of delaying the output \( y(n) \) by some arbitrary integer \( N \) to the result of delaying the input \( \frac{x(n) - x(n - 1)}{2} \) by some arbitrary \( N \). 
+            
+            If we delay the output \( y(n) \) by \( N \) samples, we get
+            \[
+                y(n - N) = \frac{x(n - N) - x(n - N - 1)}{2},
+            \]
+            
+            Delaying the input results in:
+            \[
+                \frac{x(n - N) - x(n - N - 1)}{2},
+            \]
+            
+            Since both results are the same, the system is time-invariant.
+        \end{enumerate}
+    }
+    
+    \item System $2$: $\displaystyle{y(t) = \sin(t)x(t)}$
+    \ans {
+        \begin{enumerate}[label=(\roman*)]
+            \item \textbf{Linear: Yes.}
+            Let's prove this by showing both the scaling property AND superposition property at once!
+            For some arbitrary real number $a$ and $b$, define $\tilde{x}(t) = ax_1(t) + bx_2(t)$. Then, we have
+            \begin{align*}
+                \tilde{y}(t) &= \sin(t)(ax_1(t) + bx_2(t)) = a(\sin(t)x_1(t)) + b(\sin(t)x_2(t)) = a y_1(t) + b y_2(t).
+            \end{align*}
+
+            \item \textbf{Time-invariant: No.} For a dealyed output $y(t - T)$, we have
+            \[
+                y(t - T) = \sin(t - T)x(t - T)
+            \]
+
+            For a delayed input, we have
+            \[
+                \tilde{y}(t) = \sin(t)x(t - T)
+            \]
+
+            Note that the two expressions are NOT equivalent. Notice that $sin(t)$ is not delayed by the same amount in the second case as we delay the input only.
+
+            Thus, the system is NOT time-invariant.
+        \end{enumerate}
+    }
+
+    \item System $3$: \( \displaystyle{y[n] = ax[n - k] + b} \), where \( a, b \in \mathbb{C}, k \in \mathbb{Z}, k \neq 0 \). 
+    \ans {
+        \begin{enumerate}[label=(\roman*)]
+            \item \textbf{Linear: Maybe.} The easiest way to prove this is to use the Zero-input, Zero-output (ZIZO) property of the system! If we set \( x(n) = 0 \) for all integer \( n \), we can see that the system outputs \( y(n) = b \). 
+            If $b \neq 0$m This violates the scaling property; if the system is linear, zero-input should result in zero-output. 
+            Thus, the system is linear if and only if $b=0$.
+
+            \item \textbf{Time-invariant: Yes.}
+            If we delay the input signal \( x \) by \( N \) samples, where $N$ is an arbirary integer, our output will be 
+            \[
+                ax\big((n - N) - k\big) = ax(n - N - k) = y(n - N).
+            \]
+            
+            This means that delaying any input signal \( x \) by \( n_d \) samples delays the output by \( n_d \) samples. Thus, the system is time-invariant.
+        \end{enumerate}
+    }
+
+    \item System $4$: \( \displaystyle{y[n] = \sum_{k =-\infty}^{\infty} x[k]} \)
+    \ans{
+        \begin{enumerate}[label=(\roman*)]
+            \item \textbf{Linear: Yes.} 
+            Let's prove the scaling and superposition at the same time! Given a new input, $\tilde{x}(n) = ax_1(n) + bx_2(n)$, we have
+            \[
+                \tilde{y}(n) = \sum_{k =-\infty}^{\infty} \tilde{x}(k) = \sum_{k =-\infty}^{\infty} (ax_1(k) + bx_2(k)) = a\sum_{k =-\infty}^{\infty} x_1(k) + b\sum_{k =-\infty}^{\infty} x_2(k) = ay_1(n) + by_2(n).
+            \]
+
+            \item \textbf{Time-invariant: Yes.}
+            If we delay the input signal \( x \) by \( N \) samples, where $N$ is an arbirary integer, our output will be
+            \[
+                \sum_{k =-\infty}^{\infty} x(k - N) = y(n - N).
+            \]
+            , which is exactly the output delayed by the same amount of samples. Thus, the system is time-invariant.
+
+            
+        \end{enumerate}
+    }
+\end{enumerate}
+

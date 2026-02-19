@@ -1,0 +1,88 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+
+\qns{Span some time on proofs}
+\textbf{Learning goal}: learn how to write proofs and properties of span.
+
+\meta{
+\begin{itemize}
+    \item First, let the students understand why it is important to prove two statements to prove that two sets are equal.
+    \item Then, walk them through some easier examples (like n = 2). 
+    \item After they understand the problem through examples, try to divide the proof into two parts: 
+      \begin{itemize}
+    \item The first part is to prove that the right side includes the left side
+    \item The second step is to prove that the left side includes the right side.
+    \end{itemize}
+    \item If time is short, make sure to do the previous steps and do less on the exact time of proof. Instead, give them the ideas on why the statement is true.
+
+\end{itemize}  
+On the other hand, if students feel like the problem is easy, make sure to go
+into details of proof}.
+
+Suppose there is a set of vectors $A = (a_1, a_2, \ldots, a_n)$, prove that
+
+\begin{enumerate}
+    \item Prove that the span of $A= (a_1, a_2, \ldots, a_n)$ is equal to $B = (a_1, a_1 + a_2, a_1 + a_2 + a_3, \ldots, a_1 + a_2 + \ldots + a_n)$
+    \item Does it work for subtractions?
+\end{enumerate}
+
+\ans{
+
+    Denote the i$th$ element in  $B$ as $b_i$. To prove that both sets are equal, we prove that both sets are subset of the other one. Definition of subset: $A$ is a subset of $B$ is every element in $A$ is in $B$.
+
+We need to prove both sides. First we prove that for every element in the span $(a_1,
+a_2, \ldots, a_n)$, it is in the span $(a_1, a_1 + a_2, a_1 + a_2 + a_3, \ldots,
+a_1 + a_2 + \ldots + a_n)$. Write the span as
+
+\[
+   \sum_{i=1}^{n} \alpha_i a_i
+\]
+
+which is a linear combination of elements in $A$.
+
+Then think about what we can express here: we \textbf{start from the back}. We
+want some element to match $\alpha_n a_n$. This could be written as 
+
+\[
+    \alpha_n (b_n - b_{n-1}) = \alpha_n * a_n
+\]
+
+similarly, we can express each item $\alpha_i a_i, i \ge{} 2$ (make sure to
+explain why $i$ has to be bigger than  $1$, since if  $i=1$ then  $b_{i-1}$ is
+not defined)  in the span of  $A$
+
+as 
+
+ \[
+     \alpha_i (b_{i} - b_{i-1})
+\]
+
+Therefore, we can write the expression of linear combination, \textbf{after
+calculating the coefficient for} $a_1$,  as
+
+\[
+    (\alpha_1 + \alpha_2)a_1 + \sum_{i=2}^{n} \alpha_i (b_{i} - b_{i-1})
+\]
+
+which is a linear combination of elements in $B$, so it is in the span of  $B$.
+
+\textbf{Now, we are done with half of the proof. Now let us prove the other
+half: every element in the span of} $B$ is in the span of  $A$.
+
+Write an arbitrary element in the span of $B$ as
+
+\[
+    \sum_{i=1}^{n} \beta_i b_i
+\]
+
+and we can write this as 
+
+\[
+    \sum_{i=1}^{n} \alpha_i a_i
+\]
+
+where $\alpha_i = \sum_{j=i}^{n} \beta_j$
+
+2. Yes. We just change the signs in all the expression above.
+}
+
+

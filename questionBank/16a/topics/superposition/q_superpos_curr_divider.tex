@@ -1,0 +1,363 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Spring 2023
+
+\qns{Superposition}
+
+\textbf{Learning Goal:} The goal of this question is to build an understanding of superposition.
+
+\begin{enumerate}
+
+\item What happens when you zero out a voltage source? What happens when you zero out a current source? Draw the I-V plots for both.
+
+\ans{
+When a voltage source is zero'ed out, there is no voltage drop across the component. The voltage source then acts like an ideal wire, where any amount of current can flow through, but there is no change in potential. When a current source is zero'ed out, there is no current across the component. The current source then acts like an open circuit, where any voltage can be applied across the terminals, but there is no current flowing between them. The I-V plots are drawn below for both.
+
+Zero-ing out voltage source:
+
+\begin{center}
+\begin{tikzpicture}[scale = 0.7]
+\begin{axis}[
+    axis lines=middle, 
+    xlabel=$V$, 
+    ylabel=$I$, 
+    xmin = -1, 
+    xmax = 1,
+    ymin = -1,
+    ymax = 1,
+    x label style={at={(axis description cs:1.1,0.5)},anchor=north},
+    y label style={at={(axis description cs:0.5,1)},anchor=south}]
+\addplot[color=red] table[row sep = crcr]{0.5 -1 \\ 0.5 1 \\};
+\end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}[scale = 0.7]
+\begin{axis}[
+    axis lines=middle, 
+    xlabel=$V$, 
+    ylabel=$I$, 
+    xmin = -1, 
+    xmax = 1,
+    ymin = -1,
+    ymax = 1,
+    x label style={at={(axis description cs:1.1,0.5)},anchor=north},
+    y label style={at={(axis description cs:0.5,1)},anchor=south}]
+\addplot[color=red] table[row sep = crcr]{0 -1 \\ 0 1 \\};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Zero-ing out current source:
+
+\begin{center}
+\begin{tikzpicture}[scale = 0.7]
+\begin{axis}[
+    axis lines=middle, 
+    xlabel=$V$, 
+    ylabel=$I$, 
+    xmin = -1, 
+    xmax = 1,
+    ymin = -1,
+    ymax = 1,
+    x label style={at={(axis description cs:1.1,0.5)},anchor=north},
+    y label style={at={(axis description cs:0.5,1)},anchor=south},]
+\addplot[color=red] {0.5};
+\end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}[scale = 0.7]
+\begin{axis}[
+    axis lines=middle, 
+    xlabel=$V$, 
+    ylabel=$I$, 
+    xmin = -1, 
+    xmax = 1,
+    ymin = -1,
+    ymax = 1,
+    x label style={at={(axis description cs:1.1,0.5)},anchor=north},
+    y label style={at={(axis description cs:0.5,1)},anchor=south}]
+\addplot[color=red] {0};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+}
+
+\item Consider circuit on the left below. What is the $u_1$ node potential? What is the current $i_{R_1}$ through the $R_1$ resistor? Suppose we add a second current source to the circuit, creating the circuit on the right. What are $u_1$ and $i_{R_1}$ now?
+
+\meta{This question uses current divider formulas, which students may or may not know. Derive the current divider formula using NVA if students do not know it.}
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [I = $I_1$] ++(0, 4)
+    to [short, -*] ++(2, 0) node[above] {$u_1$}
+    to [R = $R_1$, i = $i_{R_1}$] ++(0, -4)
+    to [short] ++(-2, 0)
+    (2, 4)
+    to [short] ++(2, 0)
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-2, 0);
+    \draw (2, 0) node[ground]{};
+    \end{circuitikz}
+    \hspace{20mm}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [I = $I_1$] ++(0, 4)
+    to [short, -*] ++(2, 0) node[above] {$u_1$}
+    to [R = $R_1$, i = $i_{R_1}$] ++(0, -4)
+    to [short] ++(-2, 0)
+    (2, 4)
+    to [short] ++(2, 0)
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-2, 0)
+    (4, 4)
+    to [short] ++(2, 0)
+    to [I = $I_2$] ++(0, -4)
+    to [short] ++(-2, 0);
+    \draw (3, 0) node[ground]{};
+    \end{circuitikz}
+\end{center}
+
+\ans{
+
+\textbf{Part 1.}
+
+The circuit on the left is a current divider circuit. The $u_1$ node potential is equal to the drop across the $R_1$ resistor, as the $R_1$ resistor has endpoints of $u_1$ and ground.
+
+The current through the $R_1$ resistor is given by 
+\[
+I_{R_1} = \dfrac{R_2}{R_1 + R_2} \cdot I_{1}
+\]
+Using Ohm's Law of $V = IR$, we can determine that the voltage drop across $R_1$ is given by
+\[
+V_{R_1} = (\dfrac{R_2}{R_1 + R_2} \cdot I_{1})(R_1) = \dfrac{R_1R_2}{R_1 + R_2} \cdot I_{1}
+\]
+So $u_1 = \dfrac{R_1R_2}{R_1 + R_2} \cdot I_{1}$.
+
+\textbf{Part 2.}
+
+When we add a second current source the behavior of the circuit changes. We can use superposition to determine the node potential at node $u_1$. 
+
+First, we solve for the $u_1$ node potential with only $I_1$ on. We zero out all other independent sources, meaning $I_2$ becomes an open circuit:
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [I = $I_1$] ++(0, 4)
+    to [short, -*] ++(2, 0) node[above] {$u_{1, 1}$}
+    to [R = $R_1$, i = $i_{R_1, 1}$] ++(0, -4)
+    to [short] ++(-2, 0)
+    (2, 4)
+    to [short] ++(2, 0)
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-2, 0)
+    (4, 4)
+    to [short] ++(2, 0)
+    to [short] ++(0, -1.5)
+    to [open, o-o] ++(0, -1)
+    to [short] ++(0, -1.5)
+    to [short] ++(-2, 0);
+    \draw (3, 0) node[ground]{};
+    \end{circuitikz}
+\end{center}
+
+This is the current divider seen previously. The node potential $u_{1, 1} = \dfrac{R_1R_2}{R_1 + R_2} \cdot I_{1}$.
+
+Then, we solve for the $u_1$ node potential with only $I_2$ on. We zero out all other independent sources, meaning $I_1$ becomes an open circuit.
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [short] ++(0, 1.5)
+    to [open, o-o] ++ (0, 1)
+    to [short] ++(0, 1.5)
+    to [short, -*] ++(2, 0) node[above] {$u_{1, 2}$}
+    to [R = $R_1$, i = $i_{R_1, 2}$] ++(0, -4)
+    to [short] ++(-2, 0)
+    (2, 4)
+    to [short] ++(2, 0)
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-2, 0)
+    (4, 4)
+    to [short] ++(2, 0)
+    to [I = $I_2$] ++(0, -4)
+    to [short] ++(-2, 0);
+    \draw (3, 0) node[ground]{};
+    \end{circuitikz}
+\end{center}
+
+In this circuit, we should be careful of the orientation of the current. The circuit is still a current divider, but as the $I_2$ source is flipped, the current direction is also flipped.
+
+Hence, the current through the $R_1$ resistor is $i_{R_1, 2} = -1 \cdot \dfrac{R_2}{R_1 + R_2} \cdot I_{2}$.
+
+Now we compute the node potential $u_{1, 2}$. We can use Ohm's Law to compute this node potential, making sure that the direction of current and nodes align:
+
+\[
+u_{1, 2} - 0 = i_{R_1, 2} \cdot R_1 \rightarrow
+u_{1, 2} = - \cdot \dfrac{R_1R_2}{R_1 + R_2} \cdot I_{2}
+\]
+
+Recombining these two circuits back into the overall circuit, we find
+\[u_1 = u_{1, 1} + u_{1, 2} = \dfrac{R_1R_2}{R_1 + R_2} \cdot I_1 - \dfrac{R_1R_2}{R_1 + R_2} \cdot I_2 = \dfrac{R_1R_2}{R_1 + R_2} (I_1 - I_2)
+\]
+
+and the current $i_{R_1}$ is
+\[
+i_{R_1} = i_{R_1, 1} + i_{R_1, 2} = \cdot \dfrac{R_2}{R_1 + R_2} \cdot I_{1} - \cdot \dfrac{R_2}{R_1 + R_2} \cdot I_{2} = \cdot \dfrac{R_2}{R_1 + R_2} \cdot (I_1 - I_2)
+\]
+
+}
+
+\item Consider the circuit below, where $V_s = 6V$, $R_1 = 2\Omega$, $R_2 = 4\Omega$, $R_3 = 2\Omega$, $I_{s_1} = 1A$, and $I_{s_2} = 1A$. What is the power dissipated through the $R_2$ resistor? (\textit{Hint:} Power is not linear, so be sure to determine currents and voltages in the given circuit prior to computing power.)
+
+\meta{
+\begin{itemize}
+    \item Review power, $P = IV$. Power dissipated has a positive sign, while power generated has a negative sign. Sources do not necessarily have to generate power. For resistors, be sure that students are aware $P = IV = I^2R = \dfrac{V^2}{R}$.
+    \item Make sure students do \textbf{not} solve for power in the sub-circuits (if they're using superposition), then add them up.
+\end{itemize}}
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [V = $V_s$, invert] ++(0, 4)
+    to [R = $R_1$] ++(3, 0)
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-3, 0)
+    (3, 4)
+    to [short] ++(3, 0)
+    to [I, l = $I_{s_1}$, invert] ++(0, -4)
+    to [short] ++(-3, 0)
+    (6, 4)
+    to [R = $R_3$] ++(3, 0)
+    to [I, l = $I_{s_2}$, invert] ++(0, -4)
+    to [short] ++(-3, 0);
+    \end{circuitikz}
+\end{center}
+
+\ans{
+To determine the power dissipated through the $R_2$ resistor, we can use $P = IV = \dfrac{V^2}{R}$.
+
+To solve for the voltage across the $R_2$ resistor, we solve for the node potential $u_1$ defined in the diagram below. We can use superposition, as we have multiple sources in our circuit.
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [V = $V_s$, invert] ++(0, 4)
+    to [R = $R_1$, -*] ++(3, 0) node[above] {$u_1$}
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-3, 0)
+    (3, 4)
+    to [short] ++(3, 0)
+    to [I, l = $I_{s_1}$, invert] ++(0, -4)
+    to [short] ++(-3, 0)
+    (6, 4)
+    to [R = $R_3$] ++(3, 0)
+    to [I, l = $I_{s_2}$, invert] ++(0, -4)
+    to [short] ++(-3, 0);
+    \draw (4.5, 0) node[ground] {};
+    \end{circuitikz}
+\end{center}
+
+First, we turn on only the voltage source, zero-ing out all other independent sources. The current sources become open circuits. The circuit then becomes
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [V = $V_s$, invert] ++(0, 4)
+    to [R = $R_1$, -*] ++(3, 0) node[above] {$u_{1, V_s}$}
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-3, 0)
+    (3, 4)
+    to [short] ++(3, 0)
+    to [short] ++(0, -1.5)
+    to [open, o-o] ++(0, -1)
+    to [short] ++(0, -1.5)
+    to [short] ++(-3, 0)
+    (6, 4)
+    to [R = $R_3$] ++(3, 0)
+    to [short] ++(0, -1.5)
+    to [open, o-o] ++(0, -1)
+    to [short] ++(0, -1.5)
+    to [short] ++(-3, 0);
+    \draw (4.5, 0) node[ground] {};
+    \end{circuitikz}
+\end{center}
+
+which we observe is a voltage divider. So
+\[
+u_{1, V_s} = \dfrac{R_2}{R_1 + R_2} \cdot V_s
+\]
+
+Then, we turn on only $I_{s_1}$, and zero out all other sources. The circuit then becomes 
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [short] ++(0, 4)
+    to [R = $R_1$, -*] ++(3, 0) node[above] {$u_{1, I_{s_1}}$}
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-3, 0)
+    (3, 4)
+    to [short] ++(3, 0)
+    to [I, l = $I_{s_1}$, invert] ++(0, -4)
+    to [short] ++(-3, 0)
+    (6, 4)
+    to [R = $R_3$] ++(3, 0)
+    to [short] ++(0, -1.5)
+    to [open, o-o] ++(0, -1)
+    to [short] ++(0, -1.5)
+    to [short] ++(-3, 0);
+    \draw (4.5, 0) node[ground] {};
+    \end{circuitikz}
+\end{center}
+
+We recognize this as a current divider circuit. So 
+
+\[
+u_{1, I_{s_1}} = \dfrac{R_1R_2}{R_1 + R_2} I_{s_1}
+\]
+
+Then, we turn on only $I_{s_2}$ and zero out all other sources. The circuit then becomes 
+
+\begin{center}
+    \begin{circuitikz}[scale = 0.7, transform shape]
+    \draw (0, 0)
+    to [short] ++(0, 4)
+    to [R = $R_1$, -*] ++(3, 0) node[above] {$u_{1, I_{s_2}}$}
+    to [R = $R_2$] ++(0, -4)
+    to [short] ++(-3, 0)
+    (3, 4)
+    to [short] ++(3, 0)
+    to [short] ++(0, -1.5)
+    to [open, o-o] ++(0, -1)
+    to [short] ++(0, -1.5)
+    to [short] ++(-3, 0)
+    (6, 4)
+    to [R = $R_3$] ++(3, 0)
+    to [I, l = $I_{s_2}$, invert] ++(0, -4)
+    to [short] ++(-3, 0);
+    \draw (4.5, 0) node[ground] {};
+    \end{circuitikz}
+\end{center}
+
+This is once again a current divider setup. The current entering the $R_1$ and $R_2$ resistors is still $I_{s_2}$, even if there is an $R_3$ resistor along the path. So
+\[
+u_{1, I_{s_2}} = \dfrac{R_1R_2}{R_1 + R_2} I_{s_2}
+\]
+
+Now, returning to the overall circuit, we have
+\[
+u_1 = u_{1, V_{s}} + u_{1, I_{s_1}} + u_{1, I_{s_2}} = \dfrac{R_2}{R_1 + R_2} \cdot V_s + \dfrac{R_1R_2}{R_1 + R_2} I_{s_1} + \dfrac{R_1R_2}{R_1 + R_2} I_{s_2} = \dfrac{R_2}{R_1 + R_2} (V_s + R_1I_{s_1} + R_2I_{s_2})
+\]
+
+Substituting in values, we have
+\[
+u_1 = \dfrac{4}{2 + 4} (6 + 2 \cdot 1 + 4 \cdot 1) = 8V
+\]
+
+We now have the $u_1$ node potential necessary for computing power dissipated by the $R_2$ resistor:
+
+\[
+P = \dfrac{V^2}{R} = \dfrac{(u_1 - 0)^2}{R_2} = \dfrac{8^2}{4} = 16W
+\]
+
+}
+
+\end{enumerate}

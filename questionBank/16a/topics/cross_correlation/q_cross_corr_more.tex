@@ -1,0 +1,281 @@
+% Author: 
+% Email: 
+% CSM16A Semester Year
+\qns{Extra Euclidean/ Characteristics $\overset{\text{of Cross}}{\mathbf{\times}}$ Correlations}
+
+\textbf{Learning Goal: }
+\begin{bindenum}
+    \item Learn about the relationship between the sign, magnitude of Euclidean inner product and the pair of vector such inner product is computed on. \\
+    \meta{
+        Spoiler alert, we discuss the relationship between sign, magnitude of inner product and the angle between the vectors that such inner product is computed on.
+    }
+    \item Clarify and re-understand what does sign and magnitude entail in a cross correlation analysis.
+\end{bindenum}
+
+\meta{
+    In this question, there are review-purposed subparts for mechanical computations. These subparts are constructed as case studies for students to compare their work in parts (c), (d) for. \\
+    In this question, we \textbf{challenge the misconception that solely magnitude implies the similarity of two arbitrary vectors}, from the two following perspectives:
+    \begin{enumerate}
+        \item Providing the statement that \textbf{sign and magnitude of inner product codecides} similarity of vectors.
+        \item Claim that \textbf{Euclidean inner product serves unsatisfactorily for comparatively measuring} the closeness of any pair of vectors.
+    \end{enumerate}
+    to \textbf{encourage students to rediscover properties} of cross correlation that are inherently mentioned during coursework, via \textbf{experimental work that hopefully facilitates the memory process} when students are learning.
+    
+}
+
+We learned from EECS 16A that cross correlations measure similarity by the nature of inner product it employs-- the Euclidean Inner Product:
+\begin{ln-define}{Euclidean Inner Product}{}
+    The Euclidean Inner Product of two vectors $\vec{x}$ and $\vec{y}$ with same dimensions is defined as:
+    \[
+        \langle \vec{x}, \vec{y} \rangle := \vec{x}^T \vec{y}
+    \]
+\end{ln-define}
+In this question, we will explore why does the Euclidean Inner Product of vectors measure their similarity, and practice norm-related mathematical problems. \\
+\textit{Check this notebook for the walkthrough of this question's concepts: \href{https://colab.research.google.com/drive/1tGhBhgOuCv5vcToOAVgjzGN5IsnmdQk4}{iPython Notebook for Cross Correlation}}
+
+\begin{enumerate}
+    \item {
+        Before all the mathematics become relevant, let's put our hands on a review-based practice. \\
+        Provided the following signals:
+        \[
+            \begin{cases}
+                \vec{v_1} = {\begin{bmatrix} 3 & 6 & 2 & 4 \end{bmatrix}}^T \\
+                \vec{v_2} = {\begin{bmatrix} 9 & -4 & -7 & 5 \end{bmatrix}}^T
+            \end{cases}
+        \]
+        Produce a graph for the circular cross correlation of $\vec{v_1}$ and $\vec{v_2}$: ${circcorr}_{\vec{v_1}}({\vec{v_2}})$. \\
+        Comment on how sign and magnitude show about the similarity and/or difference between $\vec{v_1}$ and $\vec{v_2}$.
+    
+    }
+    \meta{
+        Remember that the definition of cross correlation is:
+        \[
+            {corr}_{\vec{v_1}} (\vec{v_2}) [k] = \sum_i \vec{v_1}[i] \vec{v_2}[i - k]
+        \]
+        and \textbf{provide students an easy way to remember \textit{which direction to shift what vector along}} when computing correlation.
+
+    }
+    \ans{
+        Let us first compute the cross correlations of these two vectors:
+        \begin{center}
+            \begin{tabular}{c||c|c}
+                Offset Value & Computation & Computed Value \\
+                \hline
+                \hline
+                $k = -2$ & $-7 \times 3 + 5 \times 6 + 9 \times 2 + -4 \times 4$ & 11 \\
+                \hline
+                $k = -1$ & $-4 \times 3 + -7 \times 6 + 5 \times 2 + 9 \times 4$ & -8 \\
+                \hline
+                $k = 0$ & $9 \times 3 + -4 \times 6 + -7 \times 2 + 5 \times 4$ & 9 \\
+                \hline
+                $k = 1$ & $5 \times 3 + 9 \times 6 + -4 \times 2 + -7 \times 4$ & 33 \\
+                \hline
+                $k = 2$ & $-7 \times 3 + 5 \times 6 + 9 \times 2 + -4 \times 4$ & 11 \\
+            \end{tabular}
+        \end{center}
+        Where, we may obtain that at the offset $k = 1$, the signals $\vec{v_1}$ and $\vec{v_2}$ are the most similar.
+        \par
+        The sign and magnitude of cross correlation, which is an Euclidean Inner Product, may be interpreted using the following relationship:
+        \[
+            \vec{a} \cdot \vec{b} = \| \vec{a} \| \| \vec{b} \| \cos(\theta_{\vec{a}, \vec{b}})
+        \]
+        where, the Euclidean inner product of two vectors is equal to the product of their magnitudes and the cosine value of angle between two vectors. \\
+        Considering the values of cosine from $0\deg$ to $180\deg$, and the fact that magnitudes of vectors must be non-negative, we may conclude the following:
+        \begin{bindenum}
+            \item \textbf{Sign.} If the sign of Euclidean Inner Product between two vectors is negative, then that means the two vectors have an angle of larger than $90\deg$ between them. Vice versa.
+            \item \textbf{Magnitude.} The magnitude of a Euclidean Inner Product is dependent on the value $\cos(\theta_{\vec{a}, \vec{b}})$.
+        \end{bindenum}
+        Therefore, at the case $\vec{a} \cdot \vec{b} = - \| \vec{a} \| \| \vec{b} \|$, the two vectors are parallel but have opposite direction.
+        
+    }
+\end{enumerate}
+We would notice from the above question that, sign and magnitude of inner products between signals provide hints about how similar they are.
+\begin{enumerate}[resume]
+    \item {
+        For a unit vector,
+        \[
+            \vec{x} = {\begin{bmatrix} \frac{3}{5} & \frac{4}{5} \end{bmatrix}}^T
+        \]
+        identify the value of inner product between $\vec{x}$ and each of the following unit vectors:
+        \begin{tasks}[label=\roman*.](2)
+            \task $\ \vec{y_1} = {\begin{bmatrix} \frac{3}{5} & \frac{4}{5} \end{bmatrix}}^T$
+            \task $\ \vec{y_2} = {\begin{bmatrix} \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \end{bmatrix}}^T$
+            \task $\ \vec{y_3} = {\begin{bmatrix} -\frac{\sqrt{3}}{2} & -\frac{1}{2} \end{bmatrix}}^T$
+            \task $\ \vec{y_4} = {\begin{bmatrix} -\frac{3}{5} & -\frac{4}{5} \end{bmatrix}}^T$
+        \end{tasks}
+    
+    }
+    \meta{
+        This is a review-purposed subpart that builds up the work for part (c).
+
+    }
+    \ans{
+        The inner products are as follows
+        \begin{center}
+            \begin{tabular}{c||c|c}
+                Vector Pair & Computation & Computed Value \\
+                \hline
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_1})$ & 
+                $\frac{3}{5} \times \frac{3}{5} + \frac{4}{5} \times \frac{4}{5}$ &
+                $1$ \\[5pt]
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_2})$ & 
+                $\frac{3}{5} \times \frac{\sqrt{2}}{2} + \frac{4}{5} \times \frac{\sqrt{2}}{2}$ &
+                $\frac{7 \sqrt{2}}{10} \simeq 0.9899$ \\[5pt]
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_3})$ & 
+                $\frac{3}{5} \times -\frac{\sqrt{3}}{2} + \frac{4}{5} \times -\frac{1}{2}$ &
+                $\frac{-3\sqrt{3} - 4}{10} \simeq -0.9196$ \\[5pt]
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_4})$ & 
+                $\frac{3}{5} \times - \frac{3}{5} + \frac{4}{5} \times - \frac{4}{5}$ &
+                $-1$ \\[5pt]
+            \end{tabular}
+        \end{center}
+
+    }
+    
+    \item {
+        Continuing from part (b), what do you discover about pairs of vectors $(\vec{x}, \vec{y_i})$ where:
+        \begin{enumerate}
+            \item their inner products are \textbf{negative}
+            \item their inner products are \textbf{positive}, and have \textbf{high magnitude}
+            \item their inner products are \textbf{negative}, and have \textbf{high magnitude}
+        \end{enumerate}
+        Then, discuss the results with your classmates, and determine what might the signs and magnitudes Euclidean Inner Product imply about each pair of vectors. \\
+        (\textit{Hint: it may be helpful that $\tan(\frac{4}{3}) \simeq 53.13 \deg$})
+    
+    }
+    \meta{
+        In this part, we \textbf{start our discussion regarding the metric of similarity} that Euclidean Inner Products measure similarity of vectors along, and \textbf{this would be the angle between two vectors}. Such theory will be reinforced via the introduction of part (d). \\
+        The duty of part (c) is to let students realize that angle is the measure of similarity that cross correlation employs.
+
+    }
+    \ans{
+        Note that the vectors we investigate are all normalized: they are unit vectors with a norm (magnitude) of $1$. \\
+        Perhaps this following analysis now hints at why having normalized vectors for cross correlation analysis is comfortable. It would regulate the magnitude of vectors $\vec{a}$ and $\vec{b}$ to $1$, which would present:
+        \[
+            \vec{a} \cdot \vec{b} = \| \vec{a} \| \| \vec{b} \| \cos(\theta_{\vec{a}, \vec{b}}) = \cos(\theta_{\vec{a}, \vec{b}})
+        \]
+        and the dot product would imply the size of angle between vectors $\vec{a}$ and $\vec{b}$ as:
+        \begin{bindenum}
+            \item \textbf{Sign.} A positive Euclidean Inner Product for normalized vectors states that the angle between two vectors is acute; vice versa.
+            \item \textbf{Magnitude.} The smaller the magnitude of Euclidean Inner Product for normalized vectors, the closer their angle is to $90\deg$; vice versa.
+        \end{bindenum}
+        We may then answer the subparts using above generalizations. Let us also review and annotate our solutions at part (b) to validate our theories above:
+        \begin{center}
+            \begin{tabular}{c||c|c}
+                Vector Pair & Angle Between & Computed Value \\
+                \hline
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_1})$ & 
+                $0\deg$ &
+                $1 = \cos(0\deg)$ \\[5pt]
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_2})$ & 
+                $\simeq 8.13 \deg$ &
+                $\frac{7 \sqrt{2}}{10} = \cos(8.13 \deg) \simeq 0.9899$ \\[5pt]
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_3})$ & 
+                $\simeq 156.87 \deg$ &
+                $\frac{-3\sqrt{3} - 4}{10} = \cos(156.87 \deg) \simeq -0.9196$ \\[5pt]
+                \hline
+                &&\\[-1em]
+                $(\vec{x}, \vec{y_4})$ & 
+                $180 \deg$ &
+                $\cos(180 \deg) = -1$ \\[5pt]
+            \end{tabular}
+        \end{center}
+
+    }
+\end{enumerate}
+Let us take a closer look on whether sign and magnitude tells the entire story about , for the pair of vectors:
+\[
+    {\begin{bmatrix} \frac{3}{5} & \frac{4}{5} \end{bmatrix}}^T,
+    {\begin{bmatrix} 30 & 40 \end{bmatrix}}^T
+\]
+which obtained a larger inner product than $(\vec{x}, \vec{y_1})$, despite $\vec{y_1}$ being parallel with the second vector of prior pair. \\
+We might have been obliged to follow the thought that larger inner products (cross correlation value) implies greater similarity. \\
+However, \textbf{is $\vec{y_1}$ necessarily less similar than ${\begin{bmatrix} 30 & 40 \end{bmatrix}}^T$ to $\vec{x}$, despite the fact that $\vec{x} = \vec{y_1}$?}
+\begin{enumerate}[resume]
+    \item {
+        From the above weird example and our work in part (c), discuss with your mentor: is Euclidean Inner Product a good measure for similarity of vectors; or, are there conditions under which Euclidean Inner Product work rigorously? 
+    
+    }
+    \meta{
+        Upon explaining this part, you may or may not encounter students asking the following questions, which the worksheet is not making subparts for:
+        \begin{enumerate}
+            \item Are there other ways than angle to quantify the similarity between $\vec{v_1}$ and $\vec{v_2}$?
+            \item What if we only normalize the vectors $\vec{d_i}$?
+            \item What if we use a different inner product?
+        \end{enumerate}
+        To which the simple answer may (and is not limited to) be:
+        \begin{enumerate}
+            \item Yes. This is a foreshadowing of Least Squares, where the quantification of closeness of two vectors is the L2-norm of their arithmetic difference.
+            \item It would work since we would still be able to lock the range of possible inner products to a specific interval. But, having $[-1, 1]$ is always simpler to compute and standardize universally for.
+            \item Then we would need to perform the explorative process of this entire problem using the new inner product definition. For example, the cosine formula using dot products and magnitudes may no longer work, becuase dot product and magnitudes are both decided by the inner product definition.
+        \end{enumerate}
+
+    }
+    \ans{
+        When measuring for similarity in cross correlation, we have a standard image of how our signal $\vec{s}$ looks, but also have other vectors $\vec{d_1}, \dots, \vec{d_n}$ that are detected signals with possibly different norms. \\
+        For each pair $(\vec{s}, \vec{d_i})$, the range of possible values for their Euclidean Inner Product is: 
+        \[
+            [- \| \vec{s} \| \| \vec{d_i} \|, \| \vec{s} \| \| \vec{d_i} \|]
+        \]
+        Therefore, simply deciding which of $\vec{d_i}$ is most similar to $\vec{s}$ by looking at the value of Euclidean Inner Product is unfair, because each pair of vectors have a different achievable maximum and minimum. Euclidean Inner Product is thus not always a good measure for similarity of vectors.
+        \par
+        To make the range of possible values for Euclidean Inner Product fair, we can normalize every vector $\vec{s}$ and $\vec{d_1}, \dots, \vec{d_n}$, such that the range of possible inner products are locked at $[-1, 1]$. Then, we may apply our results from part (c). The higher the value of Euclidean Inner Product, the smaller the angle between two compared vectors are, and thus the closer they are to each other.
+        \par
+        Note that there are other ways than angle to compare the distance between two vectors. In Euclidean Inner Product, we use angle as our measure; but in other inner products and mathematical statements, we may use other types of differences between vectors as a measure for how close/distant two vectors are.
+    }
+    
+    \item {
+        Using the idea you obtained in parts (b) through (d), reconsider the following problem. \\
+        We are trying to identify which of the following already offseted vectors most likely resemble $\vec{v_1}$.
+        \begin{tasks}[label=\roman*.](2)
+            \task{
+                $\vec{w_2}^T = \begin{bmatrix} 5 & 9 & -4 & -7 \end{bmatrix}$
+            }
+            \task{
+                $\vec{w_3}^T = \begin{bmatrix} 6 & 12 & -5 & -11 \end{bmatrix}$
+            }
+        \end{tasks}
+        Which of $\vec{w_2}$ and $\vec{w_3}$ is closest to $\vec{v_1}$?
+        \textit{Hint: $\| \vec{v_1} \| \simeq 8, \| \vec{w_2} \| \simeq 13, \| \vec{w_2} \| \simeq 18$}
+        
+    }
+    \meta{
+        ``Idea obtained in parts (b) through (d)'' refers to the result of part (d), where we normalize all vectors before starting to compare their closeness via Euclidean Inner Product.
+
+    }
+    \ans{
+        Let us compute the normalized dot product of following pairs:
+        \begin{center}
+            \begin{tabular}{c||c|c}
+                Vector Pair & Computation & Computed Value \\
+                \hline
+                \hline
+                &&\\[-1em]
+                $(\vec{v_1}, \vec{w_2})$ & 
+                $\frac{1}{8} \frac{1}{13} (3 \times 5 + 6 \times 9 + 2 \times -4 + 4 \times 7)$ &
+                $\frac{33}{104} > \frac{1}{4}$ \\[5pt]
+                \hline
+                &&\\[-1em]
+                $(\vec{v_1}, \vec{w_3})$ & 
+                $\frac{1}{8} \frac{1}{18} (3 \times 6 + 6 \times 12 + 2 \times -5 + 4 \times -11)$ &
+                $\frac{36}{144} = \frac{1}{4}$
+            \end{tabular}
+        \end{center}
+        Therefore, despite the non-normalized Euclidean Inner Product being larger at the pair $(\vec{v_1}, \vec{w_3})$, realistically, the closer pair should be $(\vec{v_1}, \vec{w_2})$.
+
+    }
+\end{enumerate}

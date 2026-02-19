@@ -1,0 +1,227 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{EECS-spanned your Domain Knowledge}
+
+\textbf{Learning Goal:} Learn about how to find the span of a set of vectors using Gaussian Elimination, and working with systems that can yield infinite solutions. \\
+\meta {
+    \begin{itemize}
+        \item Provide students a procedure to find the span of vectors. Having ideas in mind about the general objectives and steps of mathematical operations will help students understand and operate the processes more proficiently.
+        \item Graph the span on a board, and show how vectors in that span can all be found in that span. This will serve to build a great intuition when we encounter vectors that are outside spans, such as in least squares algorithm.
+    \end{itemize}
+    
+}
+That's right, we will expand your domain knowledge on spans!
+\begin{ln-define}{Span}{}
+    For a set of vectors $\{\vec{v_1}, \dots, \vec{v_n}\}$, its span is the set of all linear combinations of \{$\vec{v_1}, \dots, \vec{v_n}$\}. Mathematically, this is written as:
+    \[
+        span(\vec{v_1}, \dots, \vec{v_n})
+        = \bigg\{ \sum_{i = 1}^n \alpha_i \vec{v_i}\ :\ \alpha_i \in \R \bigg\}
+    \]
+\end{ln-define}
+And in case you are confused of what the above notation is, here's a review/preview for it:
+\begin{ln-symbol}{Set Builder Notation}{}
+    A set builder notation expresses a set in the format of:
+    \[
+        \{\text{Expression of elements } : \text{ Conditions regarding the expression of elements}\}
+    \]
+    The colon is sometimes substituted by a vertical bar. \\
+    So the former set builder notation used for defining a span can stand for:
+    \begin{quote}
+        "The sum of products of scalars and each vectors in the set, with the condition that these scalars are all real".
+    \end{quote}
+\end{ln-symbol}
+
+\begin{enumerate}
+    \item {
+         Describe the span of 
+        $
+            \bigg\{
+                \begin{bmatrix} 0 \\ -1 \end{bmatrix},
+                \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+            \bigg\}
+        $
+        
+    }
+    \ans {
+        Let the linear combinations of this set of vector be express-able as:
+        \[\alpha \begin{bmatrix} 0 \\ -1 \end{bmatrix} + \beta \begin{bmatrix} 0 \\ 1 \end{bmatrix}\]
+        for real values $\alpha$ and $\beta$. \\
+        In that case, the resultant linear combination will always come in the format of:
+        \[(\beta - \alpha) \begin{bmatrix} 0 \\ 1 \end{bmatrix}\]
+        And since $\beta$ and $\alpha$ can be any possible real value, all linear combinations of the set of vector must be some multiple of the vector $\begin{bmatrix} 0 & 1 \end{bmatrix}^T$. \\
+        Therefore, the span would be:
+        \[
+            span(\begin{bmatrix} 0 \\ -1 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \end{bmatrix})
+            = \bigg\{ k \begin{bmatrix} 0 \\ 1 \end{bmatrix} : k \in \R \bigg\}
+        \]
+        
+    }
+    
+    \item {
+        Describe the span of 
+        $
+            \bigg\{
+                \begin{bmatrix} 2 \\ 0 \\ -1 \end{bmatrix},
+                \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}
+            \bigg\}
+        $
+        
+    }
+    \ans {
+        Let the linear combinations of this set of vector be express-able as:
+        \[\alpha \begin{bmatrix} 2 \\ 0 \\ -1 \end{bmatrix} + \beta \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}\]
+        for real values $\alpha$ and $\beta$. \\
+        In that case, the resultant linear combination will always come in the format of:
+        \[\begin{bmatrix} 2 \alpha - \beta \\ 0 \\ 2\beta - \alpha \end{bmatrix}\]
+        Let an arbitrary vector in the span be $\vec{x}$, then:
+        \[
+            \begin{bmatrix}
+                2 & -1 \\
+                0 & 0 \\
+                -1 & 2
+            \end{bmatrix}
+            \begin{bmatrix} \alpha \\ \beta \end{bmatrix}
+            = \vec{x}
+        \]
+        Performing some Gaussian Elimination:
+        \begin{align*}
+            \begin{bmatrix}
+                1 & 0 \\
+                0 & 0 \\
+                0 & 1
+            \end{bmatrix}
+            \begin{bmatrix} \alpha \\ \beta \end{bmatrix}
+            = \begin{bmatrix} 0.9x_1 - 0.2x_3 \\ x_2 \\ 0.2x_1 + 0.4x_3 \end{bmatrix}
+        \end{align*}
+        Remember that the values $x_1, x_2, x_3$ are known, which means we can find a solution for the coefficients $\alpha$ and $\beta$ as long as the second row of the system, which is prone to contradiction, does not cause a contradiction. That means in every vector of this span, $x_2 = 0$.
+        Therefore, the range of all reachable vectors would be any vector with a zeroed second component. This means the span is the xz-plane.
+
+    }
+    
+    \item {
+         Describe the span of 
+        $
+            \bigg\{
+                \begin{bmatrix} 2 \\ 0 \\ -1 \end{bmatrix} - \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix},
+                \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}
+            \bigg\}
+        $
+        and its relation with $\begin{bmatrix} 0 \\ 3 \\ 0 \end{bmatrix}$.
+        
+    }
+    \meta {
+        \begin{itemize}
+            \item Graph the span, as the starting meta suggests, and graph the $y$ vector outside the span for a graphical demonstration.
+        \end{itemize}
+    }
+    \ans {
+        Let us look at this in a faster approach by utilizing our solution from the previous part. \\
+        Let us express:
+        \[
+            \vec{v_1} = \begin{bmatrix} 2 \\ 0 \\ -1 \end{bmatrix},\ 
+            \vec{v_2} = \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}
+        \]
+        Then this time we are calculating, with reference to the previous part, $span(\vec{v_1} - \vec{v_2}, \vec{v_1})$. \\
+        Via a proof shown on Homework 2, Question 7 of Fall 2022 (if the proof is not shown in the semester of this question, that proof will be attached):
+        \[span(\vec{v_1} - \vec{v_2}, \vec{v_2}) = span(\vec{v_1}, \vec{v_2})\]
+        Therefore, the description of this span would be the same as from Q2. \\
+        Finally, since the vector $\begin{bmatrix} 0 \\ 3 \\ 0 \end{bmatrix}$ does not exist in the xz-plane, it is out of the span.
+        
+    }
+    
+    \item {
+        Find the span of
+        $
+            \bigg\{
+                \begin{bmatrix} 2 \\ 0 \\ -1 \end{bmatrix},
+                \begin{bmatrix} 0 \\ 3 \\ 1 \end{bmatrix}
+            \bigg\}
+        $
+        
+    }
+    \ans {
+        Let the linear combinations of this set of vector be express-able as:
+        \[\alpha \begin{bmatrix} 2 \\ 0 \\ -1 \end{bmatrix} + \beta \begin{bmatrix} 0 \\ 3 \\ 1 \end{bmatrix}\]
+        for real values $\alpha$ and $\beta$. \\
+        In that case, the resultant linear combination will always come in the format of:
+        \[\begin{bmatrix} 2 \alpha \\ 3 \beta \\ \beta - \alpha \end{bmatrix}\]
+        Let an arbitrary vector in the span be $\vec{x}$, then:
+        \[
+            \begin{bmatrix}
+                2 & 0 \\
+                0 & 3 \\
+                -1 & 1
+            \end{bmatrix}
+            \begin{bmatrix} \alpha \\ \beta \end{bmatrix}
+            = \vec{x}
+        \]
+        Performing some Gaussian Elimination:
+        \[
+            \begin{bmatrix}
+                1 & 0 \\
+                0 & 1 \\
+                0 & 0
+            \end{bmatrix}
+            \begin{bmatrix} \alpha \\ \beta \end{bmatrix}
+            = \begin{bmatrix} \frac{x_1}{2} \\ \frac{x_2}{3} \\ x_3 + \frac{x_1}{2} - \frac{x_2}{3} \end{bmatrix}
+        \]
+        Remember that the values $x_1, x_2, x_3$ are known, which means we can find a solution for the coefficients $\alpha$ and $\beta$ as long as the third row of the system, which is prone to contradiction, does not cause a contradiction. That means in every vector of this span, $x_3 = 0$. \\
+        In other words: $x_3 = \frac{x_2}{3} - \frac{x_1}{2}$. \\
+        Therefore, the set of all such linear combinations, which would also be the span, is:
+        \[
+            span(\vec{v_1}, \vec{v_2}, \vec{v_3}) = 
+            \bigg\{
+                x_1 \begin{bmatrix} \frac{1}{2} \\ 0 \\ -\frac{1}{2} \end{bmatrix} +
+                x_2 \begin{bmatrix} 0 \\ \frac{1}{3} \\ \frac{1}{3} \end{bmatrix} 
+                : x_1, x_2 \in \R
+            \bigg\}
+        \]
+    
+    }
+    
+    \item {
+        Find the span of
+        $
+            \bigg\{
+                \begin{bmatrix} 1 \\ 3 \end{bmatrix},
+                \begin{bmatrix} 1420 \\ 2840 \end{bmatrix},
+                \begin{bmatrix} \sin (1) \\ \cos (1) \end{bmatrix}
+            \bigg\}
+        $
+        and
+        $
+            \bigg\{
+                \begin{bmatrix} 0 \\ 0 \\ -1 \end{bmatrix},
+                \begin{bmatrix} 0 \\ 3 \\ 0 \end{bmatrix},
+                \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix},
+                \begin{bmatrix} 2 \\ 1 \\ 2 \end{bmatrix}
+            \bigg\}
+        $
+        without using Gaussian Elimination.
+        
+    }
+    \ans {
+        For the first set of two-dimensional vectors, the first two vectors are linearly independent, already spanning $R^2$. \\
+        Since the vectors of this set must all be two-dimensional, the largest range, or span, of these vectors must be $R^2$. Therefore,
+        \[
+            span \bigg(
+                \begin{bmatrix} 1 \\ 3 \end{bmatrix},
+                \begin{bmatrix} 1420 \\ 2840 \end{bmatrix},
+                \begin{bmatrix} \sin(1) \\ \cos(1) \end{bmatrix}
+            \bigg) = \R^2
+        \]
+        For the second set of three-dimensional vectors, the first three vectors are also linearly independent, already spanning $R^3$. \\
+        Since the vectors of this set must all be three-dimensional, the largest range, or span, of these vectors must be $R^3$. Therefore,
+        \[
+            span \bigg(
+                \begin{bmatrix} 0 \\ 0 \\ -1 \end{bmatrix},
+                \begin{bmatrix} 0 \\ 3 \\ 0 \end{bmatrix},
+                \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix},
+                \begin{bmatrix} 2 \\ 1 \\ 2 \end{bmatrix}
+            \bigg) = \R^3
+        \]
+        Notably, $\begin{bmatrix} 2 \\ 1 \\ 2 \end{bmatrix}$ already exists in the span of the first three vectors for this set.
+        
+    }
+\end{enumerate}

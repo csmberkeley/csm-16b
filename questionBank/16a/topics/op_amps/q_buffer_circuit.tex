@@ -1,0 +1,38 @@
+% Author: Anya Shrivastava
+
+\qns{Buffer Circuits}
+
+\textbf{Learning Goal:} This question explores why buffer circuits are useful, with a real world use case.
+
+\textbf{Relevant Notes:} This question closely follows \notes{Note 18 and 19}.
+
+\begin{enumerate}
+\itemSuppose we have a DAC (Digital to Analog Converter) and a song stored on your personal device in a digital format. We want to play the song on a speaker. Let's model the speaker as a load resistor with a low resistance. Let’s model the DAC as a Thevenin equivalent circuit with a voltage $V_{Th}$ and a Thevenin resistance $R_{Th}$ that is large. Why can’t you connect the speaker directly to the DAC? \\
+\textit{Hint: What is the loading effect?}
+
+\ans{
+
+Because of the loading effect, we will get less provided voltage to the speaker than we wanted.
+}
+
+\itemWhat type of circuit do we need in between the DAC and speaker?
+
+\ans{
+
+A unity gain buffer so we can make sure all of the voltage supplied by the DAC is provided to speaker.
+
+\begin{minipage}{0.8\textwidth}
+	\centering
+		\input{../11A__cookbook_figures/cookbook_voltage_buffer}
+	\end{minipage}&
+	
+$v_\text{out} = v_\text{in}$&
+}
+
+\itemWhen is it useful to use a unity gain buffer in a circuit?
+
+\ans{
+
+It is helpful when the device that we are providing voltage to has a low resistance. Because of Ohm's Law, it tends to draw large amounts of current, which is mostly dropped over the high resistance of the voltage source. This gives us the opposite effect of what we originally wanted, which is the entire source voltage being provided to the device.}
+    
+\end{enumerate}

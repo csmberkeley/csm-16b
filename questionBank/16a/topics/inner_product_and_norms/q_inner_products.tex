@@ -1,0 +1,51 @@
+% Author: Mira Bali
+% Author email: mirabali@berkeley.edu
+% CSM Spring 2023
+% Module 3 Basics
+
+\qns {Inner Products} \\
+
+\meta {
+The goal of this question is to allow students to conceptually understand different vector properties like norms, inner products, etc.} \\
+
+{For each subpart below, say if the following statement is True or False and briefly explain why.}
+\\
+
+(a) $\<\vec{x}, \vec{y}\> = \vec{x}^T\vec{y}$
+
+\meta{Doing a quick mechanical example in front of students may help to show this property.}
+
+\ans{True. By definition, the inner product of two vectors $\vec{x}$ and $\vec{y}$ is equal to $\vec{x}^T\vec{y}$. We can see this because 
+$\vec{x}^T\vec{y} = (x_1 * y_1) + (x_2 * y_2) + ... + (x_n * y_n)$ for two vectors in n dimensions. This is the same result that you get when calculating the inner product of two vectors. Feel free to do a mechanical example to show this more to students.}\\
+
+(b) $\<\vec{x}, \vec{y}\> \neq \<\vec{y}, \vec{x}\>$
+
+\meta{Using the part (a) answer may help here.}
+
+\ans{False. The inner product is commutative. Since $\<\vec{x}, \vec{y}\> = \vec{x}^T\vec{y}$, and we know that $\vec{x}^T\vec{y} = \vec{y}^T\vec{x}$, this is because (for two dimensional vectors, for example) $x_1 * y_1 + x_2 * y_2 = y_1 * x_1 + y_2 * x_2$, hence $\<\vec{x}, \vec{y}\> = \<\vec{y}, \vec{x}\>$. There are also many other ways to show this, but this is one way to show the symmetry property of inner products.}\\
+
+\qns {How To Get the Most \textit{Work} Done} \\
+
+\meta{Work is an application of the dot product. So, the dot product is actually used, not the inner product. Since they are \textbf{one and the same for this class}, we'll just be referring to Work to be using inner products. But, in reality, it uses the dot product. Feel free to mention this to students and state that while there isn't much that's different between the inner product and the dot product, \textbf{the inner product is usually a generalization of the dot product defined on vector spaces.}}\\
+
+Work, in physics, is the amount of energy transfer that occurs on an object when it is moved some distance by a force, at least part of which is applied in the direction of the displacement (change in distance from initial position to final position). 
+
+Work is also calculated as the inner product between the force applied and the displacement. Specifically, we use this definition of the inner product: $\<\vec{x}, \vec{y}\> = \|\vec{x}\|\|\vec{y}\|cos(\theta)$.
+
+So, \textbf{Work =} $\pmb{\<\vec{F}, \vec{d}\> = \|\vec{F}\|\|\vec{d}\|cos(\theta)}$,
+where $\vec{F}$ represents the Force applied to the object, $\vec{d}$ is the distance the object got displaced, and $\theta$ is the angle between the applied Force and the displacement (the vector where the object is moving).\\
+
+(a) Let's say that you want to move a box a total of 5 meters away from its current position in your house. However, as your back aches, you only want to do a maximum of 10 Joules of Work (Joule (J) is the SI unit of Work). If you are pulling the box up from a 60$^\circ$ angle above the ground to get it to move, how much force do you apply to the box?
+
+\meta{Checking the students' understanding of Work, and thus inner products. It may be helpful to introduce the SI Units for each quantity in the Work Formula: Newtons for Force, meters for Displacement, and Joules for Work.}
+
+\ans{We know that Work is the inner product of Force and displacement. So, if we have Work given and the displacement given, along with $\theta$, the angle between the vectors of Force and displacement, we can just rewrite the equation to solve for the Force and get the amount of Force we need to apply. In this case, we know that 10J = $\|\vec{F}\| * 5m * cos(60^\circ)$. So, we would apply 4 Newtons worth of force on the box.}\\
+
+(b) At what angle should you pull the box from, so you minimize the total amount of force you have to apply? (Hint: assume that the displacement and the work are fixed amounts)
+
+\meta{A helpful reminder to the students could be that we want to move the box laterally. Also, think of the range of cosine}
+
+\ans{Work is the inner product of Force and displacement, which equals $\|\vec{F}\|\|\vec{d}\|cos(\theta)$. So, the magnitude of Force equals $\|W\| / (\|\vec{d}\|cos(\theta))$  If the magnitude of the displacement and work are fixed, then we can think about what $\theta$ values maximizes cosine, to actually minimize the Force applied. We know that cos(0) = 1, which is the maximum value of cosine, so if $\theta$ = 0$^\circ$, we minimize the amount of force applied. What this intuitively means is that if we pull the box from exactly the same angle/line as the horizontal axis (since we want the box to move laterally), we would have to apply the least amount of force.}
+
+
+

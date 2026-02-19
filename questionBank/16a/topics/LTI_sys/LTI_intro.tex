@@ -1,0 +1,144 @@
+% Author: Huijae An
+% Email: TODO
+% Spring 2025
+
+\qns{Introduction to Discrete-Time and LTI Systems}
+
+\meta{After explaining these two definitions, tell students that all systems in this course will be both Discrete-Time and LTI.}
+
+\begin{ln-define}{Discrete-Time Systems}{}
+
+    Discrete-Time systems are systems where the input (signal) is defined only at distinct points in time.
+    \begin{itemize}
+        \item $y[n] = x[n]$, \quad where $n$ is an integer ($-2,-1,0,1...$).
+        \item $b[i] = a[i]$, \quad where $i$ is a half-integer ($-3.5,-3.0,-2.5...$).
+    \end{itemize}
+    
+    \vspace{0.5cm}
+    
+    \textit{Opposite}: Continuous-Time Systems are systems where the input (signal) is defined for all points in time.
+    \begin{itemize}
+        \item $y(t) = x(t)$, \quad where $t$ is all real numbers ($t \in \mathbb{R}$).
+    \end{itemize}
+
+\end{ln-define}
+
+\begin{enumerate}
+    \item The Fibonacci sequence is defined such that each number is the sum of the two preceding numbers. \\ Assuming $n$ is an integer, $n \geq 2$, and the initial values of $F[0] = 0$ and $F[1]=1$, describe this sequence as a discrete-time system.
+
+    \ans{$F[n] = F[n-1]+F[n-2]$ or \\
+         $F[n+1] = F[n]+F[n-1]$ or \\
+         $F[n+2] = F[n+1]+F[n]$
+        }
+\end{enumerate}
+
+\vspace{1in}
+
+
+\begin{ln-define}{Linear Time-Invariant Systems}{}
+
+    Linear Time-Invariant (LTI) systems are systems with: 
+    \begin{enumerate}
+        \item Linearity
+        \begin{itemize}
+            \item Addition and scalar multiplication of inputs lead to corresponding outputs.
+            \item $a \cdot x_1[t] + b \cdot x_2[t] \rightarrow a \cdot y_1[t] + b \cdot y_2[t]$
+        \end{itemize}
+        \item Time-invariance
+        \begin{itemize}
+            \item System's behavior doesn't change over time.
+            \item In other words, shifting the input in time results in an identically shifted output.
+            \item $x[t-T] \rightarrow y[t-T]$
+        \end{itemize}
+    \end{enumerate}
+
+\end{ln-define}
+
+\begin{enumerate}
+    \item [2.] {[True/False]} Determine whether each of the following systems is LTI.
+        \begin{enumerate}
+            \item $y[t]=x^2[t]$
+            \ans{False: Squaring is nonlinear - it violates additivity and homogeneity.}
+            \item $y[t]=3x[t] + 2x[t-1]$
+            \ans{True: Satisfies both linearity and time-invariance.}
+            \item $y[t]=x[t] \cdot z[t]$
+            \ans{False: Two different inputs being multiplied violates linearity. Even if $x[t] = z[t]$, it's still nonlinear.}
+            \item $y[t]=y[t-1]$
+            \ans{True: Shift in time leads to same recurrence.}
+            \item Number of people in Soda hall
+            \ans{False: Depends on too many unpredictable and time-varying behaviors.}
+            \item A bank account that grows by 2\% each month, with no deposits or withdrawals
+            \ans{True: $y[t+1] = 1.02 \cdot y[t]$}
+        \end{enumerate}
+\end{enumerate}
+
+\pagebreak
+
+\begin{enumerate}
+    \item [3.] Systems can be defnied with more than just scalar inputs and outputs - they can also process vectors and matrices. Consider the following scenario: \\
+    
+    \vspace{0.1cm}
+    
+    You're disappointed with the boba quality in Berkeley, so you set out to create the perfect boba tea blend yourself. Every night, you make a new batch based on your own taste and what you sampled from the previous night. You make your batch in 3 parts: \textbf{Milkiness}, \textbf{Sweetness}, and \textbf{Chewiness}.
+    
+    Here's how the flavor profile on day $t+1$ is made from the flavor on day $t$: \\
+    \begin{itemize}
+      \item[] Milkiness: $0.6 \times$Milkiness $+$ $0.2 \times$Sweetness $+$ $0.2 \times$Chewiness
+      \item[] Sweetness: $0.3 \times$Milkiness $+$ $0.4 \times$Sweetness $+$ $0.3 \times$Chewiness
+      \item[] Chewiness: $0.1 \times$Milkiness $+$ $0.4 \times$Sweetness $+$ $0.5 \times$Chewiness
+    \end{itemize}
+
+    \vspace{0.5 in}
+
+    \begin{enumerate}
+        \item Express this scenario as a Discrete-Time Linear Time-Invariant system using matrix and vector notation.
+        \ans{
+            $B[t+1] =  
+                \begin{bmatrix}
+                0.6 & 0.2 & 0.2 \\
+                0.3 & 0.4 & 0.3 \\
+                0.1 & 0.4 & 0.5
+                \end{bmatrix} 
+                \times 
+                B[t]$
+        }
+        \item Suppose that at $t=1$, Milkiness, Sweetness, and Chewiness start at levels 3, 6, and 6, respectively. What is the flavor profile at $t=3$?
+        \ans {
+            $B[2] = 
+                \begin{bmatrix}
+                0.6 & 0.2 & 0.2 \\
+                0.3 & 0.4 & 0.3 \\
+                0.1 & 0.4 & 0.5
+                \end{bmatrix} 
+                \times 
+                \begin{bmatrix}
+                3 \\
+                6 \\
+                6
+                \end{bmatrix} = 
+                \begin{bmatrix}
+                4.2 \\
+                5.1 \\
+                5.7
+                \end{bmatrix}$ \\
+
+                $B[3] =  
+                \begin{bmatrix}
+                0.6 & 0.2 & 0.2 \\
+                0.3 & 0.4 & 0.3 \\
+                0.1 & 0.4 & 0.5
+                \end{bmatrix}
+                \times 
+                \begin{bmatrix}
+                4.2 \\
+                5.1 \\
+                5.7
+                \end{bmatrix} = 
+                \begin{bmatrix}
+                4.68 \\
+                5.01 \\
+                5.31
+                \end{bmatrix}$
+        }
+    \end{enumerate}
+\end{enumerate}

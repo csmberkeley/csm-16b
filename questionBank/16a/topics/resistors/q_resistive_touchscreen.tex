@@ -1,0 +1,237 @@
+% Author: Damanic Luck
+% Author email: damanicluck@berkeley.edu
+% CSM Spring 2023
+% Reference q_resistive_touch heavily for part(a)
+
+% delete this comment later: i put voltage divider concepts in here because I assumed they already learned voltage dividers according to the 16a website pacing. it might be better to put this question as a second question after a voltage divider question if that's possible. I referenced a lot from q_resistive_touch for part(a). Let me know if i should change it
+
+\qns {Broke College Student}
+
+As a fun project, you are wondering if you can create a controller that you can use to play video games with. However, as the title suggests, you are extremely broke. As a result, you are limited and decide to create a resistive touchscreen that can only detect the touchpoint in the horizontal position. 
+% I'm not sure why someone would even do that to themselves unless they're playing a game from the 90s
+
+\meta {
+The goal of this question is to introduce students to: 
+    \begin{itemize}
+        \item 1D resistive touchscreens and demonstrate the relevance of voltage dividers
+        \item A (somewhat plausible) situation
+        \item Voltmeter and ammmeters
+    \end{itemize}
+    \textbf{The question is trying to emphasize voltage dividers, in that $u_{mid}$ will be a proportion of $V_s$ and that you don't actually have to know the actual values of the resistors }
+}
+\begin{enumerate}
+
+\item 
+
+You decide that 15 cm is the perfect length for your touchscreen bar. However, because you had two midterms given on the same day, you completely forgot to order your materials. If you think that you are not able to write an equation for $u_{mid}$, simply write no. \\
+
+Otherwise, given the following circuit that models your simple 1D resistive touchscreen, write an equation for $u_{mid}$ as a function of $V_s, R_{touch},$ and $R_{rest}$. Let $x$ represent the touchpoint relative to the \emph{left} side of the circuit. Refer to \href{https://eecs16a.org/lecture/Note12.pdf}{Note 12: 12.4} to see a physical model of the 1D resistive touchscreen. \emph{Hint: Equation (1) is relevant to this part.}
+    \begin{center}
+        \begin{circuitikz}
+            \draw
+            (0, 0) to [V_=$V_s$, invert] (6, 0)
+            (6, 0) to [short] (6, 2)
+            (6, 2) to [R, l=$R_{rest}$, -*] (3, 2)
+            node[above] {$u_{mid}$}
+            (3, 2) to [R, l=$R_{touch}$] (0, 2)
+            (0, 2) to (0, 0)
+            node[ground];
+        \end{circuitikz}
+    \end{center}
+    \begin{equation}
+        \tag{1}
+        R = \rho \frac{L}{A}
+    \end{equation}
+    
+\ans {
+
+Yes, we can determine the equation for $u_{mid}$.
+
+Based on equation (1), we can write equations for both $R_{touch}$ and $R_{rest}$.
+    \begin{align*}
+        R_{touch} = \rho \frac{x}{A} \\
+        R_{rest} = \rho \frac{15-x}{A}
+    \end{align*}
+
+We should also recognize that this resembles a voltage divider, so we can model $u_{mid}$ as
+    \begin{align*}
+        u_{mid} = V_s \frac{R_{touch}}{R_{rest}+R_{touch}}
+    \end{align*}
+
+Substituting $R_{touch}$ and $R_{rest}$ into the equation and simplifying yields
+    \begin{align*}
+        u_{mid} &= V_s \frac{\rho \frac{x}{A}}{\rho \frac{15-x}{A} + \rho \frac{x}{A}} \\
+        u_{mid} &= V_s (\frac{\rho x}{A} \times \frac{1}{\rho (\frac{15-x}{A}+\frac{x}{A})}) \\
+        u_{mid} &= V_s (\frac{x}{A} \times \frac{A}{15}) \\
+        u_{mid} &= V_s \frac{x}{15}
+    \end{align*}
+Notice that this means that the voltage at $u_{mid}$ is a proportion of $\frac{V_s}{15}$ and its position from the left side of the circuit.\\
+
+This can be generalized to:
+    \begin{align*}
+        u_{mid} = V_s \frac{x_{touch}}{length}
+    \end{align*}
+
+To get an intuitive sense of this equation, it would mean that if you placed your finger in the middle, $x=\frac{length}{2}$, so the voltage at $u_{mid}$ would be:
+    \begin{align*}
+        u_{mid} = \frac{V_s}{2}
+    \end{align*}
+Therefore, measuring the ratio of voltage at $u_{mid}$ to $V_s$ can be translated into the ratio of the touchpoint to the entire length of the touchscreen.
+}
+
+\item It turns out that you did not read the manufacturer instructions correctly for your resistive touchscreen. The manufacturer gives a linear equation to model the resistance as a function of temperature, where $T$ is degrees in Celcius and $R$ is resistivity and is provided below. \\
+    \begin{align*}
+        R(T) = 1000 + 2000T
+    \end{align*}
+Also suppose that you left your room in a hurry and accidentally forgot to turn off your heater! You left your heater at 86$^\circ F$.\\
+
+Would this impact your equation for $u_{mid}$ from earlier? \\
+
+\ans {
+%should i remove the temperature equation completley
+No, the equation we derived would not change. Due to the configuration of the circuit resembling a voltage divider, we were able to derive the equation for $u_{mid}$ in part (a). Notice how the values of either resistor are not present in the final answer. Only the voltage source and the length of the touchpoint relative to the left side of the circuit is present, \textbf{for this case}.
+}
+
+\item Your friend Bob wanted to measure voltage at $u_{mid}$ using an \textbf{ideal} voltmeter and also measure current going through $R_{rest}$ using an \textbf{ideal} ammeter. The sketch below shows how Bob connected the voltmeter and ammeter. Is Bob correct? \\
+
+If Bob is correct, simply say yes. Otherwise, explain why Bob is wrong and sketch the correct configuration. The first circuit diagram shows how the ammeter is connected and the second diagram shows how the voltmeter is connected. 
+%silly bobbo
+    \begin{center}
+        \begin{circuitikz}[scale = 0.7]
+            \draw
+            (0, 0) to [V_=$V_s$, invert] (9, 0)
+            (9, 0) to [short] (9, 4)
+            (9, 4) to [R, l=$R_{rest}$, -*] (4.5, 4)
+            node[above] {$u_{mid}$}
+            (4.5, 4) to [R, l=$R_{touch}$] (0, 4)
+            (0, 4) to (0, 0)
+            node[ground];
+            \draw
+            (3.5, 0) to [rmeter, t=A] (3.5, 4);
+        \end{circuitikz}
+    \end{center}
+    \begin{center}
+        \begin{circuitikz}[scale = 0.7]
+            \draw
+            (0, 0) to [V_=$V_s$, invert] (9, 0)
+            (9, 0) to [rmeter, t=V] (9, 4)
+            (9, 4) to [R, l=$R_{rest}$, -*] (4.5, 4)
+            node[above] {$u_{mid}$}
+            (4.5, 4) to [R, l=$R_{touch}$] (0, 4)
+            (0, 4) to (0, 0)
+            node[ground];
+        \end{circuitikz}
+    \end{center}
+\meta {
+Introduce or remind students of what an ideal voltmeter and ammeter is. Ideal voltmeters act as open circuits to measure voltage and ideal ammeters act as wires to measure current.\\
+}    
+
+\ans{
+Unfortunately, Bob is wrong. This is the correct configuration.
+    \begin{center}
+        \begin{circuitikz}
+            \draw
+            (0, 0) to [V_=$V_s$, invert] (9, 0)
+            (9, 0) to [rmeter, t=A] (9, 4)
+            (9, 4) to [R, l=$R_{rest}$, -*] (4.5, 4)
+            node[above] {$u_{mid}$}
+            (4.5, 4) to [R, l=$R_{touch}$] (0, 4)
+            (0, 4) to (0, 0)
+            node[ground];
+            %Drawing the ammeter and voltmeter
+            \draw
+            (3.5, 0) to [rmeter, t=V] (3.5, 4);
+        \end{circuitikz}
+    \end{center} 
+The question specifies that Bob is using an \textbf{ideal} voltmeter and ammeter. This means that when connected in the circuit, an ideal voltmeter will have infinite resistance. Current will not flow through the voltmeter, so it will not act as another load onto the circuit. An ideal ammeter will have zero resistance, which will allow current to freely flow through it. \\
+
+\textbf{Basically, an ideal ammeter is like a wire and an ideal voltmeter is like an open circuit.}\\
+
+However, because of the way that Bob has connected the voltmeter and ammeter, $R_{touch}$ will be shorted since both of its terminals will be connected to ground. There will be no voltage drop for $R_{touch}$ so there is also no current flow through it.\\
+
+For the way that Bob connected the ideal voltmeter, there will be no current flow through the $R_{rest}$ since it acts like an open circuit.\\
+
+To make this more clear, the circuit below redraws Bob's circuit like how an ideal voltmeter and ammeter behaves. Whenever you are unsure about whether your placement for ammeters and voltmeters are correct or not, it’s good to check if your current configurations affect the circuit or not (e.g. does it short some of circuit elements, does it block some current flow, etc). 
+    \begin{center}
+        \begin{circuitikz}
+            \draw
+            (0, 0) to [V_=$V_s$, invert] (6, 0)
+            (6, 0) to [short] (6, 0.5)
+            (6, 0.5) to [open, o-o] (6, 3)
+            (6, 3) to [short] (6, 3.5)
+            (6, 3.5) to [R, l=$R_{rest}$, -*] (0, 3.5)
+            node[above] {$u_{mid}$}
+            (0, 3.5) to (0, 0) 
+            node[ground];
+        \end{circuitikz}
+    \end{center}
+}
+
+\item Regardless of whether or not that the previous configuration is correct, suppose Bob only wants to connect a voltmeter to measure the value of $u_{mid}$, whose configuration is correct. This nonideal voltmeter can be represented as a resistor with a finite, but known, value. \\
+
+Given the following circuit with the values $R_{touch}=5k\Omega, R_{rest}=5k\Omega, R_{volt}=100k\Omega$, and $V_s=10V$, what is the value at $u_{mid}$?\\
+    \begin{center}
+        \begin{circuitikz}
+            \draw
+            (0, 0) to [V_=$V_s$, invert] (9, 0)
+            (9, 0) to [short] (9, 4)
+            (9, 4) to [R, l=$R_{rest}$, -*] (4.5, 4)
+            node[above] {$u_{mid}$}
+            (4.5, 4) to [R, l=$R_{touch}$] (0, 4)
+            (0, 4) to (0, 0)
+            node[ground];
+            \draw
+            (3.5, 0) to [R, l=$R_{volt}$] (3.5, 4);
+        \end{circuitikz}
+    \end{center} 
+    
+\meta{
+This question is meant as a review of NVA and circuit analysis.\\
+}
+
+\ans{
+Labeling according to NVA and passive sign convention.
+    \begin{center}
+        \begin{circuitikz}
+            \draw
+            (0, 0) to [V_=$V_s$, invert] (9, 0)
+            (9, 0) to [short] (9, 4)
+            (9, 4) to [R, l=$R_{rest}$, -*, i=$i_1$, v_>=$V_1$] (4.5, 4)
+            node[above] {$u_{mid}$}
+            (4.5, 4) to [R, l=$R_{touch}$, i=$i_2$, v_>=$V_2$] (0, 4)
+            (0, 4) to (0, 0)
+            node[ground];
+            \draw
+            (3.5, 0) to [R, l=$R_{volt}$, i<=$i_3$, v_<=$V_3$] (3.5, 4);
+        \end{circuitikz}
+    \end{center} 
+We can write the KCL equation for node $u_{mid}$ as such:
+    \begin{align*}
+        i_1 = i_2 +i_3
+    \end{align*}
+Using Ohm's Law for the KCL equation we get:
+    \begin{align*}`
+        \frac{V_1}{R_{rest}} &= \frac{V_2}{R_{touch}} + \frac{V_3}{R_{volt}} \\ \\
+        \frac{V_s-u_{mid}}{R_{rest}} &= \frac{u_{mid}}{R_{touch}} + \frac{u_{mid}}{R_{volt}}
+    \end{align*}
+Plugging in values into the equation to solve for $u_{mid}$ yields:
+    \begin{align*}
+        \frac{10-u_{mid}}{5000} &= \frac{u_{mid}}{5000} + \frac{u_{mid}}{100000}
+    \end{align*}
+So, 
+    \begin{align*}
+        u_{mid} = \frac{200}{41}V
+    \end{align*}
+
+Notice how this value for $u_{mid}$ is approximately 4.878V, which is nearly half of $V_s$! The voltmeter, represented as $R_{volt}$ imposes a load. However, this can be addressed by replacing $R_{volt}$ with a resistor of an even larger value. The load on $u_{mid}$ will be minimized, but not gone.
+}
+
+% \item Your friend Bob tells you that the value of $R_{volt}$ doesn't have an impact on the value of $u_{mid}$. Is Bob right or wrong? \\
+
+% Depending on your answer to Bob's statement, describe how the value of $u_{mid}$ will change as the value of $R_volt$ changes increases and decreases.
+
+% \ans {
+% Bob is wrong. Again. Poor Bob he should go to lecture.\\
+
+% }
+\end{enumerate}

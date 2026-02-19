@@ -1,0 +1,141 @@
+% Author: Varsha Ramakrishnan, Urmita Sikder, Anthony Ding
+% Email:vio@berkeley.edu
+
+\qns{Capacitive Touchscreen}
+
+\textbf{Learning Goal:} The goal of this problem is to model the capacitive touchscreen covered in lecture.
+
+\textbf{Relevant Notes:} \notes{Note 17 Section 17.1} introduces the capacitive touchscreen and its circuit model. \notes{Note 16 Section 16.3} is helpful for creating the model, as it goes over capacitor equivalence.
+
+Consider the following capacitive touchscreen configuration from lecture.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{../q_capacitive_touchscreen_figs/capacitors.png}
+\end{center}
+
+\end{figure}
+
+
+For the following parts, let $\epsilon=10^{-11} \si{\farad}/\si{\meter}$, $w_1=1\si{\centi\meter}$, $w_2=1\si{\centi\meter}$,$w_F=3\si{\centi\meter}$, $l_1=5\si{\centi\meter}$, $l_2=5\si{\centi\meter}$, $l_F=4\si{\centi\meter}$, $d=5\si{\milli\meter}$, $h_1=5\si{\milli\meter}$, and $h_2=15\si{\milli\meter}$. 
+  
+\meta {Students may be confused about what the finger is doing in the diagram. Here, it is important to state that the finger can be simply represented as another plate of a capacitor in the diagram. Also, the value for area when calculating capacitance depends on the plate with less area. 
+}
+  
+\begin{enumerate}
+\item{
+Draw a diagram representing the capacitance between $E_1$ and $E_2$ when there is no touch on the screen.
+}
+
+\ans{
+When there is no touch, we can construct a model where the distance $d$ between $E_1$ and $E_2$ has a capacitance. We call this capacitor $C_1$.
+
+\begin{center}
+\begin{circuitikz}
+\draw(0,0) 
+    to[short, -o, l=$E_2$] ++(0, 0);
+\draw(0,0)
+	to[C=$C_1$] ++(0,2)
+	to[short, -o, l=$E_1$] ++(0,0);
+
+\end{circuitikz}
+\end{center}
+}
+
+\item{
+Calculate the value of the capacitance between the two electrodes $E_1$ and $E_2$ when the screen is not being touched. Remember that $\epsilon=10^{-11} \si{\farad}/\si{\meter}$, $w_1=1\si{\centi\meter}$,$w_2=1\si{\centi\meter}$, and $d=5\si{\milli\meter}$.
+}
+
+\ans{
+We use the formula
+$$C_1 = \epsilon A/d$$
+where we are given $\epsilon=10^{-11} \si{\farad}/\si{\meter}$, area of overlap between $E_1$and $E_2$  is $A=w_1\times w_2= 1\times 1 \si{\centi\meter}^2$, and distance between $E_1$and $E_2$ is $d=5\si{\milli\meter}$:
+$$C_1 = \frac{(10^{-11}F/m)(1\si{\centi\meter}\times 1\si{\centi\meter})}{5\si{\milli\meter}}=\frac{(10^{-11}F/m)(10^{-2}\si{\meter}\times 10^{-2}\si{\meter})}{5\times 10^{-3}\si{\meter}}=2\times  10^{-13}\si{\farad}$$
+}
+
+\item{
+Calculate (i) the capacitance between the finger and the top electrodes and (ii) the capacitance between the finger and the bottom electrodes, when the screen is being touched. 
+
+}
+\meta{It needs to be thoroughly explained how to calculate the overlapping area for a capacitor. Student will ask which plate area to consider. It becomes trickier for $C_{F-E_2}$, where the overlapping area has $E_1$ inside. }
+
+
+\ans{
+The overlapping area between electrodes $F$ and $E_1$ is given by
+$$A_{F-E1}=w_F\times w_2$$
+while the distance between them is given by $h_1=5\si{\milli\meter}$. So we can calculate:
+$$C_{F-E_1}= \frac{\epsilon A_{F-E1}}{h_1}=\frac{\epsilon w_F\times w_2}{h_1}$$
+$$\implies C_{F-E_1}= \frac{(10^{-11}F/m)(3\si{\centi\meter}\times 1\si{\centi\meter})}{5\si{\milli\meter}}=\frac{(10^{-11}F/m)(3\times 10^{-2}\si{\meter}\times 10^{-2}\si{\meter})}{5\times 10^{-3}\si{\meter}}=6\times  10^{-13}\si{\farad}.$$
+
+The overlapping area between electrodes $F$ and $E_2$ is given by
+$$A_{F-E2}=l_F\times w_1-w_2\times w_1$$
+while the distance between them is given by $h_2=15\si{\milli\meter}$. 
+Note that the area of overlap is only the area that has a dielectric in between, i.e. any area between $F$ and $E_2$ that has $E_1$ in it is excluded.
+So we can calculate:
+$$C_{F-E_2}= \frac{\epsilon A_{F-E2}}{h_2}=\frac{\epsilon (l_F\times w_1-w_2\times w_1}{h_2})$$
+$$\implies C_{F-E_2}= \frac{(10^{-11}F/m)(4\si{\centi\meter}\times 1\si{\centi\meter}-1\si{\centi\meter}\times 1\si{\centi\meter})}{15\si{\milli\meter}}=\frac{(10^{-11}F/m)(3\times 10^{-4}\si{\meter})}{15\times 10^{-3}\si{\meter}}=2\times  10^{-13}\si{\farad}.$$
+
+}
+
+\item{
+	Now consider what happens when we touch the screen. Let the blue line represent our finger, and assume there is a capacitance between your finger and each of the electrodes. The diagram looks like this:
+	
+	\begin{center}
+	\includegraphics{../q_capacitive_touchscreen_figs/capacitors_touch.png}
+    \end{center}
+    Redraw the circuit diagram representing the capacitive touchscreen after being touched, so that the nodes representing $E_1$ and $E_2$ are on opposite ends of the diagram.
+    
+\begin{center}
+\begin{circuitikz}
+
+	
+\draw(0,0)
+    to[short, -o, l=$E_2$] ++(0, -1);
+
+\draw(0,4)
+    to[short, -o, l=$E_1$] ++(0, 1);
+
+\end{circuitikz}
+\end{center}
+    
+}
+
+\ans{
+In order to model this situation as a circuit where $E_1$ and $E_2$ are on opposite sides, we attempt to find all paths from $E_1$ to $E_2$ (where $E_1$ is the middle bar between the blue line (our finger) and the red bar). The first path goes down from the middle bar and passes through $C_{no\ touch}$. The second path goes up to the finger, passing through $C_{F-E_1}$, and then down to the red bar, passing through $C_{F-E_2}$. So, we can construct a circuit where each path is a branch:
+
+\begin{center}
+\begin{circuitikz}
+\draw(0,0) 
+	to[short] ++(3,0)
+	to[C=$C_{F-E_2}$] ++(0,2)
+	to node[right] {$\gets$ Finger} ++(0,0)
+	to[C=$C_{F-E_1}$] ++(0,2)
+	to[short] ++(-3,0)
+	to[C=$C_{no\ touch}$] ++(0,-4);
+	
+\draw(0,0)
+    to[short, -o, l=$E_2$] ++(0, -1);
+
+\draw(0,4)
+    to[short, -o, l=$E_1$] ++(0, 1);
+
+\end{circuitikz}
+\end{center}
+
+Notice that the left branch represents the circuit segment we got in part (a). Touching the capacitive touchscreen adds on the two new capacitances due to the finger.
+}
+
+\item{Calculate the new capacitance between $E_1$ and $E_2$. Remember that $C_{F-E_1}=6\times 10^{-13}\si{\farad}$ and $C_{F-E_2}=2\times 10^{-13}\si{\farad}$. Has the effective capacitance changed from when there was no touch?}
+
+\ans{
+We begin by writing equations based on series and parallel capacitor equivalence. We know that 
+$$C_{E_1-E_2} = C_{no\ touch} + C_{finger}$$
+where $C_{finger}$ is the equivalent capacitance of the right branch. This is composed of two capacitors in series, so we can use the parallel operator || to combine them.
+$$C_{E_1-E_2}  = C_{no\ touch} + C_{F-E_1} || C_{F-E_2}$$
+Now we expand the parallel operator:
+$$C_{E_1-E_2} = C_{no\ touch} + \frac{C_{F-E_1}C_{F-E_2}}{C_{F-E_1} + C_{F-E_2}}$$
+Plugging the values of capacitors in we get:
+$$C_{E_1-E_2} = 2\times  10^{-13}\si{\farad} + \frac{(2\times 10^{-13}\si{\farad})(6\times 10^{-13}\si{\farad})}{(2\times  10^{-13}\si{\farad}) + (6\times  10^{-13}\si{\farad})} = 3.5\times  10^{-13}\si{\farad}$$
+The new capacitance (after touch) is larger than the previous capacitance (before touch). Since the capacitance value has changed by a measurable amount, we can use the information gained in this part to work backwards and find the distance at which the screen was touched.
+}
+
+\end{enumerate}
