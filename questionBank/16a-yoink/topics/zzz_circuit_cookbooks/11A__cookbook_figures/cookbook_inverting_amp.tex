@@ -1,0 +1,15 @@
+\begin{circuitikz}[scale=0.7, transform shape]
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l=$R_f$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) to[R,l_=$R_s$] ++(-2,0)
+		to[sV,v_=$v_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to[V,l_=$V_\text{REF}$] ++(0,-2)
+		node[ground] () {};
+\end{circuitikz}

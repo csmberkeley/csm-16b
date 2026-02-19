@@ -1,0 +1,324 @@
+%% summer 2020 MT2 probeem
+%% Panos Zarkos panzarkos@berkeley.edu 
+
+\qns{Equivalence in Resistive Networks}
+
+\textbf{Learning Goal: Students will practice finding equivalences when given circuits with resistors in series and/or parallel. } 
+
+Please look into \notes{Note 15 Section 15.7.1 - 15.7.2} to see examples of finding circuit equivalences with resistors in series and resistors in parallel.
+
+\meta{ 
+Emphasize the idea of simplifying parts of the circuit one step at a time.
+}
+
+For all of the following networks find an expression or a numerical value for the equivalent resistance between terminals A and B.
+
+\textit{Hint:} You can use the equivalence formulas for series and parallel combinations of resistors for all of the subparts in this question.
+
+\begin{enumerate}
+    \item {
+    \newline
+    \begin{minipage}{\linewidth}
+        \begin{center}
+        \begin{circuitikz}
+        	\draw (0, 0) node[anchor=east]{A}
+        				 to [R=$R_1$, o-] ++ (3, 0)
+        		         to [R=$R_5$] ++ (0, -3)
+        		         to [R=$R_4$, -o] ++ (-3, 0)
+        		         node[anchor=east]{B};
+        	\draw (3, 0) to [R=$R_2$] ++ (3, 0)
+        				 to [R=$R_3$] ++ (0, -3)
+        				 to [short] ++ (-3, 0);
+        \end{circuitikz}
+        \end{center}
+    \end{minipage}
+    
+    }
+     
+%     \begin{enumerate} [(A)]
+%         \item{
+%    	$ R_{AB} = R_1 + R_3 || (R_2 +R_5) + R_4$
+%	}  
+%	
+%	\item{
+%    	$ R_{AB} = R_1 + R_5 || (R_2 +R_3) + R_4$
+%	}            
+%	
+%	\item{
+%    	$ R_{AB} = R_1 + R_4 || (R_2 +R_3) + R_5 $
+%	}            
+%	
+%	\item{
+%	$ R_{AB} = R_1 + R_2 || (R_3 +R_5) + R_4 $
+%    	}            
+%	
+%	\item{
+%    	$ R_{AB} = R_1 + R_3 || (R_2 +R_4) + R_5$
+%	}            
+%     \end {enumerate}
+     
+
+
+    
+    \ans{
+    
+        \begin{center}
+        \begin{circuitikz}
+        	\draw (0, 0) node[anchor=east]{A}
+        				 to [R=$R_1$, o-] ++ (3, 0)
+        		         to [R=$R_5$, *-*] ++ (0, -3)
+        		         to [R=$R_4$, -o] ++ (-3, 0)
+        		         node[anchor=east]{B};
+        	\draw (3, 0) to [R=$R_2$] ++ (3, 0)
+        				 to [R=$R_3$] ++ (0, -3)
+        				 to [short] ++ (-3, 0);
+	\draw (3, 0) node[anchor=south]{C};
+	\draw (3, -3) node[anchor=north]{D};
+        \end{circuitikz}
+        \end{center}
+
+	The easiest way to simplify a network if unsure, is to label more nodes and try to make smaller simplifications steps. For example, after introducing terminals C and D, we can see that we can represent the equivalent resistance in between those terminals as $R_5$ in parallel with the series combination of $R_2$ and $R_3$, so $R_{CD} = R_5 || (R_2 +R_3)$. Finally, we can see that $R_{CD}$ is in series with both $R_1$ and $R_4$, as we look right from terminals A, B. This gives us the final result: $ R_{AB} = R_1 + R_5 || (R_2 +R_3) + R_4$.
+    
+    }
+        
+%    \hspace{1cm}
+%    \item \ 
+%    \newline
+%    \begin{minipage}{\linewidth}
+%        \begin{center}
+%        \begin{circuitikz}
+%        	\draw (0, 0) node[anchor=east]{A}
+%        				 to [short, o-] ++ (1, 0)
+%        				 to [C=$C_1$] ++ (0, -3)
+%        				 to [C=$C_5$] ++ (0, -3)
+%        				 to [short, -o] ++ (-1, 0)
+%        				 node[anchor=east]{B};
+%        	\draw (1, 0) to [short] ++ (3, 0)
+%        				 to [C=$C_2$] ++ (0, -2)
+%        				 to [C=$C_3$] ++ (0, -2)
+%        				 to [C=$C_4$] ++ (0, -2)
+%        				 to [short] ++ (-3, 0);
+%        \end{circuitikz}
+%        \end{center}
+%        \end{minipage}
+%%        
+%%             \begin{enumerate} [(A)]
+%%         \item{
+%%    	$C_{AB} = (C_1 || C_5) + (C_2 || C_3 || C_4)$
+%%	}  
+%%	
+%%	\item{
+%%    	$C_{AB} = C_1 || C_5 || C_2 || C_3 || C_4$
+%%	}            
+%%	
+%%	\item{
+%%    	$C_{AB} = (C_1 || C_2) + (C_5 || C_3 || C_4)$
+%%	}            
+%%	
+%%	\item{
+%%	$C_{AB} = (C_1 || C_4) + (C_5 || C_3 || C_2)$
+%%    	}            
+%%	
+%%	\item{
+%%    	$C_{AB} = C_1 + C_5 + C_2 + C_3 + C_4$
+%%	}            
+%%     \end {enumerate}
+%
+%
+%    
+%    \ans{
+%    Here we have two branches connected in parallel, one including capacitors $C_1$, $C_5$ (which are connected in series) and one including capacitors $C_2$, $C_3$, and $C_4$ (which are also connected in series). Hence, the correct answer is: $C_{AB} = (C_1 || C_5) + (C_2 || C_3 || C_4)$.
+%
+%    }
+    
+    \item {
+    \newline
+    \begin{minipage}{\linewidth}
+        \begin{center}
+        \begin{circuitikz}
+        	\draw (0, 0) to [R=$R_1$] ++ (3, 0)
+        				 to [R=$R_5$] ++ (0, -3)
+        				 to [R=$R_4$] ++ (-3, 0);
+        	\draw (3, 0) to [R=$R_2$] ++ (3, 0)
+        				 to [R=$R_3$] ++ (0, -3)
+        				 to [short] ++ (-3, 0);
+        	\draw (6, 0) to [short, -o] ++ (1, 0)
+        				 node[anchor=west]{A};
+        	\draw (6, -3) to [short, -o] ++ (1, 0)
+        				 node[anchor=west]{B};
+        \end{circuitikz}
+        \end{center}
+    \end{minipage}
+    }
+        
+%                     \begin{enumerate} [(A)]
+%         \item{
+%    	$R_{AB} = R_2 || (R_3+ R_5)$
+%	}  
+%	
+%	\item{
+%    	$R_{AB} = R_3 || (R_2+ R_5)$
+%	}            
+%	
+%	\item{
+%        $R_{AB} = R_3 || (R_2+ R_5) + R_1+R_2$
+%	}            
+%	
+%	\item{
+%	$R_{AB} = R_2 || (R_3+ R_5) + R_1 + R_2$
+%    	}            
+%	
+%	\item{
+%    	$R_{AB} = R_5 || (R_1+R_3)$
+%	}            
+%     \end {enumerate}
+
+\meta {
+For part (b) make sure that students understand why $R_1$ and $R_4$ don’t matter.
+}
+    
+    \ans{
+    In this question it is crucial to realize, resistors $R_1$ and $R_4$ are connected to an open-circuit so they don't contribute to the overall resistance looking left from terminals A, B. After we delete them from our circuit diagram, we can get the answer as $R_{AB} = R_3 || (R_2+ R_5)$.
+    }
+    
+%    \item
+%        \begin{center}
+%        \begin{circuitikz}
+%        	\draw (0, 0) node[anchor=east]{A}
+%        				 to [short, o-] ++ (1, 0)
+%        				 to [C=$C_1$] ++ (0, -3)
+%        				 to [C=$C_2$] ++ (0, -3);
+%        	\draw (0, -3) node[anchor=east]{B}
+%        				 to [short, o-] ++ (1, 0);
+%        	\draw (1, 0) to [short] ++ (3, 0)
+%        				 to [C=$C_3$] ++ (0, -2)
+%        				 to [C=$C_4$] ++ (0, -2)
+%        				 to [C=$C_5$] ++ (0, -2)
+%        				 to [short] ++ (-3, 0);
+%        \end{circuitikz}
+%        \end{center}
+%        
+%                     \begin{enumerate} [(A)]
+%         \item{
+% %   	$$
+%	}  
+%	
+%	\item{
+%    %	$$
+%	}            
+%	
+%	\item{
+%    	%$$
+%	}            
+%	
+%	\item{
+%%	$$
+%    	}            
+%	
+%	\item{
+%   % 	$$
+%	}            
+%     \end {enumerate}
+%
+%    \ans{
+%    The correct answer is
+%    }
+    \item {
+    \begin{minipage}{\linewidth}
+        \begin{center}
+        \begin{circuitikz}
+        	\draw (0, 0) to [short] ++ (0, 6)
+        				 to [short] ++ (3, 0)
+        				 to [R=$5\Omega$] ++ (0, -3)
+        				 to [R=$7\Omega$] ++ (0, -3)
+        				 to [short] ++ (-3, 0);
+            \draw (3, 3) to [short, -o] ++ (1, 0)
+            			 node[anchor=west]{A};
+            \draw (3, 0) to [short, -o] ++ (1, 0)
+            			 node[anchor=west]{B};
+        \end{circuitikz}
+        \end{center}
+    \end{minipage}
+    }
+        
+%                     \begin{enumerate} [(A)]
+%         \item{
+%    	{$R_{AB} = 2.917\Omega$}
+%	}  
+%	
+%	\item{
+%    	$R_{AB} =  0.343\Omega$
+%	}            
+%	
+%	\item{
+%    	$R_{AB} = 0.417\Omega$
+%	}            
+%	
+%	\item{
+%	$R_{AB} = 12\Omega$
+%    	}            
+%	
+%	\item{
+%    	$R_{AB} = 0.583\Omega$
+%	}            
+%     \end {enumerate}
+
+    
+    \ans{
+    Here we need to notice that terminal B is connected not only to the bottom of the $7\Omega$ resistor, but also to the top of the $5\Omega$ resistor. Thus, the two resistors have both terminals common, are connected in parallel and the equivalent resistance can be computed as: $R_{AB} = \frac{7\Omega \cdot 5\Omega}{7\Omega + 5\Omega} = 2.917\Omega$.
+    }
+    
+    \item {
+    \newline
+    \begin{minipage}{\linewidth}
+        \begin{center}
+        \begin{circuitikz}
+        	\draw (0, 0) to [R=$R_4$] ++ (0, -3)
+        				 to [R=$R_3$] ++ (0, -3)
+        				 to [short] ++ (3, 0)
+        				 to [short] ++ (0, 3)
+        				 to [R=$R_1$] ++ (0, 3)
+        				 to [short] ++ (-3, 0);
+        	\draw (0, -3) to [short] ++ (3, 0);
+        	\draw (3, 0) to [short] ++ (3, 0)
+        				 to [R=$R_2$] ++ (0, -3)
+        				 to [R=$R_5$] ++ (0, -3)
+        				 to [short] ++ (-3, 0);
+        	\draw (6, 0) to [short, -o] ++ (1, 0)
+        				 node[anchor=west]{A}
+        				 to [open] ++ (0, -6)
+        				 node[anchor=west]{B}
+        				 to [short, o-] ++ (-1, 0);
+        \end{circuitikz}
+        \end{center}
+    \end{minipage}
+    }
+        
+%                     \begin{enumerate} [(A)]
+%         \item{
+%         
+%	$R_{AB} = R_4 || R_1 || (R_2+R_5)$
+%	}
+%	\item{
+%    	$R_{AB} = ((R_4 || R_1) +R_3) || (R_2+R_5)$
+%	}            
+%	
+%	\item{
+%    	$R_{AB} = ((R_4 || R_1) + R_3)|| R_2 || R_5$
+%	}            
+%	
+%	\item{
+%	$R_{AB} = R_4 || R_1 || R_2 || R_5 $
+%    	}            
+%	
+%	\item{
+%    	$R_{AB} = (R_4 + R_1) || (R_2+R_5)$
+%	}            
+%     \end {enumerate}
+
+
+    \ans{
+    Notice that here resistor $R_3$ is shorted (in other words connected in parallel with a wire). This means that it effectively can be removed from the circuit diagram, which leaves us with $R_4$ in parallel with $R_1$ and in parallel with the series combination of $R_2$ and $R_5$, hence $R_{AB} = R_4 || R_1 || (R_2+R_5)$.
+    }
+\end{enumerate}
+ 

@@ -1,0 +1,658 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Self, Previous Exams
+% Solution Source: Self
+
+\qns{I'm not Linear, Algebra is.}
+
+\textbf{Learning Topic:} Mechanical Linear Algebra
+Below, we will have some multiple choice questions on mechanical linear algebra.
+
+\begin{enumerate}
+    \item\label{q1a}{
+        Solve for the system:
+        $\begin{cases}
+            x+6y=9 \\
+            2x+3y=9
+        \end{cases}$
+        \begin{tasks}(2)
+            \task $x = 3$,  $y = 1$
+            \task $x = 6$,  $y = 2$
+            \task $x = 9$,  $y = -3$
+            \task $x = -6$,  $y = 2$
+        \end{tasks}
+    }
+    \ans{
+        In this problem, we can transform the system of equation into a matrix vector multiplication that would yield the augmented matrix as shown:
+        \[
+            \begin{sysmatrix}{cc|c}
+                1 & 6 & 9 \\
+                2 & 3 & 9
+            \end{sysmatrix}
+        \]
+        From which we may perform Gaussian Elimination, and find that $x = 3, y = 1$.
+    }
+    
+    \item\label{q1b}{
+        Solve for the system:
+        $\begin{cases}
+            x+5y+9=-2 \\
+            2x+4y+3z=5 \\
+            4x+7y+3z=12
+        \end{cases}$
+        \begin{tasks}(2)
+            \task $x = -2$,  $y = -1$,  $z = -1$
+            \task $x = 2$,  $y = -1$,  $z = 1$
+            \task $x = 2$,  $y = 1$,  $z = -1$
+            \task $x = -2$,  $y = 1$,  $z = 1$
+        \end{tasks}
+    }
+    \ans{
+        In this problem, we can transform the system of equation into a matrix vector multiplication that would yield the augmented matrix as shown:
+        \[
+            \begin{sysmatrix}{ccc|c}
+                1 & 5 & 9 & -2 \\
+                2 & 4 & 3 & 5 \\
+                4 & 7 & 3 & 12
+            \end{sysmatrix}
+        \]
+        From which we may perform Gaussian Elimination, and find that $x = 2, y = 1, z = -1$.
+
+    }
+    
+    \item\label{q1c}{
+        For a matrix A = 
+        $\begin{bmatrix}
+            2 & 2 \\
+            4 & 3
+        \end{bmatrix}$
+        , compute ${A^T}A$:
+        \begin{tasks}(4)
+            \task 
+            $\begin{bmatrix}
+                25 & 16 \\
+                16 & 8
+            \end{bmatrix}$
+            \task 
+            $\begin{bmatrix}
+                8 & 14 \\
+                14 & 25
+            \end{bmatrix}$
+            \task 
+            $\begin{bmatrix}
+                20 & 16 \\
+                16 & 13
+            \end{bmatrix}$
+            \task 
+            $\begin{bmatrix} 
+                20 & 14 \\
+                14 & 8
+            \end{bmatrix}$
+        \end{tasks}
+    }
+    \ans{
+        The transpose of matrix $A$ would be 
+        \[A^{T} = 
+            \begin{bmatrix}
+                2 & 4 \\
+                2 & 3
+            \end{bmatrix}
+        \]
+        Multiply the matrices and we will obtain that:
+        \[
+            \begin{bmatrix}
+                2 & 4 \\
+                2 & 3
+            \end{bmatrix} \times
+            \begin{bmatrix}
+                2 & 2 \\
+                4 & 3
+            \end{bmatrix} = 
+            \begin{bmatrix}
+                20 & 16 \\
+                16 & 13
+            \end{bmatrix}
+        \]
+    }
+    
+    \item\label{q1d}{
+        Compute the value of the following expression:
+        \[
+            \begin{vmatrix}
+                2 & 3 & 7 \\
+                1 & 0 & 2 \\
+                3 & 1 & 7
+            \end{vmatrix}
+        \]
+        \begin{tasks}(4)
+            \task $14$
+            \task $0$
+            \task $2$
+            \task $4$
+        \end{tasks}
+    }
+    \ans{
+        There are two ways to solve this problem.\\
+        Either directly calculate the determinant of this matrix, which would follow the arithmetic:
+        \begin{align*}
+            \begin{vmatrix}
+                2 & 3 & 7 \\
+                1 & 0 & 2 \\
+                3 & 1 & 7
+            \end{vmatrix}
+            &= 2 \times \begin{vmatrix} 0 & 2 \\ 1 & 7 \end{vmatrix}
+            - 3 \times \begin{vmatrix} 1 & 2 \\ 3 & 7 \end{vmatrix}
+            + 7 \times \begin{vmatrix} 1 & 0 \\ 3 & 1 \end{vmatrix} \\
+            &= 2 \times -2 - 3 \times 1 + 7 \times 1 \\
+            &= 0
+        \end{align*}
+        or observe the matrix and find the matrix has linearly dependent columns:
+        \[2\begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix} + \begin{bmatrix} 3 \\ 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 7 \\ 2 \\ 7 \end{bmatrix}\]
+        The determinant of a matrix with linearly dependent columns is 0.
+    }
+
+    \item\label{q1e}{
+        Compute the inverse of $A = 
+        \begin{bmatrix}
+            2 & 5 \\
+            3 & 7
+        \end{bmatrix}$
+        \begin{tasks}(4)
+            \task
+            $\begin{bmatrix}
+                7 & 5 \\
+                3 & 2
+            \end{bmatrix} $
+            \task 
+            $-\begin{bmatrix}
+                2 & 5 \\
+                3 & 7
+            \end{bmatrix} $
+            \task
+            $\begin{bmatrix}
+                -7 & 5 \\
+                3 & -2
+            \end{bmatrix} $
+            \task None of the above
+        \end{tasks}
+    }
+    \ans{
+        There are, again, two ways to solve this problem.\\
+        The first is that we initiate a manual Gauss-Jordan Elimination, which takes this augmented matrix
+        \[
+            \begin{sysmatrix}{cc|cc}
+                2 & 5 & 1 & 0 \\
+                3 & 7 & 0 & 1
+            \end{sysmatrix}
+        \]
+        as we use row operations to reduce it such that the left half of this augmented matrix is essentially $I_2$. \\
+        The second way is that we use the derived formula for inverses of matrices belonging to $\R^{2\times 2}$, then for such a matrix $A$:
+        \[
+            A =
+            \begin{bmatrix}
+                a & b \\
+                c & d
+            \end{bmatrix}, 
+            A^{-1} = \frac{1}{ad-bc}
+            \begin{bmatrix}
+                d & -b \\
+                -c & a
+            \end{bmatrix}
+        \]
+        In both cases, we obtain that
+        \[
+            A^{-1} = \frac{1}{14-15}
+            \begin{bmatrix}
+                7 & -5 \\
+                -3 & 2
+            \end{bmatrix} = 
+            \begin{bmatrix}
+                -7 & 5 \\
+                3 & -2
+            \end{bmatrix}
+        \]
+    }
+
+    \item\label{q1f}{
+        Find the inverse of $A = 
+        \begin{bmatrix}
+            0.2 & 3 \\
+            0.1 & 4
+        \end{bmatrix} $
+        \begin{tasks}(4)
+            \task
+            $\begin{bmatrix}
+                0.2 & -6 \\
+                -0.1 & 8
+            \end{bmatrix} $
+            \task
+            $-\begin{bmatrix}
+                -0.1 & 0.05 \\
+                1.5 & -2
+            \end{bmatrix} $
+            \task
+            $\begin{bmatrix}
+                8 & -6 \\
+                -0.2 & 0.4
+            \end{bmatrix} $
+            \task None of the above
+        \end{tasks}
+    }
+    \ans{
+        The methods we may use to solve this problem is exactly same as those for the previous.
+        \[
+            A^{-1} = \frac{1}{0.8 - 0.3}
+            \begin{bmatrix}
+                4 & -3 \\
+                -0.1 & 0.2
+            \end{bmatrix} = 
+            \begin{bmatrix}
+                8 & -6 \\
+                -0.2 & 0.4
+            \end{bmatrix}
+        \]
+    }
+
+    \item\label{q1g}{
+        Find the inverse of $A = 
+        \begin{bmatrix}
+            2 & 5 & 1 \\
+            1 & 0 & -2 \\
+            4 & 6 & -2
+        \end{bmatrix} $
+        \begin{tasks}(4)
+            \task
+            $\begin{bmatrix}
+                -2 & 1 & 4 \\
+                5 & 0 & 6 \\
+                1 & -2 & 2
+            \end{bmatrix} $
+            \task 
+            $-\begin{bmatrix}
+                -2 & -5 & 1 \\
+                -1 & 0 & 2 \\
+                4 & -6 & 2
+            \end{bmatrix} $
+            \task
+            $\begin{bmatrix}
+                -2 & -5 & -1 \\
+                -1 & 0 & 2 \\
+                -4 & -6 & 2
+            \end{bmatrix} $
+            \task None of the above
+        \end{tasks}
+    }
+    \ans{
+        We can perform the Gauss-Jordan elimination on this matrix until we confirm that there is no way to complete the elimination and acquire an inverse matrix, so since the matrix is non-invertible, the answer is None of the Above. \\
+        The same solution can be acquired via observing the matrix:
+        \[2\begin{bmatrix} 2 \\ 1 \\ 4 \end{bmatrix} - \begin{bmatrix} 5 \\ 0 \\ 6 \end{bmatrix} + \begin{bmatrix} 1 \\ -2 \\ -2 \end{bmatrix} = \vec{0}\] and finding that this matrix has linearly dependent columns, thus it is non-invertible.
+    }
+
+    \item\label{q1h}{
+        Find the eigenvalues of the matrix $A = 
+        \begin{bmatrix}
+            0 & 3 \\
+            2 & 5 
+        \end{bmatrix}$
+        \begin{tasks}(2)   
+            \task $\lambda_{1} = -1, \lambda_{2} = 6$
+            \task $\lambda_{1} = -1, \lambda_{2} = -6$
+            \task $\lambda_{1} = 1, \lambda_{2} = 6$
+            \task $\lambda_{1} = 1, \lambda_{2} = -6$
+        \end{tasks}
+    }
+    \ans{
+        To find the eigenvalues of matrix $A$, we should find values $\lambda$ such that $\det{A-\lambda I}=0$.\\
+        In that case we will work with the equation:
+        \[
+            \begin{vmatrix}
+                0 - \lambda & 3 \\
+                2 & 5 - \lambda
+            \end{vmatrix}
+            = 0
+        \]
+        This leads to the polynomial for finding eigenvalues:
+        \begin{align*}
+            (-\lambda)(5-\lambda)-3\times2 &= \lambda^{2}-5\lambda-6 \\
+            &= (\lambda + 1)(\lambda - 6) = 0
+        \end{align*}
+        The solution of this polynomial equation would show that the two eigenvalues of this matrix are thus: $\lambda_{1} = -1, \lambda_{2} = 6$.
+    }
+
+    \item\label{q1i}{
+        For what condition would the eigenvalues of 
+        $\begin{bmatrix}
+            -1 & 2 \\
+            2 & x 
+        \end{bmatrix} $ be both less than 0?
+        \begin{tasks}(4)
+            \task $x > -4$
+            \task $x < -4$
+            \task $x < 4$
+            \task $x < 0$
+        \end{tasks}
+    }
+    \meta{
+        This question comes from Spring 2022's CSM Week 3 worksheet, Q2.\\
+        \begin{bindenum}
+            \item By knowing what the eigenvalues of a matrix depends on, we gain information on what we should control. In this case, throughout the solution process, we find the key factor of eigenvalues to be the value of $x$.
+            \item Use the characteristic polynomial of the matrix to derive some inequality involving $x$ that is also a valid answer choice.
+        \end{bindenum}
+        
+    }
+    \ans{
+        The eigenvalues of this matrix is decided by the solutions $\lambda$ to the following equation:
+        \[
+            \begin{vmatrix}
+                -1 - \lambda & 2 \\
+                2 & x - \lambda
+            \end{vmatrix} = 0
+        \]
+        We derive the polynomial that:
+        \begin{align*}
+            (-1-\lambda)(x-\lambda)-2\times2 &= -x+\lambda-x\lambda+\lambda^{2}-4 \\
+            &= \lambda^{2}+(1-x)\lambda-(x+4) = 0
+        \end{align*}
+        Using the quadratic formula, the solution values $\lambda$ are locked to be:
+        \[\lambda = \frac{(x-1)\pm\sqrt{(x-1)^{2}+4(x+4)}}{2}\]
+        If the larger value of those two possible solution values, or eigenvalues, is smaller than 0, then since the smaller value is smaller than the larger value, it must also be smaller than 0. In this case we secure both eigenvalues to be less than 0. Amid those two possible values, the largest solution value would be:
+        \[\lambda = \frac{(x-1)+\sqrt{(x-1)^{2}+4(x+4)}}{2}\]
+        and for it to be smaller than 0, the following inequality must hold:
+        \[(x-1)+\sqrt{(x-1)^{2}+4(x+4)} < 0, \sqrt{(x-1)^{2}+4(x+4)} < 1-x\]
+        Solving the above inequality grants us the condition $x < -4$.
+        
+    }
+
+    \item\label{q1j}{
+        Which of the following can serve as the basis of
+        $N\left(
+            \begin{bmatrix}
+                1 & 2 & 3 \\
+                0 & 2 & 2 \\
+                3 & 2 & 5
+            \end{bmatrix}
+        \right)$
+        \begin{tasks}(4)
+            \task 
+            $\begin{Bmatrix}
+                \begin{bmatrix} -1 \\ 1 \\ 1 \end{bmatrix}
+            \end{Bmatrix}$
+            \task
+            $\begin{Bmatrix}
+                \begin{bmatrix} -2 \\ -2 \\ 2 \end{bmatrix}
+            \end{Bmatrix}$
+            \task
+            $\begin{Bmatrix}
+                \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}
+            \end{Bmatrix}$
+            \task
+            $\begin{Bmatrix}
+                \begin{bmatrix} 2 \\ -2 \\ 1 \end{bmatrix}
+            \end{Bmatrix}$
+        \end{tasks}
+    }
+    \meta{
+        This question comes from Spring 2022's CSM Week 3 worksheet, Q1.
+        
+    }
+    \ans{
+        To solve for the null space of a matrix, we may set up a matrix-vector multiplication with some arbitrary vector $\vec{x}$, such that:
+        \[
+            \begin{bmatrix}
+                    1 & 2 & 3 \\
+                    0 & 2 & 2 \\
+                    3 & 2 & 5
+            \end{bmatrix}
+            \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} = \vec{0}
+        \]
+        Then we set up the augmented matrix to represent such system, and conduct Gaussian Elimination. If the process skipped here is conducted correctly by the student, the contents of this augmented matrix is expected as the result:
+        \[
+            \begin{sysmatrix}{ccc|c}
+                1 & 0 & 1 & 0 \\
+                0 & 1 & 1 & 0 \\
+                0 & 0 & 0 & 0
+            \end{sysmatrix}
+        \]
+        The relationship between each components of $\vec{x}$ can then be seen from the result of such elimination: $x_{1} = x_{2} = -x_{3}$. Thus, we can express that for any vector $\vec{x}$ that would cause a product of $\vec{0}$, or that it belongs to the null space of the matrix mentioned by this problem:
+        \[
+            \vec{x} =
+            \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} =
+            \begin{bmatrix} x_{1} \\ x_{1} \\ -x_{1} \end{bmatrix}
+        \]
+        And that \[
+            N\left(
+                \begin{bmatrix}
+                    1 & 2 & 3 \\
+                    0 & 2 & 2 \\
+                    3 & 2 & 5
+                \end{bmatrix}
+            \right) =
+            \begin{Bmatrix}
+                \begin{bmatrix} x \\ x \\ -x \end{bmatrix} | x \in \R
+            \end{Bmatrix}
+        \]
+        The basis of such set of vector would just be the set containing a vector from this set. Then, the appropriate basis for such null space would be:
+        \[
+            \begin{Bmatrix}
+                \begin{bmatrix} -2 \\ -2 \\ 2 \end{bmatrix}
+            \end{Bmatrix}
+        \]
+    }
+
+    \item\label{q1k}{
+        Given $\alpha\in\R$, 
+        \[
+            A = 
+            \begin{bmatrix}
+                2 & 1 & 2 \\
+                0 & 1 & 4 \\
+                0 & 0 & 2
+            \end{bmatrix},
+            B = 
+            \begin{bmatrix}
+                2-\alpha & 1 & 2 \\
+                0 & 1-\alpha & 4 \\
+                0 & 0 & 2-\alpha 
+            \end{bmatrix}
+        \]
+        If there exists a vector $\vec{x}$ such that $B\vec{x}=\vec{0}$ and $\vec{x}\neq\vec{0}$, which of the following is true?
+        \begin{tasks}(2)
+            \task $rank(A) = 3$
+            \task $\vec{x}$ is in the eigenspace of $B$
+            \task $\vec{x}$ is in the null space of $B$
+            \task All of the above
+        \end{tasks}
+    }
+    \meta{
+        This question comes from Q8 of Fall 2021's Midterm 1. \\
+        
+    }
+    \ans{
+        Choice (a): True\\
+        To determine the rank of a matrix, we find how many linearly independent columns this matrix has. We find the number of linearly dependent columns in this matrix, and subtract it from the total number of columns to get the number of linearly independent columns.\\
+        But, when finding $N(A)$, solving the system $A\vec{x}=\vec{0}$ for $\vec{x}$, we would find the only solution to be $\vec{x}=\vec{0}$. \\
+        This indicates that there are no linearly dependent columns. \\
+        By the definition of linear dependence, if a column is linearly dependent to others, it must be expressed as a linear combination of other columns. This is not possible here.\\
+        Therefore, the rank of this matrix is $rank(A) = 3$.\\
+        
+        The other way to see this fact is to recognize there are three linearly independent vectors in the columns of $A$. The intuition the writer used here is that the three columns of $A$ each have a different amount of nonzero components, and the development of this intuition is addressed by the reasoning written in the first half of this solution.\\
+        
+        Choice (b): True\\
+        For the equation $B\vec{x}=\vec{0}$, we may also interpret it as $B\vec{x}=0\vec{x}$. Therefore, $\vec{x}$ is in the eigenspace of $B$ as it is an eigenvector whose corresponding eigenvalue is $\lambda = 0$.\\
+        
+        Choice (c): True\\
+        The null space of matrix $B$ is a set of vectors that contain every vector $\vec{a}$ such that $B\vec{a}=\vec{0}$.\\
+        Since $B\vec{x}=\vec{0}$, $\vec{x}$ is by definition in the null space of matrix $B$.\\
+        
+        Since all choices are True, the answer is Choice (d): All of the above.
+    }
+
+    \item\label{q1l}{
+        How many basis vectors are needed to span $N(B)$, where
+        \[
+            B = 
+            \begin{bmatrix}
+                2 & 1 & 3 & 0 & 8 \\
+                4 & 2 & 6 & 0 & 16 \\
+                6 & 3 & 9 & 0 & 24 \\
+                8 & 4 & 12 & 0 & 32
+            \end{bmatrix}
+        \]
+        \begin{tasks}(4)
+            \task $1$
+            \task $2$
+            \task $3$
+            \task $4$
+        \end{tasks}
+    }
+    \meta{
+        This question comes from Q13 of Fall 2021's Midterm 1.\\
+        \begin{bindenum}
+            \item Rank-Nullity approach of the solution is greatly underrated, since rank-nullity theorem actually appears in many other problems as well as linear algebra situations.
+        \end{bindenum}
+        
+    }
+    \ans{
+        This question can, again, be solved in two ways.\\
+        The first way is that we attempt to find the null space of matrix $B$, meaning that we would need to complete the Gaussian Elimination for the matrix-vector system:
+        \[
+            \begin{bmatrix}
+                2 & 1 & 3 & 0 & 8 \\
+                4 & 2 & 6 & 0 & 16 \\
+                6 & 3 & 9 & 0 & 24 \\
+                8 & 4 & 12 & 0 & 32
+            \end{bmatrix}
+            \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5} \end{bmatrix}
+            = \vec{0}
+        \]
+        In that case, we reach the Gaussian Elimination result that corresponds to the following augmented matrix:
+        \[
+            \begin{sysmatrix}{ccccc|c}
+                2 & 1 & 3 & 0 & 8 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0\\
+                0 & 0 & 0 & 0 & 0 & 0\\
+                0 & 0 & 0 & 0 & 0 & 0
+            \end{sysmatrix}
+        \]
+        Provided this elimination, we may deduce the following relationships between components of solution $\vec{x}$:
+        \[
+            \begin{cases}
+                x_{1} = x_{1} \\
+                x_{2} = -2 x_{1} - 3 x_{3} - 8 x_{5} \\
+                x_{3} = x_{3} \\
+                x_{4} = x_{4} \\
+                x_{5} = x_{5}
+            \end{cases}
+        \]
+        There are 4 free variables in the relationship of solutions' components. In other words, to generate an appropriate solution, I can decide components except $x_{2}$ to be any number I want, and then let $x_{2} = -2 x_{1} - 3 x_{3} - 8 x_{5}$.\\
+        This means the solution is a linear combination of four vectors:
+        \[\begin{Bmatrix}
+            \begin{bmatrix} 1 \\ -2 \\ 0 \\ 0 \\ 0 \end{bmatrix}
+            \begin{bmatrix} 0 \\ -3 \\ 1 \\ 0 \\ 0 \end{bmatrix}
+            \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}
+            \begin{bmatrix} 0 \\ -8 \\ 0 \\ 0 \\ 1 \end{bmatrix}
+        \end{Bmatrix}\]
+        And therefore, we need 4 vectors to form the basis of null space, or the vector space that is the set of all possible solution.\\
+        
+        Here is an alternative approach to all of the above: \\
+        We measure the rank of $B$, which is $1$ because it only has one linearly independent column. \\
+        Using the rank-nullity theorem and the fact $B$ has $5$ columns, we conclude that $rank(N(B)) = 5 - rank(B) = 4$, and thus the basis of null space will have 4 vectors.
+    }
+
+    \item\label{q1m}{
+        For a square matrix $A\in\R^{n\times n}$ that is full rank, is $Col(A) = Col(A^{-1})$?
+        \begin{tasks}
+            \task Yes, and the null spaces both have dimensions $1$.
+            \task No, because $A$ might not be invertible.
+            \task Yes, and the column spaces are all $\R^n$.
+            \task No, because the two sets cannot be proven equal with current information.
+        \end{tasks}
+    }
+    \meta{
+        This question comes from Q7(e) of Fall 2020's Midterm 1.\\
+        \begin{bindenum}
+            \item Students to know that a full-ranked square matrix's columnspace would be the entire n-dimensional real space depending on the number of matrix's columns. However, this was already addressed in prior worksheets.
+        \end{bindenum}
+        
+    }
+    \ans{
+        As we are given that $A$ is full ranked, its columns must all be linearly independent. That ensures the existence of $A^{-1}$, and therefore the existence of $Col(A^{-1})$. \\
+        At this point, choice (b) has been eliminated. \\
+        
+        Since $A$ is a square matrix and is full ranked, $Col(A) = \R^{n}$. \\ Because $A^{-1}$, as an inverse of a full-ranked square matrix, must also be full-ranked and square, $Col(A^{-1}) = \R^{n}$. \\
+        We then know that $Col(A) = Col(A^{-1} = \R^{n}$.\\
+        At this point, we have denied choice (d) and already can conclude that choice (c) is the correct choice.\\
+        
+        To deny choice (a), we may use the rank-nullity theorem and acquire:
+        \[rank(N(A)) = n - rank(A) = n - n = 0\]
+        While the same result will be yielded for measuring $rank(N(A^{-1}))$.
+    }
+
+    \item\label{q1n}{
+        Suppose $\vec{u}$ and $\vec{v}$ are unique vectors in the null space of a square matrix $D$, and $\vec{w}=\vec{u}-\vec{v}$, which of the following is true?
+        \begin{tasks}(2)
+            \task Matrix $D$ is full-ranked.
+            \task $\vec{w}\notin N(D)$.
+            \task $\vec{u}$ and $\vec{v}$ are linearly independent to each other.
+            \task None of the above.
+        \end{tasks}
+    }
+    \meta{
+        This question comes from Q14 of Fall 2021's Midterm 1.\\
+        \begin{bindenum}
+            \item Hardest is judging on the truthfulness of Choice (iii), since it could either be right or wrong depending on publicized information.
+        \end{bindenum}
+        
+    }
+    \ans{
+        Choice (a): False\\
+        Since there are two unique vectors in the null space of $D$ already, $D$ has a nontrivial null space whose rank is nonzero, thus $D$ cannot be full-ranked.\\
+        
+        Choice (b): False\\
+        Since $\vec{u}\in N(D)$ and $\vec{v}\in N(D)$, we can claim $A\vec{u}=\vec{0}$ and $A\vec{v}=\vec{0}$.\\
+        On top of that, $A\vec{w}=A\vec{u}-A\vec{v}=\vec{0}-\vec{0}=\vec{0}$.
+        Therefore, by definition of null space,  $\vec{w}\in N(D)$.\\
+        
+        Choice (c): Not enough information\\
+        It could be that $N(D)$ has a rank higher than or equal to $2$, such that it is possible for $\vec{u}$ and $\vec{v}$ to be linearly independent to each other as well as possible that they are not. \\
+        If $N(D)$ has a rank lower than or equal to $1$, it would be impossible for them to be linearly independent, but $rank(N(D))$ was also never mentioned any where. \\
+        Therefore, we don't have enough information to decide on the legitimacy of this option.\\
+        
+        Since all above choices are wrong, the correct answer is Choice (d): None of the above.
+    }
+
+    \item\label{q1o}{
+        What are the rank and nullity of the given matrix
+        \[
+            A = 
+            \begin{bmatrix}
+                0 & 0 & * & * & * & * \\
+                * & * & * & * & * & * \\
+                0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0
+            \end{bmatrix}
+        \]
+        where * are non-zero values?
+        \begin{tasks}(2)
+            \task Rank: $2$, Nullity: $4$
+            \task Rank: $6$, Nullity: $4$
+            \task Rank: $4$, Nullity: $2$
+            \task Rank: $3$, Nullity: $3$
+        \end{tasks}
+    }
+    \meta{
+        This question comes from Q8(b) of Summer 2020's Midterm 1.\\
+        
+    }
+    \ans{
+        Matrix $A$ has $2$ linearly independent columns. Throughout the entire matrix, only the first and second row contained nonzero components, meaning that my columnspace is locked to contain only vectors whose nonzero components were in their first two components.\\
+        Furthermore, I have four columns whose both first and second components are nonzero, yet I can span all vectors with the form of
+        \[\begin{bmatrix} + \\ + \\ 0 \\ 0 \\ 0 \\ 0 \end{bmatrix}\]
+        where + stands for possibly nonzero values, with just two from the third to sixth columns in $A$.\\
+        Since I can span the entire columnspace with at minimum 2 vectors, $rank(A) = 2$. \\
+        Finally, using the rank-nullity theorem, $rank(N(A)) = 6 - rank(A) = 4$.
+    }
+
+\end{enumerate}

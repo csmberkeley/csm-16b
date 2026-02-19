@@ -1,0 +1,13 @@
+\begin{circuitikz}[scale=0.7, transform shape]
+	\draw
+	(0,0) node[op amp,yscale=-1] (AMP) {}
+	(AMP.-) to[short] ++(0,-1) coordinate (bottomLeft)
+		to[short] (bottomLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to[short] ++(-1,0)
+		to[sV,v_=$v_\text{in}$] ++(0,-2)
+		node[ground] () {};
+\end{circuitikz}

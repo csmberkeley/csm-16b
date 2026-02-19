@@ -1,0 +1,160 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Fall 2022
+
+\qns{Current Superposition}
+
+\textbf{Learning Goal:} The goal of this question is to build an understanding of superposition.
+
+\begin{enumerate}
+
+\item What is the node voltage $u_1$? What is the current $i_1$? If we're given that $V_s = 6V$, $I_s = 1A$, $R_1 = 2\Omega$, and $R_2 = 4\Omega$, what are these values?
+
+\vspace{5mm}
+
+\begin{center}
+\begin{circuitikz} 
+\draw (0, 0) 
+to [V, v = $V_s$, invert] (0, 4) 
+to [R = $R_1$, -*, i = $i_1$] (3, 4) node[label={[font=\footnotesize]above:$u_1$}]{} 
+-- (6, 4)
+to [R = $R_2$] (6, 0) -- (0, 0)
+(3, 4) 
+to [isource, l = $I_s$, invert] (3, 0)
+(3, 0) node[ground]{}
+;
+\end{circuitikz}
+\end{center}
+
+\ans{
+
+We can use superposition to solve this question, by evaluating the contribution of each independent source to the node voltages and currents. We can zero-out all independent sources besides the voltage source (producing the circuit on the left), and then zero-out all independent sources besides the current source (producing the circuit on the right). We denote the relevant node voltage as $u_{1V}$ in the circuit with the voltage source and $u_{1I}$ in the circuit with the current source. $i_{1V}$ and $i_{1I}$ are defined similarly; note that we defined $i_{1I}$ in the opposite direction. The direction we choose for current does not matter, as long as we define a direction at all. 
+
+\begin{circuitikz}
+\draw (0, 0)
+to [V, v = $V_s$, invert] (0, 4) 
+to [R = $R_1$, -*, i=$i_{1v}$] (3, 4) 
+node[label={[font=\footnotesize]above:$u_{1V}$}]{} -- (6, 4)
+-- (6, 4)
+to [R = $R_2$] (6, 0) -- (0, 0)
+(3, 4)
+to [short, -o] (3, 2.5)
+(3, 0)
+to [short, -o] (3, 1.5)
+(3, 0) node[ground]{}
+;
+\end{circuitikz}
+\hspace{10mm}
+\begin{circuitikz}
+\draw (0, 0) -- (0, 4)
+to [R = $R_1$, -*, i<=$i_{1I}$] (3, 4) 
+node[label={[font=\footnotesize]above:$u_{1I}$}]{} -- (6, 4)
+-- (6, 4)
+to [R = $R_2$] (6, 0) -- (0, 0)
+(3, 4)
+to [isource, l = $I_s$, invert] (3, 0)
+(3, 0) node[ground]{}
+;
+\end{circuitikz}
+
+\begin{tabular}{p{7.5cm} p{7.5cm}}
+
+Notice that this circuit is a voltage divider circuit. We can then compute the node voltage $u_{1V}$ using our voltage divider equation: 
+$u_{1V} = V_s\cdot \frac{R_2}{R_1 + R_2}$. 
+
+Substituting in numbers, we have $u_{1V} = 6 \cdot \frac{4}{2 + 4} = 4V$.
+
+Using this information, we can compute $i_{1V}$. We can use Ohm's Law to determine the current: $i_{1V} = \frac{6 - u_{1V}}{R_1}$. 
+
+Substituting in numbers, we have $i_{1V} = \frac{6 - 4}{2} = 1A$.
+
+&
+
+Notice that this circuit is a current divider circuit. We can use directly the current divider formula to compute the current: 
+
+$i_{1I} = I_s \cdot \frac{R_2}{R_1 + R_2}$.
+
+Substituting in numbers, we have $i_{1I} = 1 \cdot \frac{4}{2 + 4} = \frac{2}{3}A$.
+
+Using this information, we can compute $u_{1I}$. We use Ohm's Law to determine the voltage: 
+
+$u_{1I} = u_{1I} - 0 = i_{1I}R_1$.
+
+Substituting in numbers, we have $u_{1I} = \frac{2}{3}\cdot 2 = \frac{4}{3}V$.
+
+\end{tabular}
+
+Now that we have found these values, we return to our original circuit to determine the value of $u_1$ and $i_1$. First, we evaluate $u_1$:  $u_1 = u_{1V} + u_{1I} = 4 + \frac{4}{3} = \frac{16}{3}V$. Then, we evaluate $i_1$. For current, we have to keep track of the direction. The question wants us to determine $i_1$, which points in a specific direction; in our split circuits for superposition, we defined $i_{1V}$ to be in the same direction, but $i_{1I}$ to be in the opposite direction. To compute $i_1$, we then need to negate $i_{1I}$, as follows: $i_1 = i_{1V} + (-1)(i_{1I}) = 1 - \frac{2}{3} = \frac{1}{3}A$.
+
+}
+
+\end{enumerate}
+
+% \begin{center}
+% \begin{circuitikz} 
+% \draw (0, 0) 
+% to [V, v = $V_s$, invert] (0, 4) 
+% to [R = $R_1$, -*] (3, 4) node[label={[font=\footnotesize]above:$u_1$}]{} 
+% (3, 4)
+% to [R = $R_2$] (6, 4)
+% to [isource, l = $I_{s2}$] (6, 0) 
+% -- (3, 0) 
+% to [R = $R_3$] (0, 0)
+% (3, 4) 
+% to [isource, l = $I_{s1}$, invert] (3, 0)
+% (3, 0) node[ground]{}
+% ;
+% \end{circuitikz}
+% \end{center}
+
+% % \begin{circuitikz}
+% % \draw (0, 0)
+% % to [V, v = $V_s$, invert] (0, 4) 
+% % to [R = $R_1$, -*] (3, 4) 
+% % node[label={[font=\footnotesize]above:$u_{1V}$}]{} -- (6, 4)
+% % -- (6, 4)
+% % to [R = $R_2$] (6, 0) -- (0, 0)
+% % (3, 4)
+% % to [short, -o] (3, 2.5)
+% % (3, 0)
+% % to [short, -o] (3, 1.5)
+% % (3, 0) node[ground]{}
+% % ;
+% % \end{circuitikz}
+% % \hspace{10mm}
+% % \begin{circuitikz}
+% % \draw (0, 0) -- (0, 4)
+% % to [R = $R_1$, -*] (3, 4) 
+% % node[label={[font=\footnotesize]above:$u_{1I}$}]{} -- (6, 4)
+% % -- (6, 4)
+% % to [R = $R_2$] (6, 0) -- (0, 0)
+% % (3, 4)
+% % to [isource, l = $I_s$, invert] (3, 0)
+% % (3, 0) node[ground]{}
+% % ;
+% % \end{circuitikz}
+
+% \ans{
+
+% We solve this using superposition. First, we can zero out all sources except for our voltage source. This will result in the following circuit:
+
+% \begin{center}
+% \begin{circuitikz} 
+% \draw (0, 0) 
+% to [V, v = $V_s$, invert] (0, 4) 
+% to [R = $R_1$, -*] (3, 4) node[label={[font=\footnotesize]above:$u_1$}]{} 
+% (3, 4)
+% to [R = $R_2$] (6, 4)
+% to [short, -o] (6, 2.5)
+% (6, 1.5) to [short, o-] (6, 0)
+% -- (3, 0)
+% (3, 4)
+% to [short, -o] (3, 2.5)
+% (3, 0)
+% to [short, -o] (3, 1.5)
+% (3, 0) 
+% to [R = $R_3$] (0, 0)
+% (3, 0) node[ground]{}
+% ;
+% \end{circuitikz}
+% \end{center}

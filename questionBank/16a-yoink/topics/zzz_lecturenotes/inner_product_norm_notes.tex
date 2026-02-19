@@ -1,0 +1,101 @@
+In this lecture, we introduce the ideas of inner products and norms. It should be emphasized that these are actually familiar concepts that you have seen before, except we are generalizing them to more abstract mathematical definitions which will enable their use in more advanced settings. Thus, students should approach these topics not seeing them as completely new concepts, but rather as abstract extensions of familiar geometric principles (however, if students haven't seen dot product/magnitude before, then these concepts will be new regardless). 
+
+
+The idea of an "inner product" that we primarily use in 16A is the dot product; that is, 
+
+\begin{ln-define}{Dot Product}{}
+    Given two vectors $\vec{a}$ and $\vec{b}$ both in $\mathbb{R}^n$, the dot product is defined as 
+    
+    \begin{align*}
+        \vec{a} \cdot \vec{b} = \sum_{i=0}^n a_i b_i
+    \end{align*}
+    This is also called the sum of element-wise multiplication -- taking each respective component of each vector, multiplying them together, and summing the result. Note that the output of the dot product is a scalar number. 
+\end{ln-define}
+
+Then, we can define the inner product as $\langle a, b \rangle = \vec{a} \cdot \vec{b}$. \\ \\
+However, in most cases, this isn't enough. Rather, we can generalize the operation of an inner product to one that takes in two vectors (call them $\vec{a}$ and $\vec{b}$) in the same dimension-space and outputs a scalar. As long as any operation obeys this and a few other properties, we can call it an \textit{inner product}. We formally define the abstract notion of inner products in the following definition. 
+
+\begin{ln-define}{Inner Product}
+In general terms, the inner product maps from a vector space (ie. some $\mathbb{R}^n$ or $\mathbb{V}$) to a scalar value (in $\mathbb{R}$). Specifically, the inner product takes in two vectors, both in $\mathbb{R}^n$ for some arbitrary $n$, and outputs a scalar value. The inner product \textit{must} also obey the following rules too: 
+
+\begin{itemize}
+    \item {
+        \textbf{Symmetry} For all $\vec{a}, \vec{b} \in \mathbb{V}$, $\langle a, b \rangle = \langle b, a \rangle$.
+    }
+    
+    \item {
+        \textbf{Linearity} For some constant $k$, $\langle k \vec{a}, \vec{b} \rangle = k \langle \vec{a}, \vec{b} \rangle $. Moreover, $\langle \vec{a} + \vec{b}, \vec{c} \rangle = \langle \vec{a}, \vec{c} \rangle + \langle \vec{b}, \vec{c} \rangle $. Note how these statements follow directly from the definition of linearity we're used to in this course.
+    }
+    
+    \item {
+        \textbf{Positive-definiteness} For our inner product, $\langle \vec{v}, \vec{v} \rangle \geq 0$, only equal to zero if $\vec{v} = 0$. 
+    }
+\end{itemize}
+
+\end{ln-define}
+
+Students may wonder where these various properties of the inner product come from. Like many things in math, they are conveniently defined so as to enable insightful results with their use later on (for example, positive-definiteness is in part necessary so that we can later on define the norm of a vector, which \textit{must} be non-negative, in terms of the square root of the inner product. If the inner product were at any times negative, we'd have an imaginary norm!). \\ \\ 
+Another important thing to note is that the properties only define a valid inner product space if we're only dealing with real numbers. If we're dealing with complex numbers, things change slightly (but this is out of scope for 16A). For example, in complex spaces, the symmetry principle changes to $\langle a, b \rangle = \langle b, a \rangle^*$, where $p^*$ denotes the complex conjugate of some quantity $p$. Then, for real vector spaces, $p^* = p$, which is where the symmetry principle arises from. Once again, this is out of scope and only for further discussion). \\ \\ 
+If students are interested in seeing different types of inner products, they can be directed to the notes. Note that inner products act on \textit{vector spaces}, which don't necessarily have to consist of vectors in the way we're used to seeing them. For example, functions can act as vector spaces, and we can define inner products as the integral of the product of two functions, a generalization of sorts of the dot product in continuous spaces. But this is all discussion of the abstract inner product, and not necessary if students are not interested. \\ \\ 
+The next concept to cover is orthogonality. In our usual 2-d or 3-d space, orthogonality just means that two vectors are geometrically perpendicular (for those with physics background, you may remember that the dot product of two orthogonal vectors is zero). Then, with our generalized version of the inner product, we can construct a "generalized definition of orthogonal." 
+
+\begin{ln-define}{Orthogonality in terms of the Inner Product}
+Take two vectors $\vec{a}$ and $\vec{b}$ in some arbitrary vector space $\mathbb{V}$. These two vectors are orthogonal if and only if 
+\begin{align*}
+    \langle \vec{a}, \vec{b} \rangle = 0
+\end{align*}
+\end{ln-define}
+
+Lastly, we can define the idea of \textit{norm}. If you're familiar with the magnitude of a vector (ie. its length), the norm is a generalized notion of magnitude. Unlike the inner product, it acts on only \textit{one} vector in an arbitrary vector space and returns a scalar value. Like the inner product, a function must obey certain properties to qualify as a "norm." For the purposes of intuitive understanding, you can think of the norm of a vector as a magnitude of sorts, but remember that depending on context, the formula may not be what you're used to seeing in standard geometry. 
+
+\begin{ln-define}{Vector Norm}
+.The norm of a vector $\vec{a}$ in a vector space $\mathbb{V}$ is a scalar value and denoted by $\norm{\vec{a}}$. A norm must satisfy the following properties: 
+
+\begin{itemize}
+    \item \textbf{Non-negativity}: For any $\vec{a} \in \mathbb{V}$, $\norm{\vec{a}} \geq 0$. Like with inner products, $\norm{\vec{a}} = 0$ if and only if $\vec{a} = 0$. 
+    \item \textbf{Scalar Multiplication}: For any $\vec{a}$ and scalar $k$, the norm satisfies $\norm{k \vec{a}} = |k| \norm{\vec{a}}$. 
+    \item \textbf{Triangle Inequality (IMPORTANT!!)}: For any vectors $\vec{a}$ and $\vec{b}$ in the same vector spac $\mathbb{V}$, $\norm{\vec{a} + \vec{b}} \leq \norm{\vec{a}} + \norm{\vec{b}}$. 
+\end{itemize}
+We can then define the \textbf{Euclidean norm} in terms of a valid inner product on $\mathbb{V}$, where
+\begin{align*}
+    \norm{\vec{a}} = \sqrt{\langle \vec{a}, \vec{a} \rangle }
+\end{align*}
+Note this definition is why we require the positive-definiteness property of the inner product. As an exercise, students can prove that the Euclidean norm is a valid norm in that it satisfies the above three properties (for triangle inequality, students will need the Cauchy-Schwarz inequality, which is given below). 
+\end{ln-define}
+Now that we have defined all the necessary terms, we can move on to some important results related to inner product and norms \\ \\ 
+\textbf{****}(Note -- for the purposes of a lecture, it's sufficient to stop here and move on to examples/problems. If you think it's more productive to include extra mathematical detail, however, then the following content is for that). 
+
+\begin{ln-theorem}{Cauchy-Schwarz Inequality}{}
+.Given a valid inner product and two vectors $\vec{a}$ and $\vec{b}$, the Cauchy-Schwarz inequality states that 
+\begin{align*}
+    |\langle \vec{a}, \vec{b} \rangle |^2 \leq \langle \vec{a}, \vec{a} \rangle \langle \vec{b}, \vec{b} \rangle 
+\end{align*}
+Using our definition of Euclidean norm as $\norm{\vec{x}} = \sqrt{\langle \vec{x}, \vec{x} \rangle }$, we can also recast the Cauchy-Schwarz inequality into the following expression in terms of norms: 
+
+\begin{align*}
+    |\langle \vec{a}, \vec{b} \rangle | \leq \norm{\vec{a}} \norm{\vec{b}}
+\end{align*}
+
+\end{ln-theorem} 
+
+\begin{ln-quest}{Proof of Cauchy-Schwarz}{}
+    Given the standard Euclidean inner product, prove the Cauchy-Schwarz inequality. Remember the Euclidean inner product is given by $\langle \vec{a}, \vec{b} \rangle = \norm{a} \norm{b} \cos(\theta)$. 
+    
+    \tcblower
+    
+    We take the second definition of the Cauchy-Schwarz Inequality above. 
+    
+    \begin{align*}
+        | \langle \vec{a}, \vec{b} \rangle | \leq \norm{\vec{a}} \norm{\vec{b}} \\ 
+        |\norm{\vec{a}} \norm{\vec{b}} \cos(\theta) | \leq \norm{\vec{a}} \norm{\vec{b}} \\
+        \norm{\vec{a}} \norm{\vec{b}} |\cos(\theta)| \leq \norm{\vec{a}} \norm{\vec{b}} \\ 
+        |\cos(\theta)| \leq 1
+    \end{align*}
+    
+    This is true, because $\cos(\theta)$ is exactly bounded between $-1$ and $1$, so $0 \leq |\cos(\theta)| \leq 1$.
+    
+    Thus, the Cauchy-Schwarz inequality for Euclidean inner products is proved (this is really sketchy because for an actual proof we have to go "backwards," but all the steps we took are reversible because none of the vectors are zero). 
+
+
+\end{ln-quest}
+

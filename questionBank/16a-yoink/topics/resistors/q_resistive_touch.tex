@@ -1,0 +1,207 @@
+% Daniel Drew -- ddrew73@berkeley.edu
+% Rachel Zoll -- 2018rzoll@berkeley.edu
+
+\qns{A New Feature You Didn't Even Know You Wanted!}
+\textbf{Learning Goal:} 
+
+An up-and-coming computer company, Orange Inc., is trying to design a touchscreen bar to incorporate into their new laptop, right above the keyboard. Let's help them analyze their existing design to see where their design has gone wrong! 
+
+\begin{enumerate}
+
+\item(7 Points)
+Orange Inc.'s touchscreen is small enough that we are only interested in the horizontal position of the touch and hence can use the 1D touchscreen circuit model shown below, where the $u_\mathrm{mid}$ node is labeled at the point the touch occurs. The touchscreen bar has a total length of $\SI{10}{\centi\meter}$, but due to some disputes with their supplier, Orange Inc. has not been able to find out what the resistivity of the touchscreen material is.  Despite this, your colleague claims that they can still predict the relationship between $V_{\mathrm{meas}}$ and the position where a customer touched the bar. Is your colleague correct? {Circle your answer.}
+
+
+%\begin{center}
+%\textbf{YES} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \textbf{NO}
+%\end{center}
+
+%\item
+If you answered that your colleague is correct, {provide an expression for $V_{\mathrm{meas}}$ as a function of $V_s$ and the position of the touch $x$} (measured in $\si{\centi\meter}$ relative to the \textit{left} side of the circuit).  If you answered that your colleague is incorrect, {provide an expression for $V_{\mathrm{meas}}$} as a function of $V_s$, $R_{\mathrm{touch}}$, and $R_{\mathrm{rest}}$.
+
+\begin{center}
+\begin{circuitikz}
+	\draw
+	(0, 0) to [short] (4, 0)
+	(4, 0) to [V_=$V_s$, invert] (5, 0)
+	(5, 0) to [short] (6, 0)
+	(6, 0) to [short] (6, 2)
+	(6, 2) to [R, l_=$R_{\mathrm{rest}}$] (4, 2)
+	(4, 2) to [short, -*] (3, 2)
+	node[above] {$u_{\mathrm{mid}}$}
+	(3, 2) to [short, -o] (3, 1.5)
+	(3, 1.25) node[anchor=north] {$V_\mathrm{meas}$}
+	(3, 0.5) to [short,o-] (3, 0)
+	(3, 2) to [short] (2, 2)
+	(2, 2) to [R, l_=$R_{\mathrm{touch}}$] (0, 2)
+	(0, 2) to [short] (0, 0);    
+\end{circuitikz}
+\end{center}
+
+\ans{
+
+Yes, we can determine the position where the customer touched the bar by just measuring $V_{\mathrm{meas}}$.
+\[R_{\mathrm{touch}} = \rho (\si{\ohm} \times \si{\centi\meter}) \frac{x (\si{\centi\meter})}{A (\si{\centi\meter}^2)}\]
+\[R_{\mathrm{rest}} = \rho (\si{\ohm} \times \si{\centi\meter}) \frac{ (10 (\si{\centi\meter}) - x (\si{\centi\meter}))}{A (\si{\centi\meter}^2)}\]
+
+Recognizing that this circuit is a voltage divider, we find
+\[V_{\mathrm{meas}} = \frac{R_{\mathrm{touch}}}{R_{\mathrm{touch}} + R_{\mathrm{rest}}} V_s = \frac{\frac{\rho x}{A}}{\frac{\rho x}{A} + \frac{\rho (10 - x)}{A}} V_s = \frac{x}{10}V_s\]
+
+We know this answer makes sense since $x$ and $10$ are in cm, so $\frac{x}{10}V_s$ has units of volts. 
+}
+
+%\item
+%f the user were to touch at point $x$, find the voltage $V_\mathrm{meas}$ the computer would measure in terms of %$R_1$ and $R_2$.
+
+%\ans{
+
+%We can treat this as a voltage divider setup. 
+%\[V_\mathrm{meas} = \SI{5}{\volt} \cdot \frac{R_1}{R_1 + R_2}\]
+
+%}
+
+
+
+\item(7 Points)
+It turns out that Orange Inc's problems aren't limited to their touchscreen materials -- the device they use to measure the voltage $V_{\mathrm{meas}}$ has a finite but known resistance $R_\mathrm{meter}$ associated with it.  Connecting the measurement device to the touchscreen results in the circuit model shown below.  Without knowing the value of the resistivity of the material (which, as a reminder, would affect the values of $R_{\mathrm{touch}}$ and $R_{\mathrm{rest}}$), can you compute the value of $V_{\mathrm{meas}}$? {Justify your answer by providing an expression for $V_{\mathrm{meas}}$} as a function of $R_{\mathrm{touch}}$, $R_{\mathrm{rest}}$, $R_\mathrm{meter}$, and $V_s$.
+
+\begin{center}
+	\begin{circuitikz}  
+		\draw
+		(0, 0) to [short] (4, 0)
+		(4, 0) to [V_=$V_s$, invert] (5, 0)
+		(5, 0) to [short] (6, 0)
+		(6, 0) to [short] (6, 3)
+		(6, 3) to [R, l_=$R_{\mathrm{rest}}$] (4, 3)
+		(4, 3) to [short, -*] (3, 3)
+		node[above] {$x$}
+		(3, 3) to [short] (3, 2.5)
+		(3, 2.5) to [R,l=$R_\mathrm{meter}$, v=$V_\mathrm{meas}$] (3, 0.5)
+		(3, 0.5) to [short] (3, 0)
+		(3, 3) to [short] (2, 3)
+		(2, 3) to [R, l_=$R_{\mathrm{touch}}$] (0, 3)
+		(0, 3) to [short] (0, 0);    
+	\end{circuitikz}
+\end{center}
+
+\ans{
+
+No, we can no longer determine $V_{\mathrm{meas}}$.
+
+\[V_{\mathrm{meas}} = \frac{R_{\mathrm{touch}} \parallel R_{\mathrm{meter}}}{R_{\mathrm{touch}} \parallel R_{\mathrm{meter}} + R_{\mathrm{rest}}}V_s = \frac{\frac{R_{\mathrm{touch}}R_{\mathrm{meter}}}{R_{\mathrm{touch}} + R_{\mathrm{meter}}}}{\frac{R_{\mathrm{touch}}R_{\mathrm{meter}}}{R_{\mathrm{touch}} + R_{\mathrm{meter}}} + R_{\mathrm{rest}}}V_s = \frac{R_{\mathrm{touch}}R_{\mathrm{meter}}}{R_{\mathrm{touch}}R_{\mathrm{meter}} + R_{\mathrm{touch}}R_{\mathrm{rest}} + R_{\mathrm{meter}}R_{\mathrm{rest}}}V_s\]
+
+We can no longer determine the position where the customer touched the bar because $\rho$ and the $A$ will not cancel out in this equation.
+
+}
+
+%\begin{center}
+%\textbf{YES} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \textbf{NO}
+%\end{center}
+
+%\ans{
+%
+%The ideal voltmeter should have infinite resistance ($R_\mathrm{meter} = \infty$).
+%
+%\vspace{-0.5in}
+%
+%}
+%
+%\vspace{2in}
+
+%\item
+%In reality, the computer's voltage readout circuit is non-ideal and has an equivalent resistance of $R_\mathrm{meter} %= \SI{10}{\kilo\ohm}$. Now, if a user were to touch at location $x$ (measured in $\si{\centi\meter}$), find the %voltage the computer would register. Use the same model as before.
+
+
+%\ans{
+%
+%\[V_\mathrm{meas} = \SI{5}{\volt} \cdot \frac{R_2 \parallel R_\mathrm{meter}}{R_2 \parallel R_\mathrm{meter} + R_1}\]
+%
+%}
+%
+%\item
+%In this new scenario, we want to find the voltage that the computer would register, assuming that the voltmeter still has a non-ideal resistance $R_\mathrm{meter} = \SI{10}{\kilo\ohm}$ and that the wires leading to the voltmeter are non-ideal as well. First, write out the equivalent resistances $R_3$ and $R_4$ in terms of the touch location $x$ and the equivalent resistance $R_\mathrm{eq, wire} = \SI{0.1}{\omega\per\centi\meter}$.
+%
+%\begin{center}
+%	\begin{circuitikz}  
+%		\draw
+%		(-1, -1) to [short] (2, -1)
+%		(2, -1) to [V_=$V_s$, invert] (4, -1)
+%		(4, -1) to [short] (6, -1)
+%		(6, -1) to [short] (6, 4)
+%		(6, 4) to [R, l_=$R_1$] (4, 4)
+%		(4, 4) to [short, -*] (3, 4)
+%		node[above] {$x$}
+%		(3, 4) to [short] (2, 4)
+%		(2, 4) to [R, l_=$R_2$] (-1, 4)
+%		(-1, 4) to [short] (-1, -1)
+%		(-1, 2) to [short, -*] (0.5, 2)
+%		(1, 2) to [short,*-] (1.5, 2)
+%		(1, 2) to [R,l=$R_\mathrm{meter}$, v=$V_\mathrm{meas}$] (1, -1)
+%		(1.5, 2) to [R,l_=$R_4$] (3, 2)     
+%		(3, 2) to [short] (3, 4)
+%		(3, 2) to [R,l_=$R_3$] (4.5, 2)
+%		(4.5, 2) to [short, -*] (5, 2)
+%		(5.5, 2) to [short,*-] (6, 2);
+%	\end{circuitikz}
+%\end{center}
+%
+%\ans{
+%	
+%\begin{align*}
+%R_4 &= R_\mathrm{eq, wire} x = 0.1x\si{\ohm\per\centi\meter} \\
+%R_3 &= R_\mathrm{eq, wire} (10-x) = 0.1(10-x)\si{\ohm\per\centi\meter}
+%\end{align*}
+%
+%}
+%
+%\itemNow, find the new voltage as seen by the computer's voltage readout circuit  in terms of $R_1$, $R_2$, $R_3$, $R_4$, $R_\mathrm{meter}$, and the two supply voltages, $V_s$ and ground.
+%
+%\textit{Hint:} Consider redrawing the circuit.
+%
+%\ans{
+%
+%\begin{align*}
+%V_\mathrm{mid} &= \frac{R_2 \parallel (R_4 + R_\mathrm{meter})}{R_1 + (R_2 \parallel (R_4 + R_\mathrm{meter})} V_s \\
+%V_\mathrm{meas} &= \frac{R_\mathrm{meter}}{R_\mathrm{meter} + R_4} \frac{R_2 \parallel (R_4 + R_\mathrm{meter})}{R_1 + (R_2 \parallel (R_4 + R_\mathrm{meter})} V_s
+%\end{align*}
+%
+%}
+%
+%\itemNow that we have a more accurate circuit model, let's try to design something with it! Based on where a user touches the touchscreen, we would like to light an LED either blue or gold (we are festive people, after all). Assume that if the user touches the left half of the touchscreen bar, $V_\mathrm{meas}$ will be in the range $[\SI{0}{\volt}, \SI{2.5}{\volt})$. If they touch the right half of the touchscreen bar, $V_\mathrm{meas}$ will be in the range $[\SI{2.5}{\volt}, \SI{5}{\volt}]$. Design an op-amp circuit to output $\SI{0}{\volt}$ if the left half of the touchscreen bar was touched and $\SI{5}{\volt}$ if the right half of the touchscreen bar was touched.  Your circuit should have one input $V_\mathrm{meas}$.
+%
+%You may only use the following components: a $\SI{5}{\volt}$ voltage supply, a comparator, two resistors, and one resistive touchscreen circuit.
+%
+%\ans{
+%\begin{center}
+%\begin{circuitikz}
+%	\draw
+%	(5, 3) node [op amp, yscale=-1] (opamp) {}
+%	(0, 0) node[ground] {} to [V=$\SI{5}{\volt}$, invert] (0, 2.5)
+%	to [R=$\SI{1}{\kilo\ohm}$] (3, 2.5)
+%	-| (opamp.-)
+%	(3, 2.5) to [R=$\SI{1}{\kilo\ohm}$] (3, 0)
+%	to [short] (0, 0)
+%	(3, 3.5) node[left] {$V_\mathrm{meas}$}
+%	(3, 3.5) to [short, o-] (opamp.+)
+%	(opamp.out) to [short, -o] (7, 3) to [open, v^=$V_{\mathrm{out}}$, o-o] (7, 0) node[ground] {}
+%	(opamp.down) ++ (0,.5) node[above] {$\SI{5}{\volt}$} -- (opamp.down)
+%	(opamp.up) ++ (0, -.5) node[below] {$\SI{0}{\volt}$} -- (opamp.up);
+%\end{circuitikz}
+%\end{center}
+%}
+%%	
+%%\begin{center}
+%%	\begin{circuitikz}
+%%		\draw
+%%		(5, 3) node [op amp, yscale=-1] (opamp) {}
+%%		(0, 0) node [ground] {} to [V=$V_{\mathrm{in}}$, invert] (0, 4) -- (2, 2) to [R=$\SI{1}{\kilo\ohm}$, *-*] (2, 0) -| (opamp.-)
+%%		(2, 2) to [R=$\SI{1}{\kilo\ohm}$] (2, 0) node[ground] {}
+%%		(2, 4) -| (opamp.+)
+%%		(opamp.out) to [short, -o] (7, 3) to [open, v^=$V_{\mathrm{out}}$, o-o] (7, 0) node[ground] {}
+%%		(opamp.down) ++ (0,.5) node[above] {$\SI{5}{\volt}$} -- (opamp.down)
+%%		(opamp.up) ++ (0, -.5) node[below] {$\SI{0}{\volt}$} -- (opamp.up)
+%%		;
+%%	\end{circuitikz}
+%%\end{center}
+
+\end{enumerate}

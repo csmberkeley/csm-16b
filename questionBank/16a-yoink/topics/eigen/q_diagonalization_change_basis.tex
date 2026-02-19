@@ -1,0 +1,201 @@
+% author: Diyah Mettupalli
+% email: diyahmettupalli@berkeley.edu
+
+\qns{Diagonalization and Change of Basis}
+
+\textbf{Learning Goal:} The goal of this problem is to understand how to perform change of basis and diagonalization computations. 
+Please look into \notes{Note 10} for more on Diagonalization and Change of Basis.
+
+\meta{
+\begin{itemize}
+\item Explain Diagonalization and Change of Basis before starting problems.
+\item Ensure that the vectors in the final span expression for the column space and null space are linearly independent.
+\end{itemize}
+}
+
+\begin{enumerate}
+
+\itemLet $A = \mathbb{R}^2$,  \textbf{B} =  $\left\{\begin{bmatrix} -3 \\ 4 \end{bmatrix}, \begin{bmatrix} 3 \\ -2 \end{bmatrix}\right\}$,  \textbf{C} = $\left\{\begin{bmatrix} 3 \\ -1 \end{bmatrix}, \begin{bmatrix} 0 \\ 3 \end{bmatrix}\right\}$, and $\vec{x} = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$.
+
+\begin{enumerate}
+\item Find $[x]_B$.
+
+\ans{
+To find $[x]_B$, we need to find out what linear combination of the vectors in \textbf{B} yield $\vec{x}$. 
+
+\begin{center}
+$\begin{bmatrix} 3 \\ 0 \end{bmatrix}$ = $\alpha_1\left( \begin{bmatrix} -3 \\ 4 \end{bmatrix} \right) + \alpha_2 \left( \begin{bmatrix} 3 \\ -2 \end{bmatrix} \right)$ 
+\end{center}
+
+Solving for $\alpha_1$ and $\alpha_2$, we get $\alpha_1 = 1$ and $\alpha_2 = 2$.  Thus $[x]_B = \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix} =\begin{bmatrix} 1 \\ 2 \end{bmatrix} $
+}
+
+\item Find $P_{C \leftarrow B}$.
+
+\ans{
+To solve this problem, we have to represent each of the vectors in \textbf{B} as a linear combination of the vectors in \textbf{C}.
+
+\begin{center}
+$\begin{bmatrix} -3 \\ 4 \end{bmatrix}$ = $\beta_1\left( \begin{bmatrix} 3 \\ -1 \end{bmatrix} \right) + \beta_2 \left( \begin{bmatrix} 3\\ 3 \end{bmatrix} \right)$
+
+$\begin{bmatrix} 3 \\ -2 \end{bmatrix}$ = $\gamma_1\left( \begin{bmatrix} 3 \\ -1 \end{bmatrix} \right) + \gamma_2 \left( \begin{bmatrix} 3\\ 3 \end{bmatrix} \right)$ 
+\end{center}
+
+Using system of equations to solve for the weights, we get, $\beta_1 = -1, \beta_2 = 1, \gamma_1 = 1, \gamma_2 = \frac{-1}{3}$. This means, $\begin{bmatrix} -3 \\ 4 \end{bmatrix}_C =\begin{bmatrix} \beta_1 \\ \beta_2 \end{bmatrix}= \begin{bmatrix} -1 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 3 \\ -2 \end{bmatrix}_C = \begin{bmatrix} \gamma_1 \\ \gamma_2 \end{bmatrix}=\begin{bmatrix} 1 \\ \frac{-1}{3} \end{bmatrix}$.
+
+Hence, $P_{C \leftarrow B} = \begin{bmatrix} \beta_1 & \gamma_1 \\ \beta_2 & \gamma_2 \end{bmatrix}=\begin{bmatrix} -1 & 1\\ 1 & \frac{-1}{3} \end{bmatrix}$
+
+}
+
+\item Compute $[x]_C$, given that you only know $[x]_B$ and $P_{C \leftarrow B}$.
+
+\ans{
+Using the relationship $[x]_C$ = $P_{C \leftarrow B}[x]_B$, we can solve for $[x]_C$. 
+
+\begin{center}
+$[x]_C$ = $\begin{bmatrix} -1 & 1\\ 1 & \frac{-1}{3} \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} $
+
+$[x]_C$ = $\begin{bmatrix} -1 + 2 \\ 1 + \frac{-2}{3} \end{bmatrix} $
+
+$[x]_C$ = $\begin{bmatrix} 1 \\ \frac{1}{3} \end{bmatrix} $
+
+\end{center}
+}
+
+\item What is the relationship between matrices $P_{C \leftarrow B}$ and $P_{B \leftarrow C}$. Prove it. 
+
+\ans{
+Matrices $P_{C \leftarrow B}$ and $P_{B \leftarrow C}$ are inverses of each other.
+\\
+\\
+We know that this relationship, $[x]_C$ = $P_{C \leftarrow B}[x]_B$, exists. Multiplying both sides by $P_{B \leftarrow C}$ yields:
+\\
+\begin{center}
+$P_{B \leftarrow C}[x]_C$ = $P_{B \leftarrow C}P_{C \leftarrow B}[x]_B$
+\end{center}
+
+\vspace{5mm}
+Reusing the relationship, we know that $P_{B \leftarrow C}[x]_C$ is equal to $[x]_B$. So, we can write:
+\begin{center}
+$[x]_B$ = $P_{B \leftarrow C}P_{C \leftarrow B}[x]_B$
+\end{center}
+
+\vspace{3mm}
+Now,  this must be true for every vector $[x]_B$, so: 
+
+\begin{center}
+
+$P_{B \leftarrow C}P_{C \leftarrow B} = I$
+\end{center}
+
+\vspace{3mm}
+Since the only matrix with the property $A\vec{x} = \vec{x}$ is the identity matrix, $P_{C \leftarrow B}$ and $P_{B \leftarrow C}$ are inverses of each other.
+
+}
+\end{enumerate}
+
+\itemLet matrix \textbf{A} = $\begin{bmatrix} -2 & 1 & 1 \\ -1 & 0 & 1 \\ -1 & 1 & 0\end{bmatrix}$. 
+
+\begin{enumerate}
+
+\item Find an invertible matrix \textbf{P} and a diagonal matrix \textbf{D} such that \textbf{$A = PDP^{-1}$} 
+
+\ans {
+Start by computing the characteristics polynomial. 
+
+\begin{center}
+$\begin{bmatrix} \lambda & 0 & 0 \\0 & \lambda\ &0 \\0 &0& \lambda\end{bmatrix}$ - $\begin{bmatrix} -2 & 1 & 1 \\ -1 & 0 & 1 \\ -1 & 1 & 0\end{bmatrix}$ = 
+$\begin{bmatrix} \lambda+2 & -1 & -1 \\ 1 & \lambda & -1 \\1 & -1 & \lambda\end{bmatrix}$
+\end{center}
+
+Find the eigenvalues by first taking the determinant of the matrix above: det$\left(\begin{bmatrix} \lambda+2 & -1 & -1 \\ 1 & \lambda & -1 \\1 & -1 & \lambda\end{bmatrix}\right)$ 
+
+\begin{center}
+= $(\lambda + 2)$ $(\lambda^2 - 1) - (-\lambda -1)+(1+\lambda)$
+
+= $\lambda^3 + 2\lambda^2 - \lambda - 2 + 2\lambda + 2 $
+
+= $\lambda^3 + 2\lambda^2 + \lambda$
+
+ = $\lambda(\lambda + 1)^2$
+\end{center}
+ 
+So, $ \lambda_1 = 0$ and $\lambda_2 = -1$. 
+\\
+\\
+For eigenvalue $\lambda_1 = 0$, we can use Gaussian elimination to find the eigenvector.
+
+\begin{align*}
+	\left[\begin{array}{ccc}
+		2 & -1 & -1 \\ 1 & 0 & -1 \\1 & -1 & 0 
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc}
+		1 & -1/2 & -1/2 \\ 1 & 0 & -1 \\1 & -1 & 0
+\end{array}\right] \mbox{using $R_1 \leftarrow R_2/2$}
+\\&\rightarrow \left[\begin{array}{ccc}
+		1 & -1/2 & -1/2 \\ 0 & 1/2 & -1/2 \\1 & -1 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - R_1$}
+\\&\rightarrow \left[\begin{array}{ccc}
+		1 & -1/2 & -1/2 \\ 0 & 1/2 & -1/2 \\1 & -1 & 0
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 - R_1$}
+\\&\rightarrow \left[\begin{array}{ccc}
+		1 & -1/2 & -1/2 \\ 0 & 1/2 & -1/2 \\0 & -1/2 & 1/2
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1 + R_2$}
+\\&\rightarrow \left[\begin{array}{ccc}
+		1 & 0 & -1 \\ 0 & 1/2 & -1/2 \\0 & -1/2 & 1/2
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 + R_2$}
+\\&\rightarrow \left[\begin{array}{ccc}
+		1 & 0 & -1 \\ 0 & 1/2 & -1/2 \\0 & 0 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow 2(R_2)$}
+\\&\rightarrow \left[\begin{array}{ccc}
+		1 & 0 & -1 \\ 0 & 1 & -1 \\0 & 0 & 0
+\end{array}\right]
+\end{align*}
+
+So, $x_1 = x_3, x_3 = x_3, x_2 = x_3$. Using this relationship, we can say $x_3\begin{bmatrix} 1  \\ 1  \\1 \end{bmatrix}$. 
+
+$\begin{bmatrix} 1  \\ 1  \\1 \end{bmatrix}$ is a eigenvector for eigenvalue $\lambda = 0$.
+
+Similarly,  for eigenvalue $\lambda_1 = -1$, we can use Gaussian elimination again to find the eigenbasis. 
+
+\begin{align*}
+\left[\begin{array}{ccc}
+		1 & -1 & -1 \\ 1 & -1 & -1 \\1 & -1 & -1 
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc}
+		 & -1 & -1 \\ 0 & 0 & 0 \\1 & -1 & -1
+\end{array}\right] \mbox{using $R_2 \leftarrow R_1 - R_2$}
+\\&\rightarrow \left[\begin{array}{ccc}
+		1 & -1 & -1 \\ 0 & 0 & 0 \\0 & 0 & 0
+\end{array}\right] \mbox{using $R_3 \leftarrow R_1 - R_3$}
+\end{align*}
+
+So, $x_2 = x_2, x_3 = x_3, $ and $x_1 = x_2 + x_3$.  Thus, we can write $x_2\begin{bmatrix} 1  \\ 1  \\0 \end{bmatrix}$ and $x_3\begin{bmatrix} 1  \\ 0  \\1 \end{bmatrix}$
+
+The basis for the eigenspace when $\lambda = -1$ is $\left\{\begin{bmatrix} 1  \\ 1  \\0 \end{bmatrix}, \begin{bmatrix} 1  \\ 0  \\1 \end{bmatrix}\right\}$
+
+Using the vectors we obtained by doing Gaussian Elimination, we can now find our invertible matrix \textbf{P} and diagonal matrix \textbf{D}.
+
+\begin{center}
+\textbf{P} = $\begin{bmatrix} 1 & 1 & 1 \\ 1 & 0 & 1 \\0 & 1 & 1\end{bmatrix}$, \textbf{D} = $\begin{bmatrix} -1 & 0 & 0 \\ 0 & -1 & 0 \\0 & 0 & 0\end{bmatrix}$
+\end{center}
+
+Note that the columns of invertible matrix \textbf{P} can be in any order, as long as the eigenvalue placement in \textbf{D} correspond. 
+
+For example, if you write invertible matrix as
+\textbf{P} = $\begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 0 \\1 & 0 & 1\end{bmatrix}$, then  \textbf{D} = $\begin{bmatrix} 0 & 0 & 0 \\ 0 & -1 & 0 \\0 & 0 & -1\end{bmatrix}$.
+}
+
+\item What is $\textbf{D}^{2021}$?
+
+\ans{
+A property of a diagonal matrix is that $\textbf{D}^{k}$ = $\begin{bmatrix}\lambda_1^k & &\\ & \ddots & \\ & & \lambda_n^k \end{bmatrix}$. 
+
+Therefore,  $\textbf{D}^{2021}$ = $\begin{bmatrix} 0^{2021} & 0 & 0 \\ 0 & -1^{2021} & 0 \\0 & 0 & -1^{2021}\end{bmatrix}$ = $\begin{bmatrix} 0 & 0 & 0 \\ 0 & -1 & 0 \\0 & 0 & -1\end{bmatrix}$
+}
+\end{enumerate}
+
+
+
+
+\end{enumerate}
+
+

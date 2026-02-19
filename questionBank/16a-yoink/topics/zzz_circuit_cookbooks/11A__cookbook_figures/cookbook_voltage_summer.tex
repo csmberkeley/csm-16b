@@ -1,0 +1,13 @@
+\begin{circuitikz}[scale=0.7, transform shape]
+	\draw
+	(0,0) node[ground] () {}
+		to[V,l=$V_1$,invert] ++(0,2)
+		to[R,l=$R_1$] ++(0,2)
+		to[short] ++(2,0) coordinate (topRight)
+		to[R,l_=$R_2$] ++(0,-2)
+		to[V,l_=$V_2$] ++(0,-2)
+		node[ground] () {}
+	(topRight) to[short] ++(2,0)
+		to[open,o-o,v^=$V_\text{out}$] ++(0,-4)
+		node[ground] () {};
+\end{circuitikz}

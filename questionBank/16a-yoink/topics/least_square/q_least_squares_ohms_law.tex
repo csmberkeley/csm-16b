@@ -1,0 +1,91 @@
+% Lydia Lee, lydia.lee@berkeley.edu
+
+\qns{And You Thought You Could Ignore Circuits Until Dead Week}
+
+\textbf{Learning Goal:} The objective of this problem is to practice solving a noisy system using least squares method.
+
+\textbf{Relevant Notes:} \notes{Note 23} covers the details of least squares method.
+
+\begin{enumerate}
+
+\item\label{ohmsLaw}{
+	Write Ohm's Law for a resistor.}
+
+\ans{
+	For the resistor
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) to[R,l=$R$,v=$V_R$,i=$I_R$] ++(2,0);
+		\end{circuitikz}
+	\end{center}
+	$$V_R = I_RR$$}
+
+\item\label{singlePoint}{
+	You're given the following test setup and told to find $R_{eq}$ between the two terminals of the mystery box. What is $R_{eq}$ of the mystery box between the two terminals in terms of $V_S$ and $I_\text{measure}$?
+	\begin{center}
+\begin{circuitikz} [baseline=(current bounding box.center)]
+	\ctikzset { label/align = straight }
+	\draw (0,0)
+		to[V=$V_{S}$,invert] (0,2)
+		to[short, i=$I_\text{measure}$, -o] (4,2)
+		to[short] (4.5,2)
+		(0,0) to[short,-o] (4,0)
+		to[short] (4.5,0);
+	\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4.5,-0.2){Mystery Box};
+\end{circuitikz}
+	\end{center}}
+
+
+\ans{
+	\begin{align*}
+		R_{eq} &= \frac{V_S}{I_\text{measure}}\\
+	\end{align*}}
+
+\item\label{twoNoisyMeasurements}{
+	You think you've figured out how to find $R_{eq}$! You've taken the following measurements:
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Measurement \# & $V_S$ & $I_\text{measure}$\\\hline
+			1 & $2\si{\volt}$ & $1\si{\ampere}$\\\hline
+			2 & $4\si{\volt}$ & $2\si{\ampere}$\\\hline
+			3 & $6\si{\volt}$ & $2\si{\ampere}$\\\hline
+			3 & $8\si{\volt}$ & $4\si{\ampere}$\\\hline
+		\end{tabular}
+	\end{center}
+	Using the information above, formulate a least squares problem whose answer provides an estimate of $R_{eq}$.
+	}
+	
+\meta{
+Show through the setup that A can be a column vector and highlight that $\hat{R_{eq}} / \hat{\vec{x}}$ is a scalar (which is why A has only 1 column).
+
+}
+
+\ans{
+According to Ohm’s Law, $V_S = I_{measure}R_{eq}$. We have to calculate the least squares solution $\hat{R_{eq}}$. We are estimating the resistance, so $\hat R_{eq}$ corresponds to $\hat{\vec{x}}$ in the equation $\mathbf{A}\hat{\vec{x}}=\vec{b}$, where $\vec{i}=\begin{bmatrix} 1 \\ 2 \\ 2 \\ 4 \end{bmatrix}$ and $\vec{v}=\begin{bmatrix} 2 \\ 4 \\ 6 \\ 8 \end{bmatrix}$ correspond to $\mathbf{A}$ and $\vec{b}$, respectively:
+
+\begin{align*}
+\hat{\vec{x}}=&(\mathbf{A}^T \mathbf{A})^{-1} \mathbf{A}^T \vec{b}\\
+\hat{R_{eq}}=&(\vec{i}^T \vec{i})^{-1} \vec{i}^T \vec{v}\\
+=&(\begin{bmatrix} 1&2&2&4 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \\ 2 \\ 4 \end{bmatrix})^{-1} \begin{bmatrix} 1&2&2&4 \end{bmatrix} \begin{bmatrix} 2 \\ 4 \\ 6 \\ 8 \end{bmatrix} \\
+=&(1\cdot 1 + 2 \cdot 2+ 2\cdot 2+ 4\cdot 4)^{-1} (1\cdot 2 + 2\cdot 4+ 2\cdot 6+ 4\cdot 8) \\
+=&(25)^{-1} (54) \\
+=&\frac{54}{25} \si{\ohm}=2.16 \si{\ohm}
+\end{align*}
+
+
+}
+
+\item
+Find the least squares error vector $\norm{\vec{e}}$.
+
+
+\ans{
+The minimum error is given by 
+\begin{align*}
+{\vec{e}}&={\mathbf{A}\hat{\vec{x}}-\vec{b}}={\vec{i}\hat{\vec{R_{eq}}}-\vec{v}}={\begin{bmatrix} 1 \\ 2 \\ 2 \\ 4 \end{bmatrix}\times 2.16-\begin{bmatrix} 2 \\ 4 \\ 6 \\ 8\end{bmatrix}}={\begin{bmatrix} 2.16 \\ 4.32 \\ 4.32 \\ 8.64 \end{bmatrix}-\begin{bmatrix} 2 \\ 4 \\ 6 \\ 8\end{bmatrix}}=\begin{bmatrix} 0.16 \\ 0.32 \\ -1.68 \\ 0.64\end{bmatrix}\\
+\end{align*}
+
+}
+\end{enumerate}

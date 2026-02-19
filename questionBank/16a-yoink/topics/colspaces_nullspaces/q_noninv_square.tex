@@ -1,0 +1,39 @@
+%\newpage
+\qns{Non-invertible Square Matrix}
+
+\textbf{Learning Goal:} The goal of this problem is to understand loss of dimensionality in relation to nullspace.
+
+\meta{
+\begin{itemize}
+\item Guide students towards using a proof by contradiction for this problem. Also spend some time explaining the format and flow of a proof by contradiction.
+\item Give a reminder that a proof by contradiction is when we assume that what we want to show isn’t true, but we get something that doesn’t agree with what we already know. 
+\item To help your students understand this proof, it might be helpful to go through a specific example with simple A and B matrices.
+
+\end{itemize}
+
+}
+
+\begin{enumerate}
+
+\itemFor given matrices $\mathbf{A}\in\mathbb{R}^{3\times2}$ and $\mathbf{B}\in\mathbb{R}^{2\times3}$, the products will be square matrices: $\mathbf{A}\mathbf{B}\in \mathbb{R}^{3\times3}$ and $\mathbf{B}\mathbf{A}\in \mathbb{R}^{2\times2}$. Show that $\mathbf{A}\mathbf{B}$ is not invertible.
+
+Please look into \notes{Note 8 Section 8.3} to learn how the dimension of the output space depends on the nullspace.
+
+Hint: \textit{A good proof strategy is to utilize what we have already proven before. Is there a way we can use the result in Question 4, "Proof on Nullspace"?}
+
+\ans {
+We \underline{know} that $\mathbf{A}\in\mathbb{R}^{3\times2}$ and $\mathbf{B}\in\mathbb{R}^{2\times3}$. We want to \underline{show} that $\mathbf{A}\mathbf{B}$ is not invertible.\\\\
+\underline{Steps to get there:}
+There are many ways to do this proof, and we will only show one possible method here, a proof by contradiction.\\\\
+Assume, for sake of contradiction, that $\mathbf{A}\mathbf{B}$ is invertible. Since $\mathbf{A}\mathbf{B}\in \mathbb{R}^{3\times3}$, it is square, so by the theorem proved in Problem 4, $\mathbf{A}\mathbf{B}$ must have a trivial nullspace. This means that $\vec{x} = \vec{0}$ is the only solution to the equation $$\mathbf{A}\mathbf{B}\vec{x} = \vec{0}$$
+Now, we are also given that $\mathbf{B}\in\mathbb{R}^{2\times3}$. $\mathbf{B}$ has 3 column vectors, each of which are $\in\R^2$. The transformation $\mathbf{B}$ results in a loss of dimensionality: the dimension of $\R^2$ is 2, so at maximum, two of the column vectors will span $\R^2$. This means that we are guaranteed that at least one of the column vectors is linearly dependent, so $\mathbf{B}$ has a nontrivial nullspace. By definition of nontrivial nullspace, there exists $\vec{x} \neq \vec{0}$ that solves the equation $\mathbf{B}\vec{x} = \vec{0}$. Call this solution $x^\prime$: $$\mathbf{B}\vec{x^\prime} = \vec{0}$$
+Left-multiplying both sides of the equation by $\mathbf{A}$ gives us $$\mathbf{A}\mathbf{B}\vec{x^\prime} = \vec{0}$$
+But this contradicts the result we achieved earlier in the proof: then, we found that the only solution to the equation $\mathbf{A}\mathbf{B}\vec{x} = \vec{0}$ is $\vec{x} = \vec{0}$, and now, we have shown there must exist a nonzero solution, $x^\prime$! These two statements are contradictory; therefore, there must be something wrong with our initial assumption that $\mathbf{A}\mathbf{B}$ is invertible. It follows that $\mathbf{A}\mathbf{B}$ is non-invertible.
+}
+
+
+
+
+
+\end{enumerate}
+

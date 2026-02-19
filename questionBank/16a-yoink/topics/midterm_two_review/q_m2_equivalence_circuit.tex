@@ -1,0 +1,98 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Circuit Equivalence}
+
+\begin{enumerate}
+    \item\label{thevenin_resistance}{
+        Find the Thevenin resistance $R_{Th}$ of the circuit shown below, with respect to its terminals A and B.\\
+        Assume that $R_1=4R$, $R_2=R$, and $R_3=9R$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.85]{../q_m2_equivalence_circuit_figs/thevenin_resistance.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q9(a) of Spring 2020's Midterm 2.
+        
+    }
+    \ans{
+        To find the Thevenin resistance, we will have to zero out every independent source in the circuit. This means the voltage source becomes a wire, which consequently shorts $R_1$ out.\\
+        In this case, for a current flowing from terminal A to B, it will either flow through $R_2$ or $R_3$: there is a parallel structure.\\
+        Therefore, the equivalent resistance is
+        \begin{align*}
+            R_{eq} = R_2 \parallel R_3 = R \parallel 9R
+            = \frac{R\times9R}{R+9R} = \frac{9}{10}R
+        \end{align*}
+        
+    }
+    
+    \item\label{load_power}{
+        Now a load resistor, $R_L = 9R$, is connected across terminals A and B as shown in the circuit below. Find the supply voltage, $V_S$, such that 1mW is dissipated across the load resistor. Let $R = 36k\Omega$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.85]{../q_m2_equivalence_circuit_figs/load_power.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q9(b) of Spring 2020's Midterm 2.
+        
+    }
+    \ans{
+        Power dissipated across an element can be calculated via $P=IV=\frac{V^2}{R}=I^2 V$. In this case, we will just have to find the voltage across $R_L$ as an expression involving $V_S$.\\
+        There are two ways to solve this problem.\\
+        The first method recognizes that since the rightmost line of circuit demonstrates a voltage divider, we may calculate the voltage at node A:
+        \begin{align*}
+            V_A
+            &= \frac{R_3 \parallel R_L}{R_2 + R_3 \parallel R_L}V_S 
+            = \frac{\frac{9}{2}R}{R + \frac{9}{2}R}V_S = \frac{9}{11}V_S
+        \end{align*}
+        Now we may calculate the power dissipated by the load resistor:
+        \begin{align*}
+            P_{R_L}
+            &= \frac{V_{R_L}^2}{R_L} = \frac{(\frac{9}{11}V_S)^2}{9R}
+            = \frac{9V_{S}^2}{121R} = 0.001W \\
+            V_{S}
+            &= \sqrt{\frac{0.001W\times121\times36000\Omega}{9}} = 22V
+        \end{align*}
+        The second method utilizes the Thevenin model of the circuit we have already computed:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_equivalence_circuit_figs/load_power_sol.PNG}
+            }
+        \end{center}
+        where we recognize $V_{Th}$ via the voltage divider formula on the original circuit excluding load resistor, and attain $I_{Th} = \frac{V_{Th}}{R_L + R_{Th}}$, as we use a different form of formula for power calculation: $P=I^2 R$.\\
+        This approach will still require us to complete the computation done in the first solving method above.
+        
+    }
+    
+    \item\label{dependent_source}{
+        We modify the circuit as shown below:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_equivalence_circuit_figs/dependent_source.PNG}
+            }
+        \end{center}
+        Find a symbolic expression for $V_{out}$ as a function of $V_S$:
+        
+    }
+    \meta{
+        This question comes from Q9(c) of Spring 2020's Midterm 2.
+        
+    }
+    \ans{
+        Without the load resistor, the voltage divider seen at node A is even more straightforward to compute:
+        \[V_A = \frac{R_3}{R_2 + R_3}V_S = 0.9V_S\]
+        Using Ohm's Law on the right hand section of circuit, I also acquire that:
+        \[V_{out} = g(V_A - V_{out})(R_L \parallel R_0)\]
+        Simplifying the above equation gives a slightly more complex algebraic expression:
+        \[V_{out} = \frac{0.9g\times(R_L \parallel R_0)}{1 + g\times(R_L \parallel R_0)}V_S\]
+        
+    }
+\end{enumerate}

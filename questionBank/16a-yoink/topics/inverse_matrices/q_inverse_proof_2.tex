@@ -1,0 +1,55 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+\qns{Inverse of some matrices}
+\textbf{Learning goal: learn another property of invertibility and learn
+proofs}.
+
+\meta{
+\begin{enumerate}
+    \item First review the definition of invertibility and how to write
+        multiplication of matrix and vector as a linear combination of columns.
+    \item For the proof of inverse of product, ask students not to overthink.
+\end{enumerate}
+}
+
+a. Recall that if a matrix is invertible, then it has linearly independent
+columns. Prove the following for equivalence in bring invertible: A matrix $A \in
+R^{nxn}$ is invertible iff $\vec{v} = \vec{0}$ is the only solution to
+$A\vec{v}=\vec{0}$.
+
+\ans{
+    \textbf{We need to prove for both direction}. Suppose $A$ is invertible, it
+    means columns of  $A$ are linearly independent. Therefore, denote columns of
+     $A$ as  $a_1, \ldots{}, a_n$ and  $v = \left[ v_1, \ldots{}, v_n
+     \right]^{\intercal}$, then we have  $\sum_{i}^{n} a_i v_i = 0$ so every
+     $v_i = 0$.
+
+     On the other hand, if we have the only solution is  $0$ it means the columns are
+     linearly independent. Suppose this is not true, then we have values $c_1,
+     \ldots{}, c_n$ not all zero such that $\sum A_i c_i = 0$ but it would be a
+     nonzero vector solution, contradicting with what we have. Therefore,  $A$ is invertible.
+} 
+
+b. Prove that if matrices $A, B \in R^{n \times n}$ are invertible, then $A
+B$ is invertible. Hint: use result from 1.
+
+\ans{
+    Suppose there is an $v$ such that  $A B v = 0$. Then we have  $A (Bv) = 0$,
+    so  $Bv = 0$ since  $A$ is invertible, then we have  $v = 0$ since  $B$ is
+    invertible. Therefore, we have  $AB$ is invertible.
+}
+
+c. Prove that $(AB)^{-1} = B^{-1} A^{-1}$
+
+\ans{
+    We have $AB  (B^{-1} A^{-1}) = A I A^{-1} = A A^{-1} = I$
+}
+
+d. Give an counterexample for invertible matrix $A, B$ such that  $(A+B)^{-1}$ is
+not $B^{-1} + A^{-1}$ 
+
+\ans{
+    Just make $B = -A$, then we have  $A+B$ is not invertible. 
+}
+
+
+

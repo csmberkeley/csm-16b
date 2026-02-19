@@ -1,0 +1,86 @@
+% Author: Anna Chou
+% Email: menghuichou@berkeley.edu
+% CSM16A Spring 2022
+\qns{System of Unknowns}
+%\setlength\itemsep{14em}
+
+\textbf{Learning Goal:} The goal of this problem is to use Gaussian Elimination to describe solutions to systems and notice the differences of unique solution, infinite solutions, and no solution in matrix.
+
+Check the \underline{\href{https://colab.research.google.com/drive/1vBYqSXVI-PNCSF8b05wSIFL6rPUJVhsM?usp=sharing}{Systems of Equations Lab from CSM 16A!}} (This is a hyperlink)
+
+\begin{questionmeta}
+    \begin{itemize}
+        \item Solve the system of equations and show operation you should use on the matrix to get the same result at each step.
+        \item Make notice that it is not necessary to finish the whole process of Gaussian elimination so to get an answer. Try to think about what variable seems to be importance what is not. May introduce the idea of \textbf{pivot} and \textbf{variable}.
+        \item Emphasize on the differences and importance of unique solution, infinite solutions, and no solution. May connect the concepts to \textbf{linear independence} and \textbf{linear dependence}.
+    \end{itemize}
+\end{questionmeta}
+
+Consider the following system of equations:
+\begin{align}
+    x - 4y + 7z = C \\
+    3y - 5z = S \\
+    -2x + 5y - 9z = M
+\end{align}
+
+\begin{enumerate}
+    \item Find an equation involving C, S, and M that makes this system of equations have solution(s).
+    
+    \begin{solution}
+        The system can be written in an augmented matrix form:
+        \begin{align*}
+            \left[\begin{array}{ccc|c}
+                1 & -4 & 7 & C \\
+                0 & 3 & -5 & S \\
+                -2 & 5 & -9 & M
+            \end{array}\right]
+            &\rightarrow \left[\begin{array}{ccc|c}
+                1 & -4 & 7 & C\\
+                0 & 3 & -5 & S\\
+                0 & -3 & 5 & M + 2C
+            \end{array}\right] \mbox {using $R_3 \leftarrow 2R_1 + R_3$} \\
+            &\rightarrow \left[\begin{array}{ccc|c}
+                1 & -4 & 7 & C \\
+                0 & -3 & 5 & M + 2C \\
+                0 & 3 & -5 & S \\
+            \end{array}\right] \mbox {swapping $R_2$ and $R_3$} \\
+            &\rightarrow \left[\begin{array}{ccc|c}
+                1 & -4 & 7 & C \\
+                0 & -3 & 5 & M + 2C \\
+                0 & 0 & 0 & M + 2C + S
+            \end{array}\right] \mbox {using $R_3 \leftarrow R_2 + R_3$}
+        \end{align*}
+        
+        From here we notice that the coefficients of variables in $R_3$ have completely been zeroed out. In order to have solution(s) to the system, M + 2C + S must be 0.
+    \end{solution}
+
+    
+    \item How can we make this system have no solution?
+    
+    \begin{solution}
+        From the last problem, we know that the augmented matrix of this system can be reduced to 
+        \[
+        \left[\begin{array}{ccc|c}
+            1 & -4 & 7 & C \\
+            0 & -3 & 5 & M + 2C \\
+            0 & 0 & 0 & M + 2C + S
+            \end{array}\right]
+        \]
+        
+        To make this system have no solution, M+ 2C + S must be nonzero. After all, $0 = x$ where $x \in \R_{\ne 0}$ does not make sense, which should lead the system to have no solution.
+    \end{solution}
+    
+    \item Is it possible to make this system have only one solution? Please explain.
+    
+    \begin{solution}
+        No, it is impossible to make this system have only one solution since the third row can only make the system have either infinite solutions or no solution. To make the system have only one solution, also called unique solution, the system should be \textbf{linear independent}.
+    \end{solution}
+    
+    \item If you could change one number in equation (2) to make the system have only one solution, which would you change?
+    
+    \begin{solution}
+        Answers can vary. One possible solution is to change 3 to -3. That way, when we do Gaussian Elimination, we can ensure that none of the equations is some ratio of the other equations.
+    \end{solution}
+    % \meta{test meta}
+    % \ans{test ans}
+\end{enumerate}

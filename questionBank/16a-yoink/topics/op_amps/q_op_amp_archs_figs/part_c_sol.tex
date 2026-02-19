@@ -1,0 +1,32 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+%Code Referenced from q_review_opamps.tex
+
+\begin{circuitikz}
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(-4, 0.5) node[op amp] (BUF) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l=$R_2$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$V'(t)$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) to[R,l_=$R_2$] (BUF.out)
+	(AMP.+) to[V, v_=$1V$] ++(0,-1.5)
+		node[ground] () {}
+	(-8, 1) 
+	    to [sV, v_=$V(t)$] node[ground]{} (-8, -0.5)
+	(-8, 1)
+	    to [R, l^=$R_1$] (-6, 1)
+	    to [short] (BUF.-)
+	(-6, 1)
+	    to [R, l^=$R_1$] (-6, -0.5) node[ground]{}
+	(BUF.-)
+	    to[short] (-5.2, 2) coordinate (topLeft)
+		to[short] (topLeft -| BUF.out)
+		to[short] (-2.8,0.5)
+	(BUF.+) to [short] (-5.2, -1) node[ground]{}
+	;
+\end{circuitikz}

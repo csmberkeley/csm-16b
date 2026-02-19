@@ -1,0 +1,84 @@
+% Author: Teja Kanthamneni
+% Author email: tk164@berkeley.edu
+% CSM Fall 2024
+
+\qns {Business Man Brandon} \\
+
+\meta {
+The goal of this question is to help students understand how to model different computations using inner products.} \\
+
+{Former CSM 16A Coordinator Brandon really enjoyed handing out cotton candy to EECS 16A students after their exams, so much so that he decided to start is own cotton candy business. The following table displays how the performance of Brandon's business during its opening week:}
+\\
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Day} & \textbf{Number of Sales} & \textbf{Price Per Item} & \textbf{Rating (out of 5)}\\
+\hline
+\textbf{Monday} & $2$ & \$$1$ & 3\\
+\hline
+\textbf{Tuesday} & $5$ & \$$2$ & 3\\
+\hline
+\textbf{Wednesday} & $7$ & \$$3$ & 4\\
+\hline
+\textbf{Thursday} & $13$ & \$$4$ & 4\\
+\hline
+\textbf{Friday} & $23$ & \$$5$ & 5\\
+\hline
+\end{tabular}
+\label{tab:example}
+\end{table}
+
+(a) To gauge the performance of his business, Brandon wishes to calculate the average number of sales per day of his cotton candy stand. Given a vector $\vec{x}$ &= \begin{bmatrix}
+           2 \\
+           5 \\
+           7 \\
+           13 \\
+           23 \\
+         \end{bmatrix}
+to represent the number of sales made each day, design a vector $\vec{y}$ such that $\<x, y\>$ will compute this average and compute it.
+
+\ans{We can model this by creating vector 
+ and $\vec{y}$ &= $\frac{1}{5}$\begin{bmatrix}
+           1 \\
+           1 \\
+           1 \\
+           1 \\
+           1 \\
+         \end{bmatrix}
+    &= \begin{bmatrix}
+           0.2 \\
+           0.2 \\
+           0.2 \\
+           0.2 \\
+           0.2 \\
+         \end{bmatrix}. 
+Then we can do $\<x, y\> = x^T\vec{y}$ to compute the daily average. Expanded, this looks like:
+\[0.2 * 2 + 0.2 * 5 + 0.2 * 7 + 0.2 * 13 + 0.2 * 23 = \frac{2 + 5 + 7 + 13 + 23}{5} = \frac{50}{5} = 10\]
+
+Notice this dot product computation ends up looking exactly like the standard average formula.}\\
+
+(b) Due to Brandon's intricate knowledge of supply and demand, he has devised a dynamic pricing system for his cotton candy stand which changes on a daily basis. To gauge its effectiveness, Brandon wants to determine his average price per cone of cotton candy throughout the week. Given the same definition of $\vec{x}$ as in part (a), design another vector $\vec{z}$ such that $\<x, z\>$ will compute this average and compute it.
+
+\ans{We define $\vec{z}$ &= $\frac{1}{2 + 5 + 7 + 13 + 23}$\begin{bmatrix}
+           1 \\
+           2 \\
+           3 \\
+           4 \\
+           5 \\
+         \end{bmatrix} 
+
+    &= $\frac{1}{50}$\begin{bmatrix}
+           1 \\
+           2 \\
+           3 \\
+           4 \\
+           5 \\
+         \end{bmatrix} 
+         
+Then we can do $\<x, z\> = x^T\vec{z}$ to compute the daily average. Expanded, this looks like:
+\[\frac{1 * 2 + 2 * 5 + 3 * 7 + 4 * 13 + 5 * 23}{50} = \frac{2 + 10 + 21 + 52 + 115}{50} = \frac{200}{50} = 4\] 
+Notice this dot product computation ends up looking like a weighted average of the prices for each day.
+}\\
+

@@ -1,0 +1,119 @@
+\qns{Gaussian Elimination}
+
+Use Gaussian elimination to solve the following systems.
+Does a solution exist? Is it unique?
+
+
+ \meta{\textbf{Teaching Suggestion}
+ \begin{itemize}
+ \itemWrite out the system of equations and the corresponding matrix next to each other.
+ \itemSolve the system of equations and show which row operation you should use on the matrix to get the same result at each step.
+ \itemTalk about the procedure for each row: taking the left most variable, multiplying by a scalar to make its coefficient 1, use row operation (c) to make the rest of the coefficients in that column 0, move rows up or down so that the top equations solve for variables that are farther to the left, etc.
+ \end{itemize}
+ }
+
+
+\begin{enumerate}
+
+\item
+\[
+\begin{bmatrix}2 & 0 & 4\\
+      0 & 1 & 2\\
+      1 & 2 & 0\end{bmatrix}
+\begin{bmatrix}x_1 \\ x_2 \\ x_3\end{bmatrix}
+=
+\begin{bmatrix} 6 \\ -3 \\ 3 \end{bmatrix}
+\]
+
+\ans{
+
+\[
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+= \begin{bmatrix}5 \\ -1 \\ -1\end{bmatrix}
+\]
+
+}
+\vspace{1.5in}
+
+\item
+\[
+\begin{bmatrix}1 & 1 & 2\\
+      0 & 1 & 1\\
+      2 & 1 & 3 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+=
+\begin{bmatrix} 2 \\ 0 \\ 4\end{bmatrix}
+\]
+
+\ans{
+
+The solution is not unique. One solution is: 
+
+\[
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+= \begin{bmatrix}2 \\ 0 \\ 0\end{bmatrix}
+\]
+
+}
+\vspace{1.5in}
+
+\item
+\[
+\begin{bmatrix}1 & 4 & 2\\
+      1 & 2 & 8\\
+      1 & 3 & 5 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+=
+\begin{bmatrix} 2 \\ 0 \\ 3\end{bmatrix}
+\]
+
+\ans{
+
+No solution. When you do Gaussian elimination, you will get a row that looks like $\left[\begin{array}{ccc|c} 0 &0& 0& a \end{array}\right]$, where $a\neq 0$ in the augmented matrix.
+
+}
+\vspace{1.5in}
+
+% 3D underdetermined GE with swaps
+\item
+\[ \begin{bmatrix}
+2 & 2 & 3 \\
+0 & 1 & 1 \\
+2 & 0 & 1 \\
+\end{bmatrix} \begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} = \begin{bmatrix}
+7 \\ 3 \\ 1
+\end{bmatrix} \]
+
+\ans{
+
+There are many solutions. One solutions is: 
+
+\[ \begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} = \begin{bmatrix}
+-1 \\ 0 \\ 3
+\end{bmatrix} 
+\]
+
+}
+\vspace{1.5in}
+
+% 3D overdetermined GE with swaps (kindof, it's easier with a swap but not necessary)
+\item
+\[ \begin{bmatrix}
+3 & 1 & 0\\ 1 & 1 & 1 \\ 2 & 0 & -1
+\end{bmatrix} \begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} = \begin{bmatrix}
+6 \\ 3 \\ 2
+\end{bmatrix} \]
+
+\ans{
+
+No solution.
+
+}
+
+\end{enumerate}

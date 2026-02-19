@@ -1,0 +1,125 @@
+\qns{Finals Theorem Boxes}
+
+\begin{ln-define}{Euclidean Inner Product}{}
+    A Euclidean Inner Product can be expressed as follows:
+    \begin{align*}
+        \langle {\vec{x}, \vec{y}} \rangle
+        &= \vec{x}^T \vec{y} \\
+        &= \sum_i x_i y_i
+    \end{align*}
+    Alternatively, we may express the Euclidean Inner Product as:
+    \[
+        \vec{x} \cdot \vec{y}
+    \]
+    such notation is also a reason it is called the dot product.
+    \tcblower
+    For example, let $\vec{x} = \begin{bmatrix} 1 & 5 & 2 \end{bmatrix}^T$ and $\vec{y} = \begin{bmatrix} 3 & 4 & 2 \end{bmatrix}^T$, then:
+    
+    \begin{align*}
+        \langle {\vec{x}, \vec{y}} \rangle
+        &= \vec{x}^T \vec{y} \\
+        &= \sum_i x_i y_i \\
+        &= 1 \cdot 3 + 5 \cdot 4 + 2 \cdot 2 = 27
+    \end{align*}
+\end{ln-define}
+
+\begin{bindenum}
+    \item \textbf{Symmetry.} $\forall \vec{u}, \vec{v} \in \mathbb{V}\ (\langle {\vec{u}, \vec{v}} \rangle = \langle {\vec{v}, \vec{u}} \rangle)$
+    \item \textbf{Linearity.}
+    \subitem $\forall \vec{u}, \vec{v} \in \mathbb{V}, \alpha \in \R\  (\alpha \langle {\vec{u}, \vec{v}} \rangle = \langle \alpha {\vec{u}, \vec{v}} \rangle)$
+    \subitem $\forall \vec{u}, \vec{v}, \vec{w} \in \mathbb{V}\ (\langle {\vec{u}, \vec{v} + \vec{w}} \rangle = \langle {\vec{u}, \vec{v}} \rangle + \langle {\vec{u}, \vec{w}} \rangle)$
+    \item \textbf{Positive-Definiteness.} $\forall \vec{v} \in \mathbb{V}\ (\langle {\vec{v}, \vec{v}} \rangle \geq 0)$, with equality holding true if and only if $\vec{v} = \vec{0}$
+\end{bindenum}
+
+\begin{ln-define}{Cauchy-Schwartz Inequality}{}
+    The inequality is phrased as:
+    \[
+        |\vec{x}^T \vec{y}| \leq {\lVert \vec{x} \rVert} {\lVert \vec{y} \rVert}
+    \]
+    \tcblower
+    %This inequality originates from the following algebraic work:
+    %\begin{align*}
+    %    \big| \langle \vec{x}, \vec{y} \rangle \big| &= \big| \vec{x}^T \vec{y} \big| = \big| \vec{y}^T \vec{x} \big| \\
+     %   &= \big| {\lVert \vec{x} \rVert} {\lVert \vec{y} \rVert} \cos(\theta_{\vec{x}, \vec{y}}) \big|
+      %  \leq \big| {\lVert \vec{x} \rVert} {\lVert \vec{y} \rVert} \big|
+   % \end{align*}
+    %The derivation is based on the fact that,
+    %\[\forall \theta \in \R, 0 \leq |\cos(\theta)| \leq 1\]
+\end{ln-define}
+
+\begin{ln-theorem}{Cosine of Angle between Vectors}{}
+    \textbf{Theorem.} For vectors $\vec{u}, \vec{v}$ of the same dimension,
+    \[
+        \cos(\theta_{\vec{u}, \vec{v}}) = \frac{\vec{x} \cdot \vec{y}} {\lVert \vec{x} \rVert \lVert \vec{y} \rVert}
+    \]
+    \tcblower
+    \textbf{Proof.} Reference \url{https://proofwiki.org/wiki/Cosine_Formula_for_Dot_Product}
+    \par
+    Basic digest: use Law of Cosine to derive such identity.
+\end{ln-theorem}
+
+\begin{ln-define}{Projection of Vectors}{}
+    The projection of a vector $\vec{x}$ onto $\vec{w}$ is the vector in the direction of $\vec{w}$ (or, is a scalar multiple of $\vec{w}$) that has the magnitude of:
+    \[
+        \| {proj}_{\vec{w}} (\vec{x}) \| = \frac{\vec{w} \cdot \vec{x}}{\vec{w} \cdot \vec{w}}
+    \]
+    and is the closest vector to $\vec{x}$ along the direction of $\vec{w}$.
+\end{ln-define}
+
+% \begin{ln-define}{Cross Correlation}{}
+%     The cross correlation of two vectors $\vec{x}, \vec{y}$ is denoted as follows:
+%     \begin{align*}
+%         {\rm corr}_{\vec{u}} (\vec{v}) [k]
+%         &= \sum_i \vec{u}[i] \vec{v}[i - k] \\
+%         &= \cdots + \vec{u}[0] \vec{v}[-k] + \vec{u}[1] \vec{v}[1 - k] + \cdots + \vec{u}[k] \vec{v}[0] + \cdots
+%     \end{align*}
+% \end{ln-define}
+
+% Compute the Cross Correlation of $\vec{u} = \begin{bmatrix} 1 & -1 & 2 \end{bmatrix}^T$ and $\vec{v} = \begin{bmatrix} 2 & -1 \end{bmatrix}^T$ (which is ${\rm corr}_{\vec{u}} (\vec{v})$):
+% \begin{center}
+%     \begin{tabular}{c||c|c}
+%         Offset Value & Computation & Computed Value \\
+%         \hline
+%         \hline
+%         $k = -1$ & $0 \times 2 + 1 \times (-1) + (-1) \times 0 + 2 \times 0$ & $-1$ \\
+%         \hline
+%         $k = 0$ & $1 \times 2 + (-1) \times (-1) + 2 \times 0$ & $3$ \\
+%         \hline
+%         $k = 1$ & $1 \times 0 + (-1) \times 2 + 2 \times (-1)$ & $-4$ \\
+%         \hline
+%         $k = 2$ & $1 \times 0 + (-1) \times 0 + 2 \times 2 + 0 \times (-1)$ & $4$ \\
+%     \end{tabular}
+% \end{center}
+
+% \[
+%     \vec{u} \cdot \vec{v} = {\cos(\theta_{\vec{u}, \vec{v}})}{\lVert \vec{u} \rVert \lVert \vec{v} \rVert}
+% \]
+% Among $\begin{bmatrix} 2 & -1 & 0 \end{bmatrix}^T (k = 0)$ and $\begin{bmatrix} 0 & 2 & -1 \end{bmatrix}^T (k = 1)$, the former has a smaller sign between itself and the other vector it was cross correlated with $(\begin{bmatrix} 1 & -1 & 2 \end{bmatrix}^T)$. This pair is the most similar.
+
+% $(x_1, y_1)$  $(x_2, y_2)$  $(x_3, y_3)$
+% $d_1$ $d_2$ $d_3$
+
+% \begin{center}
+%     \begin{tabular}{|c|c||c|}
+%         \hline
+%         Number of bedrooms $(x_1)$ & Remodeled $(x_2)$ & rent $y$ \\
+%         \hline
+%         \hline
+%         2 & 0 & 4250 \\
+%         \hline
+%         3 & 1 & 6250 \\
+%         \hline
+%         2 & 1 & 4850 \\
+%         \hline
+%     \end{tabular}
+% \end{center}
+
+% \[
+%     \begin{bmatrix}
+%         2 & 0 \\
+%         3 & 1 \\
+%         2 & 1
+%     \end{bmatrix}
+%     \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+%     = \begin{bmatrix} 4250 \\ 6250 \\ 4850 \end{bmatrix}
+% \]

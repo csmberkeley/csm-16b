@@ -1,0 +1,337 @@
+%Authors: Laura Brink, Urmita sikder
+%Email:laura_brink@berkeley.edu, urmita sikder
+
+\qns{Besto Pesto (Final Exam, Fall 2018) [PRACTICE]}
+
+Your TA Laura is struggling to keep her basil plant alive!  She needs your help to determine how much water and sunlight her plant needs.\\Let $x_h[k]$ be the plant's height on day $k$ and $x_{\ell}[k]$ be the number of leaves on the plant on day $k$. The vector $\vec{x}[k]=\begin{bmatrix} x_h[k]\\ x_{\ell}[k]\end{bmatrix}$ defines the state of the plant. The evolution of the basil plant from one day to the next is defined by the \textbf{approximate} mathematical model:
+\begin{align}
+  \vec x[k+1] = \mathbf{A}\vec x[k] = \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22}\end{bmatrix}\begin{bmatrix} x_h[k] \\ x_{\ell}[k] \end{bmatrix}.
+\end{align}
+
+\begin{enumerate}
+
+\item
+   Our first goal is to estimate the elements of state transition matrix, $\mathbf{A}$: $a_{11},a_{12},a_{21},a_{22}$. To do this we count the leaves and measure the height for the first $N$ time steps, i.e. we know $\{\vec x[0], \vec x[1], \hdots, \vec x[N]\}$. Setup a least squares problem to estimate  $\vec a = \begin{bmatrix} a_{11} \\ a_{12} \\ a_{21} \\ a_{22} \end{bmatrix}$:
+  \begin{align}
+    \hat{\vec{a}} = \underset{\vec a}{\argmin}\|\mathbf{M}\vec a - \vec b\|^2.
+  \end{align}
+  \textbf{Write the matrix, $\mathbf{M}$, and vector, $\vec b$, that would be used in the above least squares problem for $N=3$.}
+  
+
+
+\ans{
+We can simplify the equations:
+\begin{align*}
+\begin{bmatrix} x_h[k+1] \\ x_{\ell}[k+1] \end{bmatrix}= \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22}\end{bmatrix}\begin{bmatrix} x_h[k] \\ x_{\ell}[k] \end{bmatrix}\\
+\implies x_h[k+1]= a_{11} x_h[k] +a_{12} x_{\ell}[k]\\
+x_{\ell}[k+1]=a_{21} x_h[k] +a_{22} x_{\ell}[k]
+\end{align*}
+For $N=3$, we have:
+\begin{align*}
+x_h[1]= a_{11} x_h[0] +a_{12} x_{\ell}[0]\\
+x_{\ell}[1]=a_{21} x_h[0] +a_{22} x_{\ell}[0]\\
+x_h[2]= a_{11} x_h[1] +a_{12} x_{\ell}[1]\\
+x_{\ell}[2]=a_{21} x_h[1] +a_{22} x_{\ell}[1]\\
+x_h[3]= a_{11} x_h[2] +a_{12} x_{\ell}[2]\\
+x_{\ell}[3]=a_{21} x_h[2] +a_{22} x_{\ell}[2]
+\end{align*}
+  \begin{align}
+    \mathbf{M} &= 
+    \begin{bmatrix}
+    x_h[0] & x_{\ell}[0] & 0 & 0 \\ 
+    0 & 0 & x_h[0] & x_{\ell}[0] \\
+    x_h[1] & x_{\ell}[1] & 0 & 0 \\ 
+    0 & 0 & x_h[1] & x_{\ell}[1] \\
+    x_h[2] & x_{\ell}[2] & 0 & 0 \\ 
+    0 & 0 & x_h[2] & x_{\ell}[2] \\
+    \end{bmatrix} \\
+    \vec b &= \begin{bmatrix} 
+    x_h[1] \\ x_{\ell}[1] \\ 
+    x_h[2] \\ x_{\ell}[2] \\
+    x_h[3] \\ x_{\ell}[3]
+    \end{bmatrix}
+  \end{align}
+}
+
+%\item
+%(4 points) Now we would like to use the observations of the current state of the plant to determine the initial state: $\vec{x}[0]=\begin{bmatrix} x_h[0]\\ x_{\ell}[0]\end{bmatrix}$. For convenience of measurement, we use a Launchpad with a camera attached that periodically takes pictures and gives us a measurement vector, $\vec{y}[k]=\begin{bmatrix} y_h[k] \\ y_{\ell}[k] \end{bmatrix} \in \mathbb{R}^2$, where $y_h[k]$ is a noisy measurement of the plant's height, $y_{\ell}[k]$ is a noisy count of leaves.  Since the measurement might not be accurate, we will apply least squares to estimate $\vec{x}[0]$. \\
+%We have the dynamics and sensor models,   
+%\begin{align}
+%	\vec x[k+1] &= \mathbf{A}\vec x[k], \\
+%	\vec{y}[k] &= \mathbf{C}\vec x[k] + \vec n[k],
+%\end{align}
+%
+%where $\vec{x}[k]$ is as before, $\vec{y}[k]$ is the sensor reading at time $k$, and $\vec{n}[k] \in \mathbb{R}^2$ is sensor noise/ error. The matrices $\mathbf{C}$ and $\mathbf{A}$ are given by
+%\begin{align}
+%%      \vec y[k] &= \begin{bmatrix} y_h[k] \\ y_{\ell}[k] 
+%%    \end{bmatrix}\\
+%    \mathbf{C}&=\begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix},\\
+%    \mathbf{A}&=\begin{bmatrix} 0.8 & 0 \\ 0 & 0.5\end{bmatrix}.
+%   \end{align}\\
+%We took two actual readings from the Launchpad: $\vec{y}[0] = \begin{bmatrix}
+%y_h[0] \\ y_{\ell}[0]
+%\end{bmatrix}$ 
+%and $\vec{y}[1] = \begin{bmatrix}
+%y_h[1] \\ y_{\ell}[1]
+%\end{bmatrix}$. Now we need to use \textbf{both readings} to setup a least squares problem \textbf{to estimate the initial state of the plant, $\vec{x}[0]$}.
+%  \begin{align}
+%  	\hat{\vec{x}}[0] = \underset{\vec{x}[0]}{\argmin}\|\mathbf{M}\vec{x}[0] - \vec b\|^2.  	
+%  \end{align}
+%
+%\textbf{Write the matrix, $\mathbf{M}$, and vector, $\vec b$, that would be used in the above least squares problem to estimate $\vec{x}[0]$.}
+%
+%
+%
+%
+%\ans{
+%Applying the sensor and dynamic models, we have the following:
+%\begin{align*}
+%	\vec{y}[0] = \mathbf{C}\vec x[0] + \vec n[0]  \\
+%	\vec{y}[1] = \mathbf{C}\mathbf{A}\vec x[0] + \vec n[1]
+%\end{align*}
+%
+%We cannot solve for $\vec{x}[0]$ directly due to the presence of the noise ($\vec{n}[0]$ and $\vec{n}[1]$), so we apply least squares to the following:
+%
+%  \begin{align*}
+%  	\begin{bmatrix} 
+%  		\mathbf{C} \\
+%  		\mathbf{C} \mathbf{A}
+%  	\end{bmatrix}
+%  	\vec{x}[0] 
+%  \approx \begin{bmatrix} \vec{y}[0] \\ \vec{y}[1] \end{bmatrix} 
+%  \end{align*}
+%  
+%  So we have that:
+%  
+%	\[
+%   	\mathbf{M} =   	
+%		  \begin{bmatrix} 
+%			  \mathbf{C} \\
+%			  \mathbf{C} \mathbf{A}
+%		  \end{bmatrix} =
+%		  \begin{bmatrix} 
+%		  1   & 0 \\
+%		  0   & 1 \\
+%		  0.8 & 0 \\
+%		  0   & 0.5 \\
+%		  \end{bmatrix} 
+%	\] 
+%	
+%	\[
+%		\mathbf{b} =   	
+%		\begin{bmatrix} 
+%			\vec{y}[0] \\
+%			\vec{y}[1]
+%		\end{bmatrix} = 
+%		\begin{bmatrix}
+%		y_h[0] \\ y_{\ell}[0] \\
+%		y_h[1] \\ y_{\ell}[1]
+%		\end{bmatrix}
+%	\]
+%		  
+%}
+%
+%
+%\item
+%  (2 points) The evolution of the basil plant from one day to the next is defined by: 
+%  \begin{align*}
+%	\vec x[k+1] &= \mathbf{A}\vec x[k], \\
+%  \textbf{A} &= \begin{bmatrix} 0.8 & 0 \\ 0 & 0.5 \end{bmatrix}, \\
+%  \vec x[0] &\neq \vec{0}.
+%\end{align*}
+%\textbf{What will happen to the number of leaves and the height of the plant as $k \rightarrow \infty$?}
+%
+%
+%
+%\ans{
+%  The state evolution matrix, \textbf{A}, is in diagonal form. The eigenvalues of the matrix are on the diagonal; $\lambda=0.8,0.5$.  The plant height and number of leaves will go to zero over time.  This is regardless of $\vec{x}[0]$.
+%}
+%
+%
+%\item
+%  (6 points) Now suppose the system evolves according to a new state transition matrix $\textbf{A}$, where 
+%  \begin{align*}
+%   \vec{x}[k+1] &= \textbf{A}\vec{x}[k], \\
+%  \textbf{A} &= \begin{bmatrix} -1 & -3 \\ 4 & 6 \end{bmatrix}. 
+%\end{align*}
+%We want to diagonalize $\textbf{A}$ to calculate the system evolution easily.
+%
+%\textbf{Find matrices \textbf{V} and \textbf{$\Lambda$} such that 
+%  $\textbf{A}=\textbf{V} \Lambda \textbf{V}^{-1}$.  
+%  Use this diagonalization to write out the value of $x[N]$ in terms of $x[0]$.}
+%  
+%
+%\ans{
+%  To find the eigenvalues, we solve the equation:
+%    \begin{align*}
+%  \text{det}(\textbf{A}-\lambda \textbf{I}) &= 0 \\
+%   (-1-\lambda)(6-\lambda)+12 &= 0 \\
+%   \lambda^2 -5\lambda - 6 +12 &= 0 \\
+%   \lambda^2 -5\lambda +6 &= 0\\
+%   (\lambda-2)(\lambda-3) &= 0\\
+%   \lambda &= 2,3\\
+%  \end{align*}
+%  
+%  If $\lambda=2$, we need to find $\vec{a}$ such that:
+%  \begin{align*}
+%  (\textbf{A}-2 \textbf{I})\vec{a} &= \vec{0} \\
+%\begin{bmatrix} -3 & -3 \\ 4 & 4 \end{bmatrix}\vec{a}  &= 0 \\
+%  \end{align*}
+%  
+%  Thus the dimension of the nullspace of $\textbf{A}-2 \textbf{I}$ is 1, and we can find one linearly independent vector in this basis:
+%  \begin{align*}
+%	\vec{a}_1 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}  
+%  \end{align*}
+%  
+%  If $\lambda=3$, we need to find $\vec{a}$ such that:
+%  \begin{align*}
+%  (\textbf{A}-3 \textbf{I})\vec{a} &= \vec{0} \\
+%\begin{bmatrix} -4 & -3 \\ 4 & 3 \end{bmatrix}\vec{a}  &= 0 \\
+%  \end{align*}
+%  
+%  Thus the dimension of the nullspace of $\textbf{A}-3 \textbf{I}$ is 1, and we can find one linearly independent vector in this basis:
+%  \begin{align*}
+%	\vec{a}_2 = \begin{bmatrix} -3 \\ 4 \end{bmatrix}  
+%  \end{align*}
+%  
+%  Now we define:
+%  \begin{align*}
+%  \Lambda  &= \begin{bmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{bmatrix} = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix} \\
+%  \textbf{V} &= \begin{bmatrix} \vec{a}_1 & \vec{a}_2 \end{bmatrix} = \begin{bmatrix} 1 & -3 \\ -1 & 4 \end{bmatrix}
+%  \end{align*}
+%  
+%  Now we find $\textbf{V}^{-1}$.  We solve for the inverse using:
+%\begin{align*}
+%\begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1} &= \frac{1}{ad-bc}
+%\begin{bmatrix} d & -b \\ -c & a \end{bmatrix} \\
+%\textbf{V}^{-1} &= \begin{bmatrix} 4 & 3 \\ 1 & 1 \end{bmatrix}
+%\end{align*}
+%  
+%  Then \textbf{A} can be diagonalized as $\textbf{A}=\textbf{V} \Lambda \textbf{V}^{-1}$.
+%  
+%  Applying this diagonalization, 
+%  \begin{align*}
+%  \vec{x}[N] &= \textbf{A}^N \vec{x}[0] = \textbf{V} \Lambda^N \textbf{V}^{-1} \vec{x}[0] \\
+%  %
+%  \vec{x}[N] &= \begin{bmatrix} 1 & -3 \\ -1 & 4 \end{bmatrix}
+%				\begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}^N 
+%				\begin{bmatrix} 4 & 3 \\ 1 & 1 \end{bmatrix} \vec{x}[0] \\
+%  \end{align*}
+%}
+%
+%\item
+%  (2 points) Assuming that
+%  \begin{align*}
+%  \vec{x}[k+1] &= \textbf{A}\vec{x}[k], \\
+%  \textbf{A} &= \begin{bmatrix} -1 & -3 \\ 4 & 6 \end{bmatrix},\\
+%  \vec x[0] &\neq \vec{0},
+%\end{align*}
+%
+%\textbf{what will happen to the number of leaves and the height of the plant as $k \rightarrow \infty$?}
+%
+%
+%\ans{
+%  To find the eigenvalues, we solved the equation in the previous part:
+%    \begin{align*}
+%  \text{det}(\textbf{A}-\lambda \textbf{I}) &= 0 \\
+%   (-1-\lambda)(6-\lambda)+12 &= 0 \\
+%   \lambda^2 -5\lambda - 6 +12 &= 0 \\
+%   \lambda^2 -5\lambda +6 &= 0\\
+%   (\lambda-2)(\lambda-3) &= 0\\
+%   \lambda &= 2,3\\
+%  \end{align*}
+%  
+%  The plant height and leaf count will go to positive infinity or negative infinity as $k \rightarrow \infty$.
+%}
+%
+%\begin{comment}
+%\item
+%  (3 points) We want to adjust our automatic watering and shading system for a new $\textbf{A}$ that can be diagonalized.   
+%  \begin{align*}
+%  \vec{x}[k+1] &= \textbf{A}\vec{x}[k] + \begin{bmatrix}
+%  u_w[k] \\ u_s[k]
+%  \end{bmatrix} \\
+% \textbf{A} &= \begin{bmatrix} -4 & -5 \\ 6 & 7 \end{bmatrix} \\
+% \textbf{A} &= \textbf{V} \Lambda \textbf{V}^{-1}\\
+%&=\begin{bmatrix} 1 & -\frac{5}{6} \\ -1 & 1
+%\end{bmatrix}\begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}6\begin{bmatrix} 1 & \frac{5}{6} \\ 1 & 1 \end{bmatrix}\\
+%\end{align*}
+%
+%We can use the diagonalization of $\textbf{A}$ to choose $\textbf{F}$.  Let $\textbf{F} = \textbf{V} \Lambda_F \textbf{V}^{-1}$. 
+%
+%\begin{align*}
+%  \vec{u}[k] &= -\textbf{F} \vec{x}[k] \\
+%  \textbf{F} &= \textbf{V} \Lambda_F \textbf{V}^{-1} \\
+%  &= \begin{bmatrix} 1 & -\frac{5}{6} \\ -1 & 1
+%\end{bmatrix}\begin{bmatrix} f_1 & 0 \\ 0 & f_4 \end{bmatrix}6\begin{bmatrix} 1 & \frac{5}{6} \\ 1 & 1 \end{bmatrix}\\
+%\end{align*}
+%
+%Choose values for $f_1, f_4$ that will keep the plant from growing or dying.
+%
+%
+%
+%\ans{
+%We have a choice of the matrix $\textbf{F}$.  Let's choose the eigenvectors of $\textbf{F}$ to be the same as the eigenvectors of $\textbf{A}$.  Then we can diagonalize $\textbf{F} = \textbf{V} \Lambda_F \textbf{V}^{-1}$.  
+%}
+%\end{comment}
+%
+%\item\label{itm:fdbck}
+%  (3 points) Laura decides to enlist the help of her friend Vijay to design an automatic watering and shading system. Let $u_w[k]\in \mathbb{R}$ be the amount of water added or removed from the soil each day and let $u_s[k]\in \mathbb{R}$ be the amount of time the plant spends in the sun each day.  Vijay decides to design the automatic control system as a negative feedback controller (inspired by op-amps)!
+%  
+%  The new evolution of the basil plant from one day to the next is defined by:
+%  
+%  \begin{align*}  
+%  \vec{x}[k+1] &= \textbf{A}\vec{x}[k] + \vec{u}[k]=\textbf{A}\begin{bmatrix}
+%  x_h[k] \\ x_{\ell}[k]
+%  \end{bmatrix}+\begin{bmatrix}
+%  u_w[k] \\ u_s[k]
+%  \end{bmatrix}, \\
+%  \textbf{A} &= \begin{bmatrix} 0.8 & 0 \\ 0 & 0.5 \end{bmatrix}, \\
+%  \vec{u}[k] &= -\textbf{F} \vec{x}[k] =- \begin{bmatrix}
+%  f_1 & f_2 \\
+%  f_3 & f_4
+%  \end{bmatrix} \begin{bmatrix}
+%  x_h[k] \\ x_{\ell}[k]
+%  \end{bmatrix}.
+%\end{align*}
+%
+%%Find a matrix $\textbf{R}$ in terms of $f_{1}$, $f_{2}$, $f_{3}$, $f_{4}$ and numerical constants such that the new system can be written.
+%We want to express the new system as $\vec{x}[k+1]=\textbf{R}\vec{x}[k]$, where $\textbf{R}$ is the new state transition matrix. \textbf{Find $\textbf{R}$ in terms of $f_{1}$, $f_{2}$, $f_{3}$, $f_{4}$, and numerical constants.}
+%
+%
+%
+%\ans{
+%  Plugging in the negative feedback form of $u[k]$:
+%  
+%  \begin{align*}
+%  \vec{x}[k+1] &= \textbf{A}\vec{x}[k] - \textbf{F}\vec{x}[k] \\
+%  \vec{x}[k+1] &= \begin{bmatrix} 0.8 & 0 \\ 0 & 0.5 \end{bmatrix} \vec{x}[k] - \begin{bmatrix} f_1 & f_2 \\  f_3 & f_4 \end{bmatrix} \vec{x}[k] \\
+%\vec{x}[k+1] &= (\begin{bmatrix} 0.8 & 0 \\ 0 & 0.5 \end{bmatrix} - \begin{bmatrix} f_1 & f_2 \\ f_3 & f_4 \end{bmatrix}) \vec{x}[k] \\
+%\vec{x}[k+1] &= \begin{bmatrix} 0.8-f_1 & -f_2 \\ -f_3 & 0.5-f_4 \end{bmatrix}  \vec{x}[k] \\
+%\textbf{R} &= \begin{bmatrix} 0.8-f_1 & -f_2 \\ -f_3 & 0.5-f_4 \end{bmatrix} 
+%\end{align*}
+%  
+%}
+%
+%\item
+%  (3 points) Laura wants her basil plant to be at steady state; she wants the number of leaves and the height of the plant to stay the same over time. Vijay needs to choose values for the elements of matrix $\mathbf{F}$ from part \ref{itm:fdbck} and asks for your help. Assume that $f_2=0$ and $f_3=0$. \textbf{Choose values for $f_1$ and $f_4$ that will keep the height of the plant and number of leaves constant over time.}
+%  
+%
+%  
+%\ans{
+%  We can use our representation of the system from the previous part: 
+%  
+%  \begin{align*}
+%  \vec{x}[k+1] &= \begin{bmatrix} 0.8-f_1 & -f_2 \\ -f_3 & 0.5-f_3 \end{bmatrix}  \vec{x}[k] \\
+%\end{align*}
+%
+%We want to place the eigenvalues of the matrix $\textbf{R}$ at exactly $1$. We choose
+% \begin{align*}
+%  f_1 &= -0.2 \\
+%  f_4 & = -0.5
+%\end{align*}
+%
+%This will place the eigenvalues of $\textbf{R}$ to be exactly $1$. 
+%  
+%}
+\end{enumerate}

@@ -1,0 +1,51 @@
+\qns{Computations: Matrix-vector multiplication}
+
+
+\begin{enumerate}
+%    \itemFor each of the following pairs of vectors, compute their inner product and determine whether they are orthogonal.
+%    \begin{enumerate}
+%      \item
+%	\[\vec{a} = \begin{bmatrix} 1 \\ 6 \\ 11 \end{bmatrix} \;  \vec{b} = \begin{bmatrix} -6 \\ 1 \\ 2 \end{bmatrix} \]
+%      \item
+%	\[\vec{a} = \begin{bmatrix} 2 \\ 6 \\ 12 \\ -4\end{bmatrix} \;  \vec{b} = \begin{bmatrix} 6 \\ 2 \\ -1 \\ 3 \end{bmatrix} \]
+%    \end{enumerate}
+%
+%    \ans{
+%      \begin{enumerate}
+%	\item $\vec{a}^T \vec{b} = (1)(-6) + (6)(1) + (11)(2) = 22$. Since this is not zero, $a$ and $b$ are not orthogonal.
+%	\item $\vec{a}^T \vec{b} = (2)(6) + (6)(2) + (12)(-1) + (-4)(3) = 0$. They are orthogonal.
+%      \end{enumerate}
+
+%   }
+
+   \itemPerform matrix vector multiplication to compute $A\vec{b}$ in each of the following cases:
+
+   \begin{enumerate}
+     \item
+       \[
+	 A = \begin{bmatrix} 1 & 6 \\ 2 & -7 \end{bmatrix} \; \vec{b} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}
+       \]
+     \item
+       \[
+	 A = \begin{bmatrix} 1 & 9 & 2 \\ 7 & 10 & -7 \\ -1 & 2 & -8 \end{bmatrix} \; \vec{b} = \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix}
+       \]
+   \end{enumerate}
+
+    \ans{
+      \begin{enumerate}
+	\item
+	  Let $a_i \in \mathbb{R}^3$ represent the transpose of the $i_{th}$ row of the $A$ matrix. To find the $i_{th}$ entry of the $A\vec{b}$ vector we find the inner product of $a_i$ and b.
+	  In this case, we get
+	  \[
+	    A \vec{b} = \begin{bmatrix} 13 \\ -12 \end{bmatrix}
+	  \]
+	\item
+	  Let $A_i \in \mathbb{R}^3$ represent the $i_{th}$ column of $A$ and let $b_i \in \mathbb{R}$ represent the $i_{th}$ component of b.
+	  \[
+	    A\vec{b} = A_1 b_1 + A_2 b_2 + A_3 b_3 = 1 \times \begin{bmatrix} 1 \\ 7 \\ -1 \end{bmatrix} + 3 \times \begin{bmatrix} 2 \\ -7 \\ -8 \end{bmatrix} = \begin{bmatrix} 7 \\ -7 \\ -25 \end{bmatrix}
+	  \]
+      \end{enumerate}
+    }
+
+\end{enumerate}
+

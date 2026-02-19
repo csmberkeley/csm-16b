@@ -1,0 +1,138 @@
+% Author: Paul Shao
+% Email: paulshaoyuqiao1@berkeley.edu
+
+\qns{Charge Sharing and Conservation}
+
+In this question, we will explore how charges are conserved and shared when multiple charged (or uncharged) capacitors are connected together. Charge sharing and conservation is useful not only for dividing up the charges for different components (with different power demands) within a system, but also for storing and transferring the power in the case of limited access to the original voltage source.
+
+Given the following circuit containing 2 switches $\phi_1, \phi_2$, the circuit repeatedly goes through a cycle of 2 phases (described below), continuously supplying voltage to the node $V_{out}$.
+
+\begin{center}
+\begin{circuitikz}
+\draw(0,0) 
+	to[short] ++(3,0)
+	to[C=$C_1$, v<=$ $] ++(0,3)
+	to[nos=$\phi_1$] ++(-3, 0)
+	to[short] ++(0,0)
+	to[V=$V_s$] ++(0,-3)
+	to[short] node[ground] {} ++(0,-1);
+
+\draw(3,0)
+	to[short] ++(3,0)
+	to[C=$C_2$, v<=$ $] ++(0,3)
+	to[nos=$\phi_2$] ++(-3,0);
+
+\draw(6,3)
+    to[short] node[ocirc, label=$V_{out}$] {} ++(2,0);
+
+\end{circuitikz}
+\end{center}
+
+The two phases the circuit goes through are as follows:
+\begin{enumerate}
+
+    \item Close switch $\phi_1$ until $C_1$ (initial uncharged) is fully charged. Switch $\phi_2$ remains open. \\
+    \item Open switch $\phi_1$ and close switch $\phi_2$. Maintain this configuration until the charges on both capacitors stabilize. 
+%\end{enumerate} 
+
+
+\begin{enumerate}[label=\roman*]
+\item Draw out what the circuit would look like in Phase (1).
+    
+\meta{Encourage the students think what would happen to the right half of the circuit if $\phi_2$ is open. Motivate with questions such as "will any current pass through into the right half of the circuit?" and "what is the . voltage on the capacitor $C_2$?".}
+    
+\ans{Since $\phi_2$ is open, there will be no current flowing to the right half of the circuit (consider it as an open circuit). The circuit in Phase 1 would look like the following:
+    
+    \begin{center}
+    \begin{circuitikz}
+    \draw(0,0) 
+    	to[short] ++(3,0)
+    	to[C=$C_1$, v<=$ $] ++(0,3)
+    	to[short] ++(-3, 0)
+    	to[short] ++(0,0)
+    	to[V=$V_s$] ++(0,-3)
+    	to[short] node[ground] {} ++(0,-1);
+    
+    \draw(3,0)
+    	to[short] ++(3,0)
+    	to[C=$C_2$, v<=$ $] ++(0,3);
+
+    \draw(6,3)
+        to[short] node[ocirc, label=$V_{out}$] {} ++(2,0);
+    
+    \end{circuitikz}
+    \end{center}
+}
+
+\item Given that $C_1$ and $C_2$ are both initially uncharged, what would be the charges $Q_1$ and $Q_2$ on capacitors $C_1$ and $C_2$ respectively by the end of Phase 1? What would $V_{out}$ be?
+    
+\meta{Encourage the students to separate the open circuit portion of the diagram from the part that is still functioning normally. }
+    
+\ans{As we can see, by the end of Phase (1), capacitor $C_1$ would be fully charged: $Q_1 = C_1 V_s$. On the other hand, since $C_2$ is in an open circuit, it receives no voltage, the charge $Q_2$ on $C_2$ will remain 0. $V_{out}$ is currently measuring the voltage across $C_2$, so $V_{out} = V_{C_2} = 0$.}
+
+\end{enumerate}
+    
+  
+\item Draw out what the circuit would look like in Phase (2).
+    
+\meta{Motivate the students to think in the direction that opening up switch $\phi_1$ effectively disconnects the rest of the circuit from the voltage source. }
+    
+\ans{Since $\phi_1$ is open, the voltage source is considered "disconnected" from the rest of the circuit since current cannot flow through between the voltage source and the capacitor $C_1$. The circuit in Phase ii would look like the following: 
+    \begin{center}
+    \begin{circuitikz}
+    \draw(0,0) 
+    	to[short] ++(3,0)
+    	to[C=$C_1$, v<=$ $] ++(0,3)
+    	++(-3, 0)
+    	to[short] ++(0,0)
+    	to[V=$V_s$] ++(0,-3)
+    	to[short] node[ground] {} ++(0,-1);
+    
+    \draw(3,0)
+    	to[short] ++(3,0)
+    	to[C=$C_2$, v<=$ $] ++(0,3)
+    	to[short] ++(-3,0);
+    
+    \draw(6,3)
+        to[short] node[ocirc, label=$V_{out}$] {} ++(2,0);
+    
+    \end{circuitikz}
+    \end{center}
+
+}
+
+\item Continuing from what the charges were on both capacitors at the end of Phase 1, what would the charges on both capacitors $C_1$ and $C_2$ be by the end of Phase 2? What would $V_{out}$ be?
+    
+\meta{Be sure to remind the students that what happens in Phase 2 carries over what \textbf{has already happened} in Phase 1! Having this assumption is crucial to applying the conservation of charges. In addition, motivate the students that since we have $C_1$ and $C_2$ connected to each other but not connected to the voltage source, the charges from $C_1$ in Phase 1 need to \textbf{redistribute} among the two capacitors, hence leading to the notion of charge sharing.}
+    
+\ans{
+    
+    Let's analyze the circuit and look at the charge on each capacitor and the output voltage step by step: \\ \\
+    Coming from Phase 1, initially at the beginning of Phase 2, capacitor $C_1$ has a charge of $Q_1 = C_1 V_s$, while capacitor $C_2$ is uncharged.
+\begin{enumerate}
+\item To redistribute the charges among both capacitors (since the circuit is no longer connected to the voltages), we make use of the following two key observations:
+        \begin{itemize}
+            \item The total amount of charges ($Q_{total} = Q_1 = C_1 V_s$) is \textbf{conserved}. We are not adding in additional charges (no external voltage source connected), and we are not losing any charges (no external closed circuit to route the charges to).
+            \item Capacitors $C_1$ and $C_2$ are in \textbf{parallel} with each other, meaning that they will have the same voltage.
+        \end{itemize}
+        \item Utilizing the these two observations, we can create two equations in terms of $Q_1$ and $Q_2$ (the final charges on both capacitors by the end of Phase 2):
+\begin{align*}
+\begin{matrix}
+Q_1 + Q_2 = C_1 V_s & \text{Conservation of Charges from Phase 1}\\ 
+\frac{Q_1}{C_1} = \frac{Q_2}{C_2} & \text{Equi-voltage in a Parallel Circuit}
+\end{matrix}
+\end{align*}
+
+        Solving this system of equations, we find $Q_1$ and $Q_2$ to be:
+\begin{align*}
+        \begin{matrix}
+Q_1 = \frac{C_1^2}{C_1 + C_2} V_s \\ 
+Q_2 = \frac{C_1 C_2}{C_1 + C_2} V_s
+\end{matrix}
+\end{align*}
+        \item Using the second equation, we can also find $V_{out}$ to be:
+        $$V_{out} = V_1 = V_2 = \frac{C_1}{C_1 + C_2} V_s.$$
+    \end{enumerate}
+    }
+  
+\end{enumerate}

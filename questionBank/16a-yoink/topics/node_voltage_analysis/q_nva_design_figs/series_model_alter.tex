@@ -1,0 +1,13 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\begin{circuitikz}[american]
+    \draw
+        (0, 2) 
+        to [V, l_= $V_S$] (0, 0) node[ground]{}
+        (0, 2)
+        to [short] (2, 2)
+        to [R, l_= $1\Omega$] (4, 2)
+        to [short] (4, 0) node[ground]{};
+    \node[rectangle, draw, fill=white] at (1, 2) {$U(V)$};
+\end{circuitikz}

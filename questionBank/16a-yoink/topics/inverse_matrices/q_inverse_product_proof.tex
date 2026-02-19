@@ -1,0 +1,68 @@
+\qns{Inverse of a Matrix-Matrix Product}
+
+\textbf{Learning Goal:} This problem aims to familiarize you with the properties of inverse and related proof techniques.
+
+\meta{
+\begin{itemize}
+\item Stress the importance of ordering in matrix multiplication! For instance, students may be inclined to multiply the outer matrices together. 
+\item For these types of problems, the trick is to see how you can reduce a complicated matrix expression by identifying the pairs that result in an identity matrix.
+
+\item Maybe mention that, although unnecessary, another valid method of proof would be to construct the inverse, for example:
+
+\begin{itemize}
+\item[$\blacksquare$] $\mathbf{A}\mathbf{B}(\mathbf{A}\mathbf{B}^{-1}) = 1 $
+
+\item[$\blacksquare$] $\mathbf{A}^{-1}\mathbf{A}\mathbf{B}(\mathbf{A}\mathbf{B}^{-1}) = \mathbf{A}^{-1}$
+
+\item[$\blacksquare$] $\mathbf{B}(\mathbf{A}\mathbf{B}^{-1}) = \mathbf{A}^{-1}$
+
+\item[$\blacksquare$] $\mathbf{B}^{-1}\mathbf{B}(\mathbf{A}\mathbf{B}^{-1}) =\mathbf{B}^{-1} \mathbf{A}^{-1}$
+
+\item[$\blacksquare$] $(\mathbf{A}\mathbf{B})^{-1} =\mathbf{B}^{-1} \mathbf{A}^{-1}$
+
+\end{itemize}
+
+
+\end{itemize}
+}
+
+Prove that if a matrix-matrix product $\mathbf{A}\mathbf{B}$ is invertible,  the inverse will be equal to $\mathbf{B}^{-1}\mathbf{A}^{-1}$. Please see \notes{Note 6: subsection 6.1.1} for properties of inverse. \\ \\
+HINT: We start again with what we know.
+Since $\mathbf{A}\mathbf{B}$ is invertible, we know that an inverse exists, i.e.
+\begin{align*}
+(\mathbf{A}\mathbf{B})(\mathbf{A}\mathbf{B})^{-1}&=\mathbf{I}\\
+(\mathbf{A}\mathbf{B})^{-1}(\mathbf{A}\mathbf{B})&=\mathbf{I}
+\end{align*}
+
+%Prove that if a matrix $\mathbf{A}$ is not invertible,  $\mathbf{B}\mathbf{A}$ will not be invertible.
+
+\ans{
+
+Now $\mathbf{B}^{-1}\mathbf{A}^{-1}$ will be an inverse of $\mathbf{A}\mathbf{B}$, if and only if the following relation is satisfied: 
+\begin{align*}
+(\mathbf{B}^{-1}\mathbf{A}^{-1})(\mathbf{A}\mathbf{B})=(\mathbf{A}\mathbf{B})(\mathbf{B}^{-1}\mathbf{A}^{-1})=\mathbf{I}. 
+\end{align*}
+
+For this proof, we are going to evaluate both $(\mathbf{B}^{-1}\mathbf{A}^{-1})(\mathbf{A}\mathbf{B})$ and $(\mathbf{A}\mathbf{B})(\mathbf{B}^{-1}\mathbf{A}^{-1})$ and see if they are equal to the identity matrix. First let us start with:
+\begin{align*}
+(\mathbf{B}^{-1}\mathbf{A}^{-1})(\mathbf{A}\mathbf{B})
+&=\mathbf{B}^{-1}\mathbf{A}^{-1}\mathbf{A}\mathbf{B}\\
+&=\mathbf{B}^{-1}(\mathbf{A}^{-1}\mathbf{A})\mathbf{B}\\
+&=\mathbf{B}^{-1}\mathbf{I}\mathbf{B}\\
+&=\mathbf{B}^{-1}(\mathbf{I}\mathbf{B})\\
+&=\mathbf{B}^{-1}\mathbf{B}\\
+&=\mathbf{I}
+\end{align*}
+Then we evaluate:
+\begin{align*}
+(\mathbf{A}\mathbf{B})(\mathbf{B}^{-1}\mathbf{A}^{-1})
+&=\mathbf{A}\mathbf{B}\mathbf{B}^{-1}\mathbf{A}^{-1}\\
+&=\mathbf{A}(\mathbf{B}\mathbf{B}^{-1})\mathbf{A}^{-1}\\
+&=\mathbf{A}(\mathbf{I})\mathbf{A}^{-1}\\
+&=\mathbf{A}\mathbf{A}^{-1}\\
+&=\mathbf{I}
+\end{align*}
+Since both of expressions are equal to identity matrix and the inverse for a matrix is unique, we can decide that
+ $(\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}$ is the inverse of $\mathbf{A}\mathbf{B}$. So the proof is complete.
+
+}

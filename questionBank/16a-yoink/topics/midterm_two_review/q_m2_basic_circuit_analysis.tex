@@ -1,0 +1,161 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Elementary Rules of Circuit Analysis}
+
+\begin{enumerate}
+    \item\label{passive_sign_convention}{
+        Which components violate passive sign convention in the following figure? Circle all that apply.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_circuit_analysis_figs/passive_sign_convention.PNG}
+            }
+        \end{center}
+        
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|c|c|c|}
+                \hline
+                $R_1$ & $R_2$ & $R_3$ & $R_4$ & $R_5$ & $I_S$ & $V_{S_1}$ & $V_{S_2}$ \\
+                \hline
+                $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+        \newpage
+        
+    }
+    \meta{
+        This question comes from Q3(a) of Fall 2020's Midterm 2.
+        
+    }
+    \ans{
+        Passive sign convention requires arrowmarks notating current direction be from '+' sign to '-' sign. Therefore, elements $R_3$, $R_4$, $I_S$ and $V_{S_1}$ violate passive sign conventions.
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|c|c|c|}
+                \hline
+                $R_1$ & $R_2$ & $R_3$ & $R_4$ & $R_5$ & $I_S$ & $V_{S_1}$ & $V_{S_2}$ \\
+                \hline
+                $\bigcirc$ & $\bigcirc$ & $\bullet$ & $\bullet$ & $\bigcirc$ & $\bullet$ & $\bullet$ & $\bigcirc$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+        
+    }
+    
+    \item\label{KVL}{
+        Write a KVL expression for the loop drawn in the following figure. Your answer should be in terms of $u_1$, $u_2$, $u_3$, $u_4$, $u_5$, $V_{S_1}$, and $V_{S_2}$, please do not add labels to the figure.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_circuit_analysis_figs/KVL.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q3(b) of Fall 2020's Midterm 2.
+        
+    }
+    \ans{
+        Using Kirchhoff's Voltage Law and following the provided passive sign convention along the loop drawn on the circular arrow of circuit, we can formulate the following equation:
+        \[V_{S_1} - i_1R_1 - V_{S_2} + i_3R_3 = 0\]
+        Then, using Ohm's Law, we also attain that:
+        \begin{align*}
+            u_1 - u_2 = i_1R_1 \\
+            0 - u_3 = i_3R_3
+        \end{align*}
+        Combining the above equations, we then acquire:
+        \begin{align*}
+            V_{S_1} - i_1R_1 - V_{S_2} + i_3R_3
+            &= V_{S_1} - (u_1 - u_2) - V_{S_2} + (0 - u_3) \\
+            &= V_{S_1} - u_1 + u_2 - V_{S_2} - u_3 = 0V
+        \end{align*}
+        
+    }
+    
+    \item\label{KCL}{
+        Write a KCL expression at node P in terms of currents $I_S$, $i_4$, and $i_5$ as labelled in the following figure. Then, rewrite the expression in terms of $I_S$, node voltages, and resistances only.\\
+        The rewritten expression should not contain $i_4$ and $i_5$. Note that P is a label for a node and is not a node voltage value.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_circuit_analysis_figs/KCL.PNG}
+            }
+        \end{center}
+        
+    }
+    
+    \meta{
+        This question comes from Q3(c) of Fall 2020's Midterm 2.
+        
+    }
+    \ans{
+        At node P, while there is on current flowing into the node, the current that flows out of the node $I_{out} = I_S + i_4 + i_5$.\\
+        Using Kirchhoff's Current Law, the current flowing into a node should be equal to the current flowing out of the node. Therefore:
+        \begin{align*}
+            I_{in}
+            &= 0A \\
+            &= I_S + i_4 + i_5 = I_{out}
+        \end{align*}
+        The above equation, however, is not in terms of node voltages. To satisfy the prompt's demand, we should find some expression that translates the terms $i_4$, $i_5$ into expressions in terms of node voltages.\\
+        In this case, we can, again, use Ohm's Law to generate relationship between current and node voltages:
+        \begin{align*}
+            u_5 - u_4 = i_4R_4 \\
+            u_5 - 0 = i_5R_5
+        \end{align*}
+        Now, let's rewrite the KCL equation in terms of node voltages:
+        \begin{align*}
+            I_S + i_4 + i_5
+            &= I_S + \frac{u_5 - u_4}{R_4} + \frac{u_5 - 0}{R_5} \\
+            &= I_S + \frac{u_5 - u_4}{R_4} + \frac{u_5}{R_5} = 0A
+        \end{align*}
+        
+    }
+    
+    \item\label{find_node_voltage}{
+        Given the node voltage $u_4=3V$ in the following figure, find the node voltage $u_2$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_circuit_analysis_figs/node_voltage.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q3(d) of Fall 2020's Midterm 2
+        
+    }
+    \ans{
+        The circuit element directly between $u_2$ and $u_4$ is a $3V$ voltage source, and according to the direction this source is put:
+        \[u_2 - u_4 = 3V\]
+        Therefore, $u_2 = 6V$.
+        
+    }
+    
+    \item\label{amnmeter}{
+        How would you connect an amnmeter to this circuit to measure current flowing through the $3\Omega$ resistor in the figure from part (d)?\\
+        Recall that an amnmeter is a device that measures current, and its symbol is shown as follows.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_circuit_analysis_figs/amnmeter.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q3(e) of Fall 2020's Midterm 2
+        
+    }
+    \ans{
+        When an element is in series with another element, the current through both of them is equal.\\
+        Therefore, to measure the current across an element, we will put an amnmeter in series with it, creating the following circuit:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_circuit_analysis_figs/amnmeter_sol.PNG}
+            }
+        \end{center}
+        
+    }
+    
+    
+\end{enumerate}

@@ -1,0 +1,304 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Spring 2023
+% Interview Question for Spring 2023, Model Solution
+% Parts that are specific to the CM Interview question for spring2023 have been commented out. Take out comments if you want to reuse as a CM interview question
+% These parts are indicated with the comment 'CM Interview', just use CMD+/ to uncomment many blocks
+\qns{Eiguess You Can Be There or Be Square}
+
+% CM Interview
+% \meta{
+%     You may use the work of this file as an example solution of the CM interview prompt. This work is not a ``correct answer''; rather, it is a reference for assessing the interviewee's mental efforts.
+%     \begin{enumerate}
+%         \item[$\circ$] Provided the \textbf{prompt references some content not necessarily covered in lecture} (eg. conservative transition matrices have eigenvalue of 1), I can \textbf{make this into guiding subparts} of the question or explain them beforehand.
+%         \subitem $\bullet$ In this case, making subparts is more economical since it costs roughly same amount of \LaTeX effort and produces more contents.
+%         \item[$\circ$] \textbf{There are a lot of hints} for this prompt! Why not make them into individual guiding subparts, or \textbf{organize them more efficiently}?
+%         \subitem $\bullet$ Hopefully, this also makes the interviewers understand the underlying structure of this proof more efficiently!
+%     \end{enumerate}
+% }
+
+\textbf{Learning Goals:}
+\begin{bindenum}
+    \item Learn to \textbf{manipulate the definitions of eigenvalue} and its relation with determinants.
+    \item Practice on \textbf{determinant-related proofs}.
+    \item Learn to practice \textbf{proof techniques based on hints and contiguous subparts} in \textbf{exam-styled questions}.
+\end{bindenum}
+
+We have performed eigen-analysis on state transition matrices, which suggests us that there are some impressive properties connecting eigenvalues and state transition matrices. \\
+However, in the world of mathematics, we can't settle with suggestions. Rather, mathematicians want facts and logic; that is, we want proofs when it comes to verifying eigen-properties of state transition matrices. 
+\par
+Let us explore this process with some interesting proofs!
+
+\begin{enumerate}
+    \item {
+        Let us start off with a helpful property. 
+        \par
+        Prove that a square matrix $A$ and its transpose $A^T$ has the same eigenvalues. \\
+        \textit{Hint: For any square matrix $B$, $\det (B) = \det (B^T)$}
+        
+    }
+    \meta {
+        The two essential pieces of knowledge that guide the student to a solution would be:
+        \begin{itemize}
+            \item For some value $\lambda$ to be an eigenvalue of $A$, \textbf{it must be that $A - \lambda I$ is non full rank}, meaning its determinant is $0$.
+            \item The \textbf{identity matrix itself is symmetric}, and that ${(A - B)}^T = A^T - B^T$.
+        \end{itemize}
+        
+    }
+    \ans{
+        We may determine the eigenvalues $\lambda$ of a matrix $A$ as the solution to the equation:
+        \[\det(A - \lambda I) = 0\]
+        Here, we notice that $I$, the identity matrix, is a diagonal matrix as well. Therefore, $I = I^T$. 
+        \par
+        Now, let $s$ be some known eigenvalue of a matrix $A$, then by the above definition for eigenvalues we would conclude:
+        \[\det(A - sI) = 0\]
+        The hint mentions that for any square matrix like $A - sI$, its transpose shares the same determinant; therefore:
+        \[\det(A - sI) = \det({(A - sI)}^T) = \det(A^T - sI) = 0\]
+        By definition, $s$ is also an eigenvalue of $A^T$. 
+        \par
+
+        From the above manipulation, we see that for any arbitrary eigenvalue of some square matrix $A$, it must also be an eigenvalue of $A^T$. Therefore, $A$ and $A^T$ have the same eigenvalues.
+
+    }
+    
+    \item {
+        Prove that, for a square matrix $A$ whose rows sum to $1$, $\vec{1}$ is one of its eigenvector(s).
+        
+    }
+    \meta {
+        To prove some statement $P$ true, we can prove the equation that $P$ is. \\
+        For example, to prove that $\vec{v}$ is an eigenvector of $A$, we can attempt to prove that there does exist an eigenvalue $\lambda$ for the equation $A \vec{v} = \lambda \vec{v}$ to hold. \\
+        Students would benefit greatly from the proof technique that: \textbf{to prove something, we can start by formulating it mathematically and proving that mathematical equation}.
+        
+    }
+    \ans{
+        Let us express the square matrix $A$ mathematically to facilitate the coming algebraic works of this proof:
+        \[
+            A = 
+            \begin{bmatrix}
+                A_{1,1} & \cdots & A_{1,n} \\
+                \vdots & \ddots & \vdots \\
+                A_{n,1} & \cdots & A_{n,n}
+            \end{bmatrix}
+        \]
+        such that, since every row in $A$ sums to $1$,
+        \[
+            \forall i \in \{1, \dots, n\}, \sum_{j = 1}^n A_{i, j} = 1
+        \]
+        The proof asks whether $\vec{1}$ is an eigenvector of $A$. If it is so, then we must see a solution to the equation:
+        \[A \vec{1} = \lambda \vec{1}\]
+        Let us work around the expression to find the solution of unknown value $\lambda$:
+        \begin{align*}
+            A \vec{1} &= \lambda \vec{1} \\
+            \begin{bmatrix}
+                A_{1,1} & \cdots & A_{1,n} \\
+                \vdots & \ddots & \vdots \\
+                A_{n,1} & \cdots & A_{n,n}
+            \end{bmatrix}
+            \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix}
+            &= \lambda \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix} \\
+            \begin{bmatrix}
+                A_{1, 1} + \cdots A_{1, n} \\ \vdots \\ A_{n, 1} + \cdots A_{n, n}
+            \end{bmatrix}
+            &= 
+            \begin{bmatrix}
+                \sum_{j = 1}^n A_{1, j} \\ \vdots \\ \sum_{j = 1}^n A_{n, j}
+            \end{bmatrix}
+            = \begin{bmatrix} \lambda \\ \vdots \\ \lambda \end{bmatrix} \\
+        \end{align*}
+        Recall from before that:
+        \[\forall i \in \{1, \dots, n\}, \sum_{j = 1}^n A_{i, j} = 1\]
+        Therefore,
+        \begin{align*}
+            A \vec{1} &= 
+            \begin{bmatrix}
+                \sum_{j = 1}^n A_{1, j} \\ \vdots \\ \sum_{j = 1}^n A_{n, j}
+            \end{bmatrix}
+            = \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix}
+            = \begin{bmatrix} \lambda \\ \vdots \\ \lambda \end{bmatrix}
+        \end{align*}
+        Thus, there exists a solution to the equation $A \vec{1} = \lambda \vec{1}$, being $\lambda = 1$.
+
+    }
+
+    \item {
+        Prove that, if a matrix $A$ resembles a conservative state transition matrix, one of its eigenvalue(s) is $\lambda = 1$. 
+        \par
+        Discuss with your classmates: what does the above property imply about the steady state of a conservative state transition system?
+        
+    }
+    \meta {
+        The proof presented for this part greatly relies from the proofs in prior subparts. It is valuable for students to \textbf{learn how to reuse their own work on exam-styled questions}. \\
+        Meanwhile, the classroom discussion section is designed to let mentors \textbf{mention about steady-state properties} of state transition systems, as well as to \textbf{foster student interaction}. It is optional but valuable.
+        
+    }
+    \ans{
+        If a matrix $A$ resembles a conservative state transition matrix, then its columns all sum to $1$. Consequently, all rows of $A^T$ sum to $1$. \\
+        From part (b), we may acknowledge that such matrix $A^T$ will have an eigenvalue $\lambda = 1$. \\
+        Then, from part (a), we also recognize that the matrix $A^T$ has the same eigenvalues as matrix $A$. Therefore, since $1$ is an eigenvalue of $A^T$, $1$ is also an eigenvalue of $A$. \\
+
+        Therefore, by the string of logic above, any conservative state transition matrix $A$ has an eigenvalue $1$. \\
+        
+        The implication of this property is that the steady state of conservative systems will not be $\vec{0}$. This is because conservative state transition systems have eigenvalue $1$, finding the steady state of conservative systems to be within the eigenspace of eigenvalue $1$.
+
+    }
+
+    \item {
+        Prove that, for a square matrix $A$ whose rows sum to $N$, $\vec{1}$ is one of its eigenvector(s).
+        \par
+        Following that, what eigenvalue must such matrix $A$ have?
+        
+    }
+    \meta {
+        Interviewer Note: This is where the original prompt of interview comes in.
+    % CM Interview
+    % \par
+    % \meta {
+    %     Interviewer Note: This is where the original prompt of interview comes in.
+        
+    }
+    \ans{
+        Let us express the square matrix $A$ mathematically to facilitate the coming algebraic works of this proof:
+        \[
+            A = 
+            \begin{bmatrix}
+                A_{1,1} & \cdots & A_{1,n} \\
+                \vdots & \ddots & \vdots \\
+                A_{n,1} & \cdots & A_{n,n}
+            \end{bmatrix}
+        \]
+        such that, since every row in $A$ sums to $N$,
+        \[
+            \forall i \in \{1, \dots, n\}, \sum_{j = 1}^n A_{i, j} = N
+        \]
+        The proof asks whether $\vec{1}$ is an eigenvector of $A$. If it is so, then we must see a solution to the equation:
+        \[A \vec{1} = \lambda \vec{1}\]
+        Let us work around the expression to find the solution of unknown value $\lambda$:
+        \begin{align*}
+            A \vec{1} &= \lambda \vec{1} \\
+            \begin{bmatrix}
+                A_{1,1} & \cdots & A_{1,n} \\
+                \vdots & \ddots & \vdots \\
+                A_{n,1} & \cdots & A_{n,n}
+            \end{bmatrix}
+            \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix}
+            &= \lambda \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix} \\
+            \begin{bmatrix}
+                A_{1, 1} + \cdots A_{1, n} \\ \vdots \\ A_{n, 1} + \cdots A_{n, n}
+            \end{bmatrix}
+            &= 
+            \begin{bmatrix}
+                \sum_{j = 1}^n A_{1, j} \\ \vdots \\ \sum_{j = 1}^n A_{n, j}
+            \end{bmatrix}
+            = \begin{bmatrix} \lambda \\ \vdots \\ \lambda \end{bmatrix} \\
+        \end{align*}
+        Recall from before that:
+        \[\forall i \in \{1, \dots, n\}, \sum_{j = 1}^n A_{i, j} = 1\]
+        Therefore,
+        \begin{align*}
+            A \vec{1} &= 
+            \begin{bmatrix}
+                \sum_{j = 1}^n A_{1, j} \\ \vdots \\ \sum_{j = 1}^n A_{n, j}
+            \end{bmatrix}
+            = \begin{bmatrix} N \\ \vdots \\ N \end{bmatrix}
+            = \begin{bmatrix} \lambda \\ \vdots \\ \lambda \end{bmatrix}
+        \end{align*}
+        Thus, there exists a solution to the equation $A \vec{1} = \lambda \vec{1}$, being $\lambda = N$. This suggests that any square matrix $A$ whose rows sum to $N$ must have an eigenvalue whose value is $N$.
+
+    }
+
+    \item {
+        Suddenly, your friend who studies EECS 16B challenges me to a proof battle. 
+        \par
+        The prompt is: 
+        \begin{quote}
+            Prove that for a square matrix $A$ whose columns sum to $N$, it must have an eigenvalue $\lambda = N$.
+        \end{quote}
+        Knowing that this prompt is already in the newest CSM worksheet, he also demands that I cannot use any part from the above. \\
+        Kindly, he presents me the hint that, 
+        \begin{quote}
+            \textit{Hint: for any square matrix $A$, and some $A'$ resulting from adding row operation within $A$, it must be that $\det(A) = \det(A')$.}
+        \end{quote}
+        Help me prove his prompt; you can use his hint if you'd like to.
+        
+    }
+    \meta {
+        \textbf{This is a challenge aspect of the problem}, and also is serving to show that mathematical prompts can usually be proven in multiple routes. This proof is also more independent from the previous subparts of the question, presenting a good environment for students to \textbf{practice proofs with less already provided knowledge}.
+        
+    }
+    \ans{
+        Let us express the square matrix $A$ mathematically to facilitate the coming algebraic works of this proof:
+        \[
+            A = 
+            \begin{bmatrix}
+                A_{1,1} & \cdots & A_{1,n} \\
+                \vdots & \ddots & \vdots \\
+                A_{n,1} & \cdots & A_{n,n}
+            \end{bmatrix}
+        \]
+        such that, since every row in $A$ sums to $N$,
+        \[
+            \forall i \in \{1, \dots, n\}, \sum_{j = 1}^n A_{i, j} = N
+        \]
+
+        To prove that matrix $A$ has an eigenvalue $N$, I may attempt to prove that:
+        \[\det(A - NI) = 0\]
+        which would suggest, as mathematically expressed below,
+        \[
+            \det(
+                \begin{bmatrix}
+                    A_{1,1} - N & A_{1,2} & \cdots & A_{1,n} \\
+                    A_{2,1} & A_{2,2} - N & \ddots & \vdots \\
+                    \vdots & \ddots & \ddots & A_{n-1,n} \\
+                    A_{n,1} & \cdots & A_{n,n-1} & A_{n,n} - N
+                \end{bmatrix}
+            ) = 0
+        \]
+
+        The prompt's hint states that, for a square matrix $A$, and another matrix $A'$ that is resulted from one operation of $A$, $\det(A) = \det(A')$. \\
+        Therefore, let $A''$ be a matrix that is two operations from $A$, which is one adding row operation from $A'$, it would be that $\det(A'') = \det(A') = \det(A)$. \\
+        In summary, we find a helpful intermediate point of this proof:
+        \begin{ln-lemma}{Determinant of Matrices under adding row operation}{}
+            For a square matrix $A$, let $A^{(n)}$ be a result of $n$ adding row operations from $A$,
+            \[\det(A) = \det(A^{(n)})\]
+        \end{ln-lemma}
+
+        Let us perform a series of adding row operation that adds rows $2$ to $n$ onto row $1$; namely,
+        \[R_1 \rightarrow R_1 + R_2 + \cdots + R_n\]
+        Therefore, we observe the change in matrix as described below:
+        \begin{align*}
+            A - NI &=
+            \begin{bmatrix}
+                A_{1,1} - N & A_{1,2} & \cdots & \cdots & A_{1,n} \\
+                A_{2,1} & A_{2,2} - N & \ddots & \ddots & \vdots \\
+                \vdots & \ddots & \ddots & \ddots & \vdots \\
+                \vdots & \ddots & \ddots & A_{n-1,n-1} - N & A_{n-1,n} \\
+                A_{n,1} & \cdots & \cdots & A_{n,n-1} & A_{n,n} - N
+            \end{bmatrix} \\
+            &\rightarrow
+            \begin{bmatrix}
+                N - N & \cdots & \cdots & \cdots & \cdots & N - N \\
+                A_{2,1} & A_{2,2} - N & A_{2,3} & \cdots & \cdots & A_{2,n} \\
+                \vdots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+                \vdots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+                \vdots & \ddots & \ddots & \ddots & \ddots & A_{n-1,n} \\
+                A_{n,1} & \cdots & \cdots & \cdots & A_{n,n-1} & A_{n,n} - N
+            \end{bmatrix} = (A - NI)'
+        \end{align*}
+        Where every element of the first row in $(A - NI)'$ would be:
+        \begin{align*}
+            A_{1,i} + A_{2,i} + \cdots + A_{n,i} - N
+            &= N - N \\
+            &= 0
+        \end{align*}
+        because all columns of $A$ must sum to $N$. 
+        \par
+        
+        Because the first row of $(A - NI)'$ is composed of only $0$, the determinant of $(A - NI)'$ is 
+        \[\det((A - NI)') = 0\]
+        and from Lemma 0.1 we recognize that, since $(A - NI)'$ is a result of adding row operation form $A$,
+        \[\det(A - NI) = \det((A - NI)') = 0\]
+        Therefore, $N$ is an eigenvalue of $A$.
+
+    }
+\end{enumerate}

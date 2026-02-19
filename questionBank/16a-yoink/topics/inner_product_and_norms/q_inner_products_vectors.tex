@@ -1,0 +1,86 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% Fall 2022
+
+\qns{Inner Product Properties}
+
+\textbf{Learning Goal:} The goal of this problem is to understand inner product properties.
+
+Determine whether the following is a valid inner product in $\mathbb{R}^2$.
+\begin{enumerate}
+    \item $\vec{u}^T \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ %\vec{v}^T$
+    
+    \ans{
+    \begin{enumerate} 
+        \item Symmetry: We want to show that $\<\vec{u}, \vec{v}\> = \<\vec{v}, \vec{u}\>$. 
+        
+        \begin{align*}
+            \begin{bmatrix} u_1 & u_2 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix} 
+            & = u_1 + u_2 \\
+            & = \begin{bmatrix} 1 & 1 \end{bmatrix} \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \\ 
+        \end{align*}
+        
+        \item Linearity: We want to show that $\<\alpha \vec{u}, \vec{v}\> = \alpha \<\vec{v}, \vec{u}\>$. 
+        
+        \begin{align*}
+            \begin{bmatrix} \alpha u_1 & \alpha u_2 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix} 
+            & = \alpha u_1 + \alpha u_2  \\
+            & = \alpha (u_1 + u_2)
+        \end{align*}
+        
+        \item Positive Definiteness: 
+        
+        \begin{align*}
+            \begin{bmatrix} u_1 & u_2 \end{bmatrix} \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} 
+            = u_1^2 + 2u_1u_2 + u_2^2 = (u_1 + u_2)^2 \geq 0
+        \end{align*}
+        
+    \end{enumerate}
+    }
+    
+    % \item $\vec{u}^T \begin{bmatrix} 1 \\ -1 \end{bmatrix} \vec{v}$
+    
+    % \ans {
+    
+    %     Once again, we see if the properties hold.
+        
+    %     Symmetry: We want to show that $\<\vec{u}, \vec{v}\> = \<\vec{v}, \vec{u}\>$.
+        
+    %     \begin{align*}
+    %         \begin{bmatrix} u_1 & u_2 \end{bmatrix} \begin{bmatrix} 1 \\ -1 \end{bmatrix} 
+    %         & = u_1 - u_2 \\
+    %         & = \begin{bmatrix} 1 & 1 \end{bmatrix} \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \\ 
+    %     \end{align*}
+        
+    %     We can see that this inner product does not satisfy the symmetry condition, so it is not a valid inner product.
+        
+    % }
+\end{enumerate}
+Given vectors $\vec{u} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $\vec{v} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$,
+\begin{enumerate}
+    \item Compute the Euclidean Norm of $\vec{u}$.
+    
+    \ans{
+        $\|\vec{u}\| = \sqrt{\<\vec{u}, \vec{u}\>} = \sqrt{1^2 + 2^2} = \sqrt{5}$.
+    }
+    \item Compute the Euclidean Norm of $\vec{v}$.
+    
+    \ans{
+        $\|\vec{v}\| = \sqrt{\<\vec{v}, \vec{v}\>} = \sqrt{3^2 + 4^2} = \sqrt{25} = 5$.
+    }
+    \item Find the angle between $\vec{u}$ and $\vec{v}$.
+    
+    \ans{
+        \begin{align*}
+            \cos \theta & = \frac{\<\vec{u}, \vec{v}\>}{\|\vec{u}\|\|\vec{v}\|} = \frac{1 \cdot 3 + 2 \cdot 4}{5 \sqrt{5}} \\
+            \theta & = \cos^{-1}(\frac{11}{5\sqrt{5}})
+        \end{align*}
+    }
+    \item Project $\vec{u}$ onto $\vec{v}$.
+    
+    \ans{
+        \begin{align*}
+            \text{proj}_{\vec{v}}\vec{u} & = \frac{\<\vec{u}, \vec{v}\>}{\|\vec{v}\|^2} \vec{v} = \frac{11}{25}\vec{v} = \frac{11}{25} \begin{bmatrix} 3 \\ 4 \end{bmatrix}
+        \end{align*}
+    }
+\end{enumerate}

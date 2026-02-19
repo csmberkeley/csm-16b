@@ -1,0 +1,185 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Op-Amp Architecture}
+
+Congratulations! Fresh off your EECS 16A experience you have been hired as an intern at Linear Circuits, Inc. to design next generation systems.\\
+Your first task will be to come up with a circuit that can perform linear operations to received signals of interest.Specifically, you want to build a circuit whose output is a weighted sum of multiple received inputs, i.e.
+\[V_{out} = \alpha V_{in, 1} + \beta V_{in, 2} + \gamma V_{in, 3} + \dots\]
+with the coefficients $\alpha$, $\beta$, $\gamma\in\R$.\\
+To do so you will be using your favorite circuit element, \textbf{the op amp}! As usual with circuit design, you decide to start simple and then combine your fundamental building blocks to achieve more complicated functionality.
+
+\begin{enumerate}
+    \item\label{non_invert_amp}{
+        Which of the following op amp configurations would you use to get an input-output relationship of the form:
+        \[V_{out} = (1 + \frac{R_f}{R_s})V_{in}\]
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_op_amp_b_figs/non_invert_amp.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q11(a) of Summer 2020's Midterm 2
+        
+    }
+    \ans{
+        Because the derivation of a non-inverting amplifier has been mentioned many times in the course and there is an op-amp architecture table from Discussion that directly provides the answer, the solution will only publish the correct choice of the question. It is (A).
+        
+    }
+    
+    \item\label{invert_amp}{
+        Which of the following op amp configurations would you use to get an input-output relationship of the form:
+        \[V_{out} = -\frac{R_f}{R_s}V_{in}\]
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_op_amp_b_figs/invert_amp.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q11(b) of Summer 2020's Midterm 2
+        
+    }
+    \ans{
+        Because the derivation of a non-inverting amplifier has been mentioned many times in the course and there is an op-amp architecture table from Discussion that directly provides the answer, the solution will only publish the correct choice of the question. It is (D).
+        
+    }
+    
+    \item\label{combining_inputs}{
+        Now that you have both positive and negative coefficients, your next step is to combine multiple inputs into one output, using the following circuit.\\
+        Express $V_{out}$ in terms of $V_{in, 1}$, $V_{in, 2}$, $V_{in, 3}$, and $R_f$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_op_amp_b_figs/combining_inputs.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q11(c) of Summer 2020's Midterm 2
+        
+    }
+    \ans{
+        An exactly same op-amp architecture has been provided in the solution writing for Q7(a) of this worksheet, thus the solution will directly reference its results:
+        \[V_{out} = -R_f\Big(\frac{V_{in,1}}{3k\Omega} + \frac{V_{in,2}}{1k\Omega} + \frac{V_{in,3}}{5k\Omega}\Big)\]
+        
+    }
+    
+    \item\label{multiple_inputs}{
+        However, your boss points out that your design above doesn't allow for a mixture of positive and negative coefficients. Determined to succeed, you design the following circuit.\\
+        What is the output of your new design as a function of the input voltages $V_{in, 1}$, $V_{in, 2}$, \dots, $V_{in, 5}$?
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_op_amp_b_figs/multiple_inputs.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q11(d) of Summer 2020's Midterm 2
+        
+    }
+    \ans{
+        In this question, I refer to the lowermost resistor as $R_p$, and number the resistors by the voltage source next to them, if any: \\
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.8]{../q_m2_design_op_amp_b_figs/multiple_inputs_sol.PNG}
+            }
+        \end{center}
+        This question takes an analogous shape with Q7(b) of the worksheet, except we cannot directly apply the template of an inverting amplifier onto it due to having multiple sources supporting the negative terminal rather than having a single source like in 7(b). In this case, we can still apply the concept of virtual ground, which approximately follows the logic:
+        \begin{enumerate}
+            \item I can prove that $V_+ = V_-$ if I can prove negative feedback in this circuit, which I already did in my work for part (c).
+            \item At first, I calculate the output voltage under zeroing every independent source at the positive terminal.
+            \item Then, I calculate the output voltage under zeroing every independent source at the negative terminal.
+            \item This idea is a broader version of superposition, instead of how I zeroed out sets of independent sources instead of 1. The final output voltage would be the sum of results from that of zeroing the positive and that of zeroing the negative terminal.
+            \item This idea can be supported mathematically because the computation in part(d) was setting $V_- = 0V$, and we are merely increasing $V_-$ from $0V$ to the current value of $V_+$. It would then just cause every computed node voltage in part (c) to be increased by $V_+$.
+        \end{enumerate}
+        If I zero the independent sources at the positive terminal, I get the exact circuit at part (c), so I will waive the calculation there and call the result $V_{zeroed\ positive}$.
+        If I zero the independent sources at the negative terminal instead, I face an actual non-inverting amplifier. To calculate $V_+$, or $V_{ref}$ on the architecture table, I will have to apply superposition again at the circuit of the positive terminal. To save space, I will skip the superposition demonstration and directly provide the result:
+        \[V_{ref} = \frac{R_p \parallel R_5}{R_4 + R_p \parallel R_5}V_{in,4} + \frac{R_p \parallel R_4}{R_5 + R_p \parallel R_4}V_{in,5}\]
+        And using the inverting amplifier formula:
+        \[V_{zeroed\ negative} = \Big(1 + \frac{R_l}{R_1 \parallel R_2 \parallel R_3}\Big)V_{ref}\]
+        Combining the above computations:
+        \begin{align*}
+            V_{out}
+            &= V_{zeroed\ positive} + V_{zeroed\ negative} \\
+            &= -\Big(\frac{V_{in,1}}{R_1} + \frac{V_{in,2}}{R_2} + \frac{V_{in,3}}{R_3}\Big)R_f + \Big(1 + \frac{R_l}{R_1 \parallel R_2 \parallel R_3}\Big)\Big(\frac{R_p \parallel R_5}{R_4 + R_p \parallel R_5}V_{in,4} + \frac{R_p \parallel R_4}{R_5 + R_p \parallel R_4}V_{in,5}\Big)
+        \end{align*}
+        
+    }
+\end{enumerate}
+After successfully tackling the previous task and creating a weighted voltage summer, your mentor presents you with another problem. Your job will be to analyze the following circuit. Your mentor claims that you can use this circuit to convert an input current to an output voltage.
+\begin{center}
+    \makebox[\linewidth]{
+        \includegraphics{../q_m2_design_op_amp_b_figs/resistor_ladder.PNG}
+    }
+\end{center}
+
+\begin{enumerate}[resume]
+    \item\label{resistor_ladder}{
+        To verify his claim, analyze the circuit and calculate the currents labeled $i_1$, $i_2$, $i_3$, $i_4$, and the output voltage $V_{out}$.\\ 
+        What are their values?
+        
+    }
+    \meta{
+        This question comes from Q11(e) of Summer 2020's Midterm 2
+        
+    }
+    \ans{
+        Note: Due to the node $i_4$ flowing towards not being grounded, a specific cunning solution is blocked. Because of that, the solution will have to bruteforce solve this question out. \\
+        I will now write out a series of expressions derived off the circuit based on Ohm's Law:
+        \begin{align*}
+            i_1 = \frac{u_2}{R} + i_2 \\
+            i_2 = \frac{u_3}{R} + i_3 \\
+            i_3 = \frac{u_4}{R} + i_4 \\
+            u_2 = u_1 - i_1R \\
+            u_3 = u_2 - \frac{i_2R}{2} \\
+            u_4 = u_3 - \frac{i_3R}{2} \\
+            V_{out} = u_4 - \frac{i_4R}{2}
+        \end{align*}
+        If I increase $V_{out}$, then $u_4$ increases, then $u_3$ increases, then $u_2$ increases, then $u_1 = V_-$ increases, decreasing the value of $V_+ - V_-$, thus decreasing the output. Increasing the output leads to decreasing the output, implying negative feedback, thus allowing us to use golden rules to conclude that $V_+ = V_-$, and furthermore, $V_- = 0V$. Meanwhile, using KCL at the negative terminal's node, $i_1 = I_{in}$. \\
+        Now, combining above knowledge, we may start another round of deriving:
+        \begin{align*}
+            u_2 = u_1 - i_1R = -I_{in}R \\
+            i_2 = i_1 - \frac{u_2}{R} = 2I_{in} \\
+            u_3 = u_2 - \frac{i_2R}{2} = -2I_{in}R \\
+            i_3 = i_2 - \frac{u_3}{R} = 4I_{in} \\
+            u_4 = u_3 - \frac{i_3R}{2} = -4I_{in}R \\
+            i_4 = i_3 - \frac{u_4}{R} = 8I_{in} \\
+            V_{out} = u_4 - \frac{i_4R}{2} = -8I_{in}R
+        \end{align*}
+        
+    }
+    
+    \item\label{thevenin_model}{
+        What is the Thevenin equivalent voltage and the Thevenin equivalent resistance between terminals a and b in the circuit above?
+        
+    }
+    \meta{
+        This question comes from Q11(f) of Summer 2020's Midterm 2
+        
+    }
+    \ans{
+        To find the Thevenin resistance, we must zero out the independent sources, causing $i_1 = 0A$ by the zeroing of $I_{in}$. This causes no flowing current across any resistors, meaning that there is no voltage drop between $V_-$ and $V_{out}$. Therefore, it is as if the circuit has no resistances to offer voltage drops at all, producing the conclusion that $R_{Th}=0\Omega$.
+        
+    }
+    
+    \item\label{load_resistor}{
+        As is the case in most real-world applications, you want to use this incoming signal to drive a load that will actuate something. That “something” can be a speaker, a motor, or a heater among other things. Which of the quantities you calculated in part (e) ($i_1$, $i_2$, $i_3$, $i_4$, $V_{out}$), if any, will change if you connect a load resistance as shown in the figure below?
+        
+    }
+    \meta{
+        This question comes from Q11(g) of Summer 2020's Midterm 2
+        
+    }
+    \ans{
+        Because the op-amp's output is modeled as a voltage source (and in addition, a voltage controlled voltage source), it will do its best to not change the amount of voltage output, just like how an ideal voltage source works. \\
+        However, to support that supply under the introduction of any system change, such as a load resistor, we would need to supply additional or less current. Therefore, values $i_1$, $i_2$, $i_3$, and $i_4$ might change.
+        
+    }
+\end{enumerate}

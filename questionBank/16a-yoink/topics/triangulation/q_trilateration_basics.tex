@@ -1,0 +1,51 @@
+% Author: Mira Bali
+% Author email: mirabali@berkeley.edu
+% CSM Spring 2023
+% Trilateration Practice & Conceptual Understanding
+
+\qns {Finding Sherry} \\
+
+\meta {
+The goal of this question is to allow students to have a \emph{better understanding of why trilateration works the way it works and get them more practice with the concept}.
+} \\
+
+You were walking Sherry, your dog, in the neighbourhood, and decide to get some boba. However, in the process of doing so, you lose sight of Sherry for some instance, and by the time you're sipping your Milk Tea, Sherry is no where to be found! You feel terrible and want to find Sherry as soon as possible. 
+
+Let vector $\vec{x}$ represent Sherry's current location, which is the unknown value that you need to find. Hence, you essentially want to find both $x_1$  and $x_2$, which represent the horizontal position (latitude) and the vertical position 
+(longitude) of the dog respectively. The following questions will walk you through this process of finding Sherry.\\
+
+(a) After posting about your missing dog on Nextdoor, you receive a message from a neighbour which states that they recently saw Sherry, at $d_1$ distance away from their current location, given by $\vec{a}$. Is this information enough for you to find Sherry? (Hint: try to come up with an equation using this information and see if you can solve for Sherry's location)
+
+\meta{Testing students' knowledge of systems of equations and how many equations needed to find unknowns.}
+
+\ans{No. We essentially have two unknowns, $x_1$  and $x_2$, as we want to find both the horizontal and vertical position. However, we only have one equation for each unknown. We come up with:\\
+$\|\vec{x} - \vec{a}\|^2 = d_1^2$, using the distance formula/Pythagorean theorem. This alone equation isn't enough to solve for $\vec{x}$.}\\
+
+(b) Assume now that we have another neighbour who also saw Sherry about five minutes ago. They claim that Sherry is at $d_2$ distance away from their current location, which is given by $\vec{b}$. Is this information enough for you to find Sherry using linear algebra? 
+
+\meta{Making students understand that for two unknowns, they really need three equations to make those equations linear in $\vec{x}$ and be able to solve for it.}
+
+\ans{Now, we can come up with two equations for two unknowns:\\
+(1) $\|\vec{x} - \vec{a}\|^2 = d_1^2$ \\
+(2) $\|\vec{x} - \vec{b}\|^2 = d_2^2$ \\
+While two equations are enough to solve for a $\vec{x}$, as we essentially have two unknowns, $x_1$  and $x_2$, these equations result in quadratic equations in relation to $\vec{x}$. If we expand the two equations, we get:\\
+(1) $\vec{x}^T\vec{x} - 2\vec{a}^T\vec{x} + \|\vec{a}\|^2 = d_1^2$\\
+(2) $\vec{x}^T\vec{x} - 2\vec{b}^T\vec{x} + \|\vec{b}\|^2 = d_2^2$\\
+Hence, we can't use linear algebra methods like creating a system of linear equations and using Gaussian elimination to solve for $\vec{x}$ as these equations are quadratic for $\vec{x}$.}\\
+
+(c) Now, let's assume you have a third neighbour, located at a position represented by $\vec{c}$ and claims to be a distance of $d_3$ away from Sherry. How can you use this new piece of information to allow linear algebra methods to help you solve for Sherry? (Hint: Can you use what you learnt in part (b) to come up with a system of linear equations to solve for Sherry's location?)
+
+\meta{Using the subtraction trick to generate equations that are linear in $\vec{x}$. We use subtraction here because we don't care about the extra equation we just found. We don't need its information, as two equations are enough to solve for two unknowns. We only use it to get rid of the quadratic $\vec{x}$ term present in both equations, by subtracting one from another, to make them linear equations that we can then use linear algebra tricks on.}
+
+\ans{With this new piece of information, we now have three quadratic equations:\\
+(1) $\vec{x}^T\vec{x} - 2\vec{a}^T\vec{x} + \|\vec{a}\|^2 = d_1^2$\\
+(2) $\vec{x}^T\vec{x} - 2\vec{b}^T\vec{x} + \|\vec{b}\|^2 = d_2^2$\\
+(3) $\vec{x}^T\vec{x} - 2\vec{c}^T\vec{x} + \|\vec{c}\|^2 = d_3^2$\\
+Since we have an extra equation that we don't need the information of, two equations are enough to solve for two unknowns, we subtract equation (1) from both equation (2) and (3). This leaved us with two equations that are linear in $\vec{x}$:\\
+(1)' $2(\vec{a} - \vec{b})^T\vec{x} = \|\vec{a}\|^2 - \|\vec{b}\|^2 - d_1^2 + d_2^2$\\
+(2)' $2(\vec{a} - \vec{c})^T\vec{x} = \|\vec{a}\|^2 - \|\vec{c}\|^2 - d_1^2 + d_3^2$\\
+We can see that since these two equations are linear in $\vec{x}$, we can now manipulate these equations into a matrix-vector form, and solve for $\vec{x}$ as we have two \emph{linear} equations with two unknowns. Thus, we now have the right combination of equations to actually solve for Sherry's location!}
+
+ 
+
+

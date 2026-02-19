@@ -1,0 +1,65 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+\qns{Eigenvalues and invertibility}
+
+\textbf{Learning goal: learn an equivalence between eigenvalues and invertibility, and how to identify a matrix's eigenvalue}.
+
+\meta{
+\begin{enumerate}
+    \item First, review the equivalence of a matrix $A$ being invertible and the
+        solution to $A v = \vec{0}$
+    \item Second, review the relationship between determinant and eigenvalue.
+    \item The direction from eigenvalue is easier to approach, but it might
+        require more algebraic understanding.
+\end{enumerate}
+}
+
+Think about the following problems in two perspective, one in determinant, one
+in the nullspace of the matrix.
+
+a. Prove that a matrix $A$ is invertible if  it does not have any
+eigenvalue of  $0$.
+
+\ans{
+ $\Rightarrow$ Suppose a matrix $A$ is invertible. Then, if it has a eigenvalue of  $0$,
+ then exists  a vector  $\vec{v} \neq{} 0$ such that  $A\vec{v} = 0 \vec{v} = \vec{0}$ ($v$ is the
+ eigenvalue), which means $A$
+ has nonzero vector  $\vec{v}$ in its nullspace, so we have a contradiction.
+ (We prove by contradiction here) 
+
+ $\Leftarrow$ We have the matrix does not have any nonzero vector in its
+ nullspace, since if so it would have a zero eigenvalue. Therefore, the matrix
+ is invertible. We can also see this from contradiction: if it has no zero
+ eigenvalue and is not invertible, then it has a nontrivial nullspace, so exists
+ vector $\vec{v}$ such that  $A\vec{v} = 0$, so  $0$ is an eigenvalue, and there is a
+ contradiction.
+
+ Perspective in determinant: the eigenvalue is determined by the equation $det(A
+ - \lambda I) = 0$. If  $\lambda = 0$, then  $det(A) = 0$, so  $A$ is not
+ invertible, the other direction is the same.
+}
+
+b. Prove that for a not invertible matrix $A$ that only has real eigenvalues, then there exists a real number
+$r$ such that matrix  $A + rI$ is
+invertible. Hint: what happens to the eigenvalues?
+\ans{
+    We have for an eigenvalue $v$ with eigenvalue  $\lambda_A$ for $A$, we have 
+     \[
+        A\vec{v} = \lambda_A \vec{v} \to (A + rI) \vec{v} = (\lambda_A + r)\vec{v}
+    \]
+
+    From the determinant perspective, we have
+
+    \[
+        det(A + rI - \lambda_A I ) = 0 \to det(A + (r - \lambda_A) I) = 0
+    \]
+
+    which means the eigenvalue of $A + rI$ would be  $r$ plus a eigenvalue of
+    $A$. Therefore, think about the minimum eigenvalue of  $A+rI$ which
+    corresponds to the minimum eigenvalue of $A$, $\lambda$. If $\lambda$ is
+    positive, then we are good since  $A$ does not have a zero eigenvalue.
+    Otherwise, we can add a  $r$ that is big enough so that all the eigenvalues
+   of $A + rI$ are positive, so the matrix $A + r I$ is invertible. Here, we are
+   reusing the result from part (a).
+    
+    
+}

@@ -1,0 +1,141 @@
+% Author: Chris Duroiu
+% Email: chduroiu@berkeley.edu
+% CSM16A Spring 2024
+
+\qns{Eigenvalue and Eigenvector Properties Proof}
+
+\textbf{Learning Goal: }
+\begin{bindenum}
+  \item This quesiton is meant to review proofs involving eigenvalues and how to express them regarding generic matrices
+  \item This question is also meant to teach students the relationships between eigenvalues/vectors and symmetric/invertible matrices
+\end{bindenum}
+
+\begin{enumerate}
+  \item {
+    Question Prompt: Suppose we have an invertible matrix $A \in R^{n \times n}$, that is $A=A^{T}$
+  }
+  \item {
+    Prove that if $\lambda$ is an eigenvalue of matrix $\mathrm{A}$, then $\lambda^{n}$ is an eigenvalue of $A^{n}$ and matrix $\mathrm{A}$ and $A^{n}$ have the same eigenvectors.
+  }
+  \meta{
+    This is a standard eigen question meant to teach students that generalizing steps is a valid form of proof.
+  }
+  \ans{
+  Let $\bar{v}_{i}$ be some eigenvector of matrix $A^{n}$. We can write \\
+
+  $A^{n} \bar{v}_{i}=A^{n-1} A \bar{v}_{i}$ 
+  
+  Let's assume that $\mathrm{A}$ and $A^{n}$ indeed have the same eigenvalues. Therefore, \\
+  
+  $A \bar{v}_{i}=\lambda_{i} \bar{v}_{i}$ so we can write
+  
+  $A^{n} \bar{v}_{i}=A^{n-1} \lambda_{i} \bar{v}_{i}$
+  
+  $A^{n} \bar{v}_{i}=\lambda_{i} A^{n-1} \bar{v}_{i}$ 
+  
+  Repeating this process, \\
+  
+  $A^{n} \bar{v}_{i}=\lambda_{i} A^{n-2} A \bar{v}_{i}$. 
+  
+  $A^{n} \bar{v}_{i}=\lambda_{i} A^{n-2} \lambda_{i} \bar{v}_{i}$
+  
+  $A^{n} \bar{v}_{i}=\lambda_{i}^{2} A^{n-2} \bar{v}_{i}$ 
+  
+  Eventually, we can reach \\
+  
+  $A^{n} \bar{v}_{i}=\lambda_{i}^{n} \bar{v}_{i}$, thus proving that $\lambda^{n}$ is an eigenvalue of $A^{n}$, corresponding to some shared eigenvector $\bar{v}_{i}$ 
+  }
+
+  \item {
+    Now assume matrix A is invertible, that is a matrix $A^{-1}$ exists such that $AA^{-1} = I$. Prove that if $\lambda$ is an eigenvalue of matrix $\mathrm{A}$, then $\frac{1}{\lambda}$ is an eigenvalue of $A^{-1}$
+  }
+  \meta{
+    This question is meant to relate eigen-properties to invertible matrices
+  }
+  \ans{
+  Since $\lambda$ is an eigenvalue of matrix $A$, we can write \\
+
+  $A \bar{v}=\lambda \bar{v}$, for the corresponding eigenvector $\bar{v}$
+  
+  $A^{-1} A \bar{v}=A^{-1} \bar{\lambda} \bar{v}$
+  
+  $\bar{v}=A^{-1} \lambda \bar{v}$
+  
+  $\bar{v}=\lambda A^{-1-} \bar{v}$
+  
+  $\frac{1}{\lambda} \bar{v}=A^{-1}\bar{v}$ 
+  
+  By definition, this means $\frac{1}{\lambda}$ is an eigenvalue of matrix $A^{-1}$
+
+  }
+  \item {
+    Now assume matrix A is symmetric, that is $A=A^{T}$. Prove that any two distinct eigenvectors of A must be orthogonal.
+  }
+  \meta{
+    Remember to generalize two distinct eigenvectors and relate them to their eigenvectors to show how the vectors must be orthogonal.
+  }
+  \ans{
+  Let $\bar{v}_{1}$ and $\bar{v}_{2}$ be two distinct eigenvectors of matrix $A$ corresponding to eigenvalues $\lambda_{1}$ and $\lambda_{2}$ respectively
+
+  We can write \\
+
+  $A \bar{v}_{1}=\lambda_{1} \bar{v}_{1}$
+
+  $\bar{v}_{2}^{T} A \bar{v}_{1}=\bar{v}_{2}^{T} \lambda_{1} \bar{v}_{1}$
+
+  $\bar{v}_{2}^{T} A \bar{v}_{1}=\lambda_{1} \bar{v}_{2}^{T} \bar{v}_{1}$ 
+
+  We can also write \\
+
+  $\bar{v}_{2}^{T} A \bar{v}_{1}=\bar{v}_{2}^{T} A^{T} \bar{v}_{1}$, since we know $A=A^{T}$
+
+  $\bar{v}_{2}^{T} A^{T} \bar{v}_{1}=\left(A \bar{v}_{2}\right)^{T} \bar{v}_{1}=\left(\lambda_{2} \bar{v}_{2}\right)^{T} \bar{v}_{1}=\lambda_{2} \bar{v}_{2}^{T} \bar{v}_{1}$ \\
+
+  This implies that \\
+
+  $\lambda_{1} \bar{v}_{2}^{T} \bar{v}_{1}=\lambda_{2} \bar{v}_{2}^{T} \bar{v}_{1}$ \\
+
+  Since $\lambda_{1}$ and $\lambda_{2}$ are two distinct eigenvectors, we know that the quantity
+
+  $\bar{v}_{2}^{T} \bar{v}_{1}$ must be 0 , proving $\bar{v}_{1}$ and $\bar{v}_{2}$ must be orthogonal.
+  }
+
+  \item {
+    By definition, the trace of a matrix $A$, denoted Tr(A) is $\lambda_{1}+\lambda_{2}+\lambda_{3}+\ldots \lambda_{n}$ 
+  Prove that $Tr(A^{2})=\lambda^{2}{ }_{1}+\lambda^{2}{ }_{2}+\lambda^{2}{ }_{3}+\lambda^{2}{ }_{n}$. Continue to assume that matrix $\mathrm{A}$ is symmetric. Hint: the trace of a product of matrices is invariant under cyclic permutations ie: Tr(XYZ) = Tr(YXZ) = Tr(ZYX) ...
+  }
+  \meta{
+    This is a trickier question meant to introduce the concept of trace and diagonal matrices. Remember to apply the cycle permutation property of traces
+  }
+  \ans{
+  Since $\mathrm{A}$ is symmetric, we know there exists an orthogonal matrix $\mathrm{P}$ such that \\
+
+  $P^{T} AP = D$, where $\mathrm{D}$ is a diagonal matrix consisting of A's eigenvalues
+
+  $P P^{T} A P=P D$
+
+  $A P=P D$
+
+  $A P P^{T}=P D P^{T}$
+
+  $A=P D P^{T}$ 
+
+  Thus, \\
+
+  $A^{2}=\left(P D P^{T}\right)\left(P D P^{T}\right)=P D I D P^{T}=P D^{2} P^{T}$ 
+
+  We know that $D^{2}$ is now a diagonal matrix that includes all of the squares of A's eigenvalues $Tr(A^{2}) = Tr(PD^{2}P^{T})$ \\
+
+  As suggested by the hint, we know that the trace of a product of matrices is invariant under cyclic permutations, thus \\
+
+  $Tr(PD^{2}P^{T})$ = $Tr(D^{2}PP^{T})$ = $Tr(D^{2}I)$ = $Tr(D^{2})$
+
+  We know that the trace of $D^{2}$ is just \\
+
+  $\lambda_{1}^{2}+\lambda_{2}^{2}+\ldots \lambda_{n}^{2}$ 
+
+  Therefore we proved \\
+
+  $Tr(A^{2})=\lambda_{1}^{2}+\lambda_{2}^{2}+\ldots \lambda_{n}^{2}$
+  }
+\end{enumerate}

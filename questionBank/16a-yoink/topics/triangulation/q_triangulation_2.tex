@@ -1,0 +1,173 @@
+% Authors: Zipeng lin
+% Emails: yuslzp@berkeley.edu
+
+
+\qns{Trilateration}\\
+
+\textbf{Learning objective: } learning how to solve a basic triangulation system
+and view different systems geometrically.
+
+\meta{ When going over the question, it would be helpful to draw a graph for
+number 1 and number 2. After letting the students understand the Geometric
+meaning of the first equation, it would be nice to give them some time drawing
+out number 3 and 4}.
+
+a). Suppose we have three points $a_1, a_2, a_3$ such that they have the
+following coordinates:
+ \begin{equation}
+     \vec{a_1} = (0, 0)\\
+     \vec{a_2} = (1 / 2, \sqrt{3} / 2 )
+     \vec{a_3} = (1, 0)\\
+ \end{equation}
+
+ and we have a point $\vec{d}$ such that it has the following distances to the three
+ points:
+
+\begin{equation}
+    \norm{\vec{a_1} - \vec{d}}^{2} = (1 / \sqrt{3})^{2}\\
+    \norm{\vec{a_2} - \vec{d}}^{2} = (1 / \sqrt{3})^{2}\\
+    \norm{\vec{a_3} - \vec{d}}^{2} = (1 / \sqrt{3})^{2}\\
+\end{equation}
+
+solve for the d point
+
+\ans{
+ We have the following
+
+ \[
+     d_1 = d_2 = d_3 = 1 / \sqrt{3} 
+ \]
+
+ and 
+
+ \[
+     \norm{a_1}^{2} = 0, \norm{a_2}^{2} = 1, and \norm{a_3}^{2} = 1
+ \]
+ 
+
+ Therefore, we have in the equation
+
+ \[
+\begin{bmatrix}
+    2\left[ - 1 / 2, - \sqrt{3} / 2  \right]  \\
+    2\left[ - 1 , 0  \right]  \\
+\end{bmatrix}
+\vec{x}
+= 
+\begin{bmatrix}
+    -1 \\
+    -1 \\
+\end{bmatrix}
+ \]
+
+ and we get 
+
+ \[
+     \vec{x} = 
+\begin{bmatrix}
+    1 / 2 \\
+    1 / 2\sqrt{3}  \\
+\end{bmatrix}
+
+ \] 
+}
+
+b). Interpret the geometry meaning of problem one. What does point $\vec{a_1},
+\vec{a_2}, \vec{a_3}$, and what is the point $d$  representing in this figure?
+
+\ans{
+    $\vec{a_1}, \vec{a_2}, \vec{a_3}$ represents the points in a equilateral
+    triangle with side length $1$, and we have  $d$ is the center of the
+    triangle.
+} 
+
+c). Consider the following points
+
+\[
+    \vec{a_1} = (0, 0)
+    \vec{a_2} = (1, 0)
+    \vec{a_3} = (2, 0)
+\]
+
+and suppose there is a point $\vec{d}$ such that the following are the distances
+
+ \[
+     \norm{\vec{a_1}, \vec{d}} = 
+     \norm{\vec{a_2}, \vec{d}} = 
+     \norm{\vec{a_3}, \vec{d}} 
+\]
+
+prove that such  point $\vec{d}$ does not exist.
+
+\ans{
+    We have $d_1 = d_2$ here, so we have the following matrix to solve:
+
+    \[
+\begin{bmatrix}
+    2(\vec{a_1} - \vec{a_2})^{\intercal} \\
+    2(\vec{a_1} - \vec{a_3})^{\intercal} \\
+\end{bmatrix}
+\vec{d}=
+\begin{bmatrix}
+    \norm{\vec{a_1}}^{2} - \norm{\vec{a_2}}^{2} \\
+    \norm{\vec{a_1}}^{2} -     \norm{\vec{a_3}}^{2} \\
+\end{bmatrix}
+    \]
+    since we have $\norm{d_1} = \norm{d_2} = \norm{d_3}$.
+
+    Now, however, observe the matrix, it would become
+
+\[
+ \begin{bmatrix}
+    -2 & 0\\
+    -4 & 0
+\end{bmatrix}
+\vec{d}=
+\begin{bmatrix}
+    -1
+    -4
+\end{bmatrix}  
+\]
+
+but $-1 / (-2) \neq{} (-4) / (-4)$ (since the result just depends on the first
+element of $\vec{x}$), so we have there is no such point $\vec{x}$.
+}
+
+
+d). What is the geometric meaning of the problem c). Suppose we take a step
+further: suppose the points have the following coordinate
+
+\[
+    \vec{a_1} = (0, 0)
+    \vec{a_2} = (a, 0)
+    \vec{a_3} = (1, 0)
+\]
+
+with $0 < a < 1$
+
+and suppose there is a point $\vec{d}$ such that the following are the distances
+
+ \[
+     \norm{\vec{a_1}, \vec{d}} = 
+     \norm{\vec{a_2}, \vec{d}} = 
+     \norm{\vec{a_3}, \vec{d}} 
+\]
+
+prove that such point $\vec{d}$ does not exist. 
+ 
+\ans{
+    Look at our equation again, 
+    \[
+\begin{bmatrix}
+    -a & 0\\
+    -1 & 0
+\end{bmatrix}
+\vec{d}=
+\begin{bmatrix}
+    -a^{2}
+    -1
+\end{bmatrix}  
+    \]    
+    since we have if the ratio are the same, $a = 1$, but this breaks with the
+    condition that  $0 < a < 1$
+}

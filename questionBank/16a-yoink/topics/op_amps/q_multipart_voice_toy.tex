@@ -1,0 +1,350 @@
+% Author: Damanic Luck
+% Email: damanicluck@berkeley.edu
+% CSM16A Spring 2023
+
+% Mention as a comment to add the op amp formula reference sheet for 16A CSM students to work through this problem set for this week otherwise oopsies theyre kinda lost. I'll add the actual metas to each question later
+\qns{Beginning Circuit Design}
+
+\creditnotes{
+    Damanic, Spring 2023
+}
+
+\textbf{Learning Goal: } Understand the effects of loading on a circuit and the fundamentals of manipulating circuit comments to create a circuit design that will output the specifications of your design. \\
+
+\meta{
+    This question tries to incorporate a lot of circuit concepts 16A students have learned so far, like equivalency, op amps and superposition.
+    \textbf{Emphasize that the concepts they've learned earlier in 16A are useful when designing a multipart circuit, such as superposition, NVA, and voltage dividers.\\}
+}
+
+You want to create a toy that records your voice and averages out the frequencies to create one unique sound. Suppose that when this toy records your voice, the average frequency of your voice translates into a certain input voltage. You can manipulate voltages in order to adjust the volume. Assume for the sake of this question that input is a \textbf{DC voltage}.\\
+
+You're given a block diagram that will represent your circuit design. Your input voltage, $V_{in}$, provides a range of voltages that you want to mix with a preprogrammed audio signal. You are also told that you want to create a button system that will adjust the volume of the output.\\
+        \begin{center}
+            \begin{tikzpicture}
+                \node (g) [draw, minimum width = 2cm, minimum height=1.2 cm] {$V_{in}$};
+                \node (system) [draw, minimum width = 3cm, minimum height=1.2 cm] at ($ (g) + (5cm, 0)$) {Voltage Adder};
+                \node (y) [draw, minimum width = 2cm, minimum height=1.2 cm] at ($ (system) + (5cm, 0)$) {Variable Amplifier};
+                \draw [->] (g.east) -- (system.west);
+                \draw [->] (system.east) -- (y.west);
+            \end{tikzpicture}
+        \end{center}
+
+You are also limited to the supplies you have since you need to pay your \$1575.50 in down payment for an apartment and additional \$35 in application fees. You have access to:
+\begin{itemize}
+    \item Unlimited 1K resistors
+    \item an additional voltage source
+\end{itemize}
+
+
+\begin{enumerate}
+    % % Question 1(a)
+    % \item How would you design the Voltage Adder block of the block diagram such that it will be able to shift your range of voltages to be centered at 0?\\
+
+    % \ans {
+    % You would use a voltage summer! Recall that a basic voltage summer with 2 voltages sources results in 
+    % \begin{align*}
+    %     V_{out} = V_1\bigg(\frac{R_2}{R_1+R_2}\bigg) + V_2\bigg(\frac{R_1}{R_1+R_2}\bigg)
+    % \end{align*}\\
+    
+    % A voltage summer would look something like this:
+    % \begin{center}
+    %     \begin{circuitikz}[scale=0.7, transform shape]
+    %     	\draw
+    %     	(0,0) node[ground] () {}
+    %     		to[V,l=$V_1$,invert] ++(0,2)
+    %     		to[R,l=$R_1$] ++(0,2)
+    %     		to[short] ++(2,0) coordinate (topRight)
+    %     		to[R,l_=$R_2$] ++(0,-2)
+    %     		to[V,l_=$V_2$] ++(0,-2)
+    %     		node[ground] () {}
+    %     	(topRight) to[short] ++(2,0)
+    %     		to[open,o-o,v^=$V_\text{out}$] ++(0,-4)
+    %     		node[ground] () {};
+    %     \end{circuitikz}
+    % \end{center}\\
+
+    % A source of confusion may be how can a voltage source result in a negative voltage. \textbf{Keep in mind that voltage is simply the difference in potential.} For the intentions of this worksheet, just keep that in mind.
+    % }
+ 
+    % Question 1(a)
+    \item Given the circuit below for your $V_{in}$ block, which was built by your friend Bob, describe what problems the additional resistors will cause. You wanted the voltage of $V_{in}$ to be preserved for the next block in the block diagram. How would you solve the issues that the additional resistors cause in the following circuit?\\
+        \begin{center}
+            \begin{circuitikz} [scale=0.5]
+                \draw 
+                    (0,0) node[op amp,yscale=-1](AMP) {}
+                    (AMP.+) to [open] ++(-2,0)
+                    to[R,l_=$R_1$] ++(-6,0)
+            		to[sV,v_=$v_\text{in}$] ++(0,-4)
+            		node[ground] () {}
+                ;
+                \draw 
+                    (AMP.+) to [short] ++(-2,0) 
+                    to[R,l_=$R_2$] ++(0,-4) node[ground](){}
+                ;
+                \draw   
+                    (AMP.-) to [short] ++(0,-2)
+                    to [short] ++(5,0)
+                    to [short] ++(0,3)
+                ;
+                \draw
+                    (AMP.out) to [short,-o,l=$v_{out}$] ++(2,0)
+                ;
+            \end{circuitikz}
+        \end{center}      
+    \meta {
+        Pretty standard question on loading effects. I think? 
+    }
+
+    \ans {The additional circuit components add a load onto your $V_{in}$ voltage! You can solve this issue by adding a unity gain buffer in between the new circuit components and $V_{in}$. This way, the voltage of $V_{in}$ is preserved and the output of your unity gain buffer, which becomes the input of your voltage shifter, is equal to $V_{in}$.\\ This circuit resembles a voltage divider. 
+
+    Notice that without $R_1$ and $R_2$ there, this would simply just be a unity gain buffer anyways.
+    }
+    
+    % Question 1(b)
+    \item  Part(a)'s circuit is not related to this part. You just realize that your input voltage and the preprogrammed audio voltage are \textbf{both} negative. Although it is plausible to work with negative voltages, you don't want them in this circuit. Assume that for all input voltages and the preprogrammed audio voltage that they are negative. However, due to another additional rent fee that you have to pay, you only have access to one op-amp to satisfy the conditions above.\\
+    
+    Build a circuit so that you can \emph{sum} the voltage (in their magnitude) of the preprogrammed audio signal and the input signal while also outputting a \textbf{positive} voltage.\\
+
+    \emph{Hint: What type of circuit with an op amp leads to negative gain?}
+    
+    \meta {This may be hardest question due to the material constraints. Break down the problem into what the question is asking them to solve and the existing formulas/circuit templates that they have access to to accomplish this. I.e.
+        \begin{enumerate}
+            \item make the voltages non-negative by using an inverting amplifier
+            \item sum up voltages by chucking it into one node
+        \end{enumerate}
+        
+    }
+    
+    \ans {
+    You \textbf{must} use a inverting amplifier because you have to turn negative voltages into positive ones. In addition, a circuit such as this will allow you to sum the voltages in a way that will not modify the voltages. For example, examine the voltage summer output voltage equation for two voltages sources.
+    \begin{center}
+        \begin{circuitikz}[scale=0.7, transform shape]
+        	\draw
+        	(0,0) node[ground] () {}
+        		to[V,l=$V_1$,invert] ++(0,2)
+        		to[R,l=$R_1$] ++(0,2)
+        		to[short] ++(2,0) coordinate (topRight)
+        		to[R,l_=$R_2$] ++(0,-2)
+        		to[V,l_=$V_2$] ++(0,-2)
+        		node[ground] () {}
+        	(topRight) to[short] ++(2,0)
+        		to[open,o-o,v^=$V_\text{out}$] ++(0,-4)
+        		node[ground] () {};
+        \end{circuitikz}
+    \end{center}
+    \begin{align*}
+        V_{out} = V_1\bigg(\frac{R_2}{R_1+R_2}\bigg) + V_2\bigg(\frac{R_1}{R_1+R_2}\bigg)
+    \end{align*}
+    It is much more complicated to calculate the value of the output voltage. So. Lets not.\\
+
+    Instead your circuit should resemble something like this.
+    \begin{center}
+        \begin{circuitikz}[scale=0.8, transform shape]
+    	\draw
+    	(0,0) node[op amp] (AMP) {}
+    	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+    		to[R,l=$R$] (topLeft -| AMP.out)
+    		to[short] (AMP.out)
+    		to[short,-o] ++(1,0)
+    		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+    		node[ground] () {}
+    	(AMP.-) to [short] ++(-1,0)
+            to[R,l_=$R$] ++(-2,0)
+    		to[sV,l_=$v_{audio}$] ++(-2,0)
+            to[open, o-, v^=$v_\text{audio}$] ++(0,-3)
+    		node[ground] () {}
+        (AMP.-) to[short] ++(-1,0)
+            to[short] ++(0,1)
+            to[R,l_=$R$] ++(-2,0)
+            to[short] ++(-2,0)
+            to[sV,l_=$v_{in}$] ++(-2,0)
+            to [open, o-, v^=$v_\text{in}$] ++(0,-4)
+            node[ground] () {}
+    	(AMP.+) node[ground] () {};
+        \end{circuitikz}
+    \end{center}
+    The output voltage for an inverting amplifier a nonexistent reference voltage is:
+    \begin{align*}
+        V_{out} = V_{in}\bigg(-\frac{R_f}{R_s}\bigg)
+    \end{align*}
+    We must also set the resistor values to be the same for each one so that gain is equal to -1. If you wanted to scale a certain input voltage, you can have different resistor values, but thats not what we are solving for right now.
+    }
+
+    % Question 1(c)
+    \item Verify that your circuit in part(c) actually sums the voltages via superposition.\\
+    
+    \meta {Zero out the voltage sources and then boom its a regular inverting amplifier that looks ok.
+    }\\
+
+    \ans {By zeroing out either $v_{in}$ or $v_{audio}$ first, it becomes a wire. Because the voltage source becomes a wire during the superposition procedure, there is no voltage difference across its correpsonding resistor. Therefore, if you zero out $v_{in}$ first to perform superposition, you simply get this circuit: 
+    \begin{center}
+        \begin{circuitikz}[scale=0.8, transform shape]
+        	\draw
+        	(0,0) node[op amp] (AMP) {}
+        	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+        		to[R,l=$R$] (topLeft -| AMP.out)
+        		to[short] (AMP.out)
+        		to[short,-o] ++(1,0)
+        		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+        		node[ground] () {}
+        	(AMP.-) to [short] ++(-1,0)
+                to[R,l_=$R$] ++(-2,0)
+        		to[sV,l_=$v_{audio}$] ++(-2,0)
+                to[open, o-, v^=$v_\text{audio}$] ++(0,-3)
+        		node[ground] () {}
+            (AMP.+) node[ground] () {};
+            ;
+        \end{circuitikz}
+    \end{center}
+    This means that via superposition:
+    \begin{align*}
+        V_{out,audio} &= v_{audio}\bigg(-\frac{R_f}{R_s}\bigg) \\
+        V_{out,in} &= v_{in}\bigg(-\frac{R_f}{R_s}\bigg) \\
+    \end{align*}
+    Summing both of these equations together yields
+    \begin{align*}
+        V_{out} = \bigg(-\frac{R_f}{R_s}\bigg)\bigg(v_{audio}+v_{in}\bigg)
+    \end{align*}
+    This equation will output a positive voltage and also sums together both of your input voltages.
+    }
+    % Question 1(d)
+    \item For the variable amplifier block of the block diagram, it will output a volume via a speaker. The volume of the speaker will depend on which button you press, which will either amplify it by 1x, 2x, or 3x. If you press the button, the switch is now closed and current can flow through that node. What op-amp design can you implement such that you can control gain?\\
+    
+    \meta {The design itself is pretty open ended. However, they must identify that you should use a \textbf{noninverting amplifier} to have a gain of 1, 2 and 3.
+    }\\
+
+    \ans {You can create a noninverting amplifier in order to have a gain of either 1, 2, or 3. Keep in mind for a noninverting amplifier, \\
+        \begin{align*}
+            V_{out}=V_{in}\bigg(1+\frac{R_{top}}{R_{bottom}}\bigg)-V_{ref}\bigg(\frac{R_{top}}{R_{bottom}}\bigg)
+        \end{align*}
+    Notice that if $V_{ref}$ is 0V, you can manipulate the values of $R_{top}$ and $R_{bottom}$ so that gain, which is
+        \begin{align*}
+            \text{Gain} = \frac{V_{out}}{V_{in}}
+        \end{align*}
+    is equal to 
+        \begin{align*}
+            \text{Gain} = 1+\frac{R_{top}}{R_{bottom}}
+        \end{align*}
+    We should make $V_{ref}$ in order to simplify our calculations (as you will see below). Therefore, if you want gain to be the value of 1, 1.5, or 3, then the the ratio of $R_{top}$ to $R_{bottom}$ must be:
+        \begin{align*}
+            \text{For Gain = 1} &\longrightarrow  0 = \frac{R_{top}}{R_{bottom}}\\
+            \text{For Gain = 1.5} &\longrightarrow  0.5 = \frac{R_{top}}{R_{bottom}}\\
+            \text{For Gain = 3} &\longrightarrow  2 = \frac{R_{top}}{R_{bottom}}
+        \end{align*}
+    
+    Notice for the case of Gain = 1 that the ratio of the resistances of top and bottom is equal to 0. As a \emph{sanity check}, this would mean that $R_{bottom}$ is a wire since it has 0 resistance. Your $R_{bottom}$ can never be 0, otherwise the fraction representing the ratio of $R_{top}$ to $R_{bottom}$ would have 0 as a denominator. However, because $R_{bottom}$ is connected to ground, this would mean that the $U^-$ terminal of your op-amp is equal to ground. This would lead to your $V_{out}$ to be ground as well.
+    \\
+    }
+
+    % Question 1(e) 
+    \item {Implement your op-amp design in part(d) for your variable gain block in the block diagram. Draw it out as circuit components. Switches are closed when the user presses the button. However, keep in mind the restrictions in the amount of materials that you have access to. This means that you will have to \textbf{use resistor equivalencies to create your desired resistance}. Verify that unlike in part(b) your circuit design will not cause a load on your other blocks in the block diagram! Circuit has been provided as a template.
+        \begin{center}
+            \begin{circuitikz}[scale=0.7]
+                \draw   
+                    (0,0) node[op amp,yscale=-1](AMP) {}
+                    (AMP.+) to [short] ++(-2,0)
+            		to[sV,v_=$v_\text{in}$] ++(0,-4)
+            		node[ground] () {}
+                ;
+                \draw
+                    (AMP.-) to [short] ++(0, -4)
+                    to [short] ++(4, 0)
+                    to [R, l_=$R_{bottom}$] ++(0, -2) node[ground]{}
+                ;
+                % first switch
+                \draw 
+                    (AMP.-) to [open] ++(0, -4)
+                    to [open] ++(4,0)
+                    to [switch,l=1] ++(0,1)
+                ;
+                % second switch
+                \draw
+                    (AMP.-) to [open] ++(0, -4)
+                    to [open] ++(4,0)
+                    to [short] ++(2,0)
+                    to [switch,l=1.5] ++(0,1)
+                ;
+                % third swtich
+                \draw
+                    (AMP.-) to [open] ++(0, -4)
+                    to [open] ++(4,0)
+                    to [short] ++(4,0)
+                    to [switch,l=3] ++(0,1)
+                ;
+                \draw
+                    (AMP.out) to [short,-o,l=$V_{out,amp}$] ++(8,0);
+            \end{circuitikz}
+        \end{center}
+    }
+    
+    \meta { Write out the formula for noninverting amplifier and encourage them to solve for gain. Emphasize how they will need to creative in order to find equivalencies, even though this case is really simple.
+    
+    } 
+
+    \ans {
+    Note the conditions that were imposed upon you in the beginning when looking for supplies. Because you should have already used every other circuit component except for the 1k resistors, we will use equivalencies in order to get the desired resistances. \textbf{This is a useful skill to learn in order to adapt to real-life situations where you may not have the exact resistor/capacitor value you want or it may be too expensive.}.\footnote{Referring to part(d): Example of this happened to me the other day when I needed to buy a 250uF capacitor on DigiKey, but they didn't have the exact value I was looking for. Instead, I ordered a 220uF and a 33uF capacitor, so that my team could combine them in parallel in my circuit to form an equivalent ~250uF capacitor!
+    
+    }
+    
+    To make it easier on ourselves, lets make our $R_{bottom}$ equal to 1k Ohms. Therefore, our equivalent resistance for our $R_{top}$ should be:
+        \begin{align*}
+            \text{For Gain = 1} \longrightarrow  R_{top} &= 0 \Omega\\
+            \text{For Gain = 1.5} \longrightarrow  R_{top} &= 0.5k \Omega\\
+            \text{For Gain = 3} \longrightarrow  R_{top} &= 2k \Omega
+        \end{align*}\\
+
+    For Gain = 1, $R_{top}$ is a wire (Notice how this resembles a unity gain buffer!)\\ 
+    For Gain = 1.5, $R_{top}$ would be two 1k $\Omega$ resistors in parallel since 1k $\Omega \parallel$ 1k $\Omega$ = 0.5k $\Omega$\\
+    For Gain = 3, $R_{top}$ can be two 1k $\Omega$ resistors in series.
+    Your final circuit design for your variable amplifier might look something like this.
+        \begin{center}
+            \begin{circuitikz}[scale=0.7, transform shape]
+                \draw   
+                    (0,0) node[op amp,yscale=-1](AMP) {}
+                    (AMP.+) to [short] ++(-2,0)
+            		to[sV,v_=$v_\text{in}$] ++(0,-4)
+            		node[ground] () {}
+                ;
+                \draw
+                    (AMP.-) to [short] ++(0, -4)
+                    to [short] ++(4, 0)
+                    to [R, l_=$R_{bottom}$] ++(0, -2) node[ground]{}
+                ;
+                % first switch
+                \draw 
+                    (AMP.-) to [open] ++(0, -4)
+                    to [open] ++(4,0)
+                    to [switch,l=1] ++(0,1)
+                    to [short] ++(0,3.5)
+                ;
+                % second switch
+                \draw
+                    (AMP.-) to [open] ++(0, -4)
+                    to [open] ++(4,0)
+                    to [short] ++(2,0)
+                    to [switch,l=1.5] ++(0,1)
+                    to [short] ++(0,1)
+                    to [short] ++(-0.5,0)
+                    to [R] ++(0,2)
+                    to [short] ++(1,0)
+                    to [R] ++(0,-2)
+                    to [short] ++(-0.5,0)
+                    to [open] ++(0,2)
+                    to [short] ++(0,0.5)
+                ;
+                % third swtich
+                \draw
+                    (AMP.-) to [open] ++(0, -4)
+                    to [open] ++(4,0)
+                    to [short] ++(4,0)
+                    to [switch,l=3] ++(0,1)
+                    to [R] ++(0,1.75)
+                    to [R] ++(0,1.75)
+                ;
+                \draw
+                    (AMP.out) to [short,-o,l=$V_{out,amp}$] ++(8,0);
+            \end{circuitikz}
+        \end{center}
+    }
+    % \item (Optional) Draw out the block diagram in circuit form after following the steps above.
+\end{enumerate}

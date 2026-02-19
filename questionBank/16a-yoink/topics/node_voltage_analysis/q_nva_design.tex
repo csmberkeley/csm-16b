@@ -1,0 +1,221 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{Egg.}
+
+\textbf{Learning Goal}: Apply NVA onto electric components and learn the significance of resistance in a resistor network for design purposes.
+
+\meta{
+    The main strategy of this question is to come up with a general approach for all subparts of a part, so there is a concrete process to follow when solving the problem.
+    
+}
+
+Dr. Minecraft Steve has found you from Piazza to engineer an incubator, in an attempt to solve the global demand of eggs. He gives you the following model to construct an incubator with:
+\begin{ln-fig}{Incubator Model S}{}
+    \begin{center}
+        \input{../../topics/node_voltage_analysis/q_nva_design_figs/series_model.tex}
+    \end{center}
+\end{ln-fig}
+
+The box $S$ is a special electronic component that:
+\begin{bindenum}
+    \item radiates a heat modeled in degrees Celsius as $S(I) = 0.5I + 40$, where $I$ is the current that passes through the box.
+    \item  has a resistance, so it acts like a resistor.
+\end{bindenum}
+Essentially, this is a resistor that radiates heat. \\
+Feel free to use a calculator too, Dr. Minecraft Steve has provided you one.
+\begin{enumerate}
+    \item {
+        For Model S, assuming $V_S = 9V$ solve the temperature of ($S(I)$) and current ($I_S$), voltage ($V_{S_I}$) across the box $S$, if it has the following resistances:
+        \begin{tasks}(4)
+            \task $5\Omega$
+            \task $1k\Omega$
+            \task $0.1\Omega$
+            \task $0\Omega$
+        \end{tasks}
+        If you noticed some limit with the model about the temperature it can generate, discuss it in your classroom!
+        
+    }
+    \meta{
+        \begin{bindenum}
+            \item The varying resistance is there to \textbf{initiate an intuition regarding voltage divider and the ratio of voltage drop} that occurs along with relative size of resistances across resistors.  
+            \item While all resistances in the range work, \textbf{there are limits to this model for the maximum possible increase in temperature}. This will take some algebraic explanation. To explain, \textbf{plot the temperature increase with respect to a resistor's resistance}.
+        \end{bindenum}
+    
+    }
+    \ans{
+        Before solving for each individual item, let's outline the general approach of solving this problem. \\
+        First of all, let us inspect the current that passes through $S$:
+        \begin{ln-fig}{Incubator Model S}{}
+            \begin{center}
+                \input{../../topics/node_voltage_analysis/q_nva_design_figs/series_model_labeled.tex}
+            \end{center}
+        \end{ln-fig}
+        Let us apply KCL at the node between box $S$ and the $5\Omega$ resistor:
+        \begin{align*}
+            I_{in} &= I_a \\
+            I_{out} &= I_b \\
+            I_{in} &= I_{out} \text{ (KCL)} \\
+            I_a &= I_b
+        \end{align*}
+        The current passing through and the temperature of box $S$ can thus be calculated as:
+        \begin{align*}
+            I_a &= \frac{V_S}{R_S + 5\Omega} \\
+            S(I) &= \frac{V_S}{2R_S + 10\Omega} + 40
+        \end{align*}
+        And via the voltage divider formula, we can also see that:
+        \[V_{S(I)} = V_S \frac{R_S}{R_s + 5\Omega}\]
+        We will now present our results in the following table:
+        \begin{center}
+            \begin{tabular}{c||c|c|c}
+                $R_S$ & $S(I)$ & $I_S$ & $V_{S(I)}$ \\
+                \hline
+                \hline
+                $x$ & 
+                $\frac{V_S}{2x + 10\Omega} + 40$ & 
+                $\frac{V_S}{x + 5\Omega}$ & 
+                $V_S \frac{x}{x + 5\Omega}$ \\
+                \hline
+                $5\Omega$ & ${40.45}^{\circ}C$ & $0.9A$ & $4.5V$ \\
+                \hline
+                $1k\Omega$ & ${40.004}^{\circ}C$ & $0.009A$ & $8.955V$ \\
+                \hline
+                $0.1\Omega$ & ${40.88}^{\circ}C$ & $1.76A$ & $0.176V$ \\
+                \hline
+                $0\Omega$ & ${40.9}^{\circ}C$ & $1.8A$ & $0V$
+            \end{tabular}
+        \end{center}
+        The limit of temperature has to deal with its expression, which only allows an addition from $0^{\circ}C$ to $0.9^{\circ}C$ upon the original $40^{\circ}C$. \\
+        This is observed via assessing the maximum and minimum possible value of $\frac{V_S}{2x + 10\Omega}$ (from $S(I)$).
+        
+    }
+    
+    \item {
+        Noticing a defect from the previous model, we have now switched to this one:
+        \begin{ln-fig}{Incubator Model P}{}
+            \begin{center}
+                \input{../../topics/node_voltage_analysis/q_nva_design_figs/parallel_model.tex}
+            \end{center}
+        \end{ln-fig}
+        Let $V_S = 10V$. Solve the the resistance ($R_T$) of and current ($I_T$), voltage ($V_T$) across the box $T$ for the model of temperature:
+        \[T(I) = 3I + 40\]
+        and temperatures:
+        \begin{tasks}(3)
+            \task $42^{\circ}C$
+            \task $45^{\circ}C$
+            \task $46^{\circ}C$
+        \end{tasks}
+        
+    }
+    \meta{
+        This question is the parallel circuit version twin of the last part. The underlying approach is the same.
+    
+    }
+    \ans{
+        Let us once again attempt to solve for a general formula given some resistance for box $T$. \\
+        Let the resistance for the box $T$ be denoted as $R_T$. \\
+        Then, the equivalent resistance of the parallel combination $R_T$ and $5\Omega$ would be:
+        \begin{align*}
+            \Sigma R &= \frac{1}{\frac{1}{R_T} + \frac{1}{5}} \\
+            &= \frac{1}{\frac{5 + R_T}{5R_T}} 
+            = \frac{5R_T}{5 + R_T}
+        \end{align*}
+        Having this, and acknowledging that the voltage across box $T$ and the resistor directly above it is equal in amount, we will have a good conclusion about the voltage across them. This is because we know that the voltage across box $T$ would be, by the voltage divider formula:
+        \begin{align*}
+            V_T
+            &= V_S \frac{\frac{5R_T}{5 + R_T}}{\frac{5R_T}{5 + R_T} + 5\Omega} \\
+            &= V_S \frac{5R_T}{5R_T + 25 + 5R_T} = V_S \frac{R_T}{2R_T + 5}
+        \end{align*}
+        Provided that, the current across box $T$ can then be calculated by Ohm's Law:
+        \[I_T = \frac{V_T}{R_T} = \frac{V_S}{2R_T + 5}\]
+        Therefore, its temperature can be dictated along the formula as:
+        \[T(I) = 3I_T + 40 = \frac{3V_S}{2R_T + 5} + 40\]
+        Therefore, skipping the algebra of it, the resistor of box $T$ with a known temperature can be derived as the following process entails:
+        \begin{align*}
+            T(I) &= \frac{3V_S}{2R_T + 5} + 40 \\
+            \frac{3V_S}{2R_T + 5} &= T(I) - 40 \\
+            \frac{2R_T + 5}{3V_S} &= \frac{1}{T(I) - 40} \\
+            R_T &= \frac{3V_S}{2T(I) - 80} - \frac{5}{2}
+        \end{align*}
+        Substituting in the value $V_S = 10V$ as provided from prompt, we may use our general formula to find the resistances listed for each temperature:
+        \begin{center}
+            \begin{tabular}{c||c|c|c}
+                $T(I)$ & $R_T$ & $V_T$ & $I_T$ \\
+                \hline
+                \hline
+                $x$ & 
+                $\frac{15}{x - 40} - \frac{5}{2}$ &
+                $\frac{10R_T}{2R_T + 5}$ &
+                $\frac{10}{2R_T + 5}$ \\
+                \hline
+                $42^{\circ}C$ & $5\Omega$ & $\frac{10}{3}V$ & $\frac{2}{3}A$ \\
+                \hline
+                $45^{\circ}C$ & $\frac{1}{2}\Omega$ & $\frac{5}{6}V$ & $\frac{5}{3}A$ \\
+                \hline
+                $46^{\circ}C$ & $0\Omega$ & $0V$ & $2A$ \\
+            \end{tabular}
+        \end{center}
+        
+    }
+    
+    \item {
+        For model $P$, what is the range of temperature that this incubator can work with? If there is a limit to the range, explain why.
+    
+    }
+    \meta{
+        Be careful, it is \textbf{easy to miss the part of inequality} for $40 \leq T(I)$.
+    
+    }
+    \ans{
+        From last part, we learned that for a given temperature $T(I)$ from box $T$:
+        \[R_T = \frac{15}{T(I) - 40} - \frac{5}{2}\]
+        For the resistance to be non-negative, it must be that:
+        \[0 \leq \frac{15}{T(I) - 40} - \frac{5}{2}\]
+        Via some algebraic manipulation:
+        \begin{align*}
+            0 &\leq \frac{15}{T(I) - 40} - \frac{5}{2} \\
+            \frac{5}{2} &\leq \frac{15}{T(I) - 40} \\
+            5T(I) - 200 &\leq 30 \\
+            T(I) &\leq 46
+        \end{align*}
+        Meanwhile, we also require that $T(I) \geq 40$ to maintain the inequality. \\
+        Therefore, the limit of temperature for this incubator model's box $T$ is that it can only generate heat within the inclusive range between ${40}^{\circ}C$ and ${46}^{\circ}C$.
+        
+    }
+    
+    \item {
+        At last, let's consider this new model, whose voltage source is $V_S = 15V$. \\
+        \begin{ln-fig}{Incubator Model P}{}
+            \begin{center}
+                \input{../../topics/node_voltage_analysis/q_nva_design_figs/series_model_alter.tex}
+            \end{center}
+        \end{ln-fig}
+        Suppose we have modified the box $U$, such that its temperature now depends on the voltage across it:
+        \[U(V) = 4V + 40\]
+        If the incubator needs to generate a temperature from within the range of $60^{\circ}C$ to $90^{\circ}C$, inclusive, what is the range of use-able resistance for box $U$?
+    
+    }
+    \ans{
+        We may acknowledge via the voltage divider formula that:
+        \[ V_U = V_S \frac{R_U}{R_U + 1} \]
+        In order, to let the temperature of box $U$ be between $60^{\circ}C$ and $90^{\circ}C$, inclusive, it must then be that:
+        \[ 60 \leq V_S \frac{4R_U}{R_U + 1} + 40 \leq 90 \]
+        Knowing from the prompt that $V_S = 15V$, let us attempt to derive an inequality in terms of $R_U$ following the above hint:
+        \begin{align*}
+            60 &\leq V_S \frac{4R_U}{R_U + 1} + 40 \\
+            20 (R_U + 1) &\leq 60 R_U \\
+            20 &\leq 40R_U \\
+            R_U &\geq 2 \\
+        \end{align*}
+        And for the second half of the inequality:
+        \begin{align*}
+            90 &\geq V_S \frac{4R_U}{R_U + 1} + 40 \\
+            50(R_U + 1) &\geq 60R_U \\
+            50 &\geq 10R_U \\
+            R_U &\leq 5
+        \end{align*}
+        Therefore, the viable range of resistance for box U is:
+        \[ 2\Omega \leq R_U \leq 5\Omega\]
+    
+    }
+\end{enumerate}

@@ -1,0 +1,354 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Spring 2023
+\newenvironment{amatrix}[1]{%
+  \left[\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right]
+}
+% node[label={[font=\footnotesize]above:$u_1$}] {}
+
+\qns{Null Space}
+
+\textbf{Learning Goal:} Students should gain some familiarity with proofs and finding null spaces.
+
+\meta{
+\begin{itemize}
+    \item Remind students that for a matrix $A \in \mathbb{R}^{m \times n}$, the null space of $A$, denoted $\mathcal{N}(A)$, is in $\mathbb{R}^n$, and the column space of $A$, denoted $\mathcal{C}(A)$, is in $\mathbb{R}^m$. (It could be helpful to show how $\vec{x}$ for $A\vec{x} = \vec{0}$ has to belong in $\mathbb{R}^{n}$ in order for the multiplication to be possible).
+    \item Remind students that it is impossible for a wide matrix to have a trivial null space, since it must have at least one linearly dependent column. However, it is possible for a tall matrix to have either a trivial or a non-trivial null space.
+\end{itemize}
+}
+
+
+
+\begin{enumerate}
+% 2 mechanical null space problems?
+% wide matrix []
+% \item Consider a tall matrix $A$ ($A \in \mathbb{R}^{m \times n}$, where $m < n$).
+% \begin{enumerate}
+%     \item Is it possible for the columns of $A$ to span $\mathbb{R}^m$?
+%     \item 
+% \end{enumerate}
+
+% % a square matrix first
+% \item Find the null space for $A = \begin{bmatrix} 1 & 2  \\ \end{bmatrix}$.
+
+% \ans{
+% }
+
+\item First, let's practice finding the null space.
+% a wide matrix
+\begin{enumerate}
+\item Consider $A = \begin{bmatrix} 1 & 2 & -4 \\ -2 & -3 & 5 \end{bmatrix}$. Is it possible for $A$ to have a trivial null space? Determine $\mathcal{N}(A)$.
+
+\ans{
+
+First, we observe that $A$ is a wide matrix in $\mathbb{R}^{2 \times 3}$. Since $A$ is a wide matrix, $A$ cannot have a trivial null space: $A$ must have at least one linearly dependent column, as we can have a maximum of 2 linearly independent vectors in $\mathbb{R}^2$.
+
+To solve for the null space of a matrix $A$, we want to find the set of all $\vec{x}$ such that $A\vec{x} = \vec{0}$. We can row reduce to determine $\vec{x}$ as follows:
+
+\vspace{2mm}
+
+\begin{align*}
+    \begin{sysmatrix}{ccc|c}
+        1 & 2 & -4 & 0 \\  
+        -2 & -3 & 5 & 0
+    \end{sysmatrix}
+    &\!\begin{aligned}
+        & \\
+        &\ro{2R_1 + R_2 \rightarrow R_2} \\
+        &
+    \end{aligned}
+    \begin{sysmatrix}{ccc|c}
+        1 & 2 & -4 & 0 \\  
+        0 & 1 & -3 & 0
+    \end{sysmatrix} \\
+    &\!\begin{aligned}
+        &\\
+        &\ro{-2R_2 + R_1 \rightarrow R_1} \\
+        &
+    \end{aligned}
+    \begin{sysmatrix}{ccc|c}
+        1 & 0 & 2 & 0 \\  
+        0 & 1 & -3 & 0
+    \end{sysmatrix}
+\end{align*}
+
+(Note that performing any row operations does not affect the right side of the augmented matrix, where each entry remains 0. For simplicity, we could have omitted the augmented column when row reducing.)
+
+Recall that we originally wanted to solve $A\vec{x} = \vec{0}$. By row reducing, we obtained the augmented matrix below:
+
+\[
+    \begin{sysmatrix}{ccc|c}
+        1 & 0 & 2 & 0 \\  
+        0 & 1 & -3 & 0
+    \end{sysmatrix}
+\]
+
+We can write out the equations in this matrix as follows:
+\[
+    \begin{cases}
+        1x_1 + 0x_2 + 2x_3 = 0 \\
+        0x_1 + 1x_2 - 3x_3 = 0 \\
+    \end{cases}
+\] 
+
+We can then write our basic variable(s) in terms of our free variable(s). Free variables correspond to columns without a pivot in row reduced echelon form (See Note 1B). In this case, we have one free variable, $x_3$, which can take on any value:
+\[
+    \begin{cases}
+        x_1 = -2x_3 \\
+        x_2 = 3x_3 \\
+        x_3 = x_3
+    \end{cases}
+\] 
+So
+\[
+\vec{x} =
+\begin{bmatrix}
+    x_1 \\
+    x_2 \\
+    x_3 \\
+\end{bmatrix} =
+\begin{bmatrix}
+    -2 \\
+    3 \\
+    1 \\
+\end{bmatrix} x_3
+\]
+
+and $\mathcal{N}(A) = \text{span}\Biggl\{\begin{bmatrix} -2 \\ 3 \\ 1 \end{bmatrix}\Biggr\}$.
+
+}
+
+% a tall matrix
+\item Consider $B = \begin{bmatrix} 1 & -2 \\ 0 & 0 \\ -2 & 4 \end{bmatrix}$. Is $\vec{x} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$ in $\mathcal{N}(B)$? Determine $\mathcal{N}(B)$. (Note that tall matrices can have either trivial or non-trivial null spaces).
+
+\ans{
+First, we determine whether $\vec{x} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$ is in the null space of $B$. Recall that the null space of $B$ is defined as the set of all $\vec{x}$ such that $B\vec{x} = \vec{0}$. So we can multiply $B\vec{x}$ and check if it is equal to $\vec{0}$:
+
+\[
+    \begin{bmatrix} 
+        1 & -2 \\ 
+        0 & 0 \\ 
+        -2 & 4 
+    \end{bmatrix}
+    \begin{bmatrix}
+        3 \\
+        1
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        (1)(3) + (-2)(1) \\
+        (0)(3) + (0)(1) \\
+        (-2)(3) + (4)(1)
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        1 \\
+        0 \\
+        -2
+    \end{bmatrix} \neq
+    \begin{bmatrix}
+        0 \\
+        0 \\
+        0
+    \end{bmatrix}
+\]
+
+So $\vec{x}$ is not in $\mathcal{N}(B)$. Now, we will determine $\mathcal{N}(B)$. We follow the same steps as before, augmenting the matrix with a column of 0s.
+
+\begin{align*}
+    \begin{sysmatrix}{cc|c}
+        1 & -2 & 0\\ 
+        0 & 0 & 0\\ 
+        -2 & 4 & 0
+    \end{sysmatrix}
+    &\!\begin{aligned}
+        & \\
+        &\ro{2R_1 + R_3 \rightarrow R_3} \\
+        &
+    \end{aligned}
+    \begin{sysmatrix}{cc|c}
+        1 & -2 & 0\\ 
+        0 & 0 & 0\\ 
+        0 & 0 & 0
+    \end{sysmatrix}
+\end{align*}
+
+We can write out the equations in this matrix as follows:
+\[
+    \begin{cases}
+        1x_1 - 2x_2 = 0 \\
+        0x_1 + 0x_2 = 0 \\
+        0x_1 + 0x_2 = 0
+    \end{cases}
+\] 
+
+We can then write our basic variable(s) in terms of our free variable(s). Free variables correspond to columns without a pivot in row reduced echelon form (See Note 1B). In this case, we have one free variable, $x_2$:
+\[
+    \begin{cases}
+        x_1 = 2x_2 \\
+        x_2 = x_2 \\
+    \end{cases}
+\] 
+So
+\[
+\vec{x} =
+\begin{bmatrix}
+    x_1 \\
+    x_2 \\
+\end{bmatrix} =
+\begin{bmatrix}
+    2 \\
+    1 \\
+\end{bmatrix} x_2
+\]
+
+and $\mathcal{N}(B) = \text{span}\Bigl\{\begin{bmatrix} 2 \\ 1 \end{bmatrix}\Bigr\}$.
+
+}
+
+\item Now, compute $C = AB$, where $A$ and $B$ are defined as above. Then, consider the following questions: 
+
+\ans{
+
+\begin{align*}
+C & = AB \\
+& = 
+\begin{bmatrix} 
+    1 & 2 & -4 \\ 
+    -2 & -3 & 5 
+\end{bmatrix}
+\begin{bmatrix} 
+    1 & -2 \\ 
+    0 & 0 \\ 
+    -2 & 4 
+\end{bmatrix} \\
+& = 
+\begin{bmatrix}
+    (1)(1) + (2)(0) + (-4)(-2) & (1)(-2) + (2)(0) + (-4)(4) \\
+    (-2)(1) + (-3)(0) + (5)(-2) & (-2)(-2) + (-3)(0) + (5)(4)
+\end{bmatrix} \\
+& = 
+\begin{bmatrix}
+    9 & -18 \\
+    -12 & 24
+\end{bmatrix}
+\end{align*}
+
+}
+
+\begin{enumerate}
+    \item What is the null space of $C$, and how does it compare to the null space of $B$?
+    
+    \ans{
+        We augment and row reduce $C$ as before to determine its null space:
+
+        \begin{align*}
+            \begin{sysmatrix}{cc|c}
+                9 & -18 & 0 \\  
+                -12 & 24 & 0
+            \end{sysmatrix}
+            &\!\begin{aligned}
+                & \\
+                &\ro{\frac{1}{9} R_1 \rightarrow R_1} \\
+                &
+            \end{aligned}
+            \begin{sysmatrix}{cc|c}
+                1 & -2 & 0 \\  
+                -12 & 24 & 0
+            \end{sysmatrix} \\
+            &\!\begin{aligned}
+                &\\
+                &\ro{12R_1 + R_2 \rightarrow R_2} \\
+                &
+            \end{aligned}
+            \begin{sysmatrix}{cc|c}
+                1 & -2 & 0 \\  
+                0 & 0 & 0
+            \end{sysmatrix}
+        \end{align*}
+
+    We can write out the equations in this matrix as follows:
+    \[
+        \begin{cases}
+            1x_1 - 2x_2 = 0 \\
+            0x_1 + 0x_2 = 0 \\
+        \end{cases}
+    \] 
+    
+    We can then write our basic variable(s) in terms of our free variable(s). Free variables correspond to columns without a pivot in row reduced echelon form (See Note 1B). In this case, we have one free variable, $x_2$:
+    \[
+        \begin{cases}
+            x_1 = 2x_2 \\
+            x_2 = x_2 \\
+        \end{cases}
+    \] 
+    So
+    \[
+    \vec{x} =
+    \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+    \end{bmatrix} =
+    \begin{bmatrix}
+        2 \\
+        1 \\
+    \end{bmatrix} x_2
+    \]
+
+    and $\mathcal{N}(B) = \text{span}\Bigl\{\begin{bmatrix} 2 \\ 1 \end{bmatrix}\Bigr\}$.
+
+    In this case, the null space of $B$ is the same as the null space of $C$.
+    }
+    
+    \item If A were a \textbf{0} matrix in $\mathbb{R}^{2 \times 3}$, how would the null space of $C$ compare to the null space of $B$?
+
+    \ans{
+    
+    In this case, $A = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}$. We can then compute $C$.
+    \begin{align*}
+        C & = AB \\
+        & = 
+        \begin{bmatrix} 
+            0 & 0 & 0 \\ 
+            0 & 0 & 0 
+        \end{bmatrix}
+        \begin{bmatrix} 
+            1 & -2 \\ 
+            0 & 0 \\ 
+            -2 & 4 
+        \end{bmatrix} \\
+        & = 
+        \begin{bmatrix}
+            0 & 0 \\
+            0 & 0
+        \end{bmatrix}
+    \end{align*}
+
+    Here, we see that the null space of $C$ is all of $\mathbb{R}^2$. We have previously seen that the null space of $B$ is the span of a vector in $\mathbb{R}^2$. So the null space of $C$ is a superset of the null space of $B$ in this scenario.
+    }
+    
+\end{enumerate}
+\end{enumerate}
+
+\item Now that we have familiarized ourselves with null spaces, let's show that $\mathcal{N}(B) \subseteq \mathcal{N}(AB)$, for any matrix $A \in \mathbb{R}^{m \times n}$ and $B \in \mathbb{R}^{n \times k}$. 
+(\textit{Hint:} In order to prove $A$ is a subset of $B$, show that every vector in $A$ also belongs in $B$.)
+
+\meta{
+    \begin{itemize}
+        \item Note that $\mathcal{N}(AB) \subseteq \mathcal{N}(B)$ is not necessarily true, though there are situations where equality holds, depending on what the $A$ matrix is.
+    \end{itemize}
+}
+
+\ans{
+
+    To show that $\mathcal{N}(B)$ is a subset of $\mathcal{N}(AB)$, we need to show that every vector in the null space of $B$ is also in the null space of $AB$.
+    
+    \textbf{Step 1:} First, for a vector $\vec{x}$ to be in the null space of $B$, we must have $B\vec{x} = \vec{0}$. This is the definition of the null space of $B$. 
+    
+    \textbf{Step 2:} We can then left multiply each side of the equation by $A$ to obtain $AB\vec{x} = A\vec{0}$. Since multiplying a matrix by $\vec{0}$ results in $\vec{0}$, we have $AB\vec{x} = \vec{0}$, which we can rewrite as $(AB)\vec{x} = \vec{0}$.
+    
+    \textbf{Step 3:} Hence, by the definition of null space, $\vec{x}$ belongs to the null space of $AB$. Since $\vec{x}$ was any arbitrary vector in $\mathcal{N}(B)$, we have shown that $\mathcal{N}(B) \subseteq \mathcal{N}(AB)$.
+    
+}
+
+\end{enumerate}

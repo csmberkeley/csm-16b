@@ -1,0 +1,74 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+\qns{Psuedoinverse of matrix}
+\textbf{Learning goal: gain more intuition on least square through psuedoinverse}.
+
+\meta{
+\begin{enumerate}
+    \item First review the definition of invertibility of a matrix.
+    \item Then review the basics of least square problem $Ax = b$, and let
+        student know why it is not appropriate to directly get the answer  $x =
+        A^{-1} b$ 
+    \item Then go through the linear algebra proofs with students.
+\end{enumerate}
+}
+
+Recall that the least square problem $Ax = b$ has solution  $x = (A^{\intercal}
+A)^{-1} A^{\intercal} b = A^{\dagger} b$, where we name $A^{\dagger}$ the
+``psuedoinverse`` of the matrix $A$. Proof the following to see that
+$A^{\dagger}$ sometimes look like a inverse.
+
+\begin{enumerate}
+    \item $AA^{\dagger}A = A$
+    \item $A^{\dagger}AA^{\dagger} = A^{\dagger}$
+    \item $(AA^{\dagger})^{\intercal} = AA^{\dagger}$
+    \item $(A^{\dagger}A)^{\intercal} = A^{\dagger}A$
+    \item If $A$ is a invertible matrix, then we have  $A^{\dagger} = A^{-1}$
+\end{enumerate}
+
+\ans{
+   We have the first one  is just
+
+   \[
+      A (A^{\intercal}A)^{-1} A^{\intercal} A = A (A^{\intercal}A)^{-1}
+      (A^{\intercal} A) = A I = A
+   \]
+
+   second one is
+
+   \begin{align*}
+       A^{\dagger}A A^{\dagger} &= ((A^{\intercal}A)^{-1} A^{\intercal}) A
+       ((A^{\intercal}A)^{-1}A^{\intercal})\\
+                                &= (A^{\intercal}A)^{-1} (A^{\intercal}A)
+                                (A^{\intercal}A)^{-1} A^{\intercal} \\
+                                &= (A^{\intercal}A)^{-1} A^{\intercal}\\
+                                &= A^{\dagger}
+   \end{align*}
+
+   Notice both the third and fourth proof ask us to prove those product are
+   symmetric.
+
+   For the third one,  we first have $A^{\intercal} A$ is a symmetric matrix.
+   This is because $(A^{\intercal}A)^{\intercal} = (A)^{\intercal}
+   (A^{\intercal})^{\intercal} = A^{\intercal} A$, so it is symmetric since its
+   transpose is equal to itself.
+
+   Therefore $S =(A^{\intercal}A)^{-1}$ is also a symmetric matrix. Here we have the matrix is
+
+   \[
+       (ASA^{\intercal})^{\intercal} = A S A^{\intercal} = ASA^{\intercal}
+   \]
+
+   The fourth one is similar, since we have $A^{\intercal} S A$ is also symmetric.
+
+   Last one is because of the property of inverse of product of matrix: we have 
+
+   \[
+       A^{\dagger} = (A^{\intercal}A)^{-1} A^{\intercal} = A^{-1}
+       (A^{\intercal})^{-1} A^{\intercal} = A^{-1}
+   \]
+
+   notice that we can expand $(A^{\intercal}A)^{-1}$ if and only if $A$ is
+   invertible (also square matrix) 
+}
+
+

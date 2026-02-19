@@ -1,0 +1,235 @@
+% Author: Kailash Ranganathan
+% Email: kranganathan@berkeley.edu
+% CSM16A Spring 2023
+
+\qns{Measuring Circuits}
+
+
+\meta{
+\begin{itemize}
+    \item Begin by reviewing the fundamental steps of NVA, what different circuit components do, and the idea of voltage as the change in electric potential between different parts of the circuit (ie. like height) and current as the flow of charge across voltage differences (like balls rolling down hills)
+
+    \item Understand the different circuit components, especially resistors. How Ohm's law induces a "voltage drop" across resistors as current flows through them, and understand how to calculate this voltage drop between nodes. 
+\end{itemize}}
+\begin{circuitikz}
+        \draw (0,-2)
+            node[ground]{}
+            (0,1) to[V=$V$] (0,-2)
+            (0,1) to[R=$R_1$] (5,1)
+            (5, 1) to[R=$R_3$] (5, -2)
+            (3.5, 1) to [R =$R_2$](3.5, -2)
+            (5, -2) to (0, -2);
+    \end{circuitikz}
+\begin{enumerate}
+    \itemTo start off, we'll practice NVA through measurements of circuit elements. Calculate $V_3$, the voltage going through the resistor $R_3$. 
+
+    \ans{To begin, we can label our nodes $u_1$ as the node above the voltage source, $u_2$ as the node on the upper right (to the right of $R_1$ and above $R_2$ and $R_3$). We \textit{could} label $u_3$ as the big bottom node, but note this is connected to ground and so we can just label it as $0$, which will ease our calculations \\ \\
+    Note how we constructed these nodes. Think of the nodes as a sort of "region" where you keep expanding the region until you reach a non-wire element. No matter how big your wire is, as long as it's a wire, you're on the same node and have the same voltage (try to understand why). 
+
+    First, lets understand what we want to calculate. We want to find $V_3$, which is given by 
+    \begin{equation*}
+        V_3 = u_2 - 0 = u_2
+    \end{equation*}
+    Thus, our problem amounts to finding $u_2$. To do this, lets consider Ohm's law for each resistor and define $i_1$ as the current through resistor 1, $i_2$ as current through resistor 2, and $i_3$ as the current through resistor 3(in practice, this is a good circuit solving strategy -- write all the equations you know and then figure out how you can find unknowns with them). 
+
+    \begin{equation*}
+        \begin{split}
+            & V_{R_1} = u_1 - u_2 = V - u_2 = i_1 R_1 \\
+            & V_{R_2} = u_2 - 0 = u_2 = i_2 R_2 \\
+            & V_{R_3} = V_3 = u_2 = i_3 R_3 \\
+        \end{split}
+    \end{equation*}
+    Note how we set $u_1 = V$. If a node is located on top of a voltage source, it \textit{must} have that voltage value (think of a voltage source as something that "locks in" the voltage of the node above it). Now, we note that our only unknowns are $u_2$ and the 3 current values. This hints that we should probably use KCL, specifically on $u_2$ (as that is where the current from $R_1$ breaks off into two). KCL tells us the current entering $u_2$ must equal the current leaving, or 
+    \begin{equation*}
+        i_1 = i_2 + i_3
+    \end{equation*}
+    But notice that we can take our three equations from before and substitute the current values there into our KCL equation. Specifically, 
+    \begin{equation*}
+        \begin{split}
+         &  V - u_2 = i_1 R_1 \xrightarrow{} i_1 = \frac{V - u_2}{R_1} \\
+         & u_2 = i_2 R_2 \xrightarrow{} i_2 = \frac{u_2}{R_2} \\
+         & u_2 = i_3 R_3 \xrightarrow{} i_3 = \frac{u_2}{R_3} \\
+        \end{split}
+    \end{equation*}
+    Thus, our KCL equation becomes 
+    \begin{equation*}
+        \frac{V - u_2}{R_1} = \frac{u_2}{R_2} + \frac{u_2}{R_3} = u_2 (\frac{R_2 + R_3}{R_2 R_3})
+    \end{equation*}
+    Then, we bring all the $u_2$'s to one side, to get 
+    \begin{equation*}
+        \frac{V}{R_1} = u_2 (\frac{R_2 + R_3}{R_2 R_3} + \frac{1}{R_1}) = u_2 (\frac{R_1 R_2 + R_1 R_3 + R_2 R_3}{R_1 R_2 R_3})
+    \end{equation*}
+    so finally, we end up with 
+    \begin{equation*}
+     u_2 = \boxed{V_3 = V\frac{R_2 R_3}{R_1 R_2 + R_1 R_3 + R_2 R_3}}
+    \end{equation*}
+    There was some pretty complicated algebra there, so lets just do a quick sanity check. If $R_3$ goes to zero, we're basically measuring the voltage across a wire, which is 0 -- indeed, our expression goes to zero in that case. If $R_2$ goes to zero, we also get zero voltage, as then there's just a short circuit across the resistor. If $R_1$ goes to zero, we just end up with $V_3 = V$, which makes sense, because then the ends of the resistor are connected directly to the ends of the voltage source. \\ \\ 
+    If you really want to verify your answer, you can try seeing how $V_3$ changes as $R_2$ goes to infinity. Then, the only terms that matter are the ones with $R_2$ in them, and we get $V_3 = V \frac{R_3}{R_1 + R_3}$, which is the voltage divider formula! Indeed, this makes sense, because an infinite $R_2$ resistance is equivalent to it becoming an open wire, which makes the resulting circuit a voltage divider. 
+    
+    }
+
+    \itemIn practice, we can't just arbitrarily measure different currents/voltages in circuits. Suppose we want to measure the current going through the same resistor $R_3$--what properties would our \textit{ammeter} (meaning current-meter) have to have (ie. resistance), and how would you connect it? 
+
+    \ans{
+    The key here is that when connecting measurement devices to your circuit, you want to do so in a way that 
+    \begin{enumerate}
+        \item Measures the intended quantity and not something else 
+        \item Minimally interferes with the workings of the circuit so your measurements are accurate
+    \end{enumerate}
+    If we want to measure the current through a resistor, we must connect an ammeter in \boxed{\text{series with the resistor}}. Imagine if we connected it in parallel with the resistor -- that would divert current \textit{away} from the resistor, so we wouldn't be measuring the current through $R_3$ -- we'd be measuring some other arbitrary current! \\ \\ 
+    Moreover, if we connect an ammeter in series, it must have \boxed{\text{0 resistance}}. Suppose the ammeter had a finite resistance (which we will see in an upcoming question) -- this would change the current of the actual circuit in an unwanted way just because of our measurement device, violating the second tenet we put forth above. 
+
+    
+    }
+
+    \itemNow suppose we want to measure the voltage across the resistor. What resistance would the voltmeter need to have, and how would you connect it in the circuit? \\ \\
+    \ans{The exact same two necessities of a measurement device that we defined for ammeters are the same for voltmeters. For a voltmeter to measure the voltage across a resistor, it must be connected in \boxed{\text{parallel with the resistor}}. Think of the voltage as "dropping" across the resistor, and so to measure this drop, we want the voltmeter to be connected to the exact same nodes as the resistor/to the same ends. \\ \\ 
+    For the voltmeter to not affect the workings of the circuit in parallel, it must have \boxed{\text{infinite resistance}}. Recall that voltage across a resistor is $V = IR$. If a parallel voltmeter had finite resistance, it would draw a finite amount of current \textit{away} from the resistor and into its path, which, by Ohm's law, would affect the voltage we're trying to measure. 
+    
+    
+    }\\ \\ 
+
+    \meta{ The next couple of parts are very computation-heavy, and only really there to mathematically reinforce the arguments of infinite-resistance voltmeters and zero-resistance ammeters. If you end up running low on time, doing the questions fully is not necessary and can just be done as a quick demonstration. }
+
+    The previous steps provided some motivation for how to connect measurement devices that have a minimal effect on the circuit. Lets explore what happens when the measuring devices \textit{do} affect the circuit 
+
+    \begin{circuitikz}
+        \draw (0,-2)
+            node[ground]{}
+            (0,1) to[V=$V$] (0,-2)
+            (0,1) to (2,1)
+            (2, 1) to (2, -0.5)
+            (2, 1) to (2, 1.5)
+            (2, -0.5) to[R=$R_1$] (4, -0.5)
+            (2, 1.5) to[R=$R_2$] (4, 1.5)
+            (4, -0.5) to (4, 1)
+            (4, 1.5) to (4, 1)
+            (4, 1) to (6, 1)
+            (6, 1) to[R=$R_3$] (6, -2)
+            (6, -2) to (0, -2); 
+    \end{circuitikz}
+
+    \itemConsider the new circuit above. We want to measure the voltage across $R_3$, but our voltmeter has a finite, nonzero resistance $R_V$. Calculate the expected voltage (ie. the actual voltage without any measurement devices), then the measured voltage. 
+    \ans{
+    To find the voltage across $R_3$, we could use NVA, but a more efficient way would be to collapse equivalent resistance networks and use voltage divider. Note that $R_1$ and $R_2$ are in parallel, so their equivalent resistance is 
+    \begin{equation*}
+    R_{eq12} = \frac{R_1 R_2}{R_1 + R_2}
+    \end{equation*}
+    Then, we can treat those two resistors as a single resistor with value $R_{eq12}$. That then gives us a voltage divider circuit, where the voltage across $R_3$ is 
+    \begin{equation*}
+    V_{3\text{expected}} = V \frac{R_3}{R_3 + R_{eq12}} = V\frac{R_3}{R_3 + \frac{R_1 R_2}{R_1 + R_2}} = \boxed{V \frac{R_3 (R_1 + R_2)}{R_3 R_1 + R_2 R_3+ R_1 R_2}}
+    \end{equation*}
+    This is our expected voltage. To calculate the new voltage when a voltmeter is introduced, our circuit changes to the following (think of adding the voltmeter as effectively adding a parallel resistor to $R_3$). 
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0,-2)
+                node[ground]{}
+                (0,1) to[V=$V$] (0,-2)
+                (0,1) to (2,1)
+                (2, 1) to (2, -0.5)
+                (2, 1) to (2, 1.5)
+                (2, -0.5) to[R=$R_1$] (4, -0.5)
+                (2, 1.5) to[R=$R_2$] (4, 1.5)
+                (4, -0.5) to (4, 1)
+                (4, 1.5) to (4, 1)
+                (4, 1) to (6, 1)
+                (6, 1) to[R=$R_3$] (6, -2)
+                (6, 0.5) to (7.5, 0.5)
+                (7.5, 0.5) to [R = $R_V$] (7.5, -1.5)
+                (7.5, -1.5) to (6, -1.5)
+                (6, -2) to (0, -2); 
+        \end{circuitikz}
+    \end{center}
+    
+    This circuit is a bit more complicated to deal with. But we can notice that there are now \textit{two} parallel networks, and finding the voltage across the parallel network containing $R_3$ and $R_V$ is equivalent to the voltage across $R_3$ by itself, just by KVL. So, this is just a voltage divider once again 
+    \begin{equation*}
+        V_{\text{measured}} = V \frac{R_{eq3V}}{R_{eq3V} + R_{eq12}} = V \frac{\frac{R_3 R_V}{R_3 + R_V}}{\frac{R_3 R_V}{R_3 + R_V} + \frac{R_1 R_2}{R_1 + R_2}}
+    \end{equation*}
+    This is a very messy expression, but we can multiply the top and bottom of the fraction by $(R_3 + R_V)(R_1 + R_2)$
+    \begin{equation*}
+        V_{\text{measured}} = V \frac{R_3 R_V (R_1 + R_2)}{R_3 R_V (R_1 + R_2) + R_1 R_2 (R_3 + R_V)} = \boxed{V \frac{R_3 R_V (R_1 + R_2)}{R_3 R_V R_1 + R_3 R_V R_2 + R_1 R_2 R_3 + R_1 R_2 R_V}}
+    \end{equation*}
+
+
+
+    
+    }
+    
+
+    \itemVerify that your measured voltage approaches your actual voltage as $R_V$ reaches its ideal value. That is, as $R_V$ goes to $\infty$ in your previous expressions, show that $V_{\text{measured}}$ approaches $V_{\text{expected}}$
+    \ans{What taking $R_V \xrightarrow{} \infty$
+    means mathematically is ignoring all the terms in our $V_{\text{measured}}$ that don't involve $R_V$, as those will become small in comparison and eventually be negligible. Thus, doing that gives us 
+
+    \begin{equation*}
+        V_{\text{measured for $R_V = \infty$}} = \V \frac{R_3 R_V(R_1 + R_2)}{R_3 R_V R_1 + R_3 R_V R_2 + R_1 R_2 R_V}
+    \end{equation*}
+    Note that every term has a factor of $R_V$ in it, so we can divide both numerator and denominator by $R_V$ to get 
+    \begin{equation*}
+        V_{\text{measured for $R_V = \infty$}} = V \frac{R_3 (R_1 + R_2)}{R_3 R_1 + R_2 R_3+ R_1 R_2}
+    \end{equation*}
+    which is just our original expression for the \textit{actual} voltage across $R_3$. Thus, as per our intuitive argument before, an ideal voltmeter must have an infinite resistance to not alter the workings of the circuit. 
+    }
+
+    \itemNow, consider an ammeter with finite, nonzero resistance $R_A$. Calculate the expected current (use your expected voltage from before!) as well as the true, measured current. 
+
+    \ans{To find the expected current through $R_3$, we can note that the parallel network of $R_1$ and $R_2$ is in series with the resistor $R_3$. Elements in series must have the same current going through them (can you reason through this using KCL on nodes?), and so this allows us to collapse all 3 resistors into one big resistor and find the current through that, which will give us the series current equivalent to current through $R_3$. \\ \\
+    First, calculate equivalent resistance. 
+    \begin{equation*}
+    R_{eq} = (R1 || R_2) + R_3 = \frac{R_1 R_2}{R_1 + R_2} + R_3 = \frac{R_1 R_2 + R_3 (R_1 + R_2)}{R_1 + R_2} = \frac{R_1 R_2 + R_3 R_1 + R_2 R_3}{R_1 + R_2}
+    \end{equation*}
+    Then, through Ohm's law, $V = R_{eq} I_{\text{series}}$, so 
+    \begin{equation*}
+        I_{\text{series}} = I_3 = \frac{V}{R_{eq}} = \boxed{V (\frac{R_1 + R_2}{R_1 R_2 + R_3 R_1 + R_2 R_3})}
+    \end{equation*}
+    This is our expected current through $R_3$. To find the measured current, we need to incorporate the nonzero-resistance ammeter as if it was an extra resistor \textit{in series} with $R_3$. So, our revised circuit would look like the following: 
+
+    \begin{circuitikz}
+        \draw (0,-2)
+            node[ground]{}
+            (0,1) to[V=$V$] (0,-2)
+            (0,1) to (2,1)
+            (2, 1) to (2, -0.5)
+            (2, 1) to (2, 1.5)
+            (2, -0.5) to[R=$R_1$] (4, -0.5)
+            (2, 1.5) to[R=$R_2$] (4, 1.5)
+            (4, -0.5) to (4, 1)
+            (4, 1.5) to (4, 1)
+            (4, 1) to (6, 1)
+            (6, 1) to[R=$R_A$] (6, -0.5)
+            (6, -0.5) to [R=$R_3$] (6, -2)
+            (6, -2) to (0, -2); 
+    \end{circuitikz}
+
+    Here, to find the current through $R_3$, we can still just find the series current of the entire circuit, as all the elements are in series. We don't need to change our original methodology, we just have to add an extra $R_A$ term to our equivalent resistance as follows 
+    \begin{equation*}
+        \begin{split}
+        & R_{eq} = (R1 || R_2) + R_A + R_3 = \frac{R_1 R_2}{R_1 + R_2} + R_A + R_3 \\
+        &= \frac{R_1 R_2 + (R_A + R_3) (R_1 + R_2)}{R_1 + R_2} = \frac{R_1 R_2 + R_A R_1 + R_A R_2 + R_3 R_1 + R_3 R_2}{R_1 + R_2} \\
+        \end{split}
+    \end{equation*}
+    Note how our $R_{eq}$ includes extra terms with $R_A$, an indication that our final current is going to be different (and less). Thus, we use Ohm's law in the exact same way with this equivalent resistance to find 
+    \begin{equation*}
+        I_{3\text{measured}} = I_{\text{series}} = \frac{V}{R_{eq}} = \boxed{V (\frac{R_1 + R_2}{R_1 R_2 + R_A R_1 + R_A R_2 + R_3 R_1 + R_3 R_2})}
+    \end{equation*}
+    and now, we clearly see that the extra $R_A$ terms make our measured current \textit{smaller} than the actual circuit current if our ammeter resistance is nonzero. 
+
+    }
+
+    \itemLastly, verify that your measured current approaches true current as your ammeter value approaches the ideal case -- that is, that as $R_A \xrightarrow{} 0$, $I_{3\text{measured}} \xrightarrow{} I_{3\text{expected}}$. 
+    
+    \ans{
+    If we set all the $R_A$ terms to zero in our $I_{3\text{measured}}$ expression, we end up with 
+    \begin{equation*}
+        I_{3\text{measured}} = V (\frac{R_1 + R_2}{R_1 R_2 + 0 + 0 + R_3 R_1 + R_3 R_2}) = V \frac{R_1 + R_2}{R_1 R_2 + R_3 R_1 + R_3 R_2}
+    \end{equation*}
+    which is equivalent to our actual expression for $I_3$. Thus, we can mathematically see that the measured current is only equal to the true current if $R_A = 0$ -- if we have a zero-resistance ammeter. 
+
+    
+    }
+
+    You may find the last few parts to be somewhat redundant, but they illustrate a more formal way to derive the ideal values of both ammeters and voltmeters. 
+
+    
+
+\end{enumerate}
+

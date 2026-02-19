@@ -1,0 +1,167 @@
+% write comments with the percent sign
+% Author: Damanic Luck
+% Email: damanicluck@berkeley.edu
+% CSM16A Fall 2024
+
+\qns{Junior Content Mentor Training Document}
+This document is meant to provide a initial start on making LaTex basics on VS Code and debugging skills for part one and part two. 
+Part three is optional but highly recommended for question making basics.
+This document will be sent out as a .tex document, and you are expected to read through the document (including comments) in either Overleaf or VS Code.
+I am creating this in VS Code, so it is preferred that it's also completed in VS Code.
+
+As a general note, in VS Code, a line with nothing in it placed between two lines with text will result in a new paragraph.
+It is good practice to format your code with one sentence PER line.
+This suggestion comes from viewing .tex files on interfaces that don't wrap their sentences.
+Let's say you write a really long sentence in a cell in an Excel sheet.
+Depending on your settings, it will either cut off the sentence from viewing the later parts or it will create a large box to allow the text to wrap around.
+
+%%%%%% PART ONE: BASIC BUILDING BLOCKS %%%%%%
+
+% Commands are specified with a backwards slash
+% \textit{itacilizes non-math text inside the curly braces}
+% \textbf{bold fonts text inside the curly braces}
+
+\textbf{TASK A}: Suppose you want to create a \textit{numbered} list of your favorite Sanrio or One Piece characters.
+We will introduce the idea of an "environment" here.
+The next line is a comment since otherwise it will fail when you compile the document.
+% Often times when you want a specific format or lists, you want to use the format \text{"\begin{environment} ... \end{environment}} 
+Link: https://www.overleaf.com/learn/latex/Lists
+
+Use the above link to try out creating a list with the "itemize" and "enumerate" environment.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TASK A EXCERCISE SPACE
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{TASK B}: Now let's write equations and math symbols. 
+Equations use dollar signs to specify math mode, otherwise certain formatting like subscripts isn't enabled.
+Use a square bracket followed by a regular parenthesis for math mode as well as centering.
+You'll see this in Task C.
+PLEASE FOR THE LOVE OF EVERYTHING HOLY DO NOT USE DOUBLE DOLLAR SIGNS IN CENTERING MATH MODE ENVIRONMENTS.
+THIS IS A HINT FOR TASK C.
+Use the "equation", "align", or "align*" environment for math mode as well as centering for multiline mathmode.
+Copy paste the following comment into the Task B excercise block and fix its formatting.
+After you fix its formatting, also type the quadratic formula into the Task B excercise block. 
+To be clear, this will compile, but its formatting isn't correct.
+
+Hint: Ampersand will align equation lines along its the character the ampersand is next to.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TASK B EXCERCISE SPACE
+$f(z_{initial}) = (\alpha_provided + i \beta)^2, squared = \alpha^2 - \beta^2 + 2i \alpha \beta$
+
+\[\mathtext{Pythagorean Theorem: } a = \sqrt{b^2 + c2}\]
+
+\begin{align*}
+    i + 1 &= 5 + j \\
+    2i + 2 = 10 + 2j \\
+    3i + 3 &= 15 + 3j
+\end{align*}
+         
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%% PART SECOND: DEBUGGING %%%%%%
+Debugging is honestly the least fun part of making a new question.
+Your tex file can be an amazing question, but if it can't compile then it's not possible to see its output as a pdf.
+Each Task will feature a different common error and it is up to you to fix it.
+
+% the \ slash is to specify that we want the character as is and its not part of any missing formatting
+\textbf{Task C}: Missing \$ inserted. 
+This means that there is something that requires math mode or your equation is not properly closed by another dollar sign or environment ending.
+Uncomment the code in the Task C excercise space and fix it.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TASK C EXCERCISE SPACE
+% \begin{bmatrix}
+% 	1 & 0 \\
+% 	0 & 1
+% \end{bmatrix}
+
+% \[ vec{v} =  8\hat{i} - 6\hat{j} 
+
+% $$ vec{v} =  8\hat{i} - 6\hat{j} $
+
+% \frac{1}{9} = \frac{2}{18}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{Task D:} Undefined control sequence.
+This error comes from LaTex not understanding what command(s) you're using.
+This can come from mispelling the command, the command (often custom) not existing, or wrong backslash (if you have a text editor like VS code or Overleaf you can see this).
+As a word of caution, if you have brackets, curly braces, or environment, this error will show up on the line of the \textit{last} curly brace, bracket, or environment.
+Fix the errors in the Task D excercise space.
+You might have to google these items.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TASK D EXCERCISE SPACE
+\whatIsTheCommandToMakeALinkAppear
+
+\begin{enumerate}
+    \item {
+        $\Ohm$ is equal to $\unit{\Siemens}^{-1}$
+    }
+
+    \item meow meow bark bark
+\end{enumerate}
+
+{
+    $x = 1$
+
+    $y = 1$
+
+    $z = ?$
+
+    $z \tmes = xy = 1$
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{Task E:} There is no line here to end. 
+The double back slash is used to create a new line in Overleaf. 
+This is not needed in VS Code since you just need an empty line separated between the lines.
+You might see this older questions that were migrated from the Spring 2023 Overleaf Repo.
+In the excercise block below, remove or rearrange the double backslashes such that it will not error.
+PLEASE DO NOT DO THIS.
+THIS IS VERY BAD.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TASK E EXCERCISE SPACE
+Weird line \\
+line
+
+Weirder line 
+\\
+
+line
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\textbf{Optional FYI:} If you get the error "Figure not found", chances are it means that your path to the figure was not valid. 
+Due to how the make file and LaTex compilation is for the 16a repo, your path should be from the main file and not from the file itself.
+Main file vs file meaning here is the source directory listed in the make file and the tex file you are editing.
+Notice that the tex file you are editing is in multiple folders away from the main directory.
+
+%%%%%% PART THREE: QUESTION MAKING %%%%%%
+This is going to be more of a FYI section.
+
+Refer to "q_template.tex" for an example. 
+This file has the item description and meta switched, but don't do that.
+Generally structure will follow, 
+
+"meta --> item description --> ans"
+
+\textbf{Meta:}
+Meta should include information for mentors to follow, like how the question should be interpreted and a motivation.
+Unless your question is meant for mechanical practice, it should have a learning goal for your audience.
+
+\textbf{Item:}
+The item description should be the question itself.
+Be VERY careful in your wording in the question.
+You shouldn't be reverse engineering an item description from your answer. 
+Everything a student needs to answer a question should be given in the item description and any additional guidance needed needs to be written in the meta.
+
+\textbf{Answer:}
+Ans is the answer.
+Never use the words "intuitively" or "obviously."
+Even without a mentor, the solutions should be accessible to everyone and should explain the problem \textbf{accurately}.
+If you don't know it, then don't write it.
+Ask a \textbf{SCM} first for help, then ask the Coord if needed.

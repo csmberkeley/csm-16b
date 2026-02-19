@@ -1,0 +1,235 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{Are you a Transformation, because I want to be real-li-near you}
+
+Hey, stop roasting the puns, because it's time for linearity.
+
+\textbf{Learning Goal:} In this question, you will\dots
+\begin{bindenum}
+    \item Learn what makes a transformation linear.
+    \item Prove if a transformation is linear.
+    \item Recognize if a transformation is linear or not, mostly by looking.
+\end{bindenum}
+
+\meta{
+    Here are some comments:
+    \begin{itemize}
+        \item Treat transformations $f$ as a mathematical object, just like treating functions in Python.
+    \end{itemize}
+}
+
+First, let's have a brief review on linearity:
+\begin{ln-quest}{The Definition of Linearity}{}
+    If a transformation $f(x)$ is linear, then it satisfies two properties:
+    \begin{bindenum}
+        \item \textbf{Superposition}: $\forall x, y \ \ (f(x) + f(y) = f(x + y))$
+        \item \textbf{Homogeneity}: $\forall x, \alpha \ \ (f(\alpha x) = \alpha f(x))$
+    \end{bindenum}
+    In other words,
+    \[f(\alpha x + \beta y) = \alpha f(x) + \beta f(y)\]
+\end{ln-quest}
+Below, decide whether the transformations in the prompts are linear or not:
+
+\begin{enumerate}
+    \item {
+        $f(x, y) = 3x + 4y$ \\
+        \textit{Hint: there are a couple of ways to prove this, but which one would you go with?}
+        
+    }
+    \meta {
+        Here are some comments:
+        \begin{itemize}
+            \item {
+                This problem has two slightly different ways to solve:
+                \begin{bindenum}
+                    \item[1.] Prove superposition and then homogeneity, performing two smaller proofs.
+                    \item[2.] Prove superposition and homogeneity in one same proof, as the previous linearity question in our contents question bank have done.
+                \end{bindenum}
+            }
+            \item {
+                \textbf{First approach is preferred} for this question. It is easier to demonstrate homogeneity and superposition in two separate proofs than in one single proof.
+            }
+            \item {
+                While concise, \textbf{second approach can be difficult to grasp} for the amount of algebraic manipulations involve. Write out the small steps of proofs.
+            }
+            \item {
+                Learning the \textbf{second approach is valuable}, because the proofs done by the second approach is basically a slightly larger proof that contains both a homogeneity proof and a superposition proof.
+            }
+        \end{itemize}
+    }
+    \ans {
+        \textbf{Approach 1: Perform two minor derivations/proofs} \\
+        Linearity is the combination of two separate properties: homogeneity and superposition. So, for a transformation to be linear, the \textbf{transformation must have the two separate properties of linearity}. \\
+        Let us first prove the homogeneity of this transformation $f$:
+        \begin{quote}
+            Homogeneity: \\
+            Prove that for arbitrary real numbers $\alpha, x, y$, $f(\alpha x, \alpha y) = \alpha f(x, y)$ .
+        \end{quote}
+        \begin{align*}
+            f(\alpha x, \alpha y)
+            &= 3 \alpha x + 4 \alpha y \\
+            &= \alpha (3x + 4y)
+            = \alpha f(x, y)
+        \end{align*}
+        Then, let's prove the superposition property of this transformation $f$:
+        \begin{quote}
+            Superposition: \\
+            Prove that for arbitrary real numbers $x_1, x_2, y_1, y_2$, $f(x_1, y_1) + f(x_2, y_2) = f(x_1 + x_2, y_1 + y_2)$.
+        \end{quote}
+        \begin{align*}
+            f(x_1, y_1) + f(x_2, y_2)
+            &= 3x_1 + 4y_1 + 3x_2 + 4y_2 \\
+            &= 3(x_1 + x_2) + 4(y_1 + y_2)
+            = f(x_1 + x_2, y_1 + y_2)
+        \end{align*}
+        Since the transformation $f$ \textbf{has both properties of superposition and homogeneity}, $f$ also has linearity, and is \textbf{therefore a linear transformation}. \\
+        \textbf{Approach 2: One proof via the shortcut expression of linearity} \\
+        Linearity is the combination of two separate properties: homogeneity and superposition. So, for a transformation to be linear, the \textbf{transformation must have both homogeneity and superposition}. \\
+        Translating the above sentence into mathematical terms:
+        \begin{quote}
+            For a transformation $f$, if:
+            \[\alpha f(x_1, x_2) + \beta f(y_1, y_2) = f(\alpha x_1 + \beta y_1, \alpha x_2 + \beta y_2)\]
+            then $f$ has linearity and is a linear transformation.
+        \end{quote}
+        Let us proceed to the derivations:
+        \begin{align*}
+            \alpha f(x_1, x_2) + \beta f(y_1, y_2)
+            &= \alpha (3x_1 + 4x_2) + \beta (3y_1 + 4y_2) \\
+            &= 3 \alpha x_1 + 3 \beta y_1 + 4 \alpha x_2 + 4 \beta y_2 \\
+            &= 3(\alpha x_1 + \beta y_1) + 4(\alpha x_2 + \beta y_2)
+            = f(\alpha x_1 + \beta y_1, \alpha x_2 + \beta y_2)
+        \end{align*}
+    }
+    
+    \item {
+        $f(x_1, \dots, x_{5}) = \sum_{i = 1}^{5} i x_i$
+        
+    }
+    \meta {
+        Here are some comments:
+        \begin{itemize}
+            \item {
+                Encourage students abbreviate mathematical expressions during proof, either using $\sum$ or $\dots$, instead of writing the items of a sequence out.
+            }
+            \item {
+                Talk about how to infer the overall "shape" of a linear transformation equation; for example: the structure of a linear equation.
+            }
+        \end{itemize}
+    }
+    \ans {
+        Having introduced the shortcut proof method in the previous solution, using the property:
+        \[
+            \alpha f(x_1, \dots, x_n) + \beta f(y_1, \dots, y_n)
+            = f(\alpha x_1 + \beta y_1, \dots, \alpha x_n + \beta y_n)
+        \]
+        We can prove this above property for the transformation given by the prompt to show the transformation's linearity. \\
+        But first, let's attempt to make the transformation's expression become easier to interpret:
+        \begin{align*}
+            f(x_1, \dots, x_{5}) 
+            &= \sum_{i = 1}^{5} i x_i \\
+            &= 1 \times x_1 + 2 \times x_2 + \dots + 4 \times x_{4} + 5 \times x_{5} \\
+        \end{align*}
+        Now, let us proceed with the proof:
+        \begin{align*}
+            \alpha f(x_1, \dots, x_n) + \beta f(y_1, \dots, y_n)
+            &= \alpha (1 \times x_1 + \dots + 5 \times x_{5}) + \beta (1 \times y_1 + \dots + 5 \times y_{5}) \\
+            &= 1 \alpha x_1 + 1 \beta y_1 + \dots + 5 \alpha x_{5} + 5 \beta x_{5} \\
+            &= 1 (\alpha x_1 + \beta y_1) + \dots + 5 (\alpha x_{5} + \beta x_{5}) \\
+            &= f(\alpha x_1 + \beta y_1, \dots, \alpha x_{5} + \beta y_{5})
+        \end{align*}
+        The linearity of transformation $f$ is therefore demonstrated.
+    }
+    
+    \item {
+        $f(x_1, \dots, x_{10}) = \prod_{i = 1}^{10} i x_i$.
+        
+    }
+    \meta {
+        \begin{itemize}
+            \item {
+                It is fine to just write off "no" on the solution, but to present a legitimate argument, a proof is still presented in the solution
+            }
+            \item {
+                If a demonstration for proof of non-linearity is needed, feel free to turn to subproblem (d) instead of this subquestion.
+            }
+        \end{itemize}
+    }
+    \ans {
+        It is much better to go with gut feeling and state that this equation represented by $f$ does not seem linear, and in fact, is a 10-degree polynomial. \\
+        But, in case a proof is needed, here follows a proof: \\
+        Once again, let us attempt to prove the property of linearity that:
+        \[
+            \alpha f(x_1, \dots, x_n) + \beta f(y_1, \dots, y_n)
+            = f(\alpha x_1 + \beta y_1, \dots, \alpha x_n + \beta y_n)
+        \]
+        To "simplify" the expression of transformation:
+        \begin{align*}
+            f(x_1, \dots, x_{10})
+            &= \prod_{i = 1}^{10} i x_i \\
+            &= 10! (x_1 \times x_2 \times \dots \times x_9 \times x_{10})
+        \end{align*}
+        \begin{align*}
+            \alpha f(x_1, \dots, x_{10}) + \beta f(y_1, \dots, y_{10})
+            &= 10! (\alpha (x_1 \times \dots \times x_{10}) + \beta (y_1 \times \dots \times y_{10}) \\
+            f(\alpha x_1 + \beta y_1, \dots, \alpha x_n + \beta y_n)
+            &= 10! ((\alpha x_1 + \beta y_1) \times \dots \times (\alpha x_{10} + \beta y_{10}))
+        \end{align*}
+        The \textbf{equation for linearity property cannot hold for every possible combinations of inputs} ($x$ and $y$); for example, try out the case where all variables have a value of $1$. \\
+        From either approach, the \textbf{transformation is not linear for every possible combination of inputs}, and therefore nonlinear.
+    }
+    
+    \item {
+        $f(x, y) = ax + by + c$, where $a, b, c \in \R$.
+        
+    }
+    \meta {
+        Alert students that \textbf{not all linear equations are linear transformations}.
+        
+    }
+    \ans {
+        While the lecture notes have explicitly listed this form of transformation to be affine rather than linear, having an assistive proof in the solutions wouldn't hurt.
+        To prove that this transformation is linear, it must be that, once again:
+        \[
+            \alpha f(x_1, y_1) + \beta f(x_2, y_2)
+            = f(\alpha x_1 + \beta x_2, \alpha y_1 + \beta y_2)
+        \]
+        Let's proceed with the derivations:
+        \begin{align*}
+            \alpha f(x_1, y_1) + \beta f(x_2, y_2)
+            &= \alpha (ax_1 + by_1 + c) + \beta (ax_2 + by_2 + c) \\
+            &= a (\alpha x_1 + \beta x_2) + b (\alpha y_1 + \beta y_2) + c (\alpha + \beta) \\
+            f(\alpha x_1 + \beta x_2, \alpha y_1 + \beta y_2)
+            &= a (\alpha x_1 + \beta x_2) + b (\alpha y_1 + \beta y_2) + c \\
+            &\neq \alpha f(x_1, y_1) + \beta f(x_2, y_2)
+        \end{align*}
+        The transformation is not linear.
+    }
+    
+    \item {
+        $f(\vec{x}) = A \vec{x}$, where $A$ is a matrix. Assume the products of $A \vec{x}$ are defined.
+        
+    }
+    \meta {
+        \begin{itemize}
+            \item {
+                There has not seem to be a proof regarding matrix-vector multiplications being a linear transformation, despite it being stated and applied multiple times throughout EECS 16 series.
+            }
+            \item {
+                Let students \textbf{remember about matrix transformations being linear} and practice \textbf{linear transformation proofs on non-scalar inputs}.
+            }
+        \end{itemize}
+    }
+    \ans {
+        To prove the linearity of this transformation $f$, we must demonstrate that:
+        \[f(\alpha \vec{x} + \beta \vec{y}) = \alpha f(\vec{x}) + \beta f(\vec{y})\]
+        Let us proceed to the proof:
+        \begin{align*}
+            f(\alpha \vec{x} + \beta \vec{y})
+            &= A (\alpha \vec{x} + \beta \vec{y}) \\
+            &= \alpha A \vec{x} + \beta A \vec{y} \\
+            &= \alpha f(\vec{x}) + \beta f(\vec{y})
+        \end{align*}
+        The linearity of $f$ is thus demonstrated.
+    }
+\end{enumerate}

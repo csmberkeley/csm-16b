@@ -1,0 +1,362 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+
+\qns{Pardon me, would you mind myself sharing today's charges with you?}
+
+\textbf{Learning Goal}: Learn how to use the Charge Sharing Algorithm to analyze charges on capacitors. \\
+\meta{
+    \begin{bindenum}
+        \item \textbf{Follow the Charge Sharing Algorithm} when teaching. This helps to reinforce the idea for students that there is a formal approach towards these problems.
+        \item \textbf{There can be negative node voltages}, because node voltages are relative quantities.
+        \item Part C and Part E are marked as practice, but\textbf{ in reality, the difficult ordering of parts is vaguely: D > C > E > A > B}
+        \item The \textbf{beginning figure is there as a reminder for plate charge signs and passive sign convention}. If the \textbf{passive sign convention is coherent} throughout the circuits, the charge sharing algorithm will work properly.
+    \end{bindenum}
+}
+
+If the question title was not confusing enough for your taste, then charge sharing is mayhaps one of the most confusing topics in EECS 16A for the complexity of its overall solving procedure. \\
+However, it is not obsolete. To observe the frequent phenomenon of capacitors sharing charges between themselves, we must learn how to calculate the charge sharing in capacitors.
+
+Why does charge sharing occur? This has to do with the conservation of charges. \\
+Charges cannot be created nor destroyed. Therefore, what charges were stored on the plates of a capacitor must stay on the node connected to such plates. Let us illustrate what we have said with the following figure:
+\begin{ln-fig}{Floating Node}{}
+    \begin{center}
+        \input{../../topics/capacitors/q_charge_share_more_figs/floating_node.tex}
+    \end{center}
+    \tcblower
+    Here, we should suppose that each capacitor will store the amount of charges based on the voltage across and capacitance of each of them. \\
+    The upper node is connected to only the plates of capacitors; we call these nodes \textbf{floating node}, nodes that will continue to hold the sum of charges each connected plate possesses. \\
+    In this case, the amount of charge at the floating node is the sum of \underline{positive plate's charge} from $C_2$ and \underline{negative plate's charge} from $C_1$:
+    \[Q_{floating} = C_2 V_{C_2} - C_1 V_{C_1}\]
+\end{ln-fig}
+
+For the sake of brevity, the worksheet will leave the explanation of charge sharing algorithm for circuits with switch to the mentors. For now, let us discuss the following circuits. For each of the circuits below, solve the voltage at their floating nodes during $\phi_2$ in terms of $V_S$ and known capacitances.
+
+\begin{tasks}(2)
+    \task{
+        \begin{center}
+            \input{../../topics/capacitors/q_charge_share_more_figs/circuit_a_q.tex}
+        \end{center}
+    }
+    \task{
+        All capacitors in this circuit will have the same capacitance $C_x$ \\
+        \begin{center}
+            \input{../../topics/capacitors/q_charge_share_more_figs/circuit_b_q.tex}
+        \end{center}
+    }
+    \task{\textbf{[PRACTICE]}\\
+        \begin{center}
+            \input{../../topics/capacitors/q_charge_share_more_figs/circuit_c_q.tex}
+        \end{center}
+    }
+    \task{
+        All capacitors except $C_2 = 2C_x$ in this circuit will have the same capacitance $C_x$ \\
+        \begin{center}
+            \input{../../topics/capacitors/q_charge_share_more_figs/circuit_d_q.tex}
+        \end{center}
+    }
+    \task{\textbf{[PRACTICE]}\\
+        In this circuit, $C_2 \neq C_3$.\\
+        \begin{center}
+            \input{../../topics/capacitors/q_charge_share_more_figs/circuit_e_q.tex}
+        \end{center}
+    }
+\end{tasks}
+
+\ans{
+    For the presentation of solution, each subpart/circuit's voltages will be answered in the following procedure:
+    \begin{bindenum}
+        \item[1.] Present the circuit during $\phi_1$ with labeled nodes and passive sign notation.
+        \item[2.] Present the circuit during $\phi_2$ with labeled nodes and passive sign notation.
+        \item[3.] Identify the floating nodes and its charge at each phase of switch.
+        \item[4.] Derive node voltages at floating nodes.
+    \end{bindenum}
+    This is outlined in the lecture notes as the ``Charge Sharing Algorithm''.
+    \begin{enumerate}
+        \item {
+            Solution for Circuit (a) \\
+            \begin{center}
+                \input{../../topics/capacitors/q_charge_share_more_figs/circuit_a_q.tex}
+            \end{center}
+            \begin{enumerate}
+                \item[1.] {
+                    Circuit of $\phi_1$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/a_p1.tex}
+                    \end{center}
+                }
+                \item[2.] {
+                    Circuit of $\phi_2$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/a_p2.tex}
+                    \end{center}
+                }
+                \item[3.] {
+                    Floating nodes and their charges: \\
+                    We can identify a floating node between $C_1$ and $C_2$, which we will label as $u_1$. \\
+                    At $\phi_1$, this node is connected with the negative plate of $C_1$, thus the charge on this node was:
+                    \[Q_{u_1, \phi_1} = -C_1 V_S\]
+                    At $\phi_2$, this node is connected with the negative plate of $C_1$ and the positive plate of $C_2$, thus the charge on this node is:
+                    \[Q_{u_1, \phi_2} = -C_1 V_{C_1, \phi_2} + C_2 V_{C_2, \phi_2}\]
+                    
+                }
+                \item[4.] {
+                    Derivation of node voltages: \\
+                    By conservation of charge:
+                    \[Q_{u_1, \phi_1} = Q_{u_1, \phi_2}\]
+                    The derivation for the voltage of $u_1$ thus follows:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= -C_1 V_S \\
+                        Q_{u_1, \phi_2} &= -C_1 V_{C_1, \phi_2} + C_2 V_{C_2, \phi_2} \\
+                        -C_1 V_S &= -C_1 V_{C_1, \phi_2} + C_2 V_{C_2, \phi_2} \\
+                        &= -C_1 (0 - u_1) + C_2 (u_1 - 0) = (C_1 + C_2) u_1 \\
+                        u_1 &= \frac{-C_1 V_S}{C_1 + C_2}
+                    \end{align*}
+                    
+                }
+            \end{enumerate}
+        }
+        \item {
+            Solution for Circuit (b) \\
+            \begin{center}
+                \input{../../topics/capacitors/q_charge_share_more_figs/circuit_b_q.tex}
+            \end{center}
+            \begin{enumerate}
+                \item[1.] {
+                    Circuit of $\phi_1$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/b_p1.tex}
+                    \end{center}
+                }
+                \item[2.] {
+                    Circuit of $\phi_2$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/b_p2.tex}
+                    \end{center}
+                }
+                \item[3.] {
+                    Floating nodes and their charges: \\
+                    We can identify a floating node between $C_1$ and $C_2$, which we will name $u_1$, and another floating node between $C_1$ and $C_3$, which we will name $u_2$. \\
+                    Notably, the node between $C_2$ and $C_3$ is not a floating node, as it is connected to the ground node and potentially allows charges from $\phi_1$ to be lost. \\
+                    As for the charge existing during $\phi_1$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= C_1 \times V_S \frac{C_3}{C_1 + C_3} \\
+                        Q_{u_2, \phi_1} &= - C_1 \times V_S \frac{C_3}{C_1 + C_3} + C_3 \times V_S \frac{C_1}{C_1 + C_3}
+                    \end{align*}
+                    The voltage across each capacitors is are derived via the capacitive voltage divider formula derived in last week. \\
+                    Now, as for charges during $\phi_2$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_2} &= C_1 (u_1 - u_2) - C_2 (0 - u_1) \\
+                        Q_{u_2, \phi_2} &= -C_1 (u_1 - u_2) + C_3 (u_2 - 0)
+                    \end{align*}
+                    
+                }
+                \item[4.] {
+                    Derivation of node voltages: \\
+                    By conservation of charge:
+                    \[Q_{u_i, \phi_1} = Q_{u_i, \phi_2}\]
+                    The derivation for the voltage of $u_1, u_2$ thus follows:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= Q_{u_1, \phi_2} \\
+                        C_1 (u_1 - u_2) - C_2 (0 - u_1) &= C_1 \times V_S \frac{C_3}{C_1 + C_3} \\
+                        (C_1 + C_2) u_1 - C_1 u_2 &= V_S \frac{C_1 C_3}{C_1 + C_3} \\
+                        Q_{u_2, \phi_1} &= Q_{u_2, \phi_2} \\
+                        -C_1 (u_1 - u_2) + C_3 (u_2 - 0) &= - C_1 \times V_S \frac{C_3}{C_1 + C_3} + C_3 \times V_S \frac{C_1}{C_1 + C_3} \\
+                        (C_3 + C_1) u_2 - C_1 u_1 &= 0 \\
+                        u_1 &= \frac{(C_3 + C_1)}{C_1} u_2 \\
+                        C_1 u_2 &= (C_1 + C_2) u_1 - V_S \frac{C_1 C_3}{C_1 + C_3} \\
+                        &= \frac{(C_3 + C_1)}{C_1}(C_1 + C_2) u_2 - V_S \frac{C_1 C_3}{C_1 + C_3}
+                    \end{align*}
+                    We just got to a point where things have gotten very complicated. But, remember that all capacitors have a capacitance $C_x$ as hinted by the prompt. Therefore, the above derivations now simplify into:
+                    \begin{align*}
+                        u_1 &= 2 u_2 \\
+                        C_x u_2 &= \frac{(2C_x)}{C_x}(2C_x) u_2 - V_S \frac{C_x}{2} \\
+                        &= 4 C_x u_2 - V_S \frac{C_x}{2} \\
+                        u_2 &= \frac{V_S}{6} \\
+                        u_1 &= \frac{V_S}{3}
+                    \end{align*}
+                    
+                }
+            \end{enumerate}
+        }
+        \item {
+            Solution for Circuit (c) \\
+            \begin{center}
+                \input{../../topics/capacitors/q_charge_share_more_figs/circuit_c_q.tex}
+            \end{center}
+            Let us refer to the $C_2$ on the left of the circuit as $C_{2L}$, and the $C_2$ on right side of circuit as $C_{2R}$.
+            \begin{enumerate}
+                \item[1.] {
+                    Circuit of $\phi_1$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/c_p1.tex}
+                    \end{center}
+                }
+                \item[2.] {
+                    Circuit of $\phi_2$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/c_p2.tex}
+                    \end{center}
+                }
+                \item[3.] {
+                    Floating nodes and their charges: \\
+                    We can identify a floating node between $C_1$ and $C_{2L}$, which we will name $u_1$, and another floating node between $C_{2L}$ and $C_{2R}$, which we will name $u_2$. \\
+                    As for the charge existing during $\phi_1$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= C_2 (V_S - 0) - C_1 (0 - V_S) \\
+                        &= C_2 V_S + C_1 V_S \\
+                        Q_{u_2, \phi_1} &= C_1 (0 - V_S) - C_2 (V_S - 0) \\
+                        &= - C_1 V_S - C_2 V_S
+                    \end{align*}
+                    And as for the charge existing during $\phi_2$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_2} &= C_2 (u_1 - u_2) - C_1 (0 - u_1) \\
+                        Q_{u_2, \phi_2} &= - C_2 (u_1 - u_2) + C_2 (u_2 - 0)
+                    \end{align*}
+                    
+                }
+                \item[4.] {
+                    Derivation of node voltages: \\
+                    By conservation of charge:
+                    \[Q_{u_i, \phi_1} = Q_{u_i, \phi_2}\]
+                    The derivation for the voltage of $u_1, u_2$ thus follows:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= Q_{u_1, \phi_2} \\
+                        C_2 (u_1 - u_2) - C_1 (0 - u_1) &= C_2 V_S + C_1 V_S \\
+                        (C_1 + C_2) u_1 - C_2 u_2 &= (C_2 + C_1) V_S \\
+                        Q_{u_2, \phi_1} &= Q_{u_2, \phi_2} \\
+                        - C_2 (u_1 - u_2) + C_2 (u_2 - 0) &= - C_1 V_S - C_2 V_S \\
+                        2C_2 u_2 - C_2 u_1 &= -(C_1 + C_2) V_S \\
+                        C_2 u_2 &= \frac{1}{2} (C_2 u_1 - (C_1 + C_2) V_S) \\
+                        (C_1 + C_2) u_1 - (C_2 + C_1) V_S &= \frac{1}{2} (C_2 u_1 - (C_1 + C_2) V_S) \\
+                        2(C_1 + C_2) u_1 - 2(C_1 + C_2) V_S &= C_2 u_1 - (C_1 + C_2) V_S \\
+                        (2C_1 + C_2) u_1 &= (C_1 + C_2) V_S \\
+                    \end{align*}
+                    Now, finally:
+                    \begin{align*}
+                        u_1 &= \frac{(C_1 + C_2)}{2C_1 + C_2} V_S \\
+                        u_2 &= \frac{1}{2C_2} \bigg( C_2\frac{(C_1 + C_2)}{2C_1 + C_2} - (C_1 + C_2) \bigg) V_S \\
+                        &= \frac{V_S}{2C_2} \bigg( \frac{(C_1 + C_2)(C_2 - (2C_1 + C_2))}{2C_1 + C_2} \bigg) \\
+                        &= \frac{(C_1 + C_2)(C_2 - 2C_1 - C_2)}{2C_2(2C_1 + C_2)} V_S
+                    \end{align*}
+                    
+                }
+            \end{enumerate}
+        }
+        \item {
+            Solution for Circuit (d) \\
+            \begin{center}
+                \input{../../topics/capacitors/q_charge_share_more_figs/circuit_d_q.tex}
+            \end{center}
+            \begin{enumerate}
+                \item[1.] {
+                    Circuit of $\phi_1$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/d_p1.tex}
+                    \end{center}
+                }
+                \item[2.] {
+                    Circuit of $\phi_2$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/d_p2.tex}
+                    \end{center}
+                }
+                \item[3.] {
+                    Floating nodes and their charges: \\
+                    We can identify a floating node between $C_2$ and $C_3$, which we will name $u_1$, and another floating node between $C_2$, $C_3$ and $C_4$, which we will name $u_2$. \\
+                    As for the charge existing during $\phi_1$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= - C_1 \times V_S \frac{C_2}{C_1 + C_2} + C_2 \times V_S \frac{C_1}{C_1 + C_2} \\
+                        Q_{u_2, \phi_1} &= - C_2 \times V_S \frac{C_1}{C_1 + C_2}
+                    \end{align*}
+                    And as for the charge existing during $\phi_2$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= C_2 (u_1 - u_2) - C_3 (u_2 - u_1) \\
+                        Q_{u_2, \phi_1} &= - C_2 (u_1 - u_2) + C_3 (u_2 - u_1) + C_4 (u_2 - 0)
+                    \end{align*}
+                    
+                }
+                \item[4.] {
+                    Derivation of node voltages: \\
+                    By conservation of charge:
+                    \[Q_{u_i, \phi_1} = Q_{u_i, \phi_2}\]
+                    The derivation for the voltage of $u_1, u_2$ thus follows:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= Q_{u_1, \phi_2} \\
+                        C_2 (u_1 - u_2) - C_3 (u_2 - u_1) &= - C_1 \times V_S \frac{C_2}{C_1 + C_2} + C_2 \times V_S \frac{C_1}{C_1 + C_2} \\
+                        (C_2 + C_3) u_1 - (C_2 + C_3) u_2 &= 0 \\
+                        Q_{u_2, \phi_1} &= Q_{u_2, \phi_2} \\
+                        - C_2 (u_1 - u_2) + C_3 (u_2 - u_1) + C_4 (u_2 - 0) &= - C_2 \times V_S \frac{C_1}{C_1 + C_2} \\
+                        (- C_3 - C_2) u_1 + (C_2 + C_3 + C_4) u_2 &= - C_2 \times V_S \frac{C_1}{C_1 + C_2} \\
+                    \end{align*}
+                    It would make sense to start simplifying the expressions starting from this step, since it would let us eliminate all capacitance terms into constant coefficients:
+                    \begin{align*}
+                        C_2 &= 2C_x \text{ (given by prompt)} \\
+                        3C_x u_1 - 3C_x u_2 &= 0 \\
+                        u_1 &= u_2 \\
+                        (- C_3 - C_2) u_1 + (C_2 + C_3 + C_4) u_2 &= - C_2 \times V_S \frac{C_1}{C_1 + C_2} \\
+                        -3C_x u_1 + 4C_x u_2 &= - \frac{2C_x}{3} \times \frac{1}{2}V_S \\
+                        -3u_1 + 4u_2 &= - \frac{1}{3} V_S \\
+                        u_1 &= u_2 = - \frac{1}{3} V_S \\
+                    \end{align*}
+                    So finally:
+                    \begin{align*}
+                        u_1 &= u_2 = - \frac{1}{3} V_S \\
+                    \end{align*}
+                    
+                }
+            \end{enumerate}
+        }
+        \item {
+            Solution for Circuit (e) \\
+            \begin{center}
+                \input{../../topics/capacitors/q_charge_share_more_figs/circuit_e_q.tex}
+            \end{center}
+            \begin{enumerate}
+                \item[1.] {
+                    Circuit of $\phi_1$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/e_p1.tex}
+                    \end{center}
+                }
+                \item[2.] {
+                    Circuit of $\phi_2$:
+                    \begin{center}
+                        \input{../../topics/capacitors/q_charge_share_more_figs/e_p2.tex}
+                    \end{center}
+                }
+                \item[3.] {
+                    Floating nodes and their charges: \\
+                    We can identify a floating node between capacitors with capacitance $C_1$, which we will name $u_1$, and another floating node between $C_2$ and $C_3$ which we will name $u_2$. \\
+                    As for the charge existing during $\phi_1$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= C_1 V_S + C_1 V_S \\
+                        Q_{u_2, \phi_1} &= 0
+                    \end{align*}
+                    As for the charge existing during $\phi_2$ at each floating node:
+                    \begin{align*}
+                        Q_{u_1, \phi_2} &= C_1 (u_1 - 0) + C_1 (u_1 - 0) \\
+                        Q_{u_2, \phi_2} &= C_2 (u_2 - 0) - C_3 (0 - u_2)
+                    \end{align*}
+                    
+                }
+                \item[4.] {
+                    Derivation of node voltages:
+                    By conservation of charge:
+                    \[Q_{u_i, \phi_1} = Q_{u_i, \phi_2}\]
+                    The derivation for the voltage of $u_1, u_2$ thus follows:
+                    \begin{align*}
+                        Q_{u_1, \phi_1} &= Q_{u_1, \phi_2} \\
+                        C_1 (u_1 - 0) + C_1 (u_1 - 0) &= C_1 V_S + C_1 V_S \\
+                        u_1 &= V_S \\
+                        Q_{u_2, \phi_1} &= Q_{u_2, \phi_2} \\
+                        C_2 (u_2 - 0) - C_3 (0 - u_2) &= 0 \\
+                        (C_2 - C_3) u_2 &= 0 \\
+                        C_2 \neq C_3 &\rightarrow u_2 = 0
+                    \end{align*}
+                    
+                }
+            \end{enumerate}
+        }
+    \end{enumerate}
+}

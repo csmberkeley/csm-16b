@@ -1,0 +1,200 @@
+% Lydia Lee, lydia.lee@berkeley.edu
+% Modified from Fall 2018 EE16A-in-a-day review for integrators
+\qns{Integration By Caps}
+\begin{enumerate}
+
+\item\label{ques:cv} How much charge $Q_+$ is accumulated on the top plate of the capacitor?
+\begin{center}
+	\begin{circuitikz}
+		\draw
+		(0,0) to[C,l=$C$, v=$V_{C}$] ++(0,-2);
+	\end{circuitikz}
+\end{center}
+
+\ans{
+	\begin{align*}
+		Q_+ &= CV_C
+	\end{align*}
+}
+
+\item\label{ques:negcv} For the circuit in part \ref{ques:cv}, how much charge $Q_-$ is accumulated on the bottom plate of the capacitor?
+
+\ans{
+	If the semester's offering covers charge sharing and/or switched capacitors, the distinction between parts \ref{ques:cv} and \ref{ques:negcv} is very important!
+}
+
+\ans{
+	\begin{align*}
+		Q_- &= -CV_C
+	\end{align*}
+}
+
+\item\label{ques:constant_current}For the following subparts, use the following circuit
+	\begin{center}
+		\begin{circuitikz}
+		    \draw(0,0) to[I,l=$I_S(t)$,invert] ++(0,2)
+		        to[short] ++(2,0)
+		        to[C=$C$,v^=$V_{C}$] ++(0,-2)
+		        to[short] (0,0);
+	    \end{circuitikz}
+	\end{center}
+	Find $V_C(t)$ given 
+	\begin{itemize}
+		\item $V_C(t=0) = V_0$ 
+		\item $I_S(t) = I_0$ (constant with respect to time)
+		\item $C$ is constant with respect to time
+	\end{itemize}
+
+\ans{
+	First, we recall the expression relating current and voltage for a capacitor:
+	\begin{align*}
+		Q_+ &= CV_C\\
+		\frac{dQ_+}{dt} &= I_C\\
+			&= C\frac{dV_C}{dt} + V_C\frac{dC}{dt}\\
+			&= C\frac{dV_C}{dt}\\
+	\end{align*}
+	However, note that the current source points in the \textit{opposite} direction of $V_C$ with regard to passive sign convention!
+	\begin{align*}
+		I_C &= -I_S(t)\\
+		C\frac{dV_C}{dt} &= -I_0\\
+		\int_{V_C(t=0)}^{V_C(t)}dV_C &= \int_{\tau=0}^{\tau=t}\frac{-I_0}{C}d\tau\\
+		V_C(t) - V_C(t=0) &= -\frac{I_0}{C}(t-0)\\
+		V_C(t) &= V_C(t=0) - \frac{I_0}{C}t\\
+			&= V_0 - \frac{I_0}{C}t
+	\end{align*}
+}
+
+\item\label{ques:double_C}What happens to the rate of change of $V_C$ if the capacitance doubles?
+
+\ans{
+	Looking at our expression
+	$$V_C(t) = V_0 - \frac{I_0}{C}t$$
+	The slope of $V_C(t)$ halves; that is, $V_C$ changes at half its original rate.
+
+}
+
+\item\label{ques:general_integrator}Find $V_C(t)$ given the following. Note that $I_S(t)$ is not necessarily constant! \textit{Hint: You can use integrals}
+\begin{itemize}
+	\item $V_C(t=0) = V_0$
+	\item $C$ is constant with respect to time
+\end{itemize}
+
+\ans{
+	The process here is fairly similar to part \ref{ques:constant_current}, only now we can't assume $I_S(t)$ is constant.
+	\begin{align*}
+		I_S(t) &= -I_C\\
+			&= -C\frac{dV_C}{dt}\\
+		\int_{V_C(t=0)}^{V_C(t)}dV_C &= -\int_{\tau=0}^{\tau=t}\frac{I_S(\tau)}{C}d\tau\\
+		V_C(t) - V_C(0) &= -\frac{1}{C}\int_{\tau=0}^{\tau=t}I_S(\tau)d\tau\\
+		V_C(t) &= V_0 - \frac{1}{C}\int_{\tau=0}^{\tau=t}I_S(\tau)d\tau
+	\end{align*}
+}
+
+\item\label{ques:constant_current_C}\textbf{(PRACTICE)} Using your expression from part \ref{ques:constant_current}, find the value of the capacitor given
+	\begin{itemize}
+		\item $V_0 = 1\si{\volt}$
+		\item $I_0 = 2\si{\milli\ampere}$ (constant)
+		\item $V_C(1\si{\milli\second}) = 0\si{\volt}$
+	\end{itemize}
+
+\ans{
+
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Prefix & Symbol & Order of Magnitude\\\hline
+			tera & $\si{\tera}$ & $10^{12}$\\\hline
+			giga & $\si{\giga}$ & $10^{9}$\\\hline
+			mega & $\si{\mega}$ & $10^{6}$\\\hline
+			kilo & $\si{\kilo}$ & $10^{3}$\\\hline
+			milli & $\si{\milli}$ & $10^{-3}$\\\hline
+			micro & $\si{\micro}$ & $10^{-6}$\\\hline
+			nano & $\si{\nano}$ & $10^{-9}$\\\hline
+			pico & $\si{\pico}$ & $10^{-12}$\\\hline
+		\end{tabular}
+	\end{center}
+	\textbf{Common Mistakes:}
+	\begin{itemize}
+		\item Writing $\si{\mega}\, (\text{mega, }10^6)$ in lieu of $\si{\milli}\, (\text{milli, }10^{-3})$
+	\end{itemize}
+
+}
+\ans{
+	Using the answer from above:
+	$$V_C(t) = V_0 - \frac{I_0}{C}t$$
+	we can rearrange the equation to isolate $C$, then plug in values to solve:
+	\begin{align*}
+		C &= \frac{I_0}{V_0 - V_C(t)}t\\
+			&= \frac{2\si{\milli\ampere}}{1\si{\volt}-0\si{\volt}}\cdot 1\si{\milli\second}\\
+			&= (2 \cdot 1)(10^{-3}\cdot 10^{-3})\si{\farad}\\
+			&= 2\si{\micro\farad}
+	\end{align*}
+}
+
+
+
+\item\label{ques:tcross}\textbf{(CHALLENGE PRACTICE)} Using your expression from part \ref{ques:general_integrator} and the table below, determine for each of the following the values of $t$ where $V_C(t) = 0\si{\volt}$.
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		Parameter & Value\\\hline
+		$V_0$ & $0\si{\volt}$\\\hline
+		$C$ & $1\si{\nano\farad}$\\\hline
+	\end{tabular}
+\end{center}
+\begin{enumerate}
+	\item\label{ques:tcross_constI} $I_S(t) = 1\,\si{\ampere}$
+	\item\label{ques:tcross_steps} $I_S(t) = \begin{cases}
+						1\si{\ampere} & t \leq 1\si{\second}\\
+						-1\si{\ampere} & t > 1\si{\second}
+					\end{cases}$
+	\item\label{ques:tcross_sinusoid} $I_S(t) = \begin{cases}
+						\sin(t)\,\si{\ampere} & t \in [0,2\pi]\\
+						0\si{\ampere} & \text{otherwise}
+					\end{cases}$
+\end{enumerate}
+
+\ans{
+	
+	For subparts \ref{ques:tcross_constI} and \ref{ques:tcross_steps}, it's possible to plot $V_C(t)$ and compute where the voltage is zero. However, this becomes a lot more difficult for \ref{ques:tcross_sinusoid}!
+
+	Consider our expression from \ref{ques:general_integrator}
+	$$V_C(t) = V_0 - \frac{1}{C}\int_{\tau=0}^{\tau=t}I_S(\tau)d\tau$$
+	We're interested in $V_C(t) = 0$, so plugging in our values
+	\begin{align*}
+		V_C(t) &= -\frac{1}{C}\int_{\tau=0}^{\tau=t}I_S(\tau)d\tau = 0\\
+		0 &= \int_{\tau=0}^{\tau=t}I_S(\tau)d\tau
+	\end{align*}
+	With a bit of manipulation, we can see that all we \textit{really} care about is when the integral of $I_S(t)$ with respect to time is zero.
+
+	Abusing units (sorry about that), we can solve this numerically or use the graphical interpretation of the integral as the area under a curve.
+	\begin{enumerate}
+		\item $t = 0\si{\second}$. Numerically,
+		\begin{align*}
+			0 &= \int_{\tau=0}^{\tau=t}I_S(\tau)d\tau\\
+				&= \int_{\tau=0}^{\tau=t}1(\tau)d\tau\\
+				&= t
+		\end{align*}
+		\item $t = \{0, 2\}\si{\second}$. Numerically,
+		\begin{align*}
+			0 &= \int_{\tau=0}^{\tau=1\si{\second}}1d\tau - \int_{\tau=1\si{\second}}^{\tau=t}1d\tau\\
+				&= (1-0) - (t-1)\\
+				&= -t + 2
+		\end{align*}
+		Graphically, 
+		\begin{center}
+			\input{../q_integrators_figs/mean_zero_steps}
+		\end{center}
+		\item $t = \{\leq 0, \geq 2\pi\} $\si{\second}. Numerically,
+		\begin{align*}
+			0 &= \int_{\tau=0}^{\tau=t\leq 2\pi}\sin(t)dt\\
+				&= -\cos(t) + 1 \text{ over the interval }[0,2\pi]\\
+		\end{align*}
+		Graphically, the integrated area under the curve is zero only when $t\leq 0$ and $t \geq 2\pi$
+		\begin{center}
+			\input{../q_integrators_figs/sinusoid}
+		\end{center}
+	\end{enumerate}
+
+}
+\end{enumerate}

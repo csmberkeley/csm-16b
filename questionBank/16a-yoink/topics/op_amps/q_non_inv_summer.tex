@@ -1,0 +1,207 @@
+)% Author: Emily Gosti, Yannan Tuo, Sukrit Arora
+% Email: egosti@berkeley.edu, ytuo@berkeley.edu, sukrit.arora@berkeley.edu
+
+\qns{Voltage Summers}
+
+\textbf{Learning Goal:} This problem uses basic circuit analysis techniques to find the response of a summer circuit.
+
+\textbf{Relevant Notes:} \notes{Note 19} goes different op-amp circuit topology and corresponding derivations.
+
+\meta{
+\begin{itemize}
+\item Mention/ Show that this derivation could have been done using KCL instead of voltage divider equation.
+\item Highlight that we could use voltage divider equation because the input currents are zero, i.e. $I_+=0$  and $I_-=0$.
+\item Also highlight that negative feedback needs to be ensured before using the second golden rule.
+\item Show that this circuit can be pattern matched with the \textbf{voltage summer} and the \textbf{non-inverting amplifier} circuits from the first page of the worksheet. Those equations can be utilized to find the final response too.
+\end{itemize}
+}
+\begin{enumerate}
+
+\item{
+%https://www.allaboutcircuits.com/textbook/semiconductors/chpt-8/averager-summer-circuits/
+Calculate $V_{out}$ in terms of $V_1$ and $V_2$. Assume that $R_1 = R_2$. Use superposition. \\
+
+ \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp, yscale=-1] (opamp) {}
+    (opamp.+) node[left] {}
+    to[short] ++(-2, 0)
+    to[R = $R_1$] ++(-2,0)
+    to[V_ = $V_1$] ++(-2,0)
+    to[short] node[ground] {} ++(0,0)
+    (opamp.-) node[left] {}
+    to[short] ++(-1,0)
+    to[short] ++(0,-2)
+    to[short] ++(3.5, 0)
+    (opamp.out) node[right] {}
+    to[R = $R_4$] ++(0,-3)
+    to[R = $R_3$] ++(0, -1)
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short,l=$V_{out}$, *-o] ++(1, 0);
+    %to [open, l = $V_{out}$, -o] ++ (0, -3) node[ground] {} ;
+    
+    \draw(-3, 0.5)
+    to[short] ++(0, -2)
+    to[R, l^ = $R_2$] ++(-2,0)
+    to[V_ = $V_2$] ++(-2, 0)
+    to[short] node[ground] {} ++(0,0);
+    
+    \end{circuitikz}
+    \end{center}
+}
+
+%\meta{ The steps for calculating $V_{out}$ are: 
+%\begin{enumerate}
+%    \item Establish negative feedback 
+%    \item Find $V^+$
+%    \item Find $V^-$ using golden rules
+%    \item Write $V_{out}$ in a voltage divider expression with $R_3$, $R_4$, and $V^-$. You can also just plug into the noninverting op amp formula (which is what the solution here does). Just be prepared to derive this formula since students might not have seen it or remember it.
+%    \item Substitutions
+%\end{enumerate}
+%Students like to see "steps" for procedures, so it may be helpful to number your steps as you solve.
+%
+%}
+
+\ans{
+Let's first consider the case when only $V_1$ is active. We deactivate voltage source $V_2$ by replacing it with a wire:
+\begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp, yscale=-1] (opamp) {}
+    (opamp.+) node[below] {$u_{+}$}
+    to[short] ++(-1, 0) 
+    to[short] ++(-1, 0)
+    to[R = $R_1$] ++(-2,0)
+    to[V_ = $V_1$] ++(-2,0)
+    to[short] node[ground] {} ++(0,0)
+    (opamp.-) node[below] {$u_{-}$}
+    to[short] ++(-1,0)
+    to[short] ++(0,-2)
+    to[short] ++(3.5, 0)
+    (opamp.out) 
+    to[R = $R_4$] ++(0,-3) 
+    to[R = $R_3$] ++(0, -1)
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short,l=$V_{out,1}$, *-o] ++(1, 0);
+    %to [open, l = $V_{out}$, -o] ++ (0, -3) node[ground] {} ;
+    
+    \draw(-3, 0.5)
+    to[short] ++(0, -2)
+    to[R, l^ = $R_2$] ++(-2,0)
+    to[short] ++(-2, 0)
+    to[short] node[ground] {} ++(0,0);
+    
+    \end{circuitikz}
+    \end{center}
+We see that $u_{+}$ is the middle node of a voltage divider with resistors $R_1$ and $R_2$. We also know that input current $I_+=0$. So we can find $u_+$ using:
+$$u_+=\frac{R_2}{R_1+R_2}V_1.$$
+Similarly $u_{-}$ is the middle node of a voltage divider with resistors $R_3$ and $R_4$. We know that input current $I_-=0$. We can find $u_{-}$ as:
+$$u_-=\frac{R_3}{R_3+R_4}V_{out,1}.$$
+
+Now we have to check if the circuit is in negative feedback. If we move the negative input of the op amp $u_{-}$ upward, $V_{out,1}=A(u_{+}-u_{-})$ moves downward and as a result $u_{-}=\frac{R_3}{R_3+R_4}V_{out,1}$ moves downward. So the result of the initial stimulus goes in the opposite direction of the initial stimulus, which is the requirement for negative feedback.
+
+Since the circuit is in negative feedback, we can apply the second golden rule:
+\begin{align*}
+u_+&=u_-\\
+\implies \frac{R_2}{R_1+R_2}V_1&= \frac{R_3}{R_3+R_4}V_{out,1}\\
+\implies V_{out,1}&=\left(1+\frac{R_4}{R_3}\right)\frac{R_2}{R_1+R_2}V_1
+\end{align*}
+
+Next we consider the case when only $V_2$ is active. We deactivate voltage source $V_1$ by replacing it with a wire:
+\begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp, yscale=-1] (opamp) {}
+    (opamp.+) node[below] {$u_{+}$}
+    to[short] ++(-1, 0) 
+    to[short] ++(-1, 0)
+    to[R = $R_1$] ++(-2,0)
+    to[short] ++(-2,0)
+    to[short] node[ground] {} ++(0,0)
+    (opamp.-) node[below] {$u_{-}$}
+    to[short] ++(-1,0)
+    to[short] ++(0,-2)
+    to[short] ++(3.5, 0)
+    (opamp.out) 
+    to[R = $R_4$] ++(0,-3) 
+    to[R = $R_3$] ++(0, -1)
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short,l=$V_{out,2}$, *-o] ++(1, 0);
+    %to [open, l = $V_{out}$, -o] ++ (0, -3) node[ground] {} ;
+    
+    \draw(-3, 0.5)
+    to[short] ++(0, -2)
+    to[R, l^ = $R_2$] ++(-2,0)
+    to[V_ = $V_2$] ++(-2, 0)
+    to[short] node[ground] {} ++(0,0);
+    
+    \end{circuitikz}
+    \end{center}
+Following a similar process we have:
+\begin{align*}
+u_+=\frac{R_1}{R_1+R_2}V_2;\\
+u_-=\frac{R_3}{R_3+R_4}V_{out,2}.
+\end{align*}
+(Note that $u_+$ is now the voltage across $R_1$, while for the previous scenario $u_+$ was the voltage across $R_2$.)
+
+Using the second golden rule we have:
+\begin{align*}
+u_+&=u_-\\
+\implies \frac{R_1}{R_1+R_2}V_2&= \frac{R_3}{R_3+R_4}V_{out,2}\\
+\implies V_{out,2}&=\left(1+\frac{R_4}{R_3}\right)\frac{R_1}{R_1+R_2}V_2
+\end{align*}
+Now using the superposition theorem, we can find $V_{out}$:
+\begin{align*}
+V_{out}&=V_{out,1}+V_{out,2}\\
+\implies V_{out}&=\left(1+\frac{R_4}{R_3}\right)\frac{R_2}{R_1+R_2}V_1+ \left(1+\frac{R_4}{R_3}\right)\frac{R_1}{R_1+R_2}V_2
+\end{align*}
+
+\textbf{Note that a similar expression can be reached by using the equations for the voltage summer and the non-inverting amplifier. Pattern matching this circuit with the voltage summer and the non-inverting amplifier and then employing the given equations is a valid technique to solve this problem.}
+}
+
+\item{
+What values should we select for $R_1$, $R_2$, $R_3$, and $R_4$ such that $V_{out} = V_1 + 2V_2$?
+}
+
+\ans{
+From the last part, we have
+\begin{align*}
+V_{out}=\left(1+\frac{R_4}{R_3}\right)\frac{R_2}{R_1+R_2}V_1+ \left(1+\frac{R_4}{R_3}\right)\frac{R_1}{R_1+R_2}V_2
+\end{align*}
+Comparing with $V_{out}= V_1+2V_2$, we have:
+\begin{align}
+\left(1+\frac{R_4}{R_3}\right)\frac{R_2}{R_1+R_2}&=1  \label{eq:coeff1} \\
+\left(1+\frac{R_4}{R_3}\right)\frac{R_1}{R_1+R_2}&=2 \label{eq:coeff2} 
+\end{align}
+Dividing equation (\ref{eq:coeff1}) with equation (\ref{eq:coeff2}) we get:
+\begin{align*}
+\frac{R_2}{R_1}&=\frac{1}{2}\\
+R_1&=2R_2
+\end{align*}
+Now if we choose $R_2=100\si{\ohm}$ and $R_1=200\si{\ohm}$, we have 
+\begin{align}
+\frac{R_2}{R_1+R_2}&=\frac{100}{200+100}=\frac{1}{3}
+\label{eq:r1}\\
+\frac{R_1}{R_1+R_2}&=\frac{200}{200+100}=\frac{2}{3}
+\label{eq:r2}
+\end{align}
+Plugging in the values of equation (\ref{eq:r1}) in equation (\ref{eq:coeff1}) (or equation (\ref{eq:r2}) in equation (\ref{eq:coeff2})), we have:
+\begin{align*}
+\left(1+\frac{R_4}{R_3}\right)\frac{1}{3}&=1\\
+1+\frac{R_4}{R_3}&=3\\
+\frac{R_4}{R_3}&=2\\
+{R_4}&=2{R_3}
+\end{align*}
+We can choose $R_3=100\si{\ohm}$ and $R_4=200\si{\ohm}$, so that the output voltage is:
+\begin{align*}
+V_{out}=\left(1+\frac{200}{100}\right)\frac{100}{200+100}V_1+ \left(1+\frac{200}{100}\right)\frac{200}{200+100}V_2=(1+2)\frac{1}{3}V_1+(1+2)\frac{2}{3}V_2=V_1+2V_2.
+\end{align*}
+}
+
+
+
+\end{enumerate}

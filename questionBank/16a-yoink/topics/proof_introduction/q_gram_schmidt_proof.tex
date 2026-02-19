@@ -1,0 +1,128 @@
+% Author: Cody Rawlings
+% Email: crawlings05@berkeley.edu
+% CSM16A Spring 2024
+\qns{Gram-Schmidt}
+
+\textbf{Learning Goal: To familiarize students with Gram-Schmidt more with a proof, computing Gram-Schmidt orthonormalization on matricies, and a conceptual question about applying Gram-Schmidt to a set with 2 linearly dependent vectors.}
+\begin{bindenum}
+    \item Give students a greater conceptual understanding of Gram-Schmidt
+    \item Mechanically compute the Gram-Schmidt algorithm on 2x2 matricies.
+\end{bindenum}
+
+\meta{
+    Instructors should spend a lot of time going over the first proof and explaining how to go through each step. The subparts of this question are not connected, but rather go through different concepts related to Gram-Schmidt.
+    
+}
+
+The Gram-Schmidt process converts a set of linearly independent vectors, $V = \{\Vec{v}_1, \Vec{v}_2, \dots, \Vec{v}_k\}$ into an orthonormal basis, $S = \{\Vec{s}_1, \Vec{s}_2, \dots, \Vec{s}_k \}$, such that: \\
+    \begin{center}
+        $\Vec{s}_k = \Vec{v}_k - \cdots - \frac{<\Vec{v}_k, \Vec{s}_j>}{||\Vec{s}_j||^{2}} \Vec{s}_j$
+    \end{center}
+    where $j \in \{1, \dots, k-1 \}$
+
+\begin{enumerate}
+    \item {
+        Let: $\Vec{e}_k = \frac{\Vec{s}_k}{||\Vec{s}_k||}$. Show that $<\Vec{e}_k, \Vec{e_j}> = 0$. In other words, show that the normalized vectors of S are orthogonal to each other. \\
+    \textbf{Hint:} The linearity property of vectors may be useful. ($<au + bv, w> = a<u, w> + b<u, w>$)
+    }
+    \meta{
+        This proof focuses on the property of Gram-Schmidt that the normalized vectors produced by the algorithm are orthogonal to each other. The key to understanding this proof is by applying the linearity property of the inner product. The rest of the proof is simple substituion and manipulation.
+
+    }
+    \ans{
+    \begin{align*}
+        <\Vec{e}_k, \Vec{e}_j> &= \frac{1}{||\Vec{s}_k||||\Vec{s}_j||} <\Vec{s}_k, \Vec{s}_j> \quad \text{normalized vectors}\\
+        &= \frac{1}{||\Vec{s}_k||||\Vec{s}_j||} <\Vec{v}_k - \cdots - \frac{<\Vec{v}_k, \Vec{s}_j>}{||\Vec{s}_j||^{2}} \Vec{s}_j, \Vec{s}_j> \quad \text{substituting $\Vec{s}_k$} \\
+        &= \frac{1}{||\Vec{s}_k||||\Vec{s}_j||} (<\Vec{v}_k, \Vec{s}_j> - \frac{<\Vec{v}_k, \Vec{s}_j>}{||\Vec{s}_j||^{2}} <\Vec{s}_j, \Vec{s}_j>) \quad \text{applying the linearity property}\\
+        &= \frac{1}{||\Vec{s}_k||||\Vec{s}_j||} (<\Vec{v}_k, \Vec{s}_j> - <\Vec{v}_k, \Vec{s}_j>) \quad \text{$||\Vec{s}_j||^{2} = <\Vec{s}_j, \Vec{s}_j>$ and cancel}\\
+        &= \frac{1}{||\Vec{s}_k||||\Vec{s}_j||} (0) \\
+        &= 0 
+    \end{align*}
+    Thus, $<\Vec{e}_k, \Vec{e_j}> = 0$, and the normalized vectors in S are orthogonal to each other.
+
+    }
+
+    \item {
+        Apply the Gram-Schmidt process on this set of matrices, 
+    \begin{center}
+        $S = \{ M_1 = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}, M_2 = \begin{bmatrix} -3 & 2 \\ 4 & 1 \end{bmatrix}\}$
+    \end{center}  to obtain an orthogonal set of matrices, $O = \{ \Bar{M}_1, \Bar{M}_2 \}$. \\
+    \textbf{Hint:} Remember that $<M_i, M_j> = tr((M_i) (M_j))$
+    
+    }
+    \meta{
+        This question and the next subpart gives students more practice about computing the Gram-Schmidt algorithm with matricies instead of vectors. The only part that is different is computing the inner product of two matricies, which is equal to the trace of the product of the two matricies.
+
+    }
+    \ans{
+    We apply a similar process to matrices as we do to vectors: \\
+    \\
+   \begin{align*}
+       \Bar{M_1} &= M_1 = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} \\
+       \Bar{M_2} &= M_2 - \frac{<M_2, \Bar{M_1}>}{<\Bar{M_1}, \Bar{M_1}>} \Bar{M_1} \\ 
+       &= \begin{bmatrix} -3 & 2 \\ 4 & 1 \end{bmatrix} - \frac{-1}{2} \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} \\
+       &= \begin{bmatrix} -\frac{5}{2} & \frac{5}{2} \\ 4 & \frac{3}{2} \end{bmatrix}
+   \end{align*}
+
+    }
+
+    \item {
+        Say there was a third matrix, $M_3$, in the set. Write out an equation to find $\Bar{M_3}$ in terms of $M_3, \Bar{M_2}$, and $\Bar{M_3}$.
+    
+    }
+    \meta{
+        Continuing on with the Gram-Schmidt algorithm, students must write an equation to be able to solve for the third orthogonalized matrix. Comparing to vectors again, the only difference is that we are using matricies in the algorithm instead of vectors. I didn't include a third matrix because computing matrix-matrix multiplication with that many fractions would take a lot of time. 
+
+    }
+    \ans{
+    \begin{center}
+        $\Bar{M_3} = M_3 - \frac{<M_3, \Bar{M_2}>}{<\Bar{M_2}, \Bar{M_2}>} \Bar{M_2} - \frac{<M_3, \Bar{M_1}>}{<\Bar{M_1}, \Bar{M_1}>} \Bar{M_1}$
+    \end{center}
+
+    }
+
+    \item {
+        Normalize the two matrices, $\{ \Bar{M_1}, \Bar{M_2} \}$ to get $\{ \Tilde{M_1}, \Tilde{M_2} \}$
+    
+    }
+    \meta{
+        The key to understanding this problem is by applying the definition of a normalized matrix which is just itself divided by its determinant. Maybe instructors can include a brief explanation of why one would find the normalized version of a matrix.  
+
+    }
+    \ans{
+    To normalize matrices, you have to divide by their determinant, so: \\
+    \begin{align*}
+        \Tilde{M_1} &= \frac{1}{\text{det}(\Bar{M_1})} \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} \\
+        &= \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} \\
+        \Tilde{M_2} &= \frac{1}{\text{det}(\Bar{M_2})} \begin{bmatrix} -\frac{5}{2} & \frac{5}{2} \\ 4 & \frac{3}{2} \end{bmatrix} \\
+        &= -\frac{4}{55} \begin{bmatrix} -\frac{5}{2} & \frac{5}{2} \\ 4 & \frac{3}{2} \end{bmatrix} \\
+        &= \begin{bmatrix} \frac{2}{11} & -\frac{2}{11} \\ -\frac{16}{55} & -\frac{6}{55} \end{bmatrix}
+    \end{align*}
+
+    }
+
+    \item {
+        Say we have 3 vectors in $R^{2}$, $V = \{ \begin{bmatrix} -1 \\ 4 \end{bmatrix}, \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \begin{bmatrix} 2 \\ 2 \end{bmatrix}$ \} \\
+    \begin{center}
+        \begin{tikzpicture}[>=Stealth, scale=1.5]
+ 
+            \draw[->] (-2,0) -- (3,0) node[below] {$x$};
+            \draw[->] (0,-1) -- (0,5) node[left] {$y$};
+        
+            \draw[->,red,thick] (0,0) -- (-1,4) node[above left] {$\mathbf{v}_1$};
+            \draw[->,blue,thick] (0,0) -- (1,1) node[above right] {$\mathbf{v}_2$};
+            \draw[->,green!70!black,thick] (0,0) -- (2,2) node[above right] {$\mathbf{v}_3$};
+        \end{tikzpicture}
+    \end{center}
+    What will happen to $\Vec{v_3}$ when we apply the Gram-Schmidt algorithm?
+    
+    }
+    \meta{
+        This subpart is meant to give students a conceptual understanding of Gram-Schmidt when applying the algorithm to a set of vectors where two of them are linearly dependent. Students can work out the math, but the point of this problem is to understand what Gram-Schmidt does conceputally.
+
+    }
+    \ans{
+    $\Vec{v_3}$ will become the zero vector. If we think about Gram-Schmidt intuitively, we are essentially subtracting the parallel components of each vector from each other so that they are orthogonal. If the whole vector is parallel(or linearly dependent), $\Vec{v_2}$ and $\Vec{v_3}$ in this case, then there will be nothing left.
+
+    }
+\end{enumerate}

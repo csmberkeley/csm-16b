@@ -1,0 +1,193 @@
+% Author: Aurelia Wang
+% Email: aureliawang@berkeley.edu
+% CSM16A Spring 2023
+
+% q_nva_voltage_divider
+% q_nva_design
+% q_vdt_cdt_challenge
+
+\qns{A Simple Voltage Divider}
+
+\meta{
+\begin{itemize}
+    \item Do a quick overview on how to perform NVA using Ohm's Law, KCL, KVL
+    
+    \item Explain finding different nodes (especially ground), how current can only flow from positive to negative voltage, and what circuit elements we need to label a current through (ex: voltage source doesn't have current through it).
+
+    \item Go over how to use matrices to solve circuits and why this may be useful
+
+    \item For this voltage divider circuit, solve it with NVA but give a preview about the common voltage divider question if they have not yet already learned it in class
+\end{itemize}
+}
+
+Practice your circuit analyzing skills with a very commonly seen circuit! \\
+\emph{Note: Try to find a pattern or equation that can be used for other circuits that look like this}
+
+\begin{enumerate}
+\itemLabel the following circuit using NVA. Remember to use passive sign convention. \\
+\emph{Hint: Label one side of the passive component as positive and the other side as negative. Recall that current can only flow from the positive side to the negative.} 
+
+    \begin{center}
+        \begin{circuitikz}
+            \draw(0,0) to [V, v=$V_s$, invert] (0,5)
+            to [short] (2, 5)
+            to [R=$R_1$] (2, 3)
+            to [R=$R_2$] (2, 0) -- (0, 0);
+        \end{circuitikz}
+    \end{center}
+
+\vspace{5mm} %5mm vertical space
+
+\itemNow, let’s try to solve for unknown circuit components using the idea of system of equations and matrix computation we’ve covered in the first module! \\
+
+\vspace{2mm} %10mm vertical space
+
+Say you are given the values of $V_s$, $R_1$, and $R_2$. Write the system of equations that solves the unknown values of a circuit. Then, convert it into a matrix-vector multiplication format that allows you to solve for these unknown values. \\
+\emph{Hint: Differentiate between what is known and what is unknown. What circuit element are you solving for here?}
+
+\vspace{25mm} %10mm vertical space
+
+\begin{align}
+    \begin{bmatrix}
+          & & & & & &\\
+          & & & &\\
+          & & & &\\
+          & & & &\\
+    \end{bmatrix}
+    \begin{bmatrix}
+          & &\\
+          & &\\
+          & &\\
+          & &\\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+          & &\\
+          & &\\
+          & &\\
+          & &\\
+    \end{bmatrix}
+\end{align}
+
+\vspace{10mm} %5mm vertical space
+
+\itemIf $V_s$ is 16V, $R_1$ is \SI{5}{\ohm}, and $R_2$ is also \SI{5}{\ohm}, what is the current across the two resistors, and the voltage at the node in between the two resistors? Can you find any pattern that can be used for future circuits that look like this problem?
+
+\vspace{40mm} %5mm vertical space
+  
+\end{enumerate}
+
+\ans{
+\begin{enumerate}[a]
+    \item The correct labeled circuit: 
+    \begin{center}
+        \begin{circuitikz}
+            \draw(0,0) to [V, v=$V_s$, invert] (0,5)
+            to [short] (2, 5)
+            to [R=$R_1$, v=$V_{R1}$, i=$i_{R1}$] (2, 3)
+            to [R=$R_2$, v=$V_{R2}$, i=$i_{R2}$] (2, 0) -- (0, 0);
+        \end{circuitikz}
+    \end{center}
+    Note that current can only flow from positive to negative voltage polarity and that $V_{R1}$ is the value of the voltage across the resistor while $R_1$ is the resistor's value. Also note that there is no need to label a current going through $V_s$.
+ 
+\vspace{5mm} %5mm vertical space
+
+  \item The problem states that our known circuit elements are $V_s$ and the two resistors. Therefore, our unknowns are thee values of the current through the resistors: $i_{R1}$ and $i_{R2}$. \\
+  \begin{align} 
+    V_{R1} = i_{R1}R_1 \\
+    V_{R2} = i_{R2}R_2
+  \end{align}
+
+  We can find the element voltages by subtracting the node voltage at the lower polarity from the node voltage at the higher one:
+  \begin{align} 
+    V_{R1} = V_s - V_{mid} \\
+    V_{R2} = V_{mid} - 0 = V_{mid}
+  \end{align}
+
+  Substituting these values into our Ohm's Law equation, we find:
+  \begin{align} 
+    V_s - V_{mid} = i_{R1}R_1 \\
+    V_{mid} = i_{R2}R_2
+  \end{align}
+
+  \itemOur unknowns are $V_{mid}$ and $i_{R1}$. $i_{R1}$ is the same value as $i_{R2}$ so we would only need to solve for one variable. Now that we know our unknowns, we can solve for our known variables in equations 6 and 7 to build a matrix. Substituting eq. 7 into eq. 6 gives
+    \[
+        V_s = i_{R1}R_1 + i_{R2}R_2
+    \]
+    $R_1$ and $R_2$ are our known values, so we factor them out of the equation:
+    \[
+        V_s = (R_1 + R_2)i_{R1}
+    \]
+    Recall that $i_{R1} = i_{R2}$. We have built one of the equations that will go into our matrix, with $(R_1 + R_2)$ as the known value, $i_{R1}$ as the unknown, and $V_s$ as the solution.
+
+    \vspace{5mm} %5mm vertical space
+
+    Now if we look at eq. 7, we see that $V_{mid}$ and $i_{R2}$ are unknowns, and $R_2$ is a known value. There is no "solution value" that can go into the \emph{b} matrix here, so the best option is to move all the values onto one side and consider 0 our solution value:
+    \[
+        V_{mid} = i_{R2}R_2
+    \]
+    \[
+        => V_{mid} - i_{R2}R_2 = 0
+    \]
+
+    Following the matrix format $Ax = b$, we can place our known values in $A$, our unknown values in $x$, and the value on the right of the equal sign in b:
+
+  \begin{align}
+    \begin{bmatrix}
+          1 & $–R_2$\\
+          0 & $R_1 + R_2$\\
+    \end{bmatrix}
+    \begin{bmatrix}
+          V_{mid} \\
+          i_{R1}\\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+          0 \\
+          V_s \\
+    \end{bmatrix}
+\end{align}
+
+We can now use our linear algebra tools to solve this circuit. 
+
+  
+\vspace{5mm} %5mm vertical space
+
+  \item Using Ohm's Law and KCL, we can solve all the remaining elements. Using KCL, we know that:
+
+  \begin{align} 
+    i_{R1} = i_{R2}
+  \end{align}
+
+  Rearranging equations 6 and 7 then substituting in for $i_{R1}$ and $i_{R2}$, we get:
+  \begin{align} 
+    \frac{V_s - V_{mid}}{R_1} = \frac{V_{mid}}{R_2}
+  \end{align}
+   Rearranging and solving, we get
+   \begin{align} 
+   V_sR_2 - V_{mid}R_2 = V_{mid}R_1 \\
+   V_{mid}(R_1 +R_2) = V_sR_2 \\
+   V_{mid} = \frac{R_2}{{R_1+R_2}}V_s = \frac{1}{1 + \frac{R_1}{R_2}}V_s
+   \end{align}
+   Plugging in our given values, we find that the middle node has a voltage of 8V.
+
+   \vspace{5mm} %5mm vertical space
+
+    Now that we know the voltage of this middle node, we can plug it back into our substituted Ohm's Law equations (equation 6 and 7) to solve for $i_{R1}$ and $i_{R2}$. Both $i_{R1}$ and $i_{R2}$ turn out to be \(\frac{8}{5}\) \emph{A}. They should be the same because through KCL, the current going into node $V_{mid}$, which is $i_{R1}$, is the same as the current leaving the node, which is $i_{R2}$.
+    
+    \vspace{15mm} %5mm vertical space
+
+    It is worthwhile to note that this is a very common circuit called a voltage divider! Voltage division is the result of distributing the input voltage among the components of the divider. \\
+    
+    The simplest example is shown in this problem, with a resistor in series. The middle node's voltage can be solved for using NVA like all other circuits, but is so much faster to solve using the voltage divider equation: 
+    \[
+    V_{mid} = \frac{R_2}{R_1+R_2}V_s
+    \]
+    
+    \vspace{5mm} %5mm vertical space
+    
+    Voltage dividers can be used to scale the input voltage. In this problem, $V_s$ is being scaled by half with our chosen resistor values, and thus $V_mid$ contains half the voltage. This can become very important in circuit design. \\
+    
+    Make sure to actively search for voltage dividers to save time when solving more complex circuits! 
+\end{enumerate}
+}

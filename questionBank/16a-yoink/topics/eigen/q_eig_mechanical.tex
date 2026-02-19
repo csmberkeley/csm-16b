@@ -1,0 +1,484 @@
+% Author: Mihir Marathe
+% Email: mihirmarathe@berkeley.edu
+
+\qns{Eigen Calculation}
+
+\textbf{Learning Goal:} The goal of this problem is to practice mechanically calculating eigenvalues and finding their corresponding eigenvectors.
+
+%\textbf{Relevant Notes:} \textbf{Note 9 Sections 9.4 and 9.6} cover the process of finding eigenvalue-eigenvector pairs.
+
+%\newcommand{\Amat}{\ensuremath{\begin{bmatrix}
+%3 & 2  \\
+%1 & 4
+%\end{bmatrix}}}
+
+\meta{
+    This problem is supposed to be straightforward, so make sure to go over the technique used in this problem. 
+    
+	This problem focuses on the mechanics of solving eigenvalues and eigenvectors. Feel free to focus more on other problems if you feel your students are comfortable with this process. 
+    
+    Be prepared to answer why the determinant of $\mathbf{A} - \mathbf{I}\lambda$ is equivalent to 0. You can relate this process to finding the Null Space of a matrix.
+
+	For the first part, have students understand that if a matrix only has non-zero entries on the diagonal, you can read off the eigenvalues on the diagonal.
+}
+
+\begin{enumerate}
+
+\item{
+	Solve for the eigenvalue-eigenvector pairs for the following matrices:
+
+	\begin{align*}
+		\begin{bmatrix} 
+			5 & 0\\
+			0 & 6
+		\end{bmatrix}
+	\end{align*}
+}
+
+\ans{
+
+	To solve for eigenvalues and eigenvectors, let's go back and review the definition of eigenvectors and eigenvalues:
+	
+	If $\vec{x}$ and $\lambda$ are the eigenvector and eigenvalue of $\mathbf{A}$, respectively, then the following equation holds:
+	
+	$\mathbf{A}\vec{x} = \lambda\vec{x}$
+	
+	Since the (appropriately sized) identity matrix is analogous to multiplying by 1 in arithmetic, we can say:
+
+    $\mathbf{A}\vec{x} = \lambda \mathbf{I} \vec{x}$
+	
+	Rearranging, we get:
+
+	\begin{align*}
+		& \mathbf{A}\vec{x} - (\lambda \mathbf{I}) \vec{x} = \vec{0} \\
+		& (\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}  
+	\end{align*}
+	
+	% $\mathbf{A}\vec{x} - (\lambda \mathbf{I}) \vec{x} = \vec{0}
+	% $
+	% $
+	% (\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}
+	% $
+	
+	What does this look like? It looks similar to solving for the nullspace of $(\mathbf{A} - \lambda \mathbf{I})$!
+	
+	Assuming that there is a nontrivial nullspace, that also means that $\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) = 0$!
+	
+	Let's solve for $\lambda$ first:
+	\begin{align*}
+		(\mathbf{A} - \lambda \mathbf{I}) &=  
+		% - \begin{bmatrix}
+		% \lambda & 0 \\
+		% 0 & \lambda
+		% \end{bmatrix}
+		    \begin{bmatrix}
+			5 - \lambda & 0 \\
+			0 & 6 - \lambda
+			\end{bmatrix} 	\\
+		\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) &= (5 - \lambda)(6 - \lambda) - 0 \\
+		&= 30 - 11\lambda + \lambda^2 \\
+		&= (\lambda - 5)(\lambda - 6)
+	\end{align*}
+
+	By factoring:
+
+	\[\lambda = 5, 6\]
+	
+	Let's check: We've just solved for the eigenvalues. But what about the eigenvectors? 
+	
+	To do that, we plug in $\lambda$ into $(\mathbf{A} - \lambda \mathbf{I})$ and solve for the nullspace!
+	
+	For $\lambda = 5$:
+	
+	\begin{align*}
+		(\mathbf{A} - \lambda \mathbf{I})\vec{x} &= \vec{0} \\
+		\begin{bmatrix}
+			5 - \lambda & 0 \\
+			0 & 6 - \lambda
+			\end{bmatrix}
+			\begin{bmatrix} 
+			x_1 \\
+			x_2
+		\end{bmatrix} &= \vec{0}
+	\end{align*}
+
+	\[
+		\begin{bmatrix}
+			0 & 0 \\
+			0 & 1
+			\end{bmatrix}
+			\begin{bmatrix} 
+			x_1 \\
+			x_2
+		\end{bmatrix} = \vec{0}
+	\]
+	
+	% Edit comment: this is incorrect
+	% By row reduction:
+	% \begin{align*}
+	% 	\begin{bmatrix}
+	% 		1 & -1 \\
+	% 		0 & 0
+	% 		\end{bmatrix}
+	% 		\begin{bmatrix} 
+	% 		x_1 \\
+	% 		x_2
+	% 	\end{bmatrix} &= \vec{0} \\
+	% 	x_1 &= x_1 \\
+	% 	x_2 &= 0 \\
+	% \end{align*}  
+	\[
+		\begin{bmatrix} 
+		x_1 \\
+		x_2
+		\end{bmatrix} = 
+		\begin{bmatrix} 
+		0 \\
+		-1
+		\end{bmatrix}x_2
+	\]
+
+	So the first pair is 
+		\[\lambda = 5, \vec{x} =  \begin{bmatrix} 
+	1 \\
+	0
+	\end{bmatrix}\] 
+
+	\par
+
+	Repeating for $\lambda = 6$, 
+	\begin{align*}
+		\begin{bmatrix}
+			5 - \lambda & 0 \\
+			0 & 6 - \lambda
+			\end{bmatrix}
+			\begin{bmatrix} 
+			x_1 \\
+			x_2
+		\end{bmatrix} &= \vec{0} \\
+		\begin{bmatrix}
+			-1 & 0 \\
+			0 & 0
+			\end{bmatrix}
+			\begin{bmatrix} 
+			x_1 \\
+			x_2
+			\end{bmatrix} &= \vec{0} \\
+		x_1 &= 0 \\
+		x_2 &= x_2 
+	\end{align*}
+	We see that,
+  
+	\[
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = 
+	\begin{bmatrix} 
+	0 \\
+	1
+	\end{bmatrix}x_2
+	\]
+  
+	So, the second pair is
+
+	\[\lambda = 6, \vec{x} =
+	\begin{bmatrix} 
+	0 \\
+	1
+	\end{bmatrix}\]
+}
+
+\item{
+	\begin{align*}
+		& \begin{bmatrix} 
+			1 & 2\\
+			3 & 0\\
+		\end{bmatrix} \\
+	\end{align*}
+
+}
+
+\ans{
+	We can use the same approach as the previous part to solve this problem. 
+
+	\begin{align*}
+		& \mathbf{A}\vec{x} - (\lambda \mathbf{I}) \vec{x} = \vec{0} \\
+		& (\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}  
+	\end{align*}
+
+	\begin{align*} 
+		(\mathbf{A} - \lambda \mathbf{I}) & =  - \begin{bmatrix}
+		1 - \lambda & 2 \\
+		3 & 0 - \lambda
+		\end{bmatrix} \\
+		\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) & = (1 - \lambda)(0 - \lambda) - 6 \\ 
+		& = \lambda^2 - \lambda - 6 \\
+		& = (\lambda - 3)(\lambda + 2)
+	\end{align*}
+
+		By factoring:
+		$\lambda = 3, -2$
+
+		
+		Let's check: We've just solved for the eigenvalues. But what about the eigenvectors? 
+		
+		To do that, we plug in $\lambda$ into $(\mathbf{A} - \lambda \mathbf{I})$ and solve for the nullspace!
+		
+		For $\lambda = 3$:
+		
+	\begin{align*}
+		(\mathbf{A} - \lambda \mathbf{I})\vec{x} &= \vec{0} \\
+		\begin{bmatrix}
+			1 - \lambda & 2 \\
+			3 & 0 - \lambda
+			\end{bmatrix}
+			\begin{bmatrix} 
+			x_1 \\
+			x_2
+		\end{bmatrix} &= \vec{0} \\
+		\begin{bmatrix}
+			-2 & 2 \\
+			3 & -3
+			\end{bmatrix}
+			\begin{bmatrix} 
+			x_1 \\
+			x_2
+		\end{bmatrix} &= \vec{0}
+	\end{align*}
+		
+	% 	By row reduction:
+	% \begin{align*}
+	% 	\begin{bmatrix}
+	% 		-2 & 2 \\
+	% 		0 & 0
+	% 		\end{bmatrix}
+	% 		\begin{bmatrix} 
+	% 		x_1 \\
+	% 		x_2
+	% 	\end{bmatrix} &= \vec{0} \\
+	\begin{align*}
+		x_1 &= x_2 \\ 
+		x_2 &= x_2 \\
+		\begin{bmatrix} 
+			x_1 \\
+			x_2
+			\end{bmatrix} &= 
+			\begin{bmatrix} 
+			1 \\
+			1
+		\end{bmatrix}x_2
+	\end{align*}
+		
+		So the first pair is $\lambda =3, \vec{x} = \begin{bmatrix} 
+		1 \\
+		1
+		\end{bmatrix}$ \\
+	
+		Repeating for $\lambda = -2$, 
+		\begin{align*}
+			\begin{bmatrix}
+				1 - \lambda & 2 \\
+				3 & 0 - \lambda
+				\end{bmatrix}
+				\begin{bmatrix} 
+				x_1 \\
+				x_2
+			\end{bmatrix} &= \vec{0} \\
+			\begin{bmatrix}
+				3 & 2 \\
+				3 & 2
+				\end{bmatrix}
+				\begin{bmatrix} 
+				x_1 \\
+				x_2
+			\end{bmatrix} &= \vec{0} \\
+			\begin{bmatrix}
+				3 & 2 \\
+				0 & 0
+				\end{bmatrix}
+				\begin{bmatrix} 
+				x_1 \\
+				x_2
+			\end{bmatrix} &= \vec{0} 
+		\end{align*}
+
+		\begin{align*}
+			& 3x_1 = -2x_2 \\ 
+			& x_2 = x_2
+		\end{align*}
+		\begin{align*}
+			\begin{bmatrix} 
+				x_1 \\
+				x_2
+				\end{bmatrix} = 
+				\begin{bmatrix} 
+				-2 \\
+				3
+				\end{bmatrix}x_2
+		\end{align*}
+	
+		
+		So, the second pair is
+	
+		\begin{align*}
+			\lambda = -2, \vec{x} = 
+			\begin{bmatrix} 
+			-2 \\
+			3
+			\end{bmatrix}
+		\end{align*}
+}
+
+\item{
+	
+	\begin{align*}
+		& \begin{bmatrix} 
+			-2 & -4 & 2\\
+			-2 & 1 & 2\\
+			4 & 2 & 5\\
+		\end{bmatrix}\\
+	\end{align*}
+	
+}
+
+\ans{
+	We can use the same approach as the previous part to solve this problem. 
+
+
+	\begin{align*}
+		& \mathbf{A}\vec{x} - (\lambda \mathbf{I}) \vec{x} = \vec{0} \\
+		& (\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}  
+	\end{align*}
+
+	\begin{align*} 
+		(\mathbf{A} - \lambda \mathbf{I}) &= \begin{bmatrix}
+		-2 - \lambda & -4 & 2\\
+		-2 & 1 - \lambda & 2 \\
+		4 & 2 & 5 - \lambda \\
+		\end{bmatrix} \\
+		\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) &= (-2 - \lambda)[(1 - \lambda)(5 - \lambda) - 2(2)] + 4[-2(5 - \lambda - 4(2))] + 2[-4 - 4(1 - \lambda)] \\
+		&= -\lambda^3 + 4\lambda^2 + 27\lambda - 90\\
+		&= (\lambda - 3)(\lambda + 5)(\lambda - 6)
+	\end{align*}
+		By factoring:
+		$\lambda = 3, -5, 6$
+
+		
+		Let's check: We've just solved for the eigenvalues. But what about the eigenvectors? 
+		
+		To do that, we plug in $\lambda$ into $(\mathbf{A} - \lambda \mathbf{I})$ and solve for the nullspace!
+		
+		For $\lambda = 3$:
+		
+		\begin{align*}
+			& (\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0} \\
+			& \begin{bmatrix}
+			-5 & -4 & 2\\
+			-2 & -2 & 2\\
+			4 & 2 & 2\\
+			\end{bmatrix}
+			\begin{bmatrix} 
+			x_1 \\
+			x_2\\
+			x_3\\
+			\end{bmatrix} = \vec{0} \\
+		\end{align*}
+		\begin{align*}
+				-5x_1 - 4x_2 + 2x_3 &= 0 \\
+			   -2x_1 - 2x_2 + 2x_3 &= 0 \\
+			   \text{Set $x_1$ equal to 1}:\\
+			   -2 + 3 + 2x_3 &= 0\\
+		\end{align*}
+		
+		This gives us the following eigenvector:
+
+		\begin{align*}
+		\begin{bmatrix} 
+		x_1 \\
+		x_2 \\
+		x_3 \\
+		\end{bmatrix} =
+		\begin{bmatrix} 
+		2 \\
+		-3 \\
+		-1 \\
+		\end{bmatrix}
+		\end{align*}
+	
+
+		Repeating for $\lambda = -5$, 
+		
+		\begin{align*}
+			\begin{bmatrix}
+				3 & -4 & 2 \\
+				-2 & 6 & 2 \\
+				4 & 2 & 10 \\
+				\end{bmatrix}
+				\begin{bmatrix} 
+				x_1 \\
+				x_2 \\
+				x_3 \\
+			\end{bmatrix} = \vec{0}
+		\end{align*}
+	
+		\begin{align*}
+			   3x_1 - 4x_2 + 2x_3 &= 0 \\
+			   -2x_1 + 6x_2 + 2x_3 &= 0 \\
+			   \text{Set $x_1$ equal to 1}:\\
+			   -5 + 10x_2 &= 0\\
+		\end{align*}
+
+		This gives the following eigenvector:
+		$
+		\begin{bmatrix} 
+		x_1 \\
+		x_2 \\
+		x_3 \\
+		\end{bmatrix} =
+		\begin{bmatrix} 
+		-2 \\
+		1 \\
+		1 \\
+		\end{bmatrix}
+		$
+
+		Repeating for $\lambda = 6$, 
+		\begin{align*}
+			\begin{bmatrix}
+				-8 & -4 & 2 \\
+				-2 & -5 & 2 \\
+				4 & 2 & -1 \\
+				\end{bmatrix}
+				\begin{bmatrix} 
+				x_1 \\
+				x_2 \\
+				x_3 \\
+			\end{bmatrix} = \vec{0}
+		\end{align*}		
+	
+		\begin{align*}
+			   -8x_1 - 4x_2 + 2x_3 &= 0 \\
+			   -2x_1 - 5x_2 + 2x_3 &= 0 \\
+			   \text{Set $x_1$ equal to 1:}\\
+			   6 - x_2 &= 0\\
+		\end{align*}
+
+		This gives the following eigenvector:
+		
+		\[\begin{bmatrix} 
+		x_1 \\
+		x_2 \\
+		x_3 \\
+		\end{bmatrix} =
+		\begin{bmatrix} 
+		1 \\
+		6 \\
+		16 \\
+		\end{bmatrix}\]
+}
+
+
+
+
+\end{enumerate}

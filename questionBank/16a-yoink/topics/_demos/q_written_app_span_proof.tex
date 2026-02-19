@@ -1,0 +1,43 @@
+% Author: YOUR NAME
+% Email: YOUR EMAIL
+% CSM16A SEMESTER YEAR
+
+\qns{Linear Algebra Question: Span Proof}
+
+Guide your student through the proof of 
+\[\textbf{span}\{\vec{v_1}, \ldots, \vec{v_n}\} = \textbf{span}\{\vec{\alpha v_1}, \ldots, \vec{v_n}\}\]
+
+\ans{
+
+  We must first note that the span of a set of vectors is a set itself. Hence, in order to prove that two spans are equal, 
+  we should show that they are subsets of each other. This is a standard method of proving the equality of sets and is 
+  the most common way of doing so.
+
+  Let $ \vec{q} \in \textbf{span}\{\vec{v_1}, \ldots, \vec{v_n}\}$ This implies that we can write $\vec{q}$ as a linear 
+  combination of the vectors $\{\vec{v_1}, \ldots, \vec{v_n}\}$. Hence, $\vec{q} = \sum_i c_i\vec{v_i}$ 
+  with $c_i \in \mathbb{R} \, \forall i$. We can equivalently write 
+  \[\vec{q} = \frac{c_1}{\alpha}(\vec{\alpha v_1}) + \sum^n_{i = 2} c_i\vec{v_i}\] since $\alpha$ is nonzero. 
+  We can see that the above representation is $\vec{q}$ as a linear combination of the vectors 
+  $\{\alpha\vec{v_1}, \ldots, \vec{v_n}\}$. Hence $ \vec{q} \in \textbf{span}\{\vec{\alpha v_1}, \ldots, \vec{v_n}\}$. 
+  Since our choice of $\vec{q}$ was arbitrary, we have shown 
+  \[\textbf{span}\{\vec{v_1}, \ldots, \vec{v_n}\} \subset \textbf{span}\{\vec{\alpha v_1}, \ldots, \vec{v_n}\}\]
+
+  Hooray! We have one side done. We must now show that the subset relationship is true when the order is reversed as 
+  well. The process is nearly identical.
+
+  Let $ \vec{p} \in \textbf{span}\{\alpha \vec{v_1}, \ldots, \vec{v_n}\}$ This implies that we can write 
+  $\vec{p}$ as a linear combination of the vectors $\{\alpha \vec{v_1}, \ldots, \vec{v_n}\}$. Hence, 
+  $\vec{p} = c_1\alpha (\vec{v_1}) + \sum_{i=2}^n c_i\vec{v_i}$ with $c_i \in \mathbb{R} \, \forall i$.
+  We can equivalently write \[\vec{p} = ({c_1}{\alpha})(\vec{v_1}) + \sum^n_{i = 2} c_i\vec{v_i}\] We can 
+  see that the above representation is $\vec{q}$ as a linear combination of the vectors 
+  $\{\vec{v_1}, \ldots, \vec{v_n}\}$. Hence $ \vec{q} \in \textbf{span}\{\vec{v_1}, \ldots, \vec{v_n}\}$. Since our 
+  choice of $\vec{p}$ was arbitrary, we have demonstrated 
+  \[\textbf{span}\{\vec{\alpha v_1}, \ldots, \vec{v_n}\} \subset \textbf{span}\{\vec{v_1}, \ldots, \vec{v_n}\}\]
+
+  Since we have shown that both spans are subsets of each other, we have proven equality.
+
+  \begin{flushright}
+    $\blacksquare$
+  \end{flushright}
+
+}

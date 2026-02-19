@@ -1,0 +1,52 @@
+\qns{Power}
+
+\begin{enumerate}
+
+\item Prove that $ P = V I$ has the same units as power, which is $P = \frac{\text{change in energy}}{\text{change in time}} = \frac{dE}{dt}$.
+
+
+\ans{
+
+This closely follows \notes{Note 13 Section 13.2}. \\
+$dE = V dQ$ where $dE$ is a differential unit of energy and $dQ$ a differential unit of charge. Take the time derivative of both sides and now you have $\frac{dE}{dT}$ which is power and $\frac{dQ}{dT}$ which is current.
+}
+
+\item When power is dissipated, its sign is positive. What is a circuit element that dissipates power?
+
+\ans{
+
+A resistor! Resistors dissipate power through heat. \\
+Less commonly, it is also possible for voltage sources to have positive power (acting as a sink).
+}
+
+\item When power is generated or supplied, its sign is negative. What is a circuit element that generates power?
+
+\ans{
+
+A voltage source! It supplies power for the rest of the circuit.
+}
+
+\item What is an alternative expression for a power? \\
+\textit{Hint: There are multiple! Consider Ohm's law.}
+
+\ans{
+
+$$ P = \frac{V^2}{R} $$
+$$ P = I^2 R $$
+}
+
+\item Suppose we have a circuit, and we want to measure its output voltage with a voltmeter. To make sure the voltmeter doesn’t mess with the readings, it is important that the voltmeter dissipates very little power. How can we make sure of that?
+
+\ans{
+
+We want a voltmeter to \textit{ideally} act like an open circuit so it doesn’t draw any current. For this to happen, \textbf{the internal resistance of the voltmeter has to be as high as possible.}
+}
+
+\item Now suppose we have a circuit, and we want to measure the current going through it with an ammeter. How do we make sure that the ammeter dissipates very little power?
+
+\ans{
+
+We want the ammeter to \textit{ideally} act like a short circuit so it has no voltage across it.  For this to happen, \textbf{the internal resistance has to be as low as possible.}
+}
+
+\end{enumerate}

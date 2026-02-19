@@ -1,0 +1,9 @@
+\begin{circuitikz}[scale=0.7, transform shape]
+	\draw
+	(0,0) to[I,l=$I_S$] ++(0,2)
+		to[short] ++(2,0) coordinate (centerTop)
+		to[short] ++(2,0) coordinate (rightTop)
+		to[R,l=$R_2$,i=$I_2$] ++(0,-2)
+		to[short] (0,0)
+	(centerTop) to[R,l=$R_1$,i=$I_1$] ++(0,-2);
+\end{circuitikz}
