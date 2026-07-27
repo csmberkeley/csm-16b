@@ -1,0 +1,418 @@
+%Author: Anna Chou
+%Email: menghuichou@berkeley.edu
+% CSM16A Spring 2022
+
+\qns{Geometrical Representation of Column Space and Null Space}
+
+\textbf{Learning Goal: } Know the geometrical representation of null space and column space.
+
+\meta{
+    \begin{itemize}
+        \item Make sure students know [what we try to find in/what is the purpose of] null space and column space. Students usually confuse the input and output of colspace and nulspace. You may want to start asking students what are the input and output of $A\vec{x}=\vec{0}$ for null space. \\ \\We normally think everything on the right side of = is output and variable on the left side of = is input. So what is the input here? (Ans: $\vec{x}$) What is the $\textit{fixed}$ output here? (Ans: $\vec{0}$) Are we interested in the range of input or output? (Ans: input. Since we want to see what kind of point that can be mapped to zero vector at in the output!). \\ \\Same thing applies to understanding column space. Do we care about the range of input for finding column space? (Ans: no, since we have infinite accesses to input. That's being said, we can use every possible input here and want to see what points these input points get mapping to.) How about the range of output? (Ans: yes! that is the purpose of finding column space! We are interested in finding all possible output points that inputs points can be mapped to.)
+        \item May want to introduce \textbf{trivial nullspace} (matrix is linearly independent -> only zero vector can be a possible input that can be mapped to zero vector. one-to-one! Note: the example I use below is linearly dependent matrix. ie. more-to-one.)
+        \item May want to let students try out the last question so to enhance the understanding of in/outside the space.
+    \end{itemize}
+}
+
+Math is math. Math never betrays you ... if you know them :) \\
+
+Recall that "really-hard-to-understand" definition of null space and column spaces,\\
+
+
+$N(A) = \{x : x \text{ is in $\R^n$ and } Ax= \vec{0} \}$ \\
+$C(A) = \text{Span} \{a_1, ..., a_n \}$ if $A = 
+% \text{[$\vec{a_1}... a_n$]}$ \\
+    \begin{bmatrix}
+        \vert &  &\vert \\
+        \vec{a_1} &\dots &\vec{a_n} \\
+        \vert &  &\vert
+    \end{bmatrix} $
+
+...Okay hold on. Before we move on to problems, let me translate that for you. \\
+
+
+"Null space of A is said to be the set of all $\vec{x}$ that satisfy $A\vec{x} = 0$." \\
+"Column space of A is the set of all linear combinations of the columns of A." \\
+
+You might be still wondering what does that even mean? Well, don't worry, we only use those mathy words in proof not in reality. So let's see what math says in the other way ... geometric!
+
+\begin{enumerate}
+    \item Find the null space of the following matrix in terms of basis vectors. Draw out the geometrical representation of this space. What
+    is the meaning of the space spanned by these vectors?
+        \begin{align*}
+            S = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 2 & 2 \\ 3 & 2 & 5
+            \end{bmatrix}
+        \end{align*}
+        
+        \ans{
+        \begin{align*}
+            S = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 2 & 2 \\ 3 & 2 & 5
+            \end{bmatrix}
+            & \rightarrow \begin{bmatrix} 1 & 2 & 3 \\ 0 & 2 & 2 \\ 0 & -4 & -4
+            \end{bmatrix} \mbox {using $R_3 \leftarrow R_3 - 3R_1$} \\
+            & \rightarrow \begin{bmatrix} 1 & 2 & 3 \\ 0 & 1 & 1 \\ 0 & 0 & 0
+            \end{bmatrix} \mbox {using $R_3 \leftarrow R_3 + 2R_2$} \\
+            & \rightarrow \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 0
+            \end{bmatrix} \mbox {using $R_1 \leftarrow R_1 - 2R_2$}
+        \end{align*}
+        
+        Write the reduced matrix in span form:
+        
+        \begin{align*}
+        a_1 = -a_3, a_2 = -a_3, a_3 = a_3 \\
+            \text{N}(\textbf{S}) = \text{span}\left\{ 
+		    \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}
+	        \right\}
+        \end{align*}
+        
+        Basis of the space:
+        
+        \begin{align*}
+            \text{basis} = \left\{ 
+		    \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}
+	        \right\}
+        \end{align*}
+        
+        Geometrical representation:
+        
+        \begin{center}
+        \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+            % Axes
+            \draw [->] (0,0,0) -- (0,0,2) node [left] {$x$};
+            \draw [->] (0,0,0) -- (2,0,0) node [right] {$y$};
+            \draw [->] (0,-2,0) -- (0,0,0) -- (0,2,0) node [above] {$z$};
+            % Vectors
+            \draw [->, thick] (0,0,0) -- (1,-1,1);
+            
+            % Ticks
+                \foreach \i in {1,2}
+            {
+            \draw (-0.1,\i,0) -- ++ (0.2,0,0);
+            \draw (-0.1,-\i,0) -- ++ (0.2,0,0);
+            \draw (\i,-0.1,0) -- ++ (0,0.2,0);
+            \draw (-0.1,0,\i) -- ++ (0.2,0,0);
+            }
+            % Dashed lines
+            \draw [loosely dashed]
+                (0,0,1) -- (1,0,1) -- (1,0,0)
+                (0,-1,0) -- (0,-1,1) -- (0,0,1)
+                (1,0,0) -- (1,-1,0) -- (0,-1,0)
+                (1,-1,0) -- (1,-1,1) -- (0,-1,1)
+                ;
+            % Labels
+             \node [below] at (1,-1,1) {$\begin{bmatrix}
+                                        1\\1\\-1
+                                       \end{bmatrix}$};
+        \end{tikzpicture}
+        \end{center}
+        
+        What does it mean?
+        Every point in $
+            \text{span}\left\{ 
+		    \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}
+	        \right\}
+        $ is a solution to $S \vec{x} = 0$
+        }
+    
+    \item Following the previous question, given a vector $\vec{n} = [2, 2 , -2]^\top$, draw $\vec{n}$ in dash on your previous graph. Is the vector in this null space? If yes, write $\vec{n}$ as a linear combination of these basis vectors in a vector form. If not, explain why $\vec{n}$ does not exist in the space.
+    
+    \ans{
+    \begin{center}
+        \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+            % Axes
+            \draw [->] (0,0,0) -- (0,0,3) node [left] {$x$};
+            \draw [->] (0,0,0) -- (3,0,0) node [right] {$y$};
+            \draw [->] (0,-3,0) -- (0,0,0) -- (0,3,0) node [above] {$z$};
+            % Vectors
+            \draw [->, thick] (0,0,0) -- (1,-1,1);
+            \draw [->, loosely dashed] (0,0,0) -- (2,-2,2);
+            
+            % Ticks
+                \foreach \i in {1,2}
+            {
+            \draw (-0.1,\i,0) -- ++ (0.2,0,0);
+            \draw (-0.1,-\i,0) -- ++ (0.2,0,0);
+            \draw (\i,-0.1,0) -- ++ (0,0.2,0);
+            \draw (-0.1,0,\i) -- ++ (0.2,0,0);
+            }
+            
+            % Labels
+             \node [right] at (2,-2,2) {$\begin{bmatrix}
+                                        2\\2\\-2
+                                       \end{bmatrix}$};
+        \end{tikzpicture}
+    \end{center}
+        $\vec{n} = \begin{bmatrix} 2 \\ 2 \\ -2 \end{bmatrix} 
+        = 2\begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}$ \\
+        
+        Let's check how that works in matrix multiplication.
+        
+        \begin{gather*}
+            S\vec{n} = \vec{0} \\
+            \begin{bmatrix} 1 & 2 & 3 \\ 0 & 2 & 2 \\ 3 & 2 & 5
+            \end{bmatrix} \begin{bmatrix} 2 \\ 2 \\ -2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+        \end{gather*} \\
+        
+        If you do the math by your hand, you will notice that matrix $S$ does map $\vec{n}$ to $\vec{0}$! That's being said, $\vec{n}$ exists in $N(S)$. \\
+        
+        In other words,
+        since $\vec{n}$ is a linear combination of $\left\{ 
+		\begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}
+	    \right\}$, which means $\vec{n}$ is in the space spanned by the basis vector 
+		$\begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}$ and thus exists in $N(S)$.
+    }
+        
+    \item Find the column space of the following matrix in terms of basis vectors. Draw out the geometrical representation of this space. What is the meaning of the space spanned by these vectors?
+        \begin{align*}
+            A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 0 \\ 2 & 0 & -2 \end{bmatrix}
+        \end{align*}
+        
+        \ans{
+        
+            \begin{align*}
+            A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 0 \\ 2 & 0 & -2
+            \end{bmatrix}
+            & \rightarrow \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 0 \\ 0 & 0 & -6
+            \end{bmatrix} \mbox {using $R_3 \leftarrow R_3 - 2R_1$} \\
+            & \rightarrow \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+            \end{bmatrix} \mbox {using $R_3 \leftarrow R_3/ (-6)$} \\
+            & \rightarrow \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+            \end{bmatrix} \mbox {using $R_1 \leftarrow R_1 - 2R_3$}
+            \end{align*}
+            
+            $A$ is linearly independent. This means that every vector in this matrix is linearly independent column.
+        
+            Write the reduced matrix in span form:
+        
+            \begin{align*}
+            \text{C}(\textbf{A}) = \text{span}\left\{ 
+		    \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix},
+		    \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix},
+		    \begin{bmatrix} 2 \\ 0 \\ -2 \end{bmatrix}
+	        \right\}
+            \end{align*}
+            
+            Notice that we write the ORIGINAL vectors in span set instead of reduced ones.
+        
+            Basis of the space:
+        
+            \begin{align*}
+            \left\{ 
+		    \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix},
+		    \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix},
+		    \begin{bmatrix} 2 \\ 0 \\ -2 \end{bmatrix}
+	        \right\}
+            \end{align*}
+            
+            Notice that we write the ORIGINAL vectors as the basis of the space instead of reduced ones.
+        
+            Geometrical representation:
+        \begin{center}
+            \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+            % Axes
+            \draw [->] (0,0,0) -- (0,0,4) node [left] {$x$};
+            \draw [->] (0,0,0) -- (4,0,0) node [right] {$y$};
+            \draw [->] (0,-3,0) -- (0,0,0) -- (0,3,0) node [above] {$z$};
+            % Vectors
+            \draw [->, thick] (0,0,0) -- (0,2,1);
+            \draw [->, thick] (0,0,0) -- (1,0,0);
+            \draw [->, thick] (0,0,0) -- (0,-2,2);
+            %\draw [->, thick] (0,0,0) -- (3,-2,1);
+            % Ticks
+                \foreach \i in {1,2}
+            {
+            \draw (-0.1,\i,0) -- ++ (0.2,0,0);
+            \draw (-0.1,-\i,0) -- ++ (0.2,0,0);
+            \draw (\i,-0.1,0) -- ++ (0,0.2,0);
+            \draw (-0.1,0,\i) -- ++ (0.2,0,0);
+            }
+            % Dashed lines
+            \draw [loosely dashed]
+                (0,0,1) -- (0,2,1) -- (0,2,0)
+                (0,-2,0) -- (0,-2,2) -- (0,0,2)
+                %(0,0,1) -- (3,0,1) -- (3,0,0)
+                %(3,0,1) -- (3,-2,1)
+                %(3,0,0) -- (3,-2,0) -- (3,-2,1)
+                %(0,0,1) -- (0,-2,1) -- (3,-2,1)
+                ;
+            % Labels
+             \node [left] at (0,2,1) {$\begin{bmatrix}
+                                        1\\0\\2
+                                       \end{bmatrix}$};
+           \node [above] at (1,0,0) {$\begin{bmatrix}
+                                       0\\1\\0
+                                      \end{bmatrix}$};
+            \node [below] at (0,-2,2) {$\begin{bmatrix}
+                                       2\\0\\-2
+                                      \end{bmatrix}$};
+        	\end{tikzpicture}
+        \end{center}
+        	What is the meaning of this graph? Every point existing in the space spanned by $
+            \left\{ 
+		    \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix},
+		    \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix},
+		    \begin{bmatrix} 2 \\ 0 \\ -2 \end{bmatrix}
+	        \right\}
+            $ is a possible point that matrix $A$ can map to.
+        }
+        
+    \item Following the previous question, given a vector $\vec{r} = [1, 3, -2]^\top $, draw $\vec{r}$ in dash on your previous graph. Is the vector $\vec{r}$ in this column space? If yes, write the vector $\vec{r}$ as a linear combination of these basis vectors in a vector form. If no, explain why $\vec{r}$ does not exist in the space.
+    
+        \ans{
+        \begin{center}
+            \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+            % Axes
+            \draw [->] (0,0,0) -- (0,0,4) node [left] {$x$};
+            \draw [->] (0,0,0) -- (4,0,0) node [right] {$y$};
+            \draw [->] (0,-3,0) -- (0,0,0) -- (0,3,0) node [above] {$z$};
+            % Vectors
+            \draw [->, thick] (0,0,0) -- (0,2,1);
+            \draw [->, thick] (0,0,0) -- (1,0,0);
+            \draw [->, thick] (0,0,0) -- (0,-2,2);
+            \draw [->, loosely dashed] (0,0,0) -- (3,-2,1);
+            % Ticks
+                \foreach \i in {1,2}
+            {
+            \draw (-0.1,\i,0) -- ++ (0.2,0,0);
+            \draw (-0.1,-\i,0) -- ++ (0.2,0,0);
+            \draw (\i,-0.1,0) -- ++ (0,0.2,0);
+            \draw (-0.1,0,\i) -- ++ (0.2,0,0);
+            }
+            % Labels
+             \node [left] at (0,2,1) {$\begin{bmatrix}
+                                        1\\0\\2
+                                       \end{bmatrix}$};
+           \node [above] at (1,0,0) {$\begin{bmatrix}
+                                       0\\1\\0
+                                      \end{bmatrix}$};
+            \node [below] at (0,-2,2) {$\begin{bmatrix}
+                                       2\\0\\-2
+                                      \end{bmatrix}$};
+            \node [below] at (3,-2,1) {$\begin{bmatrix}
+                                       1\\3\\-2
+                                      \end{bmatrix}$};                          
+        	\end{tikzpicture}
+        \end{center}
+        	
+        	Let's use Gaussian Elimination to find out the solution $\vec{x}$ to $A \vec{x} = \vec{r}$ \\
+        	\begin{align*}
+        	    \left[\begin{array}{ccc|c}
+                    1 & 0 & 2 & 1 \\
+                    0 & 1 & 0 & 3 \\
+                    2 & 0 & -2 & -2
+                \end{array}\right]
+                &\rightarrow \left[\begin{array}{ccc|c}
+                    1 & 0 & 2 & 1\\
+                    0 & 1 & 0 & 3\\
+                    0 & 0 & -6 & -4
+                \end{array}\right] \mbox {using $R_3 \leftarrow R_3 - 2R_1$} \\
+                &\rightarrow \left[\begin{array}{ccc|c}
+                    1 & 0 & 2 & 1\\
+                    0 & 1 & 0 & 3\\
+                    0 & 0 & 1 & \frac{2}{3}
+                \end{array}\right] \mbox {using $R_3 \leftarrow R_3 / (-6)$} \\
+                &\rightarrow \left[\begin{array}{ccc|c}
+                    1 & 0 & 0 & \frac{-1}{3}\\
+                    0 & 1 & 0 & 3\\
+                    0 & 0 & 1 & \frac{2}{3}
+                \end{array}\right] \mbox {using $R_1 \leftarrow R_1 - 2R_3$} \\
+                \vec{x} = \begin{bmatrix}-\frac{1}{3} \\ 3 \\ \frac{2}{3}\end{bmatrix}
+        	\end{align*} 
+        	
+        	Let's write $\vec{r}$ as a linear combination of $A$.
+        	
+        	\begin{gather*}
+        	    A \vec{x} = \vec{r} \\
+            	\begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 0 \\ 2 & 0 & -2 \end{bmatrix} \begin{bmatrix}-\frac{1}{3} \\ 3 \\ \frac{2}{3}\end{bmatrix} = \begin{bmatrix}1 \\ 3 \\ -2\end{bmatrix}
+        	\end{gather*}
+        	
+        	
+        	
+        	\begin{align*}
+        	    \vec{r} = \begin{bmatrix}1 \\ 3 \\ -2\end{bmatrix}
+        	    = -\frac{1}{3} \begin{bmatrix} 1 \\ 0 \\ 2\end{bmatrix} + 3 \begin{bmatrix} 0 \\ 1 \\ 0\end{bmatrix} + \frac{2}{3}\begin{bmatrix} 2 \\ 0 \\ -2\end{bmatrix}
+        	\end{align*} \leavevmode
+        	
+        	Obviously, $\vec{r}$ is linear combination of $A$, so it exists in $C(A)$.
+        }
+        
+    % \item Let's say $A$ becomes $\begin{bmatrix} 1 & 2 \\ 0 & 0 \\ 2 & -2 \end{bmatrix}$, is $\vec{r}$ still in the column space of $A$?
+    
+    %     \ans{
+        
+    %         No, since matrix A now only spans $\{ [1,0,2]^\top, [2,0,-2]^\top \}$ in $\R^3$, $\vec{r}$ is no longer in the space. So $\vec{r}$ is not belongs to $A$'s column space.
+    %     }
+    % \item Given a 4x5 matrix M \\
+    %     \begin{align*}
+    %     M =
+    %         \begin{bmatrix}
+    %             1 & 0 & 0 & 1 & 0 \\
+    %             0 & 2 & 0 & 0 & 2 \\
+    %             3 & 0 & 1 & 4 & 0 \\
+    %             1 & 1 & 0 & 1 & 1
+    %         \end{bmatrix}
+    %     \rightarrow 
+    %     \begin{bmatrix}
+    %             1 & 0 & 0 & 1 & 0 \\
+    %             0 & 1 & 0 & 0 & 1 \\
+    %             0 & 0 & 1 & 1 & 0 \\
+    %             0 & 0 & 0 & 0 & 0
+    %         \end{bmatrix} \mbox{(Reduced Row Echelon Form)}
+    %     \end{align*} 
+    % Find its null space and column space. Find points that are inside each of the space and points that are outside each of the space respectively.
+        
+    % \ans{
+        
+    %     To find the basis of null space, we first need to write reduced matrix $M$ into span form.
+        
+    %     Step by step to convert M into span...
+    %     \begin{align*}
+    %         \text{$a_1 = -a_4$, $a_2 = -a_5$, $a_3=-a_4$, $a_4 = a_4$, $a_5 = a_5$}\\
+    %         \begin{bmatrix} a_1 \\ a_2 \\ a_3 \\ a_4 \\ a_5 \end{bmatrix} = 
+    %         a_4 \begin{bmatrix} -1 \\ 0 \\ -1 \\ 1 \\ 0 \end{bmatrix} +
+    %         a_5 \begin{bmatrix} 0 \\ -1 \\ 0 \\ 0 \\ 1 \end{bmatrix} \\
+    %     \end{align*} \\
+    %     \begin{align*}
+    %         \text{N}(\textbf{M}) = \text{span}\left\{ 
+	% 	    \begin{bmatrix} -1 \\ 0 \\ -1 \\ 1 \\ 0 \end{bmatrix},
+	% 	    \begin{bmatrix} 0 \\ -1 \\ 0 \\ 0 \\ 1  \end{bmatrix}
+	%         \right\}
+    %     \end{align*} \\
+        
+    %     For point that is in null space, any point that is a linear combination of 
+    %     $\left\{ 
+	% 	    \begin{bmatrix} -1 \\ 0 \\ -1 \\ 1 \\ 0 \end{bmatrix},
+	% 	    \begin{bmatrix} 0 \\ -1 \\ 0 \\ 0 \\ 1  \end{bmatrix}
+	%     \right\}$
+	%     can be a valid answer. For point that is outside null space, any point that is NOT a linear combination of 
+    %     $\left\{ 
+	% 	    \begin{bmatrix} -1 \\ 0 \\ -1 \\ 1 \\ 0 \end{bmatrix},
+	% 	    \begin{bmatrix} 0 \\ -1 \\ 0 \\ 0 \\ 1  \end{bmatrix}
+	%     \right\}$
+	%     can be a valid answer. The easiest way to find one is to find a point that is inside the null space first, and then randomly select an entry to add 1 on it. For example, $[-1, 0, -1, 1, 1]^\top$ can be a valid answer since $[-1, 0, -1, 1, 0]^\top$ is inside null space and then we add 1 on the fifth entry. Why it works? Since $N(M)$ is $\R^2$ in $\R^5$ (a 2D plain in 5D), adding 1 on an entry basically means that we move the point along the corresponding axis by one and, thus, be off from the plain (in this case). That's being said, this point is no longer in null space. \\ \\
+        
+        
+        
+    %     To find the basis of column space, find linearly independent columns from ORIGINAL matrix!
+    %     \begin{align*}
+    %         \text{C}(\textbf{M}) = \text{span}\left\{ 
+    % 		    \begin{bmatrix} 1 \\ 0 \\ 3 \\ 1 \end{bmatrix},
+    % 		    \begin{bmatrix} 0 \\ 2 \\ 0 \\ 1 \end{bmatrix},
+    % 		    \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}
+	%         \right\}
+    %     \end{align*}
+    %     For point that is inside column space, answer can vary. Any point that is a linear combination of 
+    %     $\left\{ 
+	% 	    \begin{bmatrix} 1 \\ 0 \\ 3 \\ 1 \end{bmatrix},
+	% 	    \begin{bmatrix} 0 \\ 2 \\ 0 \\ 1 \end{bmatrix},
+	% 	    \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}
+	%     \right\}$
+	%     can be a valid answer. For point that is outside column space, Any point that is NOT a linear combination of 
+    %     $\left\{ 
+	% 	    \begin{bmatrix} 1 \\ 0 \\ 3 \\ 1 \end{bmatrix},
+	% 	    \begin{bmatrix} 0 \\ 2 \\ 0 \\ 1 \end{bmatrix},
+	% 	    \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}
+	%     \right\}$
+	%     can be a valid answer. The easiest way to find one is, also, find a point that is inside the column space first and then adding 1 on it. For example, $[1,2,4,3]^\top$ can be a valid answer since $[1,2,4,2]^\top$ is inside the space ($a_1 + a_2 + a_3$) and then we add 1 on the fourth entry. This is guaranteed to work. Why? Recall the matrix reduced echelon form, the fourth row is all 0. If we find a point that is inside the column space, when we do reducing augmented matrix on that, the fourth row should all be 0. To make it become invalid, we just make the last entry of the fourth row of augmented matrix become some none-zero numbers.
+    %     }
+\end{enumerate}

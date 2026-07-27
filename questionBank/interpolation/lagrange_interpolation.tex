@@ -1,0 +1,94 @@
+\qns{Lagrange interpolation and polynomial basis}
+% \qcontributor{Yuxun Zhou}
+
+In practice, to approximate some unknown or complex function $f(x)$, we take $n$ evaluations/samples
+of the function, denoted by $\{ (x_i, y_i\triangleq f(x_i)); \; 0 \leq i \leq n-1 \}$. With the
+Occam's razor principle in mind, we try to fit a polynomial function of least degree (which is $n-1$)
+that passes through all the given points.
+
+
+\begin{enumerate}
+
+	\qitem Using the polynomial basis $\{1, x, x^2, \cdots, x^{n-1}\}$, the fitting
+	problem can be cast into finding the coefficients $a_0,a_1,\cdots,a_{n-1}$ of the function
+	$$g(x) = a_0 + a_1x + a_2x^2 +\cdots + a_{n-1}x^{n-1}$$
+	such that
+	$g(x_i) = y_i, \; \forall i=0,1,\cdots n-1 $. Find out the set of equations that need to be satisfied, and write
+	them in a matrix form $A\vec{a} = \vec{y}$, with $\vec{a} = [a_0,a_1,\cdots,a_{n-1}]^T$ and $\vec{y} = [y_0,y_1,\cdots,y_{n-1}]^T$
+
+	\sol{ we need to solve
+	$$a_0 + a_1x_i + a_2x_i^2 +\cdots + a_{n-1}x_i^{n-1} = y_i \; \quad \forall i=0,1,\cdots n-1$$
+	which can be written in matrix form as
+	$$
+	\begin{pmatrix} 1 & x_0 & x_0^2 & \cdots & x_0^{n-1} \\
+	1 & x_1 & x_1^2 & \cdots & x_1^{n-1} \\
+	\vdots & \vdots & \vdots & \vdots & \vdots \\
+	1 & x_{n-1}  & x_{n-1} ^2 & \cdots & x_{n-1}^{n-1}  \end{pmatrix}
+	\begin{pmatrix} a_0 \\ a_1 \\ \vdots \\ a_{n-1}  \end{pmatrix}
+	= \begin{pmatrix} y_0 \\ y_1 \\ \vdots \\ y_{n-1} \end{pmatrix}\,. $$
+	}
+
+
+	\qitem Now we observe that in order to find those coefficients, we need to calculate $\vec{a} = A^{-1}\vec{y}$. The matrix inversion
+	is computationally expensive and numerically inaccurate when $n$ is large. The idea of Lagrange interpolation is to use
+	a different set of basis $\{ L_0(x),L_1(x),\cdots,L_{n-1}(x)\}$, which has the property that
+	$$L_i(x_j) = \begin{cases}
+	1 \quad \text{if} \; j=i \\
+	0 \quad \text{if} \; j \neq i
+	\end{cases}
+	$$
+	With that the fitting problem becomes finding the coefficients $b_0,b_1,\cdots,b_{n-1}$ of the function
+	$$h(x) = b_0L_0(x) + b_1L_1(x) + b_2L_2(x) +\cdots + b_{n-1}L_{n-1}(x)$$
+	such that $h(x_i) = y_i, \; \forall i=0,1,\cdots n-1 $. Again, find out the set of equations that need to be satisfied, and write
+	them in a matrix form. What do you observe?
+
+	\sol{ By the nice property of the basis, we have
+	\begin{align*}
+		&h(x_0) = b_0L_0(x_0) + b_1L_1(x_0) +\cdots + b_{n-1}L_{n-1}(x_0) = b_0 = y_0 \\
+		&\quad \vdots\\
+		&h(x_{n-1}) = b_0L_0(x_{n-1}) + b_1L_1(x_{n-1}) +\cdots + b_{n-1}L_{n-1}(x_{n-1}) = b_{n-1} = y_{n-1} \\
+	\end{align*}
+	we essentially have
+	$$I \vec{b} = \vec{y}$$
+	which imposes $\vec{b} = \vec{y}$. No matrix inversion is required!
+	}
+
+
+ \qitem Show that if we define
+ $$L_i(x) = \Pi^{j = n-1}_{j = 0; j\neq i }\frac{(x - x_j)}{(x_i-x_j)}$$
+ then the property required in part (b) is satisfied. What is the intuition behind this construction?
+
+
+	\sol{
+	Plug in each $x_i$, we will get $$L_i(x_i) = \Pi^{j = n-1}_{j = 0; j\neq i }\frac{(x_i - x_j)}{(x_i-x_j)} = 1.$$
+	For any other $L_{k} (x)$, where $k \neq i$, plug in $x_i$, we must have the term $\frac{(x_i - x_i)}{(x_{k}-x_i)} = 0$.
+	Hence $L_{k}(x_i)$ must be zero for all $k\neq i$.
+
+	The intuition is that, since we want some polynomial $L_i(x_j) = 0$ for $j \neq i$, we can take $\prod_{k \neq i}(x-x_k)$.
+	To have $L_i(x_i) = 1$, we can simply ``normalize'' the polynomial by $\prod_{k \neq i}(x_i-x_k)$, which gives the form of
+	$L_i(x)$.
+	}
+
+	\qitem  Based on the previous two parts, write down the explicit form of $h(x)$ with the samples
+	$\{ (x_i, y_i); \; 0 \leq i \leq n-1 \}$. The resulting formula is the so called
+	Lagrange polynomial which passes through the $n$ sampled points.
+
+  \sol{Because we have $b_i = y_i$ and the basis defined in last part, we can write out
+	\begin{align*}
+	h(x) &= b_0L_0(x) + b_1L_1(x) + b_2L_2(x) +\cdots + b_{n-1}L_{n-1}(x)\\
+	&= y_0L_0(x) + y_1L_1(x) + y_2L_2(x) +\cdots + y_{n-1}L_{n-1}(x) \\
+	&= \sum_{i=0}^{n-1} y_i \Pi^{j = n-1}_{j = 0; j\neq i }\frac{(x - x_j)}{(x_i-x_j)}
+	\end{align*}
+   }
+
+   \qitem Find the Lagrange polynomial given evaluated samples $f(-1) = 3,f(0) = -4, f(1) = 5, f(2)=-6$.
+
+   \sol{Direct calculation yields
+   $$L_0(x) = -\frac{1}{6}(x^3-3x^2+2x)$$
+   $$L_1(x) = \frac{1}{2}(x^3-2x^2-x+2)$$
+   $$L_2(x) = -\frac{1}{2}(x^3-x^2-2x)$$
+   $$L_3(x) = \frac{1}{6} (x^3-x)$$
+   then
+   $$h(x) = \sum_{i=0}^{n-1} y_i L_i(x) = -6x^3+8x^2+7x-4$$
+   }
+\end{enumerate}

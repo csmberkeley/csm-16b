@@ -1,0 +1,86 @@
+% Author: Emily Gosti, Yannan Tuo, Sukrit Arora
+% Email: egosti@berkeley.edu, ytuo@berkeley.edu, sukrit.arora@berkeley.edu
+
+\qns{Nested Inverting Op-Amps}
+
+\meta{
+Description: Show why in some cases you would want to use two inverting op amps in a row. Learn how to design circuits using nested inverting op amps.
+}
+
+
+\begin{enumerate}
+
+\qitem{What is the range of values that we can scale $V_{in}$ by when using a non-inverting op amp? (What are possible values for the gain?)
+}
+
+\ans{
+Recall that when using a non-inverting op amp, the equation for $V_{out}$  is $V_{in}(1 + \frac{R_2}{R_1})$; the gain is represented by $(1 + \frac{R_2}{R_1})$. We can choose any values for resistance from [0, $\infty$); then, the minimum gain would be 1 if we chose $R_2 = 0$; the maximum gain approaches infinity as we choose some very large $R_2$ and/or a very small $R_1$. Hence, the range of gains is from 1 to infinity, and our range of values for $V_{out}$ is [$V_{in}$, $\infty$).
+}
+
+\meta{Note: we do not want to choose negative resistance values.}
+
+\qitem{
+What is the range of values that we can scale $V_{in}$ by when using an inverting op amp? (What are the possible values for the gain?)
+}
+
+\ans{
+Recall that when using an inverting op amp, the equation for $V_{out}$ is $-V_{in}\frac{R_2}{R_1}$; the gain is represented by $-\frac{R_2}{R_1}$. Again, we can choose any values for resistance from [0, $\infty$); then, the minimum absolute value scaling would be 0 if we chose $R_2 = 0$; the maximum absolute value scaling approaches infinity as we choose some very large $R_2$ and/or a very small $R_1$. Hence, the range of gains is from 0 to -$\infty$, and our range of values for $V_{out}$ is also ($-\infty$, 0].
+
+}
+
+\qitem{
+What range of gain values is not reachable using a single inverting op amp or a single non-inverting op amp?
+}
+
+\ans{
+We would not be able to reach values between (0, 1), since we found that a non-inverting op amp can only reach values from [1, $\infty$) and an inverting op amp can only reach values from (-$\infty$, 0]. 
+}
+
+\qitem{
+How would we construct a circuit using the types op amps we have learned to reach the gain values in this gap? What resistor values would we choose?
+}
+
+
+\ans{
+The inverting op amp can always provide the correct magnitude of gain that we want, but the value will always be the negative of what we inputted. We can simply tack on another inverting op amp that does not scale the magnitude and simply reverses the sign! We pass $V_{out}$ as our v In order to not scale the input again, we simply set $R_3 = R_4$; this way, the gain $\frac{R_3}{R_4}$ will equal 1.
+ \begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[R, l = $R_1$, *-o]
+    ++(-2,0)
+    to[short, l = $V_{in}$] ++(0,0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_2$, i = $i$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, *-o] ++(0.5, 0)
+    to node[above] {$V_{o}$} ++(0,0)
+    to[short] ++(1, 0);
+    
+    
+    \draw (6,-0.5) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[R, l = $R_1$, *-o]    ++(-2,0)
+    to node[above] {$V_{in}$} ++(0,0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_2$, i = $i$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \end{circuitikz}
+    \end{center}
+    
+}
+
+
+\end{enumerate}

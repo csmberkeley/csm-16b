@@ -1,0 +1,348 @@
+\qns{Eigen Calculation}
+% Author: Sukrit Arora
+% Email: sukrit.arora@berkeley.edu
+
+\textbf{Learning Goal:} The goal of this problem is to practice mechanically calculating eigenvalues and finding their corresponding eigenvectors/eigenspaces.
+
+\textbf{Relevant Notes:} \notes{Note 9 Sections 9.4 and 9.6} cover the process of finding eigenvalue-eigenvector pairs.
+
+\newcommand{\Amat}{\ensuremath{\begin{bmatrix}
+3 & 2  \\
+1 & 4
+\end{bmatrix}}}
+
+\meta{
+    This problem is supposed to be straightforward, so make sure to go over the technique used in part (a), and maybe let the students work amongst themselves for the other parts. 
+    
+    This problem focuses on the mechanics of solving eigenvalues and eigenvectors. Feel free to focus more on other problems if you feel your students are comfortable with this process. 
+    
+    Be prepared to answer why the determinant of $\mathbf{A} - \mathbf{I}\lambda$ is equivalent to 0.
+}
+
+\begin{enumerate}
+
+\item{
+	Solve for the eigenvalue-eigenvector pairs for the following 2 by 2 matrix: \\
+	$$
+	\mathbf{A} = \Amat
+    $$
+    
+    Also find the eigenspaces.
+}
+
+
+\ans{
+	To solve for eigenvalues and eigenvectors, let's go back and review the definition of eigenvectors and eigenvalues:
+	\\
+	If $\vec{x}$ and $\lambda$ are the eigenvector and eigenvalue of $\mathbf{A}$, respectively, then the following equation holds:
+	
+	$$\mathbf{A}\vec{x} = \lambda\vec{x}$$
+	
+	Since the (appropriately sized) identity matrix is analogous to multiplying by 1 in arithmetic, we can say:
+
+    $$\mathbf{A}\vec{x} = \lambda \mathbf{I} \vec{x}$$
+	
+	Rearranging, we get:
+	
+	$$\mathbf{A}\vec{x} - (\lambda \mathbf{I}) \vec{x} = \vec{0}
+	$$
+	$$
+	(\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}
+	$$
+	
+	What does this look like? It looks similar to solving for the nullspace of $(\mathbf{A} - \lambda \mathbf{I})$!
+	
+	Assuming that there is a nontrivial nullspace, that also means that $\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) = 0$!
+	
+	Let's solve for $\lambda$ first:
+	
+	$$(\mathbf{A} - \lambda \mathbf{I}) = \Amat - \begin{bmatrix}
+	\lambda & 0 \\
+	0 & \lambda
+	\end{bmatrix}
+	$$
+	$$= \begin{bmatrix}
+	3 - \lambda & 2 \\
+	1 & 4 - \lambda
+	\end{bmatrix}$$
+	$$\mathbf{det}(\mathbf{A} - \lambda \mathbf{I}) = (3 - \lambda)(4 - \lambda) - 2$$
+	$$= 10 - 7\lambda + \lambda^2$$
+	$$= (\lambda - 5)(\lambda - 2)$$
+	By factoring:
+	$$\lambda = 5, 2$$
+	
+	Let's check: We've just solved for the eigenvalues. But what about the eigenvectors? 
+	
+	To do that, we plug in $\lambda$ into $(\mathbf{A} - \lambda \mathbf{I})$ and solve for the nullspace!
+	
+	For $\lambda = 5$:
+	
+	$$
+	(\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}
+	$$
+	$$\begin{bmatrix}
+	3 - \lambda & 2 \\
+	1 & 4 - \lambda
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix}= \vec{0}
+	$$
+	$$\begin{bmatrix}
+	-2 & 2 \\
+	1 & -1
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	By row reduction:
+	$$\begin{bmatrix}
+	1 & -1 \\
+	0 & 0
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	$$
+	x_1 = x_2 
+	$$
+	$$
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = 
+	\begin{bmatrix} 
+	1 \\
+	1
+	\end{bmatrix}x_2
+	$$
+	So the first pair is $$\lambda, \vec{x} = 5, \begin{bmatrix} 
+	1 \\
+	1
+	\end{bmatrix}$$ \\
+	Repeating for $\lambda = 2$, 
+	$$\begin{bmatrix}
+	3 - \lambda & 2 \\
+	1 & 4 - \lambda
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix}= \vec{0}
+	$$
+	$$\begin{bmatrix}
+	1 & 2 \\
+	1 & 2
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	$$\begin{bmatrix}
+	1 & 2 \\
+	0 & 0
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = \vec{0}
+	$$
+	$$
+	x_1 = -2x_2 
+	$$
+	$$
+	\begin{bmatrix} 
+	x_1 \\
+	x_2
+	\end{bmatrix} = 
+	\begin{bmatrix} 
+	-2 \\
+	1
+	\end{bmatrix}x_2
+	$$
+	So, the second pair is
+	$$\lambda, \vec{x} = 2, 
+	\begin{bmatrix} 
+	-2 \\
+	1
+	\end{bmatrix}$$
+	The eigenspace is the space of all vectors $\vec{v}$ that satisfy the equation $\mathbf{A}\vec{v} = \lambda\vec{v}$. In this problem, we have two eigenspaces (one for each eigenvalue), and their basis vectors are the eigenvectors we found: 
+	$$E_{\lambda = 5} = \textrm{span}\left\{\begin{bmatrix}1\\1\end{bmatrix}\right\}$$
+	$$E_{\lambda = 2} = \textrm{span}\left\{\begin{bmatrix}-2\\1\end{bmatrix}\right\}$$
+	}
+
+\item{
+	Find the eigenvectors for matrix $\mathbf{A}$ given that we know that $\lambda_1 = 4, \lambda_2 = \lambda_3 = -2$ and that 
+	$$ \mathbf{A} = 
+	\begin{bmatrix} 1 & -3 & 3\\ 
+	               3 & -5 & 3\\
+	               6 & -6 & 4
+	\end{bmatrix}
+	$$
+	
+	Also find the eigenspaces.
+}
+
+\meta{The students do NOT know how to find the determinant of a $3\times3$ matrix. So mention that for matrices larger than $2\times2$, they do not need to mechanically calculate eigenvalues unless it's a diagonal matrix.}
+
+
+\ans{ 
+    Once the eigenvalues of a matrix have been found, we can find the eigenvectors by Gaussian Elimination.
+    
+    \underline{Step 1:} For each eigenvalue $\lambda$, we have $$(\mathbf{A} - \lambda \mathbf{I})\vec{x} = \vec{0}$$
+    where $\vec{x}$ is the eigenvector associated with eigenvalue $\lambda$.
+
+    \underline{Step 2:} Find $\vec{x}$ in the nullspace of $(\mathbf{A} - \lambda \mathbf{I})$ by plugging in a value of  $\lambda$ and using Gaussian elimination to solve.
+
+    Case 1: $\lambda$ = 4. First, form the matrix $\mathbf{A} - 4\mathbf{I}$:
+    $$ \mathbf{A} - 4\mathbf{I} = 
+    \begin{bmatrix} 
+    1 & -3 & 3\\ 
+    3 & -5 & 3\\
+     6 & -6 & 4
+	\end{bmatrix} - 
+	\begin{bmatrix} 
+	4 & 0 & 0\\ 
+	0 & 4 & 0\\
+	0 & 0 & 4
+	\end{bmatrix} = 
+	\begin{bmatrix} 
+	-3 & -3 & 3\\ 
+	3 & -9 & 3\\
+	6 & -6 & 0
+	\end{bmatrix}
+	$$
+Then we use augmented matrix to solve for $\mathbf{A} - 4\mathbf{I}=\vec{0}$:	
+	\begin{align*}
+	\left[\begin{array}{ccc|c}
+		-3 & -3 & 3 & 0 \\
+		3 & -9 & 3 & 0\\
+		6 & -6 & 0 & 0
+	\end{array}\right] &\rightarrow
+	\left[\begin{array}{ccc|c}
+		1 & 1 & -1 & 0\\
+		3 & -9 & 3 & 0\\
+		6 & -6 & 0 & 0
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1 (\frac{-1}{3})$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 1 & -1 & 0\\
+		0 & -12 & 6 & 0\\
+		0 & -12 & 6 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 3R_1$ and $R_3  \leftarrow R_3 - 6R_1$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 1 & -1 & 0\\
+		0 & -2 & 1 & 0\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 - R_2$ and $R_2 \leftarrow R_2 (\frac{1}{6})$}\\
+\end{align*}
+
+We see that we have reached a row of 0s, which means that our last variable $x_3$ is the free variable in our system. Now, we can expand this matrix by putting it into a system of linear equations and solving for all the variables in terms of our free variable $x_3$:
+	$$x_1 +x_2 - x_3 = 0$$
+	$$-2x_2 + x_3 = 0$$
+	
+	$$x_2 = \frac{x_3}{2}$$
+	
+	$$x_1 + \frac{x_3}{2} - x_3 = 0$$
+	$$x_1 = \frac{x_3}{2}$$
+	
+	
+	$$
+    \vec{x} = \begin{bmatrix} \frac{x_3}{2} \\ \frac{x_3}{2} \\ x_3
+    \end{bmatrix}
+    $$
+    
+    $$
+    = x_3 \begin{bmatrix} \frac{1}{2} \\ \frac{1}{2} \\ 1
+    \end{bmatrix}, \quad \textrm{where}\quad x_3 \in \mathbb{R}
+    $$
+    
+    So an eigenvector for $\lambda = 4$ is $\vec{v}_1 =\begin{bmatrix} 1 \\ 1 \\ 2
+    \end{bmatrix}$. The corresponding eigenspace is 
+    $$E_{\lambda = 4} = \textrm{span}\left\{\begin{bmatrix}1\\1\\2\end{bmatrix}\right\}$$
+    Now, let's use this same technique to find the eigenvector for $\lambda = -2$.
+\\\\
+\meta{
+    Here might be a good time to ask your students how many eigenvectors the next value of lambda yields, considering that it has multiplicity 2.
+}
+\\\\
+    Case 2: Now let's plug in $\lambda = -2$ into $\mathbf{A-\lambda I}$ to get
+    $$
+    \mathbf{A} + 2\mathbf{I} = \begin{bmatrix} 3 & -3 & 3 \\ 3 & -3 & 3 \\ 6 & -6  & 6\end{bmatrix}
+    $$
+	Just like before, let's use Gaussian elimination to reduce the matrix. We can see that this will only take a few steps:
+    	\begin{align*}
+	\left[\begin{array}{ccc|c}
+		3 & -3 & 3 & 0 \\
+		3 & -3 & 3 & 0\\
+		6 & -6  & 6 & 0
+	\end{array}\right] &\rightarrow
+	\left[\begin{array}{ccc|c}
+	1 & -1 & 1 & 0\\ 
+	0 & 0 & 0 & 0\\
+	0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - R_1$; $R_3 \leftarrow R_3 - 2\cdot R_1$; $R_1 \leftarrow R_1 \cdot \frac{1}{3}$}
+\end{align*}
+
+    As we can see here, we have two rows of 0s, which means that we have two free variables ($x_2$ and $x_3$). Now we can take this matrix and write it as a linear system to get
+	$$x_1 - x_2 + x_3 = 0 \Rightarrow x_1 = x_2 - x_3$$
+	
+	Thus, 
+	
+	$$\vec{x} = \begin{bmatrix} x_2 - x_3 \\  x_2 \\ x_3 \end{bmatrix} = x_3 \begin{bmatrix} -1\\  0 \\ 1 \end{bmatrix} + x_2 \begin{bmatrix} 1 \\  1 \\ 0 \end{bmatrix}$$
+	which are the two eigenvectors associated with $\lambda = -2$. These eigenvectors form a basis for a two-dimensional eigenspace, 
+	$$E_{\lambda = -2} = \textrm{span}\left\{\begin{bmatrix}-1\\0\\1\end{bmatrix}, \begin{bmatrix}1\\1\\0\end{bmatrix}\right\}$$
+}
+\item{
+	Find the eigenvalues for matrix $\mathbf{A}$ given that we know that $\vec{v}_1 = \begin{bmatrix} 1 \\ 1 \\1 \end{bmatrix}, \vec{v}_2 = \begin{bmatrix} 1 \\ 0 \\1 \end{bmatrix}, \vec{v}_3 = \begin{bmatrix} 0 \\ -1 \\1 \end{bmatrix}$ are the eigenvectors of $\mathbf{A}$, and that 
+	$$ \mathbf{A} = 
+	\begin{bmatrix} 3 & -1 & -1\\ 
+	               2 & 1 & -2\\
+	               0 & -1 & 2
+	\end{bmatrix}
+	$$
+}
+
+
+
+\ans{ 
+    There are 2 ways to go about solving this problem. You can plug each eigenvector $\vec{v}_i$ into either $\mathbf{A}\vec{v} = \lambda\vec{v}$ or the nullspace equation to come up with 3 equations and solve. As you have had a lot of practice with the latter, we will use the former to try to answer this question.
+    
+    Let's plug in the first eigenvector and solve for the first eigenvalue.
+    
+    $$\mathbf{A}\vec{v}_1 = \lambda_1\vec{v}_1$$
+    $$
+	\begin{bmatrix} 3 & -1 & -1\\ 
+	               2 & 1 & -2\\
+	               0 & -1 & 2
+	\end{bmatrix} \begin{bmatrix} 1 \\ 1 \\1 \end{bmatrix} =\begin{bmatrix} 1 \\ 1 \\1 \end{bmatrix}
+	$$
+	
+	So, we can see that $\lambda_1 = 1$. Similarly, we can do this for the other two eigenvectors.
+	
+	 $$
+	\begin{bmatrix} 3 & -1 & -1\\ 
+	               2 & 1 & -2\\
+	               0 & -1 & 2
+	\end{bmatrix} \begin{bmatrix} 1 \\ 0 \\1 \end{bmatrix} =\begin{bmatrix} 2 \\ 0 \\2 \end{bmatrix}
+	$$
+	
+	So, we can see that $\lambda_2 = 2$.
+	
+	$$
+	\begin{bmatrix} 3 & -1 & -1\\ 
+	               2 & 1 & -2\\
+	               0 & -1 & 2
+	\end{bmatrix} \begin{bmatrix} 0 \\ -1 \\1 \end{bmatrix} =\begin{bmatrix} 0 \\ -3 \\3 \end{bmatrix}
+	$$
+	
+	So, we can see that $\lambda_3 = 3$.
+
+}
+
+\end{enumerate}

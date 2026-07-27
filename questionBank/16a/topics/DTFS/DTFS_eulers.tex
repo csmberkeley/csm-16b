@@ -1,0 +1,69 @@
+% Author: Justin Yang (typeset by Teja Kanthamneni)
+% Email: TODO
+% Spring 2025
+
+\qns{Alternate Method of DTFS Expansion}
+
+\meta{
+\begin{itemize}
+    \item Feel free to show the derivation of the  provided facts using Euler's formula if there's time.
+    \item Emphasize the conditions necessary for $x(n) = x(n+p)$.
+\end{itemize}
+
+} 
+
+
+So far we have used linear systems of equation and DTFS Analysis/Synthesis equations to perform DTFS expansion. We will learn one more way to perform DTFS expansion, by directly rewriting terms in terms of complex exponential. The following facts will be helpful:
+
+  
+\begin{itemize}
+    \item $1^n = e^{i(0)n}$
+    \item $(-1)^n = e^{i\pi n}$
+    \item $\cos(\omega t) = \frac{e^{i\omega t} + e^{-i \omega t}}{2}$
+    \item $\sin(\omega t) = \frac{e^{i\omega t} - e^{-i \omega t}}{2i}$
+\end{itemize}
+
+These can all be shown by doing some clever manipulation with Euler's formula:
+
+
+\begin{ln-define}{Euler's Formula}{}   
+   \[e^{i\omega} = \cos(\omega) + i \sin(\omega)\]
+\end{ln-define}
+
+\\
+Determine the periods $p$ and DTFS expansions of the following signals. If it is not possible, explain why.
+\vspace{3mm}
+\begin{enumerate}
+    \item $x(n) = \cos(\frac{2\pi}{5}n) + (-1)^n,  \hspace{1mm} \forall n$
+    \ans{
+       Since $x$ is $p$-periodic we know that $x(n) = x(n+p)$.
+       \[x(n) = \cos(\frac{2\pi}{5}(n)) + (-1)^{n}\]
+       \[x(n+p) = \cos(\frac{2\pi}{5}(n+p)) + (-1)^{n+p}\]
+        Comparing the first terms, in order for $\cos(\frac{2\pi}{5}n) = \cos(\frac{2\pi}{5}(n+p))$, $\frac{2\pi}{5}p$ must be some multiple of $2\pi$.
+        \[\frac{2\pi}{5}p = 2\pi l \implies p = 5l\]
+        Comparing the second terms, in order for $(-1)^n = (-1)^{n+p}$, $p$ must be even.
+        Let $l = 2$. $\implies p = 10$. This value of $p$ satisfies both conditions.
+        \\ \\
+        Now computing the DTFS expansion:
+        \begin{align}
+            x(n) &= \cos(\frac{2\pi}{5}(n)) + (-1)^{n} \\
+            &= \frac{e^{i\frac{2\pi}{5}n} + e^{-i\frac{2\pi}{5} n}}{2}+ e^{i\pi n} \\
+            &= \frac{1}{2}e^{-i\frac{2\pi}{5}n} + \frac{1}{2}e^{i\frac{2\pi}{5}n} + e^{i\pi n}
+        \end{align}
+
+        You may be wondering: "If $p=10$, shouldn't our DTFS expansion be a linear combination of 10 terms?" This is true! However, this can be explained by the fact htat 7 of our coefficients $X_k$ are equal to 0.
+    }
+    
+    \vspace{2 in}
+
+    \item $x(n) = \cos(\frac{\sqrt{2}\pi}{3}n), \hspace{1mm} \forall n$
+    \ans{
+        In order for this signal to be $p$-periodic, 
+        
+        \[x(n) = x(n+p) \implies \cos(\frac{\sqrt{2}\pi}{3}n) = \cos(\frac{\sqrt{2}\pi}{3}(n+p))\]
+        \[\implies \frac{\sqrt{2}\pi}{3}p = 2\pi l. \]
+        Since $p, l \in \mathbb{Z}$, there are no values of $p$ or $l$ that satisfy this equation and there is no valid expansion.
+    }
+\end{enumerate}
+
+

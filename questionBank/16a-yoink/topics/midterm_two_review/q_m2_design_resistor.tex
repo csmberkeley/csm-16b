@@ -1,0 +1,91 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Resistors in Design}
+
+You have been hired by “Next-Phone”, a promising startup that has developed a 3D printer to produce individually customized smartphones.\\
+Only one problem remains: designing accurate position sensing for the printhead. “No problem,” you tell your new boss, “I’ll take care of that!”\\
+The following figure shows your design. The printhead is supported by two rollers that move the head in the x direction. Each roller runs on two conductive tracks with resistivities $\rho_1$ and $\rho_2$, respectively, length L, and cross-sectional area A. The rollers are made of metal electrically connecting the strips. The printhead is an insulator (i.e., non-conductive material) so it can be modeled as an open circuit. Roller 1 and Roller 2 are disconnected by the non-conductive Print Head.\\
+You connect two voltage sources of voltage $V_S$ as shown in the figure below. You then measure voltage $V_{AB}=V_A-V_B$ to sense position x.\\
+\begin{center}
+    \makebox[\linewidth]{
+        \includegraphics{../q_m2_design_resistor_figs/prompt.PNG}
+    }
+\end{center}
+\newpage
+
+\begin{enumerate}
+    \item\label{circuit_view}{
+        Draw an equivalent circuit diagram of the above figure consisting of sources, resistors, etc.
+        
+    }
+    \meta{
+        This question comes from Q5(a) of Fall 2019's Midterm 2.
+        \begin{bindenum}
+            \item This question's equivalent circuit can be drawn in many ways. 
+            \item It would be convenient for students to label each open point of the circuit with an unfilled circle.
+        \end{bindenum}
+    
+    }
+    \ans{
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_resistor_figs/circuit_view.PNG}
+            }
+        \end{center}
+    
+    }
+    
+    \item\label{design_circuit_analysis}{
+        Derive algebraic expressions for $V_{AA'} = V_A - V_{A'}$ and $V_{BB'} = V_B - V_{B'}$ as a function of $x_pos$.
+
+    }
+    \meta{
+        This question comes from Q5(b) of Fall 2019's Midterm 2. 
+    
+    }
+    \ans{
+        Since $V_{A'}$ is open, there could be no current flowing between nodes $V_A$ and $V_{A'}$; therefore, $V_{AA'} = 0$.\\
+        The same applies to $V_{BB'} = 0$.
+    
+    }
+    
+    \item\label{design_system_analysis}{
+        Find the value of voltage $V_{AB}(x_{pos}) = V_A - V_B$ for the following values: $V_S = 10V$, $\rho_1 = 1\Omega m$, $\rho_2 = 2\Omega m$, $L = 200mm$, $A = 1cm^{2}$, and $x_{pos} = 50mm$.
+    
+    }
+    \meta{
+        This question comes from Q5(c) of Fall 2019's Midterm 2.
+    
+    }
+    \ans{
+        Via part (b), we know that $V_A = V_{A'}$, and via part (a)'s graphics we know that $V_A$ is involved in a voltage divider such that:
+        \[V_A = \frac{R_{A_2}}{R_{A_1} + R_{A_2}}V_S\]
+        where,
+        \[\begin{cases}
+            R_{A_1} = \frac{\rho_2 x_{pos}}{L} \\
+            R_{A_2} = \frac{\rho_2 (L - x_{pos})}{L}
+        \end{cases}\]
+        By substituting the resistances into $V_A$'s computation, we acquire:
+        \[V_A = \frac{L - x_{pos}}{L}V_S\]
+        
+        Now, via part (b), we also know that $V_B = V_{B'}$, and via part (a)'s graphics we know that $V_B$ is involved in a voltage divider such that:
+        \[V_B = \frac{R_{B_2}}{R_{B_1} + R_{B_2}}V_S\]
+        where,
+        \[\begin{cases}
+            R_{B_1} = \frac{\rho_1 (L - x_{pos})}{L} \\
+            R_{B_2} = \frac{\rho_1 x_{pos}}{L}
+        \end{cases}\]
+        By substituting the resistances into $V_B$'s computation, we acquire:
+        \[V_B = \frac{L - x_{pos}}{L}V_S\]
+        So, provided the above analyses and substituting the prompt's values:
+        \begin{align*}
+            V_{AB}
+            &= V_A - V_B \\
+            &= \frac{L - 2x_{pos}}{L}V_S = 5V
+        \end{align*}
+    
+    }
+\end{enumerate}

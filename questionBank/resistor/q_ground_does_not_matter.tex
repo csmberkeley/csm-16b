@@ -1,0 +1,160 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\qns{(PRACTICE) You're Grounded for No Damn Reason}
+
+\sol{Prereq: supernode.tex or understanding of what to do when voltage sources are in the way of doing nodal analysis. \\
+Brief description: The problem walks through one circuit first with nodal analysis and then with superposition using different grounds to show that where you mark your ground makes no difference.}
+
+In this class, we always say ``choose your ground wherever you want''. In this question, we will explore how our choice of ground can change our answer drastically!
+
+\begin{enumerate}
+\qitem{
+	Consider the following circuit. In this, we have explicitly marked a ground node for you. We have also marked a direction for the polarities on the resistor. Using nodal analysis, find the voltage drop across each resistor.
+
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$8V$] ++(0,-2)
+	to[short] node[ground] {} ++(0,-2)
+	to[short] ++(0,1)
+	to[short] ++(2,0)
+	to[R, l=$7k\Omega$, v=$ $, i=$ $] ++(0,4)
+	to[R, l=$6k\Omega$, v=$ $, i=$ $] ++(-2,0);
+
+	\draw(2,0)
+	to[short] ++(2,0)
+	to[I, l=$3mA$] ++(0,4)
+	to[short] ++(-2,0);
+	\end{circuitikz}
+	\end{center}
+}
+
+
+
+\ans{
+	We know the potential of the node marked ground. We also know the potential of the node connected to the positive terminal of the $8V$ source, it is $8V$. There is only one unknown potential, which is the top-left node. Let's write the equation for that node, and call the potential there $V_x$.
+
+	$$\dfrac{V_x - 8V}{6k\Omega} = 3mA + \dfrac{0-V_x}{7k\Omega}$$
+	Multiply by $42k\Omega$ on both sides
+	$$\implies 7V_x - 56 = 126V + -6V_x$$
+	$$\implies 13V_x = 182V$$
+	$$V_x = 14V$$.
+
+	Voltage drop across $R_{7k} = V_+ - V_- = 0 - 14V = -14V$. All this means is that the way I marked my polarities was incorrect, and that current actually flows the other way. \\
+	Voltage drop across $R_{6k} = V_+ - V_- = 14V - 8V = 6V.$
+}
+
+\qitem{
+	This time, we will mark our ground somewhere else and we will solve the circuit by superposition (alternatively, use nodal analysis again). 
+
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$8V$] ++(0,-2)
+	to[short] ++(0,-1)
+	to[short] ++(2,0)
+	to[R, l=$7k\Omega$, v=$ $, i=$ $] ++(0,4)
+	to[R, l=$6k\Omega$, v=$ $, i=$ $] ++(-2,0);
+
+	\draw(2,0)
+	to[short] ++(2,0)
+	to[I, l=$3mA$] ++(0,4)
+	to[short] ++(-2,0)
+	to[short] node[ground, rotate=180] {} ++(0,1);
+	\end{circuitikz}
+	\end{center}
+
+}
+
+\ans{
+	This time, we have two unknown potentials to solve for. One at the + end of the voltage source, and one at the negative. Let's get to it. Let's call them $V_a$ and $V_b$ respectively.\\ \\ 
+
+	For superposition, draw the circuit with only the voltage source, by open circuiting the current source. Let the potentials from this case be $V_{a_1}$ and $V_{b_1}$ respectively. 
+
+
+			\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[V_=$8V$] ++(0,-2)
+	to[short] ++(0,-1)
+	to[short] ++(2,0)
+	to[R, l=$7k\Omega$, v=$ $, i=$ $] ++(0,4)
+	to[R, l=$6k\Omega$, v=$ $, i=$ $] ++(-2,0);
+
+	\draw(2,0)
+	to[short] ++(2,0)
+	to[open] ++(0,4)
+	to[short] ++(-2,0)
+	to[short] node[ground, rotate=180] {} ++(0,1);
+	\end{circuitikz}
+	\end{center}
+
+	Consider the $V_a$ node. We don't know the current through the voltage source, so we use our super node trick. Consider $V_{a_1}$ and $V_{b_1}$ together. One equation is that $$V_{a_1} - V_{b_1} = 8V$$
+	The second equation is that \textbf{Sum I into $V_{a_1}$, $V_{b_1}$ = Sum I out of $V_{a_1}$, $V_{b_1}$}
+
+	$$\dfrac{0-V_{a_1}}{6k\Omega} = \frac{V_{b_1}-0}{7k\Omega}$$
+
+	We know that $V_{a_1} = V_{b_1} + 8V$, so multiplying by $42k\Omega$
+
+	$$-7V_{a_1} = 6V_{b_1} \implies -7V_{b_1} - 6V_{b_1} - 56V = 0 => V_{b_1} = \frac{-56}{13}V$$
+	$$V_{a_1} = 8V + \frac{-56}{13}V = \frac{48}{13}V$$
+
+
+	Now, short circuit the voltage source. Let the potentials here be $V_{a_2}$ and $V_{b_2}$ respectively. 
+	\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,4)
+	to[short] ++(0,-1)
+	to[short, *-*] ++(0,-2)
+	to[short] ++(0,-1)
+	to[short] ++(2,0)
+	to[R, l=$7k\Omega$, v=$ $, i=$ $] ++(0,4)
+	to[R, l=$6k\Omega$, v=$ $, i=$ $] ++(-2,0);
+
+	\draw(2,0)
+	to[short] ++(2,0)
+	to[I, l=$3mA$] ++(0,4)
+	to[short] ++(-2,0)
+	to[short] node[ground, rotate=180] {} ++(0,1);
+	\end{circuitikz}
+	\end{center}
+
+	First, observe that $V_{a_2} = V_{b_2}$. 
+	Let's solve for the unknown node. 
+
+	$$3mA + \dfrac{V_{a_2} - 0}{7k\Omega} = \dfrac{0 - V_{a_2}}{6k\Omega}$$
+	$$126V + 6V_{a_2} = -7V_{a_2}$$
+	$$V_{a_2} = \dfrac{-126}{13} = V_{b_2}$$
+
+	Finally, $$V_a = V_{a_1} + V_{a_2} = \dfrac{48}{13} + \dfrac{-126}{13} = \dfrac{-78}{13} = -6V$$
+	$$V_b = V_{b_1} + V_{b_2} = \dfrac{-56}{13}V + \dfrac{-126}{13}V = \dfrac{-182}{13}V = -14V$$
+
+	What is the voltage drop across $R_{6k}$ in the original circuit? $V_+ - V_- = 0 - V_a = 0 - (-6)V = 6V$.\\
+	What is the votlage drop across $R_{7k}$ in the original circuit $V_+ - V_- = V_b - 0 = -14V - 0 = -14V$.\\
+}
+
+\sol{
+	Feel free to go ahead and mark the third node that we haven't marked as ground yet and do the problem once again. You can do it quickly. 
+}
+
+\qitem{
+	In an exam, you're solving a mechanical problem with resistors, voltage sources and current sources, and it asks you to find the voltage drop across one of the resistors. The TAs forgot to mark a ground on the circuit. Do you ask for a clarification and point out that they've made a mistake?
+}
+
+\ans{
+	The TAs haven't made a mistake. Where you mark your ground \textbf{DOES NOT MATTER}. 
+}
+
+\sol{
+ Make sure that students realize \textbf{the ground DOES NOT MATTER}. Why? Because you measure the DROP, i.e., DIFFERENCE IN POTENTIAL. Yes, the potentials at each node are different, but that doesn't matter, we never measure it. Show them that we used a \textbf{different technique and a different ground}, and our answer still didn't change. Say it a million times if you have to... 
+
+Fun fact: I wrote this problem on the day after Summer 17 MT2. One student legit asked me this during the exam, which motivated me to write this whole problem.}
+\end{enumerate}

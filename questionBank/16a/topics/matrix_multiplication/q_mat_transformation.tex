@@ -1,0 +1,223 @@
+ % Author: Anna Chou
+% Email: menghuichou@berkeley.edu
+% CSM16A Spring 2022
+\qns{System Error :/ }
+
+\textbf{Learning Goal: } The goal of this problem is to know the application of matrix transformation and observe the behaviors of invertible and non-invertible matrix.
+
+\meta {
+\begin{itemize}
+    \item Before starting, introduce the application of linear transformation and how that affects our daily life (ex. robotics, images, facial recognition etc.).
+    \item Make sure students know the order of matrix multiplication does matter! Most students flip the order in the second question. You may want to demo it before moving forwards.
+    \item Explain why linearly independent matrix is better than linearly dependent matrix for the application of linear transformation in real world. Ex. Linearly independent matrix spans entire space so that you can map the vector to anywhere you want. However, for linearly dependent matrix, you cannot always map the vector to anywhere as there are some spaces that the matrix transformation can't reach. Also, we can't use inverse matrix if linear dependence. This is bad in real world as there's no way you can go backwards.
+\end{itemize}
+
+}
+
+Now you already know how to do matrix multiplications, let's do something BIG!
+Robotics is one of the topics that heavily uses matrix transformation as it involves change in dimension and mappings. Matrix is a good tool to describe complex instructions and easy to trace system's behaviors. We will see more in the following example and the topic will be introduced more in EECS16B, so stay turned :)
+
+Abishek and his friend, Viraj, are implementing a robotic arm at Jacob Hall. They want their robot to rotate in three different maneuvers about the origin. To tell if the robot rotates to the right position, they make the robot hold an apple and check its position after some instructions. Consider a vector $\vec{r}$ = $[x, y, z]^\top \in \R^3 $ representing the location of an apple relative to origin. To perform three different rotations, the robot uses rotation matrices $R_x(\theta)$, $R_y(\psi)$, and $R_z(\phi)$ to transform coordinate axes, x, y, and z respectively, in one frame to the other frame.
+
+\begin{align*}
+& R_x(\theta) = \begin{bmatrix} 
+1 & 0 & 0 \\
+0 & cos\theta & -sin\theta \\
+0 & sin\theta & cos\theta \end{bmatrix}
+& R_y(\psi) = \begin{bmatrix}
+cos\psi & 0 & sin\psi \\
+0 & 1 & 0 \\
+-sin\psi & 0 & cos\psi \end{bmatrix}
+& R_z(\phi) = \begin{bmatrix}
+cos\phi & -sin\phi & 0 \\
+sin\phi & cos\phi & 0 \\
+0 & 0 & 1 \end{bmatrix}
+\end{align*}
+
+These matrices $R_x$, $R_y$, and $R_z$, rotate \textbf{counter-clockwise} about the $x, y, z$ axes by angles of $\theta, \psi$, and $\phi$ respectively. 
+
+\begin{enumerate}
+
+    \item Before Abishek and Viraj rotate the robotic arm, let's help them verify if rotation matrices $R_x(\theta)$, $R_y(\psi)$, and $R_z(\phi)$ are linearly independent when $\theta$ = $-\pi/6$, $\psi$ = $\pi/3$ and $\phi$ = $\pi/2$.
+    
+    \ans{
+    
+        $R_x(\frac{-\pi}{6})= 
+        \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & cos(\frac{-\pi}{6}) & -sin(\frac{-\pi}{6}) \\
+            0 & sin(\frac{-\pi}{6}) & cos(\frac{-\pi}{6})
+        \end{bmatrix}
+        = 
+        \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & \frac{\sqrt{3}}{2} & \frac{1}{2} \\
+            0 & -\frac{1}{2} & \frac{\sqrt{3}}{2}
+        \end{bmatrix}$
+        
+        \text No free variables observed. Linearly independent.
+        
+        
+        $R_y(\frac{\pi}{3}) = 
+        \begin{bmatrix}
+            cos(\frac{\pi}{3}) & 0 & sin(\frac{\pi}{3}) \\
+            0 & 1 & 0 \\
+            -sin(\frac{\pi}{3}) & 0 & cos(\frac{\pi}{3}) 
+        \end{bmatrix}
+        = 
+        \begin{bmatrix}
+            \frac{1}{2} & 0 & \frac{\sqrt{3}}{2} \\
+            0 & 1 & 0 \\
+            -\frac{\sqrt{3}}{2} & 0 & \frac{1}{2} 
+        \end{bmatrix}$
+        
+        \text No free variables observed. Linearly independent.
+        
+        $R_z(\frac{\pi}{2}) = 
+        \begin{bmatrix}
+            cos(\frac{\pi}{2}) & -sin(\frac{\pi}{2}) & 0 \\
+            sin(\frac{\pi}{2}) & cos(\frac{\pi}{2}) & 0 \\
+            0 & 0 & 1 
+        \end{bmatrix}
+        = 
+        \begin{bmatrix}
+            0 & -1 & 0 \\
+            1 & 0 & 0 \\
+            0 & 0 & 1 
+        \end{bmatrix} $
+            
+        \text No free variables observed. Linearly independent.
+        
+    }
+    \item Now let's do some operations! Abishek wants to make the apple first rotate about y-axis by 60 degrees, then rotate about z-axis 90 degrees, and, finally, rotate about x-axis \textbf{clockwise} by 30 degrees (hint: make sure your signs are right!). Please help him first set up matrix transformation, then compute them.
+    
+    \ans{
+        Be careful to the order as it does matter the result! Since rotating about y-axis happens first, instead of writing from left to right, $M_y$ should be close to $\vec{r}$, then $M_z$ and then $M_x$.
+    
+        \begin{align*}
+            R_x(\frac{-\pi}{6}) R_z(\frac{\pi}{2}) R_y(\frac{\pi}{3}) \vec{r}
+            & = 
+            \begin{bmatrix}
+                1 & 0 & 0 \\
+                0 & cos(\frac{-\pi}{6}) & -sin(\frac{-\pi}{6}) \\
+                0 & sin(\frac{-\pi}{6}) & cos(\frac{-\pi}{6})
+            \end{bmatrix}
+            \begin{bmatrix}
+                cos(\frac{\pi}{2}) & -sin(\frac{\pi}{2}) & 0 \\
+                sin(\frac{\pi}{2}) & cos(\frac{\pi}{2}) & 0 \\
+                0 & 0 & 1 
+            \end{bmatrix}
+            \begin{bmatrix}
+                cos(\frac{\pi}{3}) & 0 & sin(\frac{\pi}{3}) \\
+                0 & 1 & 0 \\
+                -sin(\frac{\pi}{3}) & 0 & cos(\frac{\pi}{3}) 
+            \end{bmatrix}
+            \begin{bmatrix}
+            x\\y\\z
+            \end{bmatrix} \\
+            & = 
+            \begin{bmatrix}
+                1 & 0 & 0 \\
+                0 & \frac{\sqrt{3}}{2} & \frac{1}{2} \\
+                0 & -\frac{1}{2} & \frac{\sqrt{3}}{2}
+            \end{bmatrix}
+            \begin{bmatrix}
+                0 & -1 & 0 \\
+                1 & 0 & 0 \\
+                0 & 0 & 1 
+            \end{bmatrix}
+            \begin{bmatrix}
+                \frac{1}{2} & 0 & \frac{\sqrt{3}}{2} \\
+                0 & 1 & 0 \\
+                -\frac{\sqrt{3}}{2} & 0 & \frac{1}{2} 
+            \end{bmatrix}
+            \begin{bmatrix}
+            x\\y\\z
+            \end{bmatrix} \\
+            & = 
+            \begin{bmatrix}
+                0 & -1 & 0 \\
+                0 & 0 & 1 \\
+                -1 & 0 & 0
+            \end{bmatrix}
+            \begin{bmatrix}
+            x\\y\\z
+            \end{bmatrix}
+        \end{align*}
+    
+    }
+    
+    \item Viraj soon finds out that Abishek actually missed a step from previous instructions so he wants to reset the robot back to where it used to be. Let's say Abishek's previous procedure is $R_z(\frac{\pi}{2})R_y(\frac{\pi}{3})R_x(\frac{-\pi}{6})$ and Viraj uses matrix $M$ to revert the process. Help Viraj save his friend by finding out what is $M$. Please do not compute it. (Hint: We could use $-\theta$, $-\phi$, $-\psi$ values here, but that would require us to recompute $3$ matrices. Imagine if there were 10 or 100 matrices! There is an easier way. Think backwards:) )
+    
+    \ans{
+        
+        \text Don't doubt:) Just use inverse matrix. Recall that $R^{-1}R=I$, inverse matrices can revert the process and should be placed symmetrically to the previous procedure.
+        
+        \begin{align*}
+        M = R_x^{-1}(\frac{-\pi}{6})R_y^{-1}(\frac{\pi}{3})R_z^{-1}(\frac{\pi}{2})
+        \end{align*}
+        
+        \text Notice how inverse matrices cancel out all the procedure from inside to outside. Math just saves your day. 
+        
+        \begin{align*}
+            & M R_z(\frac{\pi}{2})R_y(\frac{\pi}{3})R_x(\frac{-\pi}{6}) \vec{r} \\
+            & = R_x^{-1}(\frac{-\pi}{6})R_y^{-1}(\frac{\pi}{3})R_z^{-1}(\frac{\pi}{2})R_z(\frac{\pi}{2})R_y(\frac{\pi}{3})R_x(\frac{-\pi}{6}) \vec{r} \\
+            & = R_x^{-1}(\frac{-\pi}{6})R_y^{-1}(\frac{\pi}{3})R_y(\frac{\pi}{3})R_x(\frac{-\pi}{6}) \vec{r} \\
+            & = R_x^{-1}(\frac{-\pi}{6})R_x(\frac{-\pi}{6}) \vec{r} \\
+            & = I\vec{r} \\
+            & = \vec{r}
+        \end{align*} 
+        
+        \text  No need to negate all the angles. Computation? Computers will take care of that. 
+        
+    }
+    \item Abishek's friends from Stanford suggest him to use their special matrix
+    \begin{align*}
+        S =  
+        \begin{bmatrix}
+            0.1 & -0.4 & 0.7 \\
+            0 & 0.3 & -0.5 \\
+            -0.2 & 0.5 & -0.9 
+        \end{bmatrix}
+    \end{align*}
+     to map the coordinates. Reminded by previous mistakes, Abishek asks his friends if it's possible that he can reset the robot after using this instruction. However, his friends are actually not sure about that as they didn't test it out. What do you think? Please explain. (Hint: What is the purpose of the first question? )
+
+    \meta{
+        Once you get the answer to this question, it may be good to take a step back and see what not being able to revert/invert a procedure really means. The resulting matrix has an all zero row at the bottom -- equivalent to "losing information" along the way. This is another way to formulate that the matrix is not invertible/process is not reversible. 
+    }
+    
+    \ans{
+    
+    \begin{align*}
+        S =
+        \begin{bmatrix}
+            0.1 & -0.4 & 0.7 \\
+            0 & 0.3 & -0.5 \\
+            -0.2 & 0.5 & -0.9 
+        \end{bmatrix}
+        &\rightarrow \left[\begin{array}{ccc}
+            1 & -4 & 7 \\
+            0 & 3 & -5 \\
+            -2 & 5 & -9
+        \end{array}\right] \mbox {using $R_3, R_2, R_1 \leftarrow 10R_3, 10R_2, 10R_1$} \\
+        &\rightarrow \left[\begin{array}{ccc}
+            1 & -4 & 7\\
+            0 & 3 & -5\\
+            0 & -3 & 5
+        \end{array}\right] \mbox {using $R_3 \leftarrow 2R_1 + R_3$} \\
+        &\rightarrow \left[\begin{array}{ccc}
+            1 & -4 & 7 \\
+            0 & -3 & 5 \\
+            0 & 3 & -5 \\
+        \end{array}\right] \mbox {swapping $R_2$ and $R_3$} \\
+        &\rightarrow \left[\begin{array}{ccc}
+            1 & -4 & 7 \\
+            0 & -3 & 5 \\
+            0 & 0 & 0 
+        \end{array}\right] \mbox {using $R_3 \leftarrow R_2 + R_3$}
+    \end{align*}
+    
+    No, it is impossible to revert the procedure as the matrix they give is not linearly independent. This implies $S$ does not have an inverse matrix.
+    }
+
+\end{enumerate}

@@ -1,0 +1,98 @@
+% Author: Aditya Baradwaj
+% Email: abaradwaj@berkeley.edu
+
+\qns{OpAmps as Buffers}
+
+Now we will revisit a problem that you have seen before, with our new knowledge of op-amps. We have access to a circuit as a 'black box' as shown below, meaning that we cannot change the internals of the circuit, we only have access to its output.
+
+\begin{enumerate}
+\qitem Let's try using the variable voltage we created a few weeks ago to power a light bulb with resistance $R_L$, where the threshold voltage for lighting the bulb is $6 \text{V}$. Find $R_1$ and $R_2$ so that the voltage across $R_2$ is this threshold voltage; that is, $V_{R_2} \equiv V_{out} = 6 \text{V}$. Assume we have a $12 \text{V}$ voltage source.
+
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+    \filldraw[fill=gray!40!white,draw=black] (-1,-0.5) rectangle (4,7.5);
+    \draw(0,0)
+	to[V_=$12 \text{V}$,invert] ++(0,7)
+ 	to[short,-o] ++(3,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0,-1)
+	to[short,-o] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short] ++(1,0)
+	to[short,l=$\quad \quad V_{out} \eq 6\text{V}$,-o] ++(1,0)
+	-- ++(-2,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_2$] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short,-o] ++(2,0)
+	-- ++(-2,0)
+	to[short] ++(-3,0)
+	to[short] node[ground]{} ++(0,-1);
+	
+ 	\draw(5,3)[dashed] 
+ 	-- ++(2,0); 
+ 	\draw(7,3)
+ 	to[lamp,l=$R_L$] ++(0,-3);
+%  	to[R,l=$R_L$] ++(0,-3);
+ 	\draw(7,0)[dashed]
+ 	-- ++(-2,0);
+	\end{circuitikz}
+\end{center}
+
+\ans{We want to split the voltage in half (from 12 to 6). Based on the voltage divider formula above, that means $R_1 = R_2 \equiv R$. Note that, under this condition, the voltage is evenly split regardless of what the actual resistance values are! While the current depends on actual resistance values, the voltage only depends on the ratio of resistances.}
+
+\qitem Now that we found an $R_1$ and $R_2$ that seem to divide our voltage source appropriately, let's try to connect the bulb to the ends of $R_2$. Remember, the bulb has a resistance $R_L$. Calculate the voltage across $R_1$, $R_2$ and the light bulb when it is connected. Will the light bulb turn on?
+
+\ans{Let's reapply the voltage divider formula, but now notice that the "second" resistor is $R_2 \| V_L$! When we change the resistance in a voltage divider circuit, the voltage across that resistance changes as well. We find that $V_{R_1} = V_S \frac{R}{R + R \| R_L} = 12\text{V} \frac{R}{R + \frac{R R_L}{R + R_L}} = 12\text{V} \frac{R + R_L}{R+2 R_L}$. The rest of the potential drop must be across the $R_2$-$R_L$ system, so we have $V_{R_2} = V_{\text{bulb}} = 12\text{V} \left(1 - \frac{R + R_L} {R + 2 R_L}\right) = 12\text{V} \frac{R_L}{R + 2 R_L} \leq 12\text{V} \frac{R_L}{2 R_L} = 6\text{V}$. 
+
+
+So the voltage \textit{decreased}, and the light bulb doesn't turn on. 
+
+
+The takeaway from this is that, while it may seem like the voltage divider can make voltage sources of arbitrary voltages, the act of connecting a component actually changes the output of the voltage divider. We will later learn about a way to stop a light bulb (or other devices that use up power) from ``affecting" the circuit that supplies power by placing a ``buffer" between the two.}
+
+\qitem Using your new knowledge of op-amps, how could you resolve this issue? Think about how you might use an op-amp to decouple the bulb from the black-box circuit. 
+
+\ans{
+We can introduce a 'buffer' op-amp as shown below:
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+    \filldraw[fill=gray!40!white,draw=black] (-1,-0.5) rectangle (4,7.5);
+    \draw(0,0)
+	to[V_=$12 \text{V}$,invert] ++(0,7)
+ 	to[short,-o] ++(3,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0,-1)
+	to[short,-o] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short] ++(1,0)
+	to[short,l=$\quad \quad V_{b} \eq 6\text{V}$,-o] ++(1,0)
+	-- ++(-2,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_2$] ++(0,-1)
+	to[short] ++(0,-1)
+	to[short] ++(-3,0)
+	to[short] node[ground]{} ++(0,-1);
+	
+	\draw(8,2.5) node[op amp, yscale=-1] (opamp) {};
+	
+ 	\draw(5,3) 
+ 	-- (opamp.+);
+ 	
+ 	\draw(opamp.-)
+ 	-- ++(0,-2)
+ 	-- ++(3, 0)
+ 	to[short] (opamp.out);
+ 	
+ 	\draw(opamp.out)
+ 	to[short] ++(3,0)
+ 	to[lamp,l=$R_L$] ++(0,-3)
+ 	to[short] node[ground]{} ++(0,-1);
+	\end{circuitikz}
+\end{center}
+
+A buffer op amp effectively 'decouples' its input and output,
+It does this by preventing the bulb from drawing current from the black box circuit. Remember that the input current of an ideal op-amp is always zero, while the output current can adjust itself to any extent, depending on the demand placed by the output circuit. Let us use nodal analysis and the golden rules to formally solve this circuit.
+Firstly, we observe that the op-amp is in negative feedback configuration. Using the golden rules, we have that $V_+ = V_- = V_b = 6V$. Also, because the feedback connection is a short, $V_{out} = V_-$. Therefore, $V_{out} = V_b = 6V$. This is exactly what we want! The voltage across $R_L$  equals $V_{out} = 6V$, which is above the threshold.
+}
+\end{enumerate}

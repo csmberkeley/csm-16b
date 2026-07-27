@@ -1,0 +1,23 @@
+\begin{center}
+  \begin{circuitikz}[scale = 0.8, transform shape] \draw
+    (0, 2) node[ground] (lground) {}
+      to [sV, l_=$v_{in}$] (0, 4)
+      to [R = $R$] (4, 4)
+      to [C = $C$] (4, 2)
+      node[ground] (mground) {}
+
+    (7, 3.5) node[op amp, yscale=-1] (opamp) {}
+      (opamp.+) to [short] (4, 4)
+      (opamp.-) -| (5.5, 2)
+      (opamp.out) |- (5.5, 2)
+      (opamp.out) to [R = $R$] (12, 3.5)
+      to [C = $C$] (12, 0.5)
+      node[ground] (rground) {}
+
+    (12, 3.5) to[short, -o] (14, 3.5) node[anchor=west] (A) {A}
+
+    (12, 1) to[short, -o] (14, 1) node[anchor=west] (B) {B}
+
+    (A) to[open, l^=$v_{out}$] (B)
+  ;\end{circuitikz}
+\end{center}

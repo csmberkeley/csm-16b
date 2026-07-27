@@ -1,0 +1,41 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+\qns{Cauchy Schwarz and norm} 
+\textbf{Learning goal: learn more proof about module 3}.
+
+\meta{
+\begin{enumerate}
+    \item First review the Cauchy inequality.
+    \item Review the definition of p-norm and how that relates to the terms in
+        Cauchy Schwarz.
+\end{enumerate}
+}
+
+a. Recall the Cauchy Schwarz inequality:
+
+\[
+    \abs{\langle \vec{x}, \vec{y}\rangle} \le{} \norm{\vec{x}} \norm{\vec{y}}
+\]
+
+prove that for an $n$ dimensional vector  $x$, we have
+
+\[
+    \norm{x}_1 \le{} \sqrt{n}  \norm{x}_2
+\]
+
+
+
+\ans{
+
+    Suppose $\vec{x} = \left( x_1, x_2, \ldots{}, x_n \right)$, then denote another
+    vector  $\vec{1} = (1, 1, \ldots{}, 1)$ also an n dimension vector. Then by Cauchy
+    Schwarz inequality
+    
+    \[
+        \abs{\langle \vec{x}, \vec{1} \rangle} \le{} \norm{\vec{x}} \norm{\vec{1}}
+    \]
+
+    notice that in the Cauchy Schwarz, the norm is the length of vector in the
+    sense of two dimension, so the right side is just $\sqrt{n} \norm{x}_2 $,
+    while th left side is just $\norm{x}_1$
+    
+}

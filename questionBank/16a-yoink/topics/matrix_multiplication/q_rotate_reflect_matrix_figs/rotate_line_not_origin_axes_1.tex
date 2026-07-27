@@ -1,0 +1,41 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+
+\begin{tikzpicture}
+    \begin{axis}[
+        axis lines = middle,
+        xmin=-5, xmax=5,
+        ymin=-5, ymax=5,
+        xlabel = {x},
+        ylabel = {y},
+        legend pos=outer north east,
+        legend cell align=left
+    ]
+        \addplot [only marks, color=black] table {
+            1 1
+        };
+        \addlegendentry{center of rotation}
+        \addplot [color=red] {
+           3*x
+        };
+        \addlegendentry{Original Lines, Axes}
+        \addplot [color=blue] {
+           3*x - 2
+        };
+        \addlegendentry{Translated Line, Axes}
+        \addplot [color=red] {
+           0
+        };
+        \addplot [color=red] coordinates {
+            (0, -5) (0, 5)
+        };
+        \addplot [color=blue] {
+           1
+        };
+        \addplot [color=blue] coordinates {
+            (1, -5) (1, 5)
+        };
+    \end{axis}
+\end{tikzpicture}
+    

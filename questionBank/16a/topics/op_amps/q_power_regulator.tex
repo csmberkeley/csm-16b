@@ -1,0 +1,380 @@
+% Kailash Ranganathan
+% Spring 2023
+% kranganathan@berkeley.edu
+
+\newcommand{\equal}{=}
+
+\qns{Regular Show, Except it's a Voltage Regulator and not a Show}
+
+\creditnotes{
+    Kailash, Spring 2023
+}
+
+\textbf{Learning Goal:} This problem will provide practice with concepts such as loading and dependent sources. It'll also give you a bit of intuition for how one of the most important devices in electrical engineering works--voltage regulators! \\ \\ 
+\meta{
+\begin{itemize}
+    \item This question is very ambitious in that it seeks to both introduce new circuit elements \textit{and} introduce the new application circuit idea of a step-down regulator (basic idea is stable output given noisy input). It's perfectly fine if you're unable to finish, just ensure students have a conceptual understanding of how each component (Zener diode \& BJT) work as well as a high-level idea of what step-down regulators do and how. 
+
+    \item The \textbf{big-picture goal of this question is to introduce the idea of modelling complex devices as known circuit elements as a sort of gateway to understanding more advanced electrical engineering concepts}.
+    
+    \item If students are remotely interested in electrical engineering, it'd be good to also mention how central diodes and transistors are to any more complex circuit design. It's always better to see them earlier! 
+
+    \item This question should also solidify the concept of loading and why it's an issue. There are many ways to develop intuition for loading--I use a pipe delivering water analogy a few times. If students are also interested in CS, can draw connections to abstraction/dependencies (downstream dependencies should not affect upstream sources/different subcircuits should have their separate functions abstracted away from one another) 
+
+    \item  Given that the question will ultimately "rederive" the non-inverting amplifier under real conditions, there's a good bit of subtlety which could be easily lost. This is put into each part's metas. 
+
+    \item \textbf{Most importantly, students should develop the confidence to approach more advanced topics and should be assured that they have the proper circuit analysis skills to do so}. 
+\end{itemize}
+
+}
+
+An age-old problem in electrical engineering sounds like a simple one--given some arbitrary $V_{in}$, we want to deliver this voltage to a load (which we model as a resistor). Crucially, the \textbf{output voltage should be stable and independent of load characteristics and input noise} (think of a pipe delivering water to households--water delivery should be stable regardless of what's happening in the ocean and not depend on how much water the family is using). 
+
+Lets first briefly review how we approach this in 16A, and then we'll see why this might not always work and devise new methods to transfer voltage. 
+
+\begin{enumerate}
+    \item Suppose we have some arbitrary input circuit which we'll model as a Thevenin equivalent $V_S$ and $R_S$. Demonstrate the concept of loading (do so by finding $V_S$ and showing that it depends on $R_L$). \emph{Hint: How do you connect a Thevenin equivalent to a load resistor?}
+    \meta {
+        Mostly just a review of the concept of loading. If students are familiar with it and Thevenin equivalent circuits, you can quickly go through the answer and move on to later parts. The key emphasis is that "downstream" devices should not affect "upstream" sources -- a house using too much water should not affect the flow of water out of a reservoir. 
+    
+    }
+
+    \ans{Recall how we connect Thevenin-equivalent circuits to output load resistances: 
+
+        \begin{center}
+            \begin{circuitikz}
+            \draw (0, 0)
+            to [V, v = $V_s$, invert] (0, 3)
+            to [R = $R_s$] (3, 3)
+            to [R = $R_L$] (3, 0)
+            to [short] (0, 0);
+            
+            \draw (3, 3)
+            to [short, -o] (4, 3) node[label={[font=\footnotesize]:$A$}]{}
+            node[label={[font=\footnotesize]below:$+$}]{};
+            
+            \draw (3, 0)
+            to [short, -o] (4, 0) 
+            node[label={[font=\footnotesize]:$-$}]{}
+            node[label={[font=\footnotesize]below:$B$}]{};
+            
+            \node[ground] (0, -1) {};
+            
+            \end{circuitikz}
+        \end{center}
+        If this seems unfamiliar, remember that a "load resistance" is nothing more than an abstraction for some endpoint to deliver voltage/current to--it could be a refrigerator, a motor, or any electrical device. Our intention is to deliver $V_S$ to it, but the above voltage divider tells us that 
+        \begin{align*}
+            V_{out} = \frac{R_L}{R_L + R_S}V_S
+        \end{align*}
+        which depends on $R_L$ and is not equal to $V_S$. This is the concept of loading--by directly connecting a resistor to its source circuit, it affects the voltage delivered to it significantly. More broadly speaking, if we directly connect some device to the circuit powering that device, our expectations of what current/voltage should be delivered to the device will not be met. 
+    }
+
+    \item The standard solution to this loading effect is to use an op-amp in a certain configuration. Develop a circuit that delivers $V_S$ to some $R_L$ load irrespective of $R_L$ and $R_S$ values -- you may assume your op-amp is ideal. This means that your circuit should include $R_L$ and $R_S$, but the configuration that you make should have it such that $V_S$ does not actually depend on these values. \\ \\
+    \meta{
+        Another standard 16A op-amp concept which students should have down/practice. Key idea is seeing how op-amps can separate different parts of circuits. \\ \\ 
+        It's important that students understand the limitations of op-amps detailed in the next description. Specifically, that \textit{in theory} op-amps can have any output current, but in reality this is not true. \\ \\ Not completely necessary, but if students express confusion between this idea and railing, emphasize that they are two separate concepts. Small current draw is due to the limitations of op-amp internal architecture. 
+    
+    }
+    \ans{
+        One of the standard op-amp circuits in 16A is the "unity gain buffer" or "voltage follower." Given some input voltage, it will output the exact same voltage, but through the golden rules of op-amps, "separate" the circuit into two parts, the input and output. The output will not affect the input, and thus we can (seemingly) solve loading! The unity-gain buffer is described by the circuit below: 
+
+        \begin{center}
+        \begin{circuitikz}[american]
+            \draw
+                (0,0) node[op amp, yscale=-1] (AMP) {}
+                (AMP.+)
+                    to[R=$R_S$] ++(-2, 0)
+                    to[V, l_=$V_S$] ++(0, -2) node[ground]{}
+                (AMP.-)
+                    to[short] ++(-1, 0)
+                    to[short] ++(0, -1)
+                    to[short] ++(4, 0) coordinate (midpoint)
+                    to[short] ++(0, 1.5)
+                (AMP.out) 
+                    to[short] ++ (2, 0)
+                    to[R=$R_L$] ++(0, -2)
+                    node[ground]{}
+                (AMP.out)
+                    to[short, -o] ++(3, 0) node[label={[font=\footnotesize]:$V_{out}$}]{}
+                ;
+        \end{circuitikz}
+    \end{center}
+    Here, $R_S$ doesn't actually matter as $V_{out} = V_S$, but we put it just to note that the input doesn't solely have to be a voltage source but instead can be some Thevenin equivalent placeholder for a much more complicated circuit. 
+    
+    }
+    
+\end{enumerate}
+\textbf{Industry Voltage Regulators: } \newline 
+Here's where things get interesting. It turns out op-amps are \textit{not} always able to deliver an input voltage to your load! This is because the output current of op-amps are typically very limited (unless you get specific power amplifying types), mostly due to the internal circuitry of op-amps containing transistors whose output current saturates at quite a low value. If $R_L$ is large enough, this is usually fine, but when $R_L$ becomes small enough, our op-amp will fail! \\ \\ 
+To create a robust voltage regulator, then, we must turn to other devices. In th following few sections, we will incrementally build up to the circuit of a \textbf{linear step-down voltage regulator}, a circuit widely used in industry and a panacea to all our problems (electrical engineering problems, at least). \textbf{A regulator has a basic function but complex design -- given some potentially noisy input $V_{in}$, it guarantees the output of a stable voltage that "removes" all the noise from the input. For power circuitry applications, this is extremely important.} \\ \\ 
+
+\textbf{Step 1: Diodes} \\ 
+To build this circuit, first consider the \textit{Zener diode}. Diodes are frequently used for regulation purposes in circuits. Think about the following IV curve for a moment. Below a certain voltage, the Zener diode will act as an open circuit $I = 0$, but once it reaches some $V_Z$ (called "breakdown voltage"), it will hold that voltage irrespective of any current flowing through it (ie. no matter what current is, voltage across Zener diode will always be $V_Z$ past the breakdown voltage threshold). 
+\begin{center}
+        \includegraphics[scale=0.5]{../q_power_regulator_figs/zener diode.png}
+\end{center}
+In reality, we use the Zener diode backwards, so the Zener diode voltage going below $V_Z$ is equivalent to the source its connected to going above $V_Z$ (this is a subtle point and not related to this question, but take a moment to make sure you see this in the circuit diagram). 
+\begin{center}
+    \begin{circuitikz}
+        \draw (0,-2)
+            node[ground]{}
+            (0,1) to[V=$V_{in}$] (0,-2)
+            (0,1) to[R=$R_S$] (5,1)
+            to[short, -o] ++(1, 0)node[label={[font=\footnotesize]:$V_{out}$}]{}
+            (5, 1) to[R=$R_L$] (5, -2)
+            (3.5, 1) to [empty ZZener diode, l_=$V_Z$](3.5, -2)
+            (5, -2) to (0, -2);
+    \end{circuitikz}
+\end{center}
+
+\begin{enumerate}[resume]
+    \item Let's create a circuit with the Zener diode in the above fashion (the fancy triangle + squiggle is the circuit symbol for the diode). If we want a stable $V_{out} = 10V$, what should we affix $V_Z$ to be? \emph{Hint: When operating at "breakdown," what circuit element does the Zener diode resemble? For this question, assume $V_{in} \geq 10V$ all the time}. 
+
+    \meta{
+        
+        For Zener diodes, it may be helpful to draw the IV curve for a voltage-source (ie. just a vertical line at some $V_S$ corresponding to the source's value) and draw comparisons between the diode and the voltage source's behavior. \\ \\ 
+        Ensure students understand Zener diodes are \textit{not} the same as voltage sources, but only resemble their behavior under certain conditions. These conditions are given by the breakdown voltage threshold (if input voltage surpasses a certain value). \\ \\ 
+        Internal workings of Zener diode are not really relevant to this question which is already introducing a lot, but if students are interested, can tell them to read more into the "Zener effect." 
+    
+    }
+
+    \ans{
+    
+        The key insight here is that by looking at the IV diagram and description of a Zener diode, we can "reduce" it to circuit elements we know how to solve. Past a certain breakdown voltage, the line goes \textbf{vertical down -- this means that regardless of what the current into Zener diode is, it will have the same voltage. This behavior resembles a voltage source, and so if the diode only operates in this region, then we can replace it with a voltage source without loss of generality} (this idea of reducing/simplifying circuit components). 
+
+        Thus, our new circuit becomes at follows for some arbitrary $V_Z$: 
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,-2)
+                    node[ground]{}
+                    (0,1) to[V=$V_{in}$] (0,-2)
+                    (0,1) to[R=$R_S$] (5,1)
+                    to[short, -o] ++(1, 0)node[label={[font=\footnotesize]:$V_{out}$}]{}
+                    (5, 1) to[R=$R_L$] (5, -2)
+                    (3.5, 1) to [V, l_=$V_Z$](3.5, -2)
+                    (5, -2) to (0, -2);
+            \end{circuitikz}
+        \end{center}
+        Now, it's clear that if we want the Zener diode to regulate $V_{out} = 10V$, then $\boxed{V_Z = 10V}$, as it's in parallel directly with $R_L$ (see how this circuit architecture lends itself to a "regulatory" behavior of sorts). One way to realize this is noticing that $V_Z$ and $V_{out}$ are the same node and so they must have the same value. 
+    
+    }
+
+    \item Suppose $V_{in} = 30V$, wildly higher than what we want. Calculate the current $I_Z$ that must go through the Zener diode to preserve a stable output voltage; express $I_Z$ in terms of numerical values, $R_L$, and $R_S$ (keep desired $V_{out} = 10V$. In other words, calculate $I_Z$ through the diode given that voltage across $R_L$ is $10V$. Using this expression, verify that $V_L = 10V$. 
+
+    \meta{
+        It may be helpful to provide some intuition of the Zener diode as a "current diverter" for our load, always taking up as much current as necessary to keep $I_L$ through $R_L$ fixed irrespective of the input $I_S$. This should hopefully make the somewhat cryptic-looking answer a little more understandable. \\ \\ 
+        Here, another key idea is efficiency as the current actually used $I_L$ over the current sourced $I_S$. The more current passing through the diode, the more current that is wasted and doesn't actually reach the load as a result of regulation. 
+    
+    }
+
+    \ans{
+        First, we can qualitatively think about this circuit. $V_{in}$ is much higher than what we want to supply to $R_L$, and thus we only want a fraction of the current through $R_S$ to actually go through $R_L$. To compensate, we want to transfer a larger fraction of current through the diode. We can quantitatively do circuit analysis on the above circuit in order to derive this current. \\ \\
+        First, let's note for a regulated voltage $10V$, we want $10V = R_L I_L \xrightarrow{} I_L = \frac{10V}{R_L}$. Then, note that $I_S = (V_{in} - V_Z)/R_S = 20V/R_S$. Thus, $I_Z = I_S - I_L = \boxed{\frac{20V}{R_S} - \frac{10V}{R_L}}$. Lets consider what happens when $R_L$ becomes very high. Then, $I_L$ becomes quite small, and $\frac{20V}{R_S}$ of current is dissipated through $V_Z$ (dissipated in the sense that it's "wasted" and doesn't go anywhere). For some values of $R_S$, it could be a lot! \\ \\ 
+        Using this current, we can also verify that $V_L$ is consistently $10V$. Specifically, 
+        \begin{align*}
+            V_L = R_L I_L = R_L (I_S - I_Z) = R_L (20V/R_S - (\frac{20V}{R_S} - \frac{10V}{R_L})) = R_L (\frac{10V}{R_L}) = 10V
+        \end{align*}
+        which is the desired voltage setpoint. 
+    }
+    
+
+\end{enumerate}
+
+    The previous question shows that the Zener regulator works...almost. It turns out Zener diodes make for very good \textit{reference} voltages, but not very good regulators. Moreover, the previous question demonstrated how to keep a constant voltage, a lot of "wasted" current $I_Z$ has to flow through the diode, making it quite inefficient. However, we can use the Zener diode in conjunction with other circuit elements (\*cough cough\* op-amps) to create robust regulators. We're almost there!! We just need one last element to ensure high output currents from op-amps... \\ \\ 
+
+    \textbf{Step 2: Bipolar-junction transistor}\\ 
+    Introducing the transistor (specifically, the bipolar-junction transistor, or BJT)!! Fundamentally, transistors are essentially voltage-controlled switches (ie. switch is "on" when $V_{in}$ is high enough, and off otherwise). For our current use, we don't care too much about their switching abilities, and will use them more as current amplifiers. The BJT has the following model as a current-dependent current source (recall current-dependent current sources have a value that depends on the current in another part of the circuit). 
+    \begin{center}
+            \begin{circuitikz}
+                \draw (0, 0) node[above]{\text{B (Base)}}
+                    to[short, i=$I_B$] ++(0, -1.5)
+                    to[short] ++(2, 0) 
+                    to[american controlled current source=$\beta I_B$] ++(0, 1.5)
+                    to[short] ++(1, 0)
+                    node[right]{\text{E (Emitter)}}; 
+                \draw (1, -1.5) to[short] ++(0, -1)
+                    node[below]{\text{C (collector)}}; 
+            \end{circuitikz}
+    \end{center}
+    The symbol for the BJT corresponds to 
+    \begin{center}
+        \begin{circuitikz}
+            \draw node[bjtnpn, collectors=1, emitters=1, rotate=90] (bjt) {Q};
+            \draw (bjt.B) to[short] ++(0, 0.5) node[below=0.5cm]{\text{B}};
+            \draw (bjt.E) to[short] ++(0.5, 0) node[right]{\text{E}};
+            \draw (bjt.C) to[short] ++(-0.5,0) node[left]{\text{C} };
+        \end{circuitikz}
+    \end{center}
+    The terminals here are important (the bottom symbol is a rotated version of the top current source circuit -- match the letters to each other). The base is roughly like the "input," and the current-dependent current source model has positive current being driven from the collector to emitter pin. Thus, we typically place a power source/higher voltage on the collector side (roughly speaking, the collector "collects" current while the emitter "emits" current from the BJT). 
+    
+\begin{enumerate}[resume]
+    \item {
+        If we interpret the BJT as a current-dependent current source, suppose we want it to supply enough current for any load $R_L$ to have a maintained $V_{out}$ across it. If the op-amp has a maximal current output $I_m$, calculate the necessary current gain $\beta$ for the transistor. \emph{Hint: Think of the BJT as a blackbox taking in some current and outputting that current amplified -- specifically, $\beta$ times that current. Find the necessary BJT output current to have $V_{out}$ across $R_L$, then that $I/I_m$ is your $\beta$.}
+    }
+    \meta{
+        It's worth emphasizing the difference between what the BJT \textit{can} output and what it \textit{does} output. The BJT \textit{can} output anything up till the current given by shorting the load resistance with $V_{DD}$, but what it \textit{does} output is given by $\beta$ and input current. This is what allows us to output any stable voltage so long as we have the power available to do it. \\ \\ 
+        The strange terminology of BJTs (collector, emitter, base) should not scare students. Rather, they should abstract away its functionality to that of a current-dependent current source and think intuitively about its operation. The analogy of a "partial switch" that's discussed in the solution may help. 
+    
+    }
+
+    \ans{
+        It may be helpful to try and visualize this circuit before we start to solve for the current. We can model the situation in the question as follows: 
+        \begin{center}
+        \begin{circuitikz}
+            \draw node[bjtnpn, collectors=1, emitters=1] (bjt) {Q}; 
+            \draw (bjt.B) ++(-1, 0) to[short, i=$I_m$] ++(1, 0); 
+            \draw (bjt.C) ++(0, 2) to[V=$V_{DD}$] ++(0, -2)
+            ++(0, 2) to[short] ++(-1, 0)
+            to[short] ++(0, -1)
+            node[ground]{}; 
+            \draw (bjt.E) to[R=$R_L$] ++(0, -2)
+            node[ground]{}; 
+        \end{circuitikz}
+         \end{center}
+         The current across $R_L$ should be a constant $I_L = \frac{V_{out}}{R_L}$, and we also know the emitted current from the BJT is $I_E = \beta I_B = \beta I_M$, so $\boxed{\beta = \frac{V_{out}}{R_L I_M}}$. \\ \\ 
+         There are a few subtleties we should note. 
+         \begin{itemize}
+             \item First, our collector voltage doesn't have to be $V_{out}$ (it's actually better if it's something higher); as long as the voltage is large enough for the BJT to be able to source enough power to drive whatever current it needs to. To illustrate this point, I put a $V_{DD}$ source on top of the BJT which can be assumed to be larger than $V_{out} $.
+             \item Related to our first point, you may be wondering where the BJT actually gets the "extra current" in our current-dependent current source model. That's actually the function of the $V_{DD} $ voltage. Rather than thinking of the BJT as itself a current source, think of it as a "partial switch" between the voltage source and $R_L$. If the entirety of $V_{DD}$ was connected to $R_L$, our load would receive much more voltage than it needs. Rather than shorting the ends entirely, the BJT only sends as much current as is needed, which you can think of as a "regulator" sort of behavior which, unlike op-amps and Zener diodes, will work for any $R_L$ and not dissipate too much power. 
+             \item This question should once again reinforce the concept of "reducing" complex circuit components to their very basic functionality. You may also wonder what the purpose of $I_M$ is if the BJT can just "calculatedly" source as much current from $V_{DD}$ to send to $R_L$ for our regulated voltage. Remember that transistors are electronically controlled \textit{switches}; they will open and close the circuit depending on whether the input into base meets certain criteria. Our present model assumes the BJT is always active (ie. never off/open circuiting), but you'll learn more about transistors as switches in 16B!
+         \end{itemize}
+         
+        
+    
+    }
+
+    
+    
+\end{enumerate}
+
+    If the last few parts seemed all over the place, it's finally time to put everything together. 
+    
+    \textbf{Step-down Voltage Regulator Circuit} 
+    In our efforts to make a regulator, we'll create a non-inverting amplifier (which can output a scaled version of an input voltage) with some modifications. Consider the following \textit{revised} op-amp buffer. This circuit is known as a \textbf{linear step-down regulator}, and delivers some constant $V_{ref}$ even if $V_{in}$ fluctuates a lot (hence a "regulator"). Unlike previous parts, this circuit will function the same no matter the load--it can deliver high or low current provided that $V_{in}$ is \textit{at least} $V_{ref}$. This should resemble our original unity buffer, just $V_{ref}$ is new, and we have two new resistors, $R_1$ and $R_2$, which control what value our output voltage is going to be in terms of $V_{ref}$. 
+    \begin{center}
+        \begin{circuitikz}[american]
+            \draw
+                (0,0) node[op amp, yscale=-1] (AMP) {}
+                (AMP.+)
+                    to[R=$R_S$] ++(-2, 0)
+                    to[V, l_=$V_{ref}\equal5V$] ++(0, -2) node[ground]{}
+                (AMP.-)
+                    to[short] ++(-1, 0)
+                    to[short] ++(0, -2)
+                    to[short] ++(5, 0) coordinate (midpoint)
+                    to[R=$R_1\equal10k\Omega$] ++(0, -2) node[ground]{}
+                (midpoint)
+                    to[R=$R_2\equal10k\Omega$] ++(0, 2)
+                    to[short] ++(0, 2) coordinate (terminal)
+                    to[short, -o] ++(1, 0) node[right]{$V_{out}$}
+                (1.5,1.3)
+                    node[bjtnpn, collectors=1, emitters=1, rotate=90] (bjt) {Q}
+                (terminal) to[short] (bjt.E)
+                (AMP.out)
+                    to[short] (AMP.out -| bjt.B)
+                    to[short] (bjt.B)
+                (bjt.C)
+                    to[short] ++(-4, 0)
+                    to[sV, l_=$V_{in} $] ++(-1, 0)
+                    to[short] ++(-0.5, 0) node[ground]{}
+                ;
+        \end{circuitikz}
+    \end{center}
+
+\begin{enumerate}[resume]
+    \item{Now, the grand finale! First, calculate $V_{out}$ as a function of $V_{ref}$, $R_S$, $R_1$, and $R_2$, where $V_{ref}$ is the 5V source, $R_1$ is the top $10k\Omega$ resistor and $R_2$ is the bottom one. Then, after getting a symbolic answer, substitute numerical values. You should get a very simple expression, which will hopefully convince you that the voltage regulator works! \emph{Hint: The BJT shouldn't affect your circuit analysis. In the real world, it's just there to counteract the problem of low op-amp input current through its current amplification}. } \\ \\ 
+    \meta{
+    Here, the subtlety of how this "modified" non-inverting amplifier improves over the traditional 16A op-amp circuit should be emphasized. Namely, three things. 
+    \begin{itemize}
+        \item In a normal non-inverting amplifier, if the input signal starts fluctuating, the output will too. This is great if we want an AC output, but for stable DC outputs, this is not good. The Zener diode solves the stabilization problem. 
+        \item As noted before, op-amps cannot deliver too much current, basically making them unable to deliver high voltage to low-resistance loads. The BJT solves this by extracting high currents from the input signal--its "current boosting" solves the current draw problem. 
+        \item $R_1$ and $R_2$ are \textit{NOT} load resistors (if anyone ends up having this confusion)! Rather, this entire circuit should be blackboxed as a regulator and its output can be fed to some load $R_L$. 
+    \end{itemize}
+    It may also be useful to look back at the bigger picture here, how all these different components work together to solve the broader problem of stable voltage delivery. 
+    
+    }
+    \ans{
+        As in previous sections, we want to reduce our "more complicated" circuit elements using what we know about their functionality in order to solve this circuit using normal analysis techniques. \\ \\ 
+        First, lets note that as we studied the BJT, we noted that collector voltage doesn't actually matter; instead, it just serves as a reference for what the BJT \textit{can} output, but what it actually outputs is driven by its internal $\beta$ value. Here, we can affix that value such that $V_{out}$ is some stable value defined by the op-amp circuitry. Then, we can reduce our BJT to a wire connecting the output terminal of the op-amp to $V_{out}$.  \\ \\ 
+        We'll solve things symbolically first. The op-amp is in negative feedback as after reducing the BJT to a wire, as the negative terminal of the op-amp is connected to the output of the op-amp voltage divided (you can formally check this by using the op-amp $A(u^+ - u^-)$ equation, but in general the math will follow this logic). Alternatively, we can realize that the circuit has the structure of a non-inverting amplifier. Regardless, we can use op-amp golden rules and negative feedback to note that 
+        \begin{align*}
+            u^+ = u^- = V_{out} \frac{R_1}{R_1 + R_2} \\
+            u^+ = V_{ref} \\ 
+            V_{out}\frac{R_1}{R_1 + R_2}= V_{ref} \\ 
+            \boxed{V_{out} = V_{ref}(R_1 + R_2)/R_1}
+        \end{align*}
+        Indeed, we get our standard non-inverting amplifier equation, only now we have the circuitry to actually realize this! Note that the $R_S$ value (or, if you did the previous part, $R_P$ value) don't factor into our final $V_{out}$ expression. This is a very important detail in circuit abstraction--our steady voltage reference circuit on the input side should not have effects downstream on the output side, and indeed it doesn't! Plugging in values from the circuit, you should get $\boxed{V_{ref} = 10V}$. \\ \\ 
+        If you're confused about why $V_{in}$ does not show up in the output formula. Remember the purpose of this circuit -- this is \textit{not} a unity-gain buffer, but rather a step-down voltage regulator. Its purpose is, given some potentially noisy, unknown signal $V_{in} $, we can combine diodes, transistors, and op-amps together to generate a highly stable output voltage strictly less than $V_{in}$. This regulator is so powerful because it doesn't actually require a stable voltage source to generate a stable output (that'd be a weirdly circular circuit); rather, it creates a stable voltage line with virtually no input requirements apart from an minimum input voltage precondition. Indeed, this device is used in virtually every industry electronic application in the world! 
+    
+    }
+
+    \item{
+        [CHALLENGE] It seems somewhat counter-intuitive that to create a stable voltage regulator, we're using as input a stable voltage source $V_{ref}$. The trick is that this is a circuit abstraction, and there is no $V_{ref}$! Rather, construct $V_{ref}$ using $V_{in}$, a Zener diode and a resistor (don't worry about values -- just getting circuit structure right here is the important part). \emph{This part may be quite difficult -- focus on previous sections of this question before attempting this. }
+    } \\ \\ 
+    \meta{
+        If you do decide to skip this question, it'd be beneficial to at least briefly discuss the idea that $V_{ref}$ is \textit{not} a separate voltage source to remove any possible confusion related to that. Rather, it's really a Zener diode extracting a stable voltage from a greater but noisy input signal. Depending on time, you could just draw and briefly explain how the circuit works as well. 
+    
+    }
+    \ans{
+        First off, we should remember what the behavior of a Zener diode is--that is, given a certain input voltage, it will behave as a fixed voltage source and maintaini a reference voltage independent of the current through it. We just need the input voltage to be greater than our Zener diode's $V_Z$ (or lesser technically, but greater in magnitude if we employ the trick of putting our Zener diode in a reversed configuration like we did in (c)). \\ \\ 
+        We can pattern match to this question and notice that if we need a $5V$ source, we can use a Zener diode with $V_Z = 5V$. We can do this \textit{only because} $V_{in}$ will always be greater than $V_Z$, so the diode will always operate in its "voltage source" configuration (formally called breakdown). Consider the following circuit: 
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0, 0) to[sV=$V_{in} $] ++(0, 3) 
+                to[short] ++(1, 0)
+                to[R=$R_1$] ++(0, -1.5)
+                to[empty ZZener diode=$V_Z$] ++(0, -1.5)
+                to[short] ++(-1, 0)
+                node[ground]{}; 
+                \draw (1, 1.5) to[short] ++(2, 0)node[label={[font=\footnotesize]:$V_{out}$}]{}
+            node[label={[font=\footnotesize]below:$+$}]{};
+            \end{circuitikz}
+        \end{center}
+        The purpose of the resistor $R_1$ is so we don't have the Zener diode connected to $V_{in}$ directly (which would cause a weird contradiction as two unequal voltages are connected parallel to each other). This resistor can be of any arbitary value, but in practice, we'd tune it to meet some current/other specifications. In electrical engineering, such resistors that prevent direct connections to power sources are known as "pull-up resistors" (the term is moreso used in digital electronics, but applies here too). \\ \\ 
+        Now, lets insert this sub-circuitry into our initial non-inverting amplifier to see what things really look like under the hood! 
+
+        \begin{center}
+        \begin{circuitikz}[american]
+            \draw
+                (0,0) node[op amp, yscale=-1] (AMP) {}
+                (bjt.C) ++(-3.5, 0)
+                    to[R=$R_P$] ++(0, -1.5)
+                    to[empty ZZener diode] ++(0, -2) node[ground]{}
+                    ++(0, 2) to[short] ++(1.5, 0)
+                    to[short] (AMP.+)
+                (AMP.-)
+                    to[short] ++(-0.5, 0)
+                    to[short] ++(0, -2)
+                    to[short] ++(4.5, 0) coordinate (midpoint)
+                    to[R=$10k\Omega$] ++(0, -2) node[ground]{}
+                (midpoint)
+                    to[R=$10k\Omega$] ++(0, 2)
+                    to[short] ++(0, 2) coordinate (terminal)
+                    to[short, -o] ++(1, 0) node[right]{$V_{out}$}
+                (1.5,1.3)
+                    node[bjtnpn, collectors=1, emitters=1, rotate=90] (bjt) {Q}
+                (terminal) to[short] (bjt.E)
+                (AMP.out)
+                    to[short] (AMP.out -| bjt.B)
+                    to[short] (bjt.B)
+                (bjt.C)
+                    to[short] ++(-4, 0)
+                    to[sV, l_=$V_{in}$] ++(-1, 0)
+                    to[short] ++(-0.5, 0) node[ground]{}
+                ;
+        \end{circuitikz}
+    \end{center}
+    This is a \textit{true} voltage regulator schematic; given some arbitary $V_{in} $, we can still output a stable, controlled voltage to some load. Moreover, we've removed the apparent dependence on some outside voltage reference, and shown that this stability can be created from the noisy input signal itself using a Zener diode.  
+        
+    
+    }
+
+\end{enumerate}
+
+One final note: When it comes to the circuit theory, this circuit is no different than the op-amp non-inverting amplifier you're used to seeing. What this question hopes to introduce, though, is how one \textit{actually} constructs such a circuit. For example, how to go about making a stable $V_{ref}$ with a Zener diode, and how to counter real-world problems of op-amp current supply deficiencies. A real linear step-down regulator circuit might look as follows:  
+
+\begin{center}
+        \includegraphics[scale=0.5]{../q_power_regulator_figs/voltage regulator.png}
+\end{center}
+Apart from the capacitor (which removes unwanted high-frequency voltage spikes), this circuit should look pretty familiar to what we've made in this question! 
+

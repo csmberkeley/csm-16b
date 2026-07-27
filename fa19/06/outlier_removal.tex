@@ -1,0 +1,413 @@
+\qns{Outlier Removal via OMP} 
+% \qcontributor{Kuan-Yun Lee}
+% \qcontributor{Anant Sahai}
+%new question for fa19
+
+The problem of ``outliers'' (bad data points) is ubiquitous in the
+real world of data. This problem is about how we can leverage the
+techniques we already know to do something about them in a way that
+doesn't require a human to look at points and decide which ones are
+good or bad. 
+
+Suppose we have a system where we believe that vector-inputs $\vec{x}$ lead
+to scalar outputs in a linear way $\vec{p}^\top \vec{x}$. However, the
+parameters $\vec{p}$ are unknown and must be learned from data. Our
+data collection process is imperfect and instead of directly seeing 
+$\vec{p}^\top \vec{x}$, we get observations $y = \vec{p}^\top \vec{x} + w$
+where the $w$ is some kind of disturbance or noise that nature introduces.
+
+To help us learn the weights, we have $n$ data points: input-output
+pairs $(\vec{x}_i, y_i)$ where the index $i = 1, \ldots, n$. However,
+because we believe that our observed outputs might be a bit noisy, we
+only have an approximate system of equations. In particular, if we
+group the data points into a matrix and vector as follows: 
+$$
+X = \begin{bmatrix} \vec{x}_1^\top \\ \vec{x}_2^\top \\ \vdots \\
+  \vec{x}_n^\top 
+\end{bmatrix}
+$$ 
+where clearly $X$ is a matrix that has $d$ columns and $n$ rows. and 
+$$
+\vec{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\  y_n 
+\end{bmatrix}
+$$ 
+is an $n$-vector. Then we can express the approximate system of equations that we want
+to solve as $X \vec{p} \approx \vec{y}$. 
+
+The classic least-squares problem views the goal as minimizing 
+\begin{equation} \label{eqn:outlier-sum}
+  \sum_{i=1}^n (y_i - \vec{x}_i^\top \vec{p})^2
+\end{equation}
+over the choice of $\vec{p}$ and thereby making the residual $\vec{y}
+- X \vec{p}$ have as small a Euclidean norm as possible.  This is a
+reasonable thing to do when we believe that the residuals $y_i -
+\vec{x}_i^\top \vec{p}$ are small, meaning that we believe that the
+disturbance vector $\vec{w} = \begin{bmatrix} w_1 \\ w_2 \\ \vdots \\
+  w_n
+\end{bmatrix}$ is small. 
+
+However, nature (or our observation process) isn't always this well
+behaved. When a small subset of observations don't line up well like
+the other data points, we call these \textit{outliers}. 
+
+An exaggerated example is when we have a set of observations that
+satisfied perfectly $y_i = \sum_{j=1}^d x_{ij}$ with the $|y_i|<1$ for
+all $i\neq c$, but there is one crazy $x_c$ such that
+$y_c = \sum_{j=1}^d x_{cj} + 10^{100}$. Then, as we can see, if we
+were to do a standard least-squares solution that attempts to minimize
+\eqref{eqn:outlier-sum}, this single crazy observation would be enough
+to shift our estimated $\hat{\vec{p}}$ from the ``true''
+$\vec{p}^* = [1,\ldots,1]^\top$ by a reasonably large amount.  Why?
+Because $\hat{\vec{p}} = (X^\top X)^{-1}X^\top \vec{y}$ is a linear function
+of $\vec{y}$ and hence the crazy huge deviation in the $c$-th
+component of $\vec{y}$ is going to cause a huge multiple of the $c$-th
+column of $(X^\top X)^{-1}X^\top$ to be added to the estimate for
+$\vec{p}$. The $c$-th column of $(X^\top X)^{-1}X^\top$ is just
+$(X^\top X)^{-1}\vec{x}_c$ by our definition of the matrix $X$ above. And
+so, from the perspective of being an outlier that corrupts our
+estimate it really doesn't much matter whether the observation fault
+was in the scalar $y_c$ or in the vector $\vec{x}_c$ --- whichever
+side of the approximate equation representing the $c$-th data point is
+messed up, our estimate is going to be pretty badly messed up if we
+just blindly use least-squares.
+
+
+Consequently, it is evident that the least-squares-estimated $\hat{p}$
+is not what we really always want. Is there a way that allows us to reliably
+remove outliers when we know only a small proportion of the data
+points are outliers?  
+
+In this problem, we will demonstrate one of the simplest outlier removal
+methods that leverage the orthogonal matching pursuit (OMP) approach
+you learned in 16A.
+
+\begin{enumerate}
+\qitem Assume for now we have a system of the form 
+$$
+  \vec{y} \approx p \vec{x}.
+$$
+{\bf What would be our estimate of $p$ if we solved this through minimizing Eq. \eqref{eqn:outlier-sum}?} For this whole discussion, let's consider the most simple case where all of our $x_i$'s are $1$.
+
+\sol{
+  In this case, Eq. \eqref{eqn:outlier-sum} can be written as a quadratic function with respect to $p$.
+  $$
+    \sum_{i=1}^n(y_i - px_i)^2 = p^2\cdot \sum_{i=1}^n x_i^2 - 2\sum_{i=1}^n x_i y_i p + \sum_{i=1}^n y_i^2.
+  $$
+  Recall that the quadratic function $ap^2 - bp + c$ when $a>0$ is minimized at $p = \frac{b}{2a}$. Hence, we solve 
+  $$
+    p = \frac{\sum_{i=1}^n x_i y_i}{\sum_{i=1}^n x_i^2}.
+  $$
+  In the case where $\vec{x}$ is all ones, the estimate $a$ is exactly the mean:
+  $$
+    \hat{p} = \frac{\sum_{i=1}^n y_i}{n}.
+  $$
+}
+
+\qitem  Following the above, {\bf what would the estimation $\hat{p}$ be if one of the data points $y_3$ is corrupted by some noise that adds a constant $R$ to the observed value?} i.e., the data point you observe is 
+$$
+  \Tilde{y}_3 = y_3 + R = px_3+R.
+$$
+You may assume that for the remaining data points $x_j$, you observe exactly $px_j$. 
+
+ 
+
+\sol{
+  Then, since $\hat{p}$ is the mean, we see that 
+  $$
+    \hat{p} = p + \frac{R}{n}.
+  $$
+  This implies that when we have a single large outlier, it can be enough to move our estimate of $p$ significantly.
+}
+
+\qitem Following the previous parts, let's try to look at this problem in matrix form. {\bf Write a least-squares expression in terms of vectors $\vec{x}$, $\vec{y}$, and scalar $p$. Then, find the solution $\hat{p}$ to the least-squares problem.}
+
+\sol{
+  We can write the equation as minimizing
+  $$
+    \|\vec{y} - \vec{x}\cdot p\|_2^2.
+  $$
+  Then, recalling the least-squares solution, we have
+  $$
+    \hat{p} = (\vec{x}^\top \vec{x})^{-1} \vec{x}^\top \vec{y} = \frac{\vec{x}^\top \vec{y}}{\|x\|_2^2},
+  $$
+  which is exactly the same solution we derived in part (a). In the case where $\vec{x}$ is all ones, we have
+  $$
+    \hat{p} = \frac{\sum_{i=1}^n y_i}{n},
+  $$
+  again equal to the mean of $y_1,\ldots,y_n$.
+
+}
+
+
+\qitem As we saw in our example, we could improve our solution if we could remove outliers. One way to do this is by augmenting our matrices in the following way. Let $\vec{e}_i$ be the $i$-th standard basis vector. That is,
+$$
+\vec{e}_i = \begin{bmatrix} 
+  0 \\ 
+  0 \\ 
+  \vdots \\
+  1 \\ 
+  \vdots \\ 
+  0 \\ 
+  0
+\end{bmatrix}
+$$
+where the solitary $1$ is in the $i$-row of the vector $\vec{e}_i$. Consider the augmented matrix and vector
+\begin{equation} \label{eqn:augmented}
+  X_{new} = \begin{bmatrix}
+    \vec{x} &
+    \vec{e}_i
+  \end{bmatrix}, \ \ 
+  \vec{y}_{new} = \vec{y}, \ \ 
+  \vec{p}_{new} = \begin{bmatrix} 
+    p \\
+    f_i 
+  \end{bmatrix}.
+\end{equation}
+Apply the standard understanding of least squares to find the solution
+to 
+\begin{equation} \label{eqn:outliers-3}
+  \min_{\vec{p}_{new}} \|\vec{y}_{new} - X_{new} \vec{p}_{new}\|_2^2.
+\end{equation}
+and {\bf write out the formula for the estimate $\widehat{\vec{p}}_{new} = \begin{bmatrix} \widehat{p}
+    \\\widehat{f}_i 
+  \end{bmatrix}.$ How does this differ from the previous part?} 
+
+\sol{
+  By the standard least squares formulation, we have
+  $$
+    \vec{p}_{new} = (X_{new}^\top X_{new})^{-1} X_{new}^\top \vec{y}_{new}.
+  $$
+
+}
+
+\qitem In the previous part, the $2 \times 2$ matrix $X_{new}^\top X_{new}$ played a role. Let's look at this matrix in ``block'' form:
+$$X_{new}^\top X_{new} = \begin{bmatrix}
+    \vec{x} &
+    \vec{e}_i
+  \end{bmatrix}^\top \begin{bmatrix}
+    \vec{x} &
+    \vec{e}_i
+  \end{bmatrix} = \begin{bmatrix}
+    \vec{x}^\top \\
+    \vec{e}_i^\top
+  \end{bmatrix} 
+  \begin{bmatrix}
+    \vec{x} &
+    \vec{e}_i
+  \end{bmatrix} 
+  = \begin{bmatrix}
+    \vec{x}^\top \vec{x} & \vec{x}^\top \vec{e}_i \\
+    \vec{e}_i^\top \vec{x} & \vec{e}_i^\top \vec{e}_i
+  \end{bmatrix}
+$$
+{\bf What are  $\vec{x}^\top \vec{e}_i,     \vec{e}_i^\top \vec{x},  \vec{e}_i^\top
+  \vec{e}_i$?} 
+
+Simplify these as much as possible in terms of the individual data
+points $\vec{x}_i$, etc.
+
+
+\sol{
+  We have 
+  $$
+    \vec{x}^\top \vec{e}_i = x_i,
+  $$
+  $$
+    \vec{e}_i^\top \vec{x} = x_i,
+  $$
+  $$
+    \vec{e}_i^\top \vec{e}_i = 1.
+  $$
+
+}
+
+
+\qitem Based on what you know from the previous part, revisit the
+formula you got in the part before that and {\bf prove that the value for
+$y_i$ only impacts the estimate $\widehat{f}_i$ and does not effect the
+least-squares estimate for $\widehat{\vec{p}}$ at all.}
+
+
+\sol{
+  Note that
+  \begin{equation} \label{eqn:p-new}
+    \begin{split}
+      \vec{p}_{new} &= (X_{new}^\top X_{new})^{-1} X_{new}^\top \vec{y}_{new} \\ 
+      &= \frac{1}{n-1}  
+      \begin{bmatrix}
+        1 & -1 \\
+        -1 & n
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        1 & 1 & \ldots 1 & 1 & 1 & \ldots 1 \\
+        0 & 0 & \ldots 0 & 1 & 0 & \ldots 0
+      \end{bmatrix} \cdot 
+      \begin{bmatrix}
+        y_1 \\
+        \ldots \\
+        y_i \\
+        \ldots \\
+        y_n
+      \end{bmatrix} \\
+      &= \frac{1}{n-1}  
+      \begin{bmatrix}
+        1 & -1 \\
+        -1 & n
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        1 \\
+        1 
+      \end{bmatrix} \cdot 
+      y_i  + \frac{1}{n-1}  
+      \begin{bmatrix}
+        1 & -1 \\
+        -1 & n
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        1 & 1 & \ldots 1 & 1 & \ldots 1 \\
+        0 & 0 & \ldots 0 & 0 & \ldots 0
+      \end{bmatrix} \cdot 
+      \begin{bmatrix}
+        y_1 \\
+        \ldots \\
+        y_{i-1} \\
+        y_{i+1} \\
+        \ldots \\
+        y_n
+      \end{bmatrix} \\
+      &=   
+      \begin{bmatrix}
+        0 \\
+        1
+      \end{bmatrix} \cdot 
+      y_i  + \frac{1}{n-1}  
+      \begin{bmatrix}
+        1 & -1 \\
+        -1 & n
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        1 & 1 & \ldots 1 & 1 & \ldots 1 \\
+        0 & 0 & \ldots 0 & 0 & \ldots 0
+      \end{bmatrix} \cdot 
+      \begin{bmatrix}
+        y_1 \\
+        \ldots \\
+        y_{i-1} \\
+        y_{i+1} \\
+        \ldots \\
+        y_n
+      \end{bmatrix} \\
+    \end{split}
+  \end{equation}
+  From this we see that the affect of $y_i$ will only be on $f_i$.
+  
+  In general, for any vector $\vec{v}$, we have
+  \begin{equation}
+    \begin{split}
+      \vec{p}_{new} &= (X_{new}^\top X_{new})^{-1} X_{new}^\top \vec{y}_{new} \\ 
+      &= \frac{1}{\vec{x}^\top \vec{x}-x_i^2}  
+      \begin{bmatrix}
+        1 & -x_i \\
+        -x_i & \vec{x}^\top \vec{x}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \vec{x}^\top \\
+        \vec{e}_i^\top
+      \end{bmatrix} \cdot \vec{y} \\
+      &= \frac{1}{\vec{x}^\top \vec{x}-x_i^2}  
+      \begin{bmatrix}
+        1 & -x_i \\
+        -x_i & \vec{x}^\top \vec{x}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \vec{x}^\top \vec{y} \\
+        \vec{e}_i^\top \vec{y}
+      \end{bmatrix} \\
+      &= \frac{1}{\vec{x}^\top \vec{x}-x_i^2}  
+      \cdot
+      \begin{bmatrix}
+        \vec{x}^\top \vec{y} - x_i y_i \\
+        -x_i \vec{x}^\top \vec{y} + \vec{x}^\top \vec{x}y_i
+      \end{bmatrix} \\
+    \end{split}
+  \end{equation}
+  Observing closely, you will see that
+  $$
+    \vec{x}^\top \vec{y} - x_i y_i = \sum_{j\neq i} x_j y_j.
+  $$
+  By our definition of $\vec{p}_{new}$, it follows that the value for $y_i$ only impacts the estimate $\widehat{f}_i$ and does not effect the least-squares estimate for $\widehat{\vec{p}}$ at all.
+  
+}
+
+\qitem {\bf Argue that with the augmented variables defined in Eq. \eqref{eqn:augmented}, the least-squares solution is equivalent to solving least-squares while ignoring the $i$-th set of data.
+}
+
+
+
+\sol{
+  By Eq. \eqref{eqn:p-new}, we see that
+  $$
+    \hat{p} = \frac{1}{n-1} \cdot \sum_{i\neq i} y_i.
+  $$
+  In other words, our estimation of $p$ is the mean of all of $y_1,\ldots,y_n$ excluding $y_i$! By our discussion in part 1., we see that getting this estimation is equivalent to least-squares while ignoring $x_i$ and $y_i$.
+}
+
+\qitem Consider the following algorithm where we maintain a set of selected features $A_{sel}$. We use the fully augmented feature matrix 
+$$
+  X = \begin{bmatrix}
+    \vec{x} & I
+  \end{bmatrix}
+$$
+and try to solve for $p_{new}: = \begin{bmatrix}  p & f_1 &\ldots & f_n  \end{bmatrix}^\top$. 
+\begin{itemize}
+  \item Initialize residual $r = y$. \\
+  \item Find $j:= \arg\max X_i^\top r$, and add the $j$-th column $X_j$ to $A_{sel}$. In other words, $A_{sel} \leftarrow \begin{bmatrix}
+    A_{sel} & X_j
+  \end{bmatrix}.$\\
+  \item Calculate new residue $r \leftarrow r - A_{sel}(A_{sel}^\top A_{sel})^{-1} A_{sel}^\top r$. 
+  \item Repeat the above two procedures until we stop.
+\end{itemize}
+After we run this algorithm, we set $\hat{p} = \hat{p}_{new}[1]$ to be our estimate of $p$. \textbf{Discuss how the algorithm works. Does it make sense to run the algorithm until all features in $X$ are selected?}
+
+\sol{
+  The algorithm works by removing the column in $X$ that has largest residue. Once it removes this column, it computes a new residue. This residue is always orthogonal to the column removed, and hence theoretically removed columns will not be removed again, and we can gradually remove more columns as the algorithm iterates.
+
+  It doesn't make sense to have the algorithm run until the end. The reason is that once we choose the whole identity matrix, our solution would be equivalent to solving least squares while ignoring all of our data. This would lead to a solution that has no dependency on our data.
+
+}
+
+
+%For our least squares problem, the error of our estimation can be evaluated by looking at
+%\begin{equation} \label{eqn:error}
+%  \|\vec{y} - \vec{x} \hat{p}\|_2^2,
+%\end{equation}
+%where $\hat{p}$ is the solution to the least squares procedure.
+
+%Now consider an algorithm that does the following procedure iteratively.
+
+%\begin{itemize}
+%  \item At time $t$, for each $i = 1,\ldots, n$, do the above augmentation with $\vec{e}_i$, and get let $E_i$ be the associated error defined in Eq. \eqref{eqn:error}
+%  \item Find the smallest error $E_j$ out of $E_1,\ldots, E_n$. Augment $\vec{x}$ with $\vec{e}_j$ and augment $\vec{p}$ with $f_j$.
+%  \item Repeat the above process until we decide to stop.
+%\end{itemize}
+%As we can see, this process greedily chooses the best canonical basis to augment with. Effectively, this is the Orthogonal Matching Pursuit (OMP) method, which chooses the best basis based on the largest ``residual'' reduced. In this case, the ``residual'' refers to the amount of error reduced by ignoring the $j$-th data point.
+
+%{\bf
+%  Does it make sense to run the algorithm to the point where all canonical bases $e_1,\ldots,e_n$ are augmented?
+%}
+
+%\sol{
+%  No it doesn't, since this means the end result does not depend on the data points.
+
+%}
+
+\qitem
+  The above part implies that for our algorithm to work we would need to set a stopping condition. Intuitively this makes sense---after you remove the outliers, you end up just removing your naturally occurring extremes in your data. {\bf What kinds of stopping conditions might be suitable for this problem?} This is an open problem and doesn't have a fixed solution. 
+
+\sol{
+  Some possible ways to set stopping conditions include running up to a fixed number of iterations, comparing the losses between iterations and setting thresholds, etc.
+}
+  
+
+
+\end{enumerate}

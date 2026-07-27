@@ -1,0 +1,67 @@
+% Author: Mira Bali
+% Author email: mirabali@berkeley.edu
+% CSM Spring 2023
+% Voltage Dividers' Conceptual Understanding
+% Circuit adapted from q_voltage_div.tex
+
+\qns {Voltage Divider Proof} \\
+
+\meta {
+The goal of this question is to allow students to have a \emph{better understanding of voltage dividers and why the formula for calculating the voltage across the second resistor is what it is}. In the process of doing so, they also get a better understanding of KCL, KVL, Ohm's Law, and basic NVA.
+} \\
+
+Take a look at the regular voltage divider circuit below. Solve for $V_R__2$ without using the Voltage Divider Formula (Hint: Think KCL!)
+
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,0)
+	to[V_=$V_s$, invert] ++(0,5.4)
+ 	to[short] ++(3,0)
+	to[short] ++(0,-1)
+	to[R,l=$R_1$] ++(0, -1.2)
+	to[short] ++(0,-1)
+	to[R,l=$R_2$] ++(0,-1.2)
+	to[short] ++(0,-1)
+	to[short] node[]{} ++(-3,0);
+    \end{circuitikz}
+\end{center}
+
+(a) Label all the nodes, voltages, and currents across each element. Remember to follow passive sign convention. 
+
+\ans{One possible labelling:
+
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,0) 
+        to[V_=$V_s$,invert, i=$I_s$] ++(0,8)
+ 	to[short, l=$U_1$] ++(3,0)
+	to[short] ++(0,-1)
+	to[R,l_=$R_1$, v^=$V_{R_1}$] ++(0,-2)
+	to[short, l_=$U_2$, i=$I_{R_1}$] ++(0,-2)
+	to[R,l_=$R_2$, v^=$V_{R_2}$] ++(0,-2)
+	to[short, i=$I_{R_2}$] ++(0,-1)
+	to[short] node[ground]{} ++(-
+ 3,0);
+    \end{circuitikz}
+\end{center}
+
+NOTE: There may be other correct labellings of the circuit, which could have led their current arrows to be drawn in a different direction. That is okay. As long as it follows passive sign convention, any labelling should be fine. However, we will be using the above labelling of the circuit for the answer to this question in every step.} \\
+
+(b) Do KCL on the node between $R_1$ and $R_2$.
+
+\meta{We practice basic KCL here.}
+
+\ans{If we call this node $U_2$, then we can see that by running KCL on $U_2$, we get one equation.\\$I_R__1$ = $I_R__2$. This is because the current leaving $U_1$ equals the current going into $U_2$. \emph{Note: Depending on their labelling of the graph, this may look different.}}\\
+
+(c) Use NVA and part (b) to generate an equation that links $V_s$ and $V_R__2$ (same as $U_2$).
+
+\meta{We practice NVA and Ohm's law here.}
+
+\ans{We only have two nodes:\\ Following part (b), we can write $I_R__1$ = $I_R__2$ as $\frac{V_R__1}{R_1}$ = $\frac{V_R__2}{ R_2}$ using Ohm's Law. Then, we want to replace $V_R__1$ with a form of $V_s$ as we eventually want an equation between $V_R__2$ and $V_s$. We can rewrite $V_R__1$ as $V_s$ - $U_2$, which is the same as $V_s$ - $V_R__2$. Then, we are left with this equation:\\
+$\frac{V_R__2}{R_1}$ = $\frac{V_s - V_R__2}{R_2}$ }\\
+
+(d) Solve for $V_R__2$ in your answer from part (c) (Hint: You should get $V_R__2$ = $V_s$ * (($R_2$) / ($R_1$ + $R_2$) ).
+
+\meta{Putting everything together and hopefully getting a better understanding of voltage dividers! Also, make sure to tell students that they can just use this formula directly on the exams. They do not need to prove this unless explicitly stated on a problem.}
+
+\ans{We have already done most of the solving in part (c). We just need to simplify using algebra and arithmetic. Once we solve for $V_R__2$ in our final equation for part (c), we get $V_R__2$ = $V_s$ * $\frac{R_2}{R_1 + R_2}$. And we are done. We have just proved the voltage divider formula!}

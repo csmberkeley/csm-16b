@@ -1,0 +1,296 @@
+% Author: Christopher Duroiu
+% Email: chduroiu@berkeley.edu
+% CSM16A Spring 2024
+\qns{Column Space}
+
+\textbf{Learning Goal: }
+\begin{bindenum}
+    \item Learn how to express vectors are linear cominations of matrices
+    \item Gain intuition about the process of forming a basis for column space
+    \item Train students to get an "eye" for redundant column vectors ie. multiples/linear combinations
+\end{bindenum}
+
+For some particular vector to be in the column space of some matrix $M$, then there must be some linear combination of M’s columns that can produce that vector. Here is an example for M, a 2x2 matrix
+\\
+\\
+If
+$\bar{v}_{i} \in Col(A)$
+Then there exists exists $\alpha, \beta$ such that
+
+\[
+M
+\begin{bmatrix}
+    \alpha \\
+    \beta \\
+\end{bmatrix}
+= \bar{v}_{i}
+\]
+For each of the following vectors, find a linear combination of the Matrix's columns that can be used to construct the same vector.
+
+\begin{enumerate}
+    \item {
+        \[
+        \begin{bmatrix}
+            3 & -1 \\
+            1 & -2 \\
+        \end{bmatrix}
+        , \bar{v} = 
+        \begin{bmatrix}
+            -5 \\
+            -5 \\
+        \end{bmatrix}
+        \]
+    }
+    \meta{
+        This is a simple 2x2 case to help students gain the fundamentals of expressing linear combinations
+
+    }
+    \ans{
+    We notice that our vector contains negative components, so we probably want to start by taking a negative multiple of our first vector, giving us
+    \[
+    \begin{bmatrix}
+        -3 \\
+        -1 \\
+    \end{bmatrix}
+    = \bar{v}_{i}
+    \]
+    We can then notice that this vector is off from our final vector by exactly our second column vector, which is
+    \[
+    \begin{bmatrix}
+        -1 \\
+        -2 \\
+    \end{bmatrix}
+    = \bar{v}_{i}
+    \]
+    Altogether, this gives us
+    \[
+    -1 * 
+    \begin{bmatrix}
+        3 \\
+        1 \\
+    \end{bmatrix}
+    + 1 *
+    \begin{bmatrix}
+        -1 \\
+        -2 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        -5 \\
+        -5 \\
+    \end{bmatrix}
+    \]    
+    }
+
+    \item {
+        \[
+        \begin{bmatrix}
+            2 & 4 & 0 \\
+            1 & 0 & 1 \\
+            -3 & 1 & -1 \\
+        \end{bmatrix}
+        , \bar{v} = 
+        \begin{bmatrix}
+            0 \\
+            -1 \\
+            6 \\
+        \end{bmatrix}
+        \]
+    }
+    \meta{
+        This is a more complicated case of linear combination for a 3x3 matrix, but maintains the same general concept
+
+    }
+    \ans{
+        We start by noticing the first entry in our final vector is zero, meaning we want to take multiples in a way such that the original 2 and 4 entry in our matrix cancels, leading us to
+        \[
+        -2 * 
+        \begin{bmatrix}
+            2 \\
+            1 \\
+            -3 \\
+        \end{bmatrix}
+        + 1 *
+        \begin{bmatrix}
+            4 \\
+            0 \\
+            1 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            0 \\
+            -2 \\
+            7 \\
+        \end{bmatrix}
+        \]
+        We then notice that this vector is exactly off from our final vector by the third column vector, we can just add this
+        Altogether, 
+        \[
+        -2 * 
+        \begin{bmatrix}
+            2 \\
+            1 \\
+            -3 \\
+        \end{bmatrix}
+        + 1 *
+        \begin{bmatrix}
+            4 \\
+            0 \\
+            1 \\
+        \end{bmatrix}
+        + 1*
+        \begin{bmatrix}
+            0 \\
+            1 \\
+            -1 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            0 \\
+            -1 \\
+            6 \\
+        \end{bmatrix}
+        \]
+    }
+    
+    \item{
+        Now, Find a basis for the column space of each of the following matrices
+
+    }
+    \item{
+        \[
+        A=
+        \begin{bmatrix}
+            2 & -1 \\
+            3 & -1.5 \\
+        \end{bmatrix}
+        \]
+
+    }
+    \meta{
+        This is simple column space question for a 2x2 matrix, meant to introduce the concept of redundant column vectors
+
+    }
+    \ans{
+        We can quickly notice that the second column vector is just a scaled version of the first column vector, specifically by a factor of -0.5. Since this second vector is redundant, our basis for A should just include the first vector ie:
+        \[
+        Col(A) =
+        \begin{bmatrix}
+            2 \\
+            3 \\
+        \end{bmatrix}
+        \]
+
+    }
+    \item {
+        \[
+        B = 
+        \begin{bmatrix}
+            2 & -4 & 0 \\
+            1 & -2 & 1 \\
+        \end{bmatrix}
+        \]
+    }
+    \meta{
+        This is a more complicated column space question, meant to demonstrate how column spaces can be found for non-square matrices
+
+    }
+    \ans{
+        Again, we notice that the second column vector is a scaled version of the first column vector, specifically by a factor of -2. Therefore, the second column vector is redundant to the column space. The third vector is independent from the first column vector, so it should be included.
+        \[
+        Col(B) = Span(
+        \begin{bmatrix}
+            2 \\
+            1 \\
+        \end{bmatrix}
+        ,
+        \begin{bmatrix}
+            0 \\
+            1 \\
+        \end{bmatrix}
+        ) = \mathbb{R}^2
+        \]
+    }
+
+    \item {
+        \[
+        C = 
+        \begin{bmatrix}
+            2 & -1 & 4 \\
+            1 & -3 & 3 \\
+            4 & 5 & 3 \\
+        \end{bmatrix}
+        \]
+    }
+    \meta{
+        This question introduces the shorthand notation for column space, $R^N$, for linearly independent matrices
+
+    }
+    \ans{
+        None of the vectors appear to be multiples of each other at first glance. Additionally, none of the three column vectors can be expressed as a linear combination of the other two column vectors, thus these three vectors together form a basis for ${R}^3$
+        \\
+        \\
+        We can therefore write \\
+        \[
+        Col(C) = Span(
+        \begin{bmatrix}
+            2 \\
+            1 \\
+            4 \\
+        \end{bmatrix}
+        ,
+        \begin{bmatrix}
+            -1 \\
+            -3 \\
+            -5 \\
+        \end{bmatrix}
+        ,
+        \begin{bmatrix}
+            4 \\
+            3 \\
+            3 \\
+        \end{bmatrix}
+        ) = \mathbb{R}^3
+        \]
+
+    }
+    \item {
+        \[
+        D = 
+        \begin{bmatrix}
+            2 & -1 & 4 \\
+            1 & -1 & 2 \\
+            4 & 3 & 8 \\
+        \end{bmatrix}
+        \]
+    
+    }
+    \meta{
+        This question is a more complicated column space question, again demonstrating redundant column vectors
+
+    }
+    \ans{
+        We start by checking if any of the column vectors are multiples of any other column vectors. We immediately notice that the third column vector is equal to the first column vector scaled by a factor of 2. This means the third column vector is redundant and should not be included in the basis.
+        \\
+        \\
+        The second vector however cannot be expressed as a multiple of the first column vector, so it should be included in the column space expression.
+        \\
+        \\
+        We can write
+        \[
+        Col(D) = Span(
+        \begin{bmatrix}
+            2 \\
+            1 \\
+            4 \\
+        \end{bmatrix}
+        ,
+        \begin{bmatrix}
+            -1 \\
+            -1 \\
+            4 \\
+        \end{bmatrix}
+        )
+        \]
+    }
+\end{enumerate}

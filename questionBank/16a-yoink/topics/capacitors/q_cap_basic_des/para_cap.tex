@@ -1,0 +1,18 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+
+\begin{circuitikz}[american]
+    \draw
+        (-1.5, 0) node[ground]{}
+        to [V, l^=$5V$, invert] (0, 0)
+        to [C, l^=$1mF$] (1, 0)
+        to [short] (1, 1)
+        to [C, l^=$1mF$] (2, 1)
+        to [short] (2, 0)
+        to [short] (3, 0) node[ground]{}
+        (1, 0)
+        to [short] (1, -1)
+        to [C, l^=$1mF$] (2, -1)
+        to [short] (2, 0);
+\end{circuitikz}

@@ -1,0 +1,114 @@
+% Thomas Rembert -- trembert@berekeley.edu
+% Fall 2017 MT2 problem
+
+\qns{Wire we doing this... }
+\textbf{Learning Goal:} 
+
+A common structure used in the field of nanotechnology research is something called a core-shell nanowire. This consists of a physical structure that has a core made of one material and a shell made of another, where current flows through both parts. Note that the following figures are not drawn to scale.
+
+\begin{enumerate}
+
+\item
+A copper (Cu) structure with a square cross-section is shown below. Given the material parameters, calculate the resistance $R_{\mathrm{Cu}}$ of the structure between $E_1$ and $E_2$.
+
+\begin{center}
+\includegraphics[scale = 0.6]{../q_resistor_model_figs/fig1.png}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+ $\rho_{\mathrm{Cu}}$ & $\SI{1e-8}{\ohm\meter}$ \\ 
+ \hline
+ $s_{\mathrm{Cu}}$ & $\SI{5}{\nano\meter}$ \\ 
+ \hline
+ $l$ & $\SI{75}{\nano\meter}$ \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\ans{
+
+Using the formula for resistance $R$, we can find the resistance of the Cu structure given the resistivity and the dimensions:
+\[R = \rho \frac{l}{A} \implies R_{\mathrm{Cu}} = \rho_{\mathrm{Cu}} \frac{l}{s_{\mathrm{Cu}}^2} = \SI{1e-8}{\ohm\meter} \cdot \frac{\SI{75e-9}{\meter}}{\left(\SI{5e-9}{\meter}\right)^2} = \SI{30}{\ohm}\]
+
+}
+
+
+
+\item
+A gold (Au) structure in the shape of a shell is shown below. Given the material parameters, calculate the resistance $R_{\mathrm{Au}}$ of the Au structure between $E_1$ and $E_2$.
+
+\begin{center}
+\includegraphics[scale = 0.6]{../q_resistor_model_figs/fig2.png}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+ $\rho_{\mathrm{Au}}$ & $\SI{2e-8}{\ohm\meter}$ \\ 
+ \hline
+ $s_{\mathrm{Au}}$ & $\SI{10}{\nano\meter}$ \\ 
+ \hline
+ $l$ & $\SI{75}{\nano\meter}$ \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\ans{
+
+Using the formula for resistance $R$, we can find the resistance of the Au structure given the resistivity and the dimensions. However, in this case, the area of the Au structure is not just a square but rather the area of the Cu square subtracted from the area of the Au square (the area of a shell).
+
+\[R = \rho \frac{l}{A}\]
+\[R_{\mathrm{Au}} = \rho_{\mathrm{Au}} \frac{l}{s_{\mathrm{Au}}^2 - s_{\mathrm{Cu}}^2} = \SI{2e-8}{\ohm\meter} \cdot \frac{\SI{75e-9}{\meter}}{\left(\SI{10e-9}{\meter}\right)^2 - \left(\SI{5e-9}{\meter}\right)^2} = \SI{20}{\ohm}\]
+
+}
+
+
+
+\item\label{q:resistor:model} 
+Now the two structures are combined together, such that they make one structure, with the outside shell made of Au and the inside made of Cu. This is called a core-shell nanowire. Assuming that you are contacting the full ends of the nanowire (i.e., $E_1$ and $E_2$ are both connected with ideal wires to the faces of the Cu and Au structure), model the nanowire as a set of resistors, using $R_{\mathrm{Au}}$ for the resistance of the Au layer and $R_{\mathrm{Cu}}$ for the resistance of the Cu layer.
+
+\begin{center}
+\includegraphics[scale = 0.5]{../q_resistor_model_figs/fig3.png}
+\end{center}
+
+\ans{
+
+Given that we are contacting the full area and that current is flowing from end to end, each end can be treated as a node since each end will have the Au and Cu at the same potential. This means that we can model the core-shell nanowire as a set of parallel resistors.
+
+%\begin{center}
+%\includegraphics[scale = 0.3]{../q_resistor_model_figs/resistorcircuit.png}
+%\end{center}
+
+\begin{center}
+\begin{circuitikz}
+\draw (0, 0) to [short, o-] ++ (0, -1)
+	to [short] ++ (-1, 0)
+	to [R, l_=$R_{\mathrm{Au}}$] ++ (0, -3)
+	to [short] ++ (1, 0)
+	to [short, -o] ++ (0, -1);
+\draw (0, -1) to [short] ++ (1, 0)
+	to [R, l=$R_{\mathrm{Cu}}$] ++ (0, -3)
+	to [short] ++ (-1, 0);
+\end{circuitikz}
+\end{center}
+
+\vspace{-2in}
+
+}
+
+\vspace{2in}
+
+\item
+Based on your model from part~\ref{q:resistor:model}, find the equivalent resistance $R_{\mathrm{wire}}$ between $E_1$ and $E_2$.
+
+\ans{
+
+Because the two structures are in parallel, the total resistance $R_{\mathrm{wire}}$ is:
+\[R_{\mathrm{wire}} = R_{\mathrm{Au}} \parallel R_{\mathrm{Cu}} = \frac{\SI{20}{\ohm} \cdot \SI{30}{\ohm}}{\SI{20}{\ohm} + \SI{30}{\ohm}} = \frac{\SI{600}{\ohm\squared}}{\SI{50}{\ohm}} = \SI{12}{\ohm}\]
+
+}
+
+
+\end{enumerate}

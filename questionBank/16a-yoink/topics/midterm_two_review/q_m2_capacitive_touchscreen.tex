@@ -1,0 +1,138 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Capacitive Touchscreens}
+
+You have graduated from UC Berkeley to become an engineer for the International Fleet and are tasked with improving the firing system of their spaceships for the battle against Formics (not Stanford this time, surprisingly).\\
+These ships, which will be commanded by Ender, were built with the ability to fire a special attack known as the Molecular Disruption Device (MDD). However, there is a problem: the capacitive touchscreens on the ships heat up with every use of the MDD, and as the touchscreen heats up, the properties of the faulty dielectric material change. Without the touchscreen, the pilots of Ender’s fleet won’t be able to fire at enemy ships!\\
+The touchscreen configuration is shown below, where $Bar1$ and $Bar2$ are two conductors with terminals $E_1$ and $E_2$ respectively. The faulty dielectric material, between $Bar1$ and $Bar2$, is represented by the darkly shaded rectangle in the Figures 6.1 and 6.2.
+\begin{center}
+    \makebox[\linewidth]{
+        \includegraphics{../q_m2_capacitive_touchscreen_figs/prompt.PNG}
+    }
+\end{center}
+Your job is to model this problem as a circuit configuration, where you’re measuring the voltage across points $E_1$ and $E_2$. Then you can figure out what the limiting factors are and try to improve the ships of Ender’s fleet.
+\newpage
+
+\begin{enumerate}
+    \item\label{model_no_touch}{
+        Model the above configuration as a system of capacitors, for when there is no touch as shown in Figure 6.1a. Draw your circuit between the terminals $E_1$ and $E_2$ below. You can draw a maximum of 3 capacitors to model this system.
+        
+    }
+    \meta{
+        This question comes from Q6(a) of Fall 2018's Midterm 2.
+        
+    }
+    \ans{
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_capacitive_touchscreen_figs/model_no_touch.PNG}
+            }
+        \end{center}
+        
+    }
+    
+    \item\label{model_with_touch}{
+        Model the configuration shown in Figure 6.1b, with the gap between the bars, as a system of capacitors, for when there is a touch. Draw your circuit between the terminals $E_1$ and $E_2$ below. You can draw a maximum of 3 capacitors to model this system.
+        
+    }
+    
+    \meta{
+        This question comes from Q6(b) of Fall 2018's Midterm 2.
+        
+    }
+    \ans{
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_capacitive_touchscreen_figs/model_with_touch.PNG}
+            }
+        \end{center}
+        
+    }
+    
+    \item\label{touchscreen_capacitance}{
+        You ask the pilots to run some experiments and find out that the dielectric material between $Bar1$ and $Bar2$ has a permittivity $\epsilon$ that starts at $12 F/mm$ and increases by $1 F/mm$ instantly every time the screen is touched.\\
+        Using the variables $d$, $d_1$, $d_2$, and $A$, write the capacitance of the capacitor between $Bar1$ and $Bar2$ as a function of $n$, where $n$ is the number of touches that have already happened (there is no touch now).
+        
+    }
+    \meta{
+        This question comes from Q6(c) of Fall 2018's Midterm 2.
+        
+    }
+    \ans{
+        The capacitance of a capacitor can be calculated as $C = \frac{\epsilon A}{d}$, and in the context of this prompt, the permittivity of space (represented as $\epsilon$) of the capacitor follows the function:
+        \[\epsilon(n) = (12 + n) F/mm\]
+        with $n$ representing the number of touches as prompt demands. This model follows the prompt statement that the permittivity "starts at $12 F/mm$ and increases by $1 F/mm$ instantly every time the screen is touched".\\
+        Therefore, we may conclude:
+        \[C = \frac{\epsilon(n) A}{d} = (12 + n)\frac{A}{d}\]
+        
+    }
+    
+    \item\label{touchscreen_design}{
+        For the rest of this problem, use the circuit below to model the capacitive touchscreen. You are now given that $C_{F-E_1}=8F$, $C_{F-E_{2L}}=4F$, and $C_{F-E_{2R}}=4F$, $d = 2mm$, $d_1 = 3mm$, $d_2 = 7mm$, and $A = 4{mm}^2$.\\
+        Complete the following demands:
+        \begin{enumerate}
+            \item Calculate the equivalent capacitance of the circuit between terminals $E_1$ and $E_2$ at the following times:
+            \begin{enumerate}
+                \item During the $n^{th}$ touch (assume that the permittivity of faulty dielectric changes instantly as the finger touches the screen.)
+                \item After the $n^{th}$ touch (when the finger is not touching anymore.)
+            \end{enumerate}
+            \item The display cannot detect the touch if the difference between the touch and no-touch capacitances is smaller than $10\%$ of the no-touch capacitance.\\
+            Determine the number of times the pilot can fire before the display cannot detect the touch anymore.
+        \end{enumerate}
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.8]{../q_m2_capacitive_touchscreen_figs/touchscreen_design.PNG}
+            }
+        \end{center}
+    }
+    \meta{
+        This question comes from Q6(d) of Fall 2018's Midterm 2. 
+        \begin{bindenum}
+            \item Pay attention to the circuit's configuration: the touch will be sensed by the touchscreen and thus use the more complex model
+            \item Meanwhile, after a touch there is no touch, so the touchscreen model is reduced to one single capacitor.
+        \end{bindenum}
+        
+    }
+    \ans{
+        \textbf{Part i}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            The circuit at the bottom of this prompt shows us the model of capacitive touchscreen during touch. \\
+            Following that model:
+            \begin{align*}
+                C_{during}
+                &= C_{no\ touch} + (C_{F-E_1} \parallel (C_{F-E_2L} + C_{F-E_2R})) \\
+                &= \Big(\frac{A}{d}(12 + n) + (8 \parallel (4+4))\Big) Farat \\
+                &= \Big(\frac{4}{2}(12 + n) + (8 \parallel 8)\Big) Farat \\
+                &= (28+2n) Farat
+            \end{align*}
+            And after the touch, the touch ends (again, it sounds literal, but it brings out the important point that is) the model senses no touch. \\
+            Following that insight:
+            \begin{align*}
+                C_{after}
+                &= C_{no\ touch}\\
+                &= \Big(\frac{A}{d}(12 + n)\Big) Farat \\
+                &= (24+2n) Farat
+            \end{align*}
+        \end{minipage}
+        
+        \textbf{Part ii}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            According to the prompt, at the minimum integer value of n such that $C_{during} - C_{after} < 0.1 C_{after}$, the system will collapse. \\
+            Using the results from part (i), we may translate the inequality into numerical terms:
+            \begin{align*}
+                (28 + 2n) - (24 + 2n) &< 0.1(24 + 2n) \\
+                4 &< 2.4 + 0.2n \\
+                1.6 &< 0.2n \\
+                8 &< n
+            \end{align*}
+            The smallest possible value for n is 9, which is the exact number of operation that the system starts collapsing. \\
+            Therefore, we can only fire a total of 8 times.
+        \end{minipage}
+        
+    }
+\end{enumerate}

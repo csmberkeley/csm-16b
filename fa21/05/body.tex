@@ -1,0 +1,40 @@
+\begin{document}
+
+\def\title{Worksheet 5}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+\input{\bank/discretization/mechanical_discretization.tex}
+\newpage
+\input{\bank/observability/system_id.tex}
+\newpage
+\input{\bank/stability/aperture_stability.tex}
+\newpage
+\input{\bank/stability/graph_stability.tex}
+\newpage
+\input{\bank/stability/system_feedback.tex}
+\newpage
+% \input{\bank/controllability/system_control.tex}
+% \newpage
+% \input{\bank/stability/system_stability.tex}
+% \newpage
+% \input{\bank/stability/discrete_time_feedback.tex}
+% \newpage
+% \input{\bank/stability/eigenvalue_placement.tex}
+% \newpage
+
+
+\end{qunlist}
+
+\end{document}

@@ -1,0 +1,204 @@
+% Author: Son Tran
+% Email: sontran@berkeley.edu
+
+\qns{Transfer Functions and Filters}
+
+One very common use for AC circuits is as a \emph{filter}.
+A \emph{filter} is a circuit device that blocks a range of specific frequencies.
+
+In 16A, we discussed the input-output relationship through a term called gain, 
+\begin{equation}
+G = \frac{V_{out}(t)}{V_{in}(t)}
+\end{equation}
+
+We will now introduce a similar notion of gain, for frequency called a transfer function.
+The transfer function of a circuit is defined as
+
+\begin{equation}
+H(j \omega) = \frac{\widetilde{V}_{out}}{\widetilde{V}_{in}}
+\end{equation}
+
+The transfer function depends on the frequency of the input voltage, and will be a complex number for a given frequency. 
+
+When looking at filters, we will define a transfer function that explains the input-output relation for any given frequency and analyze its behavior. 
+For the purposes of this question, we will consider various filter configurations, and study their behavior.
+
+
+% Normally a voltage can be seen as a sum of multiple sinusoids with different frequencies. 
+% Using the idea of superposition in 16A, we can analyze circuits by considering each sinusoid independently, analyzing the effect of the filter for each specific frequency, and then adding up the results.
+
+% For example, a sinusoidal voltage with frequency $\omega$ will be
+% \[
+%   v(t, \omega) = \widetilde{V}e^{j \omega t} + \overline{\widetilde{V}}e^{-j \omega t}
+% .\]
+
+% Now, if we supply an input signal that is the superposition or a \textit{linear combination} of multiple sinusoids, it'll be
+% \[
+%   v_{in}(t) = \sum_i \alpha_i v(t, \omega_i)
+% .\]
+
+% to a circuit with transfer function $H(j \omega)$, the output voltage will be
+% \[
+%   v_{out}(t) = \sum_i \alpha_i H(j \omega_i) v(t, \omega_i)
+% .\]
+
+% \vspace{0.2 cm} 
+
+% The practical consequence of the above assertion is that we can treat the superposition of signals of two different frequencies as if the two signals were separate.
+% For instance, if we supplied an AC circuit acting as a low-pass filter with the superposition of a 60 Hz signal and a 100 Hz noise signal, the high-frequency noise would be attenuated independently of the low-frequency signal. 
+
+% \vspace{0.2 cm}
+
+
+\begin{enumerate}
+% Part(a)
+\qitem Given the following filter
+
+\input{\bank/filters/filter_transfer/fig_low_pass}
+
+\begin{enumerate}
+  \item \textbf{Write out the transfer function $H(j\omega)$.}
+  \item \textbf{For values of $\omega$ approaching $0$, find $\abs{H(j\omega)}$.}
+  \item \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j\omega)}$.}
+\end{enumerate}
+
+% Solution for part (a)
+\sol{
+
+\begin{enumerate}
+
+  \item The circuit can be simplified as:
+
+    \input{\bank/filters/filter_transfer/fig_simplified_low_pass}
+
+    We recognize the circuit is a voltage divider.
+    Let $\widetilde{V}_{out}$ and $\widetilde{V}_{in}$ be voltage phasors.
+    Using the voltage divider equation with impedance, we have
+    \[
+      \widetilde{V}_{out} = \frac{Z_C}{Z_R + Z_C}\widetilde{V}_{in} = H(j\omega)\widetilde{V}_{in}
+    .\]
+    Notice that the above equation uses impedance and voltage phasors instead of resistance and voltage.
+    From the above equation, the circuit has the transfer function
+    \[
+      H(j\omega) = \frac{Z_C}{Z_R + Z_C}
+      = \frac{\frac{1}{j\omega C}}{R + \frac{1}{j\omega C}}
+      = \frac{1}{1 + j\omega RC}
+    ,\]
+
+  \qitem For values of $j\omega$ close to $0$, $\abs{H(j\omega)}$ approaches $1$.
+    In this case, $\widetilde{V}_{out} = \widetilde{V}_{in}$, meaning that low frequencies will pass through this filter.
+
+  \qitem For values of $j\omega$ approaching $\infty$, $\abs{H(j\omega)}$ approaches $0$.
+    In this case, $\widetilde{V}_{out} = 0$, meaning that high frequencies will be blocked by this filter.
+    
+    \vspace{0.1 cm} 
+
+    Since this filter allows low frequencies to go through and blocks high frequencies, it is called a \emph{low-pass filter}.
+
+\end{enumerate}
+}
+% Part(b)
+\qitem Given the following filter
+
+\input{\bank/filters/filter_transfer/fig_high_pass}
+
+\begin{enumerate}
+  \item \textbf{Write out the transfer function $H(j \omega)$.}
+  \item \textbf{For values of $\omega$ approaching $0$, find $\abs{H(j \omega)}$.}
+  \item \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j \omega)}$.}
+\end{enumerate}
+
+% Solution for part (b)
+\sol{
+
+\begin{enumerate}
+
+  \item The circuit can be simplified as:
+
+    \input{\bank/filters/filter_transfer/fig_simplified_high_pass}
+
+    Using the voltage divider equation with impedance, we have
+    \[
+      \widetilde{V}_{out} = \frac{Z_R}{Z_R + Z_C}\widetilde{V}_{in} = H(j \omega)\widetilde{V}_{in}
+    .\]
+
+    Thus, the circuit has the transfer function
+
+    \[
+      H(j \omega) = \frac{Z_R}{Z_R + Z_C}
+      = \frac{R}{R + \frac{1}{j\omega C}}
+      = \frac{j\omega RC}{1 + j\omega RC}
+    .\]
+
+  \item For values of $\omega$ close to $0$, $\abs{H(j \omega)}$ approaches $0$.
+    In this case, $\widetilde{V}_{out} = 0$, it means that low frequencies will be blocked by this filter.
+
+  \item For values of $\omega$ approaching $\infty$, $\abs{H(j \omega)}$ approaches $1$.
+    In this case, $\widetilde{V}_{out} = \widetilde{V}_{in}$, meaning high frequencies will pass through this filter.
+
+    \vspace{0.1 cm} 
+
+    Since this filter allows high frequencies to go through and blocks low frequencies, it is called a \emph{high-pass filter}.
+
+\end{enumerate}
+}
+
+
+% Part(c)
+\qitem Giving the following filter
+
+\input{\bank/filters/filter_transfer/fig_band_pass}
+
+\begin{enumerate}
+  \item \textbf{Write out the transfer function $H(j \omega)$.}
+  \item \textbf{For values of $\omega$ approaching $0$, find $\abs{H(j \omega)}$.}
+  \item \textbf{For values of $\omega$ approaching $\infty$, find $\abs{H(j \omega)}$.}
+\end{enumerate}
+
+% Solution for part (c)
+\sol{
+
+\begin{enumerate}
+
+  \item The circuit can be simplified as:
+
+    \input{\bank/filters/filter_transfer/fig_simplified_band_pass}
+
+    In this circuit, the op-amp acts as a unity gain buffer which connects the two filters together.
+    On the left of the op-amp is a low-pass filter, and on the right of the op-amp is a high-pass filter.
+    Let $H_1(j \omega)$ and $H_2(j \omega)$ be transfer functions for the low-pass and high-pass filters respectively.
+    We can write $\widetilde{V}_{out}$ in terms of $H_1(j \omega)$, $H_2(j \omega)$, and $\widetilde{V}_{in}$
+    \[
+      \widetilde{V}_{out} = H_2(j \omega)H_1(j \omega)\widetilde{V}_{in}
+    .\]
+
+    Thus, the circuit has the transfer function
+
+    \[
+      H(j \omega) = H_2(j \omega)H_1(j \omega)
+    .\]
+
+
+  \item Using the above transfer function, we have
+    \[
+      \abs{H(j \omega)} = \abs{H_2(j \omega)H_1(j \omega)}
+      = \abs{H_2(j \omega)}\abs{H_1(j \omega)}
+    .\]
+    Since $H_1(j \omega)$ is a transfer function of a low-pass filter and $H_2(j \omega)$ is a transfer function of a high-pass filter, for values of $\omega$ approaches $0$, $\abs{H(j \omega)}$ approaches $0$.
+    Therefore, $\widetilde{V}_{out} = 0$, it means that low frequencies are blocked by this filter.
+
+  \item For values of $\omega$ approaches $\infty$, $\abs{H(j \omega)}$ also approaches $0$.
+    Therefore, $\widetilde{V}_{out} = 0$; it means that high frequencies are blocked by this filter. 
+
+    \vspace{0.1 cm} 
+    
+    Since this filter blocks both low and high frequencies, and it allows signals of a certain frequency range (a band of frequencies) to pass through, it is called a \emph{band-pass filter}.
+
+\end{enumerate}
+
+}
+
+
+
+\end{enumerate}
+

@@ -1,0 +1,126 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Op-Amp Derivations}
+
+In this problem we will explore some of the mathematical operations an op amp can perform.
+
+\begin{enumerate}
+    \item\label{weighted_average}{
+        \begin{enumerate}
+            \item Label the '+' and '-' terminals of the op amp above so that it is in negative feedback.
+            \item Derive an expression for $V_{out}$ as a function of $V_{in,1}$, $V_{in,2}$, $V_{in,3}$.
+        \end{enumerate}
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_op_amp_analysis_figs/weighted_average.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q4(a) of Spring 2018's Midterm 2.
+        
+    }
+    \ans{
+        Let us first decide the passive sign conventions for this circuit's currents and fill in the signs of the op-amp, so we can conduct the following analysis:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.6]{../q_m2_basic_op_amp_analysis_figs/weighted_average_sol.PNG}
+            }
+        \end{center}
+        According to the above passive sign convention, we may see that $V_{out} - i_4R_4 = V_-$. Assuming a constant $V_+$ (as used in the prompt), if we increase $V_{out}$, then $V_-$ will increase, causing the value $V_+ - V_-$ to decrease and thus a smaller output than before. Increasing the output causes a decrease in output; thus this is a negative feedback. We know that we have the terminal signs of op-amp correct then. \\
+        Furthermore, since there is negative feedback, the golden rules can conclude that $V_+ = V_- = 0V$, and we learn regardless of feedback that $i_+ = i_- = 0A$. \\
+        Notice that we do not need to explicitly apply superposition here since this problem presents a simpler case that guarantees $V_- = 0V$. \\
+        Using Kirchhoff's Current Law, let us now examine the node with voltage $V_-$: \\
+        The current flowing out of the node is $0A$, provided the golden rules of op-amps stated that currents flowing towards the terminal, as the only current flowing out of node, is $0A$. Meanwhile, the currents flowing into the terminal is $i_1 + i_2 + i_3 + i_4$.\\
+        Using KCL we acquire:
+        \begin{align*}
+            I_{in}
+            &= i_1 + i_2 + i_3 + i_4 \\
+            &= 0 = I_{out}
+        \end{align*}
+        Since $V_- = 0V$ and $V_{out} - i_4R_4 = V_-$, $V_{out} = i_4R_4$.
+        \begin{align*}
+            i_4
+            &= -(i_1 + i_2 + i_3) \\
+            &= -\Big(\frac{V_{in,1}}{R_1} + \frac{V_{in,2}}{R_2} + \frac{V_{in,3}}{R_3}\Big) \\
+            V_{out}
+            &= i_4R_4 \\
+            &= -\Big(\frac{V_{in,1}}{R_1} + \frac{V_{in,2}}{R_2} + \frac{V_{in,3}}{R_3}\Big)R_4
+        \end{align*}
+        
+    }
+    
+    \item\label{multiple_sources}{
+        \begin{enumerate}
+            \item Label the '+' and '-' terminals of the op amp above so that it is in negative feedback.
+            \item Derive an expression for $V_{out}$ as a function of $V_{in,1}$ and $V_{in,2}$.
+        \end{enumerate}
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_basic_op_amp_analysis_figs/multiple_sources.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q4(b) of Spring 2018's Midterm 2.
+        
+    }
+    \ans{
+        Let us first decide the passive sign conventions for this circuit's currents and fill in the signs of the op-amp, so we can conduct the following analysis:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.6]{../q_m2_basic_op_amp_analysis_figs/multiple_sources_sol.PNG}
+            }
+        \end{center}
+        According to the above passive sign convention, we may see that $V_{out} - i_4R_4 = V_-$. Assuming a constant $V_+$ (as used in the prompt), if we increase $V_{out}$, then $V_-$ will increase, causing the value $V_+ - V_-$ to decrease and thus a smaller output than before. Increasing the output causes a decrease in output; thus this is a negative feedback. We know that we have the terminal signs of op-amp correct then. \\
+        Up until here, the solving process is really similar to that when we solved part (a). Now we will analyze the circuit structure in part (b). There are then two ways to conduct such analysis: superposition or using a virtual ground. \\
+        
+        \textbf{Method 1: Using Superposition} \\
+        \textbf{Part 1: Keeping source $V_{in,1}$} \\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Since we have zeroed out $V_{in,2}$, $V_+ = 0V$. Therefore, we are actually facing an inverting amplifier where
+            \[V_{out} = -\frac{R_4}{R_1}V_{in,1}\]
+        \end{minipage}
+        
+        \textbf{Part 2: Keeping source $V_{in,2}$} \\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            This architecture concerns a non-inverting amplifier, and referencing the op-amp architecture table from EECS 16A Discussions, I acquire that:
+            \begin{align*}
+                V_{out}
+                &= \Big(1 + \frac{R_4}{R_1}\Big)V_+ \\
+                &= \Big(1 + \frac{R_4}{R_1}\Big)\Big(\frac{R_3}{R_2 + R_3}\Big)V_{in,2}
+            \end{align*}
+        \end{minipage}
+        
+        Adding these two results together via superposition:
+        \[V_{out} = \Big(1 + \frac{R_4}{R_1}\Big)\Big(\frac{R_3}{R_2 + R_3}\Big)V_{in,2} -\frac{R_4}{R_1}V_{in,1}\]
+        
+        This result can also be attained via treating the entire op-amp as a non-inverting amplifier using the architecture table from Discussions. \\
+        
+        \textbf{Method 2: Using Virtual Ground (Brute-forcing)} \\
+        We still attain the relationships:
+        \[\begin{cases}
+            i_2 = i_3 \\
+            V_+ = \frac{R_3}{R_2 + R_3}V_{in,2} \\
+            i_1 + i_4 = 0 \\
+            V_+ = V_- = V_{out} - i_4R_4 \\
+        \end{cases}\]
+        And via algebraic manipulations:
+        \begin{align*}
+            V_{out}
+            &= V_- + i_4R_4 \\
+            &= V_+ - i_1R_4 \\
+            &= V_+ - \frac{V_{in,1} - V_+}{R_1}R_4 \\
+            &= \Big(1 + \frac{R_4}{R_1}\Big) V_+ - \Big(\frac{R_4}{R_1}\Big)V_{in,1} \\
+            &= \Big(1 + \frac{R_4}{R_1}\Big)\Big(\frac{R_3}{R_2 + R_3}\Big)V_{in,2} -\frac{R_4}{R_1}V_{in,1}
+        \end{align*}
+        
+    }
+\end{enumerate}

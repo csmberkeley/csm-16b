@@ -1,0 +1,24 @@
+\begin{figure}[H]
+	\begin{centering}
+        \begin{circuitikz}
+            \draw (6,5) node[pmos, emptycircle](pm){} ;
+            \draw (3.5,5) node[pmos, emptycircle](pm1){} ;
+            \draw (6,1) node[nmos](nm){} ;
+            \draw (6,3) node[nmos](nm1){} ;
+            \draw (pm1.gate) to [short, -*](1,5) node[left]{$V_{A}$};
+            \draw (nm1.gate) to [short, -*](1, 3) node[left]{$V_{B}$};
+            \draw [short, *-] (2,5) to (2,1);
+            \draw [short] (2,1) to (nm.gate);
+            \draw (pm.source) to [short] (6,6) node[vdd, above]{$V_{DD}$};
+            \draw (pm1.source) to [short] (3.5,6) node[vdd, above]{$V_{DD}$};
+            \draw (pm.drain) to (nm1.drain);
+            \draw (nm1.source) to (nm.drain);
+            \draw [short, *-] (4.5,3) to (4.5,5);
+            \draw [short] (4.5,5) to (pm.gate);
+            \draw (pm1.drain) to (3.5,4) to [short] (6,4) 
+            (6, 4) to[short, -*] (6.5, 4) node[right]{$V_o$};
+            \draw (nm.source) to (6,0) node[ground]{};
+        \end{circuitikz}
+        \caption{\label{fig:circuit}NAND Gate}
+	\end{centering}
+\end{figure}

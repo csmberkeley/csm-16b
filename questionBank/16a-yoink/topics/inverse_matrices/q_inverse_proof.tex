@@ -1,0 +1,102 @@
+% CSM16A Spring 2022
+\qns{Inverse Proof}
+
+\textbf{Learning Goal:} Develop mathematical proof skills and understanding of linear independence. 
+
+Prove that a matrix $\textbf{A}$ is invertible if and only if its columns are linearly independent.
+
+\meta{ 
+\begin{itemize}
+\item It is helpful to guide students to identifying the beginning and ends of their proof; or "What we know" and "What we need to show".
+
+\item Ensure students understand that because of the "if and only if", they are proving both directions, and their "What we know" and "What we need to show" information swaps. 
+\end{itemize}
+}
+
+\ans{
+
+The statement ``if and only if'' means that we need to prove two things: 
+\begin{enumerate}
+	\item If $\textbf{A}$ is invertible, then its columns are linearly independent.
+	\item If $\textbf{A}$'s columns are linearly independent, then it is invertible. 
+\end{enumerate}
+
+For the first statement, we're trying to prove the following:
+\begin{align*}
+	\textbf{A}^{-1} \text{ exists} &\implies \text{the columns of \textbf{A} are linearly independent}
+\end{align*}
+
+We know that if the columns of $\textbf{A}$ are linearly independent, then $\textbf{A}\vec{x} = \vec{0}$ only when $\vec{x} = \vec{0}$, so we can rephrase what we're trying to prove as
+\begin{align*}
+	\textbf{A}^{-1} \text{ exists} &\implies (\textbf{A}\vec{x} = \vec{0} \text{ only when } \vec{x} = \vec{0})
+\end{align*}
+
+To prove this, assume that $\textbf{A}$ is invertible. Let $\vec{v}$ be some vector such that $\textbf{A}\vec{v} = \vec{0}$:
+\begin{align*}
+	\textbf{A}\vec{v} &= \vec{0} \longleftarrow \text{left-multiply by \textbf{A}}^{-1}\\
+	\textbf{A}^{-1}\textbf{A}\vec{v} &= \textbf{I}\vec{v} = \vec{0}\\
+	\vec{v} &= \vec{0}\\
+\end{align*}
+Boom! You've successfully proven the first statement.\\
+
+The second statement is a little trickier to prove:
+\begin{align*}
+	(\text{columns of \textbf{A} are linearly independent}) &\implies \textbf{A}^{-1} \text{ exists}
+\end{align*}
+or, rewritten
+\begin{align*}
+	(\textbf{A}\vec{x} = \vec{b} \text{ has a unique solution }\vec{x}) &\implies \textbf{A}^{-1} \text{ exists}
+\end{align*}
+
+Now suppose that $\{\vec{e_1}, \vec{e_2}, \cdots, \vec{e_n}\}$ are the columns of the identity matrix. We want to see if there's a matrix $\textbf{M}$ which is $\textbf{A}$'s inverse, i.e. it obeys the following properties:
+\begin{align*}
+	\textbf{AM} = \textbf{MA} &= \textbf{I}\\
+		&= \begin{bmatrix}
+			| & | &  & | \\
+			\vec{e_1} & \vec{e_2} & \cdots & \vec{e_n}\\
+			| & | &  & | 
+			\end{bmatrix}
+\end{align*}
+
+Using the definition of matrix-matrix multiplication as a series of stacked matrix-vector multiplications:
+\begin{align*}
+	\textbf{A}\begin{bmatrix}
+			| & | &  & | \\
+			\vec{m_1} & \vec{m_2} & \cdots & \vec{m_n}\\
+			| & | &  & | 
+			\end{bmatrix} = 
+			\begin{bmatrix}
+			| & | &  & | \\
+			\textbf{A}\vec{m_1} & \textbf{A}\vec{m_2} & \cdots & \textbf{A}\vec{m_n}\\
+			| & | &  & | 
+			\end{bmatrix}
+			&= 
+			\begin{bmatrix}
+			| & | &  & | \\
+			\vec{e_1} & \vec{e_2} & \cdots & \vec{e_n}\\
+			| & | &  & | 
+			\end{bmatrix}
+\end{align*}
+
+What we need to prove now is that there are vectors $\{\vec{m_1}, \vec{m_2}, \cdots \vec{m_n}\}$ such that
+\begin{align*}
+	\textbf{A}\vec{m_i} &= \vec{e_i} \forall i \in \{1, 2, \cdots, n\}
+\end{align*}
+
+but we already know this is true because this is a square matrix and because of the definition of linear independence above! We also already know from lecture that the left and right inverses are identical. Thus, we've proven the second statement because the $m$ vectors exist, i.e. \textbf{M} exists.
+
+\textbf{Note on Proofs and Implication:}
+
+When proving $X$ is true if and only if $Y$, this requires a proof in both directions---that is, that $X$ implies $Y$ \textit{and} that $Y$ implies $X$.
+
+The directionality of the proof can be quite subtle, so it helps to think of a situation where the implication does \textit{not} go in both directions. For example, if shape $S$ is a square, then it is a rectangle. However, if another shape $R$ is a rectangle, it is not necessarily a square. In other words,
+\begin{align*}
+	S \text{ is a square} & \implies S\text{ is a rectangle}\\
+	R\text{ is a rectangle} & \implies R\text{ is a square}
+\end{align*}
+
+When told to prove $X \implies Y$, it is the same as being told to prove $(\text{not } Y) \implies (\text{not } X)$.
+
+Students aren't expected to know this yet, and it's something that they'll likely be exposed to for the first time in CS70---on problems, we will be explicit about the directionality of what we're asking to be proved.
+
+}

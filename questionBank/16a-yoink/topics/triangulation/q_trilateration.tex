@@ -1,0 +1,78 @@
+% Authors: Aditya Baradwaj
+% Emails: abaradwaj@berkeley.edu
+
+% Maybe add picture from notes
+
+\qns{Trilateration}\\
+Suppose that you are the engineer tasked with the job of making Google Maps. For this, you want to be able to determine the position of a user using satellite information. In particular, assume that you know $d_1, d_2$ and $d_3$, the positions from the user's cellphone to 3 satellites. You know the positions of these satellites to be $\vec{a_1}, \vec{a_2}$, and $\vec{a_3}$.
+
+\textit{Note: What does it mean when we say "position"? You can assume that these positions are taken relative to some common origin. Say, the Google HQ.}
+
+\begin{enumerate}
+\item{Write down equations that capture the information that you have available.}
+
+\ans{
+$$\norm{\vec{x} - \vec{a_1}} = d_1$$
+$$\norm{\vec{x} - \vec{a_2}} = d_2$$
+$$\norm{\vec{x} - \vec{a_3}} = d_3$$
+These equations relate the position of the user to the distance between the user and each satellite.
+}
+
+\item{Write these equations in terms of inner products of vectors. Are these equations linear in $\vec{x}$?}
+
+\ans{
+By squaring each side, we get the following:
+$$(\vec{x} - \vec{a_1})^T(\vec{x} - \vec{a_1}) = d_1^2$$
+$$(\vec{x} - \vec{a_2})^T(\vec{x} - \vec{a_2}) = d_2^2$$
+$$(\vec{x} - \vec{a_3})^T(\vec{x} - \vec{a_3}) = d_3^2$$
+
+Then, expanding the LHS, we get:
+$$\vec{x}^T\vec{x} - 2\vec{a_1}^T\vec{x} + \vec{a_1}^T\vec{a_1} = d_1^2$$
+$$\vec{x}^T\vec{x} - 2\vec{a_2}^T\vec{x} + \vec{a_2}^T\vec{a_2} = d_2^2$$
+$$\vec{x}^T\vec{x} - 2\vec{a_3}^T\vec{x} + \vec{a_3}^T\vec{a_3} = d_3^2$$
+
+These equations are not linear in $\vec{x}$, because they contain an $\vec{x}^T\vec{x}$ term.
+}
+
+\item{
+How can you use these nonlinear equations to create linear equations?
+}
+
+\ans{
+Subtract the first equation from the other 2 in order to eliminate the $\vec{x}^T\vec{x}$ term. We get the following:
+$$2(\vec{a_1}^T\vec{x} - \vec{a_2}^T\vec{x}) + (\vec{a_2}^T\vec{a_2} - \vec{a_1}^T\vec{a_1}) = d_2^2 - d_1^2$$
+$$2(\vec{a_1}^T\vec{x} - \vec{a_3}^T\vec{x}) + (\vec{a_3}^T\vec{a_3} - \vec{a_1}^T\vec{a_1}) = d_3^2 - d_1^2$$
+
+We can rewrite these as a linear equations:
+$$2(\vec{a_1} - \vec{a_2})^T\vec{x} = \vec{a_1}^T\vec{a_1} - \vec{a_2}^T\vec{a_2} + d_2^2 - d_1^2$$
+$$2(\vec{a_1} - \vec{a_3})^T\vec{x} = \vec{a_1}^T\vec{a_1} - \vec{a_3}^T\vec{a_3} + d_3^2 - d_1^2$$
+
+Or, in matrix-vector form,
+
+$$2 \begin{bmatrix}
+(\vec{a_1} - \vec{a_2})^T \\
+(\vec{a_1} - \vec{a_3})^T
+\end{bmatrix} \vec{x}
+= \begin{bmatrix}
+\norm{a_1}^2 - \norm{a_2}^2 + d_2^2 - d_1^2 \\
+\norm{a_1}^2 - \norm{a_2}^2 + d_3^2 - d_1^2
+\end{bmatrix}$$
+}
+
+\item{
+If you are trying to find the 3D location of the user (i.e. $\vec{x}$ is a 3-dimensional vector), would this system of equations be sufficient? If not, then how many satellites do you need to locate the user?
+}
+
+\ans{
+No, this is not sufficient. We have only 2 equations, but 3 variables. So, this system is necessarily underdetermined. If instead we had 4 satellites, then by subtracting one equation from all the rest, we would have 3 equations, and we could then solve the system.
+}
+
+\item{
+In real life, we want to not only triangulate the user's position, but also keep track of this as it changes over time. So, we are effectively solving for a 4-dimensional $\vec{x}$, where the 4th dimension is time. In this situation, how many satellites would you need?
+}
+
+\ans{
+You would need 5 satellites to give you 4 equations. These would have to be distinct satellites, otherwise the equations would be linearly dependent.
+}
+
+\end{enumerate}

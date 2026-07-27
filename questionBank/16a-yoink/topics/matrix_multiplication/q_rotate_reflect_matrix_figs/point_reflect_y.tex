@@ -1,0 +1,30 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+
+\begin{tikzpicture}
+    \begin{axis}[
+            axis lines = middle,
+            xmin=-5, xmax=5,
+            ymin=-5, ymax=5,
+            xlabel = {x},
+            ylabel = {y},
+            legend pos=outer north east,
+            legend cell align=left
+        ]
+        \addplot [only marks, color=red] table {
+            2 2
+            3 4
+            -1 3
+            -5 -3
+        };
+        \addlegendentry{pre-image}
+        \addplot [only marks, color=blue] table {
+            -2 2
+            -3 4
+            1 3
+            5 -3
+        };
+        \addlegendentry{image, reflected pre-image}
+    \end{axis}
+\end{tikzpicture}

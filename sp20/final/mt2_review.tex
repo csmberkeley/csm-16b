@@ -1,0 +1,357 @@
+% \section*{Midterm 1 Review}
+
+\renewcommand{\arraystretch}{1.25}
+
+\subsection*{State-space models of systems}
+In this unit, we are focusing on taking real-world systems and then working with them as matrix-vector equations. The first step to doing this is to represent systems with \textbf{state-space models}. \\
+\newline
+There are two parts to coming up with a state-space model:
+\begin{enumerate}
+    \item \textit{Choosing state variables.} These are the quantities that will appear in the $\vec{x}$ vector in an equation like 
+    $$\frac{d}{dt}\vec{x}(t) = A\vec{x}(t) + B\vec{u}(t)$$ 
+    \item \textit{Finding a differential or recurrence relation involving state variables:} i.e. find $\frac{d}{dt} \vec{x}$ in terms of $\vec{x}$ for a continuous-time system or find $\vec{x}(k + 1)$ in terms of $\vec{x}(k)$ for a discrete-time system. \\
+    \newline
+    Typically, this consists of filling in the elements of the $A$ matrix and $B$ vector, such as in the following equation:
+    \begin{align*}
+        \vec{x}(k + 1) = \begin{bmatrix}
+            a_{11} & a_{12} \\
+            a_{21} & a_{22}
+        \end{bmatrix} \vec{x}(k) + \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} u(t)
+    \end{align*}
+    However, \textbf{non-linear systems} cannot be represented as matrix-vector equations. An example of such a state-space model is as follows:
+    \begin{align*}
+        \frac{d}{dt} \vec{x}(t) = \begin{bmatrix}
+            x_1^{\,2} + \cos(x_2) \\
+            x_1^{\,3} - \sin(x_2)
+        \end{bmatrix}
+    \end{align*}
+\end{enumerate}
+For instance, when you analyzed the LRC circuit, you chose the voltage across the capacitor and the current through the inductor as your state variables and then used the current-voltage relationships of capacitors and inductors to come up with the following state-space representation:
+\begin{align*}
+    \frac{d}{dt} \begin{bmatrix} 
+        I_L(t) \\ V_C(t)
+    \end{bmatrix} = \begin{bmatrix}
+        -R/L & -1/L \\
+        1/C & 0
+    \end{bmatrix} \begin{bmatrix} 
+        I_L(t) \\ V_C(t)
+    \end{bmatrix}
+    \end{align*}
+
+\subsection*{Linearization}
+Many systems in the real world are nonlinear, which means that we cannot represent them with a matrix-vector equation. 
+We would like to use linear tools (such as diagonalization) to solve these equations, so we typically linearize nonlinear systems. \\
+\newline
+\textbf{When is a system linear?} \\
+\newline
+A system is linear if it follows the \textbf{scaling} and \textbf{additivity} properties:
+\begin{enumerate}
+    \item \textbf{Scaling}: For a linear system $f$, $\boxed{f(ax) = af(x)}$ for every $a$ and for every $x$.
+    \item \textbf{Additivity}: For a linear system $f$, $\boxed{f(x + y) = f(x) + f(y)}$ for every $x$ and $y$.
+\end{enumerate}
+\textit{Note: Equations of the form $f(x) = ax + b$ with nonzero $b$ are not linear; they are considered to be \textbf{affine}}. \\
+\newline
+\textbf{Linearizing a nonlinear system:} \\
+\newline
+We convert a nonlinear system into a linear system by using a first-order Taylor approximation:
+$$\boxed{f(x) \approx f(x^*) + \frac{df}{dx} \bigg\rvert_{x^*} (x - x^*)}$$
+For an equation with an input, $u$:
+$$\boxed{f(x, u) \approx f(x^*, u^*) + \frac{df}{dx} \bigg\rvert_{x^*, u^*} (x - x^*) + \frac{df}{du} \bigg\rvert_{x^*, u^*} (u - u^*)}$$
+In these equations, we linearize the system around an \textbf{equilibrium point} or \textbf{operating point} $(x^*, u^*)$. 
+This is a point that we choose when making our approximation, typically such that:
+$$f(x^*, u^*) = 0$$
+\newline
+\textbf{Linearizing a system of nonlinear equations:} \\
+\newline
+Say we have a system of nonlinear functions, typically represented by:
+\begin{align*}
+    \vec{f}(\vec{x}) = \begin{bmatrix}
+        f_1(x_1, \dots, x_n) \\
+        \vdots \\
+        f_m(x_1, \dots, x_n)
+    \end{bmatrix}
+\end{align*}
+For these systems, you can linearize each equation using the partial derivative of the function with respect to each state variable:
+\begin{center}
+    \begin{align*}
+        f_1(\vec{x}) \approx f_1(\vec{x}^*) + \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x}^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_1}{\partial x_n} \bigg\rvert_{\vec{x}^*} (x_n - x_n^*) \\
+        \vdots \\
+        f_m(\vec{x}) \approx f_m(\vec{x}^*) + \frac{\partial f_m}{\partial x_1} \bigg\rvert_{\vec{x}^*} (x_1 - x_1^*) + \cdots + \frac{\partial f_m}{\partial x_n} \bigg\rvert_{\vec{x}^*} (x_n - x_n^*)
+    \end{align*}
+\end{center}
+In this case, we choose an $\vec{x}^*$ such that $\vec{f}(\vec{x}^*) = \vec{0}$. \\
+\newline
+We can express this linearization as a matrix-vector equation:
+\begin{align*}
+    \vec{f}(\vec{x}) = \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x}^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{\vec{x}^*} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{\vec{x}^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{\vec{x}^*}
+    \end{bmatrix} \begin{bmatrix}
+        (x_1 - x_1^*) \\
+        \vdots \\
+        (x_n - x_n^*)
+    \end{bmatrix} = \boxed{J_{\vec{x}} \vec{\delta x}}
+\end{align*}
+Where $J_{\vec{x}}$ is the \textbf{Jacobian matrix} of $\vec{f}$ with respect to $\vec{x}$ and $\vec{\delta x}$ is the distance of $\vec{x}$ from the equilibrium point. \\
+\newline
+If we are looking at a system of equations with a vector input, the linearization will be as follows:
+\begin{align*}
+    \vec{f}(\vec{x}, \vec{u}) = \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_1}{\partial x_n} \bigg\rvert_{\vec{x}^*, \vec{u}^*} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial x_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_m}{\partial x_n} \bigg\rvert_{\vec{x}^*, \vec{u}^*}
+    \end{bmatrix} \begin{bmatrix}
+        (x_1 - x_1^*) \\
+        \vdots \\
+        (x_n - x_n^*)
+    \end{bmatrix} + \begin{bmatrix}
+        \frac{\partial f_1}{\partial u_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_1}{\partial u_k} \bigg\rvert_{\vec{x}^*, \vec{u}^*} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial u_1} \bigg\rvert_{\vec{x}^*, \vec{u}^*} & \cdots & \frac{\partial f_m}{\partial u_k} \bigg\rvert_{\vec{x}^*, \vec{u}^*}
+    \end{bmatrix} \begin{bmatrix}
+        (u_1 - u_1^*) \\
+        \vdots \\
+        (u_k - u_k^*)
+    \end{bmatrix} = \boxed{J_{\vec{x}} \vec{\delta x} + J_{\vec{u}} \vec{\delta u}}
+\end{align*}
+
+\subsection*{Discretization}
+Another modification we often make is converting systems from \textbf{continuous time} (represented by a \textit{differential equation}) to \textbf{discrete time} (represented by a \textit{recurrence relation}).
+One motivation behind discretizing a system is that computers can only sample systems at discrete points in time, and can only provide piecewise constant inputs. \\
+\newline
+\textbf{Discretizing a system} \\
+\newline
+Let's say you have an differential equation of the form:
+$$\frac{d}{dt} x = f(t) + u(t)$$
+We want to convert it into the discrete-time recurrence relation:
+$$\tilde{x}(k + 1) = a\tilde{x}(k) + \tilde{u}(k)$$
+where $\tilde{x}(k)$ is the discrete-time counterpart of $x(t)$ and $\tilde{u}(k)$ is the discrete-time counterpart of the input $u(t)$.
+\newline
+\\
+We are given our system has time step $T$, which you can think of as having two implications:
+\begin{enumerate}
+    \item Inputs are constant between times $nT$ and $(n + 1)T$.
+    \item When we discretize the system, $\tilde{x}(k) = x(kT)$.
+\end{enumerate}
+In order to discretize the system, we want to find $x(t + T)$ in terms of $x(t)$, assuming a constant input in the interval $[t, t + T)$.
+To do so, you can integrate the system between $t$ and $t + T$:
+\begin{align*}
+    \int_{x(t)}^{x(t + T)} dx = \int_t^{t + T} (f(\tau) + u(\tau)) \, d\tau \\
+\end{align*}
+Note that the variable of integration on the right-hand side is $\tau$, not $t$ because $t$ is present in the limits of integration. \\
+If $F$ is the antiderivative of $f$, we can get the following expression for $x(t + T)$:
+\begin{align*}
+    x(t + T) = x(t) + (F(t + T) - F(t) + Tu(t))
+\end{align*}
+Now, we have the information we need to get $\tilde{x}(k + 1)$ in terms of $\tilde{x}(k)$ and $\tilde{u}(k)$. 
+If we set $t = kT$, we have:
+\begin{align*}
+    x((k + 1)T) = x(kT) + (F((k + 1)T) - F(kT) + Tu(kT)) \\
+    \boxed{\tilde{x}(k + 1) = \tilde{x}(k) + (F((k + 1)T) - F(kT) + Tu(kT))}
+\end{align*}
+So, in the expression $\tilde{x}(k + 1) = a\tilde{x}(k) + \tilde{u}(k)$, $a = 1$ and $\tilde{u}(k) = F((k + 1)T) - F(kT) + Tu(kT)$.
+
+\subsection*{Controllability}
+We say that a system of the form:
+$$\vec{x}(k + 1) = A\vec{x}(k) + \vec{b} u(k)$$
+is \textbf{controllable} if, given any $\vec{x}(0)$, we can specify a series of control inputs $(u(0), u(1), \dots, u(n))$ to reach any state (so, $\vec{x}(n)$ can be anything we want it to be). \\
+To determine whether a system is controllable, we define its controllability matrix to be
+\begin{align*}
+    \boxed{\mathcal{C} = \begin{bmatrix}
+        \vec{b} & A\vec{b} & \cdots & A^{n - 1} \vec{b}
+    \end{bmatrix}}
+\end{align*}
+Assuming we start at $\vec{x}(0) = \vec{0}$, we can reach any state in the span of the columns of $\mathcal{C}$, and therefore the system is controllable if the $\mathcal{C}$ is \textbf{full rank}, i.e., for an $n$-dimensional $\vec{x}$, the controllability matrix has $n$ linearly independent columns. \\
+\newline
+\textbf{Controlling a system} \\
+\newline
+Assume we have a scalar input $u(k)$ and we want to see what states we can reach with $n$ controls if we start at $\vec{x}(0) = \vec{0}$. \\ 
+\newline
+Plugging the controls into the recurrence relation, we see that the first column of the controllability matrix corresponds to the last input ($u(n - 1)$), the second column corresponds to the second-to-last input ($u(n - 2)$), and the $n^{\text{th}}$ column corresponds to $u(0)$: 
+\begin{align*}
+    \vec{x}(n) = A\vec{x}(n - 1) + \vec{b} u(n - 1) \\
+    \vec{x}(n) = A(A \vec{x}(n - 2) + \vec{b} u(n - 2)) + \vec{b} u(n - 1) \\
+    = A^2 \vec{x}(n - 2) + A\vec{b} u(n - 2) + \vec{b} u(n - 1) \\
+    \cdots
+    \vec{x}(n) = A^n \vec{x}(0) + A^{n - 1} \vec{b} u(0) + \cdots +  A\vec{b} u(n - 2) + \vec{b} u(n - 1) \\
+    = A^{n - 1} \vec{b} u(0) + \cdots +  A\vec{b} u(n - 2) + \vec{b} u(n - 1)
+\end{align*}
+So, if we want to pick control values such that a system reaches a certain $\vec{x}(n)$ starting at $\vec{x}(0) = \vec{0}$, we can use the relation:
+\begin{align*}
+    \vec{x}(n) = \mathcal{C} \begin{bmatrix}
+        u(n - 1) \\ \vdots \\ u(0)
+    \end{bmatrix}
+\end{align*}
+and solve for your control inputs as follows:
+\begin{align*}
+    \begin{bmatrix}
+        u(n - 1) \\ \vdots \\ u(0)
+    \end{bmatrix} = \boxed{\mathcal{C}^{-1} \vec{x}(n)}
+\end{align*}
+
+\subsection*{System Identification}
+If we don't know the parameters of our system (i.e. the $A$ matrix and $\vec{b}$ vector) but we do have a series of inputs and outputs to the system, we can use least squares to solve for the elements of $A$ and $\vec{b}$. \\
+\newline
+First, let us consider a 2-dimensional system with a scalar input:
+\begin{align*}
+    \begin{bmatrix}
+        x_1(k + 1) \\ x_2(k + 1)
+    \end{bmatrix} = \begin{bmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+    \end{bmatrix} \begin{bmatrix}
+        x_1(k) \\ x_2(k)
+    \end{bmatrix} + \begin{bmatrix}
+        b_1 \\ b_2
+    \end{bmatrix} u(k)
+\end{align*}
+Also, let's say we are given the following data points: $\vec{x}(0), \dots, \vec{x}(m)$ and $u(0), \dots, u(m - 1)$. \\
+\newline
+In order to perform system identification, we want to format the system as a least squares problem:
+\begin{align*}
+    D\vec{p} \approx \vec{y}
+\end{align*}
+$\vec{p}$ is our vector of unknowns, so we populate it with the elements of $A$ and $\vec{b}$:
+\begin{align*}
+    \vec{p} = \begin{bmatrix}
+        a_{11} & a_{12} & a_{21} & a_{22} & b_1 & b_2
+    \end{bmatrix}^T
+\end{align*}
+We can view $\vec{y}$ as the output of the system, so we can populate it with $\vec{x}(1), \dots, \vec{x}(m)$:
+\begin{align*}
+    \vec{y} = \begin{bmatrix}
+        x_1(1) & x_2(1) & \cdots & x_1(m) & x_2(m)
+    \end{bmatrix}^T
+\end{align*}
+Now we need to find the elements of the $D$ matrix to complete the relationship between $\vec{p}$ and $\vec{y}$. 
+From the matrix-vector representation of the system, we get scalar equations of the form:
+\begin{align*}
+    x_1(k + 1) = a_{11} x_1(k) + a_{12} x_2(k) + b_1 u(k) \\
+    x_2(k + 1) = a_{21} x_1(k) + a_{22} x_2(k) + b_2 u(k) 
+\end{align*}
+So, we have the following least-squares problem:
+\begin{align*}
+    \begin{bmatrix}
+        x_1(1) \\ x_2(1) \\ x_1(2) \\ x_2(2) \\ \vdots \\ x_1(m) \\ x_2(m)
+    \end{bmatrix} = \begin{bmatrix}
+        x_1(0) & x_2(0) & 0 & 0 & u(0) & 0 \\
+        0 & 0 & x_1(0) & x_2(0) & 0 & u(0) \\
+        x_1(1) & x_2(1) & 0 & 0 & u(1) & 0 \\
+        0 & 0 & x_1(1) & x_2(1) & 0 & u(1) \\
+        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+        x_1(m - 1) & x_2(m - 1) & 0 & 0 & u(m - 1) & 0 \\
+        0 & 0 & x_1(m - 1) & x_2(m - 1) & 0 & u(m - 1)
+    \end{bmatrix} \begin{bmatrix}
+        a_{11} \\ a_{12} \\ a_{21} \\ a_{22} \\ b_1 \\ b_2
+    \end{bmatrix}
+\end{align*}
+From here, we can solve for $\vec{p}$ using the least-squares formula:
+$$\boxed{\vec{p} = (D^T D)^{-1} D^T \vec{y}}$$
+This also extrapolates to systems of higher dimension.
+\newline
+\textit{Note: At the very least, you need $\vec{x}(0), \dots \vec{x(3)}$ and $u(0), u(1), u(2)$ because we have 6 unknowns and need 6 equations to have a unique solution.}
+
+\subsection*{SVD}
+Now, we will look at \textbf{singular value decomposition}, which decomposes any arbitrary matrix into two orthonormal matrices and a diagonal matrix:
+\begin{align*}
+    \boxed{A = U \Sigma V^T} 
+\end{align*}
+Where the columns of $U$ are orthonormal, the rows of $V^T$ are orthonormal, and $\Sigma$ has the \textbf{singular values} of the system on the diagonal and is zero elsewhere. \\
+\newline
+The SVD can also be written in \textbf{outer product form} as follows:
+\begin{align*}
+    \boxed{A = \sum \sigma_i \vec{u}_i \vec{v}^T_i}
+\end{align*}
+$\vec{u}_i \vec{v}^T_i$ is the outer product of $\vec{u}$ and $\vec{v}$, which results in a rank-one matrix. So, if $A$ is a rank-k matrix, $A$ can be expressed as the sum of $k$ rank-one matrices, each scaled by its corresponding singular value. \\
+\newline
+This is useful in approximating high-rank matrices with lower-rank ones. If we want to approximate $A$ as a rank-$j$ matrix where $j < k$, we can take the first $j$ terms of the outer-product form of the SVD (the terms that correspond to the $j$ largest singular values):
+\begin{align*}
+    \boxed{A \approx \sum_{i = 1}^{j} \sigma_i \vec{u}_i \vec{v}^T_i}
+\end{align*}
+\newline
+\textbf{Elements of the SVD}
+\begin{enumerate}
+    \item The columns of $U$ are orthonormal eigenvectors of the matrix $AA^T$.
+    \item The columns of $V$ (rows of $V^T$) are orthonormal eigenvectors of the matrix $A^T A$.
+    \item The diagonal elements of $\Sigma$ are the singular values of $A$. The $i^{\text{th}}$ singular value is $\sigma_i = \sqrt{\lambda_i}$, where $\lambda_i$ is the $i^{\text{th}}$ eigenvalue of $A^T A$ and $A A^T$ (it can be proven that both have the same eigenvalues! See the SVD intuition section for why that is the case.) \\
+    \textit{Note: all singular values are real and nonnegative.}
+\end{enumerate}
+
+\textbf{Compact SVD} \\
+\newline
+For the compact SVD, we only look at the nonzero eigenvalues of $A^T A$ and $AA^T$ (we don't include eigenvectors in the nullspaces of $A^T A$ and $A A^T$). \\
+\newline
+Let's say $A$ is an $n \times m$ matrix of rank $k$ (has $k$ linearly independent columns). Then, there are $k$ nonzero singular values, as well as $k$ columns in the $U$ and $V$ matrices. So, \textbf{$U$ is $n \times k$}, \textbf{$\Sigma$ is $k \times k$}, and \textbf{$V^T$ is $k \times m$}: \\
+\newline
+\textbf{Computing the Compact SVD}
+\begin{enumerate}
+    \item Find the eigenvalues and nonzero eigenvectors of either $A A^T$ (to compute $U$) or $A^T A$ (to compute $V$). You can start with either, but it is easier to start with the matrix that has smaller dimensions, i.e. $A^T A$ for tall matrices and $AA^T$ for wide matrices. 
+    \item Order the eigenvalues from largest to smallest, including repeated eigenvalues. The square root of the $i^{\text{th}}$ eigenvalue is $\sigma_i$. If you started out with $AA^T$, the eigenvector corresponding to $\lambda_i$ is the $i^{\text{th}}$ column of the $U$ matrix ($\vec{u}_i$). Otherwise, it is the $i^{\text{th}}$ column of the $V$ matrix.
+    \item If you started out with $AA^T$, compute $\vec{v}_i$ as $\frac{A^T \vec{u}_i}{\sigma_i}$. Otherwise, compute $\vec{u}$ as $\frac{A \vec{v}_i}{\sigma_i}$.
+\end{enumerate}
+
+\textbf{Full SVD} \\
+\newline
+For the full SVD, we start with the compact SVD and then add eigenvectors in the nullspace of $AA^T$ to $U$ and eigenvectors in the nullspace of $A^TA$ to $V$. \\
+\newline
+Let's say $A$ is an $n \times m$ matrix of rank $k$. For the full SVD, $U$ will be an orthonormal $n \times n$ matrix, $\Sigma$ will have the dimensions $n \times m$ (same as the original A matrix), and $V$ will be an orthonormal $m \times m$ matrix. \\
+\newline
+\textbf{Computing the Full SVD}
+\begin{enumerate}
+    \item Compute the compact SVD.
+    \item Now, let's fill in $\vec{u}_{k+1}, \dots, \vec{u}_n$. We have found the eigenvectors of $AA^T$ with nonzero eigenvalues, so now we compute the eigenspace for $\lambda = 0$. To do so, find an orthonormal basis for the nullspace of $AA^T$ and append it to your $U$ matrix.
+    \item Then, do the same for $V$. Find an orthonormal basis for the nullspace of $A^T A$ and append it to your $V$ matrix.
+    \item Finally, we need to modify $\Sigma$ so that it is $n \times m$ (so the matrix multiplication in $U \Sigma V^T$ works out). Zero-pad $\Sigma$ until it has dimensions $n \times m$.
+\end{enumerate}
+\textit{Side note (out-of-scope intuition): $U$ is guaranteed to be orthogonal because the set of vectors $\{\vec{u}_{k + 1}, \dots, \vec{u}_n\}$ is orthogonal to $\{\vec{u}_1, \dots, \vec{u}_k$\}. 
+This is because $\vec{u}_1, \dots, \vec{u}_k$ come from the columnspace of $A$ and $\vec{u}_{k + 1}, \dots, \vec{u}_n$ come from the nullspace of $A^T$, which are orthogonal subspaces. 
+Similar logic can be applied to $V$ if we switch $A$ and $A^T$.} \\
+\newline
+\textbf{SVD Intuition (de-emphasized but in scope)}: \\
+\newline
+The \textbf{Spectral Theorem} states that symmetric matrices in $\mathbb{R}^{n\times n}$ have $n$ \textbf{orthogonal eigenvectors}, and all eigenvalues are \textbf{real}. In addition, for the symmetric matrices $A^T A$ and $AA^T$, it can be proven that all eigenvalues are \textbf{nonnegative}. \\
+\newline
+For the SVD, we consider the symmetric matrices $AA^T$ and $A^T A$. We want to show that:
+$$AV = U\Sigma$$
+where $U$ and $V$ are both orthonormal because they consist of eigenvalues of a symmetric matrix.
+\begin{enumerate}
+    \item If $\vec{v}$ is an eigenvector of $A^T A$ with eigenvalue $\lambda$, then $A\vec{v}$ is an eigenvector of $AA^T$ with the same eigenvalue:
+    $$A^T A \vec{v} = \lambda \vec{v}$$
+    Left-multiply both sides by $A$ to get:
+    $$A A^T (A \vec{v}) = \lambda (A \vec{v})$$
+    \item We want to choose orthonormal eigenvectors for $AA^T$ and $A^T A$. 
+    So, if we choose $\vec{v}$ to have norm 1, we want to find an eigenvector $\vec{u}$ of $AA^T$ that also has norm 1. 
+    The norm of $A \vec{v}$ is $\lambda$:
+    $$||A\vec{v}|| = \sqrt{\vec{v}^T A^T A \vec{v}} = \sqrt{\lambda ||\vec{v}||} = \sqrt{\lambda}$$
+    So, we define $\vec{u}$ to be:
+    $$\vec{u} = \frac{A \vec{v}}{\sqrt{\lambda}} = \frac{A \vec{v}}{\sigma}$$
+    \item Knowing that: 
+    $$\sigma \vec{u} = A \vec{v}$$
+    If we define $U$ and $V$ as:
+    \begin{align*}
+        U = \begin{bmatrix} \vec{u}_1 & \cdots & \vec{u}_k \end{bmatrix} \\
+        V = \begin{bmatrix} \vec{v}_1 & \cdots & \vec{v}_k \end{bmatrix}
+    \end{align*}
+    Then the equation relating $U$ and $V$ can be written as:
+    $$U\Sigma = AV$$
+    \item \textbf{Completing the full SVD}: In order for $U$ to have $m$ columns and $V$ to have $n$ columns, we need to complete the eigenbases of $AA^T$ and $A^TA$. So far, we have looked at eigenvectors with nonzero eigenvalues. We can complete the $U$ and $V$ matrices by finding orthonormal bases for the \textit{nullspaces} of $AA^T$ and $A^TA$ respectively (the nullspace of a matrix corresponds to an eigenvalue of 0). \\
+    \newline
+    Now that $U$ is $m \times m$ and $V$ is $n \times n$, we need to modify $\Sigma$ so that the matrix dimensions in the equation $AV = U\Sigma$ match up.
+    So, we \textit{zero-pad} the $\Sigma$ matrix until it is $m \times n$ (the same dimensions of $A$).
+
+    \item From there, we can right-multiply both sides by the transpose of $V$: 
+    $$AVV^T = U \Sigma V^T$$
+    $$A = U \Sigma V^T$$
+\end{enumerate}
+
+\textbf{SVD and Matrix Subspaces (de-emphasized but in scope)}:
+\begin{enumerate}
+    \item \textbf{The first $k$ columns of $U$ form a basis for the columspace of $A$}: By properties of matrix multiplication, the columnspace of $AA^T$ is in the columnspace of $A$. Also, we know that $AA^T$ has $k$ eigenvectors that correspond to nonzero eigenvalues, so the columnspace of $AA^T$ is $k$-dimensional. The columnspace of $AA^T$ has the same rank as the columnspace of $A$, so they are the same subspace, and the $k$ eigenvectors from the columnspace of $AA^T$ form an orthonormal basis for the columnspace of $A$.  \\
+    \item \textbf{The last $m - k$ columns of $U$ form a basis for the nullspace of $A^T$}: We already know that the last $m - k$ columns of $U$ form a basis for the nullspace of $AA^T$. To see why the nullspace of $A^T$ is the same as the nullspace of $AA^T$, consider a vector $\vec{x}$ in the nullspace of $A^T$:
+            $$AA^T \vec{x} = A \vec{0} = \vec{0}$$ 
+    \item The columnspace of $A$ is orthogonal to the nullspace of $A^T$, so the first $k$ columns of $U$ are guaranteed to be orthogonal to the last $m - k$ columns of $U$.
+    \item \textbf{The first $k$ columns of $V$ form a basis for the columspace of $A^T$ or rowspace of $A$}: We can apply the same reasoning we used in (a) to the matrix $A^TA$.
+    \item \textbf{The last $n - k$ columns of $V$ form a basis for the nullspace of $A$}: We can apply the same reasoning we used in (b) to the matrix $A^TA$.
+    \item The columnspace of $A^T$ is orthogonal to the nullspace of $A$, so the first $k$ columns of $V$ are guaranteed to be orthogonal to the last $n - k$ columns of $V$.
+\end{enumerate}

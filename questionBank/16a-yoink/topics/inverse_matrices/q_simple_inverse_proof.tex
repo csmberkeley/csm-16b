@@ -1,0 +1,63 @@
+% Author: Aurelia Wang
+% Author Email: aureliawang@berkeley.edu
+% CSM16A Fall 2023
+
+\qns{Properties and Proofs of Matrix Inverses} \\
+
+\meta {
+  \begin{itemize}
+    \item Begin by reviewing the definition of a matrix inverse.
+    \item Discuss the property that if a matrix \( A \) has an inverse \( A^{-1} \), then \( AA^{-1} = I \), where \( I \) is the identity matrix.
+    \item It might be helpful to visualize the matrix inverse as "undoing" the transformation represented by the matrix.
+    \item Make it clear that not all matrices have inverses. Matrices that do have inverses are called invertible or non-singular.
+  \end{itemize} 
+}
+
+\begin{enumerate}
+  \item State whether the following statements are true or false. Provide reasons or counterexamples.
+
+  \begin{enumerate}
+    \item If a matrix \( A \) has an inverse \( A^{-1} \), then \( A \) is square.
+    
+    \ans {
+      True. Only square matrices can have inverses.
+    }
+
+    \item Two matrices \( A \) and \( B \) that are inverses of each other are necessarily square.
+    
+    \ans {
+      True. Inverses only exist for square matrices.
+    }
+
+    \item If \( AB = I \), then \( A \) and \( B \) are inverses of each other.
+    
+    \ans {
+      True. If the product of two matrices is the identity matrix, they are inverses of each other.
+    }
+  \end{enumerate}
+
+  \item Prove the following about matrix inverses:
+
+  \begin{enumerate}
+    \item If \( A \) is invertible, then its inverse \( A^{-1} \) is unique.
+    \ans {
+      Let's assume there are two inverses, \( B \) and \( C \), such that \( AB = AC = I \). 
+      Multiplying both sides of \( AB = I \) by \( C \) on the right, we get:
+      \[ ABC = IC \]
+      Since \( AC = I \) and \( IC = C \), it follows that \( ABC = C \).
+      Now, multiplying \( AC = I \) by \( B \) on the left, we get:
+      \[ BAC = BI \]
+      Given \( AB = I \), we know that \( BA = I \). Thus, we see that \( BAC = B \).
+      Combining these results, \( C = B \). Hence, the inverse is unique.
+    }
+
+    \item If \( A \) and \( B \) are both invertible, then their product \( AB \) is also invertible, and the inverse is \( B^{-1}A^{-1} \).
+    \ans {
+      To show \( AB \) is invertible with inverse \( B^{-1}A^{-1} \):
+      \[ (AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AIA^{-1} = AA^{-1} = I \]
+      And,
+      \[ (B^{-1}A^{-1})(AB) = B^{-1}(A^{-1}A)B = B^{-1}IB = B^{-1}B = I \]
+      Thus, \( AB \) is invertible with inverse \( B^{-1}A^{-1} \).
+    }
+  \end{enumerate}
+\end{enumerate}

@@ -1,0 +1,227 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+\qns{Regress with different modes}
+\textbf{Learning goal: learn how to apply regression on models that are not
+linear}.
+
+\meta{
+    \begin{itemize}
+        \item Review regression with students with a emphasis on the formula.
+        \item Help students on doing regression on linear function with nonzero
+            intercept by extending the vectors $A$.
+        \item Help students visualize/evaluate accuracy of models.
+        \item Further extend model to have more dimension (quadratic, etc) and
+            teach students how to deal with them.
+    \end{itemize}
+}
+
+ Suppose we have points $(1, 2), (2, 3), (3, 5)$. Try to do two regression on
+ it:
+
+ \[
+     y = mx , y = mx + b
+ \]
+
+ and quantitatively reason which regression model is better here. \\
+ %>>>>>>>>>> Brandon Edit
+ Here are subparts of the question to guide you along this process:
+ \begin{enumerate}
+    \item {
+        Try fitting a line to the above three points from prompt, according to some linear equation:
+        \[f(x) = mx\]
+        Write an expression for the quantity that we'd like to minimize to find the most fit line of these above points.
+        
+    }
+    \meta {
+    
+    }
+    \ans {
+        The quantity that we'd like to minimize to find a best-fitting line is the error vector's norm. \\
+        Say that the best-fitting line is written in the form of 
+        \[f(x) = mx\]
+        as prompt suggests, then the error vector can be written as:
+        \[
+            \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} - \begin{bmatrix} m x_1 \\ m x_2 \\ m x_3 \end{bmatrix}
+        \]
+        The norm of this vector would then be expressed as:
+        \[
+            \bigg\lVert \begin{bmatrix} y_1 - mx_1 \\ y_2 - mx_2 \\ y_3 - mx_3 \end{bmatrix} \bigg\rVert
+            = \sqrt{\sum_{i = 1}^3 {(y_i - mx_i)}^2}
+        \]
+        
+    }
+    
+    \item {
+        Use Least Squares Algorithm to derive the linear equation of a line that fits the above points the best. \\
+        Your solution would end up in the form of:
+        \[f(x) = mx\]
+        for some value $m$ that Least Squares will solve for you!
+        
+    }
+    \meta {
+    
+    }
+    \ans {
+        Our matrix-vector equation looks like below:
+        \[
+            \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} m = \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix}
+        \]
+        Using the Least Squares problem formulation, we will acquire that:
+        \[
+            A = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix},\ 
+            \vec{b} = \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} 2 \\ 3 \\ 5 \end{bmatrix}
+        \]
+        Least Squares Algorithm points out that the optimal solution of $m$ minimizing the error vector norm is:
+        \[m = {(A^T A)}^{-1} A^T \vec{b}\]
+        Which follows the following computation:
+        \begin{align*}
+            m &=
+            {(\begin{bmatrix} 1 & 2 & 3 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix})}^{-1}
+            (\begin{bmatrix} 1 & 2 & 3 \end{bmatrix} \begin{bmatrix} 2 \\ 3 \\ 5 \end{bmatrix}) \\
+            &= \frac{1}{14} \times 23 = \frac{23}{14}
+        \end{align*}
+    
+    }
+    
+    \item {
+        What is the norm of error vector from the resulting line in part (b)?
+        
+    }
+    \meta {
+    
+    }
+    \ans {
+        The error vector in this case would be:
+        \[
+            \vec{e} = \begin{bmatrix} y_1 - mx_1 \\ y_2 - mx_2 \\ y_3 - mx_3 \end{bmatrix}
+            = \begin{bmatrix} 2 - \frac{23}{14} \\ 3 - \frac{23 \times 2}{14} \\ 5 - \frac{23 \times 3}{14} \end{bmatrix}
+            = \begin{bmatrix} \frac{5}{14} \\ \frac{-4}{14} \\ \frac{1}{14} \end{bmatrix}
+        \]
+        Its norm,
+        \[
+            \lVert \vec{e} \rVert = \frac{1}{14}\sqrt{5^2 + 4^2 + 1^2} = \frac{1}{14}\sqrt{42} = \frac{3}{\sqrt{42}}
+        \]
+        
+    }
+    
+    \item {
+        I'm going to intercept you right here on solving this question. \\
+        Because sometimes, lines with intercepts can fit points better than lines without intercepts; in other words, lines with intercepts can very often provide a smaller error vector norm in Least Squares Algorithm than lines without intercepts. \\
+        To use an intercept, in a line, the linear equation becomes:
+        \[g(x) = mx + b = mx + b \times 1\]
+        Following that hint, try deriving the value of $m$ and $b$ that provides a line fitting the prompt's three points with the least errors.
+        
+    }
+    \meta {
+    
+    }
+    \ans {
+        We find the least squares formulation of this problem to be:
+        \[
+            \begin{bmatrix}
+                1 & 1 \\
+                1 & 2 \\
+                1 & 3 \\
+            \end{bmatrix}
+            \begin{bmatrix} b \\ m \end{bmatrix}
+            =
+            \begin{bmatrix}
+                2 \\ 3 \\ 5
+            \end{bmatrix}
+        \]
+        Once again, mind that there might not exist an actual solution for $m$ and $b$, and what we find is the estimated values $\hat{m}$ and $\hat{b}$ that resemble a "closest/best solution" because these values minimize error norm. \\
+        So, these estimated values may then be found by Least Squares Algorithm:
+        \begin{align*}
+            A = \begin{bmatrix}
+                1 & 1 \\
+                1 & 2 \\
+                1 & 3 \\
+            \end{bmatrix}&,\ 
+            \vec{b} = \begin{bmatrix}
+                2 \\ 3 \\ 5
+            \end{bmatrix} \\
+            \begin{bmatrix} b \\ m \end{bmatrix}
+            &= {(A^T A)}^{-1} A^T \vec{b}
+        \end{align*}
+        Using least squares algorithm's mechanical calculations, we'd find the optimal estimations of $m$ and $b$ be respectively:
+        \begin{align*}
+            {(A^T A)}^{-1} &= {(
+                \begin{bmatrix}
+                    1 & 1 & 1 \\
+                    1 & 2 & 3
+                \end{bmatrix}
+                \begin{bmatrix}
+                    1 & 1 \\
+                    1 & 2 \\
+                    1 & 3 \\
+                \end{bmatrix}
+            )}^{-1} \\
+            &= {\begin{bmatrix} 3 & 6 \\ 6 & 14 \end{bmatrix}} ^ {-1} \\
+            &= \begin{bmatrix} \frac{7}{3} & -1 \\ -1 & \frac{1}{2} \end{bmatrix} \\
+            A^T \vec{b} &=
+            \begin{bmatrix}
+                1 & 1 & 1 \\
+                1 & 2 & 3
+            \end{bmatrix}
+            \begin{bmatrix}
+                2 \\ 3 \\ 5
+            \end{bmatrix} \\
+            &= \begin{bmatrix} 10 \\ 23 \end{bmatrix} \\
+            {(A^T A)}^{-1}A^T \vec{b} &= \begin{bmatrix} \frac{1}{3} \\ \frac{3}{2} \end{bmatrix}
+        \end{align*}
+        \[
+            \hat{m} = \frac{3}{2}, \hat{b} = \frac{1}{3}
+        \]
+        And thus, the error vector may then be computed as:
+        \begin{align*}
+            \vec{e} &=
+            \begin{bmatrix}
+                2 - (\frac{3}{2} \times 1 + \frac{1}{3}) \\
+                3 - (\frac{3}{2} \times 2 + \frac{1}{3}) \\
+                5 - (\frac{3}{2} \times 3 + \frac{1}{3})
+            \end{bmatrix} \\
+            &=
+            \begin{bmatrix}
+                \frac{1}{6} \\
+                -\frac{1}{3} \\
+                \frac{1}{6}
+            \end{bmatrix} \\
+            \lVert \vec{e} \rVert
+            &= \frac{1}{6}\sqrt{1^2 + 2^2 + 1^2} = \frac{1}{\sqrt{6}}
+        \end{align*}
+        Comparing the norm from first and second model by their squared values, we will recognize that the Least Squares line with intercepts indeed has a smaller error, therefore fits the points better!
+    }
+ \end{enumerate}
+ %<<<<<<<<<<
+
+
+\ans{
+ %>>>>>>>>>> Brandon Edit
+ In summary: \\
+ %<<<<<<<<<<
+For the first one, we have 
+
+\[
+    A = \left[ 1, 2, 3 \right]^{\intercal}, b = \left[ 2, 3, 5
+    \right]^{\intercal}
+\]
+
+Therefore, we get the result is $23 / 14$, which is  $y = 23 / 14 x$.
+
+For the second part, we use
+
+\[
+    A =
+\begin{bmatrix}
+    1 & 1 \\
+    2 & 1 \\
+    3 & 1 \\
+\end{bmatrix}
+\]
+and $b$ being the same, using the same equation gives  $\left[ 3 / 2, 1 / 3
+\right]^{\intercal}$. So we have $y = 3 / 2 x + 1 / 3$. By drawing a graph/
+calculating the loss we get the affine regression is better, since it gives more
+flexibility.
+}
+
+
+

@@ -1,0 +1,107 @@
+\qns{Mechanical Cart System}
+
+Consider the following mechanical cart system with input force $u(t),$ and output position $y(t).$
+
+
+
+
+We will use our knowledge of controllability, stability, and observability to analyze this system.
+
+Let $\vec{x}(t) = \begin{bmatrix} p(t) \\ v(t) \end{bmatrix}$ be our state vector. 
+The acceleration of the car can be modeled as $a(t) = -\frac{b}{m} v(t) + \frac{u(t)}{m}.$
+
+For the purposes of this question, let $b = -4, m = 1.$
+
+\begin{enumerate}
+  \qitem Write out the state-space equations including the output $y(t).$
+
+  \sol {
+    The dynamics of the state vector can be modeled as:
+    \[
+    \ddt{}{t} \vec{x}(t) = \begin{bmatrix} \ddt{}{t} p(t) \\ \ddt{}{t} v(t) \end{bmatrix} = 
+    \begin{bmatrix} v(t) \\ a(t) \end{bmatrix} = \begin{bmatrix} 0 & 1 \\ 0 & -\frac{b}{m} \end{bmatrix} \begin{bmatrix} p(t) \\ v(t) \end{bmatrix} + \begin{bmatrix} 0 \\ \frac{1}{m} \end{bmatrix} \]
+    The output will be:
+    \[ 
+    y(t) = C \vec{x}(t) = \begin{bmatrix} 1 & 0 \end{bmatrix} \vec{x}(t) \]
+  }
+
+  \qitem Is this system controllable?
+
+  \sol {
+    \[ 
+    \mathcal{C} = \begin{bmatrix} B & AB \end{bmatrix} = 
+    \begin{bmatrix} 0 & \frac{1}{m} \\ \frac{1}{m} & -\frac{b}{m^{2}} \end{bmatrix} \]
+    Since $m = 1, \mathcal{C}$ is of full rank, so the system is controllable.
+  }
+
+  \qitem Is this system stable?
+  
+  \sol {
+    The system is in Controllable Canonical Form so its characteristic polynomial is $\lambda^{2} + \frac{b}{m} \lambda.$
+    Therefore we see that $\lambda = 0, -\frac{b}{m}.$ 
+    Since this is a continuous time system and one of the eigenvalues has real part $\mathfrak{Re} \lambda = 0,$ the system is unstable.
+  }
+
+  \qitem Is this system observable?
+
+  \sol {
+    \[ 
+    \mathcal{O} = \begin{bmatrix} C \\ CA \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & \frac{1}{m} \end{bmatrix}
+    \]
+    Since $m = 1, \mathcal{O}$ is of full rank, so the system is observable.
+  }
+
+  \qitem Construct an observer system so that the error system has two eigenvalues at $\lambda = -2.$
+
+  \sol {
+    The error system dynamics can be modeled as 
+    \[ \ddt{}{t} \vec{e}(t) = (A + LC) \vec{e}(t) \]
+    so if $L = \begin{bmatrix} l_{0} \\ l_{1} \end{bmatrix},$ which means the error feedback matrix will be
+    \[ 
+    A + LC = \begin{bmatrix} l_{0} & 1 \\ l_{1} & -\frac{b}{m} \end{bmatrix} 
+    = \begin{bmatrix} l_{0} & 1 \\ l_{1} & -4 \end{bmatrix} 
+    \]
+    This matrix has characteristic polynomial $(\lambda + 4) (\lambda - l_{0}) - l_{1} = \lambda^{2} + (4 - l_{0}) \lambda - 4l_{0} - l_{1}.$ 
+    It follows that picking $l_{0} = 0, l_{1} = -4$ givs the observer system two eigenvalues of $\lambda = -2.$
+  }
+
+  \qitem Design a feedback system so that the eigenvalues of the original system are at $\lambda = -3, -1.$
+
+  \sol {
+    Since the original system is in Controllable Canonical Form, the feedback matrix's characteristic polynomial will be
+    $\lambda^{2} - (k_{1} - 4) \lambda - k_{0}.$ 
+    It follows that picking $k_{0} = -3, k_{1} = 1$ will put the eigenvalues at $\lambda = -3, -1.$
+  }
+
+  \qitem Write out the state-space equations for $\vec{x}(t)$ with input $u(t) = K \vec{\hat{x}}(t).$
+
+  \sol {
+    The state-space equations for $\vec{x}(t)$ are:
+    \[ 
+    \ddt{}{t} \vec{x}(t) = A \vec{x}(t) + B u(t) 
+    = \begin{bmatrix} 0 & 1 \\ 0 & -\frac{b}{m} \end{bmatrix} \vec{x}(t) + \begin{bmatrix} 0 \\ \frac{1}{m} \end{bmatrix} u(t)
+    = \begin{bmatrix} 0 & 1 \\ 0 & -4 \end{bmatrix} \vec{x}(t) + \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+    \]
+    Plugging in the input $u(t) = K \vec{\hat{x}}(t)$ we see that
+    \[ 
+    \ddt{}{t} \vec{x}(t) = A \vec{x}(t) + BK \vec{\hat{x}}(t) = (A + BK) \vec{x}(t) + BK \vec{e}(t)
+    \]
+  }
+
+  \qitem Let $\vec{z}(t) = \begin{bmatrix} \vec{x}(t) \\ \vec{e}(t) \end{bmatrix}.$ Using this state variable, write out the combined observer-feedback system.
+
+  \sol {
+    The combined observer-feedback system will be
+    \begin{align*}
+    \ddt{}{t} \vec{z}(t) &= \ddt{}{t} \begin{bmatrix} \vec{x}(t) \\ \vec{e}(t) \end{bmatrix} \\
+    &= \begin{bmatrix} A + BK & BK \\ 0 & A + LC \end{bmatrix} \begin{bmatrix} \vec{x}(t) \\ \vec{e}(t) \end{bmatrix} \\
+    &= \begin{bmatrix} 
+    0 & 1 & 0 & 0 \\
+    -3 & -4 & -3 & -1 \\
+    0 & 0 & 0 & 1 \\
+    0 & 0 & -4 & -4 
+    \end{bmatrix} \vec{z}(t)
+    \end{align*}
+  }
+
+\end{enumerate}

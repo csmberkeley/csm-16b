@@ -1,0 +1,184 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Capacitor Design}
+
+You are designing a circuit for a car odometer, which measures the distance the car has travelled.\\
+The main circuit element that you have is a resistor, whose resistance changes as a function of car velocity, which varies with time:
+\[R_{car}(t) = \frac{4\alpha R_0}{v(t)}\]
+where $R_0 = 100k\Omega$, $\alpha = 60 m/s$, and $v$ is the velocity of the car in $m/s$. Throughout the problem, assume that the capacitor is initially uncharged.
+
+\begin{enumerate}
+    \item\label{determine_output}{
+        Not knowing where to start, you ask a senior member of the design team, who went to Berkeley, and he gives you the following circuit to get you started:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_capacitor_figs/determine_output.PNG}
+            }
+        \end{center}
+        As a first step, determine $V_{out}$ in terms of $t$, $V_{in}$, $\alpha$, $R_0$, $v(t)$, and $C$.
+        
+    }
+    \meta{
+        This question comes from Q13(a) of Spring 2020's Midterm 2.
+        
+    }
+    \ans{
+        To solve the circuit, we should first determine the passive sign conventions. \\
+        In this solution, both $i_C$ and $i_R$ flows into the negative node of op-amp. \\
+        This grants that $V_{out} - V_C = V_-$. If $V_{out}$ is increased, then so will $V_-$, causing the value of $V_+ - V_-$ to be decreased, and thus decreasing the output. An increase in output leads to a decrease in output. Therefore, negative feedback exists, and the golden rule $V_+ = V_-$ applies. Since $V_+ = 0V$, it would be that $V_- = 0V$. \\
+        The golden rule also states that $i_+ = i_- = 0A$, thus the KCL equation for the negative terminal node would indicate:
+        \begin{align*}
+            i_{in}
+            &= i_C + i_R \\
+            &= 0 = i_{out}
+        \end{align*}
+        Meanwhile, according to the I-V relationship of capacitors:
+        \[V_C(t) = \int_{0}^{t}\frac{i_C}{C}\, dt\]
+        Combining the KCL analysis with the I-V relationship of capacitor:
+        \begin{align*}
+            V_C(t)
+            &= \int_{0}^{t}\frac{i_C}{C}\, dt \\
+            &= -\int_{0}^{t}\frac{i_R}{C}\, dt \\
+            &= -\int_{0}^{t}\frac{V_{in}}{R_{car}C}\, dt
+        \end{align*}
+        And from $V_{out} - V_C = V_-$:
+        \begin{align*}
+            V_{out}(t)
+            &= V_C(t) + V_- \\
+            &= -\int_{0}^{t}\frac{V_{in}}{R_{car}C}\, dt + 0V \\
+            &= -\int_{0}^{t}\frac{V_{in}v(t)}{4\alpha R_0C}\, dt \\
+            &= -\frac{1}{4\alpha R_0C}\int_{0}^{t}V_{in}v(t)\, dt
+        \end{align*}
+        
+    }
+    
+    \item\label{determine_capacitance}{
+        Regardless of the answer to part (a), the output of the above circuit is given by:
+        \[V_{out} = -\frac{1}{\alpha R_0 C} \int_{0}^{t} V_{in}v(\tau)\, d\tau\]
+        Now, you decide to set $V_{in} = 1V$. Your odometer increases its distance reading by 1 when the voltage, $V_{out}$, decreases by $0.1V$.\\
+        If you want the odometer to change its distance reading by 1 when the car travels 1 kilometer, what should $C$ be?
+        
+    }
+    \meta{
+        This question comes from Q13(b) of Spring 2020's Midterm 2.
+        
+    }
+    \ans{
+        For each kilometer traveled, we would like $V_{out}(\tau)$ to be decreased by $0.1V$. Meanwhile, let the distance traveled during driving be described by $x(\tau)$, and by the physical definition of velocity:
+        \[x(\tau) = \int_{0}^{t} v(\tau)\, d\tau\]
+        Therefore, 
+        \begin{align*}
+            V_{out}(t)
+            &= -\frac{1}{4\alpha R_0C}\int_{0}^{t}V_{in}v(\tau) \,d\tau \\
+            &= -\frac{x(\tau)}{4\alpha R_0C}
+        \end{align*}
+        Let $x(t)$ measure the distance traveled in meters for the sake of coherency with how $v(t)$ measure velocity, then since for every increase of $1000 meters$ in $x(t)$ causes a $\Delta V = 0.1V$ decrease in $V_{out}(t)$,
+        \begin{align*}
+            \Delta V
+            &= V_{out}(\tau_0) - V_{out}(\tau_0 + \tau_{one\ more\ km}) \\
+            &= \Big(-\frac{x(\tau)}{\alpha R_0C}\Big) - \Big(-\frac{x(\tau) + 1000}{\alpha R_0C}\Big) \\
+            &= \frac{1000\ m}{\alpha R_0C} \\
+            &= \frac{1000}{60\times100000C}V = 0.1V \\
+            C
+            &= \frac{1000}{60\times100000\times0.1}\ Farat \\
+            &= \frac{1}{600}\ Farat
+        \end{align*}
+        
+    }
+    
+    \item\label{determine_energy}{
+        Your car has the following velocity versus time graph. How much energy is dissipated through the car resistor?\\
+        Assume that $V_{in}$ for the circuit given in part (a) is still $1V$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_design_capacitor_figs/determine_energy.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q13(c) of Spring 2020's Midterm 2.
+        
+    }
+    \ans{
+        Energy dissipated by a resistor has to do with the power dissipated by its resistor, under the relationship: $E = \int P(t)\, dt$. Meanwhile, $P = IV = \frac{V^2}{R}$. \\
+        Therefore:
+        \begin{align*}
+            E(t)
+            &= \int P(t)\, dt \\
+            &= \int \frac{V^2}{R(t)}\, dt \\
+            &= \frac{1}{4\alpha R_0}\int_{0}^{t}V_{in}^{2}v(t)\, dt \\
+            &= \frac{1}{4\alpha R_0}\int_{0}^{t}v(t)\, dt \\
+            E(80)
+            &= \frac{1}{4\alpha R_0}\int_{0}^{80}v(t)\, dt \\
+            &= \frac{1950\ m}{4\alpha R_0} = 81.25\mu J
+        \end{align*}
+        Remember that $\int_{0}^{80}v(t)\, dt$ just refers to the area under $v(t)$'s curve from $t = 0$ to $t = 80$.
+        
+    }
+    
+    \item\label{comparator_design}{
+        To add functionality, you want to add a comparator that will alert the driver when a certain number of kilometers has passed, using the odometer you designed in part (b). You do this with the following circuit:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.85]{../q_m2_design_capacitor_figs/comparator_design.PNG}
+            }
+        \end{center}
+        Say,
+        \[V_{out,ckt1} = -\frac{1}{\alpha R_0 C} \int_{0}^{t} V_{in}v(\tau)\, d\tau\]
+        is the output of odometer circuit shown in part (a); if you want the comparator to change states after the car has driven $180.0km$, given that we require $R_{left} + R_{right} = 70.0k\Omega$, what should the value of $R_{left}$ be?
+        
+    }
+    \meta{
+        This question comes from Q13(d) of Spring 2020's Midterm 2.
+        
+    }
+    \ans{
+        Let us denote the time it takes to travel $180km$ to be $t_0$. For the car to change state at $t_0$ and given that $V_{out,ckt1}$ only decreases as time of driving increases, the output pattern should be:
+        \[V_{out} = 
+            \begin{cases}
+                V_{DD} &V_{out,ckt1} > V_- \\
+                V_{SS} &V_{out,ckt1} < V_-
+            \end{cases}
+        \]
+        Meanwhile, the voltage at negative terminal is determined by a voltage divider:
+        \[V_- = \frac{R_{right}}{R_{left} + R_{right}}\]
+        If $V_- = V_{out,ckt1}(t_0)$, then for any time after $t_0$ the output is $V_{SS}$, and for any time before $t_0$ the output is $V_{DD}$ (remember this happens due to the trend of $V_{out,ckt1}$ decreasing as time increases). This means the circuit does change mode at $t = t_0$. \\
+        To figure out the resistances $R_{left}$ and $R_{right}$, there are two methods. \\
+        \textbf{Method 1: Disregarding hint from part (b)}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Using $V_- = V_{out,ckt1}(t_0)$:
+            \begin{align*}
+                \frac{R_{right}}{R_{left} + R_{right}}(-20V)
+                &= -\frac{1}{\alpha R_0C}\int_{0}^{t}V_{in}v(\tau)\, d\tau \\
+                R_{right}
+                &= \frac{V_{in}180\ km}{\alpha R_0 C}\frac{R_{left} + R_{right}}{20V} \\
+                &= 63k\Omega \\
+                R_{left}
+                &= 70k\Omega - R_{right} \\
+                &= 7k\Omega
+            \end{align*}
+        \end{minipage}
+        
+        \textbf{Method 2: Using hint from part (b)}\\
+        
+        \hspace*{\fill}\begin{minipage}{\textwidth-15mm}
+            Part (b) states that the first circuit works the way which "Your odometer increases its distance reading by 1 when the voltage, $V_{out}$, decreases by $0.1V$". Therefore, having traveled $180km$, the voltage $V_{out,ckt1}(t_0) = -18V$. \\
+            Using $V_- = V_{out,ckt1}(t_0)$:
+            \begin{align*}
+                \frac{R_{right}}{R_{left} + R_{right}}(-20V) &= -18V \\
+                R_{right}
+                &= \frac{(R_{left} + R_{right})(-18V)}{20V} \\
+                &= 63k\Omega \\
+                R_{left}
+                &= 70k\Omega - R_{right} \\
+                &= 7k\Omega
+            \end{align*}
+        \end{minipage}
+        
+    }
+\end{enumerate}

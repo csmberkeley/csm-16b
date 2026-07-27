@@ -1,0 +1,140 @@
+\qns{Steady State}
+
+Find the eigenvalues of each of the following matrices. Which of these have a steady state?
+\begin{enumerate}
+    \begin{enumerate}
+        \item \[A=\begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}\]
+        \ans{
+            \[
+        \begin{aligned}
+        & A = \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix} \\
+        & A x = \lambda x \\
+        & (A - \lambda I) x = 0 \\
+        & \operatorname{det}(A - \lambda x) = 0 \\
+        & \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix} - \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix} = \begin{bmatrix} 3 - \lambda & 1 \\ 1 & 3 - \lambda \end{bmatrix} \\
+        & (3 - \lambda)(3 - \lambda) - 1 = 0 \\
+        & \lambda^{2} - 6 \lambda + 8 = 0 \\
+        & \lambda_{1} = 2, \quad \lambda_{2} = 4 \\
+        \end{aligned}
+        \]
+        }
+        \item \[
+            B=\begin{bmatrix} 
+            3 & 6 \\ 
+            2 & 5 
+            \end{bmatrix}
+            \]
+            \end{minipage}%
+            \begin{minipage}[t]{0.3\linewidth}
+            \textbf{c.}
+            \ans{
+                \[
+            \begin{aligned}
+            & B = \begin{bmatrix} 3 & 6 \\ 2 & 5 \end{bmatrix} \\
+            & B x = \lambda x \\
+            & (B - \lambda I) x = 0 \\
+            & \operatorname{det}(B - \lambda x) = 0 \\
+            & \begin{bmatrix} 3 & 6 \\ 2 & 5 \end{bmatrix} - \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix} = \begin{bmatrix} 3 - \lambda & 6 \\ 2 & 5 - \lambda \end{bmatrix} \\
+            & (3 - \lambda)(5 - \lambda) - 12 = 0 \\
+            & \lambda^{2} - 8 \lambda + 3 = 0 \\
+            & \lambda_{1} = 4 + \sqrt{13}, \quad \lambda_{2} = 4 - \sqrt{13} \\
+            \end{aligned}
+            \]
+            }
+        \item \[
+            C=\begin{bmatrix} 
+            2 & 0 \\ 
+            1 & 3 
+            \end{bmatrix}
+            \]
+            \end{minipage}
+            
+            \ans{
+                \[
+            \begin{aligned}
+            & C = \begin{bmatrix} 2 & 0 \\ 1 & 3 \end{bmatrix} \\
+            & C x = \lambda x \\
+            & (C - \lambda I) x = 0 \\
+            & \operatorname{det}(C - \lambda x) = 0 \\
+            & \begin{bmatrix} 2 & 0 \\ 1 & 3 \end{bmatrix} - \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix} = \begin{bmatrix} 2 - \lambda & 0 \\ 1 & 3 - \lambda \end{bmatrix} \\
+            & (2 - \lambda)(3 - \lambda) - 0 = 0 \\
+            & \lambda_{1} = 2, \quad \lambda_{2} = 3 \\
+            \end{aligned}
+            \]
+            
+            }
+            
+    \end{enumerate}
+    \end{enumerate}
+
+\begin{comment}
+\item 
+
+        Similar to a water pump system, we can use matrix transformations to model the tendencies of web surfing, and the popularity of websites over time. Let's say we have three websites, the EECS 16a website, EECS 16b, and EE 130, and we want to find which website will be the most popular in the long term. We can model the flow of internet traffic between these sites with the following state transition diagram.\\
+
+        \begin{center}
+        \begin{tikzpicture}[node distance=2cm,thick,auto]
+        % draw the states
+        \node[state,accepting] (s_0) {$s_0$}; % removed initial attribute
+        \node[state,accepting] (s_1) [right of=s_0] {$s_1$};
+        \node[state] (s_2) [right of=s_1] {$s_2$};
+        % draw the edges
+        \path[->] (s_0) edge [loop above] node {1/3} ()
+        edge node {1/3} (s_1)
+        edge [bend right] node [swap] {1/3} (s_2)
+        (s_1) edge [loop above] node {1/2} ()
+        edge [bend left] node {1/2} (s_0) % loop from s1 to s0
+        (s_2) edge [loop right] node {1} (); % loop from s2 to s2 % transition from s2 to s1
+        \end{tikzpicture}
+        \end{center}
+    \begin{enumerate}
+        \item Express the traffic flow above as an equation with a state transformation matrix
+
+        \ans{
+            \[
+        \vec{x}_{1}(t+1) = \begin{bmatrix} \frac{1}{2} & \frac{1}{3} & 0 \\ \frac{1}{2} & \frac{1}{3} & 0 \\ 0 & \frac{1}{3} & 1 \end{bmatrix} \begin{bmatrix} x_{16 A}(t) \\ x_{16 b}(t) \\ x_{130}(t) \end{bmatrix}
+        \]
+        }
+
+        \item Let's assume we start with equal people on both webpages. Find the expected distribution of websurfers after one time step.\\
+        \ans{
+            \[
+        \begin{aligned}
+        & \vec{x}_{1}(t+1) = \begin{bmatrix} \frac{1}{2} & \frac{1}{3} & 0 \\ \frac{1}{2} & \frac{1}{3} & 0 \\ 0 & \frac{1}{3} & 1 \end{bmatrix} \begin{bmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{bmatrix} 
+        & = \begin{bmatrix} \frac{5}{18} \\ \frac{5}{18} \\ \frac{4}{9} \end{bmatrix}
+        \end{aligned}
+        \]
+        }
+
+        \item Apply this process to find how many people are at 10 time steps - feel free to use a calculator for this step. (hint: You can raise a matrix to a power)\\
+        \ans{
+            \[
+        \vec{x}_{1}(t+10) = \begin{bmatrix} \frac{1}{2} & \frac{1}{3} & 0 \\ \frac{1}{2} & \frac{1}{3} & 0 \\ 0 & \frac{1}{3} & 1 \end{bmatrix}^{10} \begin{bmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{bmatrix} = \begin{bmatrix} 0.04 \\ 0.04 \\ 0.92 \end{bmatrix}
+        \]
+        }
+        \item Finally, expand this process to predict the popularity of websites in the long term ie. as the time step tends towards to infinity\\
+        \ans{
+            \[
+        \vec{x}_{1}(t+\infty) = \begin{bmatrix} \frac{1}{2} & \frac{1}{3} & 0 \\ \frac{1}{2} & \frac{1}{3} & 0 \\ 0 & \frac{1}{3} & 1 \end{bmatrix}^{\infty} \begin{bmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+        \]
+        }
+
+        \item Try to apply the transformation matrix to this final distribution - what happens? Why could we call this a steady state?
+        \ans{
+            \[
+        \begin{aligned}
+        & \begin{bmatrix} \frac{1}{2} & \frac{1}{3} & 0 \\ \frac{1}{2} & \frac{1}{3} & 0 \\ 0 & \frac{1}{3} & 1 \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} =
+        \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+        \end{aligned}
+        \]
+        \\
+        \\
+        Nothing happens! The vector $(0,0,1)$ is what we would call a "steady state" because applying the matrix transformation on the vector has absolutely no effect on it. The general expression describing a steady state $\bar{x}$ for matrix $\mathrm{A}$ is
+
+        \[
+        A \vec{x} = \vec{x}
+        \]
+
+        }
+\end{comment}
+\end{enumerate}

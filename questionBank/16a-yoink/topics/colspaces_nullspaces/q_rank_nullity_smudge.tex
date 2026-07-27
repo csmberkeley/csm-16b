@@ -1,0 +1,69 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{Rank-Nullity Smudging}
+
+\begin{enumerate}
+    \item {
+        Label the characters and numbers hidden behind the coffee smudges in the following passage:
+        \begin{ln-theorem}{Rank-Nullity Theorem}{}
+            \textbf{Theorem}: For a matrix $A \in \R ^ {m \times \circled{1}}$ whose rank is $r$, as rank is the dimension of columnspace of $A$ and nullity is the dimension of nullspace of $A$:
+            \[rank(A) + nullity(A) = \circled{2}\]
+            \tcblower
+            If $rank(A) = \circled{3}$, the matrix $A$ is full-rank and thus have linearly independent columns. This means the only solution of the system $A\vec{x} = \vec{0}$ is $\vec{0}$. Therefore, $nullity(A) = 0$. \\
+            If $rank(A) = r < n$, then for the solutions to the system $A\vec{x} = \vec{0}$. Since there are $\circled{4}$ linearly independent columns in $A$, at the end of Gaussian Elimination, there will be $r$ pivots in the reduced echelon form of $A$, and therefore, $n - \circled{5}$ free variables in the solution $\vec{x}$. \\
+            For a system $A\vec{x} = \vec{b}$ with $\circled{6}$ pivots, the solution $\vec{x}$ will have $k$ components that have a concrete expression or value, and if $\vec{x} \in \R^m$, then the solution $\vec{x}$ will have $\circled{7} - k$ components that are “free”, which means it could be any real value. \\
+            Using that conclusion, and the fact that in the Gaussian Elimination of a system whose result is $\vec{0}$, the right side of the augmented matrix will remain $\vec{0}$ as any row operation on the zero vector does not increase or decrease the value of its component, there are $\circled{8} - \circled{9}$ free components in the solutions for $A\vec{x} = \vec{0}$, and all $\circled{10}$ leading variables are 0. \\
+            Finally, since the components of $\vec{x}$ are decided by $k$ values, $nullity(A) = k$, and the value of $k$ to suffice the conclusion equation of rank-nullity theorem.
+        \end{ln-theorem}
+        
+    }
+   
+    \ans {
+        There are many orders in which we can solve the smudges in. For the solution's order, we will start with what smudge seems immediately answerable, and then deal with those that require more clues to solve for. \\
+        Clue: At paragraph 1 of the proof section, I have found that $\vec{x} \in \R^m$. Therefore, it must be that the matrix $A$ has $n$ columns. \\
+        Smudge $\circled{1}$: n; as directly stated above. \\
+        Smudge $\circled{2}$: n; as that is what the Rank-Nullity Theorem should state. This theorem is included by both the recent lecture(s) and its notes. \\
+        Clue: At paragraph 1 of the proof section, the author expected matrix $A$ to be full-rank. \\
+        Smudge $\circled{3}$: n; because if matrix $A$ is full-rank, then its rank is equal to the number of columns it has. \\
+        Clue: At paragraph 2 of the proof section, the author expects a different case where matrix $A$ has a rank of $r < n$. \\
+        Smudge $\circled{4}$: r; if $A$ has a rank $r$, it has $r$ linearly independent columns.
+        Clue: There are $r$ pivots in the reduced row echelon form of matrix $A$.
+        Smudge $\circled{5}$: r; since there should be $n$ variables in the solution and $r$ of them are leading variables (pivot), then there needs to be $n - r$ free variables such that there are still a total of $n$ variables in the solution. \\
+        Clue: At Pragraph 3 of the proof section, the author expects a system with $k$ components having concrete expressions. We also know the solution has $m$ components.
+        Smudge $\circled{6}$: k; since variables with concrete expressions are leading variables, and there are as many leading variables as pivots. \\
+        Smudge $\circled{7}$: m; since in that way the solution will have a total of $m$ variables, as needed. \\
+        And now, building upon the above knowledge we acquired, smudge 8 through 10 reiterates the discoveries we have found. \\
+        Smudge $\circled{8}$: n \\
+        Smudge $\circled{9}$: r \\
+        Smudge $\circled{10}$: r \\
+        Take the conceptual proof of rank-nullity theorem as a side-gift.
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                Number & k & m & n & r \\
+                \hline
+                \circled{1} & $\bigcirc$ & $\bigcirc$ & $\bullet$ & $\bigcirc$ \\
+                \hline
+                \circled{2} & $\bigcirc$ & $\bigcirc$ & $\bullet$ & $\bigcirc$ \\
+                \hline
+                \circled{3} & $\bigcirc$ & $\bigcirc$ & $\bullet$ & $\bigcirc$ \\
+                \hline
+                \circled{4} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+                \circled{5} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+                \circled{6} & $\bullet$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{7} & $\bigcirc$ & $\bullet$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{8} & $\bigcirc$ & $\bigcirc$ & $\bullet$ & $\bigcirc$ \\
+                \hline
+                \circled{9} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+                \circled{10} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+    }
+\end{enumerate}

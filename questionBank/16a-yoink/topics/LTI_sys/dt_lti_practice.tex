@@ -1,0 +1,59 @@
+% Author: Jinsheng Li
+% Email: ljs233233@berkeley.edu
+% Fall 2025
+
+\qns{General Solutions to DT LTI Systems}
+
+\begin{enumerate}
+
+% Part A
+\item Find the solution to the following unforced DT LTI system. 
+
+(i.e. Express the state at time k $x[k]$ as a function of the initial state $x[0]$.)
+
+\[ x[k+1] = A x[k] \]
+
+\ans{
+
+\begin{align*}
+x[k+1] &= A x[k],\\
+x[k] &= A x[k-1]
+      = A^2 x[k-2]
+      = \cdots
+      = A^k x[0].
+\end{align*}
+
+}
+
+% Part B
+\item Find the solution to the following forced DT LTI system. 
+
+(i.e. Express the state at time k $x[k]$ as a function of the initial state $x[0]$, and inputs $u[0], u[1], ... u[k-1]$.)
+
+\[ x[k+1] = A x[k] + B u[k] \]
+
+\ans{
+
+\begin{align*}
+x[k+1] &= A x[k] + B u[k],\\
+x[k] &= A x[k-1] + B u[k-1] \\
+     &= A\big(A x[k-2] + B u[k-2]\big) + B u[k-1] \\
+     &= A^2 x[k-2] + A B u[k-2] + B u[k-1] \\
+     &= A^3 x[k-3] + A^2 B u[k-3] + A B u[k-2] + B u[k-1] \\
+     &\ \ \vdots \\
+     &= A^k x[0] + A^{k-1} B u[0] + \cdots + B u[k-1] \\
+     &= A^k x[0]
+        + \begin{bmatrix}
+            B & AB & A^2 B & \cdots & A^{k-1} B
+          \end{bmatrix}
+          \begin{bmatrix}
+            u[k-1] \\
+            u[k-2] \\
+            \vdots \\
+            u[0]
+          \end{bmatrix}.
+\end{align*}
+
+}
+
+\end{enumerate}

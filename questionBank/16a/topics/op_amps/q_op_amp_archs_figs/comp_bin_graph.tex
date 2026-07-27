@@ -1,0 +1,29 @@
+%Code Referenced from q_review_opamps.tex
+
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+
+\begin{center}
+    Comparator Behaviour be like: \\
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xlabel = {$U_+$},
+            ylabel = {$V_{out}$},
+            legend pos=outer north east,
+            legend cell align=left
+        ]
+            \addplot [color=red, domain=0:5] {
+               5
+            };
+            \addlegendentry{$V_{DD}$}
+            \addplot [color=blue, domain=-5:0] {
+               0
+            };
+            \addlegendentry{$V_{SS}$}
+            \addplot +[mark=none, color=yellow] coordinates {(0, -6) (0, 6)};
+            \addlegendentry{$U_- = 0V$}
+        \end{axis}
+    \end{tikzpicture}
+\end{center}

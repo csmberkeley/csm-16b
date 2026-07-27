@@ -1,0 +1,123 @@
+\qns{KCL and KVL}
+
+\textbf{Learning Goal:} .
+
+\meta{
+    Make clear that the voltage divider equation relates the output voltage to the voltage at the input of the first resistor for the first part. Then, for the third part, show how having the second voltage divider attached to the Vmid of the first one invalidates the first part as a voltage divider.
+}
+
+\begin{enumerate}
+    \item Here, you can see two standard voltage dividers. Find the voltage at the points $A$ and $B$ using standard nodal analysis techniques.\\
+    \begin{circuitikz}
+        \draw (0,-2)
+            node[ground]{}
+            (0,0) to[V=$V$] (0,-2)
+            (0,0) to[R=$R_1$] (4,0)
+            node[above] {$A$}
+            to[R=$R_2$] (4,-2)
+            node[ground]{};
+
+        \draw (8,-2)
+            node[ground]{}
+            (8,0) to[V=$V$] (8,-2)
+            (8,0) to[R=$R_3$] (12,0)
+            node[above] {$B$}
+            to[R=$R_4$] (12,-2)
+            node[ground]{};
+    \end{circuitikz}
+    
+    \ans{
+    We can apply KCL at node $A$. We get:
+    \begin{flalign*}
+    & \frac{V_A - 0}{R_2} = \frac{V - V_A}{R_1} &\\
+    & \implies \frac{R_1}{R_2}V_A = V - V_A &\\
+    & \implies V_A (1 + \frac{R_1}{R_2}) = V &\\
+    & \implies V_A \frac{R_1 + R_2}{R_2} = V &\\
+    & \implies V_A = V \frac{R_2}{R_1 + R_2} &\\
+    \end{flalign*}
+    Similarly, for the second circuit, we have
+    \begin{flalign*}
+    & V_B = V \frac{R_4}{R_3 + R_4} &\\
+    \end{flalign*}
+    }
+    
+    \item Now, let us modify this circuit to add a second voltage divider stage starting at A. You can think of this as cascading 2 voltage dividers: one which which has an input of $V$ and an output of $V_A$, and a second one that has an input of $V_A$ and an output of $V_B$. Find the voltage at $B$ using nodal analysis.
+    
+    \begin{circuitikz}
+        \draw (0,-2)
+            node[ground]{}
+            (0,0) to[V=$V$] (0,-2)
+            (0,0) to[R=$R_1$] (4,0)
+            node[above] {$A$}
+            to[R=$R_2$] (4,-2)
+            node[ground]{};
+        \draw (4,0)
+            to[R=$R_3$] (8,0)
+            node[above] {$B$}
+            to[R=$R_4$] (8,-2)
+            node[ground]{};
+    \end{circuitikz}
+    
+    \ans{
+    We can apply KCL at node $A$ and at node $B$. We get the equations:
+    \begin{flalign*}
+    & \frac{V - V_A}{R_1} + \frac{0 - V_A}{R_2} = \frac{V_A - V_B}{R_3} &\\
+    & \frac{V_A - V_B}{R_3} = \frac{V_B - 0}{R_4} &\\
+    \end{flalign*}
+    
+    We can simplify these equations to give us
+    \begin{flalign*}
+    & \frac{V}{R_1} - \frac{V_A}{R_1} - \frac{V_A}{R_2} = \frac{V_A}{R_3} - \frac{V_B}{R_3} &\\
+    & \implies \frac{V_B}{R_3} + \frac{V}{R_1} = \frac{V_A}{R_1} + \frac{V_A}{R_2} + \frac{V_A}{R_3} &\\
+    & \implies \frac{V_B}{R_3} + \frac{V}{R_1} = V_A (\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}) &\\
+    & \frac{V_A}{R_3} - \frac{V_B}{R_3} = \frac{V_B}{R_4} &\\
+    & \implies \frac{V_A}{R_3} = \frac{V_B}{R_3} + \frac{V_B}{R_4} &\\
+    & \implies V_A = V_B R_3 (\frac{1}{R_3} + \frac{1}{R_4}) &\\
+    \end{flalign*}
+    
+    Combining these 2 equations, we get:
+    \begin{flalign*}
+    & \frac{V_B}{R_3} + \frac{V}{R_1} = V_B R_3 (\frac{1}{R_3} + \frac{1}{R_4}) (\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}) &\\
+    & \implies \frac{V_B}{R_3} + \frac{V}{R_1} = V_B R_3 (\frac{1}{R_3} + \frac{1}{R_4}) (\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}) &\\
+    & \implies \frac{V}{R_1} = V_B R_3 (\frac{1}{R_3} + \frac{1}{R_4}) (\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}) - \frac{V_B}{R_3} = V_B (R_3 (\frac{1}{R_3} + \frac{1}{R_4}) (\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}) - \frac{1}{R_3}) &\\
+    & \implies V_B = \frac{V}{R_1} / (R_3 (\frac{1}{R_3} + \frac{1}{R_4}) (\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}) - \frac{1}{R_3})  &\\
+    \end{flalign*}
+    }
+    
+    \item Compare your answer with what you get when you multiplying the amplification factors of each individual voltage divider. Are they the same or different? Does this surprise you? Why or why not?
+
+    \meta{
+    If students don’t entirely see why you can’t use the voltage divider twice, try redrawing the circuit. You can illustrate how R3 and R4 are in series, but both are in parallel with R2.
+    }
+    
+    \ans{
+    They are clearly not the same! The next part explains why.
+    
+    What we see here is called "loading". Ideally, we would like to be able to stack voltage dividers like this in order to cascade their effects. However this does not work because by adding the second circuit, we are changing what the first one does. In particular, the second circuit will draw some current from the first circuit. We can see this difference if we zoom in on the node A. In part (a), we had the following picture:
+    
+    \begin{circuitikz}
+        \draw (0,0)
+            (0,0) to[R=$R_1$, i=$i_1$] (4,0)
+            node[above] {$A$}
+            to[R=$R_2$, i=$i_2$] (4,-2)
+            node[ground]{};
+    \end{circuitikz}
+    \\
+    And we were able to say that $i_1 = i_2$, because they are the only currents at node $A$. But after adding the second voltage divider stage, the picture now looks like this:
+    
+    \begin{circuitikz}
+        \draw (0,0)
+            (0,0) to[R=$R_1$, i=$i_1$] (4,0)
+            node[above] {$A$}
+            to[R=$R_2$, i=$i_2$] (4,-2)
+            node[ground]{}
+            (4,0) to[short, i=$i_B$] (6,0);
+    \end{circuitikz}
+    \\
+    And so the KCL equation we wrote at node $A$ is no longer valid. \\
+    Voltage dividers "divide" the voltage between two resistors in series. However, when we add the second voltage divider, $R_1$ and $R_2$ can't be said to be in series anymore. 
+
+    Think about the conditions under which the impact of cascaded voltage dividers can be calculated by simply multiplying the two ratios. We will learn how to do that later in lecture with a special circuit element which helps us "modularize" the circuit. 
+    }
+    
+\end{enumerate}

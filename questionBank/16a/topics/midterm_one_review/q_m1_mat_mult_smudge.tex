@@ -1,0 +1,108 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Singular Value De... compositions}
+
+\textbf{Learning Topic}: Matrix Multiplications
+Professor Courtade writes with a sharpie to accommodate the vision of as many people as possible.\\
+Unfortunately, some characters get smudged, which makes them difficult to read. The following is a (hypothetical) passage from lecture notes, and the smudges are labeled \circled{1}, \circled{2}, \dots, \circled{10}. Your task is to identify correct expressions for each of the smudges.\\
+Here is the hypothetical message:\\
+\hrule
+\hspace*{\fill}\begin{minipage}{\textwidth-10mm}
+    Let $A\in\R^{n\times\circled{1}}$ be a matrix with rank r. It is always possible to write A in terms of its compact SVD:
+    \[A=U\Sigma V^{T}\]
+    where $\Sigma$ is a diagonal $r\times r$ matrix, and $U\in\R^{\circled{2}\times\circled{3}}$ and $V\in\R^{\circled{4}\times\circled{5}}$ have orthonormal columns.\\
+    This means that $U^{T}U=I_{\circled{6}}$ and $V^{T}V=I_{\circled{7}}$, where we write $I_{m}$ to denote the $m\times\circled{8}$ identity matrix for an integer m.\\
+    The columns of U form a basis for the range of A, which is defined as:
+    \[range(A)={A\vec{x}=\vec{x}\in\R^{k}}\]
+    Note that $range(A)$ is a subspace of $\R^{\circled{9}}$, which has dimension \circled{10}.
+\end{minipage}
+
+\begin{enumerate}
+    \setlength\itemsep{4em}
+    \item{
+        Fill in the value each smudge should represent:
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                Number & k & m & n & r \\
+                \hline
+                \circled{1} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{2} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{3} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{4} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{5} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{6} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{7} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{8} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{9} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{10} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+    }
+    \meta{
+        This question comes from Q4 of Spring 2020’s Midterm 1.\\
+        \begin{bindenum}
+            \item There are multiple orders to solve this problem in. This solution utilizes an order that prioritizes on finding all known or relatively directly obvious information.
+            \item It is encouraged that students utilize the property of this type of question to perform revisions. This also helps them practice debugging their solutions.
+        \end{bindenum}
+        
+    }
+    \ans{
+        Let us start with the directly obvious items.\\
+        Item \circled{2}: Since $A=U\Sigma V^{T}\in\R^{n\times\circled{1}}$, to make appropriate dimensions so that the matrix multiplication in A's factorization (compact SVD, or called a decomposition) holds, $U\in\R^{n\times\circled{3}}$. Therefore, $\circled{2}=n$.\\
+        Item \circled{3}: Since $U\Sigma$ is a proper multiplication and $\Sigma\in\R^{r\times r}$, $\circled{3}=r$.\\
+        Item \circled{5}: Since $\Sigma V^{T}$ is a proper multiplication and $\Sigma\in\R^{r\times r}$, we would get that $\circled{5}=r$.\\
+        Item \circled{6}: Since $U\in\R^{n\times r}$, $U^{T}U\in\R^{r\times r}$. Therefore, $\circled{6}=r$.\\
+        Item \circled{7}: Since $V^{T}\in\R^{r\times\circled{4}}$, $V^{T}V\in\R^{r\times r}$. Therefore, $\circled{7}=r$.\\
+        Item \circled{8}: An identity matrix is square, therefore $\circled{8}=m$.\\
+        Now, let's observe the items that might need help from what information we have deducted above:\\
+        Item \circled{1}: It was stated in the definition of $range(A)$ that the matrix $A$ can be multiplied by vectors that can be expressed as k-by-1 matrices. Therefore, $A\in\R^{n\times k}$, leading to the conclusion that $\circled{1}=k$.\\
+        Item \circled{4}: Item \circled{4} should be equal to item \circled{1} due to the way $A$ is multiplied as $U\Sigma V^{T}$. Therefore, $\circled{4}=k$.\\
+        Item \circled{9}: Since $A\in\R^{n\times k}$ and $\vec{x}\in\R^{k\times 1}$, expression $A\vec{x}\in\R^{n\times 1}$. Therefore, $range(A)$ is a set of n-dimensional vectors. If $range(A)$ should also be a subset, it would be a subset of $\R^{n}$. Therefore, $\circled{9}=n$.\\
+        Item \circled{10}: The range of A, $range(A)$, can also be paraphrased as $col(A)$, whose dimension is the rank of $A$. We, at the beginning of the hypothetical passage, were given that $rank(A)=r$. Therefore, $\circled{10}=r$.\\
+        \\
+        To express the above choices in the option table:\\
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                Number & k & m & n & r \\
+                \hline
+                \circled{1} & $\bullet$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{2} & $\bigcirc$ & $\bigcirc$ & $\bullet$ & $\bigcirc$ \\
+                \hline
+                \circled{3} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+                \circled{4} & $\bullet$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{5} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+                \circled{6} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+                \circled{7} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+                \circled{8} & $\bigcirc$ & $\bullet$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+                \circled{9} & $\bigcirc$ & $\bigcirc$ & $\bullet$ & $\bigcirc$ \\
+                \hline
+                \circled{10} & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+        
+    }
+\end{enumerate}
+    

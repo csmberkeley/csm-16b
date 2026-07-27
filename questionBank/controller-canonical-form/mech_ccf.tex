@@ -1,0 +1,216 @@
+\qns{Controllable Canonical Form}
+\qcontributor{Yen-Sheng Ho}
+
+Consider the linear continuous-time system below.
+\begin{align*}
+\frac{d}{dt}\vec{s}(t) 
+= A_r\vec{s}(t) + \vec{b}_r {u}(t)
+=\begin{bmatrix}
+ 7 & -14 & 8 \\
+ 1 & 0 & 0 \\
+ 0 & 1 & 0\\
+\end{bmatrix} 
+\vec{s}(t) +
+\begin{bmatrix}
+1 \\ 0 \\ 0 
+\end{bmatrix}
+u(t)
+\end{align*} 
+
+\begin{enumerate}
+
+\qitem
+There exists a transformation $\vec{z}(t) = T\vec{s}(t)$ such that the
+resulting system is in controllable canonical form: 
+\begin{align*}
+\frac{d}{dt}\vec{z}(t) 
+= \begin{bmatrix}
+ 0 & 1 & 0 \\
+ 0 & 0 & 1 \\
+ \alpha_0 & \alpha_1 & \alpha_2 \\
+\end{bmatrix} 
+\vec{z}(t) +
+\begin{bmatrix}
+0 \\ 0 \\ 1 
+\end{bmatrix}
+u(t)
+\end{align*}
+
+{\bf Find this transformation matrix $T$.}
+
+{\em HINT:
+The column vectors of $T$ are just the standard basis vectors
+$\left\{
+\begin{bmatrix}
+1 \\ 0 \\ 0
+\end{bmatrix},
+\begin{bmatrix}
+0 \\ 1 \\ 0
+\end{bmatrix},
+\begin{bmatrix}
+0 \\ 0 \\ 1
+\end{bmatrix}
+\right\}
+$
+arranged in some order.
+}
+
+\sol{
+\begin{align*}
+T = \begin{bmatrix}
+0 & 0 & 1\\
+0 & 1 & 0\\
+1 & 0 & 0\\
+\end{bmatrix}
+\end{align*}
+}
+
+\qitem 
+For the system given by ($A_r$, $\vec{b}_r$, $\vec{s}$, $u$), compute
+a state feedback law $u(t) = \vec{f}^T \vec{s}(t) = \begin{bmatrix}
+f_0 & f_1 & f_2
+\end{bmatrix} \vec{s}(t)$ such that the resulting closed-loop system has eigenvalues $\lambda = -1, -2, -4$.
+
+{\bf What is the vector $\vec{f}$?}
+
+\sol{
+\begin{align*}
+\vec{f} = \begin{bmatrix}
+-14 \\ 0 \\ -16
+\end{bmatrix}
+\end{align*}
+}
+
+\qitem Consider another system below:
+\begin{align*}
+\frac{d}{dt}\vec{x}(t) 
+= A \vec{x}(t) + \vec{b}u(t)
+=\begin{bmatrix}
+ -3 & -11 & 4 \\
+ 4 & 10 & -4 \\
+ 1 & 1 & 0\\
+\end{bmatrix} 
+\vec{x}(t) +
+\begin{bmatrix}
+\frac{1}{2} \\ -\frac{1}{2} \\ 0 
+\end{bmatrix}
+u(t)
+\end{align*} 
+
+Compute a state feedback law $u(t) = \vec{k}^T \vec{x}(t) = \begin{bmatrix}
+k_0 & k_1 & k_2
+\end{bmatrix} \vec{x}(t)$ such that the resulting closed-loop system has eigenvalues $\lambda = -1, -2, -4$.
+{\bf What is the vector $\vec{k}$?}
+
+{\em HINT: the matrices $A$ and $A_r$ are related by
+\begin{align*}
+\underbrace{\begin{bmatrix}
+ 7 & -14 & 8 \\
+ 1 & 0 & 0 \\
+ 0 & 1 & 0\\
+\end{bmatrix} }_{A_r}
+= \begin{bmatrix}
+1 & -1 & 0\\
+1 &  1 & 0\\
+0 &  0 & 1\\
+\end{bmatrix}
+\underbrace{
+\begin{bmatrix}
+ -3 & -11 & 4 \\
+ 4 & 10 & -4 \\
+ 1 & 1 & 0\\
+\end{bmatrix}
+}_{A}
+\begin{bmatrix}
+\frac{1}{2} & \frac{1}{2} & 0\\
+-\frac{1}{2} &  \frac{1}{2} & 0\\
+0 &  0 & 1\\
+\end{bmatrix}
+\end{align*}
+}
+
+\sol{
+\begin{align*}
+\vec{k}^T = \vec{f}^T T = \begin{bmatrix}
+-14 & 0 & -16 
+\end{bmatrix}
+\begin{bmatrix}
+1 & -1 & 0\\
+1 & 1 & 0\\
+0 & 0 & 1\\
+\end{bmatrix}
+=\begin{bmatrix}
+-14 & 14 & -16
+\end{bmatrix}
+\end{align*}
+}
+
+%\qitem Consider the specific system below.
+%\begin{align*}
+%\frac{d}{dt}\vec{x}(t) 
+%= \begin{bmatrix}
+% 7 & 8 & -14 \\
+% 0 & 0 & 1 \\
+% 1 & 0 & 0\\
+%\end{bmatrix} 
+%\vec{x}(t) +
+%\begin{bmatrix}
+%1 \\ 0 \\ 0 
+%\end{bmatrix}
+%u(t)
+%\end{align*} 
+%Given the fact that there exists a transformation $\vec{s}(t) = \begin{bmatrix}
+%1 & 0 & 0\\
+%0 & 0 & 1\\
+%0 & 1 & 0\\
+%\end{bmatrix}\vec{x}(t)$ such that 
+%\begin{align*}
+%\frac{d}{dt}\vec{s}(t) 
+%= A_r\vec{s}(t) + \vec{b}_r {u}(t)
+%\end{align*} 
+%Compute a state feedback $u(t) = \vec{k}^T \vec{x}(t) = \begin{bmatrix}
+%k_0 & k_1 & k_2
+%\end{bmatrix} \vec{x}(t)$ such that the resulting closed-loop system has eigenvalues $\lambda = -1, -2, -4$.
+%What is the vector $\vec{k}$?
+%
+%\sol{
+%\begin{align*}
+%\vec{k}^T = \vec{f}^T T = \begin{bmatrix}
+%-14 & 0 & -16 
+%\end{bmatrix}
+%\begin{bmatrix}
+%1 & 0 & 0\\
+%0 & 0 & 1\\
+%0 & 1 & 0\\
+%\end{bmatrix}
+%=\begin{bmatrix}
+%-14 & -16 & 0
+%\end{bmatrix}
+%\end{align*}
+%}
+
+\end{enumerate}
+
+
+% \qitem What is the characteristic polynomial, $\mbox{det}(\lambda I - A_r)$, of the matrix $A_r$?
+
+% \sol{
+% \begin{align*}
+% \lambda^n - \sum_{i = 0}^{n-1} a_i \lambda^{n-1-i} 
+% \end{align*}
+% }
+
+%\qitem 
+%Is the system (characterized by $A_r$ and $\vec{b}_r$) controllable? (You do not need to justify your answer.)
+%
+%\sol{
+%
+%\begin{align*}
+%C = \begin{bmatrix}
+%1 & a_0 & a_0^2 + a_1\\
+%0 & 1   & a_0 \\
+%0 & 0   & 1 \\
+%\end{bmatrix}
+%\end{align*}
+%}
+

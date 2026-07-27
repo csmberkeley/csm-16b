@@ -1,0 +1,101 @@
+\qns{Transistor Power Consumption}
+
+In this problem, we'll investigate the energy consumption of a NOR gate while switching from low to high.
+
+First let's look at the energy dissipated when we charge up an RC circuit.
+
+\input{\bank/transistors/figures/rc_circuit}
+
+Assume that at time $t = 0$, the capacitor is fully uncharged.
+
+\begin{enumerate}
+
+\qitem We are interested in the energy dissipated by the resistor, $\Delta E_R = \int_0^\infty P_R(t) dt$, where $P_R(t)$ is the power consumption of the resistor. 
+
+\textbf{Using what you know about RC circuits, what is $P_R(t)$?} Recall $P = IV = I^2R = V^2 / R$.
+
+\ws{\vspace{75px}}
+
+\sol{
+\begin{align*}
+\intertext{Remember that the voltage of a charging RC circuit over time is:}
+V_C(t) = V_s(1 - e^{\frac{-t}{RC}})
+\intertext{Solving for $V_R$:}
+V_R(t) = V_s - V_c(t) = V_se^{\frac{-t}{RC}}
+\intertext{So $P_R(t) = V^2 / R = (V_s^2 / R)\cdot e^{\frac{-2t}{RC}}$}
+\end{align*}
+}
+
+
+\qitem \textbf{How much energy is consumed by the resistor as the capacitor charges?}
+
+\ws{\vspace{75px}}
+
+\sol{
+\[\Delta E_R = \int_0^\infty P_R(t) dt = \int_0^\infty (V_s^2 / R)\cdot e^{\frac{-2t}{RC}} dt\]
+\[\Delta E_R = -\frac{1}{2}CV_s^2 (e^{\frac{-2t}{RC}})\Big|_0^\infty = \frac{1}{2}CV_s^2\]
+
+Note that the positive value for $\Delta E_R$ means that energy is being dissipated.
+}
+
+\qitem Given that the capacitor stores $\frac{1}{2}CV_s^2$ Joules of energy when charging, \textbf{how much energy is supplied by the voltage source?}
+
+\textbf{Why do we not include the energy stored by the capacitor in the energy dissipated by the circuit?}
+
+\ws{\vspace{100px}}
+
+\sol{
+Energy is conserved, so the voltage source supplies an amount of energy equal to the energy dissipated by the resistor and the energy stored by the capacitor: $CV_s^2$ \\
+We can say $\Delta E_{V_s} = -CV_s^2$, where the negative sign indicates that energy is being supplied.\\
+
+Alternatively, you can calculate $\Delta E_{V_s}$ by integrating the power supplied by the source:
+
+\input{\bank/transistors/figures/voltage_source}
+
+\[\Delta E_{V_s} = \int_0^\infty V_s i_s(t)dt = V_s\int_0^\infty-i_c(t)dt\]
+\[= -V_s \int_0^\infty \frac{dQ_c}{dt}dt = -V_s(Q_c) \big|_0^\infty = -CV_s^2\]
+
+We don't count the energy stored by the capacitor when looking at energy dissipated because the energy is being stored and can be released later, so it isn't energy lost.
+}
+\end{enumerate}
+
+Now let's look at a NOR gate, with a capacitor between the output and ground.
+
+\input{\bank/transistors/figures/nor}
+
+
+Assume that the output of the gate has been $0$ for a long time before $t=0$, when both inputs switch to $0$.
+
+\begin{enumerate}[resume]
+\qitem Using the RC model of transistors, \textbf{redraw the above circuit at $t\geq 0$ as a simple RC circuit.}
+
+\textit{Remember that a MOSFET can be modeled as a voltage-controlled switch and resistor between the source and drain, and a capacitor between the gate and source.}
+
+\ws{\vspace{125px}}
+
+\sol{
+    Both NMOS switches are open, and both PMOS switches are closed.
+
+    \input{\bank/transistors/figures/simple_rc}
+
+    Note: the gate capacitors aren't connected to the rest of the circuit, so we can ignore them.
+}
+
+\qitem Using your result from part (b), \textbf{how much energy is lost when the NOR gate switches on?}
+
+\ws{\vspace{60px}}
+
+\sol{
+    \input{\bank/transistors/figures/rc_circuit_cl}
+
+\[\Delta E_R = \frac{1}{2}C_\ell V_{DD}^2\]
+}
+
+\qitem \textbf{OPTIONAL: How much energy is lost when it switches from high to low? Where does this energy come from?}
+
+\sol{
+$\frac{1}{2}C_\ell V_{DD}^2$, this energy was stored in the capacitor and released as it discharged.
+}
+
+
+\end{enumerate}

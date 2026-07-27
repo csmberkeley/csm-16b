@@ -1,0 +1,17 @@
+\begin{circuitikz}
+	\draw
+	(0,0) coordinate (BASE)
+		to[I,l=$1\si{\ampere}$] ++(0,4)
+		to[short] ++(1,0) coordinate (LHS)
+	(LHS) to[short] ++(0,.5)
+		to[R=$2\si{\ohm}$] ++(3,0)
+		to[short] ++(0,-.5) coordinate (RHS)
+	(LHS) to[short] ++(0,-.5)
+		to[R=$2\si{\ohm}$] ++(3,0)
+		to[short] (RHS)
+	(RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+		to[R=$6\si{\ohm}$] (TOPLEFT |- BASE)
+	(TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+		to[R=$6\si{\ohm}$] (TOPRIGHT |- BASE)
+		to[short] (BASE);
+\end{circuitikz}

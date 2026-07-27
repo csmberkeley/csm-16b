@@ -1,0 +1,26 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 6}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/phasors/phasor_analysis_sahai.tex}
+\newpage
+\input{\bank/phasors/rlc_circuit.tex}
+\newpage
+\input{\bank/transfer/bode_plots_reboot.tex}
+\end{qunlist}
+
+\end{document}

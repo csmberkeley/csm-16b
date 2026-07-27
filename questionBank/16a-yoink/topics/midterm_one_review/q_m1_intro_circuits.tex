@@ -1,0 +1,57 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Structure and Interpretation of Introductory Circuits}
+
+% Need to fix the circuit figures
+The following questions all refer to the circuit posted below:
+\begin{center}
+    \input{../q_m1_intro_circuits_figs/nodes_temp.tex}
+\end{center}
+
+\begin{enumerate}
+    \item\label{node_identification}{
+        What is the number of nodes in the circuit, including the ground node? Label the nodes in the above diagram.
+        
+    }
+    \meta{
+        This question comes from Q1(a) of Fall 2021's Midterm 1.\\
+        \begin{bindenum}
+            \item Define nodes before approaching this problem. It will serve great clarifications.
+        \end{bindenum}
+        
+    }
+    \ans{
+        There are four nodes, as drawn below:
+        \begin{center}
+            \input{../q_m1_intro_circuits_figs/nodes_sol_temp.tex}
+        \end{center}
+        
+    }
+    
+    \item\label{KCL}{
+        Write out two KCL equations for the circuit, one involving $i_{S}$, another involving $i_{3}$.
+        
+    }
+    \meta{
+        This question comes from Q1(b) of Fall 2021's Midterm 1.
+        
+    }
+    \ans{
+        At the blue node (node 1), we can observe the equation
+        \begin{align*}
+            i_{in}
+            &= i_{s} + i_{1} + i_{2} \\
+            &= 0 = i_{out}
+        \end{align*}
+        At the green node (node 3), we can observe the equation
+        \begin{align*}
+            i_{in}
+            &= i_{1} + i_{3} \\
+            &= i_{4} = i_{out}
+        \end{align*}
+    }
+    
+\end{enumerate}

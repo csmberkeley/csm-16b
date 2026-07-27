@@ -1,0 +1,146 @@
+\qns{Superposition}
+
+\textbf{Learning Goal:} This problem aims to make students familiar with the technique of superposition. It will also show how to nullify different types of sources in the process.
+
+\textbf{Relevant Notes:} \notes{Note 15: Section 15.3} goes over the principle of superposition. Some intuition behind why superposition works is that we can calculate the result from each source independently and add the results up (Note 15). Think of the multiple sources (ex. voltage source, current source, etc.) like basis vectors that are orthogonal to each other or equations that are linearly independent - in other words they have no relation to each other. So we can add them up to get our final result! 
+
+Solve the following circuit for $u_x$ using superposition. Let $R_1 = 10 \Omega$, $R_2 = 5 \Omega$, $R_3 = 2 \Omega$, $V_1 = 12 V$, and $I_1 = 3 A$.
+
+    %Full circuit for this question
+        \begin{center}
+        \begin{circuitikz}
+    
+        \draw(0,4)
+        to[R, l=$R_1$] ++(0,-2)
+        %to node[left] {$V_1$} ++(0,0)
+        to[V_=$V_1$] ++(0,-2)
+        to[short] node[ground] {} ++(0,-1);
+        
+        \draw(2,4)
+        to[short, i=$I_2$] ++(-2, 0);
+        
+        \draw(2,4)
+        to[short, i=$I_3$] ++(2, 0);
+        
+        \draw(2,4)
+        to node[above] {$u_x$} ++(0,0)
+        to[I, l= $I_1$, invert] ++(0, -2)
+        to node[left] {$V_a$} ++(0,0)
+        to[R, l = $R_2$] ++(0, -2)
+        to[short] ++(-2,0);
+        
+        \draw(4, 4)
+        to[R, l=$R_3$] ++(0,-4)
+        to[short] ++(-2, 0);
+        
+        \end{circuitikz}
+        \end{center}
+        
+\meta{Make sure students understand how to nullify voltage / current sources when using superposition, and why they are short / open circuits. Also make sure students are familiar with the voltage divider equation.}
+\begin{enumerate}
+    \itemFind $u_x$ when only $V_1$ is active.
+    
+    \meta {$R_2$ can be removed when the $I_1$ is inactive because its branch leads to an open circuit.}
+    
+    \ans{
+    We start off our analysis using superposition by nullifying all independent sources except for one. In this part, we nullify the current source $I_1$, replacing it with a open circuit. We know its an open circuit because the I vs V graph of a current source is a horizontal line with the value of current supplied by the source. Zeroing this out shifts the line to along the V axis (basically no current, any voltage value), which is like an open circuit:
+        \begin{center}
+        \begin{circuitikz}
+    
+        \draw(0,4)
+        to[R, l=$R_1$, v=$ $] ++(0,-2)
+        to[V_=$V_1$] ++(0,-2)
+        to[short] node[ground] {} ++(0,-1);
+        
+        \draw(2,4)
+        to[short, i=$I_2$] ++(-2, 0);
+        
+        \draw(2,4)
+        to[short, i=$I_3$] ++(2, 0);
+        
+        \draw(2,4)
+        to node[above] {$u_x$} ++(0,0)
+        to[short, *-o] ++(0, -1);
+        
+        \draw(2,2)
+        to node[right] {$V_a$} ++(0,0)
+        to[R, l = $R_2$, v^<=$ $, *-o] ++(0, -2)
+        to[short] ++(-2,0);
+        
+        \draw(4, 4)
+        to[R, l=$R_3$, v=$ $] ++(0,-4)
+        to[short] ++(-2, 0);
+        
+        \end{circuitikz}
+        \end{center}
+        Now, all the current flows through $I_2$ and $I_3$, with nothing going through the open circuit or $R_2$. Our circuit has been reduced to a single loop, with elements $V_1$, $R_1$, and $R_3$ in series. Notice that this is a voltage divider! Thus, we can write
+        
+        $$V_{R_3} = V_1 \frac{R_3}{R_1 + R_3}$$
+        Plugging in our numerical values gives us
+        $$V_{R_3} = (12\si{\volt})\frac{(2\si{\ohm})}{(10\si{\ohm}) + (2\si{\ohm})} = 2\si{\volt}$$
+  Now $V_{R_3}=u_x-0=u_x$, so $u_x=2\si{\volt}$      
+    }
+    \itemFind $u_x$ when only $I_1$ is active.
+   
+    \ans{For this part, we continue our analysis using superposition to find $u_x$ by nullifying the voltage source, which puts a short circuit in its place. We know its an short circuit because the I vs V graph of a voltage source is a vertical line with the value of voltage supplied by the source. Zeroing this out shifts the line to along the I axis (basically no voltage, any current value), which is like a short circuit:
+        \begin{center}
+        \begin{circuitikz}
+
+        \draw(0,4)
+        to[R, l=$R_1$, v=$ $] ++(0,-2)
+        to[short] ++(0,-2)
+        to[short] node[ground] {} ++(0,-1);
+
+        \draw(2,4)
+        to[short, i=$I_2$] ++(-2, 0);
+
+        \draw(2,4)
+        to[short, i=$I_3$] ++(2, 0);
+
+        \draw(2,4)
+        to node[above] {$u_x$} ++(0,0)
+        to[I, l= $I_1$, invert] ++(0, -2)
+        to node[right] {$V_a$} ++(0,0)
+        to[R, l = $R_2$, v^<=$ $] ++(0, -2)
+        to[short] ++(-2,0);
+
+        \draw(4, 4)
+        to[R, l=$R_3$, v=$ $] ++(0,-4)
+        to[short] ++(-2, 0);
+
+        \end{circuitikz}
+        \end{center}
+		First, we do KCL on the node at $u_x$:
+		$$I_1 = I_2 + I_3$$
+		Next, we use Ohm's Law on the resistor $R_1$. We know one end of the resistor is at voltage $u_x$ and the other end is connected to ground, so:
+		$$V = IR$$
+		$$u_x - 0 = I_2 R_1$$
+		$$I_2 = \frac{u_x}{R_1}$$
+		Likewise, we can use Ohm's Law on the resistor $R_3$:
+		$$V = IR$$
+		$$u_x - 0 = I_3 R_3$$
+		$$I_3 = \frac{u_x}{R_3}$$
+		We can substitute both $I_2$ and $I_3$ into the KCL equation to solve for $u_x$:
+		$$I_1  = \frac{u_x}{R_1} + \frac{u_x}{R_3}$$
+		$$I_1 = u_x (\frac{1}{R_1} + \frac{1}{R_3})$$
+		$$u_x = I_1 \frac{R_1 R_3}{R_1 + R_3}$$
+		Now, we plug in numerical values:
+		$$u_x = (3\si{\ampere}) \frac{(10\si{\ohm})(2\si{\ohm})}{(10\si{\ohm}) + (2\si{\ohm})}$$
+		$$ = 5\si{\volt}$$
+    }
+    \itemUse your results from the last two parts to find $u_x$ when all the sources are active.
+
+    
+    \ans{
+	We have found each individual component using superposition, by zeroing out the current source in part (a) and the voltage source in part (b). Now, to find $u_x$ when all sources are active, we add together the $u_x$'s we found in previous parts. We will also show the algebra here:
+	$$u_x = u_{x, a} + u_{x, b}$$
+	$$= V_1 \frac{R_3}{R_1 + R_3} + I_1 \frac{R_1 R_3}{R_1 + R_3}$$
+	$$= \frac{R_3 (V_1 + I_1 R_1)}{R_1 + R_3}$$
+	From here, we can find $u_x$ either by plugging in values for $V_1$, $I_1$, $R_1$, and $R_3$, or taking the answers from part (a) and part (b) and adding them:
+	$$u_x = 2\si{\volt} + 5\si{\volt} = 7\si{\volt}$$
+    }
+
+
+    
+    
+    \end{enumerate}

@@ -1,0 +1,250 @@
+% Authors:  Viraj and Jainil
+% CSM16A Spring 2022
+\qns{CSM Eigen-question}
+
+It's important to know what the eigenvalues of a matrix are. In 16B, you'll see how eigenvalues of a matrix determine the stability of a system, and how we can stabilize a system by changing the eigenvalues. We're going to attempt something similar here: we have a matrix, and we're going to try to change the eigenvalues.\\
+Consider the following matrix:
+
+$$A = \begin{bmatrix}
+-1 & 2\\
+2 & x
+\end{bmatrix}$$
+
+\begin{enumerate}
+
+% Part A
+\item What value of $x$ makes this matrix have linearly dependent columns?\\
+\begin{enumerate}[label=(\roman*)]
+    \item 0
+    \item -1
+    \item -4
+    \item 4
+\end{enumerate}
+
+\ans{
+
+-4: the second column becomes $-2$ times the first.\\
+}
+
+% Part B
+\item Let $x = -4$. What are the eigenvalues and eigenvectors of this matrix?\\
+\begin{enumerate}[label=(\roman*)]
+    \item $\lambda_1 = 0, \lambda_2 = -5, \vec{v_1} = \begin{bmatrix}
+    2\\
+    1
+    \end{bmatrix}, \vec{v_2} = \begin{bmatrix}
+    2\\
+    -4
+    \end{bmatrix}$
+
+    \item $\lambda_1 = 0, \lambda_2 = 5, \vec{v_1} = \begin{bmatrix}
+    2\\
+    1
+    \end{bmatrix}, \vec{v_2} = \begin{bmatrix}
+    1\\
+    -2
+    \end{bmatrix}$
+
+    \item $\lambda_1 = 0, \lambda_2 = 0, \vec{v_1} = \begin{bmatrix}
+    2\\
+    1
+    \end{bmatrix}, \vec{v_2} = \begin{bmatrix}
+    2\\
+    1
+    \end{bmatrix}$
+
+    \item $\lambda_1 = 0, \lambda_2 = -5, \vec{v_1} = \begin{bmatrix}
+    0\\
+    0
+    \end{bmatrix}, \vec{v_2} = \begin{bmatrix}
+    1\\
+    -2
+    \end{bmatrix}$
+
+    \item $\lambda_1 = 0, \lambda_2 = 0, \vec{v_1} = \begin{bmatrix}
+    0\\
+    0
+    \end{bmatrix}, \vec{v_2} = \begin{bmatrix}
+    0\\
+    0
+    \end{bmatrix}$\\
+\end{enumerate}
+
+\ans{
+
+Answer: The first option.
+
+(i) $\lambda_1 = 0, \lambda_2 = -5, \vec{v_1} = \begin{bmatrix}
+2\\
+1
+\end{bmatrix}, \vec{v_2} = \begin{bmatrix}
+2\\
+-4
+\end{bmatrix}$\\
+
+We arrive at this by finding the determinant of $ \begin{bmatrix}
+-1 - \lambda & 2\\
+2 & -4 - \lambda
+\end{bmatrix}$\\
+
+We get the eigenvalues by letting the determinant equal 0, and solving for lambda.\\
+We then plug in the values of $\lambda = 0, -5$, and find the nullspace. The matrices we get are:\\
+$$\begin{bmatrix}
+-1 & 2\\
+2 & -4
+\end{bmatrix} \text{ and }\begin{bmatrix}
+4 & 2\\
+2 & 1
+\end{bmatrix}$$
+
+From there, we find the nullspace, by Gaussian Elimination, getting $\begin{bmatrix}
+2\\
+1
+\end{bmatrix}$ and $\begin{bmatrix}
+2\\
+-4
+\end{bmatrix}$ respectively. \\
+
+Notice that the eigenvector can be scaled arbitrarily - the correct option does not have the second vector in its most simplified form!\\
+}
+
+% Part C
+\item Now let $x = 2$. What are the eigenvalues of the matrix?\\
+\begin{enumerate}[label=(\roman*)]
+    \item $\lambda_1 = -3, \lambda_2 = 2$ 
+    \item $\lambda_1 = 3, \lambda_2 = -2$
+    \item $\lambda_1 = 1, \lambda_2 = -2$
+    \item $\lambda_1 = \sqrt{5}, \lambda_2 = 2\sqrt{2}$ \\
+\end{enumerate}
+
+\ans{
+$\lambda_1 = 3, \lambda_2 = -2$, by the same process of setting the determinant to zero, and solving for $\lambda$.\\
+}
+
+% Part D
+\item (Challenge) Now, let's generalize: for what values of x does this matrix have both eigenvalues less than 0? 
+\\Hint: solve for the eigenvalues in terms of x.\\
+\begin{enumerate}[label=(\roman*)]
+    \item $x < -4$
+    \item $x > -4$
+    \item $x < 4$
+    \item $x < 0$
+\end{enumerate}
+
+\ans{
+$x < -4$. Solving for the characteristic polynomial, we get $\lambda^2 + (1-x)\lambda - x - 4 = 0
+$. Plugging this into the quadratic formula, we get: $\frac{-1 + x \pm \sqrt{(1-x)^2 + 4(x + 4)}}{2}$. The important thing to note here is that the larger of the two solutions is going to be the case where there is an addition as opposed to a subtraction, so we can just consider this case, and set it as less than zero.\\
+
+Hence: 
+$$\frac{-1 + x + \sqrt{(1-x)^2 + 4(x + 4)}}{2} < 0$$
+$$\sqrt{(1-x)^2 + 4(x + 4)} < 1 - x$$
+$$\sqrt{x^2 + 2x + 17} < 1 - x$$
+
+Note: polynomial on LHS is always positive, so we can do:
+$$x^2 + 2x + 17 < x^2 - 2x + 1$$
+$$2x + 17 <- 2x + 1$$
+$$4x < -16$$
+$$x < -4.$$
+}
+
+
+% ------------ combine questions from q_eigns ----------------
+\item Suppose we have $A = 
+    \begin{bmatrix} 
+        1 & 0 & 0\\
+        0 & 2 & 0\\
+        0 & 0 & 3\\
+    \end{bmatrix}$
+, what are the eigenvalues?
+
+\ans{
+The matrix is diagonal. By inspection, the eigenvalues are 1,2,3.
+}
+
+% Part B
+\item Suppose we have $A = 
+    \begin{bmatrix} 
+        1 & 2\\
+        0 & 3\\
+    \end{bmatrix}$
+. What are the eigenvalues and eigenvectors?
+
+\ans{
+
+    $
+        \mathbf{A} - \lambda * \mathbf{I} = 
+            \begin{bmatrix} 
+            1 - \lambda & 2\\
+            0 & 3 - \lambda
+            \end{bmatrix} \\
+    $    
+    $    (1 - \lambda)(3 - \lambda) = 0 $\\
+        
+    $    \lambda = \text{1, 3} $\\
+        
+    
+        \text{when $\lambda$ = 1} \\
+        \begin{bmatrix}
+            0 & 2 \\
+            0 & 1
+        \end{bmatrix} \rightarrow 
+        \begin{bmatrix}
+            0 & 1 \\
+            0 & 0
+        \end{bmatrix} \\
+        
+        $\vec{v_1}$ = \begin{bmatrix}
+            1 \\
+            0
+        \end{bmatrix} 
+        
+        \text{when $\lambda = 3$} \\
+        \begin{bmatrix}
+            -2 & 2 \\
+            0 & 0
+        \end{bmatrix} \rightarrow 
+        \begin{bmatrix}
+            1 & -1 \\
+            0 & 0
+        \end{bmatrix} \\
+        
+        $\vec{v_2}$ = \begin{bmatrix}
+            1 \\
+            1
+        \end{bmatrix}
+       
+}
+
+% Part C
+\item Suppose we have a vector $\vec{b} = 
+    \begin{bmatrix} 3\\ 2 \end{bmatrix}$
+. Draw this vector in the standard basis and eigenbasis.
+
+\meta{ Review with students what a basis is and how the eigenvectors of a matrix form a basis. This part is trying to show that the eigenbasis is just another basis except its basis vectors are just not the standard ones that we are used to. 
+}
+
+\ans{
+Solve $[v_1 \text{ }v_2]^\top$ $\vec{x} = \vec{b}$. You will see that $\vec{x} = \vec{v_1} + 2\vec{v_2}$. 
+}
+
+% Part D
+\item If a matrix has an eigenvalue that is zero, what does that tell us about the columns of the matrix?
+
+\ans{
+Recall the definition of eigenvalue and eigenvector that $A \vec{x} = \lambda \vec{x}$ where $\vec{x}$ is a nonzero vector. If we let $\lambda$ equal to 0, the whole equation becomes $A \vec{x} = \vec{0}$. To find what is $\vec{x}$, we can think it as finding the nullspace of A. If A is linear independent, A will have a trivial nullspace, which means that only $\vec{0}$ can be the solution to $A \vec{x} = \vec{0}$. However, from the definition of eigenvalue, $\vec{x}$ should be nonzero. That's being said, if there is at least one nonzero vector existing in null space and can make $A \vec{x} = \vec{0}$, that means A must be linear independent.  
+}
+
+% Part E
+% \item (PRACTICE) Suppose we have a matrix $A = 
+%     \begin{bmatrix}
+%         1 & 0 & 0\\
+%         2 & 3 & 0\\
+%         0 & 0 & 0\\
+%     \end{bmatrix}$
+% . Solve for the eigenvalues and eigenvectors
+
+% \ans{
+% Will be written out soon!
+% }
+
+\end{enumerate}

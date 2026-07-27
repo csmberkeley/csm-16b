@@ -1,0 +1,35 @@
+In this mini-lecture, we will discuss the idea of vector "projections," a central topic in linear algebra yet sometimes, confusing. First, we start with the definition of a projection. 
+
+
+\begin{ln-define}{Definition of Vector Projection}
+    .For two arbitrary vectors $\vec{u}, \vec{v} \in \mathbb{R}^n$, 
+    \begin{align*}
+        \textbf{proj}_{\vec{v}} \vec{u} = \frac{\langle u, v \rangle}{\norm{v}^2} \vec{v}
+    \end{align*}
+    This term would be read out loud as "the projection of $\vec{u}$ \textbf{onto} $\vec{v}$ (which aligns with the visual interpretation of the projection -- "casting" one vector onto another). \\ 
+    Recall $\langle u, v \rangle$ is the inner product of two vectors, and $\norm{v}$ is the "norm" of $\vec{v}$, which can be roughly thought of as equivalent to the magnitude of the vector. 
+\end{ln-define}
+
+The projection can also be thought of visually as the "shadow" of one vector on another. 
+
+\begin{center}\label{fig:projection}
+        \includegraphics[scale=0.8]{../lectureNotes/figs/projection visual.png}
+\end{center}
+
+\meta{
+    It's good to spend a decent amount of time on the formula for a projection. Even if the idea of projection is intuitive to some students, the formula is not so intuitive. It's good to motivate each term separately--the inner product as a sort of "correlation/similarity" metric between $\vec{u}$ and $\vec{v}$, and the norm on the denominator as a normalization. The following derivation may help but is up to you whether it's worth discussing or not. \\ 
+    Lets think of the inner product as a standard vector dot product; that is, $\langle u, v \rangle = \norm{u} \norm{v} \cos(\theta)$, where $\theta$ is the angle between the two vectors. Then, lets break down $\vec{v} = \norm{v} \hat{v}$, where $\hat{v}$ is the unit vector in the direction of $\vec{v}$. Then, our projection formula becomes 
+
+    \begin{align*}
+        \textbf{proj}_{\vec{v}} \vec{u} = \frac{\langle u, v \rangle}{\norm{v}^2} \vec{v} = \frac{\norm{u} \norm{v} \cos(\theta)}{\norm{v}^2} \norm{v} \hat{v} = \norm{u} \cos(\theta) \hat{v}
+    \end{align*}
+    This formula explains that the projection of $\vec{u}$ onto $\vec{v}$ is just a vector of magnitude $\norm{u} \cos(\theta)$ in the direction of $\vec{v}$. For anyone with a physics or trigonometry background, this formula may look much more familiar when looking at the right triangle in the above diagram. Moreover, if you ever forget the formula for projection (ie. is it a $\norm{v}$ or $\norm{v}^2$ on the bottom?), it may be useful to go through this derivation "backwards" to always guarantee you have the right formula). 
+
+}
+
+It's also useful to think of projections in terms of vector components. Assuming we restrict our discussion to $\mathbb{R}^2$, each vector $\vec{u}$ can be expressed as the vector addition of two linearly independent components (we can choose what we want those components to be, so long as they're independent). Lets then choose those components to have one along (ie. "parallel to") $\vec{v}$, and one to be perpendicular to $\vec{v}$. Then, the parallel component is equal to $\textbf{proj}_{\vec{v}} \vec{u}$, and the perpendicular component is equal to $\vec{u} - \textbf{proj}_{\vec{v}} \vec{u}$, as they must sum to $\vec{u}$. This idea is very important in linear algebra when we discuss the idea of orthogonal vector sets. 
+
+
+\textbf{Digression on Least Squares} 
+
+We can use the idea of projections to motivate the concept of least squares. Suppose we refer back to the vector projection figure. If we have some matrix $A$ such that its columnspace is $\text{span}(\vec{v})$, then its output will always be along the "line" of $\vec{v}$ (if this idea is confusing/unclear, review the meaning of span with students). However, if we're trying to output $\vec{u}$ from this matrix, we'll never be able to! Thus, we want to find the "closest" vector to $\vec{u}$ that we can actually output. The diagram above may suggest that this closest vector is indeed $\textbf{proj}_{\vec{v}} \vec{u}$, as any other vector along $\text{span}(\vec{v})$ is adding a little "extra" distance along $\vec{v}$ that can be reduced. 

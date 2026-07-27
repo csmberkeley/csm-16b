@@ -1,0 +1,137 @@
+\qns{Proof on Linear (In)Dependence} [WALK-THROUGH]
+
+\textbf{Learning Goal:} The goal of this problem is to practice some proof development skills.
+
+\meta{ 
+\begin{itemize}
+\item Before starting, try to get your students comfortable with the idea of proofs.  Explain that they're just logical steps until you reach the conclusion.  If necessary,  review conceptually how span,  linear independence,  and number of solutions relate.
+
+\item Stress that although we are starting out with what we need to know, these assumptions don’t have to be instantly factored in. Depending on the problem, they could be applied much later in the proof’s steps.
+
+\item While writing the proof keep some blank space between part (i) and part (ii), so that you can insert part (iii) in between for the correct order.
+\end{itemize}
+}
+
+\begin{enumerate}
+
+\item\textbf{Show that if the system of linear equations, $\mathbf{A}\vec{x} = \vec{0}$, has a non-zero solution, then the columns of $\textbf{A}\in \mathbb{R}^{m\times n}$ are linearly dependent.} 
+
+We are going to use the approach outlined in \notes{Note 4}. Please also look into \notes{Note 3 Subsection 3.1.1} for the definition of linear dependence/ independence.
+
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Start with what we already know:}\\
+We know that system of equations, $\mathbf{A}\vec{x} = \vec{0}$, has a non-zero solution, $\vec{u}$. Express this information in a mathematical form.
+
+
+\ans {
+So let us assume that $\vec{u}=\begin{bmatrix}u_1 \\ \vdots \\u_n  \end{bmatrix}$ is a non-zero solution to $\mathbf{A}\vec{x} = \vec{0}$.
+So $\vec{u}$ must satisfy:
+\begin{align}
+	\mathbf{A}\vec{u} &= \vec{0}, \quad \text{where} \quad \vec{u}  \quad  \neq \vec{0}.
+\end{align}
+So $u_1$, $u_2$, $\hdots$, $u_n$ all cannot be zero, which means there is at least one $u_i\neq 0$.
+}
+
+\item \textbf{Then consider what we need to show:}\\
+ We have to show that the columns of $\mathbf{A}$ are linearly dependent. Using the definition of linear dependence from \notes{Note 3 Subsection 3.1.1}, write a mathematical equation that conveys linear dependence of columns of $\mathbf{A}$.
+
+\ans{
+Let us assume that $\mathbf{A}$ has columns $\vec{c_1}$, $\vec{c_2}$, ..., and $\vec{c_n}$, i.e. $\mathbf{A}=\begin{bmatrix}
+| & | & \hdots & |\\
+\vec{c_1} & \vec{c_2} & \hdots & \vec{c_n}\\
+| & | & \hdots & |
+\end{bmatrix}$. 
+According to the definition of linear dependence:
+\begin{align}
+  \alpha_1\vec{c}_1 + \alpha_2\vec{c}_2 + \hdots + \alpha_n\vec{c}_n = \vec{0}.
+\end{align}
+where not all $\alpha_i$'s are equal to zero.
+}
+
+\item \textbf{How to go from ``what we know'' to ``what we need to show'' :}\\
+Now manipulate the expression from (i) using mathematically logical steps to reach the expression from part (ii).  
+
+\ans {
+
+Since your answer to (ii) is expressed in terms of the column vectors of $\mathbf{A}$, let us try to express the mathematical equations from (i), in terms of the the column vectors too.
+
+We can write
+\begin{align*}
+\mathbf{A}\vec{u}=\vec{0}\\
+\implies \begin{bmatrix}
+| & | & \hdots & |\\
+\vec{c_1} & \vec{c_2} & \hdots & \vec{c_n}\\
+| & | & \hdots & |
+\end{bmatrix}
+\begin{bmatrix}
+u_1\\ u_2\\ \hdots \\ u_n
+\end{bmatrix}=\vec{0}\\
+\implies u_1\vec{c_1}+u_2\vec{c_2}+\hdots+u_n\vec{c_n}=\vec{0}
+\end{align*}
+Here not all $u_i$'s are equal to zero. This expression matches the expression from part (ii), if we choose $\vec{u}=\vec{\alpha}$.
+Hence the columns of $\mathbf{A}$ are linearly dependent and the proof is complete.
+}
+
+\end{enumerate}
+
+\item\textbf{Show that if the system of linear equations: $\mathbf{A}\vec{x} = \vec{b}$, has at least one solution for $\textbf{A}\in \mathbb{R}^{m\times n}$, then $b$ should be in the span of the columns of $\textbf{A}$.} 
+
+Please also look into \notes{Note 3 Subsection 3.3} for the definition of span.
+
+\ans {
+\textbf{Start with what we already know:}\\
+We know that system of equations, $\mathbf{A}\vec{x} = \vec{b}$, has at least one solution. We express this information in a mathematical form.
+
+
+So let us assume that $\vec{u}=\begin{bmatrix}u_1 \\ \vdots \\u_n  \end{bmatrix}$ is a solution to $\mathbf{A}\vec{x} = \vec{b}$.
+So $\vec{u}$ must satisfy:
+\begin{align}
+	\mathbf{A}\vec{u} &= \vec{b}.
+\end{align}
+
+
+\textbf{Then consider what we need to show:}\\
+ We have to show that $\vec{b}$ is in the span of the columns of $\mathbf{A}$. Using the definition of span from \notes{Note 3 Subsection 3.3}, we write a mathematical equation to express this information.
+
+Let us assume that $\mathbf{A}$ has columns $\vec{c_1}$, $\vec{c_2}$, ..., and $\vec{c_n}$, i.e. $\mathbf{A}=\begin{bmatrix}
+| & | & \hdots & |\\
+\vec{c_1} & \vec{c_2} & \hdots & \vec{c_n}\\
+| & | & \hdots & |
+\end{bmatrix}$. 
+According to the definition of span:
+\begin{align}
+  \vec{b} \in \text{span}\{\vec{c_1}, \vec{c_2}, \hdots, \vec{c_n} \}\\
+  \implies \vec{b}=\alpha_1\vec{c}_1 + \alpha_2\vec{c}_2 + \hdots + \alpha_n\vec{c}_n,
+\end{align}
+where $\alpha_i$'s are scalars.
+
+
+\textbf{Now go from ``what we know'' to ``what we need to show'' :}\\
+We manipulate the expression from (i) using mathematically logical steps to reach the expression from part (ii).  
+
+
+
+Since your answer to (ii) is expressed in terms of the column vectors of $\mathbf{A}$, let us try to express the mathematical equations from (i), in terms of the the column vectors too.
+
+We can write
+\begin{align*}
+\mathbf{A}\vec{u}=\vec{b}\\
+\implies \begin{bmatrix}
+| & | & \hdots & |\\
+\vec{c_1} & \vec{c_2} & \hdots & \vec{c_n}\\
+| & | & \hdots & |
+\end{bmatrix}
+\begin{bmatrix}
+u_1\\ u_2\\ \hdots \\ u_n
+\end{bmatrix}=\vec{b}\\
+\implies u_1\vec{c_1}+u_2\vec{c_2}+\hdots+u_n\vec{c_n}=\vec{b}
+\end{align*}
+This expression matches the expression from part (ii), i.e. $\vec{b}$ can be expressed as a linear combination of the column vectors. So $\vec{b} \in \text{span}\{\vec{c_1}, \vec{c_2}, \hdots, \vec{c_n} \}$. The proof is complete.
+}
+
+
+
+
+\end{enumerate}
+

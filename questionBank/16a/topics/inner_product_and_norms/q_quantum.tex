@@ -1,0 +1,94 @@
+%documentclass
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%figure packages
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[font=footnotesize]{subfig}
+\usepackage[labelfont=bf]{caption}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+
+%math/cs packages
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings} 
+\usepackage{mathrsfs}
+
+%spacing packages
+% \linespread{1.6}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{setspace}
+\setstretch{1.1}
+\usepackage{blindtext}
+\setlength{\abovedisplayskip}{3pt}
+
+%pagestyle packages 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{} 
+\fancyfoot[R]{\thepage}
+
+% Sexy command for doing F.T. double arrow thing 
+\usepackage{amssymb}
+\usepackage{stackengine}
+\newcommand\stackleftrightarrow[1]{%
+    \mathrel{{\stackon[4pt]{$\Longleftrightarrow$}{$\scriptscriptstyle#1$}}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\title{CSM Sample Questions}
+\author{Kailash Ranganathan}
+\date{January 18 2023}
+\begin{document}
+
+\maketitle
+\subsection*{Quantum Fun}\\ \\
+
+This question is inspired by the first problem on the Fall 2021 16A final, as well as my own love for quantum mechanics! \\
+
+Fundamentally, quantum mechanical objects are represented by wave functions, or alternatively vectors in a vector space. For simplicity, let's assume all quantum states are two-dimensional. In this problem, we want to gain a basic intuition for the linear algebra fundamentals of quantum mechanics using what we've learned in EECS16A. 
+
+Suppose we have a vector $\vec{\psi} = \begin{bmatrix}
+           a \\
+           b \\
+         \end{bmatrix}$. Quantum mechanically, this represents that there is a probability $a$ of the system being in the first state, and a probability $b$ of the system is in the second state. 
+
+(a) By definition, the system must either be in the first state or second state (our imaginary 2-d quantum world has no other possible states), meaning the total probability of being in any state must sum to 1. What condition does this place on $a$ and $b$? 
+\textbf{Solution:} $a + b = 1$. \\
+
+Now, we'll see how linear algebra can represent basic transformations to quantum systems, denoted as "quantum operators." \\ 
+
+(c) Suppose we wanted to develop some sort of blackbox that, when applied to a quantum system, swaps probabilities. That is, the first state now has the probability of the second state, and the second state now has the probability of the first state. If we represent state probabilities with the prior vector $\vec{\psi}$, what matrix $A$ represents this blackbox such that $\vec{\psi}_1 = A \vec{\psi}$ represents the post-swap state probabilities with $\norm{\psi_1} = \norm{\psi}$? \\ 
+\textbf{Solution:} The matrix must effectively flip the elements of the state vector. In order to preserve norm, $A$ must be 
+\begin{bmatrix}
+    0 & 1 \\
+    1 & 0 \\
+\end{bmatrix}. \\ \\
+
+\noindent (d) Now take a specific transformation, denoted as the Hadamard gate $\textbf{H}$ in quantum computing, where 
+\begin{equation}
+    \textbf{H} = \frac{1}{\sqrt{2}}\begin{bmatrix}
+        1 & 1 \\
+        1 & -1
+    \end{bmatrix}
+\end{equation}
+Calculate the eigenvalues for the Hadamard matrix (remember to include the normalization constant $\frac{1}{\sqrt{2}}$. 
+\textbf{Solution:} The characteristic polynomial is given by $-(\frac{1}{\sqrt{2}} - \lambda)(\frac{1}{\sqrt{2}} + \lambda) - \frac{1}{2} = 0$. Solving this, we get $\lambda = \pm 1$. \\ \\ 
+
+\noindent (e) It turns out that the Hadamard gate is a special type of matrix called \textit{unitary}. In this step, we'll prove that for a general vector $\vec{v}$, $\norm{\textbf{H}\vec{v}} = \norm{\vec{v}}$. As a hint, you may find it helpful to use the previous part's result, as well as the fact that eigenvectors of symmetric matrices such as the Hadamard gate are orthogonal. \\ \\
+\textbf{Solution}: From the previous section, we know $\lambda = \pm 1$ for the Hadamard gate. Without actually calculating the eigenvectors (which is a bit tedious), we'll assume they are given by $\vec{v_1}$ and $\vec{v_2}$ respectively. To make calculations easier, we'll also assume these two eigenvectors are unit vectors; that is, they each have norm of one. Then, we can express $\vec{v} = \alpha \vec{v_1} + \beta \Vec{v_2}$ for some arbitrary real numbers $\alpha, \beta$. When we pass $\vec{v}$ through the Hadamard gate, we get 
+\begin{equation}
+    \textbf{H} \vec{v} = \textbf{H}( \alpha \vec{v_1} + \beta \Vec{v_2}) = \alpha \textbf{H} \vec{v_1} + \beta  \textbf{H} \vec{v_2} = \alpha \lambda_1 \vec{v_1} + \beta \lambda_2 \vec{v_1} = \alpha \vec{v_1} - \beta \vec{v_2}
+\end{equation}
+where we use the definition of eigenvectors and the actual values of the Hadamard eigenvalues in the last two steps respectively. Now, with $\textbf{H}\vec{v} =  \alpha \vec{v_1} - \beta \vec{v_2}$, we can compare the norms. Starting with the norm of $\vec{v}$, 
+\begin{equation}
+    \norm{\vec{v}} = <\vec{v}, \vec{v}> = \alpha^2 <\vec{v_1}, \vec{v_1}> + \beta^2 <\vec{v_2}, \vec{v_2}> + 2 \alpha \beta <\vec{v_1}, \vec{v_2}> = \alpha^2 + \beta^2 + 2 \alpha \beta <\vec{v_1}, \vec{v_2}>
+\end{equation}
+We arrive at the last expression by noting that $\vec{v_1}$ and $\vec{v_2}$ are both unit vectors, and so their self-inner products are both one. Likewise, because $\vec{v_1}$ and $\vec{v_2}$ are eigenvectors of distinct eigenvalues of the symmetric Hadamard matrix, they must be orthogonal, so the last $<\vec{v_1}, \vec{v_2}>$ term equals zero. Thus, $\norm{\vec{v}} = 0$. Using similar logic, 
+\begin{equation}
+    \norm{\textbf{H} \vec{v}} = <\textbf{H} \vec{v}, \textbf{H} \vec{v}> = \alpha^2 <\vec{v_1}, \vec{v_1}> + \beta^2 <\vec{v_2}, \vec{v_2}>  - 2 \alpha \beta <\vec{v_1}, \vec{v_2}> = \alpha^2 + \beta^2
+\end{equation}
+We arrive at the last expression by identical logic to the previous norm. Thus, the norms are both $\alpha^2 + \beta^2$, proving that $\norm{\vec{v}} = \norm{\textbf{H} \vec{v}}$. \qed
+
+\end{document}

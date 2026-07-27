@@ -1,0 +1,63 @@
+% label and ref newcommands
+% now mostly deprecated (but redefined and kept for backward compatibility) - move to \cref from the cleveref package
+%\crefname{algocf}{alg.}{algs.}
+%\Crefname{algocf}{Algorithm}{Algorithms}
+%\crefname{equation}{}{}
+%\Crefname{equation}{}{}
+
+% this really should be in a newcommands-annotation.tex
+\newcommand{\redHL}[1]{{\color{red}\bf#1}}
+
+%DONE: xyzref{} should be able to handle multiple arguments so that you can
+%reference multiple figures/equations at the same time -AG
+%Now fixed with some package/command CREF.
+\newcommand{\corrlabel}[1]{\label{corr:#1}}
+\newcommand{\corrref}[1]{Corollary \ref{corr:#1}}
+%\newcommand{\assref}[1]{Assumption \ref{ass:#1}}
+\newcommand{\asslabel}[1]{\label{ass:#1}}
+%\newcommand{\eqnref}[1]{(\ref{eq:#1})}
+%\newcommand{\eqnlabel}[1]{\label{eq:#1}}
+\newcommand{\eqnlabel}[1]{\label{#1}}
+\newcommand{\eqnref}[1]{\cref{#1}}
+%\newcommand{\figlabel}[1]{\label{fig:#1}}
+%\newcommand{\figref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\lstlabel}[1]{\label{lst:#1}}
+\newcommand{\lstref}[1]{Listing~\ref{lst:#1}}
+\newcommand{\figlabel}[1]{\label{#1}}
+%\newcommand{\figref}[1]{\cref{#1}}
+\newcommand{\chaplabel}[1]{\label{chap:#1}}
+\newcommand{\seclabel}[1]{\label{sec:#1}}
+%\newcommand{\secref}[1]{Sec.~\ref{sec:#1}}
+%\newcommand{\chapref}[1]{Chapter~\ref{chap:#1}}
+\newcommand{\exampleref}[1]{Example~\ref{ex:#1}}
+\newcommand{\applabel}[1]{\label{app:#1}}
+%\newcommand{\appref}[1]{Appendix~\ref{app:#1}}
+\newcommand{\tablabel}[1]{\label{#1}}
+%\newcommand{\tabref}[1]{\cref{#1}}
+\newcommand{\thlabel}[1]{\label{th:#1}}
+\newcommand{\thref}[1]{Theorem~\ref{th:#1}}
+\newcommand{\thmlabel}[1]{\label{thm:#1}}
+%\newcommand{\thmref}[1]{Theorem \ref{thm:#1}}
+\newcommand{\deflabel}[1]{\label{def:#1}}
+\newcommand{\defref}[1]{Definition~\ref{def:#1}}
+\newcommand{\lemlabel}[1]{\label{lem:#1}}
+%\newcommand{\lemref}[1]{Lemma \ref{lem:#1}}
+\newcommand{\examplelabel}[1]{\label{ex:#1}}
+\newcommand{\labexample}[1]{\label{example:#1}}
+\newcommand{\refexample}[1]{Example{ }\ref{example:#1}}
+\newcommand{\httpref}[1]{}
+\let\el=\eqnlabel
+\let\er=\eqnref
+
+%%%%%% cross references (moved here from ee16.sty)
+% \newcommand{\chapref}[1]{Chapter~\ref{#1}}
+% \newcommand{\secref}[1]{Section~\ref{#1}}
+% \newcommand{\figref}[1]{Figure~\ref{#1}}
+% \newcommand{\tabref}[1]{Table~\ref{#1}}
+% \newcommand{\exref}[1]{Exercise~\ref{#1}}
+% %\newcommand{\eqref}[1]{Equation~(\ref{#1})}
+% \newcommand{\partref}[1]{Part~\ref{#1}}
+% \newcommand{\appref}[1]{Appendix~\ref{#1}}
+% \newcommand{\sideref}[1]{the sidebar titled #1}
+% \newcommand{\pgref}[1]{page~\pageref{#1}}
+

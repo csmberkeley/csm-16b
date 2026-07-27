@@ -1,0 +1,116 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Spring 2023
+
+\qns{Give Me Subspace}
+
+Give me some space (proofs). \\
+In other words, please prove the following prompts for an arbitrary matrix $A \in \R^{m \times n}$:
+
+\begin{enumerate}
+    \item {
+        The nullspace of $A$ is a subspace.
+        
+    }
+    \ans {
+        Let us remind ourselves that a subspace is a vector space with the three following qualities:
+        \begin{enumerate}
+            \item Contains $\vec{0}$
+            \item Closure under addition: $\forall \vec{x}, \vec{y} \in S, \vec{x} + \vec{y} \in S$
+            \item Closure under scalar multiplication: $\forall \vec{x} \in S, \alpha \in \R, \alpha \vec{x} \in S$
+        \end{enumerate}
+        Then, to prove that a vector space is a subspace, we must prove that all above qualities are satisfied by the space in prompt.
+        \par
+        \textbf{Proof for Quality i.} \\
+        For any matrix $A$,
+        \[
+            A \vec{0} = \vec{0}
+        \]
+        Therefore, by definition,
+        \[
+            \vec{0} \in N(A)
+        \]
+        \textbf{Proof for Quality ii.} \\
+        Suppose there are arbitrary vectors $\vec{x}, \vec{y} \in N(A)$, then we see that
+        \begin{align*}
+            A (\vec{x} + \vec{y}) &= A \vec{x} + A \vec{y} \\
+            &= \vec{0} + \vec{0} = \vec{0}
+        \end{align*}
+        Therefore, by definition,
+        \[
+            \forall \vec{x}, \vec{y} \in N(A), \vec{x} + \vec{y} \in N(A)
+        \]
+        \textbf{Proof for Quality iii.} \\
+        Suppose there is an arbitrary vector $\vec{x} \in N(A)$ and some real scalar $\alpha \in \R$, then we see that
+        \begin{align*}
+            A (\alpha \vec{x}) &= \alpha A \vec{x} \\
+            &= \alpha \vec{0} = \vec{0}
+        \end{align*}
+        Therefore, by definition,
+        \[
+            \forall \vec{x} \in N(A), \alpha \in \R, \alpha \vec{x} \in N(A)
+        \]
+        
+    }
+    \newpage
+    \item{
+        The columnspace of $A$ is a subspace.
+        
+    }
+    \ans {
+        We will write the proof for this prompt according to the aforementioned logic in part (a). \\
+        For convenience of notation, let us also suppose that the arbitrary matrix $A$ we perform a proof of can be expressed as:
+        \[
+            A = \begin{bmatrix} \vec{A_1} & \dots & \vec{A_n} \end{bmatrix}
+        \]
+        \par
+        \textbf{Proof for Quality i.} \\
+        For any matrix $A$,
+        \[
+            0 \vec{A_1} + \cdots + 0 \vec{A_n} = \vec{0}
+        \]
+        Therefore, by definition,
+        \[
+            \vec{0} \in Col(A)
+        \]
+        \textbf{Proof for Quality ii.} \\
+        Suppose there are arbitrary vectors $\vec{x}, \vec{y} \in Col(A)$, then we see that
+        \begin{align*}
+            \vec{x} + \vec{y}
+            &= (a_1 \vec{A_1} + \cdots + a_n \vec{A_n}) + (b_1 \vec{A_1} + \cdots + b_n \vec{A_n}) \\
+            &= (a_1 + b_1) \vec{A_1} + \cdots + (a_n + b_n) \vec{A_n}
+        \end{align*}
+        Therefore, by definition,
+        \[
+            \forall \vec{x}, \vec{y} \in Col(A), \vec{x} + \vec{y} \in Col(A)
+        \]
+        \textbf{Proof for Quality iii.} \\
+        Suppose there is an arbitrary vector $\vec{x} \in Col(A)$ and some real scalar $\alpha \in \R$, then we see that
+        \begin{align*}
+            \alpha \vec{x}
+            &= \alpha (a_1 \vec{A_1} + \cdots + a_n \vec{A_n}) \\
+            &= (\alpha a_1) \vec{A_1} + \cdots + (\alpha a_n) \vec{A_n} \in Col(A)
+        \end{align*}
+        Therefore, by definition,
+        \[
+            \forall \vec{x} \in Col(A), \alpha \in \R, \alpha \vec{x} \in Col(A)
+        \]
+    
+    }
+    \ans{
+        Let us consider an eigenpair of matrix $A$ to be $(\lambda, \vec{v})$. \\
+        Then, 
+        \begin{align*}
+            A^2 \vec{v} &= A A \vec{v} \\
+            &= A \lambda \vec{v} = \lambda^2 \vec{v}
+        \end{align*}
+        Proving that $(\lambda^2, \vec{v})$ is an eigenpair of $A^2$.
+        \par
+        Similarly,
+        \begin{align*}
+            A \vec{v} &= \lambda \vec{v} \\
+            \frac{1}{\lambda} \vec{v} &= A^{-1} \vec{v} \\
+        \end{align*}
+        Proving that $(\lambda^{-1}, \vec{v})$ is an eigenpair of $A^{-1}$ if such inverse exists.
+    }
+\end{enumerate}

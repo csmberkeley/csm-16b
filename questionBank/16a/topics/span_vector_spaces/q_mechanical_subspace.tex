@@ -1,0 +1,71 @@
+\qns{A Tale of Two Spaces}
+
+\textbf{Learning Goal:} The goal of this problem is to understand subspaces, basis vectors, and dimension. 
+% Please look into \notes{Note 8 Section 8.1} for more on subspaces.
+
+\meta{
+\begin{itemize}
+
+\item Go over the definition of subspace before diving into the problem. 
+\item Showcase how a subspace can have multiple bases (infinite in fact)
+\item Geometrically “show” in 2D/3D how rotating the x,y, and z axes creates a different basis. Just clarify with students that orthogonality is not a requirement for a basis and that rotation is not the only dimension preserving action
+\item Remind students of the distinction between vector lengths and the dimension spanned by a basis.
+
+\end{itemize}
+
+}
+\begin{enumerate}
+%\setlength\itemsep{5.5em}
+	\item Consider the set $U$, which is a subset of $\R^3$, defined below. Is $U$ a subspace?
+	$$U = \left\{ \begin{bmatrix}x\\0 \\x+y\end{bmatrix} \mid x,y\in \R \right\}$$
+	\ans {
+	In order to check whether $U$ is a subspace or not, we need to check three properties: the set contains the zero vector, is closed under vector addition, and closed under scalar multiplication. First, \textbf{$U$ must contain the zero vector of $\R^3$}, $\begin{bmatrix}0\\ 0\\ 0\end{bmatrix}$. Essentially, we want to find some $x, y\in \R$ such that $$\begin{bmatrix}x\\ 0\\x+y\end{bmatrix} = \begin{bmatrix}0\\ 0\\ 0\end{bmatrix}$$ Solving this system, we get $x = 0$ and $y = 0$. The existence of a solution for $(x, y)$ indicates that the zero vector is in the set $U$.\\
+	Next, we must check for \textbf{closure under vector addition}, which means given any vectors $\vec{u_1},\vec{u_2}\in U$, then it must be true that $\vec{u_1}+\vec{u_2}\in U$. Since $\vec{u_1}$ and $\vec{u_2}$ are in $U$, we can write them as $$\vec{u_1} = \begin{bmatrix}x_1\\ 0\\ x_1 + y_1\end{bmatrix}$$ $$\vec{u_2} = \begin{bmatrix}x_2\\ 0\\ x_2 + y_2\end{bmatrix}$$Then, $$\vec{u_1} + \vec{u_2} = \begin{bmatrix}x_1 + x_2 \\ 0 \\ x_1 + y_1 + x_2 + y_2\end{bmatrix} = \begin{bmatrix}x_1 + x_2 \\ 0 \\ (x_1 + x_2) + (y_ 1 + y_2)\end{bmatrix}$$
+	This resulting vector is in the form $\begin{bmatrix}x\\ 0\\ x+y\end{bmatrix}$ where $x = x_1 + x_2$ and $y = y_1 + y_2$. Therefore, it must also be in $U$, so we have confirmed that $U$ is closed under vector addition.\\
+	Finally, we must check for \textbf{closure under scalar multiplication}, which means given any vector $\vec{u}\in U $ and any scalar $\alpha\in\R$, then it must be true that $\alpha\vec{u}\in U$. We can write $\vec{u}$ in the form $$\vec{u} = \begin{bmatrix}x_1\\ 0\\ x_1 + y_1\end{bmatrix}$$. Then, $$ \alpha\vec{u} =\begin{bmatrix}\alpha x_1\\ 0\\ \alpha (x_1 + y_1)\end{bmatrix} = \begin{bmatrix}\alpha x_1\\ 0\\ \alpha x_1 + \alpha y_1\end{bmatrix}$$
+	This resulting vector is in the form $\begin{bmatrix}x\\ 0\\ x+y\end{bmatrix}$ where $x = \alpha x_1$ and $y = \alpha y_1$. Therefore, it must also be in $U$, so we have confirmed that $U$ is closed under scalar multiplication. Since $U$ satisfies all three properties, it is a subspace.
+	}
+	
+	\item Find a basis for $U$. What is its dimension?
+	
+	\meta{Emphasize that there may be more than one possible set of basis vectors, but the dimension will always remain the same.
+	}
+	
+	\ans{
+		We can write any vector in $U$ as $$\begin{bmatrix}x\\0 \\x+y\end{bmatrix}$$ for some $x, y\in \R$. This can then be written as
+		$$U = \begin{bmatrix}x\\0 \\x\end{bmatrix} + \begin{bmatrix}0\\0 \\y\end{bmatrix} = x\begin{bmatrix}1\\0\\1\end{bmatrix} + y\begin{bmatrix}0\\0\\1\end{bmatrix} $$. So a set of basis vectors is: $$\left\{ \begin{bmatrix}1\\0\\1\end{bmatrix}, \begin{bmatrix}0\\0\\1\end{bmatrix} \right\}$$.
+		The dimension is then the number of basis vectors, $2$.
+	}
+
+	\item Consider the set $V$, which is a subset of $\R^3$, defined below. Is $V$ a subspace? $$V = \left\{ \begin{bmatrix}0\\z\\0\end{bmatrix} \mid z\in \R \right\}$$
+
+	\ans{
+		Yes, $V$ is a subspace. We can confirm this by following the steps from part (a):\\
+		\textbf{Existence of zero vector:} When $z = 0$, the form in the definition of $V$ becomes the zero vector in $\R^3$.\\
+		\textbf{Closure under addition:} Given arbitrary vectors $\vec{v_1}, \vec{v_2}\in V$, we can write them as $$\vec{v_1} = \begin{bmatrix}0\\ z_1\\ 0\end{bmatrix}$$ $$\vec{v_2} = \begin{bmatrix}0\\ z_2\\ 0\end{bmatrix}$$
+		Then, $$\vec{v_1} + \vec{v_2} = \begin{bmatrix}0\\ z_1 + z_2\\ 0\end{bmatrix}$$
+		which is in $V$. So $V$ is closed under addition. \\
+		\textbf{Closure under scalar multiplication:} Given arbitrary vector $\vec{v_1}\in V$ and scalar $\alpha\in\R$, we can write 
+		$$\alpha\vec{v_1} = \begin{bmatrix}0\\ \alpha z_1\\ 0 \end{bmatrix}$$
+		which is in $V$. So $V$ is closed under scalar multiplication. Since $V$ satisfies all three properties, it is a subspace.
+	}
+
+	\item Find a basis for $V$. What is its dimension?
+	
+	\ans{
+		We can write any vector in $V$ as $$\begin{bmatrix}0\\z \\0\end{bmatrix}$$ for some $z\in \R$. This can then be written as
+		$$V = \begin{bmatrix}0\\z \\0\end{bmatrix} = z\begin{bmatrix}0\\1\\0\end{bmatrix}$$. So a set of basis vectors is: $$\left\{ \begin{bmatrix}0\\1\\0\end{bmatrix} \right\}$$.
+		The dimension is the number of basis vectors, $1$.
+	}
+
+	\item Can you express the basis vector(s) you found in part 4 as a linear combination of the basis vector(s) you found in part 2? Why or why not?
+
+	\ans{
+		Let the basis vectors in part 2 be $\vec{b_1}, \vec{b_2}$ and the basis vector in part 4 be $\vec{b_3}$. To see if we can express $\vec{b_3}$ as a linear combination of  $\vec{b_1}, \vec{b_2}$, we seek scalars $m, n\in\R$ such that $m\vec{b_1} + n\vec{b_2} = \vec{b_3}$, or:
+		$$m\begin{bmatrix}1\\0\\1\end{bmatrix} + n\begin{bmatrix}0\\0\\1\end{bmatrix} = \begin{bmatrix}0\\1\\0\end{bmatrix}$$
+		$$\begin{bmatrix}m\\ 0\\ m+n\end{bmatrix} = \begin{bmatrix}0\\1\\0\end{bmatrix}$$
+		Focusing on the second row, we have $0$ on the left hand side of the equation and $1$ on the right hand side. This is not possible, so the basis vectors found in part 2 are linearly independent to the basis vector in part 4. The only vector that can be described by both sets of basis vectors is the zero vector.
+		
+		Something further to think about: can you express any arbitrary vector in $V$ in terms of the basis vectors of $U$? Or vice versa?
+	}
+\end{enumerate}

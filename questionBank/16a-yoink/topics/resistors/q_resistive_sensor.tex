@@ -1,0 +1,114 @@
+% Spring 2018 MT2 problem
+\qns{Midterms are a lot of Pressure}
+
+\textbf{Learning Goal: Students will apply the concept of resistive sensors to a midterm style problem. } 
+
+Please look into \notes{Note 14 Section 14.4} to understand resistive sensors and convert physical models to circuits.
+
+\meta{
+Remind students that although this is an exam-style problem, it is just applying the concepts that we have gone over so far. Give students ample time to try to solve the problem on their own. 
+}
+
+
+For this problem, we use something called ``pressure sensitive rubber,'' which incorporates conductive rubber and metal into one system. As the rubber is pressed, the conductive rubber portions are compressed, which changes the resistance. The metal plates do not change dimensions.
+
+The pressure sensitive rubber system is shown below, with a resistive model next to the diagram. The resistivity of rubber and metal are represented by $\rho_R$ and $\rho_M$ respectively. When the system is at rest (no touch), the resistances of the rubber and metal are represented by $R_R$ and $R_M$. The area of the sensor, as seen from above, is $A$.
+
+To use the material, a finger presses on top of the system, compressing the rubber regions, creating a change in resistance, also shown below. Please answer the following questions related to the system.
+
+\includegraphics[scale=0.65]{../q_resistive_sensor/fig}
+
+\begin{enumerate}[series = qn]
+
+\item
+  Is the resistor model implementing resistors in series or parallel? 
+
+
+
+\ans{
+  The resistors are in series.
+}
+
+
+\item
+   If the values are $R_R = \SI{1}{\kilo\ohm}$ and $R_M = \SI{10}{\ohm}$, what is the total resistance before pressing the system?
+
+\ans{
+There are three $R_R$ resistors and two $R_M$, so $R_{total} = 3R_{R}+2R_{M}=\SI{3}{\kilo\ohm} + \SI{20}{\ohm} = \SI{3.02}{\kilo\ohm}$.
+}
+
+\item
+   During the press, the length of each rubber portion is reduced by a factor of 5. (Its length is now 1/5 of its original value.) The size of the metal plates does not change. What is the new total resistance during a press?
+
+  
+\ans{
+If the length of conductive rubber is reduced by a factor of 5, our $R_R$ is reduced by a factor of 5:\\
+
+$$R_R = \rho_R \frac{l}{A} \longrightarrow R'_R = \rho_R \frac{l/5}{A} = \frac{R_R}{5} $$
+Since the length of metal is not changing, the metal resistance remains the same:
+$$R'_M = R_M $$
+So the total resistance is:
+$$R'_{total} = 3R'_{R}+2R'_{M}=\frac{\SI{3}{\kilo\ohm}}{5} + \SI{20}{\ohm} = \SI{620}{\ohm}$$ 
+}
+
+\item
+   The force required to compress the rubber is $F = ky$, where $k$ is a constant and $y$ is the distance compressed (from the origin). Derive an expression for the resistance as a function of the pressing force $F$.
+
+   Write your answer in terms of the initial resistances ($R_R$ and $R_M$), the resistivities ($\rho_R$ and $\rho_M$), the area of the sensor, $A$, and the constant, $k$. Assume all rubber layers compress the same amount and uniformly.
+ 
+
+  
+\ans{
+First, let's consider the total resistance of just the rubber. If we press the rubber such that the rubber compresses by an amount $y$, this means we've reduced the length of our conductive rubber region to $3l-y$, making our resistance of the rubber region:
+
+\begin{align*}
+R_{R-press} &= \rho_R \frac{3l -y}{A}\\
+&= \rho_R \frac{3l - F/k}{A} \\
+&= \rho_R \frac{3l}{A} - \rho_R \frac{F/k}{A} 
+\end{align*}
+
+In the set of equations above, it's important to note that the decrease by a distance of $y$ is applied to all 3 resistors together.  \\
+
+The first term is equivalent to the initial (no press) resistance of one segment of rubber times 3: $3\rho_R \frac{l}{A}$. We can write this as, $3R_R$.
+\begin{align*}
+R_{R-press}	&= 3R_R - \rho_R \frac{F}{kA}
+\end{align*}
+
+To get the total resistance of the sensor, we can add the resistance of the metal potions. Since the metal portions do not change, their resistance is still $2R_M$.
+
+$$R_{total}(F) = 3R_R - \rho_R \frac{F}{kA} + 2R_M$$
+}
+
+%\item
+%   For a particular sensor, we find that the resistance is:
+%  
+%  $$R(F) = \frac{8k\Omega \cdot mm^2}{A} - \left(100 \tfrac{\Omega \cdot m^2}{N} \right) \frac{F}{A}$$
+%   We define the sensitivity of the sensor, $S$, to be the change in resistance per unit of force:
+%   $$S = \left|\frac{dR}{dF}\right|$$ 
+%   If we want to increase sensitivity, how should we change the area of the sensor? Justify your answer in 1-2 sentences.
+%  
+%
+%  
+%\ans{
+%We can calculate the sensitivity:
+%
+%$$S = \left|\frac{d}{dF}\left(\frac{8k\Omega \cdot mm^2}{A} - \left(100 \tfrac{\Omega \cdot m^2}{N} \right) \frac{F}{A}\right)\right| = 100 \tfrac{\Omega \cdot m^2}{N} \left|\frac{1}{A}\right| $$
+%
+%Sensitivity is inversely proportional to $A$, so we should \textbf{decrease} the area of the sensor if we want to increase sensitivity. \\
+%
+%\textbf{Common Mistakes:}
+%\begin{itemize}
+%	\item Correctly saying "decrease $A$" but for the wrong reasons. Decreasing $A$ will increase $R$ and $\tfrac{dR}{dF}$ since they're both proportional to $\tfrac{1}{A}$, but the goal is not to increase the resistance. We want to increase the \textbf{change} in resistance for a change in force. Whether you take the integral, nothing, or the derivative, they all increase from decreasing $A$, but you only get points for correct justification if you demonstrated this specifically for the sensitivity. It is also acceptable to demonstrate that the coefficient in front of F controls how much R changes for a unit of force, and you basically want to increase that (same as saying increase the slope).
+%	\item Not mathematically justifying answers, or justifications that don't quite fit the problem. Here are some examples:
+%	\begin{itemize}
+%		\item "Decreasing $A$ will increase sensitivity since it's in the denominator" but with no mathematical justification. You have to show that $A$ is in the denominator of the \emph{sensitivity} before making this claim.
+%		\item "$R$ going up implies $S$ goes up" but not saying why.
+%		\item "$R = pL/A$ so therefore small $A$ results in big $R$." Unfortunately, this wasn't the question. We're interested in the effect of $A$ on sensitivity, not total resistance.
+%	\end{itemize} 
+%	\item  Trying to solve this like a maximization problems. In optimization problems, you often go straight to setting the derivative to 0 to find critical points, but these are for optimizing the parent function, in this case $R(F)$. We want to maximize sensitivity. This means you actually need $\tfrac{dR}{dF}$ to be large, not 0.
+%\end{itemize}
+%
+%}
+
+
+\end{enumerate}

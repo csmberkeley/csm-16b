@@ -1,0 +1,113 @@
+% \documentclass{exam}
+%\usepackage[utf8]{inputenc}
+%\usepackage[english]{babel}
+%\usepackage[american,siunitx]{circuitikz}
+%\usepackage{siunitx}
+
+\qns{Parallel or Series Resistors}
+%\author{Catherine Bumagat and Shaamer Kumar}
+%\date{February 14, 2022}
+% CSM16A Spring 2022
+
+\textbf{Learning Goal: }This question will help students recognize which resistors are in series, parallel, or neither when given a circuit. They will also practice condensing resistors in equivalent networks. 
+
+\meta{
+Remind students the definition of parallel and series equivalence. 
+\\Two resistors are in parallel if, and only if, they share the same two nodes on top and bottom, ie: they share the same voltage drop. Two resistors are in series if, and only if, they share one node in the same branch, ie: they share the same current through both resistors
+}
+
+
+%\maketitle
+    \begin{center}
+    
+        \begin{circuitikz}
+        \draw(0,0)
+    	to[V_=$V$,invert] ++(0,5)
+    	to[short,l=Node A,-o] ++(2,0)
+     	to[short] ++(1,0)
+     	to[R,l=$R_3$] ++(1,0)
+     	to[short] ++(2,0)
+     	to[R,l=$R_5$] ++(1,0)
+     	to[short] ++(2,0)
+     	to[R,l=$R_9$] ++(1,0)
+     	to[short] ++(1,0)
+     	to[short] ++(0,-5)
+     	to[short] node[]{} ++(-3,0)
+     	(8,5)to[short] ++(0,-1)
+     	to[R,l=$R_6$] ++(0,-1)
+     	to[short] ++(0,-1)
+     	to[R,l=$R_7$] ++(0,-1)
+     	to[short] ++(0,-1)
+     	to[short] ++(-1,0)
+     	to[R,l=$R_8$] ++(-1,0)
+     	to[short] ++(-1,0)
+     	(5,5)to[short] ++(0,-2)
+     	to[R,l=$R_4$] ++(0,-1)
+     	to[short] ++(0,-2)
+     	to[short, -o] node[]{} ++(-3,0)
+    	(2,5)to[short] ++(0,-1)
+    	to[R,l=$R_1$] ++(0,-1)
+    	to[short] ++(0,-1)
+    	to[R,l=$R_2$] ++(0,-1)
+    	to[short] ++(0,-1)
+    	to[short, l=Node B] node[]{} ++(-2,0);
+        \end{circuitikz}
+        
+    \end{center}
+    
+\begin{enumerate}    
+    
+    \item Which resistors in the circuit above are in series? Pick all that apply.
+        \begin{enumerate}
+            \item $R_1$, $R_2$
+            \item $R_5$, $R_6$, $R_7$, $R_8$
+            \item $R_6$, $R_7$
+            \item $R_5$, $R_9$
+            \item $R_5$, $R_8$
+        \end{enumerate}
+        
+        \ans{
+            \begin{oneparcheckboxes}
+            \CorrectChoice $R_1$, $R_2$ 
+            \CorrectChoice $R_6$, $R_7$
+            \CorrectChoice $R_5$, $R_8$
+            \end{oneparcheckboxes}
+        }
+        
+    \item Which resistors in the circuit above are in parallel?  Pick all that apply. \\
+        \begin{oneparcheckboxes}
+         \choice $R_5$, $R_8$ 
+         \CorrectChoice $R_6$ \& $R_7$, $R_9$
+         \choice $R_4$, $R_5$
+         \choice $R_1$, $R_2$
+        \end{oneparcheckboxes} \\\\
+        
+        \ans{
+        \begin{oneparcheckboxes}
+        \CorrectChoice $R_6$ \& $R_7$, $R_9$
+        \CorrectChoice $R_4$, $R_5$
+        \end{oneparcheckboxes}
+        }
+    
+    \item Find an expression for the equivalent resistance between Node A and Node B. Hint: Try and start condensing the circuit using parallel/series equivalences from the farthest point away from Node A and Node B.
+        \ans{
+        
+        $(R_1 + R_2) \parallel [R_3 + (R_4 \parallel [R_5 + R_8 + (R_6 + R_7) \parallel R_9])]$
+        }
+    
+    \item If our power source has a voltage difference of 5V, and $R_1$, $R_2$, $R_3$, $R_4$ are 20$\Omega$ each and the rest are 50$\Omega$, what is the current flowing through the voltage source? [Hint: use the results of your previous answer]
+    
+        \ans{
+        
+        From previous part: \\$(R_1 + R_2) \parallel [R_3 + (R_4 \parallel [R_5 + R_8 + (R_6 + R_7) \parallel R_9])]$
+   \\ = 40$\Omega $ $\parallel$ [20$\Omega $ (20$\Omega $ $\parallel$ 200$\Omega $ $\parallel$ 50$\Omega $)]
+   \\ = 40$\Omega $ $\parallel$ 266.666667$\Omega$
+   \\ = 34.7826 $\Omega $
+   \\
+   \\ V = I * R
+   \\ 5V = I * 34.7826 $\Omega $
+   \\ I = 0.14375 A
+        }
+\end{enumerate}
+
+

@@ -1,0 +1,119 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Equivalent Resistance}
+
+The main ship of the Resistance Fleet is in trouble! They have recruited you to help fix the issue.\\
+The on-board technicians have determined that the resistor grid in the main console is faulty (one of the resistors must be fried). It is your job to replace the grid with something of equivalent resistance.\\
+However, because of severe budget cuts in the Resistance’s EE department, you can only use a single resistor connected between nodes A and B to replace the resistor grid. The technicians hand you the diagram below of what the resistor grid looked like. All resistors in the diagram have resistance value \textbf{R}.
+\begin{center}
+    \makebox[\linewidth]{
+        \includegraphics{../q_m2_equivalence_resistance_figs/total_grid.PNG}
+    }
+\end{center}
+
+\begin{enumerate}
+    \item\label{resistor_net}{
+        Find the equivalent resistance of the following piece of the resistor grid between nodes A and B in terms of \textbf{R}.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_equivalence_resistance_figs/grid_net.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q7(a) of Spring 2021's Midterm 2.
+        \begin{bindenum}
+            \item Pay attention to whether every resistor really has current flowing through them.
+            \item It's as if we are dealing with two voltage dividers. This structure implies that both nodes across the ends of horizontal resistor have the same voltage.
+        \end{bindenum}
+    
+    }
+    \ans{
+        The horizontal resistor makes it complicated to measure the equivalent resistance of this structure. \\
+        Fortunately, according to the symmetry of this circuit, the node voltage across the horizontal resistor should be equal. To be more concrete, we see that the current flowing through the left-upper resistor having to flow through a parallel structure of a resistor and another combination of two resistor, while the current flowing through the right-upper resistor flows through the exact same configuration as the left current does. \\
+        It is safe to conclude that the voltage difference across the horizontal resistor is 0V, since the node voltage across its two ends are equal. Therefore, no current flows through the horizontal resistor, and it is as if the horizontal resistor was never there since it doesn't contribute to any voltage change. \\
+        That being said, we can ignore the horizontal resistor. \\
+        The equivalent resistance of this structure is thus:
+        \begin{align*}
+            R_{eq}
+            &= (R + R) \parallel (R + R) \\
+            &= 2R \parallel 2R \\
+            &= R
+        \end{align*}
+        
+    }
+    
+    \item\label{resistor_ladder}{
+        Find the equivalent resistance of the following piece of the resistor grid between nodes A and B in terms of \textbf{R}.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_equivalence_resistance_figs/grid_ladder.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q7(b) of Spring 2021's Midterm 2. \\
+        The mechanical way students can discover this phenomenon is by discovering that the resistor ladder has a resistance of:
+        \[R_{eq} =
+          R + (R \parallel
+            \underline{(R + (R \parallel
+                \underline{
+                    (R + (R \parallel
+                    \underline{
+                        (R + (R \parallel \dots) + R)
+                    }) + R)
+                }) + R)
+            }) + R
+        \]
+        And we summarize the entire underlined as $R_{eq}$.
+    
+    }
+    \ans{
+        The portion of ladder that repeats forever has resistance equivalent to that of the entire ladder, and this is possible because the ladder has a virtually infinite length. In other words, this ladder is a recursive structure. \\
+        Extending from the above statement, let $R_{eq}$ be the equivalent resistance of the entire ladder, then the section that repeats forever should also have resistance of $R_{eq}$.\\
+        Therefore, the equivalent resistance of the ladder can be stated in the equation of:
+        \begin{align*}
+            R_{eq}
+            &= R + (R \parallel R_{eq}) + R \\
+            &= 2R + \frac{R_{eq}R}{R_{eq} + R} \\
+        \end{align*}
+        Let us simplify and solve the above quadratic equation:
+        \begin{align*}
+            &R_{eq}^2 + R_{eq}R = 2R_{eq}R + 2R^2 + R_{eq}R \\
+            &R_{eq}^2 - 2R_{eq}R - 2R^2 = 0
+        \end{align*}
+        \begin{align*}
+            R_{eq}
+            &= \frac{2R\pm\sqrt{(2R)^2 - (1)(4)(2R^2}}{2} \\
+            &= \frac{2R\pm2R\sqrt{3}}{2} \\
+            &= (1\pm\sqrt{3})R
+        \end{align*}
+        Keeping in mind that the resistance of our resistor should be positive,
+        \[R_{eq} = (1+\sqrt{3})R\]
+        
+    }
+    
+    \item\label{total_grid}{
+        Suppose the equivalent resistance for the piece of resistor grid in part (a) is $\alpha\mathbf{R}$, and the equivalent resistance for the piece of resistor grid in part (b) is $\beta\mathbf{R}$, where $\alpha$ and $\beta$ are known real numbers for this part. What should be the value of the resistor you use to replace the entire grid with, in terms of \textbf{R}, $\alpha$, and $\beta$?
+        
+    }
+    \meta{
+        This question comes from Q7(c) of Spring 2021's Midterm 2.
+    
+    }
+    \ans{
+        Since the grids are parallel to each other in the overall structure,
+        \begin{align*}
+            R_{eq}
+            &= \alpha R\parallel\beta R \\
+            &= \frac{\alpha\beta}{\alpha + \beta}R
+        \end{align*}
+        
+    }
+    
+\end{enumerate}

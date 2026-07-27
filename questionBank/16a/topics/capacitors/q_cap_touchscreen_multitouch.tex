@@ -1,0 +1,144 @@
+% Author: Aurelia Wang
+% Author Email: aureliawang@berkeley.edu
+% CSM16A Spring 2023
+
+\qns{Multi-Touch Capacitive Touchscreen}
+
+\meta{
+\begin{itemize}
+    \item Explain the capacitive touchscreen and why it is better than the resistive touchscreen. Capacitive touchscreens are far more sensitive because in resistive touchscreens, users need to push down until the bottom plate senses pressure. Capacitive touchscreens can also work with multi-point inputs, otherwise known as multi-touch. We will explore modeling multi-touch in this problem.
+    
+    \item Draw out diagrams of capacitive touchscreens with and without touch. Here is a figure to get started:
+    \begin{figure}[h]
+        \begin{center}
+            \includegraphics[scale=0.5]{../q_capacitive_touchscreen_figs/capacitors.png}
+        \end{center}
+    \end{figure}
+    
+    \item Draw out the above pictures in circuit form and explain what these circuits represent.
+
+    \item Refer students to Note 17's drawings and circuits if needed.
+\end{itemize}
+}
+
+A capacitor is made of two pieces of conductive metals separated by a non-conductive metal with some sort of permitivity. For typical capacitors used in circuits, the conductive material is metal. However, our skin is made of water and can act like a conductor. Our fingers form a capacitor by holding a finger over a sheet of metal, which  allows us to construct capacitive touchscreens. 
+
+\vspace{5mm} %5mm vertical space
+
+For these questions, assume that the material between the capacitors is just air, which has a permitivity of $\epsilon = 8.85×10^{-12}$ \emph{F/m}.
+
+\begin{enumerate}
+\item { Say the top metal has a length of 3 \emph{mm} and a width of 4 \emph{mm}. If the bottom metal is 2 \emph{cm} away from the top metal and has a length of 10 \emph{mm} and a width of 2 \emph{mm}, find the capacitance between these two metals. Make sure to pay attention to units.
+
+\vspace{5mm} %5mm vertical space
+
+\ans{
+We use the equation 
+\[
+    C = \frac{A\epsilon}{d}
+\]
+to find the capacitance of a physical capacitor.
+
+Because the top and bottom metal plates are not of the same area, we only use the overlapping area when one is directly on top of the other. We use the top metal's length and the bottom metal's width because they constitute the overlapping area. The area is thus 6 $mm^2$, which is $6*10^{-6} m^2$. Distance must be in meters, so 2 $cm$ translates to .02 $m$. Plugging in these values, we get
+
+\[
+    C = \frac{6*10^{-6} m^2 * 8.85×10^{-12} F/m}{.02 m} = 2.655 * 10^{-15} F
+\]
+}
+
+\vspace{5mm} %5mm vertical space
+
+\item Suppose you place \textbf{two} fingers on the insulator that goes on top of the top metal \emph{at the same time}. Draw a circuit diagram that represents this scenario and explain your labeling. Assume the second finger is placed on a separate bottom metal but on the same top metal. Do not combine any parallel or series capacitors.
+
+\emph{Hint: Try to draw out a picture very similar to the one on page 1 of Note 17, except with two fingers. Then, translate it into a circuit diagram with your own labeling.}
+
+\vspace{5mm} %5mm vertical space
+
+\ans{
+
+Here is the correct circuit diagram:
+\begin{center}
+    \begin{circuitikz}[american]
+    
+        \draw (0,0) node[label={[font=\footnotesize]left:$E_{bot}$}] {}
+        to [C=$C_2$, *-*] (0, 4)
+        node[label={[font=\footnotesize]above:$E_{top2}$}] {}
+        to [short] (2, 4) 
+        to [C=$C_{E_{top2-F_2}}$, *-*] (2, 2)
+        node[label={[font=\footnotesize]right:$F_2$}] {}
+        to [C=$C_{F_2-E_{bot}}$, *-*] (2, 0)
+        to [short] (0,0) 
+        to [short] (6, 0)
+        to [C=$C_1$, *-*] (6, 4)
+        node[label={[font=\footnotesize]above:$E_{top1}$}] {}
+        to [short, *-*] (8, 4)
+        to [C=$C_{E_{top1-F_1}}$, *-*] (8, 2)
+        node[label={[font=\footnotesize]right:$F_1$}] {}
+        to [C=$C_{F_1-E_{bot}}$] (8, 0)
+        to [short] (6, 0);
+    
+    \end{circuitikz}
+
+\end{center}
+
+where $E_{top2}$ denotes the second top metal and $C_2$ denotes the capacitor between the second top metal and the bottom metal. $E_{bot}$ is placed on by both fingers, and thus this circuit shares this node. The other nodes are different, so a new circuit is drawn. \\
+Note that these circuits' labeling can be swapped depending on how you thought out the finger placement.
+}
+
+\vspace{5mm} %5mm vertical space
+
+\item Further simplify the above circuit by replacing the capacitors that change when a finger is present with equivalent capacitors. Label them $C_{\Delta, 1}$ and $C_{\Delta, 2}$. What are these values in terms of the capacitors in the previous equation? Use your own labels.
+
+\vspace{5mm} %5mm vertical space
+
+\ans{
+
+The correct, simplified circuit is shown below:
+\begin{center}
+    \begin{circuitikz}[american]
+    
+        \draw (0,0) node[label={[font=\footnotesize]left:$E_{bot}$}] {}
+        to [C=$C_2$, *-*] (0, 4)
+        node[label={[font=\footnotesize]above:$E_{top2}$}] {}
+        to [short] (2, 4) 
+        to [C=$C_{\Delta, 2}$, *-*] (2, 0)
+        to [short] (0,0) 
+        to [short] (6, 0)
+        to [C=$C_1$, *-*] (6, 4)
+        node[label={[font=\footnotesize]above:$E_{top1}$}] {}
+        to [short, *-*] (8, 4)
+        to [C=$C_{\Delta, 1}$, *-*] (8, 0)
+        to [short] (6, 0);
+    
+    \end{circuitikz}
+\end{center}
+
+    Your labels may be different depending on how you drew the circuit. $C_{\Delta, 1}$ is an equivalent capacitor of $C_{E_{top1-F_1}}$ and $C_{F_1-E_{bot}}$, which are in series. Therefore, \[
+        C_{\Delta, 1} = \frac{{C_{E_{top1-F_1}}(C_{F_1-E_{bot}})}}{C_{E_{top1-F_1}} + (C_{F_1-E_{bot}})}
+    \]
+    The same applies for $C_{\Delta, 2}$.
+}
+
+\vspace{5mm} %5mm vertical space
+
+\item If finger 1 is present but finger 2 isn't, what sign will the value of $C_{\Delta, 2}$ and $C_{\Delta, 1}$ be? How does $C_1$ compare to the equivalent capacitance of $C_1$ and $C_{\Delta, 1}$ for finger 1? How does $C_2$ compare to the equivalent capacitance of $C_2$ and $C_{\Delta, 2}$ for finger 2?
+
+\vspace{5mm} %5mm vertical space
+
+\ans{
+When the first finger is present, $C_{\Delta, 1}$ will be a positive value as $C_{E_{top1-F_1}}$ and $C_{F_1-E_{bot}}$ will have a positive capacitance created by the finger. The equivalent capacitance of $C_1$ and $C_{\Delta, 1}$ will therefore be greater than $C_1$.
+
+Finger 2 is not touching the screen at all so $C_{\Delta, 2}$ will be 0. Therefore, the value of $C_2$ would be greater than the equivalent capacitance of $C_2$ and $C_{\Delta, 2}$.
+}
+
+\vspace{5mm} %5mm vertical space
+
+\item Suppose that a high-$\epsilon$ dielectric material was placed between the top plate that the first finger pushes and the bottom plate. How would this affect the capacitive touchscreen?
+
+\vspace{5mm} %5mm vertical space
+
+\ans{
+Looking at the $C = \frac{A\epsilon}{d}$ formula for capacitance, a high-$\epsilon$ will increase the capacitance of $C_1$ by a large scale. If this occurs, $C_1$ would always be larger than $C_{\Delta, 1}$ because a finger could never produce such a large capacitance. Therefore, that pixel would never recognize a finger press and can be considered faulty.
+}
+
+\end{enumerate}

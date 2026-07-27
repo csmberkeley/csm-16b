@@ -1,0 +1,442 @@
+\qns{Gaussian Elimination}
+
+\textbf{Learning Goal:} The goal of this problem is to use Gaussian Elimination to describe solutions to systems, both qualitatively and quantitatively. Please review \notes{Note 1B} to understand this problem better. 
+
+\meta{
+
+\begin{itemize}
+\item As you are going over these mechanical calculations,  make sure your students are familiar with these terms: row-echelon vs reduced row-echelon, free variables,  pivots,  inconsistent system (no solution).
+
+\item Oftentimes, we will include mechanical problems in these worksheets,  but you should check in with how comfortable students are with processes such as Gaussian Elimination before skipping steps.
+
+\end{itemize}
+
+}
+
+Write each system as an augmented matrix, and then solve using Gaussian Elimination. Also determine whether each system has no solution, a unique solution, or a set of infinitely many solutions.
+
+
+ \meta{
+ \begin{itemize}
+ \itemWrite out the system of equations and the corresponding matrix next to each other.
+ \itemSolve the system of equations and show which row operation you should use on the matrix to get the same result at each step.
+ \itemTalk about the procedure for each row: taking the left most variable, multiplying by a scalar to make its coefficient 1, use row operation (c) to make the rest of the coefficients in that column 0, move rows up or down so that the top equations solve for variables that are farther to the left (so that non-zero elements in the matrix are shaped like a \textit{upside-down staircase}), etc.
+ \itemFor the underdetermined matrices, emphasize which variable(s) are basic variables and free variables.
+ \end{itemize}
+ }
+
+
+\begin{enumerate}
+ %\setlength\itemsep{14em}
+
+\item
+Solve the following system of equations:
+\begin{align*}
+x_1 -x_2  +2x_3&=15\\
+ 3x_2  -x_3&=8\\
+  x_1  +2x_3&=21\\
+\end{align*}
+
+\ans{
+The system can be written in matrix-vector form:
+\[
+\begin{bmatrix}1 & -1 & 2\\
+      0 & 3 & -1\\
+      1 & 0 & 2\end{bmatrix}
+\begin{bmatrix}x_1 \\ x_2 \\ x_3\end{bmatrix}
+=
+\begin{bmatrix} 15 \\ 8 \\ 21 \end{bmatrix}
+\]
+Then, we write the system as an augmented matrix:
+\[
+\left[\begin{array}{ccc|c}
+	1 & -1 & 2 & 15\\
+	0 & 3 & -1 & 8\\
+	1 & 0 & 2 & 21
+\end{array}\right]
+\]
+
+Here is an example of one possible route taken by Gaussian Elimination (there are many different ways to perform the algorithm):
+\begin{align*}
+	\left[\begin{array}{ccc|c}
+		1 & -1 & 2 & 15\\
+		0 & 3 & -1 & 8\\
+		1 & 0 & 2 & 21
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+		1 & -1 & 2 & 15\\
+		0 & 3 & -1 & 8\\
+		0 & 1 & 0 & 6
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 - R_1$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & -1 & 2 & 15\\
+		0 & 1 & 0 & 6\\
+		0 & 3 & -1 & 8
+\end{array}\right] \mbox{swapping $R_2$ and $R_3$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & -1 & 2 & 15\\
+		0 & 1 & 0 & 6\\
+		0 & 0 & -1 & -10
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3 - 3R_2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & -1 & 2 & 15\\
+		0 & 1 & 0 & 6\\
+		0 & 0 & 1 & 10
+\end{array}\right] \mbox{using $R_3 \leftarrow -R_3$}
+\end{align*}
+The system is now in \textbf{upper triangular matrix} form (row echelon form), and we can see that all three columns have pivot elements of "1" (leading entries 1's). So we can determine that $x_1$, $x_2$, and $x_3$ are all \textbf{basic variables}. With three nonzero, consistent equations in this form, the system must have a \textbf{unique solution}.
+
+We can either \textbf{back-substitute} or continue applying row reductions to generate a \textbf{reduced row-echelon form}. 
+
+\textbf{Method I: Back-Substitution:} From our augmented matrix in upper triangular form, we have the equations
+$$x_1 - x_2 + 2x_3 = 15$$ 
+$$x_2 = 6$$ 
+$$x_3 = 10$$
+
+The latter two already tell us what $x_2$ and $x_3$ will be, so we can plug in these values into the first equation to find $x_1 = 15 + 6 - 2(10) = 1$. So the unique solution is:
+\[
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+= \begin{bmatrix}1 \\ 6 \\ 10\end{bmatrix}
+\]
+\textbf{Method II: Reduced Row-Echelon Form:} We continue row reduction to eliminate the non-zero elements \textit{above} the pivots:
+\begin{align*}
+	\left[\begin{array}{ccc|c}
+		1 & -1 & 2 & 15\\
+		0 & 1 & 0 & 6\\
+		0 & 0 & 1 & 10
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+		1 & 0 & 2 & 21\\
+		0 & 1 & 0 & 6\\
+		0 & 0 & 1 & 10
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1 + R_2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 0 & 0 & 1\\
+		0 & 1 & 0 & 6\\
+		0 & 0 & 1 & 10
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1 - 2R_3$}
+\end{align*}
+From our augmented matrix in reduced row echelon form, we have the equations:
+$$x_1 = 1$$ 
+$$x_2 = 6$$ 
+$$x_3 = 10$$
+So we get the same solution as Method I.
+}
+
+
+\item
+
+[WALK-THROUGH] Solve the following system of equations:
+\begin{align*}
+x_1 + 2x_2 + 3x_3&=4\\
+x_1 + x_3  &=0\\
+-2x_1 + 2x_2 +x3  &=5\\
+x_1 +x_2+2x_3&=2
+\end{align*}
+
+\meta{
+
+\begin{itemize}
+\item Ask the students how many equations they should use to solve for three variable. Emphasize that they should pick ALL of the equations.
+
+\item Students might also ask if they can pick any variable as free variable. Tell them to pick the ones corresponding to the columns with no pivots (leading entries of 1's). Also note that any variable can be made the free variable by simply eliminating it during Gaussian elimination (i.e. swapping rows in a way that makes a specific variable the free variable).
+\end{itemize}
+
+}
+
+\ans{
+The matrix-vector form can be written as: 
+\[
+\begin{bmatrix}1 & 2& 3\\
+      1 & 0 & 1\\
+      -2 & 2 &1\\
+      1 & 1 & 2 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+=
+\begin{bmatrix} 4 \\ 0 \\ 5\\ 2\end{bmatrix}
+\]
+We write the system as an augmented matrix:
+\begin{align*}
+\left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		1 & 0 & 1 & 0 \\
+		-2 & 2 & 1 & 5\\
+		1 & 1 & 2 & 2
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & -2 & -2 & -4 \\
+		0 & 6 & 7 & 13\\
+		0 & -1 & -1 & -2
+\end{array}\right]\mbox{using $R_2 \leftarrow R_2 - R_1;  R_3 \leftarrow R_3 + 2R_1;  R_4 \leftarrow R_4 - R_1$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & 1 & 1 & 2 \\
+		0 & 6 & 7 & 13\\
+		0 & -1 & -1 & -2
+\end{array}\right]\mbox{using $R_2 \leftarrow -R_2/2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & 1 & 1 & 2 \\
+		0 & 0 & 1 & 1\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3-6R_2; R_4 \leftarrow R_4+R_2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 0 & 1 & 0\\
+		0 & 1 & 1 & 2 \\
+		0 & 0 & 1 & 1\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1-2R_2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 0 & 0 & -1\\
+		0 & 1 & 0 & 1 \\
+		0 & 0 & 1 & 1\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1-R_3; R_2 \leftarrow R_2-R_3;$}
+\end{align*}
+
+The system is now in \textbf{upper triangular matrix} form, and we can see that all three columns have pivot elements of "1" (leading entries 1's). So we can determine that $x_1$, $x_2$, and $x_3$ are all \textbf{basic variables}, so there is a \textbf{unique solution}.
+
+From the first three rows we get:
+\begin{align*}
+x_1=-1\\
+x_2=1 \\
+x_3=1
+\end{align*}
+
+So we can write the solution set as 
+\[
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+= \begin{bmatrix}-1 \\ 1 \\ 1\end{bmatrix}
+\]
+
+}
+
+
+
+\item
+
+[WALK-THROUGH] 
+
+(i) Now let us just change the third equation from the last problem to
+\begin{align*}
+-2x_1 + 2x_2  &=4.
+\end{align*}
+The other three equations are unchanged. Do you still have a unique solution?\\
+(ii) What if you change the third equation to 
+\begin{align*}
+-2x_1 + 2x_2 &=5?
+\end{align*}
+
+\ans{
+(i) We write the system as an augmented matrix:
+\begin{align*}
+\left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		1 & 0 & 1 & 0 \\
+		-2 & 2 & 0 & 4\\
+		1 & 1 & 2 & 2
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & -2 & -2 & -4 \\
+		0 & 6 & 6 & 12\\
+		0 & -1 & -1 & -2
+\end{array}\right]\mbox{using $R_2 \leftarrow R_2 - R_1;  R_3 \leftarrow R_3 + 2R_1;  R_4 \leftarrow R_4 - R_1$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & 1 & 1 & 2 \\
+		0 & 6 & 6 & 12\\
+		0 & -1 & -1 & -2
+\end{array}\right]\mbox{using $R_2 \leftarrow -R_2/2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & 1 & 1 & 2 \\
+		0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3-6R_2; R_4 \leftarrow R_4+R_2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 0 & 1 & 0\\
+		0 & 1 & 1 & 2 \\
+		0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1-2R_2$}
+\end{align*}
+
+After Gaussian Elimination, we get two rows that look like $\left[\begin{array}{ccc|c} 0 &0& 0& 0 \end{array}\right]$. The system is determined by the other two rows, which represent the equations $x_1 + x_3 = 0$ and $x_2 + x_3 = 2$. Since we have two non-zero rows and three variables, there are \textbf{infinitely many solutions}. 
+
+The first two columns contain leading 1's or pivot elements. So $x_1$ and $x_2$ should be \textbf{basic variables}. That leaves $x_3$ to be the \textbf{free variable}. 
+
+From the first two rows we get:
+\begin{align*}
+x_1+x_3=0 \implies x_1=-x_3\\
+x_2+x_3=2 \implies x_2=2-x_3
+\end{align*}
+
+So we can write the solution set as 
+\[
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+= \begin{bmatrix}-x_3 \\ 2 - x_3 \\ x_3\end{bmatrix}
+= \begin{bmatrix}-1\\ -1\\ 1\end{bmatrix} x_3 + \begin{bmatrix}0\\ 2\\ 0\end{bmatrix}
+\]
+\textbf{Alternative approach}:
+We can choose a \textbf{parametric representation} of solutions. We choose the free variable as: $x_3=a$, where $a$ is any scalar.
+Again the first two rows give us the following:
+\begin{align*}
+x_1+a=0 \implies x_1=-a\\
+x_2+a=2 \implies x_2=2-a
+\end{align*}
+
+So we can write the solution set as 
+\[
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+= \begin{bmatrix}-a \\ 2 - a \\ a\end{bmatrix}
+= \begin{bmatrix}-1\\ -1\\ 1\end{bmatrix} a + \begin{bmatrix}0\\ 2\\ 0\end{bmatrix}
+\]
+
+Either approach to representing the solution set is fine.
+
+(ii) We write the system as an augmented matrix:
+\begin{align*}
+\left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		1 & 0 & 1 & 0 \\
+		-2 & 2 & 0 & 5\\
+		1 & 1 & 2 & 2
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & -2 & -2 & -4 \\
+		0 & 6 & 6 & 13\\
+		0 & -1 & -1 & -2
+\end{array}\right]\mbox{using $R_2 \leftarrow R_2 - R_1;  R_3 \leftarrow R_3 + 2R_1;  R_4 \leftarrow R_4 - R_1$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & 1 & 1 & 2 \\
+		0 & 6 & 6 & 13\\
+		0 & -1 & -1 & -2
+\end{array}\right]\mbox{using $R_2 \leftarrow -R_2/2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & 3 & 4\\
+		0 & 1 & 1 & 2 \\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 0 & 0
+\end{array}\right] \mbox{using $R_3 \leftarrow R_3-6R_2; R_4 \leftarrow R_4+R_2$}
+\end{align*}
+
+This system has \textbf{no solution}. The third row is $\left[\begin{array}{ccc|c} 0 &0& 0& a \end{array}\right]$, where $a\neq 0$ in the augmented matrix. This row corresponds to the equation $0x_1 + 0x_2 + 0x_3= 1$, which cannot be valid. This means the measurements are not correct, i.e. the system is inconsistent.
+
+}
+
+
+\item
+(PRACTICE) Solve the following system of equations:
+\begin{align*}
+2x_2  +4x_3&=-2\\
+-5x_3&=10\\
+  x_1  +x_2-3x_3&=8\\
+\end{align*}
+
+
+\ans{
+The matrix-vector form of the system is:
+\[ \begin{bmatrix}
+0 & 2 & 4 \\
+0 & 0 & -5 \\
+1 & 1 & -3 \\
+\end{bmatrix} \begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} = \begin{bmatrix}
+-2 \\ 10 \\ 8
+\end{bmatrix} \]
+Then we write the system as an augmented matrix:
+\[
+\left[\begin{array}{ccc|c}
+	0 & 2 & 4 & -2\\
+	0 & 0 & -5 & 10 \\
+	1 & 1 & -3 & 8
+\end{array}\right]
+\]
+
+Notice that the first row already has one $0$, the second row has two $0$'s, and the third row has a nonzero element in the first column. If we swap rows around, this should get us our upper triangular matrix:
+\begin{align*}
+	\left[\begin{array}{ccc|c}
+		0 & 2 & 4 & -2\\
+		0 & 0 & -5 & 10 \\
+		1 & 1 & -3 & 8
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+		0 & 2 & 4 & -2\\
+		1 & 1 & -3 & 8\\
+		0 & 0 & -5 & 10
+\end{array}\right] \mbox{swapping $R_2$ and $R_3$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 1 & -3 & 8\\		
+		0 & 2 & 4 & -2\\
+		0 & 0 & -5 & 10
+\end{array}\right] \mbox{swapping $R_1$ and $R_2$}\\
+&\rightarrow \left[\begin{array}{ccc|c}
+		1 & 1 & -3 & 8\\		
+		0 & 1 & 1 & -1\\
+		0 & 0 & 1 & -2
+\end{array}\right] \mbox{$R_2 \leftarrow R_2/2$ and $R_3 \leftarrow R_3/-5$}
+\end{align*}
+
+We've reached upper triangular matrix form, and there are three equations with three basic variables, indicating the existence of a \textbf{unique solution}.
+
+We can either use back-substitution or further row reduction to find the solution
+\[ \begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} = \begin{bmatrix}
+-1 \\ 3 \\ -2
+\end{bmatrix} 
+\]
+
+}
+
+\item
+(PRACTICE) Solve the following system of equations:
+\begin{align*}
+x_1 + 3x_2  -2x_3&=-3\\
+2x_1 + 6x_2  -4x_3&=-5 
+\end{align*}
+
+
+\ans{
+The equations can be written in matrix-vector form
+\begin{align*}
+\begin{bmatrix}1 & 3 & -2\\
+      2 & 6 & -4 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+= \begin{bmatrix} -3 \\ -5 \end{bmatrix}
+\end{align*}
+Then we can write the augmented matrix form:
+\begin{align*}
+	\left[\begin{array}{ccc|c}
+		1 & 3 & -2 & -3\\
+		2 & 6 & -4 & -5
+	\end{array}\right] &\rightarrow \left[\begin{array}{ccc|c}
+		1 & 2 & -3 & -3\\
+		0 & 0 & 0 & 1
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 2R_1$}
+\end{align*}
+This system has \textbf{no solution}. The last row is $\left[\begin{array}{ccc|c} 0 &0& 0& a \end{array}\right]$, where $a\neq 0$ in the augmented matrix. This row corresponds to the equation $0x_1 + 0x_2 + 0x_3= 1$, which cannot be valid. This means the measurements are not correct, i.e. the system is inconsistent.
+
+}
+
+\begin{comment}
+\item
+\[
+\begin{bmatrix}2 & 3 & 2\\
+      1 & 1 & -5\\
+      1 & 2 & 3\\
+      3 & 5 & 1 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+=
+\begin{bmatrix} 5 \\ 1 \\ 2\\ -4\end{bmatrix}
+\]
+
+\ans{
+No solution. When you do Gaussian elimination, you will get a row that looks like $\left[\begin{array}{ccc|c} 0 &0& 0& a \end{array}\right]$, where $a\neq 0$ in the augmented matrix. This row corresponds to the equation $0x_1 + 0x_2 + 0x_3= a$, which cannot be solved for $a\neq 0$.
+
+}
+\end{comment}
+
+
+\end{enumerate}
+
+%\newpage

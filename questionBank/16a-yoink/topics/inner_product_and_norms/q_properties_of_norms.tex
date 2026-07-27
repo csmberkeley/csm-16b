@@ -1,0 +1,60 @@
+% Authors: Emily Gosti
+% Authors: Paul Shao
+% Emails: egosti@berkeley.edu
+% Emails: paulshaoyuqiao1@berkeley.edu
+
+\qns{Properties of Norms}\\
+Prove each of the following theorems using definitions and properties of the inner product and orthogonality. 
+\begin{enumerate}
+    \item{
+    \textbf{Pythagorean Theorem} \\
+Suppose $\{\vec{v_1}, \vec{v_2}, \dots, \vec{v_n}\}$ is an orthogonal set of vectors (meaning $\vec{v_i} \perp \vec{v_j} \forall i \neq j$), 
+$$\norm{\vec{v_1}+\vec{v_2}+ \dots +\vec{v_n}}^2 = \norm{\vec{v_1}}^2 + \norm{\vec{v_2}}^2 + \dots + \norm{\vec{v_n}}^2$$
+\ans{$$\norm{\vec{v_1}+\vec{v_2}+\dots+\vec{v_n}}^2 = <\vec{v_1}+\vec{v_2}+\dots+\vec{v_n}, \vec{v_1}+\vec{v_2}+\dots+\vec{v_n}>$$
+$$=\sum_{i=1}^n <\vec{v_i}, \vec{v_i}> + \sum_{i\neq j}<\vec{v_i}, \vec{v_j}>$$
+Since it follows that $\vec{v_i} \perp \vec{v_j} \forall i \neq j$, we know that $<\vec{v_i}, \vec{v_j}>=0 \: \forall i \neq j$.
+Hence, the above expression simplifies to:
+$$=\sum_{i=1}^n<\vec{v_i}, \vec{v_i}> = \sum_{i=1}^n\norm{\vec{v_i}}^2$$
+}}
+\item{\textbf{The Cauchy-Schwarz Inequality} \\
+For any vectors $\vec{u}$ and $\vec{v}$,
+$$|\vec{u} \cdot \vec{v}| \leq \norm{\vec{u}} \norm{\vec{v}}$$  
+
+\ans{
+If $\vec{u}$ or $\vec{v}$ equals $\vec{0}$, then both sides of the inequality equal 0, and $0 \leq 0$ holds. However, if $\vec{u}$ and $\vec{v}$ are both nonzero, we know that
+$$\vec{u} \cdot \vec{v} = \norm{\vec{u}} \norm{\vec{v}} \cos \theta$$
+We also know that $|\cos \theta| \leq 1$ and $\norm{\vec{u}} \norm{\vec{v}} \geq 0$, so if we take the absolute value of the previous equation, we get
+\begin{align*}
+  |\vec{u} \cdot \vec{v}| &= \norm{\vec{u}} \norm{\vec{v}} |\cos \theta| \\
+            &\leq \norm{\vec{u}} \norm{\vec{v}}
+\end{align*}
+}}
+\item{\textbf{Triangle Inequality} \\
+For any vectors $\vec{u}$ and $\vec{v}$,
+$$\norm{\vec{u} + \vec{v}} \leq \norm{\vec{u}} + \norm{\vec{v}}$$
+
+\ans{
+Square both sides of this inequality:
+$$(\norm{\vec{u} + \vec{v}})^2 \leq (\norm{\vec{u}} + \norm{\vec{v}})^2$$
+Let's expand the left side of the equation:
+\begin{align*}
+  (\norm{\vec{u} + \vec{v}})^2 &= (\vec{u} + \vec{v}) \cdot (\vec{u} + \vec{v}) \\
+            &= \vec{u} \cdot (\vec{u} + \vec{v}) + \vec{v} \cdot (\vec{u} + \vec{v}) \\
+            &= \vec{u} \cdot \vec{u} + \vec{u} \cdot \vec{v} + \vec{u} \cdot \vec{v} + \vec{v} \cdot \vec{v} \\
+            &= \norm{\vec{u}}^2 + 2\vec{u} \cdot \vec{v} + \norm{\vec{v}}^2
+\end{align*}
+Now the right side:
+\begin{align*}
+  (\norm{\vec{u}} + \norm{\vec{v}})^2 &= (\norm{\vec{u}} + \norm{\vec{v}})(\norm{\vec{u}} + \norm{\vec{v}}) \\
+            &= \norm{\vec{u}}(\norm{\vec{u}} + \norm{\vec{v}}) + \norm{\vec{v}}(\norm{\vec{u}} + \norm{\vec{v}}) \\
+            &= \norm{\vec{u}}\norm{\vec{u}} + \norm{\vec{u}}\norm{\vec{v}} + \norm{\vec{v}}\norm{\vec{u}} + \norm{\vec{v}}\norm{\vec{v}} \\
+            &= \norm{\vec{u}}^2 + 2\norm{\vec{u}}\norm{\vec{v}} + \norm{\vec{v}}^2
+\end{align*}
+Now, from Cauchy-Schwarz, we know that the middle term of the left side $2|\vec{u} \cdot \vec{v}|$ is less than the middle term of the right side $2\norm{\vec{u}} \norm{\vec{v}}$. Thus, the Triangle Inequality holds. (Note: single vertical bars means absolute value, and double vertical bars means magnitude.)
+}}
+\end{enumerate}
+
+
+
+
+

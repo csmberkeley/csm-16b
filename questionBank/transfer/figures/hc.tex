@@ -1,0 +1,68 @@
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        gnuplot def/.append style={prefix={}},
+    ]
+     \tikzset{
+     semilog lines/.style={black},
+     semilog lines 2/.style={gray!50},
+     semilog half lines/.style={gray!50, dotted},
+     semilog label x/.style={below,font=\small},
+     semilog label y/.style={above,font=\small} }
+     
+    \begin{scope}[xscale=6/5,yscale=4/80]
+    
+    % y axis step
+    \OrdBode{20}
+    
+    % Semilog grid
+    \semilog*{3}{9}{-60}{20}
+    % \BodeGraph[red!80, dashed]{3:9}{\POAmpAsymp{1}{0.000001})+\POAmpAsymp{1}{0.000001})}
+    \draw [red, dashed, thick] (3,0) -- (6,0) -- (7,-40) -- (7.5, -60);
+    \BodeGraph{3:7.5} {\POAmp{1}{0.000001}+\POAmp{1}{0.000001}}
+    % \BodeGraph[red!80, dashed]{-2:3}{\POAmpAsymp{100}{0.1}}
+    % {20*log10(abs(sqrt(1+(0.1*10**t)**2)/sqrt(1+(100*10**t)**2)))}
+    % {-\POAmp{1}{0.1}} flips over x axis center flat then down or up
+    % {-\PIAmp{1}{0.1})} down or up then flat
+    \node
+        [rectangle, draw, fill=white, text width = 6.5cm, scale=0.8] 
+        at (6,10) {Dotted - Bode plot linear approximation \\ Blue - $|H_C(j\omega)|$};
+    \node[rotate=0] at (6, -80) {$\omega$ [rad/s]};
+    \node[rotate=90] at (2.1, -20) {20log$_{10}(|H_C(j\omega)|)$ [dB]};
+    \end{scope}
+    \end{tikzpicture}
+    
+    \begin{tikzpicture}[
+        gnuplot def/.append style={prefix={}},
+    ]
+     \tikzset{
+     semilog lines/.style={black},
+     semilog lines 2/.style={gray!50},
+     semilog half lines/.style={gray!50, dotted},
+     semilog label x/.style={below,font=\small},
+     semilog label y/.style={above,font=\small} }
+     
+    \begin{scope}[xscale=6/5,yscale=4/180]
+    
+    % y axis step
+    \OrdBode{90}
+    \UniteDegre
+    % Semilog grid
+    \semilog*{3}{9}{-180}{0}
+    % \BodeGraph[red!80, dashed]{3:9}{\POArgAsymp{1}{0.000001})}
+    \BodeGraph{3:9} {(\POArg{1}{0.000001})+(\POArg{1}{0.000001})}
+    \draw [red, dashed, thick] (3,0) -- (5,0) -- (7,-180) -- (9,-180);
+    % \BodeGraph[red!80, dashed]{-2:3}{\POAmpAsymp{100}{0.1}}
+    % {20*log10(abs(sqrt(1+(0.1*10**t)**2)/sqrt(1+(100*10**t)**2)))}
+    % {-\POAmp{1}{0.1}} flips over x axis center flat then down or up
+    % {-\PIAmp{1}{0.1})} down or up then flat
+    \node
+        [rectangle, draw, fill=white, text width = 6.5cm, scale=0.8] 
+        at (6,20) {Dotted - Bode plot linear approximation \\ Blue - $|H_C(j\omega)|$};
+    \node[rotate=0] at (6, -220) {$\omega$ [rad/s]};
+    \node[rotate=90] at (2.1, -90) {$\angle{H_{C}(j\omega)}$};
+    
+    \end{scope}
+    \end{tikzpicture}
+    \caption{Bode plot of $H_C(\omega)$}
+    \end{figure}

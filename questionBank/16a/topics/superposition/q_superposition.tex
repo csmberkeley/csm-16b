@@ -1,0 +1,165 @@
+% Titan Yuan -- titan@berkeley.edu
+%Summer 2017 MT2 problem
+\qns{Taking the Super-L}
+
+Consider the following circuit below:
+
+\begin{center}
+\begin{circuitikz}
+
+\draw (0, 0) to [short] ++ (0, 1.5)
+	to [open, v=$v_R$, o-o] ++ (3, 0)
+	to [short] ++ (0, -1.5);
+\draw (0, 0) to [R, l_=$\SI{5}{\ohm}$] ++ (3, 0)
+	to [short] ++ (0, -3)
+	to [R, l_=$\SI{20}{\ohm}$] ++ (-3, 0)
+	to [V_=$\SI{5}{\volt}$, a^=$V_{s_1}$, invert] ++ (0, 3);
+\draw (0, -3) to [short] ++ (0, -3)
+	to [I, l=$\SI{2}{\ampere}$, a=$I_{s_2}$] ++ (0, -3)
+	to [short] ++ (3, 0);
+\draw (3, -6) to [short] ++ (3, 0)
+	to [R, l=$\SI{20}{\ohm}$] ++ (0, -3)
+	to [short] ++ (-3, 0)
+	to [R, l_=$\SI{10}{\ohm}$] ++ (0, 3)
+	to [I, l_=$\SI{1}{\ampere}$, a^=$I_{s_1}$] ++ (0, 3);
+\draw (0, -3) to [short] ++ (3, -3);
+
+\end{circuitikz}
+\end{center}
+
+In this problem, you will use \textit{superposition} to find the voltage $v_R$ across the $\SI{5}{\ohm}$ resistor.
+
+\begin{enumerate}
+
+\item
+First, turn off all sources \textit{except} $V_{s_1}$.  Find $v_{R_1}$, the voltage across the $\SI{5}{\ohm}$ resistor, if all sources \textit{except} $V_{s_1}$ are turned off.
+
+\ans{
+
+We turn off all sources except $V_{s_1}$ to get the following circuit:
+
+\begin{center}
+\begin{circuitikz}
+
+\draw (0, 0) to [short] ++ (0, 1.5)
+	to [open, v=$v_{R_1}$, o-o] ++ (3, 0)
+	to [short] ++ (0, -1.5);
+\draw (0, 0) to [R, l_=$\SI{5}{\ohm}$] ++ (3, 0)
+	to [short] ++ (0, -3)
+	to [R, l_=$\SI{20}{\ohm}$] ++ (-3, 0)
+	to [V_=$\SI{5}{\volt}$, a^=$V_{s_1}$, invert] ++ (0, 3);
+\draw (0, -3) to [short] ++ (0, -3)
+	to [short] ++ (0, -1)
+	to [open, o-o] ++ (0, -1)
+	to [short] ++ (0, -1)
+	to [short] ++ (3, 0);
+\draw (3, -6) to [short] ++ (3, 0)
+	to [R, l=$\SI{20}{\ohm}$] ++ (0, -3)
+	to [short] ++ (-3, 0)
+	to [R, l_=$\SI{10}{\ohm}$] ++ (0, 3)
+	to [short] ++ (0, 1)
+	to [open, o-o] ++ (0, 1)
+	to [short] ++ (0, 1);
+\draw (0, -3) to [short] ++ (3, -3);
+
+\end{circuitikz}
+\end{center}
+
+Since the $\SI{5}{\ohm}$ and the $\SI{20}{\ohm}$ resistors are in series, we can use the voltage divider formula to find the voltage $v_{R_1}$ across the $\SI{5}{\ohm}$ resistor.
+
+\[v_{R_1} = \frac{\SI{5}{\ohm}}{\SI{5}{\ohm} + \SI{20}{\ohm}} \cdot \SI{5}{\volt} = \SI{1}{\volt}\]
+
+}
+
+
+
+\item
+Now turn off all sources \textit{except} $I_{s_1}$.  Find $v_{R_2}$, the voltage across the $\SI{5}{\ohm}$ resistor, if all sources \textit{except} $I_{s_1}$ are turned off.
+
+\ans{
+
+We turn off all sources except $I_{s_1}$ to get the following circuit:
+
+\begin{center}
+\begin{circuitikz}
+
+\draw (0, 0) to [short] ++ (0, 1.5)
+	to [open, v=$v_{R_2}$, o-o] ++ (3, 0)
+	to [short] ++ (0, -1.5);
+\draw (0, 0) to [R, l_=$\SI{5}{\ohm}$] ++ (3, 0)
+	to [short] ++ (0, -3)
+	to [R, l_=$\SI{20}{\ohm}$] ++ (-3, 0)
+	to [short] ++ (0, 3);
+\draw (0, -3) to [short] ++ (0, -3)
+	to [short] ++ (0, -1)
+	to [open, o-o] ++ (0, -1)
+	to [short] ++ (0, -1)
+	to [short] ++ (3, 0);
+\draw (3, -6) to [short] ++ (3, 0)
+	to [R, l=$\SI{20}{\ohm}$] ++ (0, -3)
+	to [short] ++ (-3, 0)
+	to [R, l_=$\SI{10}{\ohm}$] ++ (0, 3)
+	to [I, l_=$\SI{1}{\ampere}$, a^=$I_{s_1}$] ++ (0, 3);
+\draw (0, -3) to [short] ++ (3, -3);
+
+\end{circuitikz}
+\end{center}
+
+Since the $\SI{20}{\ohm}$ and the $\SI{5}{\ohm}$ resistors are in parallel, we can use the current divider formula to find the current $i_{R_2}$ through the $\SI{5}{\ohm}$ resistor.
+\[i_{R_2} = -\frac{\SI{20}{\ohm}}{\SI{20}{\ohm} + \SI{5}{\ohm}} \cdot \SI{1}{\ampere} = -\SI{0.8}{\ampere}\]
+\[v_{R_2} = -\SI{0.8}{\ampere} \cdot \SI{5}{\ohm} = -\SI{4}{\volt}\]
+
+}
+
+
+
+\item
+Now turn off all sources \textit{except} $I_{s_2}$.  Find $v_{R_3}$, the voltage across the $\SI{5}{\ohm}$ resistor, if all sources \textit{except} $I_{s_2}$ are turned off.
+
+\ans{
+
+We turn off all sources except $I_{s_2}$ to get the following circuit:
+
+\begin{center}
+\begin{circuitikz}
+
+\draw (0, 0) to [short] ++ (0, 1.5)
+	to [open, v=$v_{R_3}$, o-o] ++ (3, 0)
+	to [short] ++ (0, -1.5);
+\draw (0, 0) to [R, l_=$\SI{5}{\ohm}$] ++ (3, 0)
+	to [short] ++ (0, -3)
+	to [R, l_=$\SI{20}{\ohm}$] ++ (-3, 0)
+	to [short] ++ (0, 3);
+\draw (0, -3) to [short] ++ (0, -3)
+	to [I, l=$\SI{2}{\ampere}$, a=$I_{s_2}$] ++ (0, -3)
+	to [short] ++ (3, 0);
+\draw (3, -6) to [short] ++ (3, 0)
+	to [R, l=$\SI{20}{\ohm}$] ++ (0, -3)
+	to [short] ++ (-3, 0)
+	to [R, l_=$\SI{10}{\ohm}$] ++ (0, 3)
+	to [short] ++ (0, 1)
+	to [open, o-o] ++ (0, 1)
+	to [short] ++ (0, 1);
+\draw (0, -3) to [short] ++ (3, -3);
+
+\end{circuitikz}
+\end{center}
+
+There is no current flowing through the $\SI{5}{\ohm}$ resistor, so $v_{R_3} = \SI{0}{\volt}$.
+
+}
+
+
+
+\item
+Now \textbf{find the voltage} $v_R$ across the $\SI{5}{\ohm}$ resistor if \textit{all sources} are on.
+
+\ans{
+
+We add up $v_{R_1}$, $v_{R_2}$, and $v_{R_3}$ to get:
+\[v_R = \SI{1}{\volt} - \SI{4}{\volt} + \SI{0}{\volt} = -\SI{3}{\volt}\]
+
+}
+
+\end{enumerate}
+

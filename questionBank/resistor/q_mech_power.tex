@@ -1,0 +1,168 @@
+% Lydia Lee, lydia.lee@berkeley.edu
+
+\qns{I Got the Power}
+
+\sol{
+	For an arbitrary circuit element
+	\begin{center}
+		\begin{circuitikz}
+			\ctikzset{resistor = european}
+			\draw
+			(0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(3,0);
+		\end{circuitikz}
+	\end{center}
+	we can calculate the power it dissipates (i.e. the power it consumes) with the expression $$P_\text{element} = I_\text{element}V_\text{element}$$
+}
+
+\begin{enumerate}
+\qitem\label{ques:resistor_expressions}{
+	For resistors (and resistors only), we can relate the voltage drop across the resistor and the current passing through the resistor with Ohm's Law: $$V_R = I_RR$$
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) to[R=$R$, v=$V_R$, i=$I_R$] ++(3,0);
+		\end{circuitikz}
+	\end{center}
+	Find an expression for the power dissipated by the resistor in terms of the following:
+	\begin{enumerate}
+		\item $V_R$ and $I_R$
+		\item $V_R$ and $R$
+		\item $I_R$ and $R$
+	\end{enumerate}
+}
+
+\sol{
+
+	Starting with the expression for power
+	$$P_R = I_RV_R$$
+	we manipulate Ohm's Law to find appropriate substitutions for the terms we can't use. In particular,
+	\begin{align*}
+		V_R &= I_RR\\
+		I_R &= \frac{V_R}{R}
+	\end{align*}
+	From this we can also get
+	\begin{align*}
+		R &= \frac{V_R}{I_R}
+	\end{align*}
+	but in this case we don't actually need it.
+}
+
+\ans{
+
+	\begin{enumerate}
+		\item $I_RV_R$
+		\item $\frac{V_R^2}{R}$
+		\item $I_R^2R$
+	\end{enumerate}
+}
+
+For the rest of this question, use the circuit below:
+\begin{center}
+	\input{../../questionBank/week06/q_mech_power_figs/circuit.tex}
+\end{center}
+\qitem\label{ques:parallel}{
+	Which individual components have the same magnitude voltage drop across them?
+}
+
+\ans{
+	
+	$R_1$ and $R_2$ are in parallel and so see the same voltage drop as one another.
+
+	$R_3$ and $R_4$ are also in parallel and experience the same voltage drop as one another.
+}
+
+\qitem\label{ques:power_parallel}{
+	Under what condition(s) will $R_1$ and $R_2$ dissipate the same amount of power?
+}
+
+\ans{
+
+	We know $$P=IV$$ and that $R_1$ and $R_2$ have the same voltage drop across them. In order to dissipate the same amount of power, the two need to have equal current flowing through them in the same direction. Manipulating Ohm's Law, we get 
+	$$I_1 = \frac{V}{R_1}, I_2 = \frac{V}{R_2}$$
+	For these to be equal, $R_1$ must be equal to $R_2$. Alternatively, we can go straight to the expression for resistor power
+	$$P_R = \frac{V_R^2}{R}$$
+	and see from here that the resistances must be the same for the two to dissipate the same amount of power.
+}
+
+\qitem\label{ques:power_resistors}{
+	Use the following values and calculate the amount of power consumed by each of the resistors $R_1, R_2, R_3,$ and $R_4$.
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Component & Value & Units\\\hline
+			$R_1, R_2$ & 2 &$\si{\ohm}$\\\hline
+			$R_3, R_4$ & 6 & $\si{\ohm}$\\\hline
+			$I_S$ & 1 & $\si{\ampere}$\\\hline
+		\end{tabular}
+	\end{center}
+}
+
+\sol{
+	
+	Ideally by this point students are comfortable with parallel/series combinations of resistors. You should be prepared to work out the problem in full rigor if your students ask.
+}
+
+\ans{
+	
+	To find the power dissipated by a resistor, we can use any of the following:
+	\begin{align*}
+		P &= IV\\
+			&= \frac{V^2}{R}\\
+			&= I^2R
+	\end{align*}
+	Because we're already given the resistance, we can either find the voltage drop across each of the resistors or the current flowing through them. Redrawing the circuit with the numerical values labeled:
+	\begin{center}
+		\input{../../questionBank/week06/q_mech_power_figs/circuit_numerical.tex}
+	\end{center}
+	\textbf{Current Solution:}
+	We know from part \ref{ques:power_parallel} that $R_1$ and $R_2$ will have the same amount of current flowing through them, i.e. the $1\si{\ampere}$ is evenly divided between them. The same goes for $R_3$ and $R_4$.
+	\begin{align*}
+		P_{R_1, R_2} &= \left(\frac{1}{2}\si{\ampere}\right)^2 \cdot 2\si{\ohm}\\
+			&= 0.5 \si{\watt}\\
+		P_{R_3, R_4} &= \left(\frac{1}{2}\si{\ampere}\right)^2 \cdot 6\si{\ohm}\\
+			&= 1.5 \si{\watt}
+	\end{align*}
+
+	\textbf{Voltage Solution:}
+	Using parallel resistor combinations, we can combine the two $2\si{\ohm}$ and combine the two $6\si{\ohm}$ resistors to get the following:
+	\begin{center}
+		\input{../../questionBank/week06/q_mech_power_figs/circuit_collapsed.tex}
+	\end{center}
+	We're given a current source, so we can use Ohm's law to find $V_{1,2}$ and $V_{3,4}$:
+	\begin{align*}
+		V_{1,2} &= 1\si{\ampere}\cdot1\si{\ohm}\\
+			&= 1\si{\volt}\\
+		V_{3,4} &= 1\si{\ampere}\cdot3\si{\ohm}\\
+			&= 3\si{\volt}
+	\end{align*}
+	and from here
+	\begin{align*}
+		P_{R_1, R_2} &= \frac{V_{1, 2}^2}{2\si{\ohm}}\\
+			&= \frac{(1\si{\volt})^2}{2\si{\ohm}}\\
+			&= 0.5\si{\watt}\\
+		P_{R_3, R_4} &= \frac{V_{3, 4}^2}{6\si{\ohm}}\\
+			&= \frac{(3\si{\volt})^2}{6\si{\ohm}}\\
+			&= 1.5\si{\watt}
+	\end{align*}
+}
+
+\qitem\label{ques:power_source}{
+	How much power does the current source consume? \textit{Hint: Consider the conservation of energy.}
+}
+
+\sol{	
+	Again, be prepared to work this out in full rigor if your students ask.
+}
+
+\ans{
+	Because of the conservation of energy (and by proxy power because $P = \frac{dE}{dt}$), we know all the power the resistors dissipate must be generated by the current source. Using our answers from part \ref{ques:power_resistors}:
+	\begin{align*}
+		P_{I_S} + P_{R_1} + P_{R_2}+ P_{R_3} + P_{R_4} &= 0\si{\watt}\\
+		P_{I_S} &= -P_{R_1} - P_{R_2}- P_{R_3} - P_{R_4}\\
+			&= -(0.5\si{\watt} + 0.5\si{\watt} + 1.5\si{\watt} + 1.5\si{\watt})\\
+			&= -4\si{\watt}
+	\end{align*}
+
+	Note the sign! Negative power indicates that a component is dissipating negative power, i.e. that it's generating power.
+}
+\end{enumerate}

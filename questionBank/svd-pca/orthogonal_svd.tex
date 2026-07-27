@@ -1,0 +1,62 @@
+% Author: Elena Jia
+
+\qns{Orthogonal SVD}
+
+\begin{enumerate}
+
+\qitem  Consider the matrix $$A = \begin{bmatrix}
+    -1 & 1 & 5 \\
+    3 & 1 & -1 \\
+    2 & -1 & 4
+  \end{bmatrix}. $$ 
+
+Observe that the columns of matrix $A$ are mutually orthogonal with
+norms $\sqrt{14}, \sqrt{3}, \sqrt{42}$. % \textbf{Verify numerically that columns $\begin{bmatrix} 1 \\ 1 \\ -1\end{bmatrix}$ and $\begin{bmatrix} 5 \\ -1 \\ 4\end{bmatrix}$ are orthogonal to each other.}
+
+% \sol { 
+%   Taking the inner product of the two vectors, we have $$ \Big \langle \begin{bmatrix} 1 \\ 1 \\ -1\ \end{bmatrix}, \begin{bmatrix} 5 \\ -1 \\ 4\ \end{bmatrix} \Big \rangle  = \begin{bmatrix} 1 \\ 1 \\ -1\ \end{bmatrix} ^T \begin{bmatrix} 5 \\ -1 \\ 4\ \end{bmatrix} = 5 -1 - 4 = 0$$. So the two columns are orthogonal to each other.
+% }
+
+
+% \qitem 
+
+\textbf{Write $A = BD$, where $B$ is an orthonormal matrix and $D$ is a
+  diagonal matrix.} What is $B$? What is $D$?
+
+\sol {
+  We compute the norm for each column and divide each column by its norm to obtain matrix $B$. Matrix $D$ is formed by placing the norms on the diagonal. 
+  $$
+  B = \begin{bmatrix} -\frac{1}{\sqrt{14}} & \frac{1}{\sqrt{3}} & \frac{5}{\sqrt{42}} \\ \frac{3}{\sqrt{14}} & \frac{1}{\sqrt{3}} & -\frac{1}{\sqrt{42}} \\ \frac{2}{\sqrt{14}} & -\frac{1}{\sqrt{3}} & \frac{4}{\sqrt{42}}\ \end{bmatrix}
+  $$
+  $$
+  D = \begin{bmatrix} \sqrt{14} & 0 & 0 \\  0 & \sqrt{3} & 0 \\ 0 & 0 & \sqrt{42} \end{bmatrix}
+  $$
+  
+}
+
+\qitem 
+\textbf{Write out a singular value decomposition of $A=U \Sigma V^T$ using the
+  previous part.} Note the ordering of the singular values in $\Sigma$ should be
+from the largest to smallest.
+
+{\em (HINT: There is no need to compute the eigenvalues of anything.)}
+
+\meta {
+  Make sure to address the fact that the singular values must be ordered from largest to smallest. \vskip 1pt
+  Also, there is no need to compute the vectors in the $U$ matrix since $\Sigma$ is a scaling matrix, and $V$ is a permutation matrix, no "information" of the $A$ matrix has been lost. 
+  Therefore, $U$ will be a scaled and shifted version of the $A$ matrix.
+}
+
+\sol {
+  $$A = BD = BDI = \begin{bmatrix} -\frac{1}{\sqrt{14}} & \frac{1}{\sqrt{3}} & \frac{5}{\sqrt{42}} \\ \frac{3}{\sqrt{14}} & \frac{1}{\sqrt{3}} & -\frac{1}{\sqrt{42}} \\ \frac{2}{\sqrt{14}} & -\frac{1}{\sqrt{3}} & \frac{4}{\sqrt{42}}\ \end{bmatrix} \begin{bmatrix} \sqrt{14} & 0 & 0 \\  0 & \sqrt{3} & 0 \\ 0 & 0 & \sqrt{42} \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\  0 & 1& 0 \\ 0 & 0 & 1 \end{bmatrix}.$$
+  Reordering the singular values and corresponding left and right singular vectors, we have the SVD:
+  $$ 
+  \begin{bmatrix} \frac{5}{\sqrt{42}}  & -\frac{1}{\sqrt{14}} & \frac{1}{\sqrt{3}} \\ -\frac{1}{\sqrt{42}} & \frac{3}{\sqrt{14}} & \frac{1}{\sqrt{3}} \\ \frac{4}{\sqrt{42}} & \frac{2}{\sqrt{14}} & -\frac{1}{\sqrt{3}} \end{bmatrix} 
+  \begin{bmatrix} \sqrt{42} & 0 & 0 \\  0 & \sqrt{14} & 0 \\ 0 & 0 & \sqrt{3} \end{bmatrix} 
+  \begin{bmatrix}  0 & 1& 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0 \end{bmatrix}
+  $$
+}
+
+
+
+\end{enumerate}

@@ -1,0 +1,23 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\begin{circuitikz}[american]
+    \draw
+        (4, 8.5) to [R, l^ = $R_2$, v = $V_{R_2}$, i = $i_2$] (4, 6.5)
+        (4, 5.5) to [R, l^ = $R_3$, v = $V_{R_3}$, i = $i_3$] (4, 4)
+        (3, 2.5) to [R, l^ = $R_4$, v = $V_{R_4}$, i = $i_4$] (3, 1)
+        (2, 7) to [R, l^ = $R_1$, v = $V_{R_1}$, i = $i_1$] (2, 5)
+        (0, 5) to [V, l_=$V_S$] (0, 3);
+    \draw[blue]
+        (0, 8.5) to [short] (4, 8.5)
+        (2, 8.5) to [short] (2, 7)
+        (0, 8.5) to [short] (0, 5);
+    \draw[red]
+        (4, 6.5) to [short] (4, 5.5);
+    \draw[green]
+        (4, 4) to [short] (4, 3) to [short] (3, 3) to [short] (3, 2.5)
+        (2, 5) to [short] (2, 3) to [short] (3, 3);
+    \draw[gray]
+        (3, 1) to [short] (3, 0.5) to [short] (0, 0.5)
+        (0, 3) to [short] (0, 0.5);
+\end{circuitikz}

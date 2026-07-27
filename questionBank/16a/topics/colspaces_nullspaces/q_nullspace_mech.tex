@@ -1,0 +1,337 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{We Null The Mechanics and We're Gonna Play It}
+
+\textbf{Leaning Goal}: Learn the mechanical linear algebra for finding nullspaces. \\
+Find the nullspace for the following matrices:
+
+\begin{tasks}(3)
+    \task {
+        $
+            \begin{bmatrix}
+                0 & 0 \\
+                0 & 1
+            \end{bmatrix}
+        $
+    }
+    \task {
+        $
+            \begin{bmatrix}
+                2 & 1 \\
+                4 & 2
+            \end{bmatrix}
+        $
+    }
+    \task {
+        $
+            \begin{bmatrix}
+                1 & 3 & 2 \\
+                5 & 15 & 10 \\
+                2 & 6 & 4 \\
+            \end{bmatrix}
+        $
+    }
+    \task {
+        $
+            \begin{bmatrix}
+                1 & 3 & 2 \\
+                1 & 1 & 0 \\
+                0 & 2 & 2 \\
+            \end{bmatrix}
+        $
+    }
+    \task {
+        $
+            \begin{bmatrix}
+                1 & 0 & -5 \\
+                0 & -2 & 4 \\
+                -3 & 1 & 1 \\
+            \end{bmatrix}
+        $
+    }
+    \task {
+        $
+            \begin{bmatrix}
+                2 & 1 & -3\\
+                1 & -2 & -4\\
+                -2 & 2 & 6
+            \end{bmatrix}
+        $
+    }
+\end{tasks}
+Do you notice something specifically about the matrix of part (e)?
+
+\meta{
+    \textbf{Introduce the general approach of finding nullspaces} (an algorithmic one, to be specific) before starting the question!
+    
+}
+\ans{
+    Review: To find the nullspace of such a matrix $A$, we would set up a system:
+            \[A \vec{x} = \vec{0}\]
+    and attempt to find the set of all possible $\vec{x}$. \\
+    \begin{enumerate}
+        \item[a)] {
+            Let us construct a system:
+            \begin{align*}
+                \begin{sysmatrix}{cc|c}
+                    0 & 0 & 0 \\
+                    0 & 1 & 0
+                \end{sysmatrix}
+            \end{align*}
+            At this point, for a solution $\begin{bmatrix} x_1 & x_2 \end{bmatrix}^T$, while it must be $x_2 = 0$ so a contradiction does not occur, $x_1$ can be any value. \\
+            Therefore:
+            \[
+                N \bigg(
+                    \begin{bmatrix}
+                        0 & 0 \\
+                        0 & 1
+                    \end{bmatrix}
+                \bigg)
+                =
+                \bigg\{
+                    \alpha
+                    \begin{bmatrix}
+                        1 \\ 0
+                    \end{bmatrix}
+                    \ :\ \alpha \in \R
+                \bigg\}
+            \]
+        }
+        \item[b)] {
+            Let us construct a system:
+            \begin{align*}
+                \begin{sysmatrix}{cc|c}
+                    2 & 1 & 0 \\
+                    4 & 2 & 0
+                \end{sysmatrix}
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow R_2 - 2R_1}
+                \end{aligned}
+                \begin{sysmatrix}{cc|c}
+                    2 & 1 & 0 \\
+                    0 & 0 & 0
+                \end{sysmatrix}
+            \end{align*}
+            At this point, for a solution $\begin{bmatrix} x_1 & x_2 \end{bmatrix}^T$, we can configure the relationship that $x_2 = -2x_1$. Therefore:
+            \[
+                N \bigg(
+                    \begin{bmatrix}
+                        2 & 1 \\
+                        4 & 2
+                    \end{bmatrix}
+                \bigg)
+                =
+                \bigg\{
+                    \alpha
+                    \begin{bmatrix}
+                        -2 \\ 1
+                    \end{bmatrix}
+                    \ :\ \alpha \in \R
+                \bigg\}
+            \]
+        }
+        \item[c)] {
+            Let us construct a system:
+            \begin{align*}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 3 & 2 & 0 \\
+                    5 & 15 & 10 & 0 \\
+                    2 & 6 & 4 & 0 \\
+                \end{sysmatrix}
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow R_2 - 5R_1} \\
+                    &\ro{R_3 \rightarrow R_3 - 2R_1}
+                \end{aligned}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 3 & 2 & 0 \\
+                    0 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 \\
+                \end{sysmatrix}
+            \end{align*}
+            At this point, for a solution $\begin{bmatrix} x_1 & x_2 & x_3 \end{bmatrix}^T$, we can configure the relationship that $x_1 = -3x_2 - 2x_3$, for free variables $x_2$ and $x_3$. Therefore:
+            \[
+                N \Bigg(
+                    \begin{bmatrix}
+                        1 & 3 & 2 \\
+                        5 & 15 & 10 \\
+                        2 & 6 & 4 \\
+                    \end{bmatrix}
+                \Bigg)
+                =
+                \Bigg\{
+                    \alpha
+                    \begin{bmatrix}
+                        -3 \\ 1 \\ 0
+                    \end{bmatrix} +
+                    \beta
+                    \begin{bmatrix}
+                        -2 \\ 0 \\ 1
+                    \end{bmatrix}
+                    \ :\ \alpha, \beta \in \R
+                \Bigg\}
+            \]
+        }
+        \item[d)] {
+            Let us construct a system:
+            \begin{align*}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 3 & 2 & 0 \\
+                    1 & 1 & 0 & 0 \\
+                    0 & 2 & 2 & 0 \\
+                \end{sysmatrix}
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow R_2 - R_1} \\
+                    &\ro{R_3 \rightarrow R_3}
+                \end{aligned}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 3 & 2 & 0 \\
+                    0 & 2 & 2 & 0 \\
+                    0 & 2 & 2 & 0 \\
+                \end{sysmatrix} \\
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow \frac{1}{2} R_2} \\
+                    &\ro{R_3 \rightarrow R_2 - R_3}
+                \end{aligned}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 3 & 2 & 0 \\
+                    0 & 1 & 1 & 0 \\
+                    0 & 0 & 0 & 0 \\
+                \end{sysmatrix}
+            \end{align*}
+            At this point, for a solution $\begin{bmatrix} x_1 & x_2 & x_3 \end{bmatrix}^T$, we can configure the relationship that:
+            \[
+                \begin{cases}
+                    x_1 = -3x_2 - 2x_3 \\
+                    x_2 = -x_3 \\
+                    \rightarrow x_1 = x_3
+                \end{cases}
+            \]
+            Therefore:
+            \[
+                N \Bigg(
+                    \begin{bmatrix}
+                        1 & 3 & 2 \\
+                        1 & 1 & 0 \\
+                        0 & 2 & 2 \\
+                    \end{bmatrix}
+                \Bigg)
+                =
+                \Bigg\{
+                    \alpha
+                    \begin{bmatrix}
+                        1 \\ -1 \\ 1
+                    \end{bmatrix}
+                    \ :\ \alpha \in \R
+                \Bigg\}
+            \]
+        }
+        \item[e)] {
+            Let us construct a system:
+            \begin{align*}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 0 & -5 & 0 \\
+                    0 & -2 & 4 & 0 \\
+                    -3 & 1 & 1 & 0 \\
+                \end{sysmatrix}
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow -\frac{1}{2} R_2} \\
+                    &\ro{R_3 \rightarrow 3R_1 + R_3}
+                \end{aligned}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 0 & -5 & 0 \\
+                    0 & 1 & -2 & 0 \\
+                    0 & 1 & -14 & 0 \\
+                \end{sysmatrix} \\
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow R_2} \\
+                    &\ro{R_3 \rightarrow R_2 - R_3}
+                \end{aligned}
+                \begin{sysmatrix}{ccc|c}
+                    1 & 0 & -5 & 0 \\
+                    0 & 1 & -2 & 0 \\
+                    0 & 0 & 12 & 0 \\
+                \end{sysmatrix}
+            \end{align*}
+            The system provides a trivial solution: $\vec{x} = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T$. \\
+            Therefore, the nullspace is trivial:
+            \[
+                N \Bigg(
+                    \begin{bmatrix}
+                        1 & 0 & -5 \\
+                        0 & -2 & 4 \\
+                        -3 & 1 & 1 \\
+                    \end{bmatrix}
+                \Bigg)
+                =
+                \Bigg\{
+                    \begin{bmatrix}
+                        0 \\ 0 \\ 0
+                    \end{bmatrix}
+                \Bigg\}
+            \]
+        }
+        \item[f)] {
+            Let us construct a system:
+            \begin{align*}
+                \begin{sysmatrix}{ccc|c}
+                    2 & 1 & -3 & 0 \\
+                    1 & -2 & -4 & 0 \\
+                    -2 & 2 & 6 & 0
+                \end{sysmatrix}
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow R_1 - 2R_2} \\
+                    &\ro{R_3 \rightarrow R_1 + R_3}
+                \end{aligned}
+                \begin{sysmatrix}{ccc|c}
+                    2 & 1 & -3 & 0 \\
+                    0 & 5 & 5 & 0 \\
+                    0 & 3 & 3 & 0
+                \end{sysmatrix} \\
+                &\!\begin{aligned}
+                    &\ro{R_1 \rightarrow R_1} \\
+                    &\ro{R_2 \rightarrow \frac{1}{5} R_2} \\
+                    &\ro{R_3 \rightarrow R_2 - \frac{5}{3} R_3}
+                \end{aligned}
+                \begin{sysmatrix}{ccc|c}
+                    2 & 1 & -3 & 0 \\
+                    0 & 1 & 1 & 0 \\
+                    0 & 0 & 0 & 0
+                \end{sysmatrix}
+            \end{align*}
+            At this point, for a solution $\begin{bmatrix} x_1 & x_2 & x_3 \end{bmatrix}^T$, we can configure the relationship that:
+            \[
+                \begin{cases}
+                    2x_1 = -x_2  + 3x_3 \\
+                    x_2 = -x_3 \\
+                    \rightarrow x_1 = 2x_3
+                \end{cases}
+            \]
+            Therefore:
+            \[
+                N \Bigg(
+                    \begin{bmatrix}
+                        2 & 1 & -3 \\
+                        1 & -2 & -4 \\
+                        -2 & 2 & 6
+                    \end{bmatrix}
+                \Bigg)
+                =
+                \Bigg\{
+                    \alpha
+                    \begin{bmatrix}
+                        2 \\ -1 \\ 1
+                    \end{bmatrix}
+                    \ :\ \alpha \in \R
+                \Bigg\}
+            \]
+        }
+    \end{enumerate}
+}

@@ -1,0 +1,70 @@
+%Authors: Spencer Kent, Urmita Sikder 
+%Email: spencer.kent@berkeley.edu, urmita@berkeley.edu
+
+\qns{Least Squares Fitting}
+
+\textbf{Learning Goal:} The objective of this problem is to set up a least squares problem for coefficients of non-linear equations.
+
+\textbf{Relevant Notes:} \notes{Note 23} covers the details of least squares method.
+
+\meta{
+Make sure students remember what least squares is doing (i.e., minimizing the squared error).
+}
+
+In an upward career move, you join the starship USS Enterprise as a data scientist. One morning the Chief Science Officer, Mr. Spock, hands you some data for the position ($y$) of a newly discovered particle at different times ($t$). The data has three points and \textbf{contains some noise}:
+\begin{equation*}
+  (t=0, y=0.5), \quad (t=1, y=3), \quad (t=2, y=18.5)
+\end{equation*}
+Your research shows that the path of the particle is represented by the function:
+\begin{align}
+y=e^{w_1 + w_2t}
+\label{eqn:fitting}
+\end{align} 
+
+You decide to fit the collected data to the function in Equation (\ref{eqn:fitting}) using the Least Squares method. 
+
+
+\begin{enumerate}
+\item You need to find the coefficients $w_1$ and $w_2$ that \emph{minimize the squared error} between the fitted curve and the collected data points. So you set up a system of linear equations, $\mathbf{A}\hat{\vec{\alpha}}\approx\vec{b}$ in order to find the approximate value of $\hat{\vec{\alpha}}=\begin{bmatrix} w_1 \\ w_2 \end{bmatrix}$. What are the values of $\mathbf{A}$ and $\vec{b}$?
+
+\ans{
+For $t=0$, we have:
+\begin{align*}
+0.5 = e^{w_1 + w_2(0)}\\
+\implies \ln(0.5) = w_1 + 0(w_2)
+\end{align*}
+Similarly for $t=1, \text{ and } t=2$, we have:
+\begin{align*}
+\ln(3)=w_1 + w_2\\
+\ln(18.5) = w_1 + 2w_2
+\end{align*}
+Hence we can write the following system of linear equations: 
+\begin{align*}
+\begin{bmatrix} 1 & 0\\ 1 & 1 \\ 1 &  2 \end{bmatrix}\begin{bmatrix} w_1 \\ w_2\end{bmatrix}\approx\begin{bmatrix} \ln(0.5) \\ \ln(3) \\ \ln(18.5) \end{bmatrix}
+\end{align*}
+}
+
+    \item Mr. Spock thinks one of the data points is wrong and asks you to redo the fit with only two data points. What will happen to the norm of the error, $\left\Vert\vec{e}\right\Vert= \left\Vert\vec{b}-\mathbf{A}\hat{\vec{\alpha}}\right\Vert $?
+    
+    \ans{
+    The linear system now has two unknowns ($w_1$, $w_2$) and two linearly-independent constraints (the two data points), so there will be an exact fit to the data: the norm of error $\left\Vert\vec{e}\right\Vert= \left\Vert\vec{b}-\mathbf{A}\hat{\vec{\alpha}}\right\Vert $ will be $0$.
+  This is probably too good to be true!  \\}
+
+\item Your colleague tries to repeat your fitting process with the same four data points in part (a), but they misread the equation relating $t$ and $y$, i.e. they use the following function (which is \textbf{different than part (a)}):
+\begin{align}
+y=e^{w_1t+ w_2t}
+\end{align}
+Your colleague tries to find $w_1$ and $w_2$ by setting up a system of equations $\mathbf{A}\hat{\vec{\alpha}}\approx\vec{b}$ and utilizing the equation:
+\begin{align}
+\label{eqn:lsq}
+\begin{bmatrix} w_1 \\ w_2 \end{bmatrix}=\hat{\vec{\alpha}}= (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T\vec{b}.
+\end{align} 
+
+What will happen when your colleague tries to solve the above equation?
+
+    \ans{The new system of linear equations can be written as:
+    $$\begin{bmatrix} 0 & 0\\ 1 & 1 \\ 2 &  2 \end{bmatrix}\begin{bmatrix} w_1 \\ w_2\end{bmatrix}\approx\begin{bmatrix} \ln(0.5) \\ \ln(3) \\ \ln(18.5) \end{bmatrix}$$
+    Notice that the first and second columns of $\mathbf{A}$ are the same. Since $\mathbf{A}$ has linearly dependent columns, $\mathbf{A}^T\mathbf{A}$ will not be invertible, i.e. the equation for $\hat{\vec{\alpha}}$ will not work.}
+
+
+\end{enumerate}

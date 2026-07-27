@@ -1,0 +1,27 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 8}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+\input{\bank/ode/second_order_diffeq.tex}
+\newpage
+\input{\bank/transfer/rlc_bode.tex}
+\newpage
+\input{\bank/power/power_analysis_detailed.tex}
+\end{qunlist}
+
+\end{document}

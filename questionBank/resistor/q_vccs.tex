@@ -1,0 +1,204 @@
+% Author: Varsha Ramakrishnan
+% Email: vio@berkeley.edu
+
+\qns{Design a Voltage Controlled Current Source}
+
+\meta{
+Description: Show how to construct a VCCS using two op-amps and some resistors
+}
+
+A Voltage Controlled Current Source looks like this:
+
+\begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+
+    to[cI, l_= $G\cdot V_{ref}$] ++(0, 2);
+    
+    \end{circuitikz}
+    \end{center}
+    
+A VCCS is a Dependent Current Source that's controlled by a voltage $V_{ref}$, and produces a current based on that $V_{ref}$, which will follow the equation $I_{out} = G\cdot V_{ref}$, for some constant $G$. \\
+
+It can be connected to any load (represented by a resistor $R_{load}$), and guarantees that the current $G\cdot V{ref}$ will flow through that load.
+
+
+\begin{center}
+    \begin{circuitikz} 
+    \draw (0,0) 
+
+    to[cI, l_= $G\cdot V_{ref}$, i=$I_{out}$] ++(3, 0)
+    to[R, l_= $R_{load}$] ++(1.5, 0)
+    to[short] ++(.75, 0);
+    
+    \end{circuitikz}
+    \end{center}
+
+\begin{enumerate}
+
+\qitem{ 
+
+In order to create a VCCS, we'll need some way to turn an input voltage into a current. What's the simplest way we can accomplish this? \\
+Hint: Think about the relation between voltage and current.
+}
+
+\meta{
+If they need more help, mention Ohm's Law.
+}
+
+\sol{ Use a resistor! The circuit would look like this, where $I_{out} = V_{ref}/R_{ref}$:
+
+\begin{center}
+    \begin{circuitikz}
+    \draw (0,0)
+
+    to[short, l = $V_{ref}$, *-o] ++(0,0)
+    to[R, l_= $R_{ref}$, i=$I_{out}$] ++(3, 0);
+    
+    \end{circuitikz}
+    \end{center}
+
+}
+
+
+\qitem{ 
+We'll also need some way to isolate the input voltage from the previous parts of the circuit that produces our input voltage. In other words, if the input voltage to our VCCS has some resistors or other components connected to it, we don't want that to affect the relation between $V_{ref}$ and $I_{out}$ in our VCCS. What design component can we use to do this?
+}
+
+\meta{
+Adding a buffer to make sure the input or output of a circuit is not messed with is a pretty common thing in design problems. Might be a good thing to emphasize.
+}
+
+\sol{
+Place a buffer between the input voltage $V_{ref}$ and the resistor $R_{ref}$. 
+
+\begin{center}
+    \begin{circuitikz}[scale=0.8]
+    
+    
+	\draw(0,0) node[op amp, yscale=-1] (opamp) {};
+ 	
+ 	\draw(opamp.+)
+ 	to[short, l = $V_{ref}$, -o] ++(-1.25,0);
+ 	
+ 	\draw(opamp.-)
+ 	-- ++(0,-1.5)
+ 	-- ++(3, 0)
+ 	to[short] (opamp.out);
+ 	
+ 	\draw(opamp.out)
+ 	to[R, l=$R_{ref}$, i=$I_{out}$] ++(4,0);
+	\end{circuitikz}
+\end{center}
+
+}
+
+
+
+\qitem{ 
+Now we have $V_{ref}$ converted to $I_{out}$ using the formula $G\cdot V_{ref}$. What is $G$ in terms of $R_{ref}$?
+}
+
+\meta{Make sure students understand the connection between the resistance and the gain.}
+
+\sol{
+By Ohm's Law, the voltage dropped across the resistor is the current through it times the resistance: $I_{out} = \dfrac{V_{ref}}{R_{ref}} = G V_{ref} \implies G = \dfrac{1}{R_{ref}}$
+}
+
+\qitem{ 
+Are we done? Are there any problems with the current that we're producing? \\
+(Hint: What happens when we place our $R_{load}$ at $I_{out}$?)
+}
+
+\sol{
+The value of the current produced changes from $\frac{V_{ref}}{R_{ref}}$ to $\frac{V_{ref}}{R_{ref}+R_{load}}$, so our current source doesn't work the way it should.
+}
+
+
+
+\qitem{
+We can keep the current at the value we want it to be at by using one of the properties of an inverting op amp: the fact that no matter what, the current flowing through the $V-$ to $V_{out}$ branch is equal to the input current to $V-$ (This follows from the fact that no current flows into $V-$).
+
+\begin{center}
+\begin{circuitikz}
+ \draw (0,0) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[R, l = $R_1$,i^<= $I_{in}$, *-o]    ++(-3,0)
+    to node[above] {$V_{in}$} ++(0,0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-0.5)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_2$, i^<= $I_{in}$] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {}
+    to[short, l = $V_o$, *-o] ++(0.5, 0);
+    
+    \end{circuitikz}
+    \end{center}
+
+Where can we place our previous circuit and $R_{load}$ to take advantage of this? Draw the entire circuit configuration for your VCCS.
+
+%   \draw (0,0) node[op amp, yscale=-1] (opamp) {}
+%     (opamp.+) node[left] {}
+%     to[short] ++(-1.5,0)
+%     to[short, l = $V_{ref}$, *-o] ++(0,0)
+%     (opamp.-) node[left] {} 
+%     to[short] node[ground] {} ++(0,-1)
+%     (opamp.out) node[right] {}
+%     to[short] ++(0, 1.5)
+%     to[R, l = $R_2$, i = $i$] ++(-2.4, 0)
+%     to[short] ++(0,-1)
+%     (opamp.out) node[right, *-o] {}
+%     to[short, *-o] ++(0.5, 0)
+%     to node[above] {$V_{o}$} ++(0,0)
+%     to[short] ++(1, 0);
+
+}
+
+\meta{Make sure that students understand how this works for an arbitrary $G$. Basically, if you want a gain of $G$, then place a resistor of value $\dfrac{1}{G}$ in place of $R_{ref}$. Also make sure that students understand that the output terminal of this VCCS is the output of the second op-amp.}
+
+\sol{
+
+\begin{center}
+    \begin{circuitikz} 
+    
+ 
+    
+   	\draw(0,0) node[op amp, yscale=-1] (opamp) {};
+ 	
+ 	\draw(opamp.+)
+ 	to[short, l = $V_{ref}$, -o] ++(-1.25,0);
+ 	
+ 	\draw(opamp.-)
+ 	-- ++(0,-1.25)
+ 	-- ++(2.4, 0)
+ 	to[short] (opamp.out);
+ 	
+ 	\draw(opamp.out)
+ 	to[short, i=$I_{out}$] ++(1,0)
+ 	to[short] ++(1,0);
+    
+    
+    \draw (6,-0.5) 
+    node[op amp] (opamp) {}
+    (opamp.-) node[left] {}
+    to[R, l = $R_{ref}$, *-o] ++(-2,0)
+    to node[above] {$V_{ref}$} ++(0,0)
+    (opamp.+) node[left] {} 
+    to[short] node[ground] {} ++(0,-1)
+    (opamp.out) node[right] {}
+    to[short] ++(0, 1.5)
+    to[R, l = $R_{load}$, i^<= $I_{out}$, o-o] ++(-2.4, 0)
+    to[short] ++(0,-1)
+    (opamp.out) node[right, *-o] {};
+    
+    \end{circuitikz}
+    \end{center}
+
+}
+
+
+
+\end{enumerate}

@@ -1,0 +1,200 @@
+\qns{Series and Parallel Capacitors}
+
+\textbf{Learning Goal:} This problem will help to understand how capacitors in series or parallel combination respond to a voltage source or a current source.
+
+\textbf{Relevant Notes:} \notes{Note 16: Section 16.3} goes over the capacitance equivalence.
+
+Find the voltage across and current through each capacitor for each of the following scenarios. Consider all the capacitors to be initially uncharged.
+
+\meta {
+Give some extra attention to why two capacitors in series have the same charge. It may help to think about charge “collecting” on one plate and then “attracting” an equivalent amount of charge of the opposite sign, which is a force that acts both between plates of a capacitor and between adjacent plates of two capacitors in series. Also make sure to check in with the students if they know derivatives.
+}
+
+\begin{enumerate}
+\item
+$C_1$ and $C_2$ are in series:
+\begin{center}
+\begin{circuitikz}
+  \draw (0,0)
+  to [V=$V_s$, invert] ++(0,4)
+  to [short] ++(2,0)
+  to [C = $C_1$, v=$V_1$, i=$I_1$, invert] ++(0,-2) node (branch){}
+  to [C = $C_2$, v=$V_2$, i=$I_2$, invert] ++(0,-2)
+  to [short] node[ground] {} ++(-2,0)
+  ;
+\end{circuitikz}
+\end{center}
+
+\ans{
+The capacitors are in series combination, so the equivalent capacitance is given by 
+$$C_{eq}=\frac{C_1C_2}{C_1+C_2}.$$
+The total charge for the equivalent capacitance is given by:
+$$q=C_{eq}V_S$$
+Now in series connection, both capacitors have the same charge on them, which is equal to $q=C_{eq}V_S$:
+$$q_1=q_2=C_{eq}V_S$$
+\begin{center}
+\begin{circuitikz}
+  \draw (0,0)
+  to [V=$V_s$, invert] ++(0,2.4)
+  to [short] ++(2,0)
+  node[label={[font=\footnotesize]-5:{\color{red}+q}}] {}
+  to [ C=$ \ C_1$ ] ++(0,-1.2) node (branch){}
+  node[label={[font=\footnotesize]+5:{\color{blue}-q}}] {}
+  node[label={[font=\footnotesize]-5:{\color{red}+q}}] {}
+  to [C = $ \ C_2$] ++(0,-1.2)
+  node[label={[font=\footnotesize]+5:{\color{blue}-q}}] {}
+  to [short] ++(-2,0)
+  ;
+\end{circuitikz}
+\end{center}
+
+
+Since we know the charges on both capacitors, we can calculate both voltages by 
+\begin{align*}
+q_1=C_1V_1 
+\implies V_1&=\frac{q_1}{C_1} \\
+\implies V_1&=\frac{q}{C_1} \\
+\implies V_1&=\frac{C_{eq}V_S}{C_1} \\
+\implies V_1&=\frac{C_{eq}}{C_1}V_S \\
+\implies V_1&=\frac{C_2}{C_1+C_2}V_S 
+\end{align*}
+Similarly we have,
+\begin{align*}
+q_2=C_2V_2  
+\implies V_2&=\frac{q_2}{C_2}
+\implies V_2=\frac{C_1}{C_1+C_2}V_S 
+\end{align*}
+(Note that this is very similar to the current divider equation.)
+
+Since the rate of change of voltage is zero for both of the capacitors, the current through them is zero, i.e.
+\begin{align*}
+I_1=C_1\frac{dV_1}{dt}=0 \\  
+I_2=C_2\frac{dV_2}{dt}=0
+\end{align*}
+}
+
+\item
+$C_1$ and $C_2$ are in parallel:
+\begin{center}
+\begin{circuitikz}
+  \draw (0,0)
+  to [V=$V_s$, invert] ++(0,2)
+  to [short] ++(2,0)
+  to [C = $C_1$, v=$V_1$, i=$I_1$, invert] ++(0,-2) 
+  to [short] node[ground] {} ++(-2,0)
+  ;
+  \draw (2,2)
+  to [short] ++(2,0)
+  to [C = $C_2$, v=$V_2$, i=$I_2$, invert] ++(0,-2)
+  to [short]  ++(-2,0)
+  ;
+\end{circuitikz}
+\end{center}
+
+\ans{
+The voltages across the capacitors are the same and they are the same as $V_s$, i.e.
+$$V_1=V_2=V_s$$
+Since the rate of change of voltage is zero for both of the capacitors, the current through them is zero, i.e.
+\begin{align*}
+I_1=C_1\frac{dV_1}{dt}=C_1\frac{dV_s}{dt}=0 \\  
+I_2=C_2\frac{dV_2}{dt}=C_2\frac{dV_s}{dt}=0
+\end{align*}
+Since we know the voltages across both capacitors, we can calculate the charge on both capacitors:
+\begin{align*}
+q_1=C_1V_1=C_1V_s\\
+q_2=C_2V_2=C_1V_s
+\end{align*}
+
+\begin{center}
+\begin{circuitikz}
+  \draw (0,0)
+  to [V=$V_s$, invert] ++(0,2)
+  to [short] ++(2,0)
+  node[label={[font=\footnotesize]-5:{\color{red}+q1}}] {}
+  to [C = $C_1$, v=$V_1$, i=$I_1$, invert] ++(0,-2) 
+  node[label={[font=\footnotesize]+5:{\color{blue}-q1}}] {}
+  to [short] node[ground] {} ++(-2,0)
+  ;
+  \draw (2,2)
+  to [short] ++(2,0)
+  node[label={[font=\footnotesize]-5:{\color{red}+q2}}] {}
+  to [C = $C_2$, v=$V_2$, i=$I_2$, invert] ++(0,-2)
+  node[label={[font=\footnotesize]+5:{\color{blue}-q2}}] {}
+  to [short]  ++(-2,0)
+  ;
+\end{circuitikz}
+\end{center}
+The capacitors are in parallel combination, so the equivalent capacitance is given by 
+$$C_{eq}=C_1+C_2.$$
+The total charge for the equivalent capacitance is given by:
+$$q=C_{eq}V_S$$
+Now in parallel connection, the sum of charges on both capacitors is equal to $q=C_{eq}V_S$:
+$$q=q_1+q_2=C_{eq}V_S=(C_1+C_2)V_s,$$
+which is the same 
+}
+
+\item
+$C_1$ and $C_2$ are in series:
+\begin{center}
+\begin{circuitikz}
+  \draw (0,0)
+  to [I=$I_s$] ++(0,4)
+  to [short] ++(2,0)
+  to [C = $C_1$, v=$V_1$, i=$I_1$, invert] ++(0,-2) node (branch){}
+  to [C = $C_2$, v=$V_2$, i=$I_2$, invert] ++(0,-2)
+  to [short] node[ground] {} ++(-2,0)
+  ;
+\end{circuitikz}
+\end{center}
+
+\ans{
+The capacitors are in series combination, so the current through them is the same as the current source $I_s$:
+$$I_1=I_2=I_s$$
+Since we know the current through the capacitors, we can calculate the voltages by:
+\begin{align*}
+V_1=\int_{0}^{t} \frac{I_1}{C_1} dt=\int_{0}^{t} \frac{I_s}{C_1} dt=\frac{I_s}{C_1}t- V_1(0)=\frac{I_s}{C_1}t \\
+V_2=\int_{0}^{t} \frac{I_2}{C_2} dt=\int_{0}^{t} \frac{I_s}{C_2} dt=\frac{I_s}{C_2}t-V_2(0)=\frac{I_s}{C_2}t
+\end{align*}
+
+}
+
+\item
+$C_1$ and $C_2$ are in parallel:
+\begin{center}
+\begin{circuitikz}
+  \draw (0,0)
+  to [I=$I_s$] ++(0,2)
+  to [short] ++(2,0)
+  to [C = $C_1$, v=$V_1$, i=$I_1$, invert] ++(0,-2) 
+  to [short] node[ground] {} ++(-2,0)
+  ;
+  \draw (2,2)
+  to [short] ++(2,0)
+  to [C = $C_2$, v=$V_2$, i=$I_2$, invert] ++(0,-2)
+  to [short]  ++(-2,0)
+  ;
+\end{circuitikz}
+\end{center}
+
+\ans{
+The capacitors are in parallel, so the voltage across them is the same as the voltage source $V_s$:
+$$V_1=V_2=V_{eq}.$$
+The equivalent capacitance is given by 
+$$C_{eq}=C_1+C_2.$$
+
+Since we know the total current through equivalent $C_{eq}$ is equal to $I_s$, we can calculate the voltage $V_{eq}$ by:
+\begin{align*}
+V_{eq}=\int_{0}^{t} \frac{I_s}{C_{eq}} dt=\frac{I_s}{C_{eq}}t- V_{eq}(0)=\frac{I_s}{C_{eq}}t=\frac{I_s}{C_1+C_2}t 
+\end{align*}
+So the voltages on the capacitors are:
+$$V_1=V_{eq}=\frac{I_s}{C_1+C_2}t ;$$
+$$V_2=V_{eq}=\frac{I_s}{C_1+C_2}t .$$
+Since we found the voltages for both capacitors, the current can be calculated as:
+\begin{align*}
+I_1=C_1\frac{dV_1}{dt}=C_1\frac{d}{dt}(\frac{I_s}{C_1+C_2}t)= C_1\frac{I_s}{C_1+C_2}=\frac{C_1}{C_1+C_2}I_s\\
+I_2=C_2\frac{dV_2}{dt}=C_2\frac{d}{dt}(\frac{I_s}{C_1+C_2}t)= C_2\frac{I_s}{C_1+C_2}=\frac{C_2}{C_1+C_2}I_s
+\end{align*}
+(Note that this is very similar to the voltage divider equation.)
+}
+
+\end{enumerate}

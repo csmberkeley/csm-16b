@@ -1,0 +1,294 @@
+% Author: Jessica Lin
+% Email: jessica.jx.lin@berkeley.edu
+% CSM16A Spring 2023
+
+
+\qns{Van't Hoff}
+
+\textbf{Learning Goal:} The goal of this question is to build an understanding of least squares.
+
+
+
+You are a molecular biologist seeking to identify the thermodynamic parameters of DNA denaturation, a process where its two strands separate. You notice that DNA has an interesting property, where when its two strands are separated, its absorbance increases. As a biologist well-versed in spectroscopy and thermodynamics, you realize that this is the key to solving your problem! As a result, you collect an abundance of data at varying temperatures, and fit it to the following equation:
+
+\[
+K = e^{-\frac{\Delta H \degree}{RT}}e^{\frac{\Delta S \degree}{R}}
+\]
+
+where $K$ is an equilibrium constant calculated from absorbance, $\Delta H \degree$ is the change in enthalpy, $\Delta S \degree$ is the change in entropy, $T$ is the temperature in Kelvin, and $R$ is a constant, $1.987$ cal/molK. You collect the following data:
+
+\begin{center}
+\begin{tabular}{c|c}
+\hline
+    $K$ & $T$ \\
+\hline
+    0.1 & 320 \\
+    1.0 & 330 \\
+    5.0 & 340 \\
+    20 & 350 \\
+    200 & 360 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Re-write the above equation such that least-squares can be used to solve for the thermodynamic parameters.
+
+
+\meta{
+\begin{itemize}
+    \item Students should be able to see that least-squares can be applied to non-linear equations, as long as the equations can be written into a form that is linear/affine in the unknown parameters.
+\end{itemize}
+}
+
+\ans{
+
+We are looking for an equation that is linear/affine in the unknown thermodynamic parameters. As such, we can rewrite the given equation as follows:
+
+\[
+K = e^{-\frac{\Delta H \degree}{RT}}e^{\frac{\Delta S \degree}{R}} \rightarrow
+K = e^{-\frac{\Delta H \degree}{RT} + \frac{\Delta S \degree}{R}} \rightarrow
+\ln K = -\frac{\Delta H \degree}{RT} + \frac{\Delta S \degree}{R}
+\]
+
+So we could use 
+\[
+\ln K = -\frac{\Delta H \degree}{RT} + \frac{\Delta S \degree}{R}
+\]
+or 
+\[
+R \ln K = -\frac{\Delta H \degree}{T} + \Delta S \degree
+\]
+for least squares to solve for the thermodynamic parameters. Both of these equations will work for least-squares, but the second equation might be simpler when actually computing the least-squares solutions.
+
+}
+
+\item Given the data in the table above, determine $A$, $\vec{x}$, and $\vec{b}$ in $A\vec{x} = \vec{b}$ to be used for least-squares. 
+
+\ans{
+
+    We want to write a matrix-vector equation $A\vec{x} = \vec{b}$ given the data in the table and the linearized equation we solved for in part (a):
+
+    \[
+        R \ln K = -\frac{\Delta H \degree}{T} + \Delta S \degree
+        \rightarrow
+        (-\frac{1}{T}) \cdot \Delta H \degree + (1) \cdot \Delta S \degree = (R \ln K)
+    \]
+    
+    The vector $\vec{x}$ should contain the unknowns we are trying to solve for; in this scenario, the unknowns are the thermodynamic parameters $\Delta H \degree$ and $\Delta S \degree$. The matrix $A$ should contain the coefficients multiplying the unknown parameters. The vector $\vec{b}$ should be the result of the matrix-vector multiplication.
+
+    Every row of $A$ and every row of $\vec{b}$ corresponds to a row of data given in the table.
+
+    \begin{center}
+    \[
+    \underbrace{\begin{bmatrix}
+        -\dfrac{1}{320} & 1 \\[10pt]
+        -\dfrac{1}{330} & 1 \\[10pt]
+        -\dfrac{1}{340} & 1 \\[10pt]
+        -\dfrac{1}{350} & 1 \\[10pt]
+        -\dfrac{1}{360} & 1 \\[10pt]
+        \end{bmatrix}
+    }_{A}
+    \underbrace{
+    \begin{bmatrix}\Delta H \degree \\ \Delta S \degree \end{bmatrix}
+    }_{\vec{x}} 
+    = 
+    \underbrace{
+    \begin{bmatrix}
+        R \ln 0.1 \\[10pt]
+        R \ln 1.0 \\[10pt]
+        R \ln 5.0 \\[10pt]
+        R \ln 20 \\[10pt]
+        R \ln 200 \\[10pt]
+    \end{bmatrix}
+    }_{\vec{b}}
+    \]
+    \end{center}
+
+    Substituting the value of $R$ in would yield the following matrix-vector equation:
+
+    \begin{center}
+    \[
+    \underbrace{\begin{bmatrix}
+        -\dfrac{1}{320} & 1 \\[10pt]
+        -\dfrac{1}{330} & 1 \\[10pt]
+        -\dfrac{1}{340} & 1 \\[10pt]
+        -\dfrac{1}{350} & 1 \\[10pt]
+        -\dfrac{1}{360} & 1 \\[10pt]
+        \end{bmatrix}
+    }_{A}
+    \underbrace{
+    \begin{bmatrix}\Delta H \degree \\ \Delta S \degree \end{bmatrix}
+    }_{\vec{x}} 
+    = 
+    \underbrace{
+    \begin{bmatrix}
+        1.987 \ln 0.1 \\[10pt]
+        1.987 \ln 1.0 \\[10pt]
+        1.987 \ln 5.0 \\[10pt]
+        1.987 \ln 20 \\[10pt]
+        1.987 \ln 200 \\[10pt]
+    \end{bmatrix}
+    }_{\vec{b}}
+    \]
+    \end{center}
+
+    % (If we instead chose to use the form of the Van't Hoff equation we usually see
+    % \[
+    % \ln K = -\frac{\Delta H \degree}{RT} + \frac{\Delta S \degree}{R}
+    % \]
+    % we could equivalently write our matrix-vector equation as 
+    
+    % \begin{center}
+    % \[
+    % \underbrace{\begin{bmatrix}
+    %     -\dfrac{1}{R \cdot 320} & \dfrac{1}{R} \\[10pt]
+    %     -\dfrac{1}{R \cdot 330} & \dfrac{1}{R} \\[10pt]
+    %     -\dfrac{1}{R \cdot 340} & \dfrac{1}{R} \\[10pt]
+    %     -\dfrac{1}{R \cdot 350} & \dfrac{1}{R} \\[10pt]
+    %     -\dfrac{1}{R \cdot 360} & \dfrac{1}{R} \\[10pt]
+    %     \end{bmatrix}
+    % }_{A}
+    % \underbrace{
+    % \begin{bmatrix}\Delta H \degree \\ \Delta S \degree \end{bmatrix}
+    % }_{\vec{x}} 
+    % = 
+    % \underbrace{
+    % \begin{bmatrix}
+    %     \ln 0.1 \\[10pt]
+    %     \ln 1.0 \\[10pt]
+    %     \ln 5.0 \\[10pt]
+    %     \ln 20 \\[10pt]
+    %     \ln 200 \\[10pt]
+    % \end{bmatrix}
+    % }_{\vec{b}}
+    % \]
+    % \end{center}
+    
+    % where we divide the first matrix-vector equation by $R$ on both sides.)
+    
+}
+
+\item Write out the expression in terms of $A$ and $\vec{b}$ that would allow us to approximate the parameters $\Delta H \degree$ and $\Delta S \degree$ with least-squares. Then, evaluate the expression. \textit{Hint:}  $A^TA \approx \begin{bmatrix} 4.35 \cdot 10^{-5} &  - 1.47 \cdot 10^{-2} \\ - 1.47 \cdot 10^{-2} & 5 \end{bmatrix}$
+
+\ans{
+The least squares solution for the unknown parameters is given by $\vec{x}^* = (A^{T}A)^{-1}A^{T}\vec{b}$.
+
+Written out, we have 
+
+\tiny \begin{align*}
+\vec{x}^* & = 
+(\begin{bmatrix}
+    -\dfrac{1}{320} & -\dfrac{1}{330} & -\dfrac{1}{340} & -\dfrac{1}{350} & -\dfrac{1}{360} \\
+    1 & 1 & 1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+        -\dfrac{1}{320} & 1 \\[10pt]
+        -\dfrac{1}{330} & 1 \\[10pt]
+        -\dfrac{1}{340} & 1 \\[10pt]
+        -\dfrac{1}{350} & 1 \\[10pt]
+        -\dfrac{1}{360} & 1 \\[10pt]
+\end{bmatrix})^{-1}
+\begin{bmatrix}
+    -\dfrac{1}{320} & -\dfrac{1}{330} & -\dfrac{1}{340} & -\dfrac{1}{350} & -\dfrac{1}{360} \\
+    1 & 1 & 1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+        1.987 \ln 0.1 \\[10pt]
+        1.987 \ln 1.0 \\[10pt]
+        1.987 \ln 5.0 \\[10pt]
+        1.987 \ln 20 \\[10pt]
+        1.987 \ln 200 \\[10pt]
+\end{bmatrix} \\
+\end{align*}
+
+\small \begin{align*} 
+\vec{x}^* & \approx
+(\begin{bmatrix} 
+4.35 \cdot 10^{-5} &  - 1.47 \cdot 10^{-2} \\ 
+- 1.47 \cdot 10^{-2} & 5 \end{bmatrix})^{-1}
+\begin{bmatrix}
+    -\dfrac{1}{320} & -\dfrac{1}{330} & -\dfrac{1}{340} & -\dfrac{1}{350} & -\dfrac{1}{360} \\
+    1 & 1 & 1 & 1 & 1
+\end{bmatrix}
+(1.987)
+\begin{bmatrix}
+        -2.30 \\[10pt]
+        0 \\[10pt]
+        1.61 \\[10pt]
+        3.00 \\[10pt]
+        5.30 \\[10pt]
+\end{bmatrix} \\
+& \approx 
+\begin{bmatrix} 
+3.55 \cdot 10^{6} &  1.04 \cdot 10^{4} \\ 
+1.04 \cdot 10^{4} & 3.09 \cdot 10^{1} 
+\end{bmatrix}
+\begin{bmatrix}
+    -\dfrac{1}{320} & -\dfrac{1}{330} & -\dfrac{1}{340} & -\dfrac{1}{350} & -\dfrac{1}{360} \\
+    1 & 1 & 1 & 1 & 1
+\end{bmatrix}
+(1.987)
+\begin{bmatrix}
+        -2.30 \\[10pt]
+        0 \\[10pt]
+        1.61 \\[10pt]
+        3.00 \\[10pt]
+        5.30 \\[10pt]
+\end{bmatrix} \\
+& \approx 
+(1.987)\begin{bmatrix} 
+3.55 \cdot 10^{6} &  1.04 \cdot 10^{4} \\ 
+1.04 \cdot 10^{4} & 3.09 \cdot 10^{1} 
+\end{bmatrix}
+\begin{bmatrix}
+    -2.08 \cdot 10^{-2} \\
+    7.61
+\end{bmatrix} \\
+& \approx
+\begin{bmatrix}
+    1.05 \cdot 10^{4} \\
+    3.74 \cdot 10^{1}
+\end{bmatrix}
+\end{align*}
+}
+
+\item For a temperature $T$ of $30 \degree C$, what expression could we evaluate to approximate the $K$ value using least-squares?
+
+\ans{
+
+A temperature of $30 \degree C$ is $273 + 30 = 303 K$. We can use the equation we derived in part (a), which we also used in part (b): 
+\[
+(-\frac{1}{T}) \cdot \Delta H \degree + (1) \cdot \Delta S \degree = (R \ln K)
+\]
+where our thermodynamic parameters $\Delta H \degree$ and $\Delta S \degree$ are our least-squares solutions computed in part (c). We can then write:
+
+\[
+\begin{bmatrix}
+    -\dfrac{1}{303} & 1
+\end{bmatrix}
+\vec{x}^*
+= R \ln K
+\]
+or 
+\[
+K = \exp({\begin{bmatrix}
+    -\dfrac{1}{R \cdot 303} & \dfrac{1}{R}
+\end{bmatrix}
+\vec{x}*})
+\].
+
+Evaluating this numerically using values from part (c), we have
+
+\[
+K \approx \exp({\begin{bmatrix}
+    -\dfrac{1}{1.987 \cdot 303} & \dfrac{1}{1.987}
+\end{bmatrix}
+\begin{bmatrix}
+    1.05 \cdot 10^{4} \\
+    3.74 \cdot 10^{1}
+\end{bmatrix}}) \approx e^{1.38} \approx 3.98
+\]
+}
+
+\end{enumerate}

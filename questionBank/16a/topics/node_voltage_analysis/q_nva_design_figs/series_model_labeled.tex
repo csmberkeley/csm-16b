@@ -1,0 +1,16 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\begin{circuitikz}[american]
+    \draw
+        (0, 2) 
+        to [V, l_=$V_S$] (0, 0) node[ground]{}
+        (0, 2)
+        to [short] (0.5, 2)
+        to [R, i=$I_a$] (2, 2)
+        to [R, l_= $5\Omega$, i=$I_b$] (4, 2)
+        to [short] (4, 0) node[ground]{};
+    \node[
+        rectangle, draw, fill=white, minimum width=1.4cm, minimum height=0.8cm
+    ] at (1, 2) {$S(I)$};
+\end{circuitikz}

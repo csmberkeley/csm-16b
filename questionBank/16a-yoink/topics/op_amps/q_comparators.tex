@@ -1,0 +1,304 @@
+% Urmita Sikder, Fall 2020, urmita@berkeley.edu
+% Lydia Lee, Spring 2019, lydia.lee@berkeley.edu
+\qns{Comparators}
+
+\textbf{Learning Goal:} This problem will help to understand comparator properties and design circuits with comparators.
+
+\textbf{Relevant Notes:} \notes{Note 17C} goes over comparator properties.
+
+\meta{Although op-amps can be used as (not-so-good) comparators, as mentioned in Note 17C, this semester we are not covering that. For this semester, \textbf{comparators and op-amps are completely different things for all intents and purposes and they can be differentiated by their symbols.} It is recommended to not talk about op-amps as comparators.}
+
+Comparators are typically drawn like the figure on the left, and their internal workings can be represented by the figure on the right.
+
+\begin{minipage}{0.45\linewidth}
+\begin{center}
+  \begin{circuitikz}
+    \draw (0,0) node[op amp,yscale=-1] (opamp) { }
+      (-2.5, 0.5) to [short, i=$i_{+}$, o-] (opamp.+) 
+      (-2.5, -0.5) to [short, i=$i_{-}$, o-] (opamp.-) 
+      (opamp.out) node[right ] {$V_{out}$} 
+      ;
+    \node[draw=none,text=black] at (-2.8, 0.5) {$V_{+}$};
+    \node[draw=none,text=black] at (-2.8, -0.5) {$V_{-}$};
+	\draw (-0.2, -0.2) to [short] (0, -0.2) to [short] (0, 0.2) to [short] (0.2, 0.2);
+    \draw (0, 0.5) to [short, -o] (0, 1.0);
+    \node[draw=none,text=black] at (0, 1.5) {$V_{DD}$};
+    \draw (0, -0.5) to [short, -o] (0, -1.0);
+    \node[draw=none,text=black] at (0, -1.5) {$V_{SS}$};
+  \end{circuitikz}
+\end{center}
+\end{minipage}
+\begin{minipage}{.45\linewidth}
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    xmin=-120, xmax=120,
+    ymin=-120, ymax=120,
+    axis lines=center,
+    axis on top=true,
+    grid style={dashed},
+    xlabel={\emph{$V_{+} - V_{-}$}},
+    ylabel={\emph{$V_{out}$}},
+    yticklabels={,,},
+    xticklabels={,,},
+  ]
+  \addplot [draw=blue,thick] coordinates {(0, 50) (100, 50)};
+  \addplot [draw=blue,thick] coordinates {(0, -50) (-100, -50)};
+  \addplot [draw=blue,thick] coordinates {(0, -50) (0, 50)};
+  \addplot [
+      mark=*, blue, solid
+    ]
+    coordinates {
+            (0, -50)
+            (0, 50)};
+
+    \node[anchor=north west] at (axis cs:0,-50) {$(0,V_{SS})$};
+    \node[anchor=south east] at (axis cs:0,50) {$(0,V_{DD})$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+Here, $V_+$ and $V_-$ are input voltages, $V_{DD}$ and $V_{SS}$ are what we call the ``supply rails'', and $V_{out}$ is the output voltage. From the diagram and knowing that $V_{out}$ cannot exceed the supply rail voltages, we have a relationship between the outputs and the inputs:
+\begin{equation*}
+V_{out} =
+\begin{cases} 
+V_{DD} &  \textrm{,  if}
+\hspace{1.4cm}V_+ > V_-) \\
+V_{SS} &  \textrm{,  if}
+\hspace{0.4cm} V_+ < V_-) \\
+\textrm{undefined} &  \textrm{,  if}
+\hspace{0.4cm} V_+ = V_-) \\
+\end{cases}
+\end{equation*}
+
+
+
+\begin{enumerate}
+
+\item
+Identify the output voltage $V_o$ for the following comparator:
+
+\begin{circuitikz} \draw
+(0,0) node[op amp, yscale=-1] (opamp) {}
+(opamp.-) node[left] {10V}
+(opamp.+) node[left] {5V}
+(opamp.out) node[right] {$V_o$}
+(opamp.down) --++(0,0.5) node[vcc]{20V}
+(opamp.up) --++(0,-0.5) node[vee]{-20V}
+;
+\draw (-0.2, -0.2) to [short] (0, -0.2) to [short] (0, 0.2) to [short] (0.2, 0.2);
+\end{circuitikz}
+
+\ans{
+$V_- = 10\si{\volt}$ and $V_+ = 5\si{\volt}$, so $V_+ < V_-$, causing the comparator to rail to $V_{SS}$. So $V_o = -20\si{\volt}$.
+}
+
+\item
+Identify the output voltage $V_o$ for the following comparator:
+
+\begin{circuitikz} \draw
+(0,0) node[op amp, yscale=-1] (opamp) {}
+(opamp.-) node[left] {$V_i$}
+(opamp.+) node[left] {$V_i$}
+(opamp.out) node[right] {$V_o$}
+(opamp.down) --++(0,0.5) node[vcc]{$V_{DD}$}
+(opamp.up) --++(0,-0.5) node[vee]{$V_{SS}$}
+;
+\draw (-0.2, -0.2) to [short] (0, -0.2) to [short] (0, 0.2) to [short] (0.2, 0.2);
+\end{circuitikz}
+
+\ans{
+Since $V_- = V_+ = V_i$, the two input voltages into the comparator are equivalent. This results in undefined behavior, so $V_o = $undefined.
+}
+
+\item
+Design a circuit such that $v_o=2\si{\volt}$ if  $v_c>0.5\si{\volt}$ and $v_o=-1\si{\volt}$ if $v_c<0.5\si{\volt}$. Draw your designed circuit.
+
+You can use only up to 3 voltage sources, but other than that you can use whatever circuit components you want (ex. comparator, capacitor, resistors, etc.) and as many as you would like. Label the values of the voltage sources you use. Hint: Can we use the circuit components we talked about in last week's worksheet?
+
+
+\ans{
+The problem is asking us to design a circuit that produces the following $V_o$:
+
+\begin{equation*}
+V_o =
+\begin{cases} 
+2\si{\volt} &  \textrm{,  if}
+\hspace{0.4cm}v_c > 0.5\si{\volt} \\
+-1\si{\volt} &  \textrm{,  if}
+\hspace{0.4cm} v_c < 0.5\si{\volt} \\
+\textrm{?} &  \textrm{,  if}
+\hspace{0.4cm} v_c = 0.5\si{\volt} \\
+\end{cases}
+\end{equation*}
+
+We would like to use a comparator to achieve this. Notice that if we replace $V_{SS} = 2\si{\volt}$, $V_{DD} = -1\si{\volt}$, $V_- = 0.5\si{\volt}$, and $V_+ = v_c$, our comparator will output the desired values.
+
+To construct this, we will connect $V_{SS}$ and $V_{DD}$ to two voltage sources of $2\si{\volt}$ and $-1\si{\volt}$, respectively. We will also connect $V_-$ to a $0.5\si{\volt}$ voltage source. Finally, we want $V_+ = v_c$, which we can achieve by connecting the top terminal of $v_c$ to $V_+$ and the bottom terminal to ground:
+
+\begin{center}
+\begin{circuitikz}[american voltages, american currents] 
+\draw (0, 0) to [I, l=$I_s(t)$] (0, 2) -- (2, 2) to [C=$C$, l_=$1\si{\micro\farad}$] (2, 0) -- (0, 0);
+		\draw (0, 0) to [short] (2, 0);     
+		\draw (2, 2) to [short] (4, 2);
+		\draw (1, 0) to (1, -0.5) node[ground] {};
+		\draw(4, 1) to [short] (3, 1) to [V, V=$0.5\si{\volt}$] (3, -1) node[ground] {};
+		\draw (-3, 1.7) to (-2.6, 1.7) to (-2.6, 2.3) to (-2.2, 2.3) to (-2.2, 1.7) to (-1.8, 1.7) to (-1.8, 2.3) to (-1.4, 2.3);
+		
+		\draw
+(5,1.5) node[op amp, yscale=-1] (opamp) {}
+(opamp.-) node[left] {}
+(opamp.+) node[left] {}
+(opamp.out) node[right] {$v_o$}
+(5, 2) to [short] (5, 3) to [V, V=$2\si{\volt}$] (7, 3) node[ground]{}
+(5, 1) to [V, V=$-1\si{\volt}$] (5, -0.5) node[ground]{}
+;
+\draw (4.8, 1.3) to [short] (5, 1.3) to [short] (5, 1.7) to [short] (5.2, 1.7);
+\end{circuitikz}
+
+\end{center}
+}
+
+\itemAssume $I_s(t)$ and $v_c(t)$ are given in the following figure. Plot $v_o(t)$ vs. time for the circuit you designed in the last part.
+\begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[
+	xmin=-5, xmax=60,
+	ymin=-110, ymax=160,
+	axis lines=center,
+	axis on top=true,
+	grid style={dashed},
+	xlabel={\emph{$t$}},
+	ylabel={\color{red}{\emph{$I_s(t)$}}},
+	yticklabels={,,},
+	xticklabels={,,},
+	width=6in,
+	height=3in,
+	]
+	\addplot [draw=red,thick] coordinates {(0, 0) 
+		(0, 50) (10, 50)
+		(10, -50) (20, -50)
+		(20, 50) (30, 50)
+		(30, -50) (40, -50)
+		(40, 50) (50, 50)};
+	\node [left,color=red] at (axis cs:  0, 50) {$1\si{\milli\ampere}$}; 
+	\node [left,color=red] at (axis cs:  0, -50) {$-1\si{\milli\ampere}$}; 
+	\node [left,color=blue] at (axis cs:  0, 100) {$1\si{\volt}$}; 
+	\node [left,color=blue] at (axis cs:  0, -100) {$-1\si{\volt}$}; 
+	\node [below,color=black] at (axis cs:  8, 0) {$1\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  18, 0) {$2\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  28, 0) {$3\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  38, 0) {$4\si{\milli\second}$}; 
+	% voltage
+	\node[left, color=blue] at (axis cs: 0, 145) {$v_c(t)$};
+	\addplot [draw=blue,thick] coordinates{ (0,0) (10, 100) (20, 0) (30, 100) (40, 0) (50, 100)};
+	%\node [above, color=blue] at (axis cs: 10,50) {$V = \frac{IT}{2C}$};
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+\ans{
+Since our comparator is a function solely on $v_c(t)$, we look at when $v_c(t)$ is above or below $0.5\si{\volt}$:
+
+\begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[
+	xmin=-5, xmax=60,
+	ymin=-110, ymax=160,
+	axis lines=center,
+	axis on top=true,
+	grid style={dashed},
+	xlabel={\emph{$t$}},
+	yticklabels={,,},
+	xticklabels={,,},
+	width=6in,
+	height=3in,
+	]
+	\addplot [draw=purple,thick] coordinates {(0, 50) (50, 50)};
+	\node [left,color=purple] at (axis cs:  0, 50) {$0.5\si{\volt}$}; 
+	\node [left,color=blue] at (axis cs:  0, 100) {$1\si{\volt}$}; 
+	\node [left,color=blue] at (axis cs:  0, -100) {$-1\si{\volt}$}; 
+	\node [below,color=black] at (axis cs:  8, 0) {$1\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  18, 0) {$2\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  28, 0) {$3\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  38, 0) {$4\si{\milli\second}$}; 
+	% voltage
+	\node[left, color=blue] at (axis cs: 0, 145) {$v_c(t)$};
+	\addplot [draw=blue,thick] coordinates{ (0,0) (10, 100) (20, 0) (30, 100) (40, 0) (50, 100)};
+	%\node [above, color=blue] at (axis cs: 10,50) {$V = \frac{IT}{2C}$};
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+When the blue line is above the dark red one, the comparator rails to $2\si{\volt}$. This happens periodically: between $t = 0.5\si{\milli\second}$ and $t = 1.5\si{\milli\second}$, between $t = 2.5\si{\milli\second}$ and $t = 3.5\si{\milli\second}$, etc. When it is below, it rails to $-1\si{\volt}$. This happens at all other times. Thus we have the following plot for $v_o(t)$:
+
+\begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[
+	xmin=-5, xmax=60,
+	ymin=-110, ymax=160,
+	axis lines=center,
+	axis on top=true,
+	grid style={dashed},
+	xlabel={\emph{$t$}},
+	ylabel={\color{blue}{\emph{$v_o(t)$}}},
+	yticklabels={,,},
+	xticklabels={,,},
+	width=6in,
+	height=3in,
+	]
+	\addplot [draw=blue,thick] coordinates {(0, 0) 
+		(0, -35) (5, -35)
+		(5, 70) (15, 70)
+		(15, -35) (25, -35)
+		(25, 70) (35, 70)
+		(35, -35) (45, -35)
+		(45, 70) (50, 70)};
+	\node [left,color=blue] at (axis cs:  0, 70) {$2\si{\volt}$}; 
+	\node [left,color=blue] at (axis cs:  0, -35) {$-1\si{\volt}$}; 
+	\node [below,color=black] at (axis cs:  8, 0) {$1\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  18, 0) {$2\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  28, 0) {$3\si{\milli\second}$};
+	\node [below,color=black] at (axis cs:  38, 0) {$4\si{\milli\second}$}; 
+	% voltage
+	%\node [above, color=blue] at (axis cs: 10,50) {$V = \frac{IT}{2C}$};
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+}
+
+\item
+Redesign your circuit such that $v_o=-2\si{\volt}$ if  $v_c>0.5\si{\volt}$ and $v_o=1\si{\volt}$ if $v_c<0.5\si{\volt}$. Draw your redesigned circuit.
+
+You can use as many voltage sources you want. Label the values of the voltage sources you use.
+
+\ans{
+This circuit exhibits similar comparative behavior to the one in part (c). The major difference is the value of the rails, where the lower voltage is now $-2\si{\volt}$ and the upper one is $1\si{\volt}$. Also, the condition on when to rail to the lower or upper voltage is flipped. We can achieve this by flipping the connected elements to $v_+$ and $v_-$ relative to part (c), so $v_- = v_c$ (connected to the periodic capacitive circuit) and $v_+ = 0.5\si{\volt}$:
+
+\begin{center}
+\begin{circuitikz}[american voltages, american currents] 
+\draw (0, 0) to [I, l=$I_s(t)$] (0, 2) -- (2, 2) to [C=$C$, l_=$1\si{\micro\farad}$] (2, 0) -- (0, 0);
+		\draw (0, 0) to [short] (2, 0);     
+		\draw (2, 2) to [short] (4, 2);
+		\draw (1, 0) to (1, -0.5) node[ground] {};
+		\draw(4, 3)  to [V, V=$0.5\si{\volt}$] (2, 3) node[ground] {};
+		\draw (-3, 1.7) to (-2.6, 1.7) to (-2.6, 2.3) to (-2.2, 2.3) to (-2.2, 1.7) to (-1.8, 1.7) to (-1.8, 2.3) to (-1.4, 2.3);
+		
+		\draw
+(5,2.5) node[op amp, yscale=-1] (opamp) {}
+(opamp.-) node[left] {}
+(opamp.+) node[left] {}
+(opamp.out) node[right] {$v_o$}
+(5, 3) to [short] (5, 4) to [V, V=$1\si{\volt}$] (7, 4) node[ground]{}
+(5, 2) to [V, V=$-2\si{\volt}$] (5, 0.5) node[ground]{}
+;
+\draw (4.8, 2.3) to [short] (5, 2.3) to [short] (5, 2.7) to [short] (5.2, 2.7);
+\end{circuitikz}
+
+\end{center}
+}
+
+
+\end{enumerate}

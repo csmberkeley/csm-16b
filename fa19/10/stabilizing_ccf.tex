@@ -1,0 +1,102 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qns{Stabilizing a System in Controllable Canonical Form}
+
+\meta {
+  This system is already in Controllable Canonical Form, and we will take a closer look at how eigenvalue placement works one more time.
+}
+
+Consider the following discrete-time system
+\begin{equation}
+ \vec{x}(t + 1) 
+= \begin{bmatrix}
+0 & 1 \\
+-2 & -3
+\end{bmatrix}
+\vec{x}(t) + 
+\begin{bmatrix} 0 \\ 1 \end{bmatrix} u(t)
+\end{equation}
+We will use the fact that this system is in Controllable Canonical Form to control its eigenvalues.
+
+\begin{enumerate}
+
+\qitem What is the characteristic polynomial of $A?$
+
+\meta {
+  Make sure the students understand that the for the system
+  \begin{equation}
+   \vec{x}(t + 1) 
+  = \begin{bmatrix}
+  0 & 1 \\
+  a_{0} & a_{1}
+  \end{bmatrix}
+  \vec{x}(t) + 
+  \begin{bmatrix} 0 \\ 1 \end{bmatrix} u(t)
+  \end{equation}
+  the characteristic polynomial will be $\lambda^{2} - a_{1} \lambda - a_{0}.$ 
+  Note the negation and the order of these $a_{i}$ coefficients.
+}
+
+\sol {
+  Since the system is in CCF, the characeteristic polynomial can be read off from the bottom row of the $A$ matrix.
+  Therefore, the characteristic polynomial will be:
+  $$\lambda^{2} + 3 \lambda + 2 = 0$$
+}
+
+\qitem What are the eigenvalues of the $A$ matrix? Also is this system stable or unstable?
+
+\sol {
+  The eigenvalues are the roots of the characteristic polynomial and will therefore be:
+  $$\lambda^{2} + 3 \lambda + 2 = (\lambda + 2) (\lambda + 1) = 0$$
+  Solving for the roots, we see that 
+  $$\lambda = -1, -2$$
+  Since this is a discrete-time system, and $\abs{\lambda} \geq 1,$ this system will be unstable.
+}
+
+\qitem Now suppose there is a feedback matrix $K = \begin{bmatrix} k_{0} & k_{1} \end{bmatrix}$ such that $u(t) = K \vec{x}(t).$ What is the new closed-loop system?
+
+\sol {
+  Letting $u(t) = K \vec{x}(t),$ the new closed-loop system will be:
+  \begin{equation}
+    \vec{x}(t + 1) = A \vec{x}(t) + BK \vec{x}(t) = (A + BK) \vec{x}(t)
+  \end{equation}
+  Plugging in the for the values of $A, B, K$ we see that
+  \begin{equation}
+  \vec{x}(t + 1) 
+  = \begin{bmatrix}
+  0 & 1 \\
+  -2 + k_{0} & -3 + k_{1}
+  \end{bmatrix}
+\vec{x}(t)
+\end{equation}
+}
+
+\qitem What is the characteristic polynomial of this new closed loop system? Also what are its eigenvalues?
+
+\meta {
+  Refer back to the meta in part (a) to see which constants are negated and why.
+}
+
+\sol {
+  The characteristic polynomial will now be:
+  $$\lambda^{2} - (-3 + k_{1}) \lambda - (-2 + k_{0}) = \lambda^{2} + (3 - k_{1}) \lambda + 2 - k_{0}$$
+  The roots of this characteristic polynomial will be the eigenvalues:
+  $$\lambda = \frac{-3 + k_{1}}{2} \pm \sqrt{(3 - k_{1})^{2} - 4(2 - k_{0})}$$
+}
+
+\qitem Pick values for $k_{0}$ and $k_{1}$ so that the eigenvalues of the system are $\pm \frac{1}{2}.$
+
+\sol {
+  If we want our eigenvalues to be $\pm \frac{1}{2},$ then the characteristic polynomial would be:
+  $$\lambda^{2} - \frac{1}{4}$$
+  We will therefore pick values of $k_{0}, k_{1},$ such that:
+  \begin{align*}
+  &3 - k_{1} = 0 \\
+  &2 - k_{0} = \frac{-1}{4} 
+  \end{align*}
+  We conclude by saying that picking $k_{0} = \frac{9}{4},$ and $k_{1} = 3$ will put the eigenvalues at $\pm \frac{1}{2}.$
+}
+
+
+\end{enumerate}

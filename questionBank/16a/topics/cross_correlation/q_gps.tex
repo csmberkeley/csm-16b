@@ -1,0 +1,134 @@
+% Authors: Urmita Sikder
+% Emails: urmita@berkeley.edu
+
+\qns{Positioning with Gold Code}\\
+\textbf{Learning Goal:} The goal of this problem is to understand how GPS signals are encoded and decoded.
+
+\textbf{Relevant Notes:} \notes{Note 22: Sections 22.3-22.5} walk through the math behind correlations, leading to an overview of the positioning problem.
+
+For this problem, we assume there are 4 GPS satellites in total (In reality, the actual GPS system uses at least 24). Each satellite uses a unique $1024$ element long sequence called a Gold code as its ``signature.'' Assume the four satellites use the signatures: $\vec{s_1}$, $\vec{s_2}$, $\vec{s_3}$ and $\vec{s_4}$.
+
+\meta{This problem is almost purely conceptual, and there are a lot of technicalities, so make sure to leave enough time for open discussion with your students.
+
+The idea (expressed in part (f)) that satellites are transmitting strings of numbers helps us understand why the correlation plots each have three peaks, why some of those peaks are negative, and why we determine the delay by looking at the first peak, so feel free to jump the gun on that reveal.}
+
+\begin{enumerate}
+\item The GPS device receives a $3575$ element long signal $\vec{r}$ spanning $n=0-3574$. If we wanted to identify which satellites' signatures are present in $\vec{r}$, what specific correlations should we calculate?
+
+\textit{Hint: Recall that the linear correlation of signal $\vec{x}$ with signal $\vec{y}$ is given as:
+$$ \text{corr}_{\vec{x}}(\vec{y})[k] = \sum\limits_{n=-\infty}^{\infty} \vec{x}[n] \vec{y}[n-k]$$.}
+
+\ans{We need to calculate the correlation of received signal $\vec{r}$ with all four satellite signatures in order to find which ones are present in $\vec{r}$, i.e. we need to calculate
+\begin{itemize}
+\item $\text{corr}_{\vec{r}}(\vec{s_1})$
+\item $\text{corr}_{\vec{r}}(\vec{s_2})$
+\item $\text{corr}_{\vec{r}}(\vec{s_3})$
+\item $\text{corr}_{\vec{r}}(\vec{s_4})$
+\end{itemize}
+}
+
+\item For each of the correlation operations from part (a), what should be the finite range of time shift $k$? Remember that $\vec{r}$ has 3575 elements.
+
+\meta {It can be helpful to draw a diagram for students showing the shift of each $\vec{s}$ across $\vec{r}$.
+}
+
+\ans{For each correlation operation the received signal $\vec{r}$ stays stationary while the Gold code $s_i$ is shifted. \\
+
+The range of $k$ is chosen such that there is some overlap between $\vec{r}$ and the shifted signal $s_1[n-k]$. Hence the starting value of $k$ will be chosen such that the last sample from $\vec{s_1}[n-k]$ overlaps with the first sample of $\vec{r}$. Since $\vec{r}$ starts at $n=0$, this will happen when $\vec{s_1}$ will be advanced by 1023 time samples (or you could think of it as being "delayed" by -1023 time samples).\\
+
+Similarly, the end value of $k$ will be chosen such that the first sample from $\vec{s_1}[n-k]$ overlaps with the last sample of $\vec{r}$. Since $\vec{r}$ ends at $n=3574$, this will happen when $\vec{s_1}$ will be delayed by 3574 time samples. \\
+
+So the range of time shift will be $k=-1023\textrm{ to }3574.$
+
+}
+
+
+
+\item Each satellite signature is a sequence of 1024 elements, where each element is either $+1$ or $-1$. Assuming there is no noise, what would be approximate peak value of $\text{corr}_{\vec{r}}(\vec{s_1})$, if $\vec{s_1}$ and $\vec{s_2}$ both are present in $\vec{r}$?
+
+\ans{ If $\vec{s_1}$ and $\vec{s_2}$ are present in $\vec{r}$, we can write $\vec{r}$ as
+\begin{align*}
+\vec{r}[n]=\vec{s_1}[n-n_{d1}]+\vec{s_2}[n-n_{d2}],
+\end{align*}
+where $n_{d1}$ and $n_{d2}$ are the transmission delays of  $\vec{s_1}$ and $\vec{s_2}$ receptively. So $\vec{r}$ perfectly matches $\vec{s_1}$ when $\vec{s_1}$ is shifted by $n_{d1}$ samples, i.e. peak correlation will occur. If we calculate the correlation $\text{corr}_{\vec{r}}(\vec{s_1})[k]$ for time shift $k=n_{d1}$, we have
+\begin{align}
+\text{corr}_{\vec{r}}(\vec{s_1})[k=n_{d1}]&=\sum\limits_{n=-\infty}^{\infty} \vec{r}[n] \vec{s_1}[n-n_{d1}]\\
+&=\sum\limits_{n=-\infty}^{\infty} (\vec{s_1}[n-n_{d1}]+\vec{s_2}[n-n_{d2}]) \vec{s_1}[n-n_{d1}]\\
+&=\innp{\vec{s_1}[n-n_{d1}]}{\vec{s_1}[n-n_{d1}]}+\innp{\vec{s_2}[n-n_{d2}]}{\vec{s_1}[n-n_{d1}]}
+\end{align}
+The first term can be reduced to
+$$\innp{\vec{s_1}[n-n_{d1}]}{\vec{s_1}[n-n_{d1}]}=\norm{\vec{s_1}}^2=(\sqrt{1024})^2=1024$$
+while the second term can be reduced to 
+$$\innp{\vec{s_2}[n-n_{d2}]}{\vec{s_1}[n-n_{d1}]}\approx 0$$
+Hence $\text{corr}_{\vec{r}}(\vec{s_1})[k=n_{d1}]\approx1024$, i.e. the peak correlation value will be 1024.  \\
+
+
+Another intuitive way of thinking about this problem is that if the signal matches perfectly, then the inner product will just be a sum of 1024 ones. However, if there are a lot of mismatches then there will be a lot of terms that sum to zero. Note that the inner product of non-corresponding signals will be more in a range of what looks like -200 to 200 on the diagram because there will be some random matches (though it should average out to zero).
+
+}
+
+
+\item 
+The following figure shows the results of cross-correlation of the received signal $\vec{r}$ with respect to different satellite signatures.
+\begin{figure}[H]
+    \centering
+    \begin{multicols}{2}
+        \centering
+        \includegraphics[height=1.5in]{../q_gps_figs/corr1}
+        \caption{$\text{corr}_{\vec{r}}(\vec{s_1})[k]$ vs. k}
+    \columnbreak
+        \centering
+        \includegraphics[height=1.5in]{../q_gps_figs/corr2}
+        \caption{$\text{corr}_{\vec{r}}(\vec{s_2})[k]$ vs. k}
+    \end{multicols}
+    \centering
+    \begin{multicols}{2}
+        \centering
+        \includegraphics[height=1.5in]{../q_gps_figs/corr3 }
+        \caption{$\text{corr}_{\vec{r}}(\vec{s_3})[k]$ vs. k}
+    \columnbreak
+        \centering
+        \includegraphics[height=1.5in]{../q_gps_figs/corr4}
+        \caption{$\text{corr}_{\vec{r}}(\vec{s_4})[k]$ vs. k}
+    \end{multicols}
+\end{figure}
+Find out which satellite signals are present and the corresponding transmission delays. Assume a threshold of 800 for determining the peak correlation.
+
+\ans{
+From the correlation plots, we observe that $\text{corr}_{\vec{r}}(\vec{s_1})[k]$ and $\text{corr}_{\vec{r}}(\vec{s_4})[k]$ have positive/negative peaks that exceed the threshold value. Hence we can determine that $\vec{s_1}$ and $\vec{s_4}$ are present in the received signal.
+
+The position of the first peak corresponds to the transmission delay. From the plot we see the first peak of $\text{corr}_{\vec{r}}(\vec{s_1})[k]$ occur at $k\approx500$, hence the delay for $\vec{s_1}$ is $n_{d1}\approx500$ time samples. Similarly, the delay for $\vec{s_4}$ is $n_{d4}\approx100$ time samples.
+}
+
+\item Assume consecutive time samples are $\delta t=0.1\si{\micro \second}=0.1\times 10^{-6}\si{\second}$ apart. Use your results from the last part to find out distance of satellites from the receiver.
+
+\ans{
+The transmission delay $t_{d1}$ for $\vec{s_1}$ can be calculated in seconds using:
+$$t_{d1}=n_{d1}\times \delta t$$
+$$t_{d1}=500\times 0.1\si{\micro\second}=50\si{\micro\second}=5\times10^{-5}\si{\second}.$$
+Similarly, transmission delay $t_{d4}$ for $\vec{s_4}$ is:
+$$t_{d4}=n_{d4}\times \delta t$$
+$$t_{d4}=100\times 0.1\si{\micro\second}=10\si{\micro\second}=10^{-5}\si{\second}.$$
+Now we can find the distances by multiplying the velocity of the signals with the time delay:
+$$d_1=v\times t_{d1}=3\times 10^8\times 5\times10^{-5}=15\si{\kilo\meter}$$
+$$d_4=v\times t_{d4}=3\times 10^8\times 10^{-5}=3\si{\kilo\meter}$$
+
+Take note that $n_{d1}$ is the number of time samples that make up the delay. The time is sampled every $\delta t$ seconds, (i.e., sec/sample). When you multiply $\delta t$ by the number of time samples, you get the duration of the delay in seconds.
+
+}
+
+\item In addition to sending a unique signature signal, a GPS satellite can also ``modulate'' the signature to communicate more information. Modulating a signature means multiplying the entire signature block by $+1$ or $-1$. 
+
+For example satellite 1 can transmit the sequence $\vec{s_1}$ when it wants send a message bit of $1$ or $-\vec{s_1}$ when it wants to send a message bit of $-1$. Using the correlation plots, find out the message bits the satellites are sending.
+
+\ans{
+When a receiver receives a signal, in addition to finding the time delay between transmission and reception, the receiver will be able to decode the message by noting a very high correlation if the message bit is equal to $1$, and a very negative correlation if the message bit is equal to $-1$. From the figures we can see that satellite 1 and 4 are transmitting the following bits:\\
+Satellite 1 message: $\{ -1, 1, -1\}$\\
+Satellite 4 message: $\{ 1, -1, 1\}$
+}
+\end{enumerate}
+
+
+
+
+

@@ -1,0 +1,27 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 3}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+\input{\bank/change-of-basis/diagonalization_new}
+\newpage
+\input{\bank/vector-diff-eq/vector_diff_eq}
+\newpage
+\input{\bank/phasors/phasors_intro}
+\end{qunlist}
+
+\end{document}

@@ -1,0 +1,110 @@
+% Author: Cody Rawlings
+% Email: crawlings05@berkeley.edu
+% CSM16A Spring 2024
+\qns{Nullumn Space}
+
+\textbf{Learning Goal: To understand the relationship between nullspaces and column spaces using a proof}
+\begin{bindenum}
+    \item Nullspaces and column spaces and how they relate to each other
+    \item Proof by substitution and manipulation
+\end{bindenum}
+
+\meta{
+    The first two parts of this problem are two sepearte proofs and are not related to the last 3 parts. This question heavily relies on knowing the fact that for a Null(A), Ax = 0, so make sure students know that beforehand. Parts 3, 4, and 5 of this problem focus on a single proof where students are walked through how to solve it. 
+    
+}
+
+Let T be some n x n transformation matrix to be used in parts 1 and 2.
+
+\begin{enumerate}
+    \item {
+        Prove that $Null(T) \subseteq Null(T^{2})$ for some vector, $\Vec{v} \in Null(T)$
+    
+    }
+    \meta{
+        Students are supposed to prove that the nullspace of $T^{2}$ contains the same vector, $\Vec{v}$, as T. To do this, simple substitution and manipulation is used where $T^{2}$ = T and T$\Vec{v}$ = 0. Make sure students understand the definition of a nullspace. 
+
+    }
+    \ans{
+        If $\Vec{v} \in Null(T), T\Vec{v} = 0$ \\
+        $T^{2}(\Vec{v}) = T(T\Vec{v})$ \\
+        but, $T\Vec{v} = 0$, so \\
+        $T(T\Vec{v}) = T(0) = 0$\\
+        Thus $\Vec{v}$ is in the nullspace of T and $T^{2}$
+
+    }
+
+    \item {
+
+        Now, $T^{2} = I$, the identity matrix. Prove that $Null(T) = {0}$(only contains the zero vector)
+    
+    }
+    \meta{
+        Studnets will start by choosing the same vector in the nullspace of T, $\Vec{v}$, and using the same definition of a nullspace, Tv = 0. By substituion, and manipulaiton you will find that $T^{2}$v = 0. Then, by substituting in the Identity matrix for $T^{2}$ you have solved the proof.
+
+    }
+    \ans{
+        If $\Vec{v} \in Null(T), T\Vec{v} = 0$ \\
+        Apply T to both sides of the equation \\
+        $T^{2}\Vec{v} = 0$ \\
+        but, $T^{2} = I$, so \\
+        $I\Vec{v} = 0$ \\
+        $\Vec{v} = 0$ \\
+        Thus, the only vector in Null(T) is the zero vector
+
+    }
+\end{enumerate}
+The next three parts of the problem will focus on this proof: Show that the row space of A, $Col(A^{T})$ $\perp$ $Null(A)$ where A is some n x n matrix \\
+    \textbf{Hint:} show that any vector $\Vec{z}$ $\in$ $Null(A)$ is orthogonal to any vector $\Vec{u}$ $\in$ $Col(A^{T})$
+\begin{enumerate}
+    \item {
+        What is the basis for the column space of $A^{T}$?
+    
+    }
+    \meta{
+        The column space of $A^{T}$ is the same as the row space of A. Make sure students understand this fact. this makes the basis for the row space the set of row vectors, \{$\Vec{r_1}, \Vec{r_2}, \dots, \Vec{r_n}$\}
+
+    }
+    \ans{
+        Basis: \{$\Vec{r_1}, \Vec{r_2}, \dots, \Vec{r_n}$\}
+
+    }
+
+    \item {
+        Express $\Vec{u}$ as a linear combination of this basis in terms of $A^{T}$ and $\Vec{b}$, where $\Vec{b} = \begin{bmatrix}
+            c_1 \\ c_2 \\ \vdots \\ c_n 
+            \end{bmatrix}$
+    }
+    \meta{
+        The end goal of this part is to obtain $A^{T} \Vec{b}$ to be able to substitue it into the inner product in the next part. Maybe include a little bit more about how $A^{T}$ is comprised of the row vectors of A so that students understand where it comes from. 
+
+    }
+    \ans{
+        $\Vec{u} = c_1\Vec{r_1} + c_2\Vec{r_2} + \cdots + c_n\Vec{r_n}$ \\
+        $= \begin{bmatrix}
+            \Vec{r_1}, \Vec{r_2}, \dots, \Vec{r_n}
+        \end{bmatrix}
+        \begin{bmatrix}
+            c_1 \\ c_2 \\ \vdots \\ c_n
+        \end{bmatrix}$ \\
+        $= A^{T}\Vec{b}$
+
+    }
+
+    \item {
+        Now, show $<\Vec{z}, \Vec{u}> = 0$. Prove that any arbitrary vector, $\Vec{z}$ $\in Null(A)$ is orthogonal to any arbitrary vector, $\Vec{u} \in Col(A^{T})$
+    
+    }
+    \meta{
+        Using the definition of orthogonality, inner product = 0, you can finally solve the proof by simple substitution and manipulation of vectors and matricies. Also by using the definition of null spaces students used in parts 1 and 2.
+
+    }
+    \ans{
+        $<\Vec{z}, \Vec{u}> = \Vec{z}^{T} \Vec{u}$ \\
+        $= \Vec{z}^{T} A^{T} \Vec{b}$ \\
+        $= (Az)^{T}\Vec{b}$ \\
+        $= 0^{T} \Vec{b}$ \\
+        $= 0$
+
+    }
+\end{enumerate}

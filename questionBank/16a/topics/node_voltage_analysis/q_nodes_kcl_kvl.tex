@@ -1,0 +1,216 @@
+\qns{Nodes and Branches}
+
+\textbf{Learning Goal:} The goal of this problem is to introduce nodal analysis, KVL, and KCL.
+
+\textbf{Relevant Notes:} \notes{Note 11A Section 11.4} introduces KVL and KCL.
+
+\meta{
+\begin{itemize}
+\item For some parts of this question, it may be useful to remember the properties of subcircuits in series and parallel to derive the answer more quickly/intuitively. You can also stress that so long as passive sign convention is followed, it doesn’t matter how you label the directions of your currents.
+
+\item Emphasize what a branch of a circuit is and ask students to find the branches of the circuit. 
+
+\item Make a note that current is the same on one branch of the circuit.
+\end{itemize}
+}
+
+\begin{enumerate}
+\item Label all the elements in the following circuit according to passive sign convention.
+\begin{center}
+\begin{circuitikz}
+    \draw
+    (0,0) coordinate (BASE)
+        to[I,l=$I_S$] ++(0,4)
+        to[short] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.5)
+        to[R=$2\si{\ohm}$,l=$R_1$] ++(3,0)
+        to[short] ++(0,-.5) coordinate (RHS)
+    (LHS) to[short] ++(0,-.5)
+        to[R=$2\si{\ohm}$, l=$R_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+        to[R=$6\si{\ohm}$, l=$R_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+        to[R=$6\si{\ohm}$, l=$R_4$] (TOPRIGHT |- BASE)
+        to[short] (BASE);
+\end{circuitikz}
+\end{center}
+
+\ans{
+Note: we have increased the distance between $R_1$ and $R_2$ for greater clarity of the labelings. However, the circuit has not fundamentally changed.
+
+\begin{center}
+\begin{circuitikz}
+    \draw
+    (0,0) coordinate (BASE)
+        to[I,l=$I_S$, v=$V_\text{source}$, i<=$I_\text{source}$] ++(0,4)
+        to[short] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.75)
+        to[R, l=$R_1$, v=$V_1$, i=$I_1$] ++(3,0)
+        to[short] ++(0,-.75) coordinate (RHS)
+    (LHS) to[short] ++(0,-.75)
+        to[R, l=$R_2$, v=$V_2$, i=$I_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+        to[R, l=$R_3$, v=$V_3$, i=$I_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+        to[R, l=$R_4$, v=$V_4$, i=$I_4$] (TOPRIGHT |- BASE)
+        to[short] (BASE);
+\end{circuitikz}
+\end{center}
+
+}
+
+\item Find and label all the distinct nodes in the circuit from part (a).
+
+\meta {A good way to label distinct nodes is to tell students to put their pen down on a wire element and try to keep moving until they are blocked by circuit elements like resistors or sources.}
+
+\ans{
+Each node consists of all the parts of the circuit that have the same voltage. In this circuit we have labeled three main nodes, $u_1$ (red), $u_2$ (green), and $u_3$ (blue):
+
+\begin{center}
+\begin{circuitikz}
+    \draw
+    (0,0) coordinate (BASE)
+        to[I,l=$I_S$] ++(0,4)
+        to[short] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.5)
+        to[R=$2\si{\ohm}$,l=$R_1$] ++(3,0)
+        to[short] ++(0,-.5) coordinate (RHS)
+    (LHS) to[short] ++(0,-.5)
+        to[R=$2\si{\ohm}$, l=$R_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short] ++(1,0) coordinate (TOPLEFT)
+        to[R=$6\si{\ohm}$, l=$R_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+        to[R=$6\si{\ohm}$, l=$R_4$] (TOPRIGHT |- BASE)
+        to[short] (BASE);
+    \draw [red]
+    (LHS) to[short, l=$u_1$] ++(-1,0)
+    		to[short] ++(0, -1.5)
+  	 (LHS) to[short] ++(0,.5)
+   		to[short] ++(0.95,0)
+   	(LHS) to[short] ++(0,-.5)
+    		to[short] ++(0.95,0);
+    	\draw [green]
+    	(RHS) to[short] ++(0,.5)
+    		to[short] ++(-0.95,0)
+    	(RHS) to[short] ++(0,-.5)
+    		to[short] ++(-0.95,0)
+    	(RHS) to[short, l=$u_2$] (TOPRIGHT)
+    	(TOPLEFT) to[short] ++(0,-1.45)
+    	(TOPRIGHT) to[short] ++(0,-1.45);
+     \draw [blue]
+    (BASE) to[short] ++(0,1.55)
+    (TOPLEFT |- BASE) to[short] ++(0, 1.45)
+    (TOPRIGHT |- BASE) to[short] ++(0, 1.45)
+    (BASE) to[short, l=$u_3$] (TOPRIGHT |- BASE) ;
+\end{circuitikz}
+\end{center}
+}
+\item Some current and voltage labels are added to the circuit in part (a):
+\begin{center}
+\begin{circuitikz}
+    \draw
+    (0,0) coordinate (BASE)
+        to[I,l=$I_S$, v=$V_\text{source}$, i<=$I_\text{source}$] ++(0,4)
+        to[short, l=$u_1$] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.75)
+        to[R, l=$R_1$, v=$V_1$, i=$I_1$] ++(3,0)
+        to[short] ++(0,-.75) coordinate (RHS)
+    (LHS) to[short] ++(0,-.75)
+        to[R, l=$R_2$, v<=$V_2$, i<=$I_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short, l=$u_2$] ++(1,0) coordinate (TOPLEFT)
+        to[R, l=$R_3$, v=$V_3$, i=$I_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+        to[R, l=$R_4$, v<=$V_4$, i<=$I_4$] (TOPRIGHT |- BASE)
+        to[short, l=$u_3$] (BASE);
+\end{circuitikz}
+\end{center}
+
+
+\begin{enumerate}[label=(\roman*)]
+\item If $I_\text{S}=5\si{\milli\ampere}$ and $I_1=2\si{\milli\ampere}$, find $I_\text{source}$ and $I_2$. Start by writing the KCL equation at node $u_1$.
+
+\item If $I_3=4\si{\milli\ampere}$ and $I_4=-1\si{\milli\ampere}$, find $I_\text{source}$ and $I_\text{S}$. Start by writing the KCL equation at node $u_3$.
+
+\item (PRACTICE) Solve the two problems above by labeling the circuit using different passive sign convention.  What do you notice about the values of the currents? 
+
+\end{enumerate}
+
+\meta {Make sure to point out that some current/voltage pairs are labeled in the opposite direction of the positive charge flow. Reiterate that it does not matter which direction is picked, as long as the passive sign convention is satisfied.\\
+It can also be helpful to clarify that depending on how the students label the node, u1 and u2 might not refer to the correct nodes for deriving the KCLs. Instead, it may be better to describe the node as a general region in the diagram. 
+}
+
+\ans{
+\begin{enumerate}[label=(\roman*)]
+\item First, we know $I_\text{source} = -I_\text{S} = -5\si{\milli\ampere}$, since it is on the same branch and going in the opposite direction.  Now, we want to find $I_2$ using KCL. KCL states that the sum of currents going into node $u_1$ equals the sum of currents going out of it. The current $I_2$ is going in, and currents $I_1$ and $I_\text{source}$ are going out, so:
+$$ I_2  = I_1 +  I_\text{source}$$
+$$I_2 =  I_1 + I_\text{source} =  (2\si{\milli\ampere}) +(-5\si{\milli\ampere}) = -3\si{\milli\ampere}$$
+
+\item At node $u_3$, we have incoming currents $I_3$ and $I_\text{source}$, and outgoing current $I_4$. In addition, as shown in subpart (i), $I_\text{source} = -I_\text{S}$. Writing out the KCL equation at node $u_3$:
+$$I_3  + I_\text{source} = I_4 $$
+$$I_\text{source} = - I_3 + I_4 = -(4\si{\milli\ampere}) +(-1\si{\milli\ampere}) = -5\si{\milli\ampere}$$
+$$I_\text{S} = - I_\text{source} = -(-5\si{\milli\ampere}) = 5\si{\milli\ampere}$$
+
+\item In the circuit shown in part (c), swap the passive sign conventions (i.e. switch '+' to '-' and vice versa). Be sure to change the direction of the current in this step as well (noting the current flows from positive to negative). 
+
+\begin{center}
+\begin{circuitikz}
+    \draw
+    (0,0) coordinate (BASE)
+        to[I,l=$I_S$, v>=$V_\text{source}$, i>=$I_\text{source}$] ++(0,4)
+        to[short, l=$u_1$] ++(1,0) coordinate (LHS)
+    (LHS) to[short] ++(0,.75)
+        to[R, l=$R_1$, v<=$V_1$, i<=$I_1$] ++(3,0)
+        to[short] ++(0,-.75) coordinate (RHS)
+    (LHS) to[short] ++(0,-.75)
+        to[R, l=$R_2$, v>=$V_2$, i>=$I_2$] ++(3,0)
+        to[short] (RHS)
+    (RHS) to[short, l=$u_2$] ++(1,0) coordinate (TOPLEFT)
+        to[R, l=$R_3$, v<=$V_3$, i<=$I_3$] (TOPLEFT |- BASE)
+    (TOPLEFT) to[short] ++(2,0) coordinate (TOPRIGHT)
+        to[R, l=$R_4$, v>=$V_4$, i>=$I_4$] (TOPRIGHT |- BASE)
+        to[short, l=$u_3$] (BASE);
+\end{circuitikz}
+\end{center}
+
+For part (i), the equation would become $I_\text{source} + I_1 =  I_2$. 
+$I_\text{source} = I_s$ because both flow in the same direction. 
+Using the values given in the question,  5 - 2 = $I_2$ = 3mA. \\ \\
+For part (ii), the equation would become $I_\text{source} + I_3 =  I_4$. Since the direction is flipped, we use the value $I_3$ = -4mA and $I_4$ = 1mA. Substituting the values, we get $I_\text{source} - 4 =  1$. Thus $I_\text{source}$ = 5mA.
+
+\end{enumerate}
+}
+
+\item Consider the labeled circuit from part (c).
+\begin{enumerate}[label=(\roman*)]
+\item If $V_\text{source}=10\si{\volt}$ and $V_4=-4\si{\volt}$, find $V_1$, $V_2$ and $V_3$. Start by writing the KVL equations for different loops.
+
+\item Assume $R_1=3\si{\kilo\ohm}$, $R_2=2\si{\kilo\ohm}$, $R_3=1\si{\kilo\ohm}$ and $R_4=4\si{\kilo\ohm}$. Calculate $I_1$, $I_2$, $I_3$ and $I_4$ using the results from subpart (i).
+\end{enumerate}
+
+\meta{It's important to note to students that writing KVL equations are valid for both clockwise/ counterclockwise loops. Also note that the directions of the currents from part (d) (ii) are consistent with the directions from part (c).}
+
+\ans {
+\begin{enumerate}[label=(\roman*)]
+\item Consider the (counterclockwise) loop that contains $V_\text{source}$, $V_1$, and $V_4$. The KVL equation for this loop is
+$$-V_\text{source} + V_1 - V_4 = 0$$
+$$V_1 = V_\text{source} + V_4 = 10\si{\volt} + (-4\si{\volt}) = 6\si{\volt}$$
+Since $R_1$ and $R_2$ connect the same nodes, $u_1$ and $u_2$, we can write the same KVL equation as above except replacing $V_1$ with $-V_2$:
+$$-V_\text{source} - V_2 - V_4 = 0$$
+$$V_2 = -V_\text{source} - V_4 = -10\si{\volt} - (-4\si{\volt}) = -6\si{\volt}$$
+We can apply the same idea to conclude that $V_3 = -V_4 = -(-4\si{\volt})=4\si{\volt}$.
+
+\item For a resistor, Ohm's Law relates the current, voltage, and resistance through the equation
+$$V = IR$$
+We can use Ohm's Law here because we know $V_1$, $V_2$, $V_3$, and $V_4$ from subpart (i) and we are given $R_1$, $R_2$, $R_3$, and $R_4$ in this subpart.
+$$I_1 = \frac{V_1}{R_1} = \frac{6\si{\volt}}{3\si{\kilo\ohm}} = 2\si{\milli\ampere}$$
+$$I_2 = \frac{V_2}{R_2} = \frac{6\si{\volt}}{2\si{\kilo\ohm}} = -3\si{\milli\ampere}$$
+$$I_3 = \frac{V_3}{R_3} = \frac{4\si{\volt}}{1\si{\kilo\ohm}} = 4\si{\milli\ampere}$$
+$$I_4 = -\frac{V_4}{R_4} = \frac{4\si{\volt}}{4\si{\kilo\ohm}} = -1\si{\milli\ampere}$$
+\end{enumerate}
+}
+
+\end{enumerate}

@@ -1,0 +1,19 @@
+%Code Referenced from q_review_opamps.tex
+
+\begin{circuitikz}
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l_=$R_1$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+	(AMP.out)
+		to[short] ++(2,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.out)
+	    to[short] ++(1,0)
+	    to[R,l_=$R_1$] ++(0,-1.5)
+	    to[V,v_=$3V$] ++(0,-1.5) node[ground]{}
+	(AMP.+) to[short, -o] ++(0,-1.5)
+		node[label=below:$V'(t)$] {};
+\end{circuitikz}

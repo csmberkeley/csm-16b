@@ -1,0 +1,271 @@
+\setcounter{MaxMatrixCols}{20}
+%% Lily Bhattacharjee (lbhattacharjee@berkeley.edu)
+%% Grace Kuo gkuo@berkeley.edu 
+%% Urmita Sikder urmita@berkeley.edu
+
+
+\qns{One Does Not Simply Raft into Mordor}
+
+\textbf{Learning Goal:} The goal of this problem is to practice applying cross correlation to word problem scenarios.
+
+\textbf{Relevant Notes:} \notes{Note 22 Section 22.2} covers trilateration, and \notes{Note 22 Section 22.3} covers finding distances with correlation.
+
+\meta{Help your students arrive to some of the equations that are necessary for this problem (especially part d). It is useful to represent vectors as actual positions on a map to help students visualize the equations.}
+
+You've decided to go rafting to celebrate taking your second midterm! Unfortunately, an hour into your trip, you realize that there are no familiar landmarks nearby, so you're not sure how far you are from your starting point. However, you do remember from your studies of the area that there are two towers: Isengard, at the position $x = 0$ km, and the Dark Tower, at $x = 4$ km. You know you are between the two towers, as shown below:
+\vspace{-1em}
+\begin{center}
+\includegraphics[width=.93\linewidth]{./questionBank/q_triangulation/triangulation_raft}
+\end{center}
+\vspace{-1em}
+
+You recall that each tower emits a sound signal once a day at midday.
+Specifically, Isengard will emit $\vec{b}_1$ and the Dark Tower will emit $\vec{b}_2$:
+$$\vec{b_1} = \begin{bmatrix}-1 & -1 & -1 & 1 & 1\end{bmatrix}^T \hspace{1.5cm}
+\vec{b_2} = \begin{bmatrix}-1 & 1 & -1 & 1 &  -1\end{bmatrix}^T$$
+
+Both signals are emitted at a rate of 2 samples per second (i.e. the sample interval is 0.5 sec), and the signals are emitted only once for each period.
+ 
+It's only a few minutes from midday so you decide to wait. You use an app on your phone to record the incoming signal (the app also records at 2 samples per second). You start recording at exactly 12:00 PM and receive the following:
+\begin{align*}
+\vec{{r}} = \begin{bmatrix} 0 &  0 &  0 & -1 &  -1 & -2 &  2 &  0 &  1 & -1 &  0 &  0\end{bmatrix}^T
+\end{align*}
+
+
+
+\begin{enumerate}[series = qn] 
+
+\item Your first step is to calculate a linear cross-correlation between $\vec{r}$ and each known tower signature. The cross-correlations are plotted below. Calculate the missing value, which is denoted with a question mark. \\
+
+\vspace{-5mm}
+
+\begin{minipage}[t]{0.5\linewidth}
+\begin{tikzpicture}
+\begin{axis}
+[%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+axis x line=middle,
+axis y line=middle,
+ylabel style={yshift=0.4cm},
+width=9cm,
+height=6cm,
+every axis x label={at={(current axis.right of origin)},anchor=north west},
+every axis y label={at={(current axis.above origin)},anchor= north west},
+every axis plot post/.style={mark options={fill=black}},
+xlabel={$k$},
+%ylabel={corr$_{\vec{r}}(\vec{b_1})[k]$},
+title={corr$_{\vec{r}}(\vec{b_1})[k]$},
+xtick={ 0, 1, 2, 3, 4, 5, 6 ,7, 8, 9, 10, 11},
+ytick={ -6, -4, -2, 0, 2, 4, 6},
+ymin=-6,
+ymax=6,
+xmin = -1,
+xmax = 12,
+xticklabel style={
+	anchor=north east,
+	inner sep=0.5pt,
+}
+]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addplot+[ycomb,black,thick] table [x index=0, y index=1] {
+0	-2.0
+1	-2.0
+2	2.0
+3	6.0
+4	2.0
+5	0.0
+6	-4.0
+7	0.0
+8	0.0
+9	1.0
+10	0.0
+11	0.0
+};
+%\node[above,red] at (axis cs: 3,.2) {\textbf{?}};
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{0.5\linewidth}
+\begin{tikzpicture}
+\begin{axis}
+[%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+axis x line=middle,
+axis y line=middle,
+ylabel style={yshift=0.4cm},
+width=9cm,
+height=6cm,
+every axis x label={at={(current axis.right of origin)},anchor=north west},
+every axis y label={at={(current axis.above origin)},anchor= north west},
+every axis plot post/.style={mark options={fill=black}},
+xlabel={$k$},
+%ylabel={corr$_{\vec{r}}(\vec{b_1})[k]$},
+title={corr$_{\vec{r}}(\vec{b_2})[k]$},
+xtick={ 0, 1, 2, 3, 4, 5, 6 ,7, 8, 9, 10, 11},
+ytick={ -6, -4, -2, 0, 2, 4, 6},
+ymin=-6,
+ymax=6,
+xmin = -1,
+xmax = 12,
+xticklabel style={
+	anchor=north east,
+	inner sep=0.5pt,
+}
+]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addplot+[ycomb,black,thick] table [x index=0, y index=1] {
+0	0.0
+1	2.0
+2	-4.0
+ 3	4.0
+%4	-4.0
+5	6.0
+ 6	-4.0
+ 7	2.0
+ 8	-2.0
+ 9	1.0
+10	0.0
+11	0.0
+};
+\node[above,red] at (axis cs: 4,.2) {\textbf{?}};
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+
+\ans{
+	To fill in the missing cross-correlation values, observe that the missing value is in $\text{corr}_{\vec{r}}(\vec{b_2})$ is at index 4. Therefore, we must calculate the inner product between $\vec{r}$ and a version of $\vec{b_2}$ that is shifted 4 samples to the right.
+	\begin{align*}
+		\vec{r} &= \begin{bmatrix}0 &  0 &  0 & -1 &  -1 & -2 &  2 &  0 &  1 & -1 &  0 &  0\end{bmatrix} \\
+		\vec{b}_{2, \text{shifted by 4}}&= \begin{bmatrix}0 & 0 & 0 & 0 & -1 & 1 & -1 & 1 & -1 & 0 & 0 & 0 & \end{bmatrix}
+	\end{align*}
+	We calculate:
+		\begin{align*}
+		\text{corr}_{\vec{r}}(\vec{b_2})[4] =& (-1)(0) + (-1)(-1) + (-2)(1) + (2)(-1) + (0)(1) +(1)(-1)+(-1)(0)\\
+		=& 1 - 2 - 2 + 0 -1 \\
+		=& -4
+		\end{align*}
+
+}
+
+\item  Recall that the signals were emitted from each building at the same time (12:00 PM). How many seconds after 12:00 PM did it take for the signal from Isengard to reach you? What about the signal from the Dark Tower? Assume that environmental noise (besides the tower-emitted signals) is minimal.
+
+\ans{
+	From the completed correlation diagrams solved for in (a), we find that $\text{corr}_{\vec{r}}(\vec{b_1})$ is maximized at sample 3 (value 6) and $\text{corr}_{\vec{r}}(\vec{b_2})$ is maximized at sample 5 (value 6). Note that each maximum isn't exactly equal to the norm of the respective tower's signal squared because there is noise in this problem. The time needed for the app to measure 3 samples is $\frac{3 \text{ samples}}{2 \text{ samples / sec}} = 1.5$ sec. Similarly, the time needed for the app to measure 5 samples is $\frac{5 \text{ samples}}{2 \text{ samples / sec}} =2.5$ sec. Hence, the number of seconds it took for the signal from Isengard to reach you was $1.5$ sec. From the Dark Tower, it took $2.5$ sec seconds.
+}
+
+\item Now, assume that you received Isengard's signal 8 seconds after it was sent and you received the Dark Tower's signal 2 seconds after it was sent. Can you determine your exact position $x$? If yes, calculate your position. If not, explain why not. Assume sound travels at 340 m/s.
+
+%\begin{enumerate}[(A)]
+%	\item Yes, your position is $x = 2.7$ km
+%	\item Yes, your position is $x = 0.7$ km
+%	\item Yes, your position is $x = 1.3$ km
+%	\item Yes, your position is $x = 3.3$ km
+%	\item Yes, your position is $x = 3.4$ km
+%	\item No, because the towers are co-linear
+%	\item No, because the measurements are inconsistent
+%	\item No, because you need at least 3 towers to determine your position
+%\end{enumerate}
+
+\ans{
+	Sound travels at 340 m/s, so the measurement from Isengard tells you that you are 8 sec $\times$ 340 m/sec $=$ 2,720 m $=$ 2.72 km from Isengard.
+	
+	Similarly, the measurement from the Dark Tower tells you that you are 2 sec $\times$ 340 m/sec $=$ 680 m $=$ 0.68 km from Isengard.
+	
+	You know that the two towers are $4$ km apart. Therefore the measurement from Isengard indicates that you are at $x = 2.72$ km and the measurement from the Dark Tower indicates that you are at $x = 4$ km - $0.68$ km $=3.32$ km. These measurements are inconsistent, so you cannot determine your exact position. 
+}
+
+\item You see a giant eagle, so you get out of your raft to follow it. But you soon realize that you don't know your $x$ position \textit{or} your $y$ position! Luckily, you have a phone app which tells you that you are:
+\begin{itemize}
+	\item $d_1$ km away from Isengard which is located at $x=0$ km$,y=0$ km
+	\item $d_2$ km away from the Dark Tower which is located at $x=4$ km$,y=0$ km
+	\item $d_3$ km away from Minas Tirith which is located at $x=1$ km$,y=3$ km
+\end{itemize}
+
+
+
+
+%Suppose you found the following system of equations that describes your position:
+%$$\begin{cases}
+%(x - 1)^2 + (y - 1)^2 = c_1 s^2 \\
+%(x - 4)^2 + (y - 3)^2 = c_2 s^2 \\
+%(x - 2)^2 + (y - 4)^2 = c_3 s^2
+%\end{cases}$$
+ Write a system of linear equations of the form $\mathbf{A}\vec{x} = \vec{b}$ that you can solve to find your position. \\
+ Let $\vec{x} = \begin{bmatrix} x \\ y \end{bmatrix}$ where $x,y$ have units of kilometers (km). \\
+
+%\begin{multicols}{2}
+%\begin{enumerate}[(A)]
+%	\item $\mathbf{{A}} = \begin{bmatrix} 8 & 0 \\ 2 & 6 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} 16 + d_1^2-d_2^2 \\ 10 + d_1^2-d_3^2  \end{bmatrix}$
+%	\item $\mathbf{{A}} = \begin{bmatrix} 4 & 0 \\ 1 & 3 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} 16 + d_1^2-d_2^2 \\ 10 + d_1^2-d_3^2  \end{bmatrix}$
+%	\item $\mathbf{{A}} = \begin{bmatrix} -8 & 0 \\ -2 & -6 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} 16 + d_1^2-d_2^2 \\ 10 + d_1^2-d_3^2  \end{bmatrix}$
+%	\item $\mathbf{{A}} = \begin{bmatrix} d_1 & d_2 \\ d_1 & d_3 \end{bmatrix}, \quad \vec{b} =  \begin{bmatrix} 4 \\ \sqrt{10}  \end{bmatrix}$
+%	\item $\mathbf{{A}} = \begin{bmatrix} -4 & 0 \\ -1 & -3 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} 16 + d_1^2-d_2^2 \\ 10 + d_1^2-d_3^2  \end{bmatrix}$
+%	\item $\mathbf{{A}} = \begin{bmatrix} -8 & 0 \\ -2 & -6 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} 4 + d_1^2-d_2^2 \\ \sqrt{10} + d_1^2-d_3^2  \end{bmatrix}$
+%	\item $\mathbf{{A}} = \begin{bmatrix} d_1 & d_2 \\ d_1 & d_3 \end{bmatrix}, \quad \vec{b} =  \begin{bmatrix} 16 \\ 10  \end{bmatrix}$
+%	\item $\mathbf{{A}} = \begin{bmatrix} 1 & 3 \\ 4 & 0 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} d_1^2-d_2^2 \\ d_1^2-d_3^2  \end{bmatrix}$
+%\end{enumerate}
+%\end{multicols}
+
+
+\ans{
+	
+	Let $\vec{a}_2 = \begin{bmatrix}
+	4 \\ 0
+	\end{bmatrix}$ be the position of the Dark Tower and $\vec{a}_3 = \begin{bmatrix}
+	1 \\ 3
+	\end{bmatrix}$ be the position of Minas Tirith.
+	
+	The three towers give us the following equations:
+		\begin{itemize}
+			\item Isengard: $\norm{\vec{x}}^2 = d_1^2$
+			\item The Dark Tower: $\norm{\vec{x} - \vec{a}_2}^2 = d_2^2$
+			\item Minas Tirith: $\norm{\vec{x} - \vec{a}_3}^2 = d_3^2$
+		\end{itemize}
+		
+		Rewriting these using transpose notation we get:
+		\begin{align}
+			\vec{x}^T\vec{x} &= d_1^2 \\
+			\vec{x}^T\vec{x} - 2\vec{a}_2^T\vec{x} + \norm{\vec{a}_2}^2
+			&= d_2^2 \\
+			\vec{x}^T\vec{x} - 2\vec{a}_3^T\vec{x} + \norm{\vec{a}_3}^2 &= d_3^2
+		\end{align}
+		
+		We subtract equation 2 from equation 1, and separately we subtract equation 3 from equation 1. Then we get: 
+		
+		$$2\vec{a}_2^T\vec{x} - \norm{\vec{a}_2}^2
+		= d_1^2 - d_2^2$$
+		\begin{center}
+			and
+		\end{center}
+		$$2\vec{a}_3^T\vec{x} - \norm{\vec{a}_3}^2
+		= d_1^2 - d_3^2$$
+		
+		These two equations are linear in $\vec{x}$, write them in matrix-vector form:
+		
+		$$ \begin{bmatrix}
+		2\vec{a}_2^T \\
+		2\vec{a}_3^T \\
+		\end{bmatrix}  \vec{x} = \begin{bmatrix}
+		\norm{\vec{a}_{2}}^2 + d_1^2 - d_2^2 \\ 
+		\norm{\vec{a}_{3}}^2 + d_1^2 - d_3^2\end{bmatrix}.$$
+		
+		We see that 
+		$$\mathbf{A} = \begin{bmatrix}
+		2\vec{a}_2^T \\
+		2\vec{a}_3^T \\
+		\end{bmatrix} \quad \textrm{and} \quad \vec{b} = \begin{bmatrix}
+		\norm{\vec{a}_{2}}^2 + d_1^2 - d_2^2 \\ 
+		\norm{\vec{a}_{3}}^2 + d_1^2 - d_3^2\end{bmatrix}.$$
+		
+		Plugging in the values of $\vec{a}_2$ and $\vec{a}_3$ gives:
+		$$\mathbf{A} = \begin{bmatrix}
+		8 & 0 \\
+		2 & 6 \\
+		\end{bmatrix} \quad \textrm{and} \quad \vec{b} = \begin{bmatrix}
+		16 + d_1^2 - d_2^2 \\ 
+		10 + d_1^2 - d_3^2\end{bmatrix}.$$
+
+	
+	}
+
+
+
+
+
+\end{enumerate}

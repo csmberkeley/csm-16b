@@ -1,0 +1,84 @@
+% Author: Dylan Supencheck
+% Email: dylansupenchecka@berkeley.edu
+
+\qns{Proving Linearity}
+
+Soon we'll be learning how to prove things mathematically. When we prove something, we challenge ourselves to rigorously show the thing is true, given a set of facts to start with. 
+
+Take, for example, linearity! We'll start with a set of useful facts, the definition of linearity.\\
+
+\textbf{Linearity:} A linear function must satisfy two properties:
+\begin{enumerate}
+    \item[] Additivity: $f(x + y) = f(x) + f(y)$
+    \item[] Homogeneity: $f(\alpha x) = \alpha f(x)$\\
+\end{enumerate}
+
+\begin{enumerate}
+
+% Part A
+\item Show that $f(x) = 5x$ is linear.
+
+\ans{
+To prove our function is linear, we must verify \textbf{additivity} and \textbf{homogeneity}.
+
+First, to verify additivity we would like to show that $f(x + y) = f(x) + f(y)$.
+
+$$ f(x + y) = 5(x + y) $$
+$$ = 5x + 5y $$
+$$ = f(x) + f(y) $$
+
+Next, to verify homogeneity we would like to show that $f(\alpha x) = \alpha f(x)$.
+
+$$ f(\alpha x) = 5 \alpha x $$
+$$ = \alpha 5x $$
+$$ = \alpha f(x) $$
+
+Since $f(x)$ satisfies both of our properties, it must be linear!
+}
+
+% Part B
+\item Show that $f(x_1, x_2) = 2x_1 + x_2$ is linear.
+
+\ans{
+To prove our function is linear, we must verify \textbf{additivity} and \textbf{homogeneity}.
+
+First, to verify additivity we would like to show that $f(x_1 + y_1, x_2 + y_2) = f(x_1, x_2) + f(y_1, y_2)$.
+
+$$ f(x_1 + y_1, x_2 + y_2) = 2(x_1 + y_1) + x_2 + y_2 $$
+$$ = 2x_1 + 2y_1 + x_2 + y_2 $$
+$$ = f(x_1, x_2) + f(y_1, y_2) $$
+
+Next, to verify homogeneity we would like to show that $f(\alpha x_1, \alpha x_2) = \alpha f(x_1, x_2)$.
+
+$$ f(\alpha x_1, \alpha x_2) = 2 \alpha x_1 + \alpha x_2 $$
+$$ = \alpha (2x_1 + x_2) $$
+$$ = \alpha f(x_1, x_2) $$
+
+Since $f(x_1, x_2)$ satisfies both of our properties, it must be linear!
+}
+
+%Part C
+\item Show that $f(x) = 2x + 1$ is \emph{not} linear.
+
+\ans {
+To prove our function is  \emph{not} linear, we just need too verify it violates at least one of \textbf{additivity} and \textbf{homogeneity}.
+
+Let's check additivity first. We would like to show that $f(x + y) \neq f(x) + f(y)$.
+
+$$ f(x + y) = 2(x + y) + 1 $$
+$$ = 2x + 2y + 1 $$
+$$ \neq 2x + 1 + 2y + 1 = f(x) + f(y) $$
+
+Since we know $f(x)$ does not satisfy additivity, we already know that $f(x)$ is \emph{not} linear.
+
+But what if we looked at homogeneity first? We would have wanted to show that $f(\alpha x) \neq \alpha f(x)$.
+
+$$ f(\alpha x) = 2 \alpha x + 1 $$
+$$ \neq \alpha (2x + 1) = \alpha f(x) $$
+
+Since we know $f(x)$ does not satisfy homogeneity, we know that $f(x)$ is \emph{not} linear.\\
+
+Wondering why this function, that would look like a line when graphed, isn't linear? Check out \notes{Note 1A: Section 1.3.3} for information on \emph{affine functions}.
+}
+
+\end{enumerate}

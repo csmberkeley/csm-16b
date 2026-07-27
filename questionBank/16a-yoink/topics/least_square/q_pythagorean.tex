@@ -1,0 +1,197 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+% Rewritten by Dun-Ming Huang, dunmingbrandonhuang@berkeley.edu, Sp23
+\newcommand{\old}[1]{}
+\qns{Let the World Feel P(ythagor)ain} % Project-gorean theorem
+
+\textbf{Learning goal:}
+\begin{bindenum}
+    \item Practice projection related proofs and algebraic derivations.
+    \item Learn to clarify the setups of a proof before proceeding.
+    \item Recognize the geometrical applications of projection.
+    \item (Learn how to not feel as much pain in proofs.)
+\end{bindenum}
+
+\meta{
+\begin{enumerate}
+    \item This proof question is separated into quite grated subparts, so there is relatively less worry on how to teach and convey these concepts.
+    \item Therefore, there are not much meta that I'd like to address here. The only advice I have is to perform this proof interactively with students, rather than individually, as students are perhaps still not familiar with what a projection is.
+\end{enumerate}
+}
+
+Let us now explore an application of ``projection'' with the following setup:
+\begin{quote}
+    Suppose we have points $A = (a, b), B =(c, d)$ as points in the first quadrant in the 2D plane. Then, suppose $O$ is the origin $(0, 0)$, and $C$ lies at the point on $\overline{OB}$ tht is closest to $A$. \\
+    What is the relationship between $\overline{OA}, \overline{OC}, \overline{AC}$?
+\end{quote}
+
+\begin{enumerate}
+    \item {
+        Draw a figure that represents the setup of this prompt's proof.
+        
+    }
+    \meta {
+        The bottom vector is drawn non-horizontally to present the general setup of this proof.
+        
+    }
+    \ans {
+        We may draw the setup of our proof as follows:
+        \begin{center}
+            \begin{tikzpicture}[>=latex]
+              \draw[->,line width=0.5mm, red] (0,0) node[circ, black, label=left:$O$]{} -- (2,2) node[right]{$A$};
+              \draw[->, line width=0.5mm, blue] (0,0) -- (4.5,0.3) node[right]{$B$};
+              \node[circ, black, label=above:$C$] at (2.12, 0.14) {};
+            \end{tikzpicture}
+        \end{center}
+    }
+
+    \item {
+        Express the length of $\overline{OA}$ in terms of an inner product. You can define any vector you use in this inner product definition in terms of $a, b, c, d$.
+        
+    }
+    \ans {
+        The length of $\overline{OA}$ can be written as the norm of such vector proceeding from $O = (0, 0)$ to $A = (a, b)$. \\
+        Therefore, suppose we define
+        \[
+            \vec{OA} = \begin{bmatrix} a \\ b \end{bmatrix}
+        \]
+        then, the length of $\overline{OA}$ may be written as:
+        \[
+            \| \vec{OA} \| = \sqrt{\vec{OA}^T \vec{OA}} = \sqrt{a^2 + b^2}
+        \]
+    }
+
+    \item {
+        Express a vector that has the same direction and magnitude as $\overline{OC}$. \\
+        \textit{Hint: $C$ is the point on some line $\overline{OB}$ that is closest to the point $A$. Does this remind you of some mathematical function we addressed in previous parts?}
+        
+    }
+    \ans {
+        The line segment $\overline{OC}$ may be treated as the vector that proceeds from $O$ to $C$, which we may write as $\vec{OC}$ as well. \\
+        Notice that $C$ is the closest point on $\overline{OB}$ to $A$, which would imply that $\overline{AC} \perp \overline{OB}$.
+        Therefore, $\vec{OC}$ is in fact a projection of $\vec{OA}$ onto $\vec{OB}$ (meaning that $\vec{OC}$ is the shadow of $\vec{OA}$ onto $\vec{OB}$).
+
+        Recalling that,
+        \[
+            \vec{OA} = \begin{bmatrix} a \\ b \end{bmatrix},
+            \vec{OB} = \begin{bmatrix} c \\ d \end{bmatrix},
+        \]
+        Then, the projection of $\vec{OA}$ onto $\vec{OB}$ may thus be written as:
+        \begin{align*}
+            \vec{OC} &= {\rm proj}_{\vec{OB}} (\vec{OA}) \\
+            &= \frac{\vec{OA} \cdot \vec{OB}}{\vec{OB} \cdot \vec{OB}} \vec{OB} \\
+            &= \frac{ac + bd}{c^2 + d^2} \begin{bmatrix} c \\ d \end{bmatrix}
+        \end{align*}
+        
+    }
+
+    \item {
+        Express the length of $\overline{AC}$ in terms of $a, b, c, d$.
+        
+    }
+    \ans {
+        From the geometries of our setup, we may see that:
+        \[
+            \vec{CA} = \vec{OA} - \vec{OC}
+        \]
+        Therefore,
+        \begin{align*}
+            \vec{CA}
+            &= \vec{OA} - \vec{OC} \\
+            &= \begin{bmatrix} a \\ b \end{bmatrix} - \frac{ac + bd}{c^2 + d^2} \begin{bmatrix} c \\ d \end{bmatrix} \\
+            &=
+            \begin{bmatrix}
+                a - c\frac{ac + bd}{c^2 + d^2} \\
+                b - d\frac{ac + bd}{c^2 + d^2}
+            \end{bmatrix}
+        \end{align*}
+        
+    }
+
+    \item {
+        Using previous subparts, prove that the line segments $\overline{OA}, \overline{OC}, \overline{AC}$ follow the Pythagorean Theorem. \\
+        You may write an answer with or without mathematical expressions.
+        
+    }
+    \ans {
+        Let us substitute a complicated value in the computation as:
+        \[
+            m = \frac{ac + bd}{c^2 + d^2}
+        \]
+        The square of lengths of $\overline{OC}, \overline{AC}$ may be organized as:
+        \begin{align*}
+            \overline{OC}^2
+            &= {\| \vec{OC} \|}^2 \\
+            &= {(cm)}^2 + {(dm)}^2 \\
+            \overline{AC}^2
+            &= {\| \vec{AC} \|}^2 \\
+            &= {(a - cm)}^2 + {(b - dm)}^2 \\
+            \overline{OC}^2 + \overline{AC}^2
+            &= {(cm)}^2 + {(dm)}^2 + {(a - cm)}^2 + {(b - dm)}^2 \\
+            &= a^2 - 2acm + b^2 - 2bdm + 2 c^2 m^2 + 2 d^2 m^2 \\
+            &= a^2 + b^2 + 2(c^2 + d^2) m^2 - 2 (ac + bd) m \\
+            &= a^2 + b^2 + \frac{2(c^2 + d^2) {(ac + bd)}^2}{{(c^2 + d^2)}^2} - 2 \frac{2 {(ac + bd)}^2}{c^2 + d^2} \\
+            &= a^2 + b^2 + \frac{
+                2 {(ac + bd)}^2 - 2 {(ac + bd)}^2
+            }{c^2 + d^2} = a^2 + b^2 = \overline{OA}
+        \end{align*}
+    }
+\end{enumerate}
+
+\old{
+Suppose we have points $A = (a, b), B =(c, d)$ as points in the first quadrant
+in the 2D plane.  $O$ is the origin. Suppose projection of  $A$ to  $OB$ is
+point  $C$. Prove the pythagorean theorem, which is
+
+ \[
+    AO^{2} = OC^{2} + AC^{2}
+\]
+
+and calculate the angle of $\angle AOB$
+
+\ans{For the proof, we have $AO^{2} = (a^{2} + b^{2})$, also, we have the
+    projection result has the point 
+
+    \[
+        (a, b) - \dfrac{\langle a, b\rangle \cdot \langle c, d\rangle}{\langle
+        c, d\rangle \cdot \langle c, d\rangle} (c, d) =
+        \langle\dfrac{ac^{2}+bcd}{c^{2} + d^{2}},
+        \dfrac{bd^{2} + acd}{c^{2} + d^{2}}\rangle
+    \]
+
+    and the vector that represents $AC$  is
+
+     \[
+         \langle a, b\rangle - \langle\dfrac{ac^{2}+bcd}{c^{2} + d^{2}},
+         \dfrac{bd^{2} + acd}{c^{2} + d^{2}}\rangle = \langle \dfrac{ad^{2} -
+             bcd}{c^{2} +
+             d^{2}}, \dfrac{bd^{2} + acd}{c^{2}+d^{2}}\rangle
+    \]
+    
+
+    We just need to prove the sum of norm of those two points would be $a^{2} +
+    b^{2}$, this is equivalent to proving (since all the coordinates share the
+    denominator $c^{2} + d^{2}$)
+
+    \[
+        (ad^{2} - bcd)^{2} + (bc^{2} - acd)^{2} + (ac^{2} + bcd)^{2} + (bd^{2} +
+        acd)^{2} = a^{2}d^{4} + b^{2}c^{2}d^{2} + b^{2}c^{4} + a^{2}c^{2}d^{2} +
+        a^{2}c^{4} + b^{2}c^{2}d^{2} + b^{2}d^{4} + a^{2}c^{2}+d^{2} =
+        (a^{2}+b^{2})(c^{4}+2c^{2}d^{2}+d^{4}) = (a^{2}+b^{2})(c^{2}+d^{2})^{2}
+    \]
+
+    so the sum is $a^{2}+b^{2}$
+    
+}
+
+
+\ans{
+    We have the angle is 
+
+    \[
+        \arcsin (\dfrac{\sqrt{a^{2}c^{4} +
+            b^{2}d^{4}}{(c^{2}+d^{2})}\sqrt{(a^{2}+d^{2})}})
+    \]
+ 
+}
+}
+

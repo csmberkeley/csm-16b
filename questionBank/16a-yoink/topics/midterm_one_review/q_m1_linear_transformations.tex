@@ -1,0 +1,141 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Since You're CS, Can you Design An APP for Me?}
+
+\textbf{Learning Topic:} Matrix-vector Linear Transformations \\
+As you look at your smartphone to get Google Maps directions to TeaOne in Cory Hall, you realize that your smartphone is doing exactly what you do in class–linear algebra! As your fingers apply gestures to the screen, the phone is performing matrix transformations on the screen image.\\
+In the following parts, we represent coordinates before transformation as $\vec{x} = \begin{bmatrix} x_{1} & x_{2} \end{bmatrix} ^ {T}$.\\
+Although specific points are labeled, the transformation applies to all points in the $(x_{1}, x_{2})$ plane.
+
+\begin{enumerate}
+    \item\label{zooming_out}{
+        You pinch the screen to zoom out, as shown in the figure below:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.9]{../q_m1_linear_transformations_figs/zoom.PNG}
+            }
+        \end{center}
+        The point represented by a dot moves from $(0,3)$ to $(0,2)$, and the point represented by a star moves from $(-3,-1.5)$ to $(-2,-1)$.\\
+        What is the transformation matrix, $A$, such that $\vec{x}\ ' = A\vec{x}$ for this transformation?
+        
+    }
+    \meta{
+        This question comes from Q8(a) of Spring 2018’s Midterm 1.
+        
+    }
+    \ans{
+        Each transformation described in the question is a matrix-vector multiplication as provided in the prompt. In that case, our given information are:
+        \[
+        \begin{cases}
+            \begin{bmatrix}
+                A_{11} & A_{12} \\
+                A_{21} & A_{22}
+            \end{bmatrix}
+            \begin{bmatrix} 0 \\ 3 \end{bmatrix}
+            = \begin{bmatrix} 0 \\ 2 \end{bmatrix} \\
+            \begin{bmatrix}
+                A_{11} & A_{12} \\
+                A_{21} & A_{22}
+            \end{bmatrix}
+            \begin{bmatrix} -3 \\ -1.5 \end{bmatrix}
+            = \begin{bmatrix} -2 \\ -1 \end{bmatrix}
+        \end{cases}
+        \]
+        While the information might already seem obvious for the patterns these transformed coordinates follow, let's still go into identifying the contents of $A$.\\
+        From the above information, I may then derive that:
+        \[
+        \begin{cases}
+            3A_{12} = 0\\
+            3A_{22} = 2\\
+            -3A_{11} - 1.5A_{12} = -2\\
+            -3A_{21} - 1.5A_{22} = -1
+        \end{cases}
+        \]
+        Finally, solving this system of equations would grant the contents of matrix as:
+        \[A = 
+            \begin{bmatrix}
+                \frac{2}{3} & 0 \\
+                0 & \frac{2}{3}
+            \end{bmatrix}
+        \]
+    }
+    
+    \item\label{rotating_screen}{
+        Smartphones are smart, so if you rotate your phone, the map will reorient itself to make sure you can read it! That is, if you rotate your phone $90^{\circ}$ clockwise, the map will rotate $90^{\circ}$ counterclockwise relative to the phone, as shown below.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m1_linear_transformations_figs/rotate.PNG}
+            }
+        \end{center}
+        The point represented by a dot moves from $(0, 3)$ to $(-3, 0)$, and the point represented by a star moves from $(-3, -1.5)$ to $(1.5, -3)$. \\
+        What is the transformation matrix, $R$, such that $\vec{x}\ ' = R\vec{x}$ for this transformation?
+        
+    }
+    \meta{
+        This question comes from Q8(b) of Spring 2018’s Midterm 1.
+        
+    }
+    \ans{
+        Each transformation described in the question is a matrix-vector multiplication as provided in the prompt. That means our given information are:
+        \[
+        \begin{cases}
+            \begin{bmatrix}
+                R_{11} & R_{12} \\
+                R_{21} & R_{22}
+            \end{bmatrix}
+            \begin{bmatrix} 0 \\ 3 \end{bmatrix}
+            = \begin{bmatrix} -3 \\ 0 \end{bmatrix} \\
+            \begin{bmatrix}
+                R_{11} & R_{12} \\
+                R_{21} & R_{22}
+            \end{bmatrix}
+            \begin{bmatrix} -3 \\ -1.5 \end{bmatrix}
+            = \begin{bmatrix} 1.5 \\ -3 \end{bmatrix}
+        \end{cases}
+        \]
+        While the information might already seem obvious for the patterns these transformed coordinates follow, let's still go into identifying the contents of $R$.\\
+        From the above information, I am given the following information:
+        \[
+        \begin{cases}
+            3R_{12} = -3\\
+            3R_{22} = 0\\
+            -3R_{11} - 1.5R_{12} = 1.5\\
+            -3R_{21} - 1.5R_{22} = -3
+        \end{cases}
+        \]
+        Finally, solving this system of equations would grant the contents of matrix to be:
+        \[R = 
+            \begin{bmatrix}
+                0 & -1 \\
+                1 & 0
+            \end{bmatrix}
+        \]
+    }
+    
+    \item\label{scrolling}{
+        So far, we have only done transformations that involve rotation and scaling, but another key feature of Google Maps is that we can scroll laterally across a map, as shown below.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m1_linear_transformations_figs/scroll.PNG}
+            }
+        \end{center}
+        The point represented by a dot moves from $(0, 2)$ to $(2, 2)$, and the point represented by a star moves from $(-2, -1)$ to $(0, -1)$. In the previous parts we were able to represent the map transformations in the form:
+        \[\vec{x}\ ' = A\vec{x} + \vec{b}\]
+        (Previously $\vec{b} = \vec{0}$.) \\
+        What are $A$ and $\vec{b}$ for the scrolling operation above? Is this a linear transformation?
+        
+    }
+    \meta{
+        This question comes from Q8(c) of Spring 2018’s Midterm 1.
+        
+    }
+    \ans{
+        Matrix-vector multiplications are linear transformations. \\
+        However, vector additions are not linear transformations. Vector addition itself is in fact a non-linear, affine transformation. \\
+        Therefore, considering that the added vector $\vec{b}$ is nonzero, the scrolling operation is not a linear transformation.
+        
+    }
+\end{enumerate}

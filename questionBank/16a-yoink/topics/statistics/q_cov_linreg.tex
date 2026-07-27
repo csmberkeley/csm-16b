@@ -1,0 +1,152 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Spring 2024
+
+\qns{Varying Expressions of Variances}
+
+\textbf{Learning Goals:}
+\begin{bindenum}
+    \item Learn how to use RMSE and apply it onto evaluating linear models.
+    \item Learn how to manipulate summation notations into expressions that resemble variances, covariances of a variable.
+\end{bindenum}
+
+In EECS 16A, we have learned about several properties regarding a vector, such as root mean squared error and mean. These statistics eventually lead us to several interesting applications in future coursework, one of which we are to briefly introduce in this question.
+
+For the following scatterplot:
+\begin{center}
+    \includegraphics[scale=0.5]{../../topics/statistics/scatter_prompt.png}
+\end{center}
+linear regression refers to a method that uses a line to predict the $y$ coordinate of any $x$ coordinate in the plot. This technique is frequently used in statistics to have educated guesses for points whose coordinate we do not know simply because they are not plotted.
+The above scatterplot concerns a set of point:
+\[
+    P = \{(-4, -4), (-2, -3), (0, 2), (2, 3), (4, 3)\}
+\]
+
+\begin{enumerate}
+    \item {
+        To determine how good a line is, we may use root mean squared error for the difference between the actual values and the predicted values of each point to quantify how largely on average the line misses its predictions.
+        Provided the lines $L_1: y = 2x - 1$, $L_2: y = x + 2$, report the RMSE between each line and the points listed in $P$ above.
+    }
+    \ans {
+        Let us list the values of $y$ for each of the lines and $P$ per se:
+        \begin{center}
+            \begin{tabular}{c|c|c|c}
+                $x$ & $y_P$ & $y_{L_1}$ & $y_{L_2}$ \\
+                \hline
+                \hline
+                -4 & -4 & -9 & -2 \\
+                -2 & -3 & -5 & 0 \\
+                0 & 2 & -1 & 2 \\
+                2 & 3 & 3 & 4 \\
+                4 & 3 & 7 & 6
+            \end{tabular}
+        \end{center}
+        Then, the RMSE between actual values of $y$ and line $L_1$ may be computed as:
+        \begin{align*}
+            RMSE(y_P, y_{L_1})
+            &= \sqrt{\frac{1}{5} \left({(-4 - (-9))}^2 + {(-3 - (-5))}^2 + {(2 - (-1))}^2 + {(3 - 3)}^2 + {(3 - 7)}^2 \right)} \\
+            &= \sqrt{\frac{25 + 4 + 1 + 16}{5}} = \frac{\sqrt{46}}{\sqrt{5}}
+        \end{align*}
+        On the other hand,
+        \begin{align*}
+            RMSE(y_P, y_{L_2})
+            &= \sqrt{\frac{1}{5} \left({(-4 - (-2))}^2 + {(-3 - (0))}^2 + {(2 - 2)}^2 + {(3 - 4)}^2 + {(3 - 6)}^2\right)} \\
+            &= \sqrt{\frac{4 + 9 + 1 + 9}{5}} = \frac{\sqrt{23}}{\sqrt{5}}
+        \end{align*}
+    }
+
+    \item {
+        We may explore whether it is possible to find the line of least mean squared error for any provided vectors $x$ and $y$. \\
+        If the line $y=\theta x$ misses the least, it means the RMSE is minimized for such line.
+        Discuss with your classmates how you may find the coefficient $\theta$ a using mathematical knowledge in your inventory.
+    }
+    \meta {
+        The instructor can guide the student towards several directions, but attempt to come back to calculus.
+        This subpart is just an opportunity at engaging student attention with a slightly non-16A problem.
+        Preferably, single-variable calculus.
+    }
+    \ans {
+        The ``standard'' answer is using calculus.
+    }
+
+    \item {
+        We may use calculus to find the parameter of a function that minimizes it. \\
+        Let us use $f(x) = \theta x$ to generate the predicted $y$ values.
+        Then, using calculus, first find all values of $\theta$ at which there are critical points of the RMSE between the actual and predicted y values.
+    }
+    \meta {
+        The derivation here requires some mathematical tricks with summations.
+        This is intended as a practice for students to familiarize more with summation notation manipulations.
+    }
+    \ans {
+        Note that
+        \begin{align*}
+            MSE(y, f(x))
+            &= \frac{1}{5} \sum_i {(y_i - f(x_i))}^2 \\
+            &= \frac{1}{5} \sum_i {(y_i - \theta x_i)}^2
+        \end{align*}
+        The variables $y_i$, $x_i$ are given to us as point coordinates of $P$. The only way we may minimize the above function is by finding a value of $\theta$ that does so.
+        To find a critical point of $g(\theta) = MSE(y, f(x))$, we need to find points at which the derivative $\dv{g}{\theta}$ has a value of zero; that is,
+        \begin{align*}
+            \dv*{}{\theta} g(\theta)
+            &= \dv*{}{\theta} \frac{1}{5} \sum_i {(y_i - \theta x_i)}^2 \\
+            &= \frac{1}{5} \sum_i \dv*{}{\theta} {(y_i - \theta x_i)}^2 \\
+            &= \frac{1}{5} \sum_i -2x_i {(y_i - \theta x_i)} = 0
+        \end{align*}
+        Which the last line we may refine as:
+        \begin{align*}
+            \sum_i -x_i {(y_i - \theta x_i)} &= 0 \\
+            \sum_i x_i y_i &= \theta \sum_i x_i^2 \\
+            \theta &= \frac{\sum_i x_i y_i}{\sum_i x_i^2}
+        \end{align*}
+        And this is the only critical point for $g(\theta)$.
+    }
+
+    \item {
+        Prove that the critical point you found is indeed a minimum, and report the minimizing value of parameter theta that you found in terms of variables $x$ and $y$.
+    }
+    \ans {
+        For the critical point to be a minimum, it must be that the second-order derivative of our function at the critical point is positive.
+        In our case,
+        \begin{align*}
+            \frac{{\rm d}^2 g}{{\rm d} \theta^2}
+            &= \frac{{\rm d}}{{\rm d} \theta} \frac{1}{5} \sum_i -2x_i {(y_i - \theta x_i)} \\
+            &= \frac{1}{5} \sum_i 2\theta x_i^2 \geq 0
+        \end{align*}
+        Provided that there exists at least one nonzero $x_i$ in the points given by $P$, the second order derivative of our MSE function $g(\theta)$ is always positive, meaning that the critical point we found before is a minimum.
+        Therefore, the minimizing value of $\theta$ is, as we found before,
+        \[
+            \theta = \frac{\sum_i x_i y_i}{\sum_i x_i^2}
+        \]
+    }
+
+    \item {
+        Assume that the variables $x$, $y$ each have a mean of zero. That is,
+        \[
+            \sum_i x_i = \sum_i y_i = 0
+        \]
+        Rephrase the parameter theta in terms of standard deviations, covariances, correlation of variables $x$, $y$.
+    }
+    \meta {
+        To begin with the question, the instructor may first list out mathematical definitions of standard deviations, covariances, and correlations, so to enable students to see how to involve averages of $x$ and $y$ to shape the expression of $\theta$ towards that of the variances of $x$, $y$.
+    }
+    \ans {
+        Provided that
+        \[
+            \theta = \frac{\sum_i x_i y_i}{\sum_i x_i^2}
+        \]
+        if the average of $x$, $y$ are zero, let $\bar{x}$ and $\bar{y}$ denote respectively the averages of $x$ and $y$, then we may also state:
+        \[
+            \theta = \frac{\sum_i (x_i - \bar{x}) (y_i - \bar{y})}{\sum_i (x_i - \bar{x})^2}
+        \]
+        for which we may, using the following definitions:
+        \begin{align*}
+            cov(x, y) &= \frac{1}{n} \sum_i (x_i - \bar{x}) (y_i - \bar{y}) \\
+            var(x) &= \frac{1}{n} \sum_i (x_i - \bar{x})^2
+        \end{align*}
+        we observe that
+        \[
+            \theta = \frac{cov(x, y)}{var(x)} = \frac{r_{x, y} \sigma_y}{\sigma_x}
+        \]
+    }
+\end{enumerate}

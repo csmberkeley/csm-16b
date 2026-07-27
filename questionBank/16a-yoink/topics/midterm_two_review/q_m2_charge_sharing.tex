@@ -1,0 +1,121 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{Charge Sharing}
+
+\begin{enumerate}
+    \item\label{simple_share}{
+        In the following figure, capacitors $C_1$ and $C_2$ are charged to $V_1$ and $V_2$ and switch $S_1$ is open for time $t < 0$. At time $t = 0$, switch $S_1$ is closed. Calculate $V_1$ at time $t > 0$.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_charge_sharing_figs/simple_share_circuit.PNG}
+            }
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q8(a) of Fall 2019's Midterm 2. \\
+        This question is a classic simple example for charge sharing.
+        
+    }
+    \ans{
+        Before switch $S_1$ is closed, the floating node at the top of the circuit possesses a total charge of $Q_{open} = C_1V_1 + C_2V_2$. \\
+        After the switch $S_1$ is closed, let the new floating node voltage be denoted as $V_{new} = V_{1,t>0}$, that node possess a total of $Q_{closed} = C_1V_{new} + C_2V_{new}$. \\
+        Using conservation of charge, we are to conclude that:
+        \begin{align*}
+            Q_{open}
+            &= C_1V_1 + C_2V_2 \\
+            &= C_1V_{new} + C_2V_{new} \\
+            &= (C_1 + C_2)V_{new} = Q_{closed}
+        \end{align*}
+        Therefore, 
+        \[V_{new} = V_{1,t>0} = \frac{C_1V_1 + C_2V_2}{C_1 + C_2}\]
+        
+    }
+    
+    \item\label{complicated_share}{
+        The circuit shown in Figure 8.2 operates in two phases. During phase 1, switches labeled $S_1$ are closed and switches $S_2$ are open. During phase 2, switches $S_1$ are open and switches $S_2$ are closed, as illustrated in the timing diagram shown in Figure 8.3.
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_charge_sharing_figs/complicated_share_circuit.PNG}
+            }
+            \makebox[\linewidth]{
+                \includegraphics{../q_m2_charge_sharing_figs/complicated_share_input.PNG}
+            }
+        \end{center}
+        \begin{enumerate}
+            \item Redraw the circuit during phase 1. Replace closed switches with "wires" and open switches with "open circuits" (i.e., just omit them from the diagram). Use $C_1 = C_2 = C_0$.
+            \item Redraw the circuit during phase 2. Replace closed switches with "wires" and open switches with "open circuits". Use $C_1 = C_2 = C_0$.
+            \item Calculate the value of the voltage $V_{out}$ during phase 2 as a function of $C_0$, $C_x$ and $V$.
+        \end{enumerate}
+        
+    }
+    \meta{
+        This question comes from Q8(b) of Fall 2019's Midterm 2. \\
+        This question is a much complicated example for charge sharing algorithm. \\
+        To solve this question, there are a few key points to mind for:
+        \begin{enumerate}
+            \item Please keep the passive sign convention coherent across phases.
+            \item Floating nodes are nodes that are only connected to capacitors, as only in those nodes will the charges between plates of capacitors have no where to escape to. In that sense, when calculating the net charge at a node, we can conceptualize it as adding and subtracting charges from plates.
+            \item Capacitors have positive and negative plates, and the voltage across them is described to be $V_C = V_+ - V_-$.
+        \end{enumerate}
+        In addition, it would be convenient for students if instructors clarify and strengthen the usage of "Charge Sharing Algorithm" used in class, offering a procedural thinking guideline for solving similar problems:
+        \begin{enumerate}
+            \item[Step 1:] Label element voltages and decide passive sign convention.
+            \item[Step 2:] Draw the equivalent circuits for the phases of circuit.
+            \item[Step 3:] Identify all floating nodes in phase 2.
+            \item[] for each floating node identified in Step 3 \texttt{\{}
+            \item[Step 4:] Find the total charge of node at phase 1.
+            \item[Step 5:] Find the total charge of node at phase 2.
+            \item[Step 6:] Generate an expression by stating the charge at phase 1 is equal to the charge at phase 2.
+            \item[] \texttt{\}}
+        \end{enumerate}
+        In almost all cases for exam questions, this algorithm will grant all available information of the circuit that are needed to solve the problem. It is also not unseen that exam questions combined the knowledge of both capacitive touchscreen switch-based model and charge sharing. \\
+        This question is also used as an official example to demonstrate the algorithm. \\
+        \url{https://eecs16a.org/student-resources/charge_sharing_algorithm.pdf}
+        
+    }
+    \ans{
+        Let us first finish part (i) and (ii), as knowing the circuit's structure will help us find floating nodes. \\
+        Please forgive the handwritten circuit for now:
+        \begin{center}
+            \makebox[\linewidth]{
+                \includegraphics[scale=0.4]{../q_m2_charge_sharing_figs/complicated_share_sol.PNG}
+            }
+        \end{center}
+        We see from the graph that the floating node of this circuit structure would be $u_2$ and $u_3$. In the following analysis, let us also label anything belonging to phase 1 with $\phi_1$, phase 2 with $\phi_2$.\\
+        In the following analysis, we will analyze the nodes' voltages via observing the charge sharing situation between each related capacitors, in order to find an expression of $V_{out}=V_{C_x,\phi_2}$ to answer the question with. \\
+        Let us start with analyzing nodes $u_{2,\phi_1}$ and $u_{2,\phi_2}$, where $u_2$ is connected to the negative plate of $C_1$ and positive plate of $C_2$.
+        \begin{align*}
+            Q_{u_{2,\phi_1}} &= -(C_1)(u_1) + (C_2)(u_1) \\
+            Q_{u_{2,\phi_2}} &= -(C_1)(0 - u_2) + (C_2)(u_2 - u_3)
+        \end{align*}
+        The conservation of charge states that $Q_{u_{2,\phi_1}} = Q_{u_{2,\phi_2}}$. \\
+        Following that hint and applying the values provided by prompt:
+        \begin{align*}
+            Q_{u_{2,\phi_1}} &= Q_{u_{2,\phi_2}} \\
+            -(C_1)(u_1) + (C_2)(u_1) &= -(C_1)(0 - u_2) + (C_2)(u_2 - u_3) \\
+            -(C_0)(V_S) + (C_0)(V_S) &= -(C_0)(-u_2) + (C_0)(u_2 - u_3) \\
+            0 &= C_0(2u_2 - u_3) \\
+            u_3 &= 2u_2
+        \end{align*}
+        Then, we will observe $u_{3,\phi_1}$ and $u_{3,\phi_2}$, where $u_3$ is connected to the negative plate of $C_2$ and positive plate of $C_x$. The phase 2 diagram of circuit would hint that $u_{3,\phi_2} = V_{C_x} = V_{out}$, so by solving for $u_3$ in the following system of equations we practically are solving for $V_{out}$. 
+        \begin{align*}
+            Q_{u_{3,\phi_1}} &= -(C_2)(u_1) + (C_x)(0) \\
+            Q_{u_{3,\phi_2}} &= -(C_2)(u_2 - u_3) + (C_x)(u_3 - 0)
+        \end{align*}
+        The conservation of charge states that $Q_{u_{2,\phi_1}} = Q_{u_{2,\phi_2}}$. \\
+        Following that hint and applying the values provided by prompt:
+        \begin{align*}
+            Q_{u_{3,\phi_1}} &= Q_{u_{3,\phi_2}} \\
+            -(C_2)(u_1) + (C_x)(0) &= -(C_2)(u_2 - u_3) + (C_x)(u_3 - 0) \\
+            -(C_0)(V_S) + (C_x)(0) &= -(C_0)(0.5V_{out} - V_{out}) + (C_x)(V_{out}) \\
+            -(C_0)(V_S) &= (C_x + 0.5C_0)V_{out}
+        \end{align*}
+        Via charge sharing, At the end of algebra, Awaits the answer:
+        \[V_{out} = -\frac{C_0V_S}{C_x + 0.5C_0} = -\frac{2C_0V_S}{2C_x + C_0}\]
+        
+    }
+\end{enumerate}

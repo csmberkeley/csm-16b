@@ -1,0 +1,104 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{You're In the Matrix Now!}
+
+You've been pranked! Your friends have stolen your things and have hidden them all over town.\\
+They are communicating messages back and forth that contain coordinates representing the locations of your missing stuff.\\
+Unfortunately, your friends are pretty smart, so they've used an encoding matrix to encode the vector of coordinates,\\
+\[\vec{y} = A\vec{x}\]
+where $\vec{y}$ is the encoded message, $\vec{x}$ is the original vector of coordinates, and $A$ is the encoding matrix.\\
+But not to worry! Your 16A knowledge should help you break the code and find your stuff.\\
+
+\begin{enumerate}
+    \item\label{matrix_dimension}{
+        You've successfully intercepted both the original and encoded versions of one of the locations.\\
+        If the original vector, $\vec{x}$, belongs to $\R^{2}$ and the encoded vector, $\vec{y}$, belongs to $\R^{6}$, what are the dimensions of the encoding matrix, A?
+        
+    }
+    \meta{
+        This question comes from Q7(a) of Summer 2020's Midterm 1.
+        
+    }
+    \ans{
+        To express the dimensions of vectors when written in matrix expression, $\vec{x}\in\R^{2\times1}$ and $\vec{y}\in\R^{6\times1}$. Meanwhile, $\vec{y} = A\vec{x}$.\\
+        To make the multiplication appropriate, there is a specific set of dimensions that matrix $A$ has to be in. A must have 2 columns such that the expression $A\vec{x}$ is defined. Meanwhile, because $\vec{y}\in\R^{6\times1}$, $A$ must have 6 rows.\\
+        Summarizing the above: $A\in\R^{6\times2}$.
+        
+    }
+    
+    \item\label{system_identification}{
+        What is the minimum number of pairs of original and encoded messages that you'd need to intercept in order to determine the encoding matrix?
+
+    }
+    \meta{
+        This question comes from Q7(b) of Summer 2020's Midterm 1.
+        
+    }
+    \ans{
+        The amount of unknown contents we need to identify in matrix $A$ is determined by its size, and in this case we have $6\times2$ unknown values to compute. To compute all of these values, we need to construct a system of equations, which the matrix-vector multiplications will offer.\\
+        Each pair of message constructs a system that takes the format of $\vec{y} = A\vec{x}$, which provides 6 equations. To identify 12 unknown values, we need a system of at least 12 equations. Therefore, since each pair provides 6 equations and we need 12 equations, we need 2 pairs of messages.\\
+        It is important that these 2 pairs of messages should offer equations such that we can gain a unique set of solutions for the unknown values, but the question does not require us to concern this mathematical property.
+        
+    }
+    
+    \item\label{system_recoverability}{
+        We have successfully intercepted n pairs of messages, where n is greater than or equal to the minimum number of pairs needed to determine the encoding matrix.\\
+        Which of the following must be true about the n intercepted $\vec{x}$ vectors (original messages) if we want to recover the encoding matrix? Circle all that apply.
+        \begin{enumerate}
+            \item They must all be linearly independent.
+            \item They must span $\R^{2}$.
+            \item They must form a basis for $\R^{2}$.
+            \item None of the other four options are correct.
+            \item The $2\times n$ matrix containing these vectors as columns must have rank 2.
+        \end{enumerate}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                i & ii & iii & iv & v\\
+                \hline
+                $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ & $\bigcirc$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+        
+    }
+    \meta{
+        This question comes from Q7(c) of Summer 2020's Midterm 1.
+        
+    }
+    \ans{
+        Let us attempt to validate each option provided by the question, having the solutions from the previous parts of this question as given information. \\
+        
+        Option (i): False\\
+        We need 2 pairs of messages with linearly independent original messages to identify the system contents, so that when we write out the system of equations in a matrix-vector form, the columns of left side of augmented matrix are not linearly dependent.\\
+        This means we could use 3, or even more pairs of messages, as long as we have 2 of these pairs with linearly independent original messages such that it works to identify the matrix content.\\
+        
+        Option (ii): True\\
+        There must be at least 2 linearly independent original messages, and these original messages are all 2-dimensional vectors; 2 linearly independent 2-dimensional vectors will span $\R^{2}$.\\
+        
+        Option (iii): False\\
+        If we, as described in option (i), use 2 linearly independent original messages and other linearly dependent original message(s), we will not form a basis of $\R^{2}$ because the set of original messages is not the smallest set of vectors that span $\R^{2}$ as the definition of basis claims.\\
+        
+        Option (iv): False\\
+        Since at least 1 of the other 4 choices are true, this option cannot be true.\\
+        
+        Option (v): True\\
+        Let this matrix be called $B$, there must at least be 2 linearly independent columns in this matrix, and this matrix's columns only have 2-dimensional vectors (because it is $2\times r$).\\
+        Recall from lecture that the rank(B) must be smaller than min(number of rows, number of columns, in this case $min(2, n)$.\\
+        But the solution of part (b) tells us that $n\geq2$. Therefore, while $B$ will at least have a rank of 2, it can also only have at most a rank of 2 due to its dimensions: $2\leq rank(B)\leq2$. This leads to $rank(B)=2$.\\
+        \\
+        Expressed in a table, the solutions would be:
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                i & ii & iii & iv & v\\
+                \hline
+                $\bigcirc$ & $\bullet$ & $\bigcirc$ & $\bigcirc$ & $\bullet$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+    }
+\end{enumerate}

@@ -1,0 +1,125 @@
+% Author: Chris Duroiu
+% Email: chduroiu@berkeley.edu
+% CSM16A Spring 2024
+\qns{Inverting Multiple Voltage Sources}
+\usetikzlibrary{fit}
+
+
+
+Suppose we have some speaker system in which we receive three different DAC voltages. In order to produce our desired speaker voltage, we want to average these three DAC voltages, and reverse the voltage sign. This process can be broken down in two steps, as shown below
+
+\begin{tikzpicture}
+    \draw (-3,1) node[left]{$+$} to [V=$V_2$] (-1.2,1) node[right]{$-$};
+    \draw (-3,2.5) node[left]{$+$} to [V=$V_1$] (-1.2,2.5) node[right]{$-$};
+    \draw (-3,-0.5) node[left]{$+$} to [V=$V_3$] (-1.2,-0.5) node[right]{$-$};
+    \draw[dotted] (-1,-1) to (-1,3);
+    \draw[dotted] (-1,-1) to (3,-1);
+    \draw[dotted] (3,-1) to (3,3);
+    \draw[dotted] (-1,3) to (3,3);
+    \draw[dotted] (3,1) to (5,1);
+    \draw[dotted] (5,-1) to (5,3);
+    \draw[dotted] (5,-1) to (9,-1);
+    \draw[dotted] (9,-1) to (9,3);
+    \draw[dotted] (5,3) to (9,3);
+    \draw (9,1) node[left]{} to [V=$V_{out}$] (11,1) node[right]{$-$};
+\end{tikzpicture}
+
+\begin{enumerate}
+    \item 
+        Draw a circuit for the left box that can be used on its own to average the three voltages. You have access to unlimited resistors, but they are all 1k ohm and 2k ohm
+    
+
+    \meta{
+        This sub part is meant to remind students how a summer circuit can be used to average voltage inputs.
+    }
+    \sol{
+        We know that in order to sum the three voltages, we want to use a voltage summer circuit. Since we want an average of these three voltages, we should use equal resistor values for each of the resistors. Both $R_{1} = R_{2} = R_{3} = 1k \Omega$ and $R_{1} = R_{2} = R_{3} = 2k \Omega$ are acceptable
+        \\
+        \\
+        \begin{tikzpicture}
+        % Draw the voltage source
+            \draw (0,0) node[left]{$+$} to [V=$V_3$] (2,0) node[right]{$-$};
+            \draw (2,0) to [R=$R_3$] (4,0);
+            \draw (0,2) node[left]{$+$} to [V=$V_2$] (2,2) node[right]{$-$};
+            \draw (2,2) to [R=$R_2$] (4,2);
+            \draw (0,4) node[left]{$+$} to [V=$V_1$] (2,4) node[right]{$-$};
+            \draw (2,4) to [R=$R_1$] (4,4);
+            \draw (4,0) to (4,4);
+            \draw (4,2) to (5,2);
+            \draw[dotted] (-1,-1) to (-1,6);
+            \draw[dotted] (-1,-1) to (6,-1);
+            \draw[dotted] (6,-1) to (6,6);
+            \draw[dotted] (-1,6) to (6,6);
+            \draw[dotted] (6,3) to (9,3);
+        \end{tikzpicture}
+    }
+
+    \item Now, draw a circuit the left box that can be used to invert the sign of our signal. Suppose you have access to one op amp and one resistor, which can have any value. Specify the value of your chosen resistor
+    
+    
+    \meta{
+        This subpart is meant to teach students how an inverting amplifier can be used to flip the sign of some input voltage.
+
+    }
+    \sol{
+    \begin{circuitikz}[american]
+        \draw
+        (0,0) node[op amp] (AMP) {}
+        (AMP.-) to[short] ++(0,1) coordinate (topLeft)
+            to[R,l=$R_f$] (topLeft -| AMP.out)
+            to[short] (AMP.out)
+            to[short,-o] ++(1,0)
+            to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+            node[ground] () {}
+        (AMP.-) -- ++(-2,0)
+            to[short] ++(0,0)
+            node[left]{$V_{\text{box1}}$} % Label Vbox1
+        (AMP.+) node[ground] {}; % Ground at the positive op amp terminal
+        \node[fit=(AMP), draw, dotted, inner sep=120pt] (box) {};
+        \end{circuitikz}
+    \\
+    \\
+    \begin{equation}
+    i_{R1}+i_{R2}+i_{R3}=i_{Rf}
+    \end{equation}
+    
+    \begin{equation}
+    \frac{V_{R1}}{R_{1}} + \frac{V_{R2}}{R_{2}} + \frac{V_{R3}}{R_{3}} = - \frac{V_{out}}{R_{f}}
+    \end{equation}
+    
+    We know the formula for an inverting amplifier is
+    
+    \begin{equation}
+    V_{out}=-\frac{R_{f}}{V_{in}}R_{in}
+    \end{equation}
+    
+    Thus, applying superposition for each of the voltage sources, we know,
+    
+    \begin{equation}
+    V_{total} = \frac{R_{f}}{R_{in}}(V_{1}+V_{2}+V_{3})
+    \end{equation}
+    
+    Therefore, if \(\frac{R_{f}}{R_{1}} = \frac{1}{3}\), we can effectively take the average of the three resistances while flipping the voltage sign. So, we know ${R_{f}}$ should be one third of whatever we chose for the resistor values in part A \\
+    }
+    \item 
+        Demonstrate that the resulting circuit is in negative feedback. 
+    
+
+    \meta{
+        This question is meant to teach students how to mathematically show that some op-amp circuit is in negative feedback, implying we can use the golden rules
+
+    }
+    \sol{
+        We know that the output voltage of box one is equal to the ${V_{-}}$ input of the op amp. Since we know the output of box1 will result in 
+        \\
+        ${V_{-}} = (V_{1}+V_{2}+V_{3})/3$ \\
+        \\
+        We can write that
+        \\
+        ${v_{out}} = A({V_{+}} - {V_{-}})$ \\
+        \\
+        ${v_{out}} = A({V_{+}} - (V_{1}+V_{2}+V_{3})/3)$ \\
+        \\
+        Thus, we notice that by wiggling any of the input voltages up, the resulting ${v_{out}}$ expression will decrease, proving that the op amp is in negative feedback
+    }
+\end{enumerate}

@@ -1,0 +1,227 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+\qns{Pitfall Problem}
+\qcontributor{Mudit Gupta}
+
+\sol{Prereq: Best placed right after the failure\_cap\_series\_equivalence.tex \\
+Description: Once students can do this, they can do every capacitor charge sharing problem (not necessarily those that include op amps too though)}
+
+\begin{enumerate}
+\qitem Consider the following circuit in $\phi_1$. Assume that all capacitors are initially discharged. Find out the charge on each capacitor in this phase.
+\begin{center}
+\begin{circuitikz}
+  % Phase 1 circuit
+  \draw (0,0)
+  to[V=$V_s$, invert] (0,2) % The voltage source
+  to[short] (2,2)
+  to[C=$C_1$, v=$ $] (2,0) % Capacitor C_1
+  to[short] (0,0);
+
+  \draw (2,2)
+  to[short] (4,2)
+  to[C=$C_2$, v<=$ $] (4,0)
+  to[short] (2,0);
+
+  \draw (4,2)
+  to[short] (6,2)
+  to[C=$C_3$, v=$ $] (6,0)
+  to[short] (4,0);
+
+  \draw (0,0) to[short] node[ground] {} (0,-1); %Mark ground at (0,-1)
+  
+\end{circuitikz}
+\end{center}
+
+\sol{
+	$$Q_{C_1, \phi_1} = C_1V_s$$
+	$$Q_{C_2, \phi_1} = -C_2V_s$$
+	$$Q_{C_3, \phi_1} = C_3V_s$$
+
+	Note: What does it mean when we say that the charge on a capacitor is \textit{negative}? It mesol that \textbf{on the positive plate of the capacitor, there is negative charge.} And since a capacitor has equal and opposite charge on each plate, the negative plate then has positive charge. 
+}
+
+\sol{
+	Make sure to stress the 'Note'. This is super important and is a misconception that students carry through the course. $$Q=CV=C(V_+ - V_-)$$ where $V_+$ and $V_-$ are plates you arbitrarily mark as $+$ and $-$. It is obviously possible that you mark them incorrectly, and that there is actually negative charge on the positive plate and vice versa. If you use $Q=CV$ to calculate the charge on the capacitor, this always calculates the charge on the $\textbf{positive}$ plate of the capacitor. If this quantity is negative, then there is negative charge on the plate you arbitrarily marked positive, and positive charge on the plate you arbitrarily marked positive. $\textbf{This does not mean that you need to fix something in your circuit.}$\\ $\textbf{This is fine. Just be consistent in the next phases}$.
+
+}
+
+
+\qitem 
+Assume that $\phi_1$ has taken place, and that the capacitors are then moved to the following configuration in $\phi_2$. Calculate the charge across each capacitor in $\phi_2$.
+
+\begin{center}
+\begin{circuitikz}
+% Phase 2 circuit
+
+	\draw (0,0)
+	to[C=$C_1$, v<=$ $] (0,2)
+	to[short] (2,2)
+	to[C=$C_2$, v<=$ $] (2,0)
+	to[short] (0,0);
+
+	\draw (4, 0)
+	to[C, l_=$C_3$, v<=$ $] (4,2)
+	to[short] (6,2)
+	to[short] (6,0)
+	to[short] (4,0);
+
+	\draw (0,0) to[short] node[ground] {} (0,-1); %Mark ground at (0,-1)
+
+\end{circuitikz}
+\end{center}
+
+\sol{
+	$\textbf{Step I: Write the voltage drop across each capacitor.}$ \\
+	$\textit{If it cannot be determined, create variables till it can be determined.}$
+
+	Circuit redrawn with unknown voltages marked. 
+
+	\begin{center}
+	\begin{circuitikz}
+	\draw (0,0)
+	to[C=$C_1$, v<=$ $] (0,2)
+	to[short, l^=$\textcolor{red}{V_x}$] (2,2)
+	to[C=$C_2$, v<=$ $] (2,0)
+	to[short] (0,0);
+
+	\draw (4, 0)
+	to[C, l_=$C_3$, v<=$ $] (4,2)
+	to[short, l^=$\textcolor{red}{V_y}$] (6,2)
+	to[short] (6,0)
+	to[short] (4,0);
+
+	\draw (0,0) to[short] node[ground] {} (0,-1); %Mark ground at (0,-1)
+	\end{circuitikz}
+	\end{center}
+
+	$$V_{C_1, \phi_2} = V_x - 0 = V_x$$
+	$$V_{C_2, \phi_2} = 0 - V_x = -V_x$$
+	$$V_{C_3, \phi_2} = V_y - V_y = 0$$
+
+
+	$\textbf{Step 2: Write the charge on each capacitor.}$\\
+	$\textit{Just use $Q=CV$ on the first step}$
+
+	$$Q_{C_1, \phi_2} = C_1V_x$$
+	$$Q_{C_2, \phi_2} = -C_2V_x$$
+	$$Q_{C_3, \phi_2} = 0$$
+
+	$\textbf{Step 3: Write the charge sharing equations on floating nodes.}$ \\
+	$\textit{Floating nodes are those where charges cannot escape or enter.}$ \\
+	$\textit{Node marked $V_x$ is the only floating node}$ \\
+
+	\begin{equation} \label{ph2:chg_sharing}
+	Q_{C_1, \phi_2} \textcolor{red}{-} Q_{C_2, \phi_2} = Q_{C_1, \phi_1} \textcolor{red}{-} Q_{C_2, \phi_1}
+	\end{equation}
+
+	$$C_1V_x - (-C_2V_x) = C_1V_s - (-C_2V_s) \implies V_x=V_s$$
+
+	$\textbf{Final Step 4: Plug variable voltage into charge equations}$ \\
+
+	$$Q_{C_1, \phi_2} = C_1V_x = C_1V_s$$
+	$$Q_{C_2, \phi_2} = -C_2V_x = -C_2V_s$$
+	$$Q_{C_3, \phi_2} = 0$$
+
+
+
+
+}
+
+\sol{
+	Note: Make sure to explain the charge sharing equations properly. 
+
+	\textbf{Pitfall number 1}: Students think that charge sharing equations always have positive signs on them. Something along the lines of $Q_{1,1}+Q_{2,1} = Q_{1,2} + Q_{2,2}$. Equation \ref{ph2:chg_sharing} shows that this is not the case. Explain clearly why there is a negative sign. This is because the positive plate of $C_1$ is connected to the negative plate of $C_2$. Charge is being redistributed by $Q_{C_1}$ and $-Q_{C_2}$ in the two phases. 
+
+	\textbf{Pitfall number 2}: Students think that charge sharing always happens between all capacitors. When you ask them for charge sharing equations, their gut reaction will be to say $Q_{C_1, \phi_1} + Q_{C_2, \phi_1} + Q_{C_3, \phi_1} = Q_{C_1, \phi_2} + Q_{C_2, \phi_2} + Q_{C_3, \phi_2}$. Show that them their gut reaction is wrong -- because clearly $C_3$ is not involved in charge sharing. Also show them that the plates affect the signs for charge sharing, it isn't always a plus sign as shown in Equation \ref{ph2:chg_sharing}.
+
+	\textbf{Pitfall number 3}: Many students don't realize that the voltage drop across $C_3$ is 0. They think that it will be the same as before and it will hold the same charge as before. This is not the case, as the math shows. Intuitively, this is not the case because + charges flow to recombine with the - charges resulting in 0 charge on the capacitor. 
+}
+
+
+\qitem
+
+Assume that $\phi_2$ has taken place, and that the capacitors are then moved to the following configuration in $\phi_3$. Calculate the charge across each capacitor in $\phi_3$.
+
+\begin{center}
+\begin{circuitikz}
+% Phase 3 circuit
+
+	\draw (0,-1) 
+	to[V=$V_s$, invert] (0,0)
+	to[C=$C_1$, v<=$ $] (0,4)
+	to[short] (2,0)
+	to[C=$C_2$, v=$ $] (2,4)
+	to[short] (4,4)
+	to[C=$C_3$, v=$ $] (4,0)
+	to[short] node[ground] {} (4,-2);
+
+	\draw (0,-1) to[short] node[ground] {} (0,-2); 
+
+\end{circuitikz}
+\end{center}
+
+\sol{
+	$\textbf{Step I: Write the voltage drop across each capacitor.}$ \\
+	$\textit{If it cannot be determined, create variables till it can be determined.}$
+
+	Circuit redrawn with unknown voltages marked. 
+
+	\begin{center}
+	\begin{circuitikz}
+	\draw (0,-1) 
+	to[V=$V_s$, invert] (0,0)
+	to[C=$C_1$, v<=$ $] (0,4)
+	to[short, l^=$V_a$] (2,0)
+	to[C, l_=$C_2$, v=$ $] (2,4)
+	to[short, l^=$V_b$] (4,4)
+	to[C=$C_3$, v=$ $] (4,0)
+	to[short] node[ground] {} (4,-2);
+
+	\draw (0,-1) to[short] node[ground] {} (0,-2); 
+	\end{circuitikz}
+	\end{center}
+
+	$$V_{C_1, \phi_3} = V_a - V_s$$
+	$$V_{C_2, \phi_3} = V_a - V_b$$
+	$$V_{C_3, \phi_3} = V_b$$
+
+
+	$\textbf{Step 2: Write the charge on each capacitor.}$\\
+	$\textit{Just use $Q=CV$ on the first step}$
+
+	$$Q_{C_1, \phi_3} = C_1(V_a-V_s)$$
+	$$Q_{C_2, \phi_3} = C_2(V_a-V_b)$$
+	$$Q_{C_3, \phi_3} = C_3(V_b)$$
+
+	$\textbf{Step 3: Write the charge sharing equations on floating nodes.}$ \\
+	$\textit{Floating nodes are those where charges cannot escape or enter.}$ \\
+	$\textit{Nodes marked $V_a$ and $V_b$ are the only floating nodes}$ \\
+
+	\begin{equation} \label{ph3:chg_sharing1}
+	Q_{C_1, \phi_3} \textcolor{red}{+} Q_{C_2, \phi_3} = Q_{C_1, \phi_2} \textcolor{red}{+} Q_{C_2, \phi_2}
+	\end{equation}
+
+	\begin{equation} \label{ph3:chg_sharing2}
+	-Q_{C_2, \phi_3} \textcolor{red}{+} Q_{C_3, \phi_3} = -Q_{C_2, \phi_2} \textcolor{red}{+} Q_{C_3, \phi_2}
+	\end{equation}
+
+Plugging in values to Equation \ref{ph3:chg_sharing1}
+	$$C_1(V_a-V_s) + C_2(V_a-V_b) = C_1V_s + (-C_2V_s)$$
+
+Plugging in values to Equation \ref{ph3:chg_sharing2}
+	$$-C_2(V_a-V_b) + C_3V_b = -(-C_2V_s) + 0$$
+
+$\textbf{Final Step 4: Plug variable voltage into charge equations}$ \\
+We now have two equations in two variables ($V_a, V_b$), and so we can solve for them. After that, we can plug those into Step 2, and find the charges on each capacitor. There is no need to do this step as the expressions aren't very neat. 
+	
+
+}
+\sol {
+	\textbf{Pitfall number 4}: Make sure to explain equations \ref{ph3:chg_sharing1} and \ref{ph3:chg_sharing2} very carefully. Students get confused specially on \ref{ph3:chg_sharing1} because in $\phi_2$, the positive plate of $C_1$ is connected to the negative plate of $C_2$. In $\phi_3$, the positive plates of both are connected to each other. The thing is that we only need to look at the current phase $\phi_3$'s configuration to write the charge sharing equations. Previous configs don't matter. One way to explain this is by talking about phases as a 2 step process -- disconnection and connection. First disconnect all capacitors, and all positive charges stay where they are and negative stay where they are. Now, if we connect the positive plate of two capacitors and if originally the positive and negative plates of two separate capacitors were connected earlier, the previous config doesn't matter. It is the two positive plate's charges that will need to stay conserved between phases. This is why the signs on \ref{ph3:chg_sharing1} will be the same on both the left hand side of the equation and the right hand side, and you get the signs by simply looking at $\phi_3$.
+}
+
+
+
+
+
+\end{enumerate}

@@ -1,0 +1,264 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{Computer Smash Mentors}
+
+\textbf{Learning Goal}: Learn how to utilize the properties of resistivity to design circuits with resistor networks.
+\meta{
+    \begin{bindenum}
+        \item If I use the word ``simple'' in any part of this question, it does not mean it is easy. It means the structure of something (circuit, equations...) is not meant to be complex.
+        \item In this question, or in any general design question, the machine to design is just a medium of circuit. In other words, \textbf{machines are not the focus of this question. The circuit that is designed to portray the demands of machine is.}
+        \item By that regard, mentors should concentrate on \textbf{how to satisfy the demand of a question} and \textbf{what are the best places to put resistors for that purpose}.
+        \item When in doubt, \textbf{resort to mathematics and fractions.} Expressing values in terms of \textbf{fractions can lead to convenient simplifications of mathematical expressions}, especially in relation with resistive touchscreens.
+    \end{bindenum}
+}
+My friend Cyrush forgot his Gamecube controller at Soda Hall when playing at the CSM Smash Bros Tournament. He asked me to design one for him.
+\begin{center}
+    \includegraphics[scale=0.05]{../../topics/resistors/q_resist_design_figs//gamecube.png}
+\end{center}
+\begin{enumerate}
+    \item {
+        Our voltage source is $V_S = 9V$, and our chip can only tolerate currents at most 9mA.
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_a.tex}
+        \end{center}
+        Calculate for the range of suitable values unfilled in the table above.
+
+    }
+    \meta{
+        \begin{bindenum}
+            \item This part is \textbf{all about using the resistance formula} and making a simple inequality with it. It is \textbf{review-purposed}.
+        \end{bindenum}
+    }
+    \ans{
+        The general approach of solving this problem can be outlined as solving the missing variable in the inequality:
+        \begin{align*}
+            \frac{V_S}{R} &\leq I_{max} \\
+            R &\geq \frac{V_S}{I_{max}} \\
+            \frac{\rho L}{wh} &\geq \frac{9V}{0.009} = 1000
+        \end{align*}
+        Let us solve for each resistor material:
+        \begin{tasks}(2)
+            \task {
+                \textbf{Copper}: \\
+                    \begin{align*}
+                        \frac{\rho L}{wh} &\geq \frac{9V}{0.009} \\
+                        \frac{2 \times {10}^{-8} \times {10}^{-5}}{{10}^{-4}h} &\geq {10}^3 \\
+                        \frac{2 \times {10}^{-8} \times {10}^{-5} \times {10}^{-3}}{{10}^{-4}} &\geq h \\
+                        h &\leq 2 \times 10^{-12}
+                    \end{align*}
+            }
+            \task {
+                \textbf{Iron}: \\
+                    \begin{align*}
+                        \frac{\rho L}{wh} &\geq \frac{9V}{0.009} \\
+                        \frac{1 \times {10}^{-7} \times {10}^{-5}}{10^{-5}w} &\geq {10}^3 \\
+                        \frac{1 \times {10}^{-7} \times {10}^{-5} \times {10}^{-3}}{{10}^{-5}} &\geq w \\
+                        w &\leq 1 \times 10^{-10}
+                    \end{align*}
+            }
+            \task {
+                \textbf{Silicon}: \\
+                    \begin{align*}
+                        \frac{\rho L}{wh} &\geq \frac{9V}{0.009} \\
+                        \frac{6 \times {10}^{2} \times L}{{10}^{-4} \times {10}^{-4}} &\geq {10}^3 \\
+                        L &\geq \frac{{10}^3 \times {10}^{-8}}{6 \times {10}^{2}} \\
+                        L &\geq \frac{1}{6} \times {10}^{-7}
+                    \end{align*}
+            }
+            \task {
+                \textbf{Silver}: \\
+                    \begin{align*}
+                        \frac{\rho L}{wh} &\geq \frac{9V}{0.009} \\
+                        \frac{1.5 \times {10}^{-8} \times {10}^{-4}}{{10}^{-5}h} &\geq {10}^3 \\
+                        \frac{1.5 \times {10}^{-8} \times {10}^{-4} \times {10}^{-3}}{{10}^{-5}} &\geq h \\
+                        h &\leq 1.5 \times 10^{-10}
+                    \end{align*}
+            }
+            \task {
+                \textbf{Rubber}: \\
+                    \begin{align*}
+                        \frac{\rho L}{wh} &\geq \frac{9V}{0.009} \\
+                        \frac{1 \times {10}^{13} \times L}{{10}^{-4} \times {10}^{-5}} &\geq {10}^3 \\
+                        L &\geq \frac{{10}^3 \times {10}^{-9}}{1 \times {10}^{13}} \\
+                        L &\geq 1 \times {10}^{-19}
+                    \end{align*}
+            }
+        \end{tasks}
+    }
+    \item {
+        We have found a new material to make the resistor, where $\rho = 10^3 \Omega cm$, and know its volume must be formed from a cube of edges $10^{-1}$, $10^{-2}$, $10^{-3}$ centimeters.
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_b.tex}
+        \end{center}
+        Provided this circuit, and knowing the chip can only tolerate and sense current between 1mA and 9mA (inclusive), how should we place this cube in the above circuit?
+        
+    }
+    \meta{
+        \begin{bindenum}
+            \item This part is \textbf{all about using the resistance formula} and making a simple inequality with it. It is also \textbf{review-purposed}.
+            \item It might look like we have to go through 6 possible choices of dimensions, but \textbf{in fact, we only need to go through 3 possible choices}.
+            \subitem The parameters of resistance formula involves area and length, so \textbf{we will just investigate by having each of the three possible dimensions as a length.}
+        \end{bindenum}
+    }
+    \ans{
+        To let the chip receive current between 1mA and 9mA, the resistance of the middle resistor $R$ must then conform the following inequality:
+        \begin{align*}
+            0.001 A \leq &\frac{V_S}{R} \leq 0.009 A \\
+            \frac{V_S}{0.001 A} \geq &R \geq \frac{V_S}{0.009A} \\
+            9k\Omega \geq &R \geq 1k\Omega
+        \end{align*}
+        Provided the parameters of this resistor, we now have a few choices of dimensionality as listed below:
+        \begin{center}
+            \begin{tabular}{c|ccc}
+                Parameter & Option 1 & Option 2 & Option 3 \\
+                \hline
+                $\rho$ & ${10}^3 \Omega cm$ & ${10}^3 \Omega cm$ & ${10}^3 \Omega cm$ \\
+                $L$ & ${10}^{-1}$ & ${10}^{-2}$ & ${10}^{-3}$ \\
+                $A$ & ${10}^{-5}$ & ${10}^{-4}$ & ${10}^{-3}$ \\
+                \hline
+                $R$ & ${10}^{7}$ & ${10}^{5}$ & ${10}^{3}$ \\
+            \end{tabular}
+        \end{center}
+        The only dimension fitting the demand is $(L, w, h) = ({10}^{-3}, {10}^{-2}, {10}^{-1})$ and $({10}^{-3}, {10}^{-1}, {10}^{-2})$.
+    
+    }
+    \item {
+        We will map each button and combinations of buttons onto an attacks, and the computer will make characters do different actions for the corresponding button press.
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_c.tex}
+        \end{center}
+        All voltage sources are $5V$.
+        When a button is pressed, its respective resistor appear on the screen, such that there is current passing through the button. So, when the button is not pressed, then no current passes through it. \\
+        With the help of COMPSCI 70, I will label:
+        \begin{tasks}(4)
+            \task[] Button A: 3mA
+            \task[] Button B: 4mA
+            \task[] Button X: 6mA
+            \task[] Button Y: 8mA
+        \end{tasks}
+        so the computer, \underline{which is the ``Dig'' circled with \textbf{no resistance}}, can judge what combination of button(s) is pressed by what is the sum of currents entering. \\
+        (For example, 9mA must be a X+A attack; you can experiment those values with your classroom) \\
+        The resistors of each button has a resistivity of $\rho = 5 \times 10^3 \Omega m$, and area $A = {10}^{-3} m^2$. 
+        \begin{tasks}
+            \task Decide the length of each button's resistor.
+            \task Draw a circuit that indicates all buttons being pressed at the same time, such that your computer chip receives the net sum of currents passing through every button's resistors.
+        \end{tasks}
+        
+    }
+    \meta{
+        \begin{bindenum}
+            \item \textbf{Capitalize the resistance formula to show how it potentially offers great mathematical simplification}. This is especially evident in resistive touchscreens.
+            \item \textbf{Feel free to offer to show the alternative architecture of using one voltage source rather than four parallel} voltage sources. That was originally going to become the third subpart of this question, but was removed to reduce complexity.
+            \item If you are interested in how COMPSCI 70 helped this design, here is how it worked. \\
+            We first designate four coprime modulo (in this case the simplest case to work with: 2, 3, 5, 7). \\
+            Then, let's characterize whether each button is pressed with numbers 0 (not pressed) and 1 (pressed). This will provide us 16 4-bit strings, each describing one possible combination of buttons. \\
+            Finally, Chinese Remainder Theorem guarantees one unique solution under modulo 210 to represent each combination:
+            \[\{0,, 3, 4, 6, 8,, 7, 9, 11, 10, 12, 14,, 13, 15, 17, 18,, 21\}\]
+        \end{bindenum}
+    }
+    \ans{
+        The length of a resistor provided its resistance, resistivity, and area is:
+        \[L = \frac{RA}{\rho}\]
+        Therefore, the length of each button's resistor can be decided via this formula as follows:
+        \[
+            \begin{cases}
+                R_A = \frac{5V}{0.003A} \\
+                R_B = \frac{5V}{0.004A} \\
+                R_X = \frac{5V}{0.006A} \\
+                R_Y = \frac{5V}{0.008A}
+            \end{cases}
+            \rightarrow
+            \begin{cases}
+                L_A = \frac{\frac{5V}{0.003A} {10}^{-3}}{5 \times {10}^3} = \frac{1}{3} \times {10}^3 \\
+                L_B = \frac{\frac{5V}{0.004A} {10}^{-3}}{5 \times {10}^3} = \frac{1}{4} \times {10}^3 \\
+                L_X = \frac{\frac{5V}{0.006A} {10}^{-3}}{5 \times {10}^3} = \frac{1}{6} \times {10}^3 \\
+                L_Y = \frac{\frac{5V}{0.008A} {10}^{-3}}{5 \times {10}^3} = \frac{1}{8} \times {10}^3 \\
+            \end{cases}
+        \]
+        To let the node that Dig is connected to receive the net current passing through all buttons, we must let all currents from the resistor flow into (or with more concrete verbs: converge, merge at) the node of Dig. Therefore, the circuit will be designed as follows: \\
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_c_sol.tex}
+        \end{center}
+        This way, via KCL, we can determine that the current the Dig receives to inform its computer is indeed the sum of currents passing through each buttons' resistors.
+    
+    }
+    \item {
+        Now we will make trigger buttons (on the shoulder of controllers). For this controller's setting, how high your character jumps depends on how deep you press the trigger.
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_d.tex}
+        \end{center}
+        The wire attached with trigger button will move down as the trigger button rectangle moves down, and connect the left and right wires of the circuit.
+        We have a spare $5V$ Voltage Source, and 3 $1k\Omega$ resistors to use. \\
+        Design a circuit such that $V_{out}$ changes value in one direction (larger or smaller) based on how deep I press the trigger button into the circuit. Then, for each possible depth, describe its $V_{out}$.
+        
+    }
+    \meta{
+        \begin{bindenum}
+            \item \textbf{Draw out each possible locations of the trigger button to help students visualize} the different voltage dividers that are formed upon the depth of button press.
+            \item \textbf{The easiest and most encouraged choice is to put the voltage source at the left.} If not, you will have to deal with parallel circuits and sacrifice numerous resistors by having them connected across a ground node and the negative side of voltage source.
+        \end{bindenum}
+    }
+    \ans{
+        The valid choice of design will be explained here. But before beginning, mind that putting the voltage source at where $V_{out}$ indicates is definitely unacceptable, as it causes the output voltage to always be what the voltage source supplies. \\
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_d_sol.tex}
+        \end{center}
+        
+        When the trigger button is not pressed, using the voltage divider formula:
+        \[V_{out,static} = 5V \frac{1k\Omega}{5k\Omega} = 1V\]
+        
+        When the trigger button is pressed one level below, such that the circuit transforms into:
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_d_short_hop.tex}
+        \end{center}
+        In this case, at a light press of the button, using the voltage divider formula:
+        \[V_{out,light} = 5V \frac{1k\Omega}{4k\Omega} = \frac{5}{4}V\]
+        
+        When the trigger button is pressed at the deepest level below, such that the circuit transforms into:
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_d_long_hop.tex}
+        \end{center}
+        In this case, at a light press of the button, using the voltage divider formula:
+        \[V_{out,heavy} = 5V \frac{1k\Omega}{3k\Omega} = \frac{5}{3}V\]
+    
+    }
+    \item {
+        Last but not least, let's design the mushroom stick (C-stick). The game lets us steer (tilt) the stick in the direction we want the character to move towards. \\
+        The inner structure of C-stick looks something like this:
+        \begin{center}
+            \input{../../topics/resistors/q_resist_design_figs//part_e.tex}
+        \end{center}
+        \begin{bindenum}
+            \item The outer circle is a ring of resistor whose resistivity is constant across the entire ring, \textbf{The opening caused by connecting to the power supply at the positive x-axis is negligible.}
+            \item The middle circle is a ring of wire, and the stick itself is characterized as a wire as well inside the controller.
+        \end{bindenum}
+        When the stick moves towards a direction, the wire follows that direction and touches the middle wire and outer resistor to form a voltage divider. It then feeds the value of voltage it sensed to the rectangle ``dig'', which reports the voltage it receives to a computer. \\
+        How can we obtain the angle of stick from positive x-axis based on the voltage we measure and tell the ``dig'' component?
+        
+    }
+    \meta{
+        \begin{bindenum}
+            \item This is essentially \textbf{a circular resistive touchscreen}.
+        \end{bindenum}
+    }
+    \ans{
+        Let us define the geometrically upper resistor of the diagram as $R_{up}$, and lower resistor of the diagram as $R_{low}$.
+        The voltage that ``dig'' receives follows the voltage divider formula:
+        \[V = V_S \frac{R_{up}}{R_{up} + R_{down}}\]
+        Let us denote the radius of the outer circle of resistor as $X$ (to avoid colliding with the resistance variable, $R$). Then, the resistance of the entire outer circle of resistor is:
+        \[R_{circle} = \frac{\rho 2\pi X}{\text{area of cross section}}\]
+        Remember that the circumference of a circle with radius $r$ is $2\pi r$. \\
+        Meanwhile, let us assume that the stick is now at angle $\theta$ counterclockwise from the positive x-axis. Then, we may calculate the value of $R_{up}$:
+        \[R_{up} = \frac{\rho \theta X}{\text{area of cross section}}\]
+        Therefore, the voltage that ``dig'' componnet reads can actually be interpreted as:
+        \begin{align*}
+            V_{dig} &= V_S \frac{R_{up}}{R_{up} + R_{down}} \\
+            &= V_S \frac{R_{up}}{R_{circle}} \\
+            &= V_S \frac{\frac{\rho \theta X}{\text{area of cross section}}}{\frac{\rho 2\pi X}{\text{area of cross section}}} \\
+            &= V_S \frac{\theta}{2\pi}
+        \end{align*}
+        Therefore, by multiplying the value of $V_{dig}$ with $2\pi$ and later dividing it by $V_S$, we can obtain the value $\theta$.
+        
+    }
+\end{enumerate}

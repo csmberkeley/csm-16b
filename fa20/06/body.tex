@@ -1,0 +1,30 @@
+\begin{document}
+
+\def\title{Worksheet 6}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+
+\input{\bank/linearization/nonlinear_pendulum.tex}
+\newpage
+\input{\bank/stability/bibo_stability.tex}
+\newpage
+\input{\bank/controllability/system_control.tex}
+\newpage
+\input{\bank/stability/graph_stability.tex}
+\newpage
+
+
+\end{qunlist}
+
+\end{document}

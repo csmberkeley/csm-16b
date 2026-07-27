@@ -1,0 +1,206 @@
+% Author: YOUR NAME
+% Email: YOUR EMAIL
+% CSM16A SEMESTER YEAR
+
+\qns{Circuit Question: Negative Feedback}
+
+Given the following circuit:
+\begin{center}
+    \begin{circuitikz}
+        \draw
+            (0, 0) node [op amp] (AMP) {}
+            (AMP.out)
+                to [short, i_=$i_o$] ++ (0.5, 0) coordinate (AMPTrueOut)
+            (AMP.-)
+                to [short] ++(-3, 0) coordinate (u-)
+                to [short] ++(0, 1.5) coordinate (topLeft)
+                to [R, l^=${R_1=3k\Omega}$] ++(2.5, 0) coordinate (r1)
+                to [V=$V_1$, l_=$-5V$] (r1 -| AMPTrueOut)
+                to [short] (AMPTrueOut)
+            (u-)
+                to [short] ++(-1, 0) coordinate(IsEnd)
+                to [I, invert, l_=$I_S$, i<=$6mA$] ++(0, -2) node [ground] {}
+            (AMP.+)
+                to [short] ++(-1, 0)
+                to [V=$V_S$, l_=$4V$] ++(0, -1.5) node [ground] {}
+            (AMPTrueOut)
+                to [short] ++(0.5, 0)
+                to [R, l^=${R_2=1k\Omega}$] ++(0, -2) node [ground] {}
+            (AMPTrueOut)
+                to [short, -o] ++(1, 0) node [above] {$V_{o}$}
+            ;
+    \end{circuitikz}
+\end{center}
+
+\begin{enumerate}
+    \item {
+        Explain whether or not this op-amp circuit has negative feedback.
+    }
+    \ans {
+        To show that a circuit has negative feedback, we show that provided a constant $u_+$, the increase of $V_{out}$ leads to the increase of $u_-$.
+        This is because we would then be able to deduce that the increase of Vout leads to the decrease of $u_+ - u_-$, and yet, in an op-amp model, $V_{out} = A \times (u_+ - u_-)$.
+        In the above context, a positive increase in the output leads to a decrease in the output, resulting in the phenomenon we know as negative feedback.
+        To answer this question, we strive to identify the above process in this subpart of the question.
+        
+        The solution will use the same passive sign convention drawn below throughout the entire problem:
+        \begin{center}
+            \begin{circuitikz}
+                \draw
+                    (0, 0) node [op amp] (AMP) {}
+                    (AMP.out)
+                        to [short, i_=$i_o$] ++ (0.5, 0) coordinate (AMPTrueOut)
+                    (AMP.-)
+                        to [short] ++(-3, 0) coordinate (u-)
+                        to [short] ++(0, 1.5) coordinate (topLeft)
+                        to [R, l^=${R_1=3k\Omega}$, i_=$i_{R_1}$] ++(2.5, 0) coordinate (r1)
+                        to [V=$V_1$, l_=$-5V$] (r1 -| AMPTrueOut)
+                        to [short] (AMPTrueOut)
+                    (u-)
+                        to [short] ++(-1, 0) coordinate(IsEnd)
+                        to [I, invert, l_=$I_S$, i<=$6mA$] ++(0, -2) node [ground] {}
+                    (AMP.+)
+                        to [short] ++(-1, 0)
+                        to [V=$V_S$, l_=$4V$] ++(0, -1.5) node [ground] {}
+                    (AMPTrueOut)
+                        to [short] ++(0.5, 0)
+                        to [R, l^=${R_2=1k\Omega}$, i_=$i_{R_2}$] ++(0, -2) node [ground] {}
+                    (AMPTrueOut)
+                        to [short, -o] ++(1, 0) node [above] {$V_{o}$}
+                    ;
+            \end{circuitikz}
+        \end{center}
+        The above circuit reveals the relatinoship that $u_- - R_1 i_{R_1} + 5V = V_o$.
+        By increasing $V_o$, we will in turn end up increasing $u_-$, as the above equation needs to hold.
+        Therefore, by the analysis we make at the beginning of the problem, we see negative feedback in this circuit.
+        
+    }
+
+    \item {
+        Find the output voltage, $V_o$.
+    }
+    \ans {
+        \textbf{\textit{Approach 1: Using Superposition.}} \\
+        To perform superposition, we will have to consider three alternative versions of the given circuit, each with only one source left (and all others zeroed).
+        In this section, we will go through the analyses for these versions of circuit.
+        
+        \textit{Circuit A: where $I_s$ is not zeroed.} \\
+        The circuit diagram is as portrayed below:
+        \begin{center}
+            \begin{circuitikz}
+                \draw
+                    (0, 0) node [op amp] (AMP) {}
+                    (AMP.out)
+                        to [short, i_=$i_o$] ++ (0.5, 0) coordinate (AMPTrueOut)
+                    (AMP.-)
+                        to [short] ++(-3, 0) coordinate (u-)
+                        to [short] ++(0, 1.5) coordinate (topLeft)
+                        to [R, l^=${R_1=3k\Omega}$, i_=$i_{R_1}$] ++(2.5, 0) coordinate (r1)
+                        to [short] (r1 -| AMPTrueOut)
+                        to [short] (AMPTrueOut)
+                    (u-)
+                        to [short] ++(-1, 0) coordinate(IsEnd)
+                        to [I, invert, l_=$I_S$, i<=$6mA$] ++(0, -2) node [ground] {}
+                    (AMP.+)
+                        to [short] ++(-1, 0)
+                        to [short] ++(0, -1.5) node [ground] {}
+                    (AMPTrueOut)
+                        to [short] ++(0.5, 0)
+                        to [R, l^=${R_2=1k\Omega}$, i_=$i_{R_2}$] ++(0, -2) node [ground] {}
+                    (AMPTrueOut)
+                        to [short, -o] ++(1, 0) node [above] {$V_{o}$}
+                    ;
+            \end{circuitikz}
+        \end{center}
+        In the above circuit, we may observe the relationship $u_- - R_1 i_{R_1} = V_o$, such that the increase of $V_o$ leads to an increase in $u_-$ provided a constant $u_+$.
+        We may also acknowledge via Kirchhoff's Current Law that, in circuit A, $i_{R_1} = 6mA$.
+        This aspect of the circuit also lets us recognize that negative feedback occurs in circuit A, such that $u_- = u_+ = 0V$.
+        Therefore, at circuit A, $V_o = -18V$.
+
+        \textit{Circuit B: where $V_s$ is not zeroed.} \\
+        The circuit diagram is as portrayed below:
+        \begin{center}
+            \begin{circuitikz}
+                \draw
+                    (0, 0) node [op amp] (AMP) {}
+                    (AMP.out)
+                        to [short, i_=$i_o$] ++ (0.5, 0) coordinate (AMPTrueOut)
+                    (AMP.-)
+                        to [short] ++(-3, 0) coordinate (u-)
+                        to [short] ++(0, 1.5) coordinate (topLeft)
+                        to [R, l^=${R_1=3k\Omega}$, i_=$i_{R_1}$] ++(2.5, 0) coordinate (r1)
+                        to [short] (r1 -| AMPTrueOut)
+                        to [short] (AMPTrueOut)
+                    (u-)
+                        to [short] ++(-1, 0) coordinate(IsEnd)
+                        to [open, o-o] ++(0, -2) node [ground] {}
+                    (AMP.+)
+                        to [short] ++(-1, 0)
+                        to [V=$V_S$, l_=$4V$] ++(0, -1.5) node [ground] {}
+                    (AMPTrueOut)
+                        to [short] ++(0.5, 0)
+                        to [R, l^=${R_2=1k\Omega}$, i_=$i_{R_2}$] ++(0, -2) node [ground] {}
+                    (AMPTrueOut)
+                        to [short, -o] ++(1, 0) node [above] {$V_{o}$}
+                    ;
+            \end{circuitikz}
+        \end{center}
+        By the golden rule of ideal op-amps, we claim that there are no currents flowing into the negative and positive terminals of our op-amp.
+        Therefore, no current is flowing through $R_1$.
+        This indicates that $u_- - R_1 i_{R_1} = u_- - 0 = V_{out}$. Furthermore, from the negative feedback observed here, we may determine via golden rules of op-amp that $u_- = u_+$.
+        Thus, $V_o = 4V$
+
+        \textit{Circuit C: where $V_1$ is not zeroed.} \\
+        The circuit diagram is as portrayed below:
+        \begin{center}
+            \begin{circuitikz}
+                \draw
+                    (0, 0) node [op amp] (AMP) {}
+                    (AMP.out)
+                        to [short, i_=$i_o$] ++ (0.5, 0) coordinate (AMPTrueOut)
+                    (AMP.-)
+                        to [short] ++(-3, 0) coordinate (u-)
+                        to [short] ++(0, 1.5) coordinate (topLeft)
+                        to [R, l^=${R_1=3k\Omega}$, i_=$i_{R_1}$] ++(2.5, 0) coordinate (r1)
+                        to [V=$V_1$, l_=$-5V$] (r1 -| AMPTrueOut)
+                        to [short] (AMPTrueOut)
+                    (u-)
+                        to [short] ++(-1, 0) coordinate(IsEnd)
+                        to [open, o-o] ++(0, -2) node [ground] {}
+                    (AMP.+)
+                        to [short] ++(-1, 0)
+                        to [short] ++(0, -1.5) node [ground] {}
+                    (AMPTrueOut)
+                        to [short] ++(0.5, 0)
+                        to [R, l^=${R_2=1k\Omega}$, i_=$i_{R_2}$] ++(0, -2) node [ground] {}
+                    (AMPTrueOut)
+                        to [short, -o] ++(1, 0) node [above] {$V_{o}$}
+                    ;
+            \end{circuitikz}
+        \end{center}
+        We may recognize from this diagram that $u_- - R_1 i_{R_1} + 5V = V_o$, which makes circuit C involve a negative feedback loop.
+        Because so, the golden rules of ideal op-amps allow us to deduce that $u_- = u_+ = 0V$.
+        Furthermore, provided that no current may ever flow into the negative terminal of an ideal op-amp, we may recognize that there are no current flowing across $R_1$.
+        Therefore, realistically, $V_o = 5V$ in this circuit.
+
+        \textit{Summing up the Above Results.} \\
+        Summing up the above results, via superposition, we observe that $V_o = -18V + 4V + 5V = -9V$.
+        
+        \textbf{\textit{Approach 2: Using NVA.}} \\
+        We note from part 1 that negative feedback is observed in the overall circuit. Therefore, $u_+ = u_- = 4V$.
+        Meanwhile, by Kirchhoff's Current Law and the property of ideal op-amps that currents do not flow into their negative terminals, we note that $i_{R_1} = 6mA$.
+        Using the relationship found at part 1: $u_- - R_1 i_{R_1} + 5V = V_o$, we arrive at the conclusion that:
+        \begin{align*}
+            V_o &= u_- - R_1 i_{R_1} + 5V \\
+            &= 4V - 18V + 5V = 9V
+        \end{align*}
+    }
+
+    \item {
+        Find the output current, $i_o$.
+    }
+    \ans {
+        Via Kirchhoff's Current Law, we may find that $i_{R_1} + i_o = i_{R_2}$.
+        We see that $i_{R_2} = -9mA$, and that $i_{R_1} = 6mA$.
+        Therefore, it must be that $i_0 = -9mA - 6mA = -15mA$.
+    }
+\end{enumerate}

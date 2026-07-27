@@ -1,0 +1,252 @@
+% Lydia Lee, Spring 2019
+% lydia.lee@berkeley.edu
+\qns{Passive Sign Convention}
+
+\textbf{Learning Goal:} This question practices labeling for passive sign convention.
+%====================Damanic edits==============================
+% \textbf{Relevant Notes:} \notes{Note 11A Section 11.3} introduces the standard circuit elements that are used in this question.
+%===============================================================
+For the following components, label all the missing $V_\text{element}$, $I_\text{element}$, and +/- signs. \textit{Hint: The value of the voltage and current sources shouldn't affect passive sign convention---remember that voltage and current can be negative!}
+
+\meta{
+\begin{itemize}
+\item For parts (a) and (b), clarify to your students that the box figure can represent any arbitrary circuit element (a resistor, a voltage source, etc.) and that the same convention still applies.
+\item As a general note, remind students that passive sign convention is just an arbitrary way to label currents and voltage drops. It helps keep calculations and signs of values consistent.
+\end{itemize}
+}
+
+\begin{enumerate}
+
+% Part A
+\item{.
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, v=$V_\text{element}$] ++(5,0);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(5,0);
+	\end{circuitikz}
+\end{center}
+}
+
+% Part B
+\item{.
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, i=$I_\text{element}$] ++(5,0);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(5,0);
+	\end{circuitikz}
+\end{center}
+}
+
+% Part C
+\item{.
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, invert] ++(0,3)
+			to[open] ++(2.5, 0)
+			to[open, v=$V_\text{element}$] ++(0.2,-3);
+	\end{circuitikz}
+\end{center}
+}
+If $V_\text{S}=1\si{\volt}$, what is $V_\text{element}$? \\If $V_\text{S}=-1\si{\volt}$, what is $V_\text{element}$? Would this change the $+/-$ labels of $V_\text{element}$?
+
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, i=$I_\text{element}$, invert] ++(0,3)
+			to[open] ++(1.3,0)
+			to[open, v^=$V_\text{element}$] ++(0.7,-3);
+	\end{circuitikz}
+\end{center}
+
+If $V_\text{S}=1\si{\volt}$, $V_\text{element}$ would also be $1\si{\volt}$ due to our labeling of $+$ and $-$.
+
+If $V_\text{S}=-1\si{\volt}$, $V_\text{element}=-1\si{\volt}$ as well. This does NOT change the $+/-$ labels of $V_\text{element}$, which do not depend on the voltage source's value. Once we have labeled the $+$ and $-$ a certain way in the diagram, we will follow passive sign convention with that specific labeling.
+}
+
+
+\meta{Note that the + and - on the voltage source are completely unrelated to the + and - in passive sign convention: the signs on the voltage source just mean “the positive terminal is $V_s$ volts above the negative terminal.” Apply this logic to get the sign of $V_{element}$.
+
+If students are confused by this answer, draw the source, then a box around it. Shade in the box so the voltage source is obscured, and now the problem is identical to having a black box voltage source. This particular style of question has featured on several exams, and it's good to have lots of practice with this when calculating power.
+}
+
+% Part D
+\item{.
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, i=$I_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+If $V_\text{S}=3\si{\volt}$, what is $V_\text{element}$? \\ If $V_\text{S}=-3\si{\volt}$, what is $V_\text{element}$? 
+}
+
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, i=$I_\text{element}$] ++(0,-3)
+			to[open] ++(-.5,0)
+			to[open, v^=$V_\text{element}$] ++(0,3);
+	\end{circuitikz}
+\end{center}
+
+If $V_\text{S}=3\si{\volt}$, $V_\text{element}$ is $-3\si{\volt}$ because we have labeled our $+$ and $-$ opposing the direction of the voltage source. So $V_\text{element} = -V_\text{S}$.
+
+Similarly, if $V_\text{S}=-3\si{\volt}$, then $V_\text{element} = 3\si{\volt}$.
+}
+
+\meta{
+	The next few subparts look at a few counterintuitive labelings. If your students are still struggling with the basics of passive sign convention, consider skipping them.
+}
+
+\item{.
+
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open] ++(1.3,0)
+			to[open, v^=$V_\text{element}$] ++(0.7,-3);
+	\end{circuitikz}
+\end{center}
+
+If $I_\text{S}=5\si{\ampere}$, what is $I_\text{element}$? \\If $I_\text{S}=-5\si{\ampere}$, what is $I_\text{element}$? Would this change the direction of the $I_\text{element}$ label?
+}
+
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open] ++(.5,0)
+			to[open, v^=$V_\text{element}$] ++(0,-3)
+		(0,3) to[open, i^=$I_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+
+If $I_\text{S}=5\si{\ampere}$, then $I_\text{element} = 5\si{\ampere}$, as it is in the same direction as $I_\text{S}$.
+
+Using the property that $I_\text{S}=I_\text{element}$, if $I_\text{S} = -5\si{\ampere}$, then $I_\text{element} = -5\si{\ampere}$. This would not change the direction of the $I_\text{element}$ label.
+}
+
+\item{.
+
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+		(0,0) to[open] ++(1.3,0)
+			to[open, v_=$V_\text{element}$] ++(0.7,3);
+	\end{circuitikz}
+\end{center}
+
+If $I_\text{S}=1\si{\ampere}$, what is $I_\text{element}$? \\If $I_\text{S}=-1\si{\ampere}$, what is $I_\text{element}$? Would this change the direction of the $I_\text{element}$ label?
+}
+
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)			
+		(.5,0) to[open, v_=$V_\text{element}$] ++(0,3)
+		(0,0) to[open, i^=$I_\text{element}$] ++(0,3);
+	\end{circuitikz}
+\end{center}
+
+$I_\text{element}$ goes in the opposite direction of $I_\text{S}$, so if $I_\text{S}=1\si{\ampere}$, then $I_\text{element} = -1\si{\ampere}$.
+If $I_\text{S}=-1\si{\ampere}$, then $I_\text{element} = 1\si{\ampere}$.
+}
+
+\item{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open, i=$I_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open, i=$I_\text{element}$] ++(0,-3)
+		(1.4,3) to[open, v^=$V_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+}
+
+\item{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+		(0,0) to[open, i=$I_\text{element}$, invert] ++(0,3);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+		(0,0) to[open] ++(.5,0)
+			to[open, v_=$V_\text{element}$] ++(0,3)
+		(0,0) to[open, i=$I_\text{element}$, invert] ++(0,3);
+	\end{circuitikz}
+\end{center}
+}
+
+\item{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw (0,0) to[R, i=$I_\text{element}$] ++(-4,0);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}[scale=0.75]
+		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(-4,0);
+	\end{circuitikz}
+\end{center}
+}
+
+% \item{\textbf{(PRACTICE)}
+
+% \begin{center}
+% 	\begin{circuitikz}[scale=0.75]
+% 		\draw (0,0) to[R, v=$V_\text{element}$] ++(-4,0);
+% 	\end{circuitikz}
+% \end{center}
+% }
+% \ans{
+% \begin{center}
+% 	\begin{circuitikz}[scale=0.75]
+% 		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(-4,0);
+% 	\end{circuitikz}
+% \end{center}
+% }
+\end{enumerate}

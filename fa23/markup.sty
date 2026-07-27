@@ -1,0 +1,82 @@
+\usepackage{newfile}
+\newoutputstream{annotations}
+\openoutputfile{\jobname.annotations}{annotations}
+\addtostream{annotations}{BEGIN ANNOTATIONS}
+\newcounter{jssnippet}
+\usepackage{zref-abspos}
+\newcommand*{\SEP}[1]{
+
+  \zsaveposy{#1}
+
+}
+
+\newcommand\config[2]{
+  \SEP{config=#1=#2}
+}
+
+\ifdefined\qunlist
+\let\oldqunlist\qunlist
+\let\oldendqunlist\endqunlist
+\renewenvironment{qunlist}{
+  \SEP{begin_questions}
+  \oldqunlist
+  \let\oldqns\qns
+  \renewcommand\qns{\SEP{new_question}\oldqns}
+  \newcommand\qpart{\SEP{new_part}}
+}
+{
+  \oldendqunlist
+  \SEP{end_questions}
+}
+\fi
+
+\newenvironment{Choices}{
+  \SEP{begin_choices}
+  \newcommand{\TrueChoice}{\SEP{true_choice}}
+  \newcommand{\FalseChoice}{\SEP{false_choice}}
+  \newcommand{\Hint}{\SEP{hint}}
+  \newcommand{\Solution}{\SEP{solution}}
+}{
+  \SEP{end_choices}
+}
+
+\newenvironment{Multi}{
+  \SEP{begin_multi}
+  \newcommand{\TrueChoice}{\SEP{true_choice}}
+  \newcommand{\FalseChoice}{\SEP{false_choice}}
+  \newcommand{\Hint}{\SEP{hint}}
+  \newcommand{\Solution}{\SEP{solution}}
+}{
+  \SEP{end_multi}
+}
+
+\newenvironment{Freeform}[1]{
+  \SEP{begin_freeform}
+  \SEP{ans_equals@#1}
+  \newcommand{\Hint}{\SEP{hint}}
+  \newcommand{\Solution}{\SEP{solution}}
+}{
+  \SEP{end_freeform}
+}
+
+\newenvironment{FreeformJS}[1]{
+  \stepcounter{jssnippet}
+  \SEP{begin_freeformjs}
+  \SEP{ans_js@\thejssnippet}
+  \addtostream{annotations}{====== annotation ======}
+  \addtostream{annotations}{====== jssnippet ======}
+  \addtostream{annotations}{\thejssnippet}
+  \addtostream{annotations}{====== ------}
+  \addtostream{annotations}{#1}
+  \addtostream{annotations}{------ jssnippet ------}
+  \newcommand{\Hint}{\SEP{hint}}
+  \newcommand{\Solution}{\SEP{solution}}
+}{
+  \SEP{end_freeformjs}
+}
+
+\let\olddocument\document
+\renewcommand\document{\olddocument\SEP{begin_document}}
+
+\let\oldenddocument\enddocument
+\renewcommand\enddocument{\SEP{end_document}\oldenddocument}

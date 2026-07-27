@@ -1,0 +1,28 @@
+\begin{document}
+
+\def\title{Test}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/svd-pca/svd_practice.tex}
+\newpage
+\input{\bank/svd-pca/svd_expansion.tex}
+\newpage
+\input{\bank/svd-review/moore-penrose.tex}
+\newpage
+\input{\bank/optimal-control/minimum-norm-hard.tex}
+\newpage
+
+\end{qunlist}
+
+\end{document}

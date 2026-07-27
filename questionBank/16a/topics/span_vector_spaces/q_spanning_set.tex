@@ -1,0 +1,191 @@
+\qns{Spanning Set}
+
+\textbf{Learning Goal:} The goal of this problem is to connect Gaussian Elimination and linear (in)dependence to the concept of span. Another goal is to be comfortable with the geometric representation of span.
+
+\meta{
+
+\begin{itemize}
+\item Before starting the problems, make sure that students are comfortable with the definition of span. 
+
+\item Drive home the idea that knowing a vector is in a span means that the vector can be represented as a linear combination of other vectors in the span (e.g. $\vec{b}$ from part (a)).
+
+\item It might be a good idea to explain span geometrically.  
+
+\item An example video that may help students visualize span is linked: \underline{https://bit.ly/3aK9p9v}
+
+\end{itemize}
+
+}
+
+\begin{enumerate}
+ %\setlength\itemsep{6em}
+\itemFor what values of $b_1$, $b_2$, $b_3$ is the following system of linear equations consistent? (``Consistent'' means there is at least one solution. Please see \notes{Note 1B: Subsection 1.2.4.2} for more details on consistency of a system.)
+\begin{align*}
+\mathbf{A}\vec{x}&=\vec{b}\\
+    \begin{bmatrix}1 & 2\\ 2 & 1 \\ 0 & 0 \end{bmatrix}\begin{bmatrix}x_1 \\ x_2\end{bmatrix} &= \begin{bmatrix}b_1 \\ b_2 \\ b_3 \end{bmatrix}
+\end{align*}
+
+    \ans{
+      For the system of linear equations to be consistent, there must exist some $\vec{x}$ such that the equality above holds. Performing matrix vector multiplication, we can rewrite the above equality as
+\begin{align*}
+	x_1 \begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix} + x_2 \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix} = \begin{bmatrix}b_1 \\ b_2 \\ b_3 \end{bmatrix}
+\end{align*}
+
+      The LHS of the above equation is a linear combination of the columns of $\mathbf{A}$. So, the system will be consistent as long as $\vec{b}$ can be written as a linear combination of the columns of $\mathbf{A}$. In other words, $\vec{b}$ needs to be in $\text{range}(\mathbf{A})=\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$. Please see \notes{Note 3: Section 3.3} for the relation between linear dependence and span.
+      
+\textbf{Note: Any system $\mathbf{A}\vec{x}=\vec{b}$ will be consistent if and only if, $\vec{b}\in \text{range}(\mathbf{A})$ i.e. $\vec{b}$ belongs in the span of the columns of $\mathbf{A}$. This is a very key concept. Matrix multiplication can be thought of as remapping a vector (or a set of vectors) to a new coordinate plane. The set of vectors that can be reached in the span of the columns of the matrix transformation.}
+
+Performing Gaussian Elimination on the augmented matrix $[\mathbf{A}|\vec{b}]$, we have:
+\begin{align*}
+	\left[\begin{array}{cc|c}
+		1 & 2 & b_1\\
+		2 & 1 & b_2\\
+		0 & 0 & b_3
+	\end{array}\right] &\rightarrow \left[\begin{array}{cc|c}
+		1 & 2 & b_1\\
+		0 & -3 & b_2-2b_1\\
+		0 & 0 & b_3
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 2R_1$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+		1 & 2 & b_1\\
+		0 & 1 & (2b_1-b_2)/3\\
+		0 & 0 & b_3
+\end{array}\right] \mbox{using $R_2 \leftarrow -R_2/3$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+		1 & 0 & (2b_2-b_1)/3\\
+		0 & 1 & (2b_1-b_2)/3\\
+		0 & 0 & b_3
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1-2R_2$}
+\end{align*}
+
+Looking at the last row of the row reduced matrix, that $b_3$ needs to be zero to avoid inconsistency of the system. On the other hand, solution would exist for any scalar values of $b_1$ and $b_2$.}
+
+
+
+
+\itemWhat is the geometry represented by $\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ ?
+    
+     \meta{Some students might think $xy$-plane is equivalent to $\mathbb{R}^2$. Highlight the fact that these vectors have three components, so they $\in\mathbb{R}^3$, and cannot be $\in\mathbb{R}^2$. For purposes of explaining the answers in the next few parts, it is recommended to draw the 2 column vectors in a 3D coordinate grid. }
+
+    \ans{
+ $\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ contains any vector $\vec{v}$ that can be written as
+\begin{align*}
+	\vec{v} = \alpha_1 \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix} + \alpha_2 \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix},
+\end{align*}
+where $\alpha_1$ and $\alpha_2$ are scalars.
+      We realize that from part (a) and part (b) that any vector whose third component is $0$ can be written in this form. Hence, the required span is the set of all vectors that can be written in the form $\begin{bmatrix}* \\ * \\ 0 \end{bmatrix}$. Geometrically, the span is the set of all vector in the $xy$-plane in $\mathbb{R}^3$.
+      
+    \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+    % Axes
+    \draw [->] (0,0,0) -- (0,0,4) node [left] {$x$};
+    \draw [->] (0,0,0) -- (4,0,0) node [right] {$y$};
+    \draw [->] (0,0,0) -- (0,3,0) node [left] {$z$};
+    % Vectors
+    \draw [->, thick] (0,0,0) -- (1,0,2);
+    \draw [->, thick] (0,0,0) -- (2,0,1);
+    % Ticks
+        \foreach \i in {1,2}
+    {
+    \draw (-0.1,\i,0) -- ++ (0.2,0,0);
+    \draw (\i,-0.1,0) -- ++ (0,0.2,0);
+    \draw (-0.1,0,\i) -- ++ (0.2,0,0);
+    }
+    % Dashed lines
+    \draw [loosely dashed]
+        (1,0,0) -- (1,0,2) -- (0,0,2)
+        (2,0,0) -- (2,0,1) -- (0,0,1)
+        ;
+    % Labels
+     \node [below] at (1,0,2) {$\begin{bmatrix}
+                                1\\2\\0
+                               \end{bmatrix}$};
+   \node [below] at (2,0,1) {$\begin{bmatrix}
+                               2\\1\\0
+                              \end{bmatrix}$};
+
+	\end{tikzpicture}
+      
+   }
+
+
+
+\itemFind out if $\vec{v_1}=\begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix}$ is in $\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$. What about $\vec{v_2}=\begin{bmatrix}-3 \\ 5 \\ 2 \end{bmatrix}$?
+
+\meta{
+\begin{itemize}
+\item Given the previous answer,  the solution should be clear to students. 
+
+\item While graphical visualization is a valid option for lower dimensions,  the mathematical approach introduced here should be followed for higher dimensions. 
+
+\item The results contains fractions,  to show that the coefficients can be non-integers.
+\end{itemize}
+}
+
+\ans{
+
+Just at first glance,  we can immediately see that $\vec{v_2}$ is not in the span since in part (a), we determined that ${b_3}$ must be 0.
+\\
+\\
+However,  we can use Gaussian Elimination again to find out:
+
+\begin{align*}
+	\left[\begin{array}{cc|c}
+		1 & 2 & -3\\
+		2 & 1 & 5\\
+		0 & 0 & 0
+	\end{array}\right] &\rightarrow \left[\begin{array}{cc|c}
+		1 & 2 & -3\\
+		0 & -3 & 11\\
+		0 & 0 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow R_2 - 2R_1$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+		1 & 2 & -3\\
+		0 & 1 & -11/3\\
+		0 & 0 & 0
+\end{array}\right] \mbox{using $R_2 \leftarrow -R_2/3$}\\
+&\rightarrow \left[\begin{array}{cc|c}
+		1 & 0 & 13/3\\
+		0 & 1 & -11/3\\
+		0 & 0 & 0
+\end{array}\right] \mbox{using $R_1 \leftarrow R_1-2R_2$}
+\end{align*}
+So we can write that $x_1=\frac{13}{3}$ and $x_2=-\frac{11}{3}$.
+\begin{align*}
+	\begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix}=\frac{13}{3}\begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix} -\frac{11}{3}\begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix}.
+\end{align*}    
+So $\vec{v_1}$ is in the span.
+
+If we follow the same process for  $\vec{v_2}$, we are going to see that the system is inconsistent, i.e. it cannot be solved for $x_1$ and $x_2$, which means $\vec{v_2}$ cannot be in the span.
+}
+
+  
+
+\itemReflect on your answer from part(b) and find out $\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix} \right\}$.
+
+	\meta{This part helps establish the intuition behind linear dependence. Take some time to explain why the new vector doesn't contribute to the span.}
+
+    \ans{
+      From part (b), we found that $\begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix}$ is in $\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$, i.e. $\begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix}$ is linearly dependent on $\begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}$ and $\begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}$. 
+      So  any vector $\vec{v}\in\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix} \right\}$ can be written as:
+ \begin{align*}
+ \vec{v}&=\alpha_1\begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}+\alpha_2\begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}+\alpha_3\begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix}\\
+ &=\alpha_1\begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}+\alpha_2\begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}+\frac{13}{3}\alpha_3\begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}-\frac{11}{3}\alpha_3\begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}\\
+&=(\alpha_1+\frac{13}{3}\alpha_3)\begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}+(\alpha_2-\frac{11}{3}\alpha_3)\begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}
+ \end{align*}
+
+Since $(\alpha_1+\frac{13}{3}\alpha_3)$ and $(\alpha_2-\frac{11}{3}\alpha_3)$ are both scalars in the above equation, we can say that $\vec{v}\in\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$. Similarly you can show that any vector $\vec{u}\in\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ would also belong in $\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix} \right\}$. So $\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix}-3 \\ 5 \\ 0 \end{bmatrix} \right\}=\text{span}\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$
+}
+
+    \itemWhat is a possible choice for $\vec{v}$ that would make span$\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}, \vec{v} \right\} = \mathbb{R}^3$ ?
+
+    \ans{
+      From part (a), we realize that any vector whose last component is 0 can be written as a linear combination of the two vectors already in the set. Hence, if we include, for example, $\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$ into the set, then we should be able to reach any vector in $\mathbb{R}^3$. Any vector whose last component is non-zero is a valid addition to the set to achieve the desired span. 
+      
+\textbf{Note: We need \textit{at least} $n$ linearly independent vectors $\in\mathbb{R}^n$ to span the entirety of $\mathbb{R}^n$. In other words, $\text{span}\left\{ \vec{a_1}, \vec{a_2}, ,\hdots , \vec{a_n} \right\}=\mathbb{R}^n$, for a linearly independent set of $\vec{a_1}$,$\hdots$, $\vec{a_n}$.}
+
+}
+
+    
+
+\end{enumerate}
+

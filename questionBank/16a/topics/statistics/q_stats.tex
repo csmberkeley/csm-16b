@@ -1,0 +1,64 @@
+\qns{Temperature}
+
+\meta{
+    Give students a mini-lecture on RMS, average, and Standard deviation. Make sure they know the formulas and how to apply them. 
+}
+Formulas for avg, RMS, and std to use for these problems:
+\begin{align*}
+    \text{avg}(\vec{v}) = \frac{1}{n} \sum_{i=1}^{n} v_i \\
+    \text{RMS}(\vec{v}) = \frac{\|\vec{v}\|}{\sqrt{n}} \\ 
+    \text{std}(\vec{v}) = \frac{\sqrt{\sum_{i=1}^{n} (v_i - \text{avg}(\vec{v}))^2}}{\sqrt{n}}
+\end{align*}
+Let $V_{A}$ and $ V_{B}$ be vectors in R$^3$ that describe temperatures in Antarctica and Brazil respectively.
+    \begin{align*}
+        \vec{V_A} = \begin{bmatrix} 0 \\ -2 \\ -1 \end{bmatrix}
+        \vec{V_B} = \begin{bmatrix} 2 \\ 4 \\ 6 \end{bmatrix}
+    \end{align*}
+
+\begin{enumerate}
+    \item Calculate average, root mean square, and standard deviation values for each vector
+    \ans{
+            \begin{align*}
+                \text{avg}(\vec{v}) = \frac{1}{n} \sum_{i=1}^{n} v_i \\
+                \text{RMS}(\vec{v}) = \frac{\|\vec{v}\|}{\sqrt{n}} \\ 
+                \text{std}(\vec{v}) = \frac{\sqrt{\sum_{i=1}^{n} (v_i - \text{avg}(\vec{v}))^2}}{\sqrt{n}}
+            \end{align*}
+            
+            \textbf{\( \vec{V_A} \):}
+            \begin{align*}
+                \text{avg}(\vec{V_A}) = \frac{0 + (-2) + (-1)}{3} = -1 \\
+                \text{RMS}(\vec{V_A}) = \sqrt{\frac{0^2 + (-2)^2 + (-1)^2}{3}} = \sqrt{\frac{5}{3}} \\
+                \text{std}(\vec{V_A}) = \sqrt{\frac{(0 - (-1))^2 + (-2 - (-1))^2 + (-1 - (-1))^2}{3}} = \frac{\sqrt{2}}{\sqrt{3}}
+            \end{align*}
+            
+            \textbf{\( \vec{V_B} \):}
+            \begin{align*}
+                \text{avg}(\vec{V_B}) &= \frac{2 + 4 + 6}{3} = 4 \\
+                \text{RMS}(\vec{V_B}) &= \sqrt{\frac{2^2 + 4^2 + 6^2}{3}} = \sqrt{\frac{56}{3}} \\
+                \text{std}(\vec{V_B}) &= \sqrt{\frac{(2 - 4)^2 + (4 - 4)^2 + (6 - 4)^2}{3}} = \sqrt{\frac{8}{3}}
+            \end{align*}
+    }
+    \item In 50 years, global warming has shifted temperatures across the globe such that:
+    \begin{center}
+        $\vec{V_{A50}} = \begin{bmatrix}  2 \\ 0 \\ 1 \end{bmatrix}$
+        $\vec{V_{B50}} = \begin{bmatrix}  3 \\ 5 \\ 7 \end{bmatrix}$
+    \end{center}
+    Calculate the new standard deviation values for each vector
+
+    \ans{
+    \textbf{\( \vec{V_{A50}} \):}
+    \begin{align*}
+        \text{avg}(\vec{V_A}) &= \frac{2 + 0 + (-1)}{3} = 1 \\
+        \text{std}(\vec{V_A}) &= \sqrt{\frac{(2 - 1)^2 + (0 - 1)^2 + ((-1) - 1)^2}{3}} = \frac{\sqrt{14}}{\sqrt{3}}
+    \end{align*}
+    
+    \textbf{\( \vec{V_{B50}} \):}
+    \begin{align*}
+        \text{avg}(\vec{V_{B50}}) &= \frac{3 + 5 + 7}{3} = 5 \\
+        \text{std}(\vec{V_{B50}}) &= \sqrt{\frac{(3  - 5)^2 + (5 - 5)^2 + (7- 5)^2}{3}} = \sqrt{\frac{8}{3}}
+    \end{align*}
+    \text average values for ${V_A}, {V_B}$ and ${V_{A50}, V_{B50}}$ are different, but standard deviation is the same. 
+    }
+    
+    
+\end{enumerate}

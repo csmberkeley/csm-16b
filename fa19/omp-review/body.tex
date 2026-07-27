@@ -1,0 +1,32 @@
+\usepackage{caption}
+
+\begin{document}
+
+\def\title{OMP Review}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\begin{qunlist}
+\input{\bank/omp-review/omp_notebook}
+\newpage
+\input{\bank/inner-products/gram_schmidt}
+\newpage
+\input{\bank/inner-products/mech_gram_schmidt}
+\newpage
+\input{\bank/inner-products/matrix_methods}
+\newpage
+\input{\bank/omp-review/projections}
+\newpage
+\input{\bank/omp-review/omp_speedup}
+\newpage
+\input{\bank/omp-review/qr_factorization}
+\end{qunlist}
+
+\end{document}

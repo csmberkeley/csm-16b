@@ -1,0 +1,232 @@
+% Author: Anna Chou
+% Email: menghuichou@berkeley.edu
+% sp22 csm
+% p181
+
+\qns{Norton's Theorem}
+
+\textbf{Learning Goal: }Practice how to use Norton's Theorem to solve complex circuits.
+
+\meta{Make sure students know the steps and terms such as load resistance, Norton's current, and Thevenin equivalent resistance.}
+
+Use Norton's Theorem to find $V_{AB}$.
+
+\begin{center}
+    \begin{circuitikz}
+        \draw (0,0)
+        to[R, l= $1\Omega$] ++(0,3)
+        to[short] ++(1,0)
+        to[R, l= $2\Omega$] ++(1,0)
+        to[short] ++(2,0)
+        to[V_=$3V$, invert] ++(1,0)
+        to[short] ++(1,0)
+        (6,3)to[short] ++(0,-1)
+        to[R, l=$6\Omega$] ++(0,-1)
+        to[short] ++(0,-1)
+        to[short] ++(-6,0)
+        (3,3)to[short] ++(0,-1)
+        to[I, invert, l=2A] ++(0,-1)
+        to[short] ++(0,-1)
+        (6,3)to[short, -o] ++(3,0)
+        (6,0)to[short, -o] ++(3,0)
+        (9,3)to[open,v^>=$V_{AB}$] ++(0,-3)
+        (9,3) node[label={[font=\footnotesize]above:A}] {}
+        (9,0) node[label={[font=\footnotesize]below:B}] {}
+    \end{circuitikz}
+\end{center}
+
+We will walk through the problem step by step to find out the answer:)\\\\
+
+\begin{enumerate}
+    \item Find Thevenin equivalent resistance to the circuit.
+        
+        \ans{
+        
+        Step 1: Find load resistor and remove it from the circuit. The resistor $6\Omega$ between node A and B is the load resistor. We save it for the later use, so now our circuit becomes this
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0)
+                to[R, l= $1\Omega$] ++(0,3)
+                to[short] ++(1,0)
+                to[R, l= $2\Omega$] ++(1,0)
+                to[short] ++(2,0)
+                to[V_=$3V$, invert] ++(1,0)
+                to[short] ++(1,0)
+                (6,3)to[open] ++(0,-3)
+                to[short] ++(-6,0)
+                (3,3)to[short] ++(0,-1)
+                to[I, invert, l=2A] ++(0,-1)
+                to[short] ++(0,-1)
+                (6,3)to[short, -o] ++(3,0)
+                (6,0)to[short, -o] ++(3,0)
+                (9,3)to[open,v^>=$V_{AB}$] ++(0,-3)
+                (9,3) node[label={[font=\footnotesize]above:A}] {}
+                (9,0) node[label={[font=\footnotesize]below:B}] {}
+            \end{circuitikz}
+        \end{center}
+        
+        Step 2: Turn off all independent sources (short voltage source and open current source) and find Thevenin equivalent resistance from looking into node A and B. 
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0)
+                to[R, l= $1\Omega$] ++(0,3)
+                to[short] ++(1,0)
+                to[R, l= $2\Omega$] ++(1,0)
+                to[short] ++(2,0)
+                to[short] ++(1,0)
+                to[short] ++(1,0)
+                (6,3)to[open] ++(0,-3)
+                to[short] ++(-6,0)
+                (6,3)to[short, -o] ++(3,0)
+                (6,0)to[short, -o] ++(3,0)
+                (9,3)to[open,v^>=$V_{AB}$] ++(0,-3)
+                (9,3) node[label={[font=\footnotesize]above:A}] {}
+                (9,0) node[label={[font=\footnotesize]below:B}] {}
+            \end{circuitikz}
+        \end{center}
+        
+        Thevenin resistance = $1\Omega$ + $2\Omega$ = $3\Omega$.
+        }
+    \item Find Norton's current.
+        
+        \ans{
+        
+        To find Norton current, we short Node A and B and find $i_{sc}$ flowing from node A to B.
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0)
+                to[R, l= $1\Omega$] ++(0,3)
+                to[short] ++(1,0)
+                to[R, l= $2\Omega$] ++(1,0)
+                to[short] ++(2,0)
+                to[V_=$3V$, invert] ++(1,0)
+                to[short] ++(1,0)
+                (6,3)to[short,*-] ++(0,-1)
+                to[short, i_=$i_{sc}$] ++(0,-1)
+                to[short] ++(0,-1)
+                to[short,*-] ++(-6,0)
+                (3,3)to[short] ++(0,-1)
+                to[I, invert, l=2A] ++(0,-1)
+                to[short] ++(0,-1)
+                (6,3) node[label={[font=\footnotesize]above:A}] {}
+                (6,0) node[label={[font=\footnotesize]below:B}] {}
+            \end{circuitikz}
+        \end{center}
+        
+        
+        Let's use superposition to find $i_{sc}$ out.\\
+        Step 1: Only turn on voltage source 3V. Find $i_{sc}^'$.
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0)
+                to[R, l= $1\Omega$] ++(0,3)
+                to[short] ++(1,0)
+                to[R, l= $2\Omega$] ++(1,0)
+                to[short] ++(2,0)
+                to[V_=$3V$, invert] ++(1,0)
+                to[short] ++(1,0)
+                (6,3)to[short,*-] ++(0,-1)
+                to[short, i_=$i_{sc}^'$] ++(0,-1)
+                to[short] ++(0,-1)
+                to[short,*-] ++(-6,0)
+                % (3,3)to[short] ++(0,-1)
+                % to[I, invert, l=2A] ++(0,-1)
+                % to[short] ++(0,-1)
+                (6,3) node[label={[font=\footnotesize]above:A}] {}
+                (6,0) node[label={[font=\footnotesize]below:B}] {}
+            \end{circuitikz}
+        \end{center}
+        
+        $i_{sc}^'$ = 3V / ($2\Omega$ + $1\Omega$) = 1A.\\
+        
+        
+        Step 2: Only turn on current source 2A. Find $i_{sc}^"$.
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0)
+                to[R, l= $1\Omega$] ++(0,3)
+                to[short] ++(1,0)
+                to[R, l= $2\Omega$] ++(1,0)
+                to[short] ++(2,0)
+                to[short] ++(1,0)
+                to[short] ++(1,0)
+                (6,3)to[short,*-] ++(0,-1)
+                to[short, i_=$i_{sc}^"$] ++(0,-1)
+                to[short] ++(0,-1)
+                to[short,*-] ++(-6,0)
+                (3,3)to[short] ++(0,-1)
+                to[I, invert, l=2A] ++(0,-1)
+                to[short] ++(0,-1)
+                (6,3) node[label={[font=\footnotesize]above:A}] {}
+                (6,0) node[label={[font=\footnotesize]below:B}] {}
+            \end{circuitikz}
+        \end{center}
+        
+        $i_{sc}^"$ = 2A.\\
+        
+        
+        Step 3: Sum up all sub-currents to get $i_{sc}$.
+        
+        $i_{sc}$ = $i_{sc}^'$ + $i_{sc}^"$ = 1 + 2 = 3A.
+        }
+    \item Assemble what you know from previous parts, construct the Norton equivalent circuit and label all important circuit elements. Don't forget the load resistor!
+        
+        \ans{
+        
+        part(a): Thevenin equivalent resistance is $3\Omega$ and load resistance is $6\Omega$. \\
+        part(b): Norton's current is 3A.\\
+        
+        we can assemble Norton's equivalent circuit by putting everything in parallel.
+        
+         \begin{center}
+            \begin{circuitikz}
+                \draw (0,0)
+                to[I, l=3A] ++(0,3)
+                to[short] ++(3,0)
+                to[short] ++(3,0)
+                (3,3)to[short] ++(0,-1)
+                to[R, l=$3\Omega$] ++(0,-1)
+                to[short] ++(0,-1)
+                (6,3)to[short] ++(0,-1)
+                to[R, l=$6\Omega$] ++(0,-1)
+                to[short] ++(0,-1)
+                (0,0)to[short] ++(6,0)
+                (6,3)to[short, -o] ++(3,0)
+                (6,0)to[short, -o] ++(3,0)
+                (9,3)to[open,v^>=$V_{AB}$] ++(0,-3)
+                (9,3) node[label={[font=\footnotesize]above:A}] {}
+                (9,0) node[label={[font=\footnotesize]below:B}] {}
+            \end{circuitikz}
+        \end{center}
+        
+        
+        }
+    
+    
+    \item Find $V_{AB}$ based on the Norton's circuit you just built.
+        
+        \ans{
+        
+         Since resistors are all in parallel, we can find an equivalent resistance of the circuit first and use Ohm's law to find $V_{AB}$.
+         
+         \begin{center}
+            \begin{circuitikz}
+                \draw (0,0)
+                to[I, l=3A] ++(0,3)
+                to[short] ++(3,0)
+                (3,3)to[short] ++(0,-1)
+                to[R, l=$3\Omega$ || $6\Omega$ \text{=} $2\Omega$] ++(0,-1)
+                to[short] ++(0,-1)
+                (0,0)to[short] ++(3,0)
+                (3,3)to[short, -o] ++(3,0)
+                (3,0)to[short, -o] ++(3,0)
+                (6,3)to[open,v^>=$V_{AB}$] ++(0,-3)
+                (6,3) node[label={[font=\footnotesize]above:A}] {}
+                (6,0) node[label={[font=\footnotesize]below:B}] {}
+            \end{circuitikz}
+        \end{center}
+         
+        $V_{AB}$ = 3A * $2\Omega$ = 6V.
+        }
+\end{enumerate}
+

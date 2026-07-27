@@ -1,0 +1,75 @@
+%% summer 2020 MT2 probeem
+%% Panos Zarkos panzarkos@berkeley.edu 
+
+\qns{Equivalence in Capacitive Networks}
+
+\textbf{Learning Goal:} This objective of this problem is to practice finding equivalent capacitance for series/parallel network of capacitors.
+
+\textbf{Relevant Notes:} \notes{Note 16} derives the equivalent capacitance formula for series/ parallel capacitors.
+
+For all of the following networks find an expression or a numerical value for the equivalent capacitance between terminals A and B.
+
+\meta{Note that equivalent capacitance behaves in opposite ways to equivalent resistance: series and parallel are essentially "flipped". For capacitors, the parallel operator || is used in series.
+
+Be sure to emphasize to students that the order of the capacitors in series don’t necessarily change the overall capacitance (i.e. $C_2$ || $C_3$ || $C_4$ = $C_4$ || $C_2$ || $C_3$).
+
+}
+\begin{enumerate}
+
+\item
+
+    \begin{minipage}{\linewidth}
+        \begin{center}
+        \begin{circuitikz}
+        	\draw (0, 0) node[anchor=east]{A}
+        				 to [short, o-] ++ (1, 0)
+        				 to [C=$C_1$] ++ (0, -3)
+        				 to [C=$C_5$] ++ (0, -3)
+        				 to [short, -o] ++ (-1, 0)
+        				 node[anchor=east]{B};
+        	\draw (1, 0) to [short] ++ (3, 0)
+        				 to [C=$C_2$] ++ (0, -2)
+        				 to [C=$C_3$] ++ (0, -2)
+        				 to [C=$C_4$] ++ (0, -2)
+        				 to [short] ++ (-3, 0);
+        \end{circuitikz}
+        \end{center}
+        \end{minipage}
+        
+
+
+
+    
+    \ans{
+    Here we have two branches connected in parallel, one including capacitors $C_1$, $C_5$ (which are connected in series) and one including capacitors $C_2$, $C_3$, and $C_4$ (which are also connected in series). The equivalent capacitance of the left branch is $C_1 || C_5$, where $||$ is the parallel operator (i.e. $a||b = \frac{ab}{a+b}$). Similarly, for the right branch, the equivalent capacitance is $C_2 || C_3 || C_4$. Since the two branches are in parallel, we can sum up their equivalent capacitances:
+    $$C_{AB} = (C_1 || C_5) + (C_2 || C_3 || C_4)$$
+
+    }
+    
+\item
+\begin{minipage}{\linewidth}
+        \begin{center}
+        \begin{circuitikz}
+        	\draw (0, 0) node[anchor=east]{A}
+        				 to [short, o-] ++ (1, 0)
+        				 to [C=$C_1$] ++ (0, -3)
+        				 to [C=$C_2$] ++ (0, -3);
+        	\draw (0, -3) node[anchor=east]{B}
+        				 to [short, o-] ++ (1, 0);
+        	\draw (1, 0) to [short] ++ (3, 0)
+        				 to [C=$C_3$] ++ (0, -2)
+        				 to [C=$C_4$] ++ (0, -2)
+        				 to [C=$C_5$] ++ (0, -2)
+        				 to [short] ++ (-3, 0);
+        \end{circuitikz}
+        \end{center}
+\end{minipage}
+
+	\ans{
+	
+	Here, we have two branches connected in parallel, with the first branch containing only $C_1$. The second branch contains $C_3$, $C_4$, $C_5$, and $C_2$ in series. The equivalent capacitance of the right branch is $C_2 || C_3 || C_4 || C_5$. Then, we can sum this up with $C_1$ from the left branch to get:
+	$$C_{AB} = C_1 + (C_2 || C_3 || C_4 || C_5)$$
+	}	
+
+\end{enumerate}
+ 

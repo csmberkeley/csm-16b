@@ -1,0 +1,73 @@
+% Author: Taejin Hwang
+% Email: taejin@berkeley.edu
+
+\qcontributor{Taejin Hwang}
+
+\qns{Spectral Theorem}
+
+An amazing result in Linear Algebra is the Spectral Theorem which says that any \textbf{symmetric} matrix is orthogonally diagonalizable. 
+This means that a symmetric matrix will always have $n$ linearly independent eigenvectors that are all mutually orthogonal.
+
+We will show that some of these properties are true for the symmetric matrix $A^{T} A$ to help motivate the SVD.
+
+\begin{enumerate}
+  \qitem Show that $A^{T}A$ is a symmetric matrix.
+
+  \sol {
+    Remember that matrix $M$ is symmetric, if $M^{T} = M,$ therefore it remains to show that $(A^{T}A)^{T} = A^{T}A.$
+    We can also remember that for two matrices, $A, B, (AB)^{T} = B^{T} A^{T}.$ \\
+    Applying the fact above, we see that $(A^{T}A)^{T} = A^{T} (A^{T})^{T} = A^{T} A.$
+  }
+
+  \qitem Show that every eigenvalue $\lambda_{i}$ of $A^{T}A$ is greater than or equal to zero. \vskip 1pt 
+  \textit{Hint: Consider $\norm{A\vec{v}}^{2}.$ where $\vec{v}$ is an eigenvector of $A^{T}A$ with eigenvalue $\lambda.$}
+
+  \sol {
+    $\norm{A\vec{v}}^{2} = (A \vec{v})^{T} (A \vec{v}) = \vec{v}^{T}A^{T} A \vec{v} = \vec{v}^{T} (\lambda \vec{v}) = \lambda \vec{v}^{T} \vec{v} = \lambda \norm{\vec{v}}^{2}.$ \vskip 1pt
+    Therefore we see that:
+    \begin{equation}
+      \lambda = \frac{\norm{A \vec{v}}^{2}}{\norm{\vec{v}}^{2}} \geq 0
+    \end{equation}
+    $\vec{v}$ is an eigenvector, so it must be nonzero, meaning its norm squared will be greater than 0. \vskip 1pt
+    $\norm{A\vec{v}}^{2}$ will also be greater than or equal to zero, but may be zero if $A \vec{v} = 0$ or $\vec{v} \in \text{Nul}(A).$
+  }
+
+  \qitem Show that if $\lambda_{i}$ and $\lambda_{j}$ are distinct eigenvalues of $A^{T} A,$ then the respective eigenvectors $\vec{v}_{i}$ and $\vec{v}_{j}$ are orthogonal. \\
+  \textit{Hint: Write out the eigenvector relationships: $A^{T} A \vec{v}_{i} = \lambda_{i} \vec{v}_{i}$ and $A^{T} A \vec{v}_{j} = \lambda_{j} \vec{v}_{j}.$ Then take the transpose of the second equation and see how you can equate the two.}
+
+  \sol {
+    Let $\vec{v}_{i}$ and $\vec{v}_{j}$ be eigenvectors of $A^{T}A$ with distinct eigenvalues $\lambda_{i}$ and $\lambda_{j}.$ \vskip 1pt
+    Then,
+    \begin{equation}
+      A^{T} A \vec{v}_{i} = \lambda_{i} \vec{v}_{i} \ \ \text{and} \ \ A^{T} A \vec{v}_{j} = \lambda_{j} \vec{v}_{j}
+    \end{equation}
+    We take the transpose of the second equation on the right to get:
+    \begin{equation}
+      \vec{v}_{j}^{T} A^{T} A = \lambda_{j} \vec{v}_{j}^{T}
+    \end{equation}
+    If we left multiply the first equation by $\vec{v}_{j}^T$ and right multiply the second equation by $\vec{v}_{i}$ and we get:
+    \begin{equation}
+      \vec{v}_{j}^{T} A^{T} A \vec{v}_{i} = \lambda_{i} \vec{v}_{j}^{T} \vec{v}_{i} = \lambda_{j} \vec{v}_{j}^{T} \vec{v}_{i}
+    \end{equation}
+    Therefore we can say that $\lambda_{i} \vec{v}_{j}^{T} \vec{v}_{i} = \lambda_{j} \vec{v}_{j}^{T} \vec{v}_{i}$ or
+    \begin{equation}
+      \lambda_{i} \vec{v}_{j}^{T} \vec{v}_{i} - \lambda_{j} \vec{v}_{j}^{T} \vec{v}_{i} = (\lambda_{i} - \lambda_{j}) \vec{v}_{j}^{T} \vec{v}_{i} = 0
+    \end{equation}
+    Since we assumed $\lambda_{i} \neq \lambda_{j}, \vec{v}_{j}^{T} \vec{v}_{i}$ must be zero, but this implies that $\vec{v}_{i}$ and $\vec{v}_{j}$ are orthogonal.
+  }
+
+  \qitem Show that if $A^{T}A$ has a repeated eigenvalue, $\lambda,$ meaning the eigenspace of $\lambda$ has dimension greater than or equal to two, we can pick an orthonormal basis for the eigenspace.
+
+  \sol {
+  	We can pick an orthonormal basis for the eigenspace of $\lambda,$ by using Gram-Schmidt.
+  }
+
+  \qitem It can be shown through induction that the matrix $A^{T} A$ is has $n$ linearly independent eigenvectors. \\
+  Conclude by showing that we can pick $n$ mutually orthonormal eigenvectors for the matrix $A^{T} A.$
+
+  \sol {
+  	We've shown that eigenvectors with distinct eigenvalues are orthogonal. \\
+  	We've also shown that for repeated eigenvalues, we can pick an orthogonal eigenbasis. \\
+  	Therefore, we can pick $n$ linearly independent eigenvectors of $A^{T} A$ that are all mutually orthogonal, and can normalize each one to have norm $1$ to make them mutually orthonormal.
+  }
+\end{enumerate}

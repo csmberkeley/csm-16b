@@ -1,0 +1,375 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{The Unanimous Declaration of Linear Independence from 16A of EECS}
+
+The 16A puns have not stopped yet.
+
+\textbf{Learning Goal:} 
+\begin{bindenum}
+    \item Learn how to prove the linear independence and dependence of sets of vectors via different definitions of them.
+    \item Learn how to apply the concept of linear dependence onto Gaussian Elimination and Systems of Equations.
+\end{bindenum}
+\meta{
+    \begin{itemize}
+        \item Pay attention to what types of objects can be linearly dependent/independent. \textbf{A vector cannot be linearly dependent. A set of vectors can be linearly dependent.}
+    \end{itemize}
+    
+}
+
+You have learned about linear independence in 16A, and found out there are two ways to state the linear independence of a set of vectors:
+\begin{ln-define}{Linear Dependence and Linear Independence}{}
+    A set of vectors $\{\vec{v_1}, \dots, \vec{v_n}\}$ are linearly dependent if:
+    \begin{quote}
+        \textbf{Definition 1}:
+        There exists scalars $\alpha_1, \dots, \alpha_n$ such that $\sum_{k=1}^n \alpha_k \vec{v_k} = \vec{0}$.
+    \end{quote}
+    \begin{center}
+        or
+    \end{center}
+    \begin{quote}
+        \textbf{Definition 2}:
+        There exists scalars $\alpha_1, \dots, \alpha_n$ and an index $i$ such that $\sum_{k=1, k \neq i}^n \alpha_k \vec{v_k} = \vec{v_i}$.
+    \end{quote}
+    You also have learned in lecture that Definitions 1 and 2 of linear dependence is fundamentally equivalents of each other. \\
+    If a set of vectors is not linearly dependent, then it is linearly independent. In other words, \textbf{linear dependence is the opposite of linear independence}!
+\end{ln-define}
+For subquestions (a) to (c) below, please show whether the provided sets of vectors are linearly dependent:
+\begin{enumerate}
+    \item {
+        $\bigg\{ \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 2 \\ 0 \end{bmatrix} \bigg\}$
+        
+    }
+    \ans {
+        Let:
+        \[
+            \vec{v_1} = \begin{bmatrix} 1 \\ 0 \end{bmatrix},
+            \vec{v_2} = \begin{bmatrix} 2 \\ 0 \end{bmatrix}
+        \]
+        \textbf{Using Definition 1}: \\
+        Using Definition 1 of Linear Dependence, we would set up a system such that:
+        \[
+            \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2}
+            = \alpha_1 \begin{bmatrix} 1 \\ 0 \end{bmatrix} + \alpha_2 \begin{bmatrix} 2 \\ 0 \end{bmatrix}
+            = \begin{bmatrix} 0 \\ 0 \end{bmatrix}
+        \]
+        in the effort to find nonzero coefficients $\alpha_1$ and $\alpha_2$ for stating the linear dependence of vectors. \\
+        The above system is equivalent of setting up the matrix-vector multiplication:
+        \[
+            \begin{bmatrix}
+                \vec{v_1} & \vec{v_2}
+            \end{bmatrix}
+            \begin{bmatrix}
+                \alpha_1 \\ \alpha_2
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                0 \\ 0
+            \end{bmatrix}
+            \rightarrow
+            \begin{sysmatrix}{rr|r}
+                1 & 2 & 0 \\
+                0 & 0 & 0 \\
+            \end{sysmatrix}
+        \]
+        We may find from the system that, for any combination of coefficients such that $\alpha_1 + 2\alpha_2 = 0$, such a linear combination of vectors in the set can be zero. \\
+        Furthermore, such linear combination exists with a combination such that $\alpha_1 \neq 0$ or $\alpha_2 \neq 0$. \\
+        Therefore, by Definition 1, the set of vectors is linearly dependent. \\
+        \vspace{0.1cm} \\
+        \textbf{Using Definition 2}: \\
+        We will attempt to prove that one vector of the set is a linear combination of all other vectors in the set, such that in this case:
+        \[
+            \alpha_1 \vec{v_1} = \vec{v_2}
+        \]
+        It is quite evident that $\alpha_1 = 2$. Since such a coefficient exists, by Definition 2, the set of vectors is indeed linearly dependent.
+
+    }
+    
+    \item {
+        $\bigg\{ 
+            \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix},
+            \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix},
+            \begin{bmatrix} 0 \\ 2 \\ -1 \end{bmatrix}
+        \bigg\}$
+        
+    }
+    \meta {
+        \begin{itemize}
+            \item \textbf{Discuss which definition of linear dependence} seems easier to work with, so students save time when doing these problems.
+            \item As a non-necessary side-track, how \textbf{the positions of nonzero components can imply the linear independence} of this set of vectors?
+        \end{itemize}
+    }
+    \ans {
+        Let:
+        \[
+            \vec{v_1} = \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix},
+            \vec{v_2} = \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix},
+            \vec{v_3} = \begin{bmatrix} 0 \\ 2 \\ -1 \end{bmatrix}
+        \]
+        Let's think about which Definition of linear dependence would help the process more:
+        \begin{bindenum}
+            \item {
+                \textbf{Definition 1}: Just need to prove that a linear combination of these vectors can be $\vec{0}$.
+            }
+            \item {
+                \textbf{Definition 2}: Need to prove an index exists such that the vector of that index is a linear combination of all other vectors. Might need to do this for the number of vectors in the set, so will need to compute 3 Gaussian Eliminations.
+            }
+        \end{bindenum}
+        Upon this brief analysis, for efficiency, we would prefer to use Definition 1 of linear dependence.
+        
+        This means we will set up such a system in the effort to find ($\alpha_1$, $\alpha_2$, $\alpha_3$):
+        \begin{align*}
+            \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} + \alpha_3 \vec{v_3} &= \vec{0} \\
+            \alpha_1 \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix} + 
+            \alpha_2 \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix} + 
+            \alpha_3 \begin{bmatrix} 0 \\ 2 \\ -1 \end{bmatrix} &= 
+            \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \\
+        \end{align*}
+        We will at last come to an augmented matrix: 
+        \[
+            \begin{sysmatrix}{rrr|r}
+                1 & 2 & 0 & 0 \\
+                0 & 1 & 2 & 0 \\
+                3 & 0 & -1 & 0
+            \end{sysmatrix}
+        \]
+        to Gaussian Eliminate with:
+        \begin{align*}
+            &\begin{sysmatrix}{rrr|r}
+                1 & 2 & 0 & 0 \\
+                0 & 1 & 2 & 0 \\
+                3 & 0 & -1 & 0
+            \end{sysmatrix}
+            \ro{R_3 \rightarrow 3R_1 - R_3}
+            \begin{sysmatrix}{rrr|r}
+                1 & 2 & 0 & 0 \\
+                0 & 1 & 2 & 0 \\
+                0 & 6 & 3 & 0
+            \end{sysmatrix} \\
+            \ro{R_2 -> 6R_2 - R_3}
+            &\begin{sysmatrix}{rrr|r}
+                1 & 2 & 0 & 0 \\
+                0 & 0 & 9 & 0 \\
+                0 & 6 & 3 & 0
+            \end{sysmatrix}
+            \ro{R_3 -> R_3 / 3}
+            \begin{sysmatrix}{rrr|r}
+                1 & 2 & 0 & 0 \\
+                0 & 0 & 9 & 0 \\
+                0 & 2 & 1 & 0
+            \end{sysmatrix}
+        \end{align*}
+        At this point, we may start determining the values of coefficients. \\
+        Here, it is determined that $9\alpha_3 = 0$, which would imply that $\alpha_2 = 0$ by the third row of system matrix.\\
+        And last but not least, the first row of the matrix working with the value of $\alpha_2$ shows that $\alpha_1 = 0$.
+        
+       \textbf{All coefficients of this linear combination are zero.} \\
+        Therefore, by the definition of linear dependence, this set of vectors is not linearly dependent; rather, it is linearly independent!
+        
+    }
+    %=========================================
+    % Temporarily commented out for fa23_csm16a_week01. There are too many questions within this worksheet so 3/4 have been commented out and 4 is added as a meta
+    % \item {
+    %     $\bigg\{ 
+    %         \begin{bmatrix} 2 \\ 1 \end{bmatrix},
+    %         \begin{bmatrix} -4 \\ 1 \end{bmatrix},
+    %         \begin{bmatrix} 1 \\ -6 \end{bmatrix}
+    %     \bigg\}$
+    
+    % }
+    % \meta {
+    %     \begin{itemize}
+    %         \item Discuss how \textbf{having two linearly independent vectors in the set already makes the third vector unable to expand the span}.
+    %         \item This is also an opportunity to practice systems of equations with infinite solutions!
+    %     \end{itemize}
+    % }
+    % \ans {
+    %     \textbf{Approach 1, Intuition}: \\
+    %     The linear combinations that
+    %     $\bigg\{ 
+    %         \begin{bmatrix} 2 \\ 1 \end{bmatrix},
+    %         \begin{bmatrix} -4 \\ 1 \end{bmatrix}
+    %     \bigg\}$
+    %     itself can make is already all vectors that exist in the two-dimensional real space. As for how, we can dedicate effort to determine whether this set of vectors itself is already linearly independent. \\
+    %     For 2D vectors, this is rather simple process, because the only way 2D vectors can be linearly dependent is by having parallel vectors (there is no "skew line" in 2D, vectors either are parallel or not). In this case, the vectors are not parallel, so the set of two vectors above is linearly independent. \\
+    %     Then, since the vector $\begin{bmatrix} 1 \\ -6 \end{bmatrix}$ also exists within the two-dimensional real space, it is reachable as a linear combination of the two previous vectors in that set. \\
+    %     Therefore, by Definition 2, this set of vector is linearly dependent. \\
+    %     \vspace{0.1cm} \\
+    %     \textbf{Approach 2, Gaussian Elimination}: \\
+    %     Let:
+    %     \[
+    %         \vec{v_1} = \begin{bmatrix} 2 \\ 1 \end{bmatrix},
+    %         \vec{v_2} = \begin{bmatrix} -4 \\ 1 \end{bmatrix},
+    %         \vec{v_3} = \begin{bmatrix} 1 \\ 6 \end{bmatrix}
+    %     \]
+    %     We will attempt to seek the coefficients in the effort to find ($\alpha_1$, $\alpha_2$, $\alpha_3$):
+    %     \begin{align*}
+    %         \alpha_1 \vec{v_1} + \alpha_2 \vec{v_2} + \alpha_3 \vec{v_3} &= \vec{0} \\
+    %         \alpha_1 \begin{bmatrix} 2 \\ 1 \end{bmatrix} + 
+    %         \alpha_2 \begin{bmatrix} -4 \\ 1 \end{bmatrix} + 
+    %         \alpha_3 \begin{bmatrix} 1 \\ 6 \end{bmatrix} &= 
+    %         \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
+    %     \end{align*}
+    %     In that case, as done in before solutions, we set up the system matrix:
+    %     \[
+    %         \begin{sysmatrix}{rrr|r}
+    %             2 & -4 & 1 & 0 \\
+    %             1 & 1 & 6 & 0
+    %         \end{sysmatrix}
+    %     \]
+    %     And Gaussian Eliminate it:
+    %     \[
+    %         \begin{sysmatrix}{rrr|r}
+    %             2 & -4 & 1 & 0 \\
+    %             1 & 1 & 6 & 0
+    %         \end{sysmatrix}
+    %         \ro{R_2 \rightarrow R_1 - 2R_2}
+    %         \begin{sysmatrix}{rrr|r}
+    %             2 & -4 & 1 & 0 \\
+    %             0 & -2 & -11 & 0
+    %         \end{sysmatrix}
+    %     \]
+    %     Since we have already reached the echelon form of this system matrix, let's attempt to derive the solution of this system! \\
+    %     From second row of system matrix:
+    %     \begin{align*}
+    %         2\alpha_2 &= -11\alpha_3 \\
+    %         \alpha_2 &= -\frac{11}{2} \alpha_3
+    %     \end{align*}
+    %     From first row of system matrix:
+    %     \begin{align*}
+    %         2\alpha_1 &= 4\alpha_2 - \alpha_3 \\
+    %         2\alpha_1 &= -22\alpha_3 - \alpha_3 \\
+    %         \alpha_1 &= -\frac{23}{2} \alpha_3
+    %     \end{align*}
+    %     Therefore, the solution of this system is:
+    %     \[
+    %         \begin{bmatrix} \alpha_1 \\ \alpha_2 \\ \alpha_3 \end{bmatrix} =
+    %         \begin{bmatrix} -\frac{23}{2} \\ -\frac{11}{2} \\ 1 \end{bmatrix} \alpha_3
+    %     \]
+    %     Or in the set builder notation, the set of all solutions is:
+    %     \[
+    %         \bigg\{ \begin{bmatrix} -\frac{23}{2} \\ -\frac{11}{2} \\ 1 \end{bmatrix} \alpha_3 : \alpha_3 \in \R \bigg\}
+    %     \]
+    %     This means if $\alpha_3 \neq 0$, then we may find a linear combination of the vectors in set with non-zero coefficients, and following Definition 1 of linear dependence, the set of vectors is therefore linearly dependent.
+        
+    % }
+    %=========================================
+    % this meta has previously been a \item but due to section time, fa23 SCMs are shortening this question
+    \meta {
+        Discuss with your mentors and classmates: How does the number of rows and columns in a matrix from system of equations have to do with having linearly dependent columns?
+    
+        \begin{itemize}
+            \item Can provide a view on matrix columns that equates it to a set of vectors when starting the problem.
+            \item Then, discuss what does it take to make a set of n-dimensional vectors to be linearly dependent. Instead of using an abstract value $n$, try smaller values like $2$ and $3$ first such that students can think faster with them.
+            \item This question encourages discussion between mentors and students. Before teaching, it'd be best for mentors to think of directions for this discussion problem.
+    %     \end{itemize}
+    % }
+    % \ans {
+        For a matrix $A$, if there are more columns than rows (or, if the matrix is wide), then $A$ has linearly dependent columns.
+        \vspace{0.1cm}
+        \hrule
+        \vspace{0.1cm}
+        \textbf{Supplementary Guidance:} Prove that if a system of equal variables and solutions has linearly independent columns in coefficient matrix, it has a unique solution.
+        
+        Using a Gaussian Elimination perspective, it is equivalent of encountering a system whose coefficient matrix is square and has columns are linearly independent. So, for an arbitrary vector $\vec{b} \in \R^m$ :
+        \[
+            \begin{bmatrix} \vec{v_1} & \dots & \vec{v_m} \end{bmatrix}
+            \begin{bmatrix} \alpha_1 \\ \dots \\ \alpha_m \end{bmatrix}
+            = \vec{b}
+        \]
+        Let's phrase this system as $V \vec{\alpha} = \vec{b}$.
+        Assume there is another vector $\vec{\beta}$ that could work in place of $\vec{\alpha}$ as a solution. \\
+        In that case, it must be that:
+        \begin{align*}
+            V \vec{\beta} - V \vec{\alpha}
+            &= \vec{0} \\
+            &= \sum_{i = 1}^m (\beta_i - \alpha_i) \vec{v_i}
+        \end{align*}
+        Remember that none of the columns of coefficient matrix can be $\vec{0}$, as that would make the columns linearly dependent instead. \\
+        Therefore, by Definition 1 of linear dependence, it must be that for all $i$, $\alpha_i = \beta_i$. In turn, $\vec{\beta} = \vec{\alpha}$, so there can not exist another solution to the system $V \vec{\alpha} = \vec{b}$. \\
+        \textbf{For a hypothetical different solution, we get the result that it would still be equivalent to the original current solution. Therefore, there is only one possible solution, and the solution is unique.} \\
+        Now, back to the solution.
+        \vspace{0.1cm}
+        \hrule
+        \vspace{0.1cm}
+        \textbf{Solution: } \\
+        For a matrix $A \in \R^{m \times n}$ where $n > m$ (since there are more columns than rows), let's discuss the following cases: \\
+        \textbf{Case 1: $m$ vectors of $A$ are linearly independent} \\
+        In that case, the linear combination of those $m$ vectors of $A$ would be able to reach whatever vector exists in the m-dimensional real space, $\R^m$. Therefore, the rest of $n - m$ vectors in $A$ are all reachable, and by Definition 2 of linear dependence, the matrix $A$ has linearly dependent columns. \\
+        \vspace{0.1cm} \\
+        \textbf{Case 2: less than $m$ vectors of $A$ are linearly independent} \\
+        In that case, there are already linearly dependent vectors. \\
+        There also cannot be such a case that more than $m$ vectors are linearly independent. The maximum amount of linearly independent vectors allowed in such a matrix $A$ is the number of its columns, $m$.
+        \end{itemize}
+    } 
+    
+    
+    \item {
+        Try to prove that: if a system's matrix $A$ has linearly dependent columns, there exists infinite solutions such that $A \vec{x} = \vec{0}$.
+        
+    }
+    \meta {
+        \begin{itemize}
+            \item Guide students through proofs in a Socratic method, ask what does parts of the prompt imply. For example: if a matrix has linearly dependent columns, does there exist a solution to $A \vec{x} = \vec{0}$.
+            \item Then, think of a way to show that there is not only one solution. Let students explore what seems effective in providing a new $\vec{x}$: is it adding vectors on both sides? Multiplying vectors on both sides?
+        \end{itemize}
+        
+    }
+    \ans {
+        Since the columns of $A$ are linearly dependent, let the $i^{th}$ column of $A$ be expressed as $\vec{A_i}$, then by Definition 1 of linear dependence, there must exist a set of scalars $\alpha_i$ that are not all zero, such that:
+        \[
+            \sum_{i=1}^n \alpha_i \vec{A_i}
+            = A \begin{bmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{bmatrix}
+            = \vec{0}
+        \]
+        Then, all possible solutions for a system $A \vec{x} = \vec{0}$ can be expressed as:
+        \[ k \times \begin{bmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{bmatrix} \]
+        where $k$ is an arbitrary real number.
+        
+        Since there are infinite amount of real numbers, there are infinite solutions for the system $A \vec{x} = \vec{0}$.
+        
+    }    
+
+    \item {
+        Is the converse of the previous part's statement true?
+        
+    }
+    \meta {
+        \begin{itemize}
+            \item Teach students what the converse of a statement is via identifying an if-else structure in the prompt to prove.
+            \item This is intended to be another proof practice.
+        \end{itemize}
+        
+    }
+    \ans {
+        Let us first identify the prompt of proof to be:
+        \begin{quote}
+            If there exists infinite solutions to the equation $A \vec{x} = \vec{0}$, then the matrix $A$ has linearly dependent columns.
+        \end{quote}
+        Now, if there exists multiple solutions for which $A \vec{x} = \vec{0}$, then there must be a nonzero solution for such equation too. \\
+        Meaning, for some nonzero vector $\vec{n}$, we can observe that,
+        \begin{align*}
+            A \vec{n}
+            &=
+            \begin{bmatrix} \vec{A_1} & \cdots & \vec{A_k} \end{bmatrix}
+            \begin{bmatrix} n_1 \\ \vdots \\ n_k \end{bmatrix} \\
+            &=
+            \begin{bmatrix}
+                A_{1,1} & \cdots & A_{1,k} \\
+                \vdots & \ddots & \vdots \\
+                A_{m,1} & \cdots & A_{m,k}
+            \end{bmatrix}
+            \begin{bmatrix} n_1 \\ \vdots \\ n_k \end{bmatrix}
+            =
+            \begin{bmatrix}
+                n_1 A_{1,1} + \cdots + n_k A_{1,k} \\
+                \vdots \\
+                n_1 A_{m,1} + \cdots + n_k A_{m,k}
+            \end{bmatrix}
+            = n_1 \vec{A_1} + \cdots + n_k \vec{A_k} = 0
+        \end{align*}
+        where, as stated before, $\vec{n}$ being a nonzero vector allows for us to find a nonzero linear combination of $A$'s columns that sums up to $\vec{0}$. \\
+        The definition of linear dependence suggests that $A$ has linearly dependent columns. Therefore, via the above proof by definition, we may determine that if there exists multiple solutions for which $A \vec{x} = \vec{0}$, $A$ must have linearly dependent columns.
+        
+    }
+\end{enumerate}

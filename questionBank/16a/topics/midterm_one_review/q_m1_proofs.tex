@@ -1,0 +1,136 @@
+% Author: Dun-Ming Brandon Huang
+% bMail: dunmingbrandonhuang@berkeley.edu
+% Question Source: Previous Exams
+% Solution Source: Self
+
+\qns{We Do A Little Bit of Proofing Here}
+
+\textbf{Learning Topic:} Proofs
+Below, we will have some proof questions gathered throughout past midterms.
+
+\begin{enumerate}
+    \item\label{eigenvalue_proof}{
+        For two square matrices $A$ and $B$, show that $AB$ has the same eigenvalues as $BA$.
+        
+    }
+    \meta{
+        This question comes from Q5 of Spring 2017's Midterm 1.\\
+        \begin{bindenum}
+            \item Hint that for an eigenvalue in $AB$, the student may prove that $BA$ also has such an eigenvalue.
+            \item {
+                Can further hint students to attempt to transform the equation from the shape from:
+                \[AB\vec{x}=\lambda\vec{x}\]
+                to
+                \[BA\vec{y}=\lambda\vec{y}\]
+            }
+        \end{bindenum}
+        
+    }
+    \ans{
+        Let $\lambda$ be an arbitrary eigenvalue of matrix $AB$, and $\vec{x}$ be the corresponding eigenvector of $\lambda$ to $AB$:
+        \[AB\vec{x}=\lambda\vec{x}\]
+        Multiplying both equations by matrix $B$ on their left side:
+        \[BAB\vec{x}=B\lambda\vec{x}=\lambda B\vec{x}\]
+        \[BA(B\vec{x})=\lambda (B\vec{x})\]
+        This shows that $B\vec{x}$ is an eigenvector of matrix $BA$ with eigenvalue $\lambda$.\\
+        The above statement tells us that for any eigenvalue $\lambda$ that matrix $AB$ holds with an eigenvector $\vec{x_{\lambda}}$, $BA$ will have the same eigenvalue except its eigenvector is $B\vec{x_{\lambda}}$. Therefore, for all eigenvalues that $AB$ possesses, so would $BA$.\\
+        $AB$ then has the same eigenvalues as $BA$.
+    }
+    
+    \item\label{nullspace_proof}{
+        Suppose we have a square matrix $A$ with full rank and another matrix $B$. Show that $N(AB)=N(B)$.
+        
+    }
+    \meta{
+        This question comes from Q7(b) of Spring 2018's Midterm 1.\\
+        \begin{bindenum}
+            \item Hint: multiplying both equations by a specific matrix is helpful to prove that the product of some matrix and a vector is $\vec{0}$.
+            \item Once again, it's all about transforming the shape of equations into what the prompt is close to.
+        \end{bindenum}
+        
+    }
+    \ans{
+        To prove that two sets are equal, we must prove that each set is a subset of the other. That is, we must prove the following statements:
+        \begin{enumerate}
+            \item[1.] $\forall\vec{x}\in N(AB) (\vec{x}\in N(B))$: for all vectors in $N(AB)$ each of them also belong to $N(B)$.
+            \item[2.] $\forall\vec{x}\in N(B) (\vec{x}\in N(AB))$: for all vectors in $N(B)$ each of them also belong to $N(AB)$.
+        \end{enumerate}
+        Proving Statement 1:\\
+        Let $\vec{v}$ be an arbitrary vector in $N(AB)$, such that $AB\vec{v}=\vec{0}$. We can multiply both sides of the equation by $A^{-1}$, which exists because $A$ is square and full-ranked:
+        \[A^{-1}(AB\vec{v})=A^{-1}\vec{0}=B\vec{v}=\vec{0}\]
+        Since $B\vec{v}=\vec{0}$, by definition of null space, $\vec{v}\in N(B)$.\\
+        This applies to all vectors in $N(AB)$; thus, $\forall\vec{x}\in N(AB) (\vec{x}\in N(B))$.\\
+        Proving Statement 2:\\
+        Let $\vec{u}$ be an arbitrary vector in $N(B)$, such that $B\vec{u}=\vec{0}$. Let us multiply both sides of the equation by $A$, such that we get the equation:
+        \[A(B\vec{u})=A\vec{0}=AB\vec{u}=\vec{0}\]
+        Since $AB\vec{u}=\vec{0}$, by definition of null space, $\vec{u}\in N(AB)$.\\
+        This applies to all vectors in $N(B)$; thus, $\forall\vec{x}\in N(B) (\vec{x}\in N(AB))$.\\
+        We have proven both statements 1 and 2 to be true, that $N(AB)\subset N(B)$ and $N(B)\subset N(AB)$.\\
+        Therefore, $N(AB)=N(B)$.
+    }
+    
+    \item\label{eigenvector_proof}{
+        Show that for a matrix $H$, if two states $\vec{a}$ and $\vec{b}$ have the same eigenvalue $\lambda$, then any linear combination of the two states have the same eigenvalue $\lambda$.
+        
+    }
+    \meta{
+        This question comes from Q5(d) of Spring 2019's Midterm 1.\\
+        
+    }
+    \ans{
+        Let us express any arbitrary linear combination of the states $\vec{a}$ and $\vec{b}$ as
+        \[\vec{x}=\alpha\vec{a}+\beta\vec{b}\]
+        where $\alpha$ and $\beta$ are some arbitrary real coefficient in the linear combination. Next, let us explore the algebraic composition of $H\vec{x}$:
+        \begin{align*}
+            H\vec{x} &= H(\alpha\vec{a}+\beta\vec{b})\\
+            &= \alpha H\vec{a}+\beta H\vec{b}\\
+            &= \alpha\lambda\vec{a}+\beta\lambda\vec{b}\\
+            &= \lambda(\alpha\vec{a}+\beta\vec{b}) =\lambda\vec{x}
+        \end{align*}
+        Therefore, any linear combination of states $\vec{a}$ and $\vec{b}$ is still an eigenvector of $H$, with the same eigenvalue $\lambda$. \\
+        
+        This question is essentially about applying the logic to first prove the statement for an arbitrary case, then stating that since the statement proven works for any arbitrary case, it works for all possible cases to be proven.\\
+        In this case, we generated an arbitrary linear combination; then, by proving that any arbitrary linear combination works for the statement, we have proven that all linear combinations work to satisfy the statement.
+    }
+    
+    \item\label{conservative_eigenval_proof}{
+        Prove that for any conservative transition matrix $A$ such that $A\in\R^{2\times2}$, it has an eigenvalue of $\lambda=1$.
+        
+    }
+    \meta{
+        This question comes from Q8 of Spring 2021's Midterm 1.\\
+        \begin{bindenum}
+            \item A much algebra-heavy proof that relies on incorporating more algebraic manipulations than concept-wise manipulations into the problem solving process.
+            \item While quadratic formula is a valid approach for the question, the solution uses factorization to find the roots of $A$'s characteristic polynomial instead for simplicity purposes.
+        \end{bindenum}
+        
+    }
+    \ans{
+        We may write the conservative transition matrix $A$ as:
+        \[
+        \begin{bmatrix}
+            A_{11} & A_{12} \\
+            A_{21} & A_{22}
+        \end{bmatrix}
+        \]
+        And according to the rules of conservative transition matrix:
+        \[
+        \begin{cases}
+            A_{11} + A_{21} = 1 \\
+            A_{12} + A_{22} = 1
+        \end{cases}
+        \]
+        To find the eigenvalues of such matrix, we will need to solve the polynomial where:
+        \[\det{A-\lambda I} = (A_{11}-\lambda)(A_{22}-\lambda)-A_{12}A_{21} = 0\]
+        And utilizing the rules of conservative transition matrices (as described with the above system of equations):
+        \begin{align*}
+            \det{A-\lambda I} &= (A_{11}-\lambda)(A_{22}-\lambda)-A_{12}A_{21}\\
+            &= \lambda^{2} - (A_{11}+A_{22})\lambda + A_{11}A_{22} - (1-A_{22})(1-A_{11})\\
+            &= \lambda^{2} - (A_{11}+A_{22})\lambda + (A_{11}+A_{22}-1)\\
+            &= \lambda^{2} - (A_{11}+A_{22}-1)\lambda - \lambda + (A_{11}+A_{22}-1)\\
+            &= (\lambda - (A_{11}+A_{22}-1))(\lambda - 1) = 0
+        \end{align*}
+        Since the solution to the polynomial of this matrix includes $\lambda=1$, the eigenvalue of such matrix $A$ can have an eigenvalue of $\lambda=1$.
+    }
+    
+\end{enumerate}

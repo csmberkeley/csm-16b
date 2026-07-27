@@ -1,0 +1,177 @@
+\qns{Give Me That Eigenvalue}
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\textbf{Learning Goal:} The goal of this problem is to build intuition behind identifying eigenvalues and eigenvectors. 
+
+For each of the parts of this problem, identify what are the eigenvalues of the matrix or determine that they don't exist, \textbf{without doing any mechanical calculations}. Also find the corresponding eigenvector(s).
+
+\meta{
+This problem is relatively fast to do so please try to go through it. The point of this problem is not to find the eigenvalues mechanically, but instead to use properties of the matrix that you can eyeball to figure out some eigenvalues and eigenvectors. Don't spend time mechanically computing the eigenvalue of 0.
+
+Since this problem is about building intuition, try to guide students towards understanding what eigenvectors and eigenvalues are doing graphically.
+}
+
+% In this problem, when asked for eigenvectors, you may simply state that the eigenvector comes from a set. For instance, you could state that any $\vec{x} \in \text{Colspace}(\mathbf{A})$ is an eigenvector. Also, note that when asked to find eigenvalues, only consider real eigenvalues for this problem. 
+\begin{enumerate}
+\item{
+    What is the one eigenvalue and corresponding eigenvector of the matrix $$\mathbf{A} = \begin{bmatrix} 2& 1 \\ 0 & 0 \end{bmatrix}?$$ 
+}
+
+
+
+
+\ans{
+    The columns of $\mathbf{A}$ are linearly dependent, which means $\mathbf{A}$ is not invertible. We then know that $\mathbf{A}$ has a non-trivial nullspace, which means that there is a nonzero solution, $\vec{x^\prime}$ to 
+    $$\mathbf{A}\vec{x} = \vec{0}$$
+    Also, for any arbitrary vector $\vec{v}$, we have that 
+    $$\vec{0} = 0\vec{v}$$
+    Specifically, this identity must work for the vector $\vec{x^\prime}$ that solves our first equation:
+    $$\vec{0} = \vec{x^\prime}$$
+    Plugging this in to the first equation we get
+    $$\mathbf{A}\vec{x^\prime} = 0\vec{x^\prime}$$
+    which indicates that one eigenvalue-eigenvector pair for $\mathbf{A}$ is $0$ and $\vec{x^\prime}$. Now all we have to do is find the value of $x^\prime$, which is any (nonzero) vector in the (nontrivial) nullspace of $\mathbf{A}$. To find this, we let 
+    $$\vec{x^\prime} = \begin{bmatrix}\alpha & \beta\end{bmatrix}$$
+    Then we solve the equation of nullspace for $x^\prime$:
+    $$\mathbf{A}\vec{x^\prime} = \vec{0}$$
+    $$\begin{bmatrix} 2& 1 \\ 0 & 0 \end{bmatrix}\begin{bmatrix}\alpha & \beta\end{bmatrix} = \begin{bmatrix}0 \\ 0\end{bmatrix}$$
+    $$2\alpha + \beta = 0$$
+    There are infinite answers to what $x^\prime$ could be, but the question asks us to find one eigenvector. One possible answer for our eigenvalue/vector pair is 
+	$$\lambda = 0$$
+    $$\vec{x^\prime} = \begin{bmatrix} -1 \\ 2 \end{bmatrix}$$
+}
+
+\item{
+    What are the eigenvalues and eigenvectors of the matrix $$\mathbf{B} = \begin{bmatrix} 5 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 5\end{bmatrix}$$
+
+}
+
+\meta{ 
+Make sure to remind students that this only works because the matrix is a diagonal matrix. Using Gaussian Elimination to reduce a matrix to diagonal and then doing this same strategy is not a correct way to calculate eigenvalues. 
+}
+
+
+
+\ans{
+    $\mathbf{B}$ is a scaling matrix which scales any vector by a factor of $5$. Formally, this means that given any vector $\vec{x}$, 
+    $$\mathbf{B}\vec{x} = 5\vec{x}$$
+    No matter what value of $\vec{x}\in\R^3$ we put in to this equation, the same scaling will be performed. Thus, this matrix has only one eigenvalue, $\lambda = 5$ and any $\vec{x} \in \mathbb{R}^3$ is an eigenvector. 
+}
+
+\item{
+    Find one eigenvalue/eigenvector pair of $$\mathbf{C} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 6 & 0 \\ 0 & 0 & 10\end{bmatrix}$$. Generalize this result and to deduce all eigenvalue/eigenvector pairs of this matrix. 
+}
+
+\ans{
+    $\mathbf{C}$ is a scaling matrix which scales each entry of a vector by a different amount: the first entry is kept constant, the second entry is scaled by 6, and the third entry is scaled by 10:
+    $$\mathbf{C}\vec{x} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 6 & 0 \\ 0 & 0 & 10\end{bmatrix}\begin{bmatrix}x_1 \\ x_2 \\ x_3\end{bmatrix} = \begin{bmatrix}x_1 \\ 6x_2 \\ 10x_3 \end{bmatrix}$$
+    Consider only the third row (we choose the third row here randomly - this idea works for any of the rows). The value of $x_3$ is inputted into the transformation, which outputs $10x_3$. So if we can somehow ignore the scaling operations of the other two rows, which scale by different amounts, we have found a $\lambda$, or eigenvalue. It turns out that there is a way to "select" for this, by setting $x_1 = x_2 = 0$. Then
+    $$\mathbf{C}\vec{x} = \mathbf{C}\begin{bmatrix}0 \\ 0 \\ x_3\end{bmatrix} = \begin{bmatrix}0 \\ 0 \\ 10x_3\end{bmatrix} = 10\vec{x}$$
+    So one eigenvalue is $10$ and one eigenvector is $\begin{bmatrix} 0 \\ 0 \\ 1\end{bmatrix}$.
+    
+}
+
+\item{
+    Does this matrix have eigenvalues/eigenvectors? If so, what are they? 
+     $$\mathbf{D} = \begin{bmatrix} 3 & 1 \\ 4 & 1 \\ 5 & 9 \end{bmatrix}?$$
+}
+
+
+\ans{
+    Consider the eigenvalue/eigenvector equation:
+    $$\mathbf{D}\vec{x} = \lambda\vec{x}$$
+    Since $\lambda\in\R$, the right hand side of the equation will be a vector of dimension 2, as $\vec{x}$ is scaled by $\lambda$. However, the left hand side of the equation will be of dimension 3, as $\mathbf{D}$ maps a vector of dimension 2 to a vector of dimension 3. Since the two sides are of mismatched dimension, the equation can never be equal, i.e. there are no eigenvalues for $\mathbf{D}$.
+    
+    More generally, any non-square matrix (say $m\times n$) maps a vector of dimension $n$ to a dimension $m$. It is impossible for a non-square matrix to have eigenvalues, because the output (dimension $m$) cannot be a scaled version of the input (dimension $n$). In fact, eigenvalues are defined only for square matrices.
+    
+}
+
+\item{
+    Consider a matrix that rotates a vector in $\mathbb{R}^2$ by $45^\circ$ counterclockwise about the origin in a coordinate plane. For instance, it rotates any vector along the x-axis to orient towards the $y=x$ line. This matrix is given as $$\mathbf{E} = \begin{bmatrix} \cos45 & -\sin45 \\ \sin45 & \cos45 \end{bmatrix} = \dfrac{\sqrt{2}}{2} \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}$$
+    What are the eigenvalues and eigenvectors of this matrix?
+}
+
+\meta{Draw a picture to show how the matrix applies the rotation. You could also draw how the complex eigenvalues look when explaining the solution.}
+
+\ans{
+   We recall the equation $\mathbf{A}\vec{x} = \lambda\vec{x}$ which describes eigenvalues and eigenvectors. Geometrically, the right hand side means that there exist some vectors $\vec{x}$ that are scaled by $\lambda$. The left hand side represents the transformation $\mathbf{A}$ which when applied to $\vec{x}$ causes this scaling. The act of "scaling" in a coordinate plane preserves the angle or direction of the vector, only changing its magnitude.
+   
+   For our matrix $\mathbf{E}$ that takes a vector and rotates it by $45^\circ$, it would be changing the direction of any original input vector. So there are no possible vectors that this matrix could scale, which also means that there are no real eigenvalues for this matrix either. 
+   
+   \textbf{Side note:} However, this doesn't mean that $\mathbf{E}$ has no eigenvalues at all. There are actually \textit{complex} eigenvalues! If you are curious about this topic, we recommend looking into your notes to learn more.
+}
+
+%\item{
+%    What are the eigenvalues of the following matrix? $$\mathbf{E} = \begin{bmatrix} 1 & \frac{1}{2} & \frac{1}{3} \\ 0 & \frac{1}{2} & \frac{1}{3} \\ 0 & 0 & \frac{1}{3}\end{bmatrix}$$
+%}
+%
+%\meta{
+%     Same as 2.2, this only works because the matrix is already in this form.
+%}
+%
+%
+%\ans{
+%    Remember that for upper triangular matrices, the eigenvalues can be read from the diagonal. $1, \frac{1}{2}, \frac{1}{3}$ are the three eigenvalues. This is because when multiplied by this matrix, any vector of the form $\begin{bmatrix} x \\ 0 \\ 0 \end{bmatrix}$ will be scaled by 1, $\begin{bmatrix} -x \\ x \\ 0 \end{bmatrix}$ will be scaled by 1/2 and $\begin{bmatrix} 0 \\ 0 \\ x \end{bmatrix}$ will be scaled by 1/3.
+%}
+
+%\item{
+%    Can you find an eigenvalue of the following matrix without solving any equations?
+%    $$\mathbf{F} = \begin{bmatrix} 1 & 0 & 0 \\ \frac{1}{3} &\frac{1}{3} &\frac{1}{3} \\\frac{1}{2} & \frac{1}{4} & \frac{1}{4}  \end{bmatrix}$$
+%
+%}
+%
+%
+%\ans{
+%    This is a matrix whose rows sum to 1, therefore, it has an eigenvalue 1. 
+%
+%    This is proven by letting $\vec{x} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ be a potential eigenvector of the matrix $\mathbf{F}$.
+%    Looking at the column view of matrix-vector multiplication -- 
+%    $$\mathbf{F}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+%     = 1 \cdot \begin{bmatrix} 1 \\ \frac{1}{3} \\ \frac{1}{2} \end{bmatrix} + 1\cdot\begin{bmatrix} 0 \\ \frac{1}{3} \\ \frac{1}{4} \end{bmatrix} + 1\cdot\begin{bmatrix} 0 \\ \frac{1}{3} \\ \frac{1}{4}\end{bmatrix}$$ 
+%     $$\mathbf{F}\vec{x} = 1\cdot\vec{x}$$ since the rows sum to one.
+%
+%     Therefore, 1 is an eigenvalue with corresponding eigenvector $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$
+%}
+%
+%\meta{
+%    Make sure students see why this works generally. Essentially $\mathbf{A}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = 1\cdot\vec{v}_1 + 1\cdot\vec{v}_2 + 1\cdot\vec{v}_3 = \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix}$, where $\vec{v}_i$ are the columns of $\mathbf{A}$, and the sum equals $\begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix}$ because each row sums to one. 
+%}
+%
+%\item{Show that a matrix and its transpose have the same eigenvalues
+%
+%Hint: The determinant of a matrix is the same as the determinant of its transpose}
+%
+%\meta{
+%Remind students that the step starting with “Note” is because of a property of transposition. 
+%}
+%
+%
+%
+%\ans{
+%    For any matrix $\mathbf{M}$, 
+%    $$det(\mathbf{M}) = det(\mathbf{M}^T)$$
+%
+%    Eigenvalues are found by solving the equation $det(\mathbf{M} - \lambda\mathbf{I}) = 0$. \\
+%
+%    Note that $(\mathbf{M} - \lambda\mathbf{I})^T = \mathbf{M}^T - \lambda\mathbf{I}^T = \mathbf{M}^T - \lambda\mathbf{I}$. \\
+%
+%    Let $\mathbf{M} - \lambda\mathbf{I} = \mathbf{G}$. 
+%    $$det(\mathbf{G}) = det(\mathbf{G}^T)$$
+%    $$det(\mathbf{M} - \lambda\mathbf{I}) = det(\mathbf{M}^T - \lambda\mathbf{I})$$
+%    If we set the left hand side to 0 to solve for the lambdas, we also extract the lambdas corresponding to the right hand side. Therefore, $\mathbf{M}$ and its transpose have the same eigenvalues.
+%}
+%
+%\item{
+%    Consider a matrix whose columns sum to one. What is one possible eigenvalue of this matrix?
+%}
+%
+%\meta{
+%    Make sure it’s clear to students that this answer is derived from what we have already shown in the previous two parts.
+%}
+%
+%
+%
+%\ans{
+%    We showed that for any matrix like $\mathbf{F}$ whose rows sum to 1, one eigenvalue is 1. We also showed that a matrix and its transpose have the same eigenvalues. Consider $\mathbf{F}^T$. It has columns summing to 1. Therefore, 1 is an eigenvalue of $\mathbf{F}^T$ too, and by extension of all matrices whose columns sum to one. 
+%}
+\end{enumerate}

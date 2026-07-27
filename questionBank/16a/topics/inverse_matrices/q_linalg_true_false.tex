@@ -1,0 +1,45 @@
+% Author: Anna Chou
+% Email: menghuichou@berkeley.edu
+% CSM16A Spring 2022
+% Reference: Linear Algebra and its Application - Pearson Education by David C.
+
+\qns{Linear Algebra Like a Pro}
+
+\textbf{Learning Goal: } Understand and practice different aspects of linear algebra we learned so far.
+
+Reference: \textit{Linear Algebra and its Application - Pearson Education by David C.} 
+
+\meta{Make sure student know when to use inspections and when should not.}
+
+
+    True and False.
+        \begin{enumerate}
+        %1.7 from David
+            \item The columns of a matrix $A$ are linearly independent if the equation $Ax = 0$ has the trivial solution.
+            \item The columns of any 4x5 matrix are linearly dependent.
+            \item The columns of any 5x4 matrix are linearly independent.
+            \item If x and y are linearly independent, and if {x, y, z} is linearly dependent, then z is in Span\{x, y\}.
+            \item If $H$ = Span\{$b_1$ ... $b_n$\}, then \{$b_1$ ... $b_n$\} is a basis for $H$.
+            \item Whenever a system has free variables, the solution set contains many solutions. %1.2
+            \item If the equation $Ax=b$ is inconsistent, then b is not in the set spanned by the columns of $A$. %1.4
+            \item If the augmented matrix$[A \text{ } b]$ has a pivot position in every row, then equation $Ax=b$ is consistent.%1.4
+            \item If $A$ is an $m \text{x} n$ matrix whose columns do not span $\R^m$, then the equation $Ax=b$ is inconsistent for some $b$ in $\R^m$. %1.4
+            \item If $A$ is invertible, then elementary row operations that reduce $A$ to the identity $I_n$ also reduce $A^{-1}$ to $I_n$. %2.2
+        \end{enumerate}
+            \ans{
+            
+                \begin{enumerate}
+                    \item True.This is definition.
+                    \item True. There is at least one free variable in the solution of $Ax = 0$, thus there is infinite numbers of solutions.
+                    \item False. Shape does not guarantee (in)dependency. If one of the columns is linearly dependent, then the matrix is not linearly independent.
+                    \item True. Since {x, y, z} is linearly dependent and x and y are linearly independent, z must be a linear combination of the other columns. Thus, z can be expressed with a linear combination of x and y, which denotes to Span\{x, y\}.
+                    \item False. \{$b_1$ ... $b_n$\} is a basis for $H$ if and only if Span $H$ is a linearly independent set. Recall that you can put linearly dependent columns in Span but you can't do that in basis. Basis should be the simplest form of linearly independent column.
+                    \item False. If the system is inconsistent then even if you have free variables in system, the system always has no solution.
+                    \item True. This is definition!
+                    \item False. If we have a pivot in the last column (augment), the system is inconsistent.
+                    \item True. If $A$ cannot span entire space, it implies some $b$ in the space cannot be reached by the mapping of $A$.
+                    \item True.
+                \end{enumerate}
+            }
+            
+        

@@ -1,0 +1,156 @@
+
+
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\qns{YEARS OF CIRCUITING yet NO REAL WORLD USE FOUND FOR censoring your roommate}
+
+\textbf{Learning Goal}: Learn to use appropriate op-amp architectures, correct methods to piece designed elements and blackboxes to form circuits. \\
+\meta{
+    \begin{bindenum}
+        \item \textbf{Remind students to buffer} when parts of circuits are to collide and interfere with each other.
+        \item Can \textbf{adapt a process of elimination to choose for the  op-amp architecture} from the toolkit.
+        \item \textbf{Have the behaviour of comparator} memorized and ready so it is \textbf{easier to revise and build circuits by making analogies to it}.
+    \end{bindenum}
+}
+
+Obviously, circuitry comes with its benefits, as it is the great foundation of all things electrical engineering. Using circuits, humanity has accomplished a lot of great things. Circuits themselves become more complicated, and the unit "Operational Amplifier" has invented from this evolutionary history of circuit elements. It makes us wonder what great things can be born from these technological advancements!
+
+For me, I want to censor my roommate Winston when I need to work quietly using circuit elements. Here's how it works:
+
+\begin{enumerate}
+    \item{
+        First of all, I have the following blackboxes and circuit units from Cory Hall:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/part_a_prompt}
+        \end{center}
+        I will use a comparator because it is strong in providing binary outputs based on an input.
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/comp_bin_graph}
+        \end{center}
+        I also know that my roommate's voice would always be characterized as any voltage below $3V$. Using this knowledge, and assuming you have any amount of wires you'd like, draw out a circuit involving all elements above that outputs $5V$ for any voice input $V_{in}$ that is not possibly my roommate's, and $0V$ otherwise.
+        
+    }
+    \ans{
+        For any voltage above $3V$, then, it must not be the roommate's voice. Therefore, the behaviour of this circuit can be portrayed as:
+        \[
+            V_{out} = 
+            \begin{cases}
+                5V, &V_{in} > 3V \\
+                0V, &V_{in} < 3V
+            \end{cases}
+        \]
+        The behaviour of a comparator, meanwhile, may be portrayed as:
+        \[
+            V_{out} = 
+            \begin{cases}
+                V_{DD}, &V_+ > V_- \\
+                V_{SS}, &V_+ < V_-
+            \end{cases}
+        \]
+        Let us make analogy between the behaviours listed above, keep in mind that $V_{in}$ is the voltage from Sound-Volt Converter, and we may construct the following circuit:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/part_a_sol}
+        \end{center}
+        In such a circuit:
+        \[
+            V_{out} = 
+            \begin{cases}
+                V_{DD} = 5V, &V_+ = V_{in} > V_- = 3V \\
+                V_{SS} = 0V, &V_+ = V_{in} < V_- = 3V
+            \end{cases}
+        \]
+        
+    }
+    
+    \item{
+        My roommate decided to interfere and piece all my circuit elements into something below, which, as a 16A Content Mentor, I can't quite tell what's going on with:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/part_b_prompt}
+        \end{center}
+        Explain what the above circuit is doing.
+    
+    }
+    \ans{
+        Let us briefly summarize this circuit according to the comparator behavior:
+        \[
+            V_{out} = 
+            \begin{cases}
+                V_{DD}, &V_+ > V_- \\
+                V_{SS}, &V_+ < V_-
+            \end{cases}
+        \]
+        \[
+            V_{out} = 
+            \begin{cases}
+                4V, &\frac{1}{4} V_{in} > 0 \\
+                2V, &\frac{1}{4} V_{in} < 0
+            \end{cases}
+        \]
+        
+    }
+    
+    \item{
+        Unfortunately, this filter happened to also filter out everyone who has a similar voice to my roommate's. However, using perfect pitch, I discovered that my roommate's voice has a specific frequency to it. \\
+        I turned to a different design, but need to first process the output of sound-to-volt converter. \\
+        For an input voltage of $V(t)$, I would like to transform it into $V'(t) = -0.5V(t) + 2$. \\
+        Draw a circuit involving an input node, output node, and an op-amp architecture that enables it. As an additional constraint, you are also only given an op-amp, infinite wires, and can use some of the following basic circuit components:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/part_c_prompt}
+        \end{center}
+    
+    }
+    \ans{
+        In this case, since the voltage is being converted into some opposite sign, I can use an inverting amplifier:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/inv_amp}
+        \end{center}
+        Notice that such an amplifier is incapable of shrinking voltage. Therefore, my circuit should feed the voltage signal to an inverting amplifier that, after inverting its sign and halving it, adds $2V$ to it. \\
+        Since the $1V$ voltage source is out only available voltage source, and we do need a $V_{ref}$ to add the $2V$, it would have to be $V_{ref}$. \\
+        Now, to build such an inverting amplifier, we would most definitely need:
+        \[\frac{R_f}{R_s} = \frac{1}{2}\]
+        But, by doing so, the added voltage after halving and inverting becomes
+        \[\bigg( \frac{R_f}{R_s} + 1\bigg) V_{ref} = \frac{3}{2} V\]
+        Which is not $2V$. \\
+        Consider the alternative then, where we, to secure
+        \[\bigg( \frac{R_f}{R_s} + 1\bigg) V_{ref} = 2V\]
+        enforce that
+        \[\frac{R_f}{R_s} = \frac{1}{1}\]
+        And let the circuit follow the procedure of:
+        \begin{bindenum}
+            \item Halving the voltage input $V(t)$.
+            \item Feed the halved signal to the inverting op-amp, inverting its sign and then add $2$ to it, resulting in $-0.5V(t) + 2V$.
+        \end{bindenum}
+        If so, we would just need a voltage divider to perform the first step, which would take 2 resistors of the same resistance. Since we are using a voltage divider, we would like to introduce a buffer between it and the op-amp architecture as well to avoid external influence. \\
+        Therefore, the entire circuit would look like this:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/part_c_sol}
+        \end{center}
+    }
+    
+    \item{
+        After the transformation from part (c), I would like to perform another transformation that transforms $V'(t)$ into $V''(t) = -V(t) + 1$. \\
+        Suggest and draw a circuit involving an input node, output node, and an op-amp architecture that enables it. As an additional constraint, you are also only given an op-amp, infinite wires, and can use some of the following basic circuit components:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/part_d_prompt}
+        \end{center}
+        
+    }
+    \ans{
+        We are attempting to transform $-0.5 V(t) + 2$ into $-1 V(t) + 1$. \\
+        This must be the work of a non-inverting amplifier! \\
+        We can first double the entire $V'(t)$, which doubles the constant term into a $4V$, and then subtract $3V$ from the doubled signal. \\
+        A non-inverting amplifier looks like this:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/non_inv_amp}
+        \end{center}
+        Looking at this diagram, we first recognize that we must secure:
+        \[\frac{R_{top}}{R_{bottom}} = 1\]
+        to secure the signal's doubling. \\
+        This works with the voltage source that we can use as $V_{ref}$, as this amplifier will then subtract $3V$ from the doubled signal. \\
+        Therefore, the following architecture can work:
+        \begin{center}
+            \input{../../topics/op_amps/q_op_amp_archs_figs/part_d_sol}
+        \end{center}
+    }
+\end{enumerate}

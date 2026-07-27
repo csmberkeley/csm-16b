@@ -1,0 +1,44 @@
+
+BAD (Many sentences on a single line):
+"""
+A key limitation of existing methods for protecting hardware against malicious capabilities, including IFT and security property verification, is that they have only been applied to the digital domain. However, confidentiality and integrity of sensitive data, as well as secure operation of a device, may also be jeopardized in the analog domain or in mixed-signal designs \cite{AMS-DT17}. Indeed, previous studies have demonstrated how secret information from the digital domain can be leaked via systematic modification of design parameters in the analog domain \cite{TVLSI17}, such as changing carrier frequencies or transmission power in an RF transmitter. Conversely, as shown in \cite{a2,analog_ift}, carefully constructed analog circuits can activate malicious digital logic or even create a rogue channel to leak sensitive information from the analog to the digital domain. The problem intensifies as mixed-signal IC designs become widespread due to the ubiquity of wireless technologies, and as simple digital I/Os of the past are being replaced by high-speed links which combine analog and digital techniques for noise reduction or channel distortion compensation \cite{han2016design}. Therefore, developing IFT approaches for analog/mixed-signal designs would greatly assist in ensuring the security of such products and could fill the gap in trustworthiness verification of modern and complex hardware designs.
+"""
+
+
+-----
+
+
+BAD (80 chars per line, without regard to sentence breaks):
+"""
+A key limitation of existing methods for protecting hardware against malicious
+capabilities, including IFT and security property verification, is that they
+have only been applied to the digital domain. However, confidentiality and
+integrity of sensitive data, as well as secure operation of a device, may also
+be jeopardized in the analog domain or in mixed-signal designs \cite{AMS-DT17}.
+Indeed, previous studies have demonstrated how secret information from the
+digital domain can be leaked via systematic modification of design parameters in
+the analog domain \cite{TVLSI17}, such as changing carrier frequencies or
+transmission power in an RF transmitter. Conversely, as shown in
+\cite{a2,analog_ift}, carefully constructed analog circuits can activate
+malicious digital logic or even create a rogue channel to leak sensitive
+information from the analog to the digital domain. The problem intensifies as
+mixed-signal IC designs become widespread due to the ubiquity of wireless
+technologies, and as simple digital I/Os of the past are being replaced by
+high-speed links which combine analog and digital techniques for noise reduction
+or channel distortion compensation \cite{han2016design}. Therefore, developing
+IFT approaches for analog/mixed-signal designs would greatly assist in ensuring
+the security of such products and could fill the gap in trustworthiness
+verification of modern and complex hardware designs.
+"""
+
+-----
+
+GOOD (one line per sentence):
+"""
+A key limitation of existing methods for protecting hardware against malicious capabilities, including IFT and security property verification, is that they have only been applied to the digital domain. 
+However, confidentiality and integrity of sensitive data, as well as secure operation of a device, may also be jeopardized in the analog domain or in mixed-signal designs \cite{AMS-DT17}. 
+Indeed, previous studies have demonstrated how secret information from the digital domain can be leaked via systematic modification of design parameters in the analog domain \cite{TVLSI17}, such as changing carrier frequencies or transmission power in an RF transmitter. 
+Conversely, as shown in \cite{a2,analog_ift}, carefully constructed analog circuits can activate malicious digital logic or even create a rogue channel to leak sensitive information from the analog to the digital domain. 
+The problem intensifies as mixed-signal IC designs become widespread due to the ubiquity of wireless technologies, and as simple digital I/Os of the past are being replaced by high-speed links which combine analog and digital techniques for noise reduction or channel distortion compensation \cite{han2016design}. 
+Therefore, developing IFT approaches for analog/mixed-signal designs would greatly assist in ensuring the security of such products and could fill the gap in trustworthiness verification of modern and complex hardware designs.
+"""

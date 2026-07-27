@@ -1,0 +1,105 @@
+% Author: Damanic Luck
+% Editor: Dun-Ming Huang, on formatting
+% Author Email: damanicluck@berkeley.edu
+% CSM16A Spring 2023
+
+\qns{Null space and Inverse proof} \\
+% editnotes are not defined in new transition to github for fa23 from sp23
+% \editnotes{\\
+%     I restructured the answers and some paragraph breaks to make file slightly more readable for SM reviewers. \\
+%     I did not change any bold/italicize contents in, so to preserve original intentions of content.
+
+% }
+
+\meta{
+\begin{itemize}
+    \item Begin by reminding students of the definitions of linear independence and null spaces
+    
+    \item Also remind students of the implications of the invertibility of the state transition matrix on getting the previous states and how that may relate to null spaces \textbf{(trivial null space = linear independence = invertible = can obtain the matrix of the previous time step.)}
+
+    \item Step of proofs from the solutions, which can be used to guide students and can be written as needed\\
+    
+    \item Maybe write out the given information from the question
+\end{itemize}
+}
+
+\begin{enumerate}
+\item{
+    \textbf{
+        Show that for a matrix $\textbf{A}\in \mathbb{R}^{n\times n}$, if it has a trivial null space, it is invertible.
+    }
+    \emph{Hint: From lecture, what do you know about nullspace, especially for a trivial null space? What does this imply about the columns of matrix A's linear (in)dependence?}
+}
+
+\ans{
+    \textbf{Write down information that you know:}\\
+    We are trying to prove that $\mathbf{A}$ has a trivial null space. The null space  of $\mathbf{A}$  will consist of all vectors $\vec{x}$ that satisfy
+    % Will equation in brackets screw up the numbering
+    % Brandon: replied in DMs
+        \begin{equation}
+        \tag{1}
+            \mathbf{A}\vec{x} = \vec{0}
+        \end{equation}
+
+    From \href{https://eecs16a.org/lecture/Note3.pdf}{Note 3:}
+    \\For a set of vectors $\{\vec{x_1}, \vec{x_2}, ..., \vec{x_n}\}$, it is linearly independent if there exists scalars $\alpha_1, \alpha_2, ..., \alpha_n$, such that for a linear combination of the vectors, only $\alpha_1, \alpha_2, ..., \alpha_n = 0$  is the only solution that will satisfy:
+        \begin{equation}
+        \tag{2}
+            \alpha_1\vec{x_1}+...+\alpha_n\vec{x_n} = \vec{0}
+        \end{equation}
+    Multipling a matrix by its inverse results in the identity matrix with dimensions $\mathbf{n\times n}$:
+        \begin{equation}
+        \tag{3}
+            \mathbf{A^{-1}A}=\mathbf{I_n}
+        \end{equation}
+    A valid matrix multiplication with the identity matrix results in the same matrix/vector. Analogous to multiplying an integer by 1.
+
+    \textbf{Proving the statement:}\\
+    As an intermediate step, we can prove that if a matrix is invertible, it's columns are linearly independent. \textbf{This is a inherent property of invertible matrices anyways.}
+    Since $\mathbf{A}$ is invertible, let $\vec{v}$ be such a vector that 
+        \begin{equation}
+        \tag{4}
+            \mathbf{A}\vec{v} = \vec{0}
+        \end{equation}
+    Multiply both sides by $\mathbf{A^{-1}}$.
+        \begin{equation}
+        \tag{5}
+            \mathbf{A^{-1}A}\vec{v}=\vec{0}
+        \end{equation}
+    Recall that multipling a matrix by its inverse results in the identity matrix. So, 
+        \begin{equation}
+        \tag{6}
+            \vec{v} = \vec{0}
+        \end{equation}
+    Therefore, if the matrix $\mathbf{A}$ is invertible, the only valid solution for equation (3) is the zero vector. \\
+    
+    Notice that equations (6) and (2) convey the same information. Essentially, these two equations say that for a linear combination of the columns of a matrix, the matrix is linearly independent if the only way that this linear combination is equal to the zero vector is if \textbf{all} scalars are also zero. \\
+
+    Therefore, this means that an invertible matrix is also linearly independent.\\
+
+    Now we will prove the original question. \\
+    
+    If a matrix has a trivial null space, \textbf{by definition} that means that the only $\vec{x}$ that satisfies
+        \begin{equation}
+        \tag{7}
+            \mathbf{A}\vec{x} = \vec{0}
+        \end{equation}
+    is $\vec{x}=\vec{0}$.\\
+    
+    Note that equation (4), where we first proved that an invertible matrix has linearly independent columns, is \textbf{equivalent} to equation (7).\\
+
+    Because of this similarity, we can conclude that the solution for a vector, $\vec{v}$ so that the equation is equal to the zero vector, must also be the zero vector. We can conclude that the null space for an invertible matrix $\mathbf{A}$ must be trivial due to us proving that $\vec{x}$ for an invertible matrix is actually the zero vector, $\vec{0}$.\\
+    Proof done.
+    }
+
+    % \notes{ \\
+    %     It may be worth mentioning, if there is enough time, about the relationship between null space and column space as well in relation to the number of columns of the original matrix. From course notes, the columns space is the span of the column vectors of the matrix. \\
+    %     % \par
+    %     Intuitively, if given the matrix $\begin{bmatrix} -1 & 4 \\ 2 & -8 \end{bmatrix}$, the column space of this matrix is \emph{span} 
+    %     $\bigg\{\begin{bmatrix} -1\\4 \end{bmatrix}, 
+    %     \begin{bmatrix} 2\\-8 \end{bmatrix} \bigg\}$ 
+    %     and can be simplified to \emph{span}
+    %     $\bigg\{\begin{bmatrix} -1\\4 \end{bmatrix} \bigg\}$. \\
+    %     The dimension of the null space can also be intuitively thought of as the number of dependent columns in the matrix.
+    % }
+\end{enumerate}

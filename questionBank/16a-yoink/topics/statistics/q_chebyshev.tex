@@ -1,0 +1,128 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Spring 2024
+
+\qns{Cheby Cheby Chapa Chapa}
+
+\textbf{Learning Goals:}
+\begin{bindenum}
+    \item Learn how the Chebyshev's Inequality was derived from observation, and its interpretation.
+    \item Apply Chebyshev Inequality on realistic use-cases.
+    \item See Chebyshev Inequality's other origin from another famous inequality (Markov's Inequality).
+\end{bindenum}
+
+Chapa did not study anything before the midterm, but somehow scored $90\%$.
+You find this to be suspicious, and decides to use what you have learned in EECS 16A to expose Chapa once and for all\dots
+
+From Edstem page of your course, you found the following details:
+\begin{bindenum}
+    \item The average of this exam was $66\%$.
+    \item The standard deviation of this exam was $8\%$.
+    \item In the end, $500$ students took the exam.
+\end{bindenum}
+
+\begin{enumerate}
+    \item {
+        Suppose that out of $n=500$ students, only $k=250$ students received a score higher than $a\%$. \\
+        Let all students' score be represented as a variable $x_i$, and the vector of all students' score to be $\vec{x} = \begin{bmatrix} x_1 & \cdots & x_{500} \end{bmatrix}$.
+        What is the upper bound of $\frac{n}{k}$ in terms of $a$ and $x_i$?
+    }
+    \meta {
+        This question corresponds to the RMS form of Chebyshev's Inequality definition.
+    }
+    \ans {
+        Let the norm of $\vec{x}$ be represented as:
+        \begin{align*}
+            \| \vec{x} \|^2 &= \sum_i x_i^2 \\
+            &= x_1^2 + x_2^2 + \cdots + x_{500}^2
+        \end{align*}
+        We notice that there will be $250$ elements within the $500$ that will be higher than $a\%$.
+        In such manner, we derive that:
+        \begin{align*}
+            \| \vec{x} \|^2 
+            &= x_1^2 + x_2^2 + \cdots + x_{500}^2 \geq k a^2 \\
+            \frac{\| \vec{x} \|^2}{a^2} &\geq k \\
+            \frac{\| \vec{x} \|^2 / n}{a^2} &\geq \frac{k}{n}
+        \end{align*}
+        To simplify this expression further, we can use the definition of $rms$: $rms(\vec{x}) = \sqrt{\frac{1}{n} \sum_{i=1}^n x_i^2}$, such that:
+        \[
+            {\left(\frac{{\rm rms}(\vec{x})}{a}\right)}^2 \geq \frac{k}{n}
+        \]
+
+    }
+
+    \item {
+        Now, instead, let us define a separate variable $\vec{y}$ such that $\vec{y} = \vec{x} - \bar{\vec{x}}$. \\
+        Suppose that only $k$ out of $n$ elements $y_i$ are larger than some value $c$, use the conclusion of part (a) to derive an upper bound of $\frac{k}{n}$ using the variance of $x$.
+    }
+    \meta {
+        This question corresponds to the variance form of Chebyshev's Inequality definition.
+    }
+    \ans {
+        From the previous part, we were able to conclude that for some variable $X$, the phenomenon that $k$ of $n$ elements of $X$ are larger than some value $b$ may be expressed within the inequality:
+        \[
+            \frac{\| X \|^2 / n}{b^2} \geq \frac{k}{n}
+        \]
+        Now, substituting $X$ with $\vec{y} = \vec{x} - \bar{\vec{x}}$, and using the prompt's provided values, we instead arrive at:
+        \[
+            \frac{\| \vec{x} - \bar{\vec{x}} \|^2 / n}{c^2} \geq \frac{k}{n}
+        \]
+        However, note that $var(\vec{x}) = \frac{\| \vec{x} - \bar{\vec{x}} \|^2}{n}$. Therefore, in turn, we find that:
+        \[
+            \frac{var(x)}{c^2} \geq \frac{k}{n}
+        \]
+    }
+\end{enumerate}
+From the two previous subparts, we arrive at an interesting inequality called Chebyshev's Inequality, which basically states that:
+\begin{ln-define}{Chebyshev's Inequality}{}
+    For a random variable $X$ with finite expectation $\mathbb{E}[X] = \bar{X} = \mu$, for any positive constant $c$:
+    \[
+        \mathbb{P}[|X - \mu| \geq c] \leq \frac{Var(X)}{c^2}
+    \]
+    \tcblower
+    Specifically, we obtained this conclusion via subpart (b). \\
+    In subpart (b), assuming all variables were obtained at uniform (equal) probability, then the probability at which our variable value $y_i = x_i - \bar{\vec{x}}$ is equal to the proportion of values $y_i$ that are larger than $c$, which is $k/n$.
+\end{ln-define}
+In other words, now we can find the probability at which one person's exam score subtracted by the average exam score is larger than a specific amount.
+
+\begin{enumerate}[resume]
+    \item {
+        What is the probability that a randomly chosen student from the course obtained a $90\%$ on the exam? \\
+        Remember:
+        \begin{bindenum}
+            \item The average of this exam was $66\%$.
+            \item The standard deviation of this exam was $8\%$.
+            \item In the end, $500$ students took the exam.
+        \end{bindenum}
+    }
+    
+    \ans {
+        Using Chebyshev's Inequality,
+        \begin{align*}
+            \mathbb{P}[|X - \mu| \geq c] &\leq \frac{Var(X)}{c^2} \\
+            \mathbb{P}[X - 0.66 \geq 0.24] &\leq \mathbb{P}[|X - 0.66| \geq 0.24]\\
+            &\leq \frac{0.08}{{0.24}^2} = \frac{1}{9}
+        \end{align*}
+    }
+
+    \item {
+        Since Chapa did not study at all, let us assume that Chapa guessed all the answers on the exam. \\
+        You did some simulation and found that, across $100000$ simulations, randomly guessing every answer on the exam gives the following distribution for exam scores:
+        \begin{bindenum}
+            \item The average of this simulation was $25\%$.
+            \item The standard deviation of this simulation was $5\%$.
+        \end{bindenum}
+        Judging by this, argue whether Chapa did something other than randomly guessing on the exam. Justify your reasoning using Chebyshev's Inequality.
+    }
+    
+    \ans {
+        Based on Chebyshev's Inequality, if Chapa really randomly guessed every answer on the exam, then the probability at which he arrives at his grade, $90\%$, would be:
+        \begin{align*}
+            \mathbb{P}[|X - \mu| \geq c] &\leq \frac{Var(X)}{c^2} \\
+            \mathbb{P}[X - 0.25 \geq 0.65] &\leq \mathbb{P}[|X - 0.25| \geq 0.65]\\
+            &\leq \frac{0.05}{{0.65}^2} = \frac{1}{169}
+        \end{align*}
+        There is an extremely low probability (less than $0.01$) that Chapa actually obtains his score if he only randomly guessed answers on the exam.
+        Therefore, we can suspect that Chapa did something other than randomly guessing on the exam.
+    }
+\end{enumerate}

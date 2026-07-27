@@ -1,0 +1,47 @@
+%\newpage
+\qns{Proof on Nullspace}
+
+\textbf{Learning Goal:} The goal of this problem is to practice some more proof development skills.
+
+\meta{
+\begin{itemize}
+\item Remind students that invertible matrices have full rank and what that means for null space. If students seem stuck, ask them what it means for a square matrix to be invertible or have a trivial nullspace in symbolic terms.
+\item A helpful question to ask may be: “What can we do to our known equation $\mathbf{A}\vec{x}$=0 and our definition of an inverse $\mathbf{A}^{-1}\mathbf{A}=I$  to get to our solution $\vec{x}=0$?
+\end{itemize}
+}
+
+\begin{enumerate}
+
+\item\textbf{Show that if a square matrix $\mathbf{A}$ is invertible, then it has a trivial nullspace.} 
+
+Please look into \notes{Note 8 Section 8.3} to learn how the dimension of the output space depends on the nullspace.
+
+\ans {
+
+We \underline{know} that the square matrix $\mathbf{A}$ is invertible. We want to \underline{show} that the square matrix $\mathbf{A}$ has a trivial nullspace.
+\vspace{5mm}
+
+\underline{Steps to get there:}
+
+A trivial nullspace means that the vector solution to the equation, $\mathbf{A}\vec{x}=\vec{0}$, is the $\vec{0}$ vector. 
+
+Assume that $\mathbf{A}$ is invertible and let $\vec{x}$ be a vector, in $\textrm{N}(\mathbf{A})$, such that $\mathbf{A}\vec{x} =\vec{0}$. Multiplying both sides of the equation by the inverse of $\mathbf{A}$, will yield: 
+
+\begin{center}
+$(\mathbf{A}^{-1})\mathbf{A}\vec{x} = (\mathbf{A}^{-1}) \vec{0}$
+\end{center}
+
+The inverse of a matrix multiplied by the matrix itself is just the identity matrix; so, we are left with:
+\begin{center}
+$\mathbf{I} \vec{x} = \vec{0}$ \\
+$\vec{x} = \vec{0}$
+\end{center}
+
+Since $\vec{x} = \vec{0}$ is the only solution to this equation, we've shown that if a square matrix is invertible, then it has a trivial nullspace.
+}
+
+
+
+
+\end{enumerate}
+

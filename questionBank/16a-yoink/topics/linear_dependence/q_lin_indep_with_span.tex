@@ -1,0 +1,83 @@
+% Author: Damanic Luck
+% Author Email: damanicluck@berkeley.edu
+% CSM16A Fall 2023
+
+\qns{Linear Independence and Span} \\
+
+\meta {
+  \begin{itemize}
+    \item Begin by reviewing definitions of linear independence.
+    \item It may be a good idea to demonstrate the idea of linear (in)dependence with a drawing of a two dimensional graph with unit vectors. More specifically, you can draw the unit vectors $\vec{v_1^T}=
+    \begin{bmatrix}
+      1 & 0
+    \end{bmatrix}$
+    and $\vec{v_2^T} = 
+    \begin{bmatrix}
+      0 & 1
+    \end{bmatrix}$ and demonstrate how these two vectors can be used to create linear combinations of other vectors. Although the columns of a matrix being linearly independent doesn't necessarily mean that it spans $\mathbb{R}^n$ (in this example it does), it just means there is no redundant information that other column vectors in the matrix can create.
+    \item An possible analogy for span can be walking through a neighborhood. What locations in the neighborhood would you be able to walk to and what is unable to be accessed?
+    \item \textbf{It may be important to note that when you refer to linear independence of a matrix, you should say the \emph{columns} and or \emph{rows} of a matrix are linearly independent.} Since the row perspective is optional (stated in Note 3), most students may skip over this as just nomenclature and assume that referring to a matrix as linearly independent automatically refers to its columns.
+  \end{itemize} 
+}
+
+\begin{enumerate}
+  \item For the following statements, state whether it is true or false. If true, write a short sentence on your reasoning. If false, either correct the statement with the correct phrase or provide a counterexample.
+  \meta {
+      Out of the three subparts for this question, it may be the most important to go over the third subpart in order to help student gain an intuition for span. Subpart (a) and (b) are definitions.
+    }
+
+  \begin{enumerate}
+    \item Suppose that the matrix $\textbf{A}$ exists. If $\textbf{A}\vec{x} = \vec{0}$, then under all conditions, the solution implies that the columns of $\textbf{A}$ are linearly independent.
+    
+    \ans {
+      False. If $\textbf{A}\vec{x} = \vec{0}$, the columns of the matrix \textbf{A} are linearly independent if the only solution is the trivial solution, $\vec{x} = \vec{0}.$
+    }
+
+    \item A set of vectors $\{\vec{v_1},...,\vec{v_n}\}$ is linearly dependent if there exist scalars $\alpha_1,\dots,\alpha_n$ such that $\alpha_1\vec{v_1} +\dots+\alpha_n \vec{v_n} = \vec{0}$ and not all $\alpha_{i}$’s are equal to zero.
+    
+    \ans {
+      True. This is directly taken out of \underline{\href{https://eecs16a.org/lecture/Note3.pdf}{EECS16A Fall 2023 Note 3}}.
+    }
+
+    \item A set of vectors $\{\vec{v_1}, \dots, \vec{v_n}\}$ is linearly independent. Suppose we want to add the vector $\vec{v}_{n+1}$. We can write $\vec{v}_{n+1}$ as a linear combination of the vectors within the set. By adding $\vec{v}_{n+1}$ into this set of vectors, we can increasing its span.
+    
+    \ans {
+      False. One simple counterexample would be $\vec{v_1}=
+      \begin{bmatrix}
+        1 \\ 0
+      \end{bmatrix}$
+      and $\vec{v_2} = 
+      \begin{bmatrix}
+        0 \\ 1
+      \end{bmatrix}$ and 
+      $\vec{v_3}=
+      \begin{bmatrix}
+        2 \\ 1
+      \end{bmatrix}$. We see that $v_1$ and $v_2$ already spans all of $\mathbb{R}^2$ (although it is not necessary for a set of vectors to span $\mathbb{R}^n$ for the vector $\vec{v}_{n+1}$ to be within this span). 
+      Adding $v_3$ would not increase the span of this set of vectors. Another important thing to note is that the problem specifically states that \emph{we can write $\vec{v}_{n+1}$ as a linear combination of the vectors within the set}. By definition, span is the set of all linear combinations of $\{\vec{v_1}, \dots, \vec{v_n}\}$. Therefore, by this definition, if we can write $\vec{v}_{n+1}$ as a linear combination of the vectors within the set then that means $\vec{v}_{n+1}$ already exists within $span(\{\vec{v_1}, \dots, \vec{v_n}\})$. Thus, it's making it redundant to add $\vec{v}_{n+1}$ into the set since it will not expand its span.
+    }
+  \end{enumerate}
+
+  \item This question will guide you through the following proof: Suppose that there exists a matrix \textbf{A} of dimension $n \times n$. For each $\vec{b}$ in $\mathbb{R}^n$, $\textbf{A}\vec{x} = \vec{b}$ has a \emph{unique} solution. Prove that the columns of $\textbf{A}$ span $\mathbb{R}^n$.
+  \begin{enumerate}
+    \meta {
+      Most of this question is to give students more practice with proofs and how to arrive at the statement by manipulating what informaton they are given.
+    }
+    \item What information is given to you? What do you need to prove? 
+    \ans {
+      We are given that for each $\vec{b}$ in $\mathbb{R}^n$, $\textbf{A}\vec{x} = \vec{b}$ has a solution, and that the \textbf{A} is a square matrix. We want to prove that the columns of $\textbf{A}$ spans $\mathbb{R}^n$. 
+    }
+
+    \item Now we want to manipulate what we know in order to prove the desired statement. If we know that for each $\vec{b}$ in $\mathbb{R}^n$, $\textbf{A}\vec{x} = \vec{b}$ has a \emph{unique} solution, what does this imply about the columns of \textbf{A}?
+    \ans {
+      We are interested in trying to prove that the columns of $\textbf{A}$ span $\mathbb{R}^n$. A unique solution for each $\vec{b}$ in $\mathbb{R}^n$ means that each $\vec{b}$ can be written as a linear combination of the columns of \textbf{A}.
+      \[\vec{b} = \alpha_1\vec{v_1} +\dots+\alpha_n \vec{v_n}\]
+      Every single element $\vec{b}$ in $\mathbb{R}^n$ can be represented as a linear combination of the column vectors in \textbf{A}. Because the problem statement also states that there is a \emph{unique} solution for each $\vec{b}$ in $\mathbb{R}^n$, then that means that the columns of \textbf{A} are linearly independent. \\
+      \\This would not be the case if the problem statement specified that each $\vec{b}$ in $\mathbb{R}^n$ had infinite solutions, since it would mean that the columns of \textbf{A} were linearly dependent.
+    }
+    \item What does your findings about the columns of \textbf{A} (from the previous subpart) imply about its span?
+    \ans{
+      Because the columns of \textbf{A} are linearly independent, by definition, no column vectors in \textbf{A} can be created as a linear combination of other column vectors in \textbf{A}. Since \textbf{A} is a square matrix of dimension $n \times n$ and its columns are linearly independent, the columnspace of \textbf{A} spans $\mathbb{R}^n$.
+    }
+  \end{enumerate}
+\end{enumerate}

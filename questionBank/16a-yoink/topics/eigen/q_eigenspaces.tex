@@ -1,0 +1,88 @@
+% Author: Anya Shrivastava
+\qns{Eigenspaces}
+
+\begin{enumerate}
+
+% Part A
+\item Imagine we have $A = 
+    \begin{bmatrix} 
+        1 & 2\\
+        0 & 3\\
+    \end{bmatrix}$.
+What are the eigenvalues and eigenvectors?
+
+\ans{
+
+    $$\mathbf{A} - \lambda * \mathbf{I} = 
+        \begin{bmatrix} 
+        1 - \lambda & 2\\
+        0 & 3 - \lambda
+        \end{bmatrix}$$
+            
+    $$(1 - \lambda)(3 - \lambda) = 0$$
+    $$\lambda = \text{1, 3}$$
+    
+    $$\text{when $\lambda = 1$}$$
+        $$\begin{bmatrix}
+            0 & 2 \\
+            0 & 1
+        \end{bmatrix} \rightarrow 
+        \begin{bmatrix}
+            0 & 1 \\
+            0 & 0
+        \end{bmatrix}$$ \\
+        $$\vec{v_1} = \begin{bmatrix}
+            1 \\
+            0
+        \end{bmatrix} $$
+
+    $$\text{when $\lambda = 3$}$$
+        $$\begin{bmatrix}
+            -2 & 2 \\
+            0 & 0
+        \end{bmatrix} \rightarrow 
+        \begin{bmatrix}
+            1 & -1 \\
+            0 & 0
+        \end{bmatrix}$$ \\
+        $$\vec{v_2} = \begin{bmatrix}
+            1 \\
+            1
+        \end{bmatrix}$$
+
+}
+
+% Part B
+\item Suppose we have a vector $\vec{b} = 
+    \begin{bmatrix} 
+        3\\
+        2\\
+    \end{bmatrix}$
+. Express this vector b in terms of the eigenbasis and the standard basis.
+
+\meta{
+Review with students what an eigenspace is. This part is trying to show that the eigenbasis is just another basis except the basis vectors are not the standard ones that we are used to.
+}
+
+\ans{
+
+Solve $[v_1 \text{ }v_2]^\top$ $\vec{x} = \vec{b}$. You will see that $\vec{x} = \vec{v_1} + 2\vec{v_2}$. In the standard basis, the vector b is equal to 3e1 + 2e2, where e1 and e2 are the standard basis vectors 
+}
+
+% Part C
+\item For a $2 {\times} 2$ matrix, under what conditions do you get repeated real eigenvalues? How many possible eigenvectors can you have? Will your eigenspace always span $\mathbb{R}^2$?
+
+\meta{
+Make sure to remind your students that repeated real eigenvalues correspond to the multiplicity of the zeros from the characteristic polynomial. If your students get stuck, try rewriting the matrix 
+A-I from part A with the variable x along the diagonal.
+}
+
+\ans{
+
+You get repeated real eigenvalues when the characteristic polynomial is of the form $(x-\lambda)^2$. Your eigenvalue is lambda with multiplicity of 2.\\
+You will have either one or two eigenvectors. Therefore it is not guaranteed that your eigenspace will span $\mathbb{R}^2$.\\
+Note that when you have two distinct real eigenvalues, then you are guaranteed two distinct eigenvectors that have an eigenspace of $\mathbb{R}^2$.
+}
+
+
+\end{enumerate}

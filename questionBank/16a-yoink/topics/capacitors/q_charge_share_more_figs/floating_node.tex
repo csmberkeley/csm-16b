@@ -1,0 +1,10 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\begin{circuitikz}[american]
+    \draw
+        node[ground]{} (0, 0)
+        to [C, l_=$C_1$, v^=$V_{C_1}$] (0, 2)
+        to [short] node[circ, fill=black, midway, label=above:$\text{floating node}$]{} (2.5, 2)
+        to [C, l^=$C_2$, v_=$V_{C_2}$] (2.5, 0) node[ground]{};
+\end{circuitikz}

@@ -1,0 +1,21 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\includegraphics[]{../../topics/resistors/q_resist_design_figs//cyrush_stick.png}
+\hspace{5mm}
+\begin{circuitikz}[american][scale=0.5]
+    \draw[fill=black] (0,0) circle (0.5);
+    \draw (0,0) circle (1);
+    \draw (1.78, 0) arc (0:350:1.8);
+    \draw
+        (-1, -1.414) to [R] (-1.414, -1)
+        (-1, 1.414) to [R] (-1.414, 1);
+    \draw
+        (0, 0) -- (-1.8, 0) node[circle, fill=black, inner sep=2,  label=left:stick]{};
+    \draw
+        (0, -1) -- (0, -1.2) node[rectangle, draw, fill=white]{dig};
+    \draw
+        (1.78, 0) -- (2, 0) node[circle, fill=blue, inner sep=2, label=right:\textbf{-, 0V}]{};
+    \draw
+        (1.78, -0.3) -- (2, -0.3) node[circle, fill=red, inner sep=2, label=right:\textbf{+, 9V}]{};
+\end{circuitikz}

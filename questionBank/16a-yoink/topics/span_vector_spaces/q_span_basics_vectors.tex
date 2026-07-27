@@ -1,0 +1,68 @@
+\qns{Span Basics}
+
+\begin{questionmeta}
+    \begin{itemize}
+        \item Give students a mini-lecture on span and provide basic examples 
+        \item Provide some geometric understanding of span by drawing out the vectors on the blackboard and showing how different sets of vectors are able to cover different vectors spaces
+        \item Connect span to linear independence/dependence by explaining how span can be explained through a linear combinations of vectors
+        \item Explain what it means to be in $\mathbb{R}^2$ and $\mathbb{R}^3$, so students understand the worksheet solutions
+    \end{itemize}
+\end{questionmeta}
+
+
+\begin{enumerate}
+    \item What is span $\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ ?
+
+    \ans{
+      span $\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ contains any vector $\vec{v}$ that can be written as
+      $$
+	\vec{v} = \alpha_1 \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix} + \alpha_2 \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}
+      $$
+
+      We realize that any vector whose last component is $0$ can be written in this form and any vector whose last component is nonzero cannot. Hence, the required span is the set of all vectors that can be written in the form $\begin{bmatrix}* \\ * \\ 0 \end{bmatrix}$, where * can be any number. This vector corresponds to spanning $\mathbb{R}^2$, since there is no component in the z-direction.
+   }
+
+   \item Is $\begin{bmatrix}5 \\ 5 \\ 0 \end{bmatrix}$ in span $\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \right\}$ ?
+
+   \meta{The system of equations is not solved with steps, so if students have questions on how to solve a system of equations, please walk them through the steps on how to solve them.}
+
+    \ans{
+      We can write out the problem in this form:
+
+      \begin{align*}
+	      \begin{bmatrix}5 \\ 5 \\ 0 \end{bmatrix} = \alpha_1 \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix} + \alpha_2 \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}
+      \end{align*}
+
+      We can set up a system of equations to find out if there are values $\alpha_1$ and $\alpha_2$ that satisfy the system.
+
+      \begin{align*}
+        5 &= \alpha_1 + 2\alpha_2 \\
+        5 &= 2\alpha_1 + \alpha_2
+      \end{align*}
+
+      After solving this sytem, we get that $\alpha_1$ = $\frac{5}{3}$ and $\alpha_2$ = $\frac{5}{3}$. Because $\begin{bmatrix}5 \\ 5 \\ 0 \end{bmatrix}$ can be expressed as a linear combination of $\begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix}$ and $\begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}$, $\begin{bmatrix}5 \\ 5 \\ 0 \end{bmatrix}$ is also contained in the span. Another way of thinking about this problem would be to see that $\begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}$ and $\begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}$ are linearly independent vectors that span $\mathbb{R}^2$, which means that any vector in $\mathbb{R}^2$ must be contained in their span, which is what happens in this case because $\begin{bmatrix}5 \\ 5 \\ 0 \end{bmatrix}$ does not have a z component.
+    }
+
+    \item What is a possible choice for $\vec{v}$ that would make span$\left\{ \begin{bmatrix}1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix}, \vec{v} \right\} = \mathbb{R}^3$ ?
+
+    \ans{
+      From part (a), we established that any vector whose last component is 0 can be written as a linear combination of the two vectors already in the set. Hence, if we include, for example, $\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$ into the set, then we should be able to reach any vector in $\mathbb{R}^3$. Any vector whose last component is non-zero is a valid addition to the set to achieve the desired span. This is because a vector that is written as a linear combination of these 3 vectors will have a value in 3 dimension, which makes it span $\mathbb{R}^3$.
+    }
+
+    % \itemFor what values of $b_1$, $b_2$, $b_3$ is the following system of linear equations consistent? (``Consistent'' means there is at least one solution.)
+    % $$
+    % \begin{bmatrix}1 & 2\\ 2 & 1 \\ 0 & 0 \end{bmatrix}\vec{x} = \begin{bmatrix}b_1 \\ b_2 \\ b_3 \end{bmatrix}
+    % $$
+
+    % \ans{
+    %   For the system of linear equations to be consistent, there must exist some $x$ such that the equality above holds. Performing matrix vector multiplication, we can rewrite the above equality as
+
+    %   $$
+	% x_1 \begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix} + x_2 \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix} = \vec{b}
+    %   $$
+
+    %   The question now becomes: which vectors $\vec{b}$ can be written in the above form i.e as a linear combination of the columns of $A$? This is exactly the definition of span, and the answer must be the same as that from part (a).
+    % }
+
+\end{enumerate}
+

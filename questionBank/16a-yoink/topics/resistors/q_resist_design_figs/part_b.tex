@@ -1,0 +1,13 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+\begin{circuitikz}[american]
+    \draw
+        node[ground]{} (0, 0) 
+        to [V, l_=$9V$, invert] (2, 0)
+        to [R, l_=$?\Omega$] (4, 0)
+        to [short] (7, 0) node[ground]{};
+    \node[
+        rectangle, draw, fill=white, minimum width=1.4cm, minimum height=0.8cm
+    ] at (5.5, 0) {$chip, R = 0\Omega$};
+\end{circuitikz}

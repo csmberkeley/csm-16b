@@ -1,0 +1,101 @@
+% Author: Cody Rawlings
+% Email: crawlings05@berkeley.edu
+% CSM16A Spring 2024
+
+\qns{Linierly Independent Eigenvectors}
+
+\meta{
+    Start with a brief explanation of proof by contradiction because it is the method used in part a of this question.
+    \begin{itemize}
+        \item Make sure students understand the reasoning behind the proofs in part a and part c because it is simple to generalize for n vectors.
+    \end{itemize}
+}
+
+\textbf{Learning Goals:}
+\begin{bindenum}
+    \item Proof by contradiction
+    \item Proving that vectors are linearly independent by using the definition of linear independence
+\end{bindenum}
+
+let $v_1, v_2, ..., v_n$ be eigenvectors of an n x n matrix, A and $\lambda_1, \lambda_2, ..., \lambda_n$ be the corresponding, distinct, eigenvalues.
+\vspace{.25cm} \\
+
+prove by contradiction: if $\lambda_1, \lambda_2, ..., \lambda_n$ are distinct eigenvalues, then $v_1, v_2, ..., v_n$ are linearly independent. \\
+\textbf{Hint:} remember that for linear independence: \[ \sum_{i=1}^{n} \alpha_i v_i = 0 \] if $\alpha_i$ = 0 and for linear dependence: \[ \sum_{i=1}^{n} \alpha_i v_i = v_k \],  
+
+\begin{enumerate}
+    \item{
+        First, prove the case where n = 2, so with $\lambda_1, \lambda_2$ and $v_1, v_2$.
+    }
+    \meta{
+        Students will learn how to prove by contradiction by first starting with the definition of linear dependence and trying to disprove that. The fact that the eigenvalues are distinct, $\lambda_1 - \lambda_k \neq 0$, is the key to proving linear independence.
+    }
+    \ans{
+        definition of linear dependence: \\
+            $v_k = c_1 v_1 + c_2 v_2 \quad c_1 + c_2 \neq 0$ \\
+            multiply both sides by A: \\
+            $Av_k = Ac_1 v_1 + Ac_2 v_2$ \\
+            definition of eigenvalues and eigenvectors: $A\Vec{v} = \lambda\Vec{v}$ \\
+            $\lambda_k v_k = c_1 \lambda_1 v_1 + c_2 \lambda_2 v_2$ \\
+            if we multiply the first equation by $\lambda_k$, we get:\\
+            $\lambda_k v_k = c_1 \lambda_k v_1 + c_2 \lambda_k v_2$ \\
+            now we have two equations: \\
+            $\lambda_k v_k = c_1 \lambda_1 v_1 + c_2 \lambda_2 v_2$ \\
+            $\lambda_k v_k = c_1 \lambda_k v_1 + c_2 \lambda_k v_2$ \\
+            subtracting the second equation from the first equation gives us:\\
+            $0 = c_1(\lambda_1 - \lambda_k)v_1 + c_2(\lambda_2 - \lambda_k)v_2$\\
+            eigenvalues are distinct, so $\lambda_1 - \lambda_k \neq 0$. Thus, $c_1 + c_2 = 0$. This contradicts our first equation and is the definition of linear independence, so the two eigenvectors, $v_1 and v_2$ are linearly independent.
+    }
+
+    \item{
+        Now, generalize for n = n so for $\lambda_1, \lambda_2, ..., \lambda_n$ and $v_1, v_2, ..., v_n$
+    }
+    \meta{
+        Similar process as before, only this time with all the vectors up to and including n.
+    }
+    \ans{
+        definition of linear dependence: \\
+            $v_k = c_1 v_1 + c_2 v_2 + \cdots + c_n v_n\quad c_1 + c_2 \neq 0$ \\
+            multiply both sides by A: \\
+            $Av_k = Ac_1 v_1 + Ac_2 v_2 + \cdots + Ac_n v_n$ \\
+            definition of eigenvalues and eigenvectors: $A\Vec{v} = \lambda\Vec{v}$ \\
+            $\lambda_k v_k = c_1 \lambda_1 v_1 + c_2 \lambda_2 v_2 + \cdots + c_n \lambda_n v_n$ \\
+            if we multiply the first equation by $\lambda_k$, we get:\\
+            $\lambda_k v_k = c_1 \lambda_k v_1 + c_2 \lambda_k v_2 + \cdots + c_n \lambda_k v_n $ \\
+            now we have two equations: \\
+            $\lambda_k v_k = c_1 \lambda_1 v_1 + c_2 \lambda_2 v_2 + \cdots + c_n \lambda_n v_n$ \\
+            $\lambda_k v_k = c_1 \lambda_k v_1 + c_2 \lambda_k v_2 + \cdots + c_n \lambda_k v_n $ \\
+            subtracting the second equation from the first equation gives us:\\
+            $0 = c_1(\lambda_1 - \lambda_k)v_1 + c_2(\lambda_2 - \lambda_k)v_2 + \cdots + c_n(\lambda_n - \lambda_k)v_n$\\
+            eigenvalues are distinct, so $\lambda_n - \lambda_k \neq 0$. Thus, $c_1 + c_2 + \cdots + c_n = 0$. This contradicts our first equation and is the definition of linear independence, so the eigenvectors, $v_1, v_2, ..., v_n$ are linearly independent.
+    }
+
+    \item{
+        Now that you know $v_1, v_2, ..., v_n$ are linearly independent, prove that $v_1 + v_2, v_2 + v_3, ..., v_{n-1} + v_n$ are also linearly independent.\\
+    First, prove this for n = 3
+    }
+    \meta{
+        Emphasize that this new set is comprized of $v_1, v_2, ..., v_n$, which are all linearly independent from eachother, so adding two linearly indpendent vectors should result in another linearly indpendent vector. 
+    }
+    \ans{
+        First, note that the set: $v_1, v_2, v_3$ is linearly independent, so: \\
+        $0 = c_1 v_1 + c_2 v_2 + c_3 v_3 \quad c_1 + c_2 + c_3 = 0$ This is important \\
+        For n = 3, the set can be written as:\\
+        $v_1 + v_2, v_2 + v_3, v_3$\\
+        $c_1(v_1 + v_2) +c_2(v_2 + v_3) + c_3 v_3 = 0$\\
+        but: $c_1 + c_2 + c_3 = 0$ from before, so $c_i = 0$ and the set $v_1 + v_2, v_2 + v_3, v_3$ is linearly independent.
+    }
+
+    \item{
+        Now generalize for $v_1 + v_2, v_2 + v_3, ..., v_{n-1} + v_n$
+    }
+    \meta{
+        Similar process and reasoning as before, only this time including $v_{n-1} + v_n$
+    }
+    \ans{
+        For n = n, we have the vector set:  \\ 
+        $v_1 + v_2, v_2 + v_3, ..., v_{n-1} + v_n$ and it can be written as: \\
+        $c_1(v_1 + v_2) + c_2(v_2 + v_3) + \cdots + c_n(v_{n-1} + v_n)$ \\ 
+        using the same logic from part c, $c_1 + c_2 + \cdots + c_n = 0$, so $c_i = 0$ and the entire vector set is linearly independent.
+    }
+\end{enumerate}

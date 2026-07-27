@@ -1,0 +1,26 @@
+\begin{figure}[h!]\centering
+  \begin{circuitikz}
+    \draw (3.5,2.5) node[op amp, yscale=-1] (opamp1) {}
+      (opamp1.+) to[R = $R_2$,-o] (0,3) node[left] {$V_{in}$};
+    \draw (1,0) node[ground] {}
+      to[R=$R_1$,-] (1, 2)
+      |- (opamp1.-)
+      to[short,-] (2.3, 1)
+      to[R=$R_3$] (4.5, 1)
+      -| (opamp1.out) node[above] {$V_x$}
+      to[R=$R_5$,*-] (6.5,2.5)
+      to[R=$R_6$] (6.5,1) node[ground] {};
+    \draw (9.5,2) node[op amp] (opamp2) {}
+      (opamp2.+) -| ++(-0.5, -0.5) node[ground] {};
+    \draw (6.5,2.5)
+      -| (opamp2.-)
+      to[short] ++(0,1)
+      to[R=$R_7$] ++(2,0)
+      -| (opamp2.out)
+      to[short,-o] (12,2) node[right] {$V_{out}$};
+    \draw (2.3, 1)
+      |- (3,0)
+      to[R=$R_4$] (6,0)
+      -| (11,2);
+  \end{circuitikz}
+\end{figure}

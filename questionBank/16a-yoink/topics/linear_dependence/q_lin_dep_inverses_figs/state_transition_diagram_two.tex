@@ -1,0 +1,13 @@
+% Author: Kailash Ranganathan
+% Email: kranganathan@berkeley.edu
+% CSM16A Spring 2023
+\begin{center}
+    \begin{tikzpicture}[-latex, auto, node distance={4cm}, semithick, main/.style = {draw, circle}]
+        \node[main] (A) {A};
+        \node[main, below right of = A] (B) {B};
+        \path (A) edge[loop above] node{0.3} (A); 
+        \path (A) edge[bend left] node{0.7} (B); 
+        \path (B) edge[loop below] node{0.4} (B); 
+        \path (B) edge[bend left] node{0.6} (A); 
+    \end{tikzpicture}
+\end{center}

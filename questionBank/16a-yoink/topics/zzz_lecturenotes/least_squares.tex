@@ -1,0 +1,72 @@
+Recall the definition of vector projection. 
+\begin{ln-define}{Definition of Vector Projection}
+    .For two arbitrary vectors $\vec{u}, \vec{v} \in \mathbb{R}^n$, 
+    \begin{align*}
+        \textbf{proj}_{\vec{v}} \vec{u} = \frac{\langle u, v \rangle}{\norm{v}^2} \vec{v}
+    \end{align*}
+    This term would be read out loud as "the projection of $\vec{u}$ \textbf{onto} $\vec{v}$ (which aligns with the visual interpretation of the projection -- "casting" one vector onto another). \\ 
+    Recall $\langle u, v \rangle$ is the inner product of two vectors, and $\norm{v}$ is the "norm" of $\vec{v}$, which can be roughly thought of as equivalent to the magnitude of the vector. 
+\end{ln-define}
+
+Fundamentally, our goal in least squares is to solve the system 
+
+\begin{align*}
+    A\vec{x} = \vec{b}
+\end{align*}
+
+If a solution $\vec{x}$ \textit{does} exist, we're fine! However, in many real-life cases, we can't find an exact solution to $\vec{x}$. Lets first think about why this is before diving into least squares. \\ \\ 
+First, think about the condition for $A \vec{x} = \vec{b}$ to have a solution. You may think that this requires $A$ to be invertible, but we're just looking for \textit{a} solution -- it need not be unique. Thus, $A$ doesn't have to be invertible, $\vec{b}$ just has to be in the columnspace of $A$ Why is this the case? It might be useful to think of the columnspace as a sort of "output space" of $A$. If $\vec{b}$ resides in the space of all possible outputs of $A$, then naturally there must be some input $\vec{x}$ that will get an output of $\vec{b}$. If we're not in the output space of $A$, however, then no matter what input we try, we'll never be able to reach $\vec{b}$). \\ \\ 
+That last part motivates the idea of least squares. If we're unable to reach $\vec{b}$, we want to try and get "as close as possible" to $\vec{b}$. Before we delve into the math, it may be useful to think about what this means from a graphical perspective. 
+
+\begin{center}\label{fig:projection}
+        \includegraphics[scale=0.5]{../lectureNotes/figs/least squares diagram.png}
+\end{center}
+Consider the column-space of $A$ as some arbitrary plane (this is just for visual purposes; in reality, it could be some weird higher-dimensional space). Then, if our desired output vector $\vec{d}$ is outside this space, $A\vec{h}$ represents the closest possible vector in our eligible output space to this $\vec{d}$ vector. From this geometric interpretation, you realize that the "difference" between $\vec{d}$ and $A\vec{h}$ must be orthogonal to the column-space, so that we can get right under the $\vec{d}$ vector. It turns out this is the central idea behind the mathematical formalism of least squares. Specifically, we define the least squares estimate $\vec{x}$ such that 
+
+\begin{align*}
+    \vec{b} - A\vec{x} \perp A\vec{x} \\ 
+    \langle \vec{b} - A\vec{x}, A\vec{x} \rangle = 0
+\end{align*}
+Recall the second line gives the definition of orthogonality in terms of inner products. We call $\vec{b} - A \vec{x} = \vec{e}$ the "error vector;" that is, how far our estimate is from the actual desired output. Just for notation purposes, we'll introduce the formal problem of least squares as a minimization of this error vector. 
+
+
+\begin{ln-define}{Definition of Least Squares}
+    .Suppose we have a system $A\vec{x} = \vec{b}$ where $\vec{b}$ is outside the column-space of $A$. Then, the least-squares closest input $\vec{x}^*$ is such that 
+    \begin{align*}
+        \vec{x}^* = \text{argmin}_{\vec{x}^*} \norm{\vec{b} - A\vec{x}}
+    \end{align*}
+    Specifically, if $A$ is either a square or tall matrix, then this $\vec{x}^*$ is given by 
+    \begin{align*}
+        \vec{x}^* = (A^T A)^{-1} A^T \vec{b}
+    \end{align*}
+\end{ln-define}
+Lets unpack the notation first. We wish to minimize the "magnitude" of the error vector, hence why we take its norm. The keyword "argmin" simply means "extract the argument $\vec{x}^*$ for which the following quantity is minimum" (you'll see "argmax" for when we want the maximum). Thus, the least squares problem can be cast in English as taking the input vector that minimizes the norm of the vector between our desired output and the input vector passed through $A$. \\ \\ 
+Next, you may be wondering how we reached the complex formula given above for $\vec{x}^*$. We use the inner product orthogonality definition given previously for this. 
+\begin{ln-quest}{Proof of Least Squares Formula}{}
+.Given that the error vector must be orthogonal to our columnspace in least squares, derive the formula for $\vec{x}^*$. \\ \\ 
+We start with the definition of orthogonality: 
+\begin{align*}
+\langle \vec{b} - A\vec{x}, A\vec{x} \rangle = 0 \\ 
+\langle \vec{b}, A\vec{x} \rangle = \langle A\vec{x}, A\vec{x}  \rangle \\
+\langle A\vec{x}, \vec{b} \rangle = \langle A\vec{x}, A\vec{x}  \rangle
+\end{align*}
+These steps follow from the properties of inner products. Next, we use the definition of Euclidean inner products 
+\begin{align*}
+    (A\vec{x})^T\vec{b}  = (A\vec{x})^T A\vec{x} \\ 
+    \vec{x}^T A^T \vec{b} = \vec{x}^T A^T A \vec{x}
+\end{align*}
+Recall that $(AB)^T = B^T A^T$. Now, note how we have $x^T$ on the left of both sides of this equation. $x$ is never going to be zero, so $\vec{x}^T$ is never going to be zero. Thus, we can "remove" it from both sides of the equation and equate the rest of the terms (we're not really dividing by $\vec{x}^T$ here, but you can think of it like that)
+\begin{align*}
+     A^T A \vec{x} = A \vec{b}
+\end{align*}
+Now, we left-multiply by the inverse of $A^T A$ to get our resulting formula. 
+
+\begin{align*}
+    \vec{x}^* = (A^T A)^{-1} A^T \vec{b}
+\end{align*}
+and we're done! Some discussion: 
+
+It turns out that as long as $A$ has linearly independent columns and is at least as tall as a square matrix (can be taller), then $A^TA$ is invertible. The proof of that is given in the course notes but is not exactly relevant for understanding least squares. Thus, we'll assume it's invertible under these conditions. Note that this is why we need a square/tall matrix for least squares. Else, we can't take an inverse of $A^T A$, and we don't get a unique $\vec{x}$. In fact, for "wide" matrices, we get infinite valid least squares solutions -- an entire span of $\vec{x}^*$ vectors that minimize our error. In this case, as you'll learn in 16B and future classes, we typically will take the "minimum norm" solution -- the $\vec{x}^*$ out of an infinite set that has the smallest magnitude. But that's out of scope for 16A -- just remember that a wide $A$ will lead to infinite possible least squares solutions. 
+\end{ln-quest}
+
+It's important also to discuss how pervasive least squares is in engineering, science, and practically any field. Take a simple example: suppose we had some linear model which we were trying to estimate parameters for. We may have some output vector that has some values, say $7, 9, 1, 0$. Also suppose that this vector is directly in the columnspace of our matrix $A$, so we're good! However, in real-life, measurements are never completely accurate. Imagine our measured quantities were instead $7, 9.001, 0.99999, 0.0003$. These are super close to our initial output vector values, but in linear algebra terms, we're no longer in the columnspace (being in the columnspace is very binary -- you're either exactly in, or not at all). Thus, we see how even a little error in the measurement has suddenly made our linear model unsolvable. In these moments, however, least squares would work very well -- you would get practically identical $\vec{x}$ values compared to if you solved the linear system exactly. 

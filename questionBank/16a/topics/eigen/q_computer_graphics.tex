@@ -1,0 +1,176 @@
+\qns{Computer Graphics}
+
+\begin{enumerate}
+    \item Suppose $\vec{y}$ is a 2-D vector, $\vec{x}$, that undergoes a counter-clockwise rotation by $\theta$. The rotation matrix, R is given by:
+    \begin{center}
+        \(R = \begin{bmatrix} cos(\theta) & -sin(\theta) \\ sin(\theta) & cos(\theta) \end{bmatrix} \quad \text{and} \quad \vec{y} = R \vec{x}\)
+    \end{center}
+
+    $\vec{x} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$  Rotate $\vec{x}$ by an angle of $60^\circ$ and plot it on the graph below:
+    
+    \begin{center}
+    \begin{tikzpicture}
+      % Axis
+      \draw[->] (-4,0) -- (4,0) node[right] {$x$};
+      \draw[->] (0,-1) -- (0,4) node[above] {$y$};
+
+       % Ticks on x-axis
+      \foreach \x in {-3,-2,-1,1,2,3}
+        \draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};
+      
+      % Ticks on y-axis
+      \foreach \y in {1,2,3}
+        \draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};
+        
+      % Vectors
+      \draw[->,blue,thick] (0,0) -- (2,3) node[right] {$\vec{x}$};
+      
+     
+    \end{tikzpicture}
+    \end{center}
+    
+    \ans{
+        \begin{center}
+            \begin{tikzpicture}
+            % Axis
+            \draw[->] (-4,0) -- (4,0) node[right] {$x$};
+            \draw[->] (0,-1) -- (0,4) node[above] {$y$};
+            \foreach \x in {-3,-2,-1,1,2,3}
+                \draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};
+            \foreach \y in {1,2,3}
+                \draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};
+            % x
+            \draw[->,blue,thick] (0,0) -- (2,3) node[right] {$\vec{x}$};
+            % y
+            \draw[->,red,thick] (0,0) -- ({2*cos(60) - 3*sin(60)}, {2*sin(60) + 3*cos(60)}) node[right] {$\vec{y}$};
+            \end{tikzpicture}
+            
+            $\vec{y} = \begin{bmatrix} \cos(60) & -\sin(60) \\ \sin(60) & \cos(60) \end{bmatrix} \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ \\
+            $\vec{y} = \begin{bmatrix} \frac{1}{2} & -\frac{\sqrt{3}}{2} \\ \frac{\sqrt{3}}{2} & \frac{1}{2} \end{bmatrix} \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ \\
+            $\vec{y} = \begin{bmatrix} 1 - \frac{3\sqrt{3}}{2} \\ \sqrt{3} + \frac{3}{2} \end{bmatrix}$ \\
+            $\vec{y} \approx \begin{bmatrix} -1.6 \\ 3.2 \end{bmatrix}$
+        \end{center}
+    }
+
+    \item In computer graphics, rotation and scaling of images is often necessary. Let an image of a triangle be defined by three points:
+    \begin{center} 
+        A: (1, 1), B: (2, 3), C: (4, 2)
+    \end{center}
+    Rotate the image counter-clockwise by $90^\circ$ and scale it by a factor of 2. Plot the new image on the graph.
+    
+    \begin{center}
+
+        \begin{tikzpicture}
+        % Axis
+        \draw[->] (-6,0) -- (6,0) node[right] {$x$};
+        \draw[->] (0,-1) -- (0,8) node[above] {$y$};
+
+        % Ticks on x-axis
+      \foreach \x in {-6,-5,-4,-3,-2,-1,1,2,3,4,5,6}
+        \draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};
+      
+      % Ticks on y-axis
+      \foreach \y in {1,...,7}
+        \draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};
+      
+      % Triangle
+      \draw (1,1) -- (2,3) -- (4,2) -- cycle;
+      
+      % Labels for vertices
+      \node[left] at (1,1) {$A$};
+      \node[right] at (2,3) {$B$};
+      \node[above right] at (4,2) {$C$};
+    \end{tikzpicture}
+      
+    \end{center}
+
+    \ans{
+        \begin{center}
+            First, set each point to position vectors:
+            $\vec{A} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \vec{B} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}, \vec{C} = \begin{bmatrix} 4 \\ 2\end{bmatrix}$ \\
+            R is obtained by substituting 90 for $\theta$ in the matrix: $\begin{bmatrix} cos(\theta) & -sin(\theta) \\ sin(\theta) & cos(\theta) \end{bmatrix}$
+
+            R is obtained by substituting 90 for $\theta$ in the matrix: $\begin{bmatrix} cos(\theta) & -sin(\theta) \\ sin(\theta) & cos(\theta) \end{bmatrix}$
+
+            R is obtained by substituting 90 for $\theta$ in the matrix: $\begin{bmatrix} cos(\theta) & -sin(\theta) \\ sin(\theta) & cos(\theta) \end{bmatrix}$
+
+            The rotation matrix, R, is obtained by substituting 90 for $\theta$ in the matrix: $\begin{bmatrix} cos(\theta) & -sin(\theta) \\ sin(\theta) & cos(\theta) \end{bmatrix}$
+
+            $\vec{A'} = 2 \begin{bmatrix} \cos(90) & -\sin(90) \\ \sin(90) & \cos(90) \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ \\
+            $\vec{A'} = 2 \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ \\
+            $\vec{A'} = 2 \begin{bmatrix} 0 - 1 \\ 1 +  0 \end{bmatrix}$ \\
+            $\vec{A'} = \begin{bmatrix} -2 \\ 2 \end{bmatrix}$ \\
+            $\vec{B'} = 2 \begin{bmatrix} \cos(90) & -\sin(90) \\ \sin(90) & \cos(90) \end{bmatrix} \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ \\
+            $\vec{B'} = 2 \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ \\
+            $\vec{B'} = 2 \begin{bmatrix} 0 - 3 \\ 2 +  0 \end{bmatrix}$ \\
+            $\vec{B'} = \begin{bmatrix} -6 \\ 4 \end{bmatrix}$ \\ 
+            $\vec{C'} = 2 \begin{bmatrix} \cos(90) & -\sin(90) \\ \sin(90) & \cos(90) \end{bmatrix} \begin{bmatrix} 4 \\ 2 \end{bmatrix}$ \\
+            $\vec{C'} = 2 \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 4 \\ 2 \end{bmatrix}$ \\
+            $\vec{C'} = 2 \begin{bmatrix} 0 - 2 \\ 4 +  0 \end{bmatrix}$ \\
+            $\vec{C'} = \begin{bmatrix} -4 \\ 8 \end{bmatrix}$ \\ 
+            \begin{tikzpicture}
+            % Axis
+            \draw[->] (-6,0) -- (6,0) node[right] {$x$};
+            \draw[->] (0,-1) -- (0,8) node[above] {$y$};
+
+            % Ticks on x-axis
+        \foreach \x in {-6,-5,-4,-3,-2,-1,1,2,3,4,5,6}
+            \draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};
+        
+        % Ticks on y-axis
+        \foreach \y in {1,...,7}
+            \draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};
+        
+        % Original Triangle
+        \draw (1,1) -- (2,3) -- (4,2) -- cycle;
+        \node[left] at (1,1) {$A$};
+        \node[right] at (2,3) {$B$};
+        \node[above right] at (4,2) {$C$};
+        
+        % Rotated and scaled triangle
+        \draw[red] (-2,2) -- (-6,4) -- (-4,8) -- cycle;
+        \node[red][below] at (-2,2) {$A'$};
+        \node[red][left] at (-6,4) {$B'$};
+        \node[red][above right] at (-4,8) {$C'$};
+        
+        \end{tikzpicture}
+        
+        \end{center}
+    }
+
+    \item Solve for eigenvalues, if any, for the rotation matrix used in part b.
+
+    \ans{
+        \begin{center}
+            R is the rotation matrix used in part b, \\
+            $\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$ \\
+            $R\vec{v}$ = $\lambda\vec{v}$ \\
+            det($R - \lambda I$) = 0 \\
+            = $R - \lambda I$ = $\begin{bmatrix} 0 - \lambda & -1 \\ 1 & 0 - \lambda \end{bmatrix}$ \\
+            = det$\begin{bmatrix} -\lambda & -1 \\ 1 & -\lambda \end{bmatrix}$ = 0 \\
+            = $\lambda{^2}$ + 1 = 0 \\ 
+            = $\lambda{^2}$ = -1, no real eigenvalues
+        \end{center}
+    }
+
+    \item The improper rotation matrix $\overline{R}$ is defined by: 
+    \begin{center}
+        \(\overline{R} = \begin{bmatrix} cos(\theta) & sin(\theta) \\ sin(\theta) & -cos(\theta) \end{bmatrix} \)
+    \end{center}
+    Solve for eigenvalues of the improper rotation matrix for $\theta$ $\neq$ 0
+
+    \ans{
+        \begin{center}
+            $\vec{Rv} = \lambda\vec{v}$ \\
+            $\det(\vec{R} - \lambda I) = 0$ \\
+            = $\vec{R} - \lambda I = \begin{bmatrix} \cos(\theta) - \lambda & \sin(\theta) \\ \sin(\theta) & -\cos(\theta) - \lambda \end{bmatrix}$ \\
+            = $\det\begin{bmatrix} \cos(\theta) - \lambda & \sin(\theta) \\ \sin(\theta) & -\cos(\theta) - \lambda \end{bmatrix} = 0$ \\
+            = $(\cos \theta - \lambda)(-\cos \theta - \lambda) - \sin^2 \theta = 0$ \\
+            = $-\cos^2 \theta - \lambda \cos \theta + \lambda \cos \theta + \lambda^2 - \sin^2 \theta = 0$ \\ 
+            $\lambda^2 -1 = 0$ \\
+            $\lambda = \pm 1$
+        \end{center}
+    }
+
+\end{enumerate}
+

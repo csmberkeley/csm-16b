@@ -1,0 +1,344 @@
+\qns{Invertibility and Row Operations}
+
+% Author: Zachary Golan-Strieb, Paul Shao
+% Email: zacharyjgs@berkeley.edu, paulshaoyuqiao1@berkeley.edu
+
+\textbf{Learning Goal:}  This question introduces, through the context of finding a given matrix's inverse, how we can represent different types of transformations and row operations with matrices. Also, we will see whether the \textit{order} of applying matrix operations matters. Please review \textbf{\textcolor{blue}{Section 2.1 of Note 2B}} and \textbf{\textcolor{blue}{Section 6.1 of Note 6}} to understand the problem better.
+
+\begin{enumerate}
+
+\itemSay we have a matrix $\mathbf{M}\in \mathbb{R}^{3\times n}$ and a matrix $\mathbf{A}$, which are given by:
+\begin{align*}
+\mathbf{M}&=\begin{bmatrix} 
+\vec{m_1}^T \\
+\vec{m_2}^T \\
+\vec{m_3}^T
+\end{bmatrix}
+\\
+\mathbf{A}&= 
+\begin{bmatrix} 
+1 & 0 & 0 \\
+0 & \frac{1}{5} & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+\end{align*}
+
+If we left multiply $\mathbf{M}$ by $\mathbf{A}$ (computing the product $\mathbf{A}\mathbf{M}$), what kind of row operation is done on $\mathbf{M}$?
+
+\meta{
+Go through the steps of matrix multiplication to illustrate how putting a scalar $a$ in $i$th column of $A$ grabs elements from the $i$th row of $M$ multiplied by $a$.
+}
+
+\ans{
+Given any matrices $\mathbf{P}$ and $\mathbf{Q}$, where $\mathbf{Q}$ is written as "stacked" row vectors, the product $\mathbf{P}\mathbf{Q}$ is:
+\begin{align*}
+\mathbf{P}\mathbf{Q} = 
+\begin{bmatrix}
+p_{1, 1} & p_{1, 2} & p_{1, 3}\\
+p_{2, 1} & p_{2, 2} & p_{2, 3}\\
+p_{3, 1} & p_{3, 2} & p_{3, 3}
+\end{bmatrix}
+\begin{bmatrix}
+\vec{q_1}^T \\
+\vec{q_2}^T \\
+\vec{q_3}^T
+\end{bmatrix} = 
+\begin{bmatrix}
+p_{1, 1} \vec{q_1}^T + p_{1, 2} \vec{q_2}^T + p_{1, 3} \vec{q_3}^T \\
+p_{2, 1} \vec{q_1}^T + p_{2, 2} \vec{q_2}^T + p_{2, 3} \vec{q_3}^T \\
+p_{3, 1} \vec{q_1}^T + p_{3, 2} \vec{q_2}^T + p_{3, 3} \vec{q_3}^T
+\end{bmatrix}
+\end{align*}
+The left matrix's constants $p_{i, j}$ all follow the same pattern: for each row ($i$), there is one 1 entry and the rest are 0's. This tells us where rows will appear in the final product. For instance, $R_1$ of $\mathbf{P}$ is $\begin{bmatrix}
+p_{1, 1} = 0 & p_{1, 2} = 0 & p_{1, 3} = 1
+\end{bmatrix}$, so the product's first row will be $\vec{m_3}^T$.
+
+
+Applying this throughout, the product $\mathbf{A}\mathbf{M} =
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & \frac{1}{5} & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+\vec{m_1}^T \\
+\vec{m_2}^T \\
+\vec{m_3}^T
+\end{bmatrix} = 
+\begin{bmatrix} 
+1 * \vec{m_1}^T \\
+\frac{1}{5} * \vec{m_2}^T \\
+1 * \vec{m_3}^T
+\end{bmatrix}
+$. 
+
+So we end up with a matrix where the first and third rows are identical to $\textbf{M}$, but the second row is $\frac{1}{5} * \vec{m_2}^T$. So the row operation performed here is scaling $R_2$ by a fifth.
+
+More generally, if $\mathbf{M} = 
+\begin{bmatrix} 
+\vec{m_1}^T \\
+\vec{m_2}^T \\
+\vec{m_3}^T
+\end{bmatrix}$
+and $\mathbf{A} =
+\begin{bmatrix} 
+a_1 & 0 & 0 \\
+0 & a_2 & 0 \\
+0 & 0 & a_3
+\end{bmatrix}$
+then $AM =
+\begin{bmatrix} 
+a_1 \vec{m_1}^T \\
+a_2 \vec{m_2}^T \\
+a_3 \vec{m_3}^T
+\end{bmatrix}$. 
+$\textbf{A}$ is transforming $\mathbf{M}$ by scaling each of its rows by $a_1$, $a_2$, and $a_3$, respectively. Also interesting to note: $\mathbf{A}$ is the result after you perform the same scaling row operations on the identity matrix!
+}
+
+\itemWe have the matrix $\mathbf{M}\in \mathbb{R}^{3\times n}$ as before, as well as the matrix $\mathbf{B}$, which is given by:
+\begin{align*}
+\mathbf{B} &= 
+\begin{bmatrix} 
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 
+\end{bmatrix}
+\end{align*}
+
+If we left-multiply $\mathbf{M}$ by $\mathbf{B}$, what kind of row operation is done on $\mathbf{M}$?
+
+\meta{
+Go through the steps of matrix multiplication with a matrix of generic values, as illustrated in the answer key below, to illustrate how putting a 1 in $i$th column of $\mathbf{B}$ grabs elements from the $i$th row of $\mathbf{M}$.
+}
+
+\ans{
+Refer to the solution for part (a) to revisit the concept of "stacked" row vectors.
+
+Applying this concept throughout gives $\mathbf{B}\mathbf{M} = 
+\begin{bmatrix}
+0 & 0 & 1\\
+0 & 1 & 0\\
+1 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix} 
+\vec{m_1}^T \\
+\vec{m_2}^T \\
+\vec{m_3}^T
+\end{bmatrix} = 
+\begin{bmatrix} 
+\vec{m_3}^T \\
+\vec{m_2}^T \\
+\vec{m_1}^T
+\end{bmatrix}
+$.
+So the resulting product matrix has rows in order: $\vec{m_3}^T$, $\vec{m_2}^T$, $\vec{m_1}^T$. This indicates that the row operation that was done on $\mathbf{M}$ is swapping rows one and three.
+
+}
+
+\itemWe have the matrix $\mathbf{M}\in \mathbb{R}^{3\times n}$ as before, as well as the matrix $\mathbf{C}$, given by:
+\begin{align*}
+\mathbf{C} = 
+\begin{bmatrix} 
+1 & 0 & 0 \\
+3 & 1 & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+\end{align*}
+
+What kind of row operation is done on $\mathbf{M}$?
+
+\meta{
+Go through the steps of matrix multiplication again to show how the values from row 1 and row 2 of $M$ are summed to create row 2 of $M'$. If you wrote out an explicit matrix in part (b) to demonstrate the multiplication, this is a great time to come back to it and demonstrate how that can be a general problem-solving strategy.
+}
+
+\ans{
+We use the same method as the solution in part (a), except this time we end up with:
+\begin{align*}
+\mathbf{C}\mathbf{M} =
+\begin{bmatrix} 
+1 & 0 & 0 \\
+3 & 1 & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+\begin{bmatrix}
+\vec{m_1}^T \\
+\vec{m_2}^T \\
+\vec{m_3}^T
+\end{bmatrix} = 
+\begin{bmatrix}
+\vec{m_1}^T\\
+3\vec{m_1}^T + \vec{m_2}^T\\
+\vec{m_3}^T
+\end{bmatrix}
+\end{align*}
+which shows that the row operation done on $\mathbf{M}$ was adding $3 * R_1$ to $R_2$.
+}
+
+\itemWhat happens when we apply the transformations (row operations) described in parts (a), (b), and (c) to the matrix $\mathbf{Q} = 
+\begin{bmatrix} 
+0 & 0 & 1 \\
+-15 & 5 & 0 \\
+1 & 0 & 0 
+\end{bmatrix}$?
+
+\meta{
+Make sure students understand that these would be the steps taken in Gaussian elimination. \\
+\textbf{In this part and part (e), it is also very crucial to let the students see how if you left multiply the 3 matrices from the previous questions (in that order) with $\mathbf{X}$}, you will get exactly the matrix we are seeking in this part. \\
+}
+
+\ans{
+If we scale row $2$ by $1/5$, then swap row $1$ and row $3$, then add 3 times row $1$ to row $2$, we get the identity matrix
+\begin{align*}
+\mathbf{I} = 
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\end{align*}
+}
+
+\itemMultiply the matrices for each of the transformations in parts (a), (b), and (c), so that the are applied in this order: (a) is applied first and (c) is applied last. Call the resulting matrix $\mathbf{D}$. What happens when you left multiply the $\mathbf{Q}$ from part (d) by $\mathbf{D}$? What about right multiplying $\mathbf{Q}$ by $\mathbf{D}$? What kind of matrix is $\mathbf{D}$ in relation to $\mathbf{Q}$?
+
+\meta{\begin{itemize}
+
+\item This part of the question ties together the transformations from the earlier parts with the concept of matrix inverses. If you want, show how to find an inverse using Gaussian elimination and how that is the same as keeping track of each transformation as done above.
+\item Highlight the fact that DQ=QD is not a general property of matrices. This is just for inverses. Matrix multiplication generally \textbf{does not commute}.  Matrix multiplication is still \textbf{associative}.
+\item For the same reason applying the transformation in order \textbf{ABC} will not work.
+\end{itemize}
+}
+
+\ans{
+$$
+\mathbf{D} = \mathbf{CBA} =
+\begin{bmatrix} 
+1 & 0 & 0 \\
+3 & 1 & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+\begin{bmatrix} 
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 
+\end{bmatrix}
+\begin{bmatrix} 
+1 & 0 & 0 \\
+0 & \frac{1}{5} & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+=
+\begin{bmatrix} 
+0 & 0 & 1 \\
+0 & \frac{1}{5} & 3 \\
+1 & 0 & 0 
+\end{bmatrix}
+$$
+Left multiplying $\mathbf{Q}$ by $\mathbf{D}$:
+$$
+\mathbf{D}\mathbf{Q} = 
+\begin{bmatrix} 
+0 & 0 & 1 \\
+0 & \frac{1}{5} & 3 \\
+1 & 0 & 0 
+\end{bmatrix}
+\begin{bmatrix} 
+0 & 0 & 1 \\
+-15 & 5 & 0 \\
+1 & 0 & 0 
+\end{bmatrix}
+=
+\begin{bmatrix} 
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+$$
+Right multiplying $\mathbf{Q}$ by $\mathbf{D}$:
+$$
+\mathbf{Q}\mathbf{D} = 
+\begin{bmatrix} 
+0 & 0 & 1 \\
+-15 & 5 & 0 \\
+1 & 0 & 0 
+\end{bmatrix}
+\begin{bmatrix} 
+0 & 0 & 1 \\
+0 & \frac{1}{5} & 3 \\
+1 & 0 & 0 
+\end{bmatrix} = 
+\begin{bmatrix} 
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+$$
+Since $\mathbf{Q}\mathbf{D} = \mathbf{D}\mathbf{Q}  = \mathbf{I}$, $\mathbf{D}$ is the inverse of $\mathbf{Q}$, often written as $\mathbf{Q}^{-1}$. 
+}
+
+
+\itemAre there a set of transformations we can apply to $\mathbf{Q} = 
+\begin{bmatrix} 
+5 & 5 & 15 \\
+2 & 2 & 4 \\
+1 & 1 & 4
+\end{bmatrix}$ to make it the identity? If so, what are they? If not, why is is not possible?
+
+\meta{
+\begin{itemize}
+\item Emphasize that inverse matrices are formed using these linear transformations. Also mention in the first sentence that linearly dependent columns also make a matrix not invertible (especially because the linear dependence is much more obvious in the columns, for this example).
+
+\item [IMPORTANT] Introduce to students the geometric intuition as it can help students understand the concept better. To illustrate this, draw the span of a 2x2 matrix (the identity is easy to use). Then, multiply the matrix with another 2x2 matrix with linearly dependent rows. The result should be a line. Help your students understand that with this newly transformed matrix, there is no way to invert it to retrieve the dimension we lost.
+\end{itemize}
+}
+
+
+
+\ans{
+
+To make it the identity matrix, we use Gaussian Elimination:
+\begin{align*}
+&\left[\begin{array}{ccc|ccc}
+5 & 5 & 15 & 1 & 0 & 0\\
+2 & 2 & 4 & 0 & 1 & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_1 \leftarrow \frac{1}{5} R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+2 & 2 & 4 & 0 & 1 & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]\\
+\overbrace{\Rightarrow}^{R_2 \leftarrow \frac{1}{2} R_2}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+1 & 1 & 2 & 0 & \frac{1}{2} & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_2 \leftarrow R_2 - R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]\\
+\overbrace{\Rightarrow}^{R_3 \leftarrow R_3 - R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+0 & 0 & 1 & -\frac{1}{5} & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_3 \leftarrow R_3 + R_2}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+0 & 0 & 0 & -\frac{2}{5} & \frac{1}{2} & 1
+\end{array}\right].
+\end{align*}
+
+While row-reducing, we notice that the second column doesn't have a pivot (and that there is also a row of zeros). Therefore, no inverse exists.
+
+There is another way to approach this question, graphically. When we multiply a matrix $A$ with another matrix $X$ in the form $AX=B$, we are performing a linear transformation on $X$ and shifting it to the $A$'s "coordinate system." This means the transformed matrix $B$ must be in the span of the $A$. Thus, if $A$ is of lower dimension than the $X$, $B$ loses a dimension. In essence, it loses information that we cannot retrieve again with an inverse matrix. An example of this is if we shine a light on an apple (3D) and look at its shadow (2D). There is no way to reconstruct the 3D apple as we have irreparably lost information in the transformation.
+
+}
+
+\end{enumerate}
+

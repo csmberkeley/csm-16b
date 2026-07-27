@@ -1,0 +1,50 @@
+\qns{Identifying a Subspace: Proof}
+
+Is the set
+\[
+	V = \left\{ \vec{v} \,\,\middle|\,\, \vec{v} = c \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} + d \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}, \text{ where } c,d \in \mathbb{R} \right\}
+\]
+
+a subspace of $\mathbb{R}^3$?
+Why/why not?
+
+\ans{
+
+Yes, $V$ is a subspace of $\mathbb{R}^3$.
+We will \textit{prove this} by using the definition of a subspace.
+
+First of all, note that $V$ is a subset of $\mathbb{R}^3$ -- all elements in $V$ are of the form $\begin{bmatrix} c + d \\ c \\ c + d\end{bmatrix}$, which is a $3$-dimensional real vector.
+
+Now, consider two elements $\vec{v}_1,\vec{v}_2 \in V$ and $\alpha \in \mathbb{R}$.
+
+This means that there exists $c_1,d_1 \in \mathbb{R}$, such that  $\vec{v}_1 = c_1\begin{bmatrix}1 \\ 1 \\1 \end{bmatrix} + d_1\begin{bmatrix}1\\0\\1\end{bmatrix}$.
+Similarly, there exists $c_2,d_2 \in \mathbb{R}$, such that $\vec{v}_2 = c_2\begin{bmatrix}1\\1\\1\end{bmatrix} + d_2\begin{bmatrix}1\\0\\1\end{bmatrix}$.
+
+Now, we can see that
+\[
+\vec{v}_1 + \vec{v}_2 = (c_1 + c_2)\begin{bmatrix}1\\1\\1\end{bmatrix} + (d_1+d_2)\begin{bmatrix}1\\0\\1\end{bmatrix},
+\]
+
+so $\vec{v}_1 + \vec{v}_2 \in V$.
+
+Also,
+\[
+\alpha\vec{v}_1 = (\alpha c_1)\begin{bmatrix}1\\1\\1\end{bmatrix} + (\alpha d_1)\begin{bmatrix}1\\0\\1\end{bmatrix},
+\]
+so $\alpha\vec{v}_1 \in V$.
+
+Furthermore, we observe that the zero vector is contained in $V$, when we set $c = 0$ and $d = 0$.
+
+We have thus identified $V$ as a subset of $\mathbb{R}^3$, shown both of the no escape (closure) properties (closure under vector addition and closure under scalar multiplication), as well as the existence of a zero vector, so $V$ is a subspace of $\mathbb{R}^3$.
+
+It's important to note that satisfying the subset property and the two forms of closure additionally implies this subspace $V$ also satisfies the axioms of a vector space, and therefore is definitionally also a vector space.
+
+}
+
+%\meta{
+
+%\textbf{(15 min)}
+
+%\textbf{Note to TAs:} Here could be a good place to ask what a basis of $V$ is to transition into the discussion of bases.
+
+%}

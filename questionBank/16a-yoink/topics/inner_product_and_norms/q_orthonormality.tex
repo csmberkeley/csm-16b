@@ -1,0 +1,125 @@
+\qns{Orthonormality}
+
+\meta{
+    Make sure that students understand the definition of being orthogonal an orthonormal by going over some graphical intution as well as inner products. Spend some time mini-lecturing if students don't get the concept.
+}
+
+\textbf{Learning Goal:} The goal of this problem is to learn what orthonornmality means and understand how to prove it as well as find orthogonal vectors.
+
+\begin{ln-define}{Definition of Orthonormality}{}
+    Some vector set $V$ = $\left\{\vec{v_1}, \vec{v_2}, \vec{v_3}, ..., \vec{v_n}\right\}$ is said to be orthonormal if:
+    \begin{enumerate}
+        \item For every two distinct vectors in the set $\left\{\vec{v_a}, \vec{v_b}\right\}$ their inner product is zero ($\langle\vec{v_a}, \vec{v_b}\rangle$ = 0)
+        \item The norm of every vector is one ($\| \vec{v_a} \|$ = 1)
+    \end{enumerate}
+\end{ln-define}
+
+\begin{enumerate}
+    \item Determine if the following vector sets are orthogonal. Which of these vector sets can also be considered orthonormal?
+    \meta{
+        Note that not all steps of calculating the inner product and norms are shown, so please explain the steps if students are still confused.
+    }
+    \begin{enumerate}
+        \item $\left\{\begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0\end{bmatrix}, \begin{bmatrix}-\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0\end{bmatrix}, \begin{bmatrix}0 \\ 0 \\ 1\end{bmatrix}\right\}$
+        \ans{
+            Let $\vec{a}$ = $\begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0\end{bmatrix}$, $\vec{b}$ = $\begin{bmatrix}-\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0\end{bmatrix}$, $\vec{c}$ = $\begin{bmatrix}0 \\ 0 \\ 1\end{bmatrix}$
+            \begin{align*}
+                \langle\vec{a}, \vec{b}\rangle &= \begin{bmatrix}\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \end{bmatrix} \begin{bmatrix}-\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0\end{bmatrix} = 0\\
+                \langle\vec{a}, \vec{c}\rangle &= \begin{bmatrix}\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \end{bmatrix} \begin{bmatrix}0 \\ 0 \\ 1\end{bmatrix} = 0\\
+                \langle\vec{b}, \vec{c}\rangle &= \begin{bmatrix}-\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0\end{bmatrix} \begin{bmatrix}0 \\ 0 \\ 1\end{bmatrix} = 0
+            \end{align*}
+            Because the inner product of all pairs of vectors is 0, we know that these vectors are orthogonal. Now, we have to check if they are normalized.
+            \begin{align*}
+                \| \vec{a} \| &= \sqrt{(\frac{1}{\sqrt{2}})^2 + (\frac{1}{\sqrt{2}})^2 + 0^2} = 1\\
+                \| \vec{b} \| &= \sqrt{(-\frac{1}{\sqrt{2}})^2 + (\frac{1}{\sqrt{2}})^2 + 0^2} = 1 \\
+                \| \vec{c} \| &= \sqrt{0^2 + 0^2 + 1} = 1
+            \end{align*}
+            Since the norms are all equal to one, we know these vectors are also normalized, so this set of vectors forms an orthonormal basis.
+        }
+        \item $\left\{\begin{bmatrix}\frac{1}{2} \\ \frac{1}{3} \\ -\frac{1}{3}\end{bmatrix}, \begin{bmatrix}0 \\ \frac{1}{2} \\ \frac{\sqrt{2}}{2}\end{bmatrix}, \begin{bmatrix}\frac{1}{3} \\ -\frac{1}{2} \\ \frac{1}{2}\end{bmatrix}\right\}$
+        \ans{
+            We use the same approach as before to check the inner products and norms.
+            Let $\vec{a} = \begin{bmatrix}\frac{1}{2} \\ \frac{1}{3} \\ -\frac{1}{3}\end{bmatrix}, \vec{b} = \begin{bmatrix}0 \\ \frac{1}{2} \\ \frac{\sqrt{2}}{2}\end{bmatrix}, \vec{c} = \begin{bmatrix}\frac{1}{3} \\ -\frac{1}{2} \\ \frac{1}{2}\end{bmatrix}$
+            \begin{align*}
+                \langle\vec{a}, \vec{b} \rangle = \begin{bmatrix}\frac{1}{2} & \frac{1}{3} & -\frac{1}{3}\end{bmatrix} \begin{bmatrix}0 \\ \frac{1}{2} \\ \frac{\sqrt{2}}{2}\end{bmatrix} = \frac{1-\sqrt{2}}{6}
+            \end{align*}
+            Because this inner product is nonzero, we know that these vectors are not orthogonal.
+        }
+        \item $\left\{\begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix}, \begin{bmatrix}0 \\ \frac{\sqrt{3}}{2} \\ -\frac{1}{2}\end{bmatrix}, \begin{bmatrix}0 \\ \frac{1}{2} \\ \frac{\sqrt{3}}{2}\end{bmatrix}\right\}$
+        \ans{
+            Let $\vec{a} = \begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix}, \vec{b} = \begin{bmatrix}0 \\ \frac{\sqrt{3}}{2} \\ -\frac{1}{2}\end{bmatrix}, \vec{c} = \begin{bmatrix}0 \\ \frac{1}{2} \\ \frac{\sqrt{3}}{2}\end{bmatrix}$
+            \begin{align*}
+                \langle\vec{a}, \vec{b}\rangle &= \begin{bmatrix}1 & 0 & 0\end{bmatrix} \begin{bmatrix}0 \\ \frac{\sqrt{3}}{2} \\ -\frac{1}{2}\end{bmatrix} = 0 \\
+                \langle\vec{a}, \vec{c}\rangle &= \begin{bmatrix}1 & 0 & 0\end{bmatrix} \begin{bmatrix}0 \\ \frac{1}{2} \\ \frac{\sqrt{3}}{2}\end{bmatrix} = 0 \\
+                \langle\vec{b}, \vec{c}\rangle &= \begin{bmatrix}0 & \frac{\sqrt{3}}{2} & -\frac{1}{2}\end{bmatrix} \begin{bmatrix}0 \\ \frac{1}{2} \\ \frac{\sqrt{3}}{2}\end{bmatrix} = 0
+            \end{align*}
+            Because the inner product of all pairs of vectors is 0, we know that these vectors are orthogonal. Now, we have to check if they are normalized.
+            \begin{align*}
+                \| \vec{a} \| &= \sqrt{1^2 + 0^2 + 0^2} = 1\\
+                \| \vec{b} \| &= \sqrt{0^2 + (\frac{\sqrt{3}}{2})^2 + (-\frac{1}{2})^2} = 1 \\
+                \| \vec{c} \| &= \sqrt{0^2 + (\frac{1}{2})^2 + (\frac{\sqrt{3}}{2})^2} = 1
+            \end{align*}
+            Since the norms are all equal to one, we know these vectors are also normalized, so this set of vectors forms an orthonormal basis.
+        }
+    \end{enumerate}
+
+    \item Complete the following proofs.
+    \begin{enumerate}
+        \item For two vectors $v_{a}$ and $v_{b}$, prove that the inner product $\langle v_{b}, v_{a}-\operatorname{proj}_{v_b}\left(v_{a}\right)\rangle$ is zero.
+        \item Using the fact above, find an orthonormal basis for the space spanned by the following vectors:
+    \[\left\{\begin{bmatrix}2 \\ 0 \\ 3\end{bmatrix},\begin{bmatrix}1 \\ 2 \\ 1\end{bmatrix}\right\}\]
+    \end{enumerate} 
+    \ans{
+        \textbf{(a)}
+    \[
+        <\vec{v}_{b} \vec{v}_{a}-\operatorname{proj}_{V a}(\vec{v}_{b})>=<\vec{v}_{b} \vec{v}_{a}>-<\vec{v}_{b} \operatorname{proj}_{V a}(\vec{v}_{b})>=<\vec{v}_{b} \vec{v}_{a}>-\vec{v}_{b}\cdot\left(\frac{<\vec{v}_{a} \vec{v}_{b}>}{\left\|\vec{v}_{b}\right\|^{2}}\right)\vec{v}_{b}\
+        \]
+        
+        \[
+        =\left\langle\vec{v}_{b'} \vec{v}_{a}\right\rangle-\left(\vec{v}_{b} \cdot \vec{v}_{b'}\right) \cdot \frac{\left\langle\vec{v}_{a'} \vec{v}_{b}\right\rangle}{\left\|\vec{v}_{b}\right\|^{2}}=\left\langle\vec{v}_{b'} \vec{v}_{a}\right\rangle-\left\|\vec{v}_{b}\right\|^{2} \cdot \frac{\left\langle\vec{v}_{a'}, \vec{v}_{b}\right.}{\left\|\vec{v}_{b}\right\|^{2}}=\left\langle\vec{v}_{b'}, \vec{v}_{a}\right\rangle-\left\langle\vec{v}_{a'} \vec{v}_{b}\right\rangle=0
+        \]
+        
+        \textbf{(b)}
+        
+        Let $\vec{a}=\{2,0,3\}, \vec{b}=\{1,2,1\}$
+        
+        Let some vector $\vec{c}$ be orthogonal to $\vec{v}_{a}$
+        
+        \[
+        \vec{c}=\vec{b}-\operatorname{proj}_{a}(\vec{b})=\vec{b}-\frac{<\vec{a}, \vec{b}>}{\|\vec{a}\|^{2}} \vec{a}
+        \]
+        
+        \[
+        =(1,2,1)-\frac{(2,0,3)^{*}(1,2,1)}{\sqrt{2^{2}+0^{2}+3^{2}}}(2,0,3)=(1,2,1)-\frac{3}{\sqrt{13}}(2,0,3)=(1,2,1)-\left(\frac{6}{\sqrt{13}}, 0, \frac{9}{\sqrt{13}}\right)
+        \]
+        
+        \[
+        \vec{c}=\begin{pmatrix}
+        \frac{\sqrt{13}-6}{\sqrt{13}} \\
+        2 \\
+        \frac{\sqrt{13}-9}{\sqrt{13}}
+        \end{pmatrix}
+        \]
+        
+        Normalizing each,
+        
+        \[
+        \vec{a}(\text{new})=\frac{1}{\|\vec{a}\|} \vec{a}=\frac{1}{\sqrt{2^{2}+0^{2}+3^{2}}} \vec{a}=\frac{1}{\sqrt{13}} \vec{a}=\begin{pmatrix}
+        \frac{2}{\sqrt{13}} \\
+        0 \\
+        \frac{3}{\sqrt{13}}
+        \end{pmatrix}
+        \]
+        
+        \[
+        \vec{c}(\text{new})=\frac{1}{\|\vec{c}\|} \vec{c}=\frac{1}{\sqrt{\left(\frac{\sqrt{13}-6}{\sqrt{13}}\right)^{2}+2^{2}+\left(\frac{\sqrt{13}-9}{\sqrt{13}}\right)^{2}}} \vec{c}=\frac{1}{2.5845}\begin{pmatrix}
+        \frac{\sqrt{13}-6}{\sqrt{13}} \\
+        2 \\
+        \frac{\sqrt{13}-9}{\sqrt{13}}
+        \end{pmatrix}=(-0.257,0.774,-0.579)
+        \]
+        
+        Thus, the set $\{\vec{a}, \vec{c}\}$ forms an orthonormal basis for the provided subspace.
+    }
+    
+\end{enumerate}

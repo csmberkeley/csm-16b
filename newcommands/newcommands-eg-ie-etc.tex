@@ -1,0 +1,25 @@
+% eg, ie, etc, wrt, viz newcommands
+\newcommand{\eg}{{\it e.g.\@}} % \@ for normal spacing after. use: \eg\/ or \eg,
+\newcommand{\ie}{{\it i.e.\@}} 
+\newcommand{\wrt}{{\it wrt}}
+\newcommand{\viz}{{\it viz.\@}}
+\newcommand{\vs}{{\it vs.\@}}
+\newcommand{\aka}{{\it aka}}
+\newcommand{\apriori}{{\it a priori}}
+\newcommand{\etc}{\textit{etc.\@}}    
+\newcommand{\bank}{../../questionBank}                                            
+% etc defined so that there is only a single period after it if it is followed 
+% by a period
+% see: http://en.wikibooks.org/wiki/TeX/def                                      
+% see: http://www.tug.org/pipermail/texhax/2004-July/002449.html                 
+% see: http://en.wikibooks.org/wiki/TeX/if                                       
+%\ifx \etc \undefined                                                             
+%  %\def\myarg{#1}                                                                
+%  %\def\myfullstop{.}                                                            
+%  %\def\etc{#1}{\textit{etc} arg is ``\myarg'' \ifx\myarg\myfullstop\then.\else.#1\fi\/}
+%  \def\etc#1{\textit{etc}\if#1..\else.#1\fi}                                     
+%\fi                                                                              
+%                        
+
+% this should be moved to a new newcommands file
+\newcommand{\ignore}[1]{}

@@ -1,0 +1,65 @@
+\qns{Proof Examples}
+
+\begin{enumerate}
+  \qitem A projection matrix is a matrix $P$ such that $P^{2} = P.$ Show that $P$ can only have the eigenvalues $0$ or $1.$
+
+  \sol {
+    Let $\vec{v}$ be an eigenvector of $P,$ then 
+    $$P \vec{v} = \lambda \vec{v}.$$
+    If we left multiply by $P,$ we see that
+    $$P^{2} \vec{v} = P \lambda \vec{v} = \lambda (P \vec{v}) = \lambda^{2} \vec{v}.$$
+    But since $P^{2} = P,$ we can also say that 
+    $$P^{2} \vec{v} = P \vec{v} = \lambda \vec{v}$$
+    Therefore $\lambda^{2} = \lambda$ which implies that $\lambda^{2} - \lambda = 0$ or $\lambda = 0, 1.$
+  }
+
+  \qitem Show that $\text{Nul}(A) = \text{Nul}(A^{T} A).$
+
+  \sol {
+    We will use the argument that the two sets are subsets of each other. That is, if $\vec{x}$ is in $\text{Nul}(A),$ then it must be in $\text{Nul}(A^{T} A)$ and vice-versa.
+
+    We will start by assuming that $\vec{x}$ is in $\text{Nul}(A),$ then we know that $A \vec{x} = \vec{0}.$
+    Left multiplying by $A^{T},$ we see that $A^{T}A \vec{x} = \vec{0},$ so it follows that $\vec{x}$ is in the null-space of $A^{T}A.$
+
+    Now let's assume that $\vec{x}$ is in $\text{Nul}(A^{T} A)$ then we know that $A^{T}A \vec{x} = \vec{0}.$
+    Left multiplying by $\vec{x}^{T},$ we get $\vec{x}^{T} A^{T} A \vec{x} = \norm{A \vec{x}}^{2} = \vec{x}^{T} \vec{0} = 0.$
+    By the positive-definitness of norms, we see that $A \vec{x}$ must be the zero vector, which implies that $\vec{x}$ is in the null space of $A.$
+  }
+
+  \qitem A symmetric matrix must have real eigenvalues. \text{Hint: Consider $\norm{A \vec{v}}^{2}$}
+
+  \sol {
+    We first consider $\norm{A \vec{v}}^{2}$ where $\vec{v}$ is an eigenvector of $A.$
+    $$\norm{A \vec{v}}^{2} = \innp{A \vec{v}}{A \vec{v}} = (A \vec{v})^{T} (A \vec{v}) = \vec{v}^{T} A^{T} A \vec{v}.$$
+    Since $A$ is symmetric, $A = A^{T}$ so we can say that 
+    \begin{align*}
+    \norm{A \vec{v}}^{2} &= \vec{v}^{T} A^{2} \vec{v} = \vec{v}^{T} A (\lambda \vec{v}) = \vec{v}^{T} \lambda (A \vec{v}) \\
+    &= \vec{v}^{T} \lambda^{2} \vec{v} = \lambda^{2} \vec{v}^{T} \vec{v} = \lambda^{2} \norm{\vec{v}}
+    \end{align*}
+    Looking at $\lambda^{2}$ we see that 
+    $$\lambda^{2} = \frac{\norm{A \vec{v}}}{\norm{\vec{v}}}$$
+    Since both $\norm{A \vec{v}}$ and $\norm{\vec{v}}$ are greater than zero, $\lambda$ must be real.
+  }
+
+  \qitem Show that a vector $\vec{v}$ that is orthogonal to the columns of $A$ must be in the null-space of $A^{T}.$
+
+  \sol {
+    Let $\vec{a}_{1}, \dotsc, \vec{a}_{n}$ be the columns of the matrix $A.$
+    $$A = \begin{bmatrix} 
+    | & | & | \\
+    \vec{a}_{1} & \cdots & \vec{a}_{n} \\
+    | & | & |
+    \end{bmatrix}$$
+    Suppose there is a vector $\vec{v}$ that is orthogonal to these columns $\vec{a}_{1}, \dotsc, \vec{a}_{n}.$
+
+    Then, $\vec{a}_{1}^{T} \vec{v} = 0, \cdots \vec{a}_{n}^{T} \vec{v} = 0.$
+    We can use this fact to say that 
+     $$\begin{bmatrix} 
+    - & \vec{a}_{1}^{T} & - \\
+    - & \vdots & - \\
+    - & \vec{a}_{n}^{T} & -
+    \end{bmatrix} \vec{v} = \vec{0}$$
+    But this implies that $A^{T} \vec{v} = \vec{0}$ so $\vec{v}$ must be in the null-space of $A^{T}.$
+  }
+
+\end{enumerate}

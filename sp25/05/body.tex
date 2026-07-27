@@ -1,0 +1,26 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 5}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/ode/cr_circuit.tex}
+\newpage
+\input{\bank/special-circuits/parallel-resonant-circuit.tex}
+\newpage
+\input{\bank/ode/second_order_diffeq.tex}
+\end{qunlist}
+
+\end{document}

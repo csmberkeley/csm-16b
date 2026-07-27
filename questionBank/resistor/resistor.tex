@@ -1,0 +1,71 @@
+% Authors: Jinsheng Li
+% Emails: ljs233233@berkeley.edu
+
+\qns{Resistive Circuit}
+
+Consider the following circuit network: 
+
+\begin{center}
+\begin{circuitikz}[american voltages] 
+\coordinate (a) at (0, 2);
+\coordinate (b) at (4, 2);
+\fill (a) circle [radius=2pt];
+\fill (b) circle [radius=2pt];
+\node[left] at (a) {$a$};
+\node[right] at (b) {$b$};
+
+\draw (0, 0) 
+to[american voltage source, invert, ] (4, 0)
+to[american resistor, i^<={$i_3$}] (4, 2) 
+to[american resistor, i^<={$i_2$}] (4, 4) 
+to[american resistor, i^<={$i_1$}] (4, 6) 
+to[american voltage source] (0, 6)
+to[short] (0, 4)
+to[american resistor, i^<={$i_4$}](2, 4)
+to[american voltage source, invert](4, 4)
+to[open](0, 4)
+to[short](0, 2)
+to[american resistor, i^<={$i_5$}](4, 2)
+to[open](0, 4)
+to[short](0, 0);
+\end{circuitikz}
+\end{center}
+
+Where each voltage source produces a voltage $V$, and each resistor has a resistance $R$. 
+
+\begin{enumerate}
+% Part (a)
+\qitem Label the current through and voltage across each circuit component using the passive sign convention. 
+
+\sol{Current enters the positive terminal and leaves the negative terminal of a circuit component. }
+% Part (b)
+\qitem Write down five linearly independent equations using KCL and KVL. 
+\sol{
+\[ i_1 - i_4 - i_2 = 0 \]
+\[ i_2 - i_3 - i_5 = 0 \]
+\[ V - i_1R - V - i_4R = 0 \]
+\[ i_4R + V - i_2R - i_5R = 0 \]
+\[ i_5R - i_3R - V = 0 \]
+}
+\qitem Solve for the voltage difference $\Delta V_{ab}$ between points $a$ and $b$. 
+
+\sol{
+Simplify the KVL equations:
+\[ i_1R + (i_1 - i_2)R = 0 \]
+\[ (i_1 - i_2)R + V - i_2R - (i_2 - i_3)R = 0 \]
+\[ (i_2 - i_3)R - i_3R - V = 0 \]
+
+\[ 2i_1 - i_2 = 0 \]
+\[ i_1 - 3i_2 + i_3 = -\frac{V}{R} \]
+\[ i_2 - 2i_3 = \frac{V}{R} \]
+
+Substitute the KCL equations, we get:
+\[ i_1 = \frac{V}{8R} \]
+\[ i_2 = \frac{V}{4R} \]
+\[ i_3 = -\frac{3V}{8R} \]
+
+Therefore, 
+\[ \Delta V_{ab} = i_5R = \frac{5V}{8} \]
+}
+
+\end{enumerate}

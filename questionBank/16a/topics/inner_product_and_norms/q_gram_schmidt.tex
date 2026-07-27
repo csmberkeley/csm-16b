@@ -1,0 +1,113 @@
+\qns{Intro to Gram-Schmidt}
+
+\begin{questionmeta}
+    \begin{itemize}
+        \item Give students a mini-lecture on orthonormality  
+        \item Try to provide some intuition and basic algorithm for doing Gram-Schmidt procedure 
+    \end{itemize}
+\end{questionmeta}
+
+\textbf{Learning Goal:} The goal of this problem is to practice finding orthonormal basis vectors using Gram-Schmidt and to identify when a set of vectors is orthogonal or not using linear dependence and inner products.
+
+Gram-Schmidt Orthonormalization is an algorithmic technique to find an orthonormal basis for a set of vectors. \\
+The procedure of such algorithm is portrayed as defined in the following cell:
+\begin{ln-define}{The Procedure of Gram-Schmidt Orthonormalization}{}
+    Let us have a set of vectors $\{\vec{a}_1, \dots, \vec{a}_n\}$.
+    \begin{bindenum}
+        \item[1] $\vec{q}_1 = \frac{\vec{a}_1}{{\lVert \vec{a}_1 \rVert}}$
+        \item[2] for $i$ in $\{2, \dots, n\}$:
+        \item[3] \hspace{0.5cm} $\vec{z_i} = {proj}_{\{\vec{q}_1, \dots, \vec{q}_{i - 1}\}}{\vec{a}_i} = \sum_{j = 1}^{i - 1} \vec{q}_j \langle \vec{a}_i, \vec{q}_j \rangle$
+        \item[4] \hspace{0.5cm} $\vec{s_i} = \vec{a}_i - \vec{z}_i$
+        \item[5] \hspace{0.5cm} $\vec{q_i} = \frac{\vec{s}_i}{{\lVert \vec{s}_i \rVert}_2}$
+        \item[6] return $\{\vec{q_1}, \dots, \vec{q_n}\}$
+    \end{bindenum}
+\end{ln-define}
+
+\begin{enumerate}
+    \item Use Gram-Schmidt to turn the basis $\left\{ \vec{a}=\begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}, \vec{b}=\begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}, \vec{c}=\begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} \right\}$ into an orthonormal basis for $\mathbb{R}^3$.
+    
+    \meta{
+        \begin{itemize}
+            \item Not all steps are shown in the Gram-Schmidt process. Please go over the steps in between (inner products and norms) if students need additional help.
+            \item This example isn't too difficult, but is good for practicing the basics of Gram-Schmidt. Make sure to spend some time on the algorithm, so they can solve more difficult problems.
+        \end{itemize}
+    }
+    \ans{
+        We will define vectors $\vec{u_1}$, $\vec{u_2}$, $\vec{u_3}$ as follows:
+
+        \begin{align*}
+            \vec{u_1} = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}
+        \end{align*}
+
+        \begin{align*}
+            \vec{u_2} &= \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} - {proj}_{\vec{u_1}} (\vec{b})\\
+            &= \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} - \frac{\langle \vec{u_1}, \vec{b} \rangle}{\langle \vec{u_1}, \vec{u_1} \rangle}\vec{u_1} \\
+            &= \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} - \frac{1}{2} \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix} \\
+            &= \begin{bmatrix} \frac{1}{2} \\ -\frac{1}{2} \\ 0 \end{bmatrix}
+        \end{align*}
+
+        \begin{align*}
+            \vec{u_3} &= \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} - {proj}_{\vec{\vec{u_1}}} (\vec{c}) - {proj}_{\vec{\vec{u_2}}} (\vec{c})\\
+            &= \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} - \frac{\langle \vec{u_1}, \vec{c} \rangle}{\langle \vec{u_1}, \vec{u_1} \rangle}\vec{u_1} - \frac{\langle \vec{u_2}, \vec{c} \rangle}{\langle \vec{u_2}, \vec{u_2} \rangle}\vec{u_2} \\
+            &= \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} - \frac{1}{2} \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix} - \frac{1}{3} \begin{bmatrix} \frac{1}{2} \\ -\frac{1}{2} \\ 0 \end{bmatrix} \\
+            &= \begin{bmatrix} -\frac{2}{3} \\ \frac{2}{3} \\ \frac{2}{3} \end{bmatrix}
+        \end{align*}
+        
+        These three vectors form an orthogonal basis. To turn them into an orthonormal basis, we divide each one by their norm.
+
+        \begin{align*}
+            \vec{e_1} &= \frac{\vec{u_1}}{\| \vec{u_1} \|} \\
+            &= \frac{\vec{u_1}}{\sqrt{\langle \vec{u_1}, \vec{u_1} \rangle}} \\
+            &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}
+        \end{align*}
+
+        \begin{align*}
+            \vec{e_2} &= \frac{\vec{u_2}}{\| \vec{u_2} \|} \\
+            &= \frac{1}{\sqrt{\frac{1}{2}}} \begin{bmatrix} \frac{1}{2} \\ -\frac{1}{2} \\ 0 \end{bmatrix}
+        \end{align*}
+
+        \begin{align*}
+            \vec{e_3} &= \frac{\vec{u_3}}{\| \vec{u_3} \|} \\
+            &= \frac{1}{\sqrt{\frac{4}{3}}} \begin{bmatrix} -\frac{2}{3} \\ \frac{2}{3} \\ \frac{2}{3} \end{bmatrix}
+        \end{align*}
+
+        The vectors $\left\{\vec{e_1}, \vec{e_2}, \vec{e_3}\right\}$ form an orthonormal basis for $\mathbb{R}^3$.
+
+    }
+    \item Are the following set of vectors orthogonal? Explain why or why not.
+    \meta{
+        The inner product calculations are not shown with steps, so please go over them if students ask about the mechanical steps.
+    }
+    \begin{enumerate}
+        \item $\left\{ \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}, \begin{bmatrix} 1 \\ \sqrt{2} \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ -\sqrt{2} \\ 1 \end{bmatrix}\right\}$
+        \ans{
+            In order to check if these vectors are orthogonal, we have to see if the inner product of every pair of vectors is 0 (This also checks if the vectors are linearly dependent or not).
+            \begin{align*}
+                \langle \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix},  \begin{bmatrix} 1 \\ \sqrt{2} \\ 1 \end{bmatrix}\rangle &= 0 \\
+                \langle \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix},  \begin{bmatrix} 1 \\ -\sqrt{2} \\ 1 \end{bmatrix}\rangle &= 0 \\
+                \langle \begin{bmatrix} 1 \\ \sqrt{2} \\ 1 \end{bmatrix},  \begin{bmatrix} 1 \\ -\sqrt{2} \\ 1 \end{bmatrix}\rangle &= 0
+            \end{align*}
+            Because all the vectors are linearly independent (inner products are 0), this set of vectors is orthogonal.
+        }
+        \item $\left\{ \begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix}, \begin{bmatrix} 2 \\ 4 \\ 0 \end{bmatrix}, \begin{bmatrix} 3 \\ 0 \\ 1 \end{bmatrix}\right\}$
+        \ans{
+            We have to use the same process as the previous part to calculate the inner products of each pair of vectors.
+            \begin{align*}
+                \langle \begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix},  \begin{bmatrix} 2 \\ 4 \\ 0 \end{bmatrix}\rangle = 10
+            \end{align*}
+            Because one pair of vectors has a non-zero inner product, we can see that they are linearly dependent, which means that this set of vectors is not orthogonal.
+        }
+        % \item $\left\{1, \frac{x}{\sqrt{2}}+\frac{x^2}{\sqrt{2}}, 1-\frac{x}{\sqrt{2}}\right\}$
+        % \ans{
+        %     Here, we can see that each vector is a polynomial, which looks a bit different than normal. To simplify this problem, we can take the coefficient of each term as a component of a vector (the coefficients of $x^0$, $x^1$, and $x^2$ each correspond to a componenet of a vector). After doing this, we can convert the problem into a set of vectors like the following: $\left\{ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}, \begin{bmatrix} 1 \\ -\frac{1}{\sqrt{2}} \\ 0 \end{bmatrix}\right\}$. Now, to check if these vectors are orthogonal, we can see if the inner product of each pair of vectors is zero.
+        %     \begin{align*}
+        %         \langle \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix},  \begin{bmatrix} 0 \\ \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}\rangle &= 0 \\
+        %         \langle \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix},  \begin{bmatrix} 1 \\ -\frac{1}{\sqrt{2}} \\ 0 \end{bmatrix}\rangle &= 1
+        %     \end{align*}
+        %     We can see that even though the first pair of vectors has an inner product of 0, the second pair has a non-zero inner product, which means they are linearly dependent. Because of this, this set of vectors is not orthogonal.
+        % }
+    \end{enumerate}
+
+
+\end{enumerate}
+

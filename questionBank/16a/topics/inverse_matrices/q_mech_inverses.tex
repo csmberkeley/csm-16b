@@ -1,0 +1,313 @@
+% CSM16A Spring 2022
+\allowdisplaybreaks
+\qns{Mechanical Inverses}
+
+\textbf{Learning Goal:} Practice calculating inverses, and identifying when they do not exist, for a given matrix.
+
+\meta{
+For this question, feel free to cover as many parts as your time in section allows. \\
+
+The question gives two parts to cover in section and two left for practice, but more/less can be covered in section depending on time constraints and student familiarity with inverses. \\
+
+The derivation of inverse formula for 2x2 would be useful to provide:
+\begin{align*}
+        \begin{sysmatrix}{cc|cc}
+            a & b & 1 & 0 \\
+            c & d & 0 & 1
+        \end{sysmatrix}
+        % Step 1: one-ing first elements of each row.
+        &\!\begin{aligned}
+            &\ro{\frac{1}{a}R_1 \rightarrow R_1} \\
+            &\ro{\frac{1}{c}R_2 \rightarrow R_2}
+        \end{aligned}
+        \begin{sysmatrix}{cc|cc}
+            1 & \frac{b}{a} & \frac{1}{a} & 0 \\
+            1 & \frac{d}{c} & 0 & \frac{1}{c}
+        \end{sysmatrix} \\
+        % Step 2: zeroing first element of second row
+        &\!\begin{aligned}
+            &\ro{R_1 - R_2 \rightarrow R_2}
+        \end{aligned}
+        \begin{sysmatrix}{cc|cc}
+            1 & \frac{b}{a} & \frac{1}{a} & 0 \\
+            0 & \frac{bc-ad}{ac} & \frac{1}{a} & -\frac{1}{c}
+        \end{sysmatrix} \\
+        % Step 3: one-ing second element of second row
+        &\!\begin{aligned}
+            &\ro{\frac{ac}{bc-ad}R_2 \rightarrow R_2}
+        \end{aligned}
+        \begin{sysmatrix}{cc|cc}
+            1 & \frac{b}{a} & \frac{1}{a} & 0 \\
+            0 & 1 & \frac{c}{bc-ad} & -\frac{a}{bc-ad}
+        \end{sysmatrix} \\
+        % Step 4: zeroing second element of first row
+        &\!\begin{aligned}
+            &\ro{R_1 - \frac{a}{b}R_2 \rightarrow R_1}
+        \end{aligned}
+        \begin{sysmatrix}{cc|cc}
+            1 & 0 & \frac{d}{ad-bc} & -\frac{b}{ad-bc} \\
+            0 & 1 & -\frac{c}{ad-bc} & \frac{a}{ad-bc}
+        \end{sysmatrix} \\
+    \end{align*}
+    The entire elimination process is shown as above.
+    The derivation for the element $\frac{d}{ad-bc}$ might be slightly confusing, so here follows a breakdown of the algebraic steps taken"
+    \begin{align*}
+        \frac{1}{a} - \frac{b}{a}\frac{c}{bc-ad}
+        &= \frac{1}{a}(1 + \frac{bc}{ad-bc}) \\
+        &= \frac{1}{a}(\frac{ad-bc}{ad-bc} + \frac{bc}{ad-bc}) \\
+        &= \frac{1}{a}(\frac{ad}{ad-bc}) \\
+        &= \frac{d}{ad-bc}
+    \end{align*}
+    By the above efforts, we have successfully derived that for a matrix:
+    \[A = 
+        \begin{bmatrix}
+            a & b \\
+            c & d
+        \end{bmatrix}
+    \]
+    Its inverse can be expressed in the formula:
+    \[A^{-1} = \frac{1}{ad-bc}
+        \begin{bmatrix}
+            d & -b \\
+            -c & a
+        \end{bmatrix}
+    \]
+}
+
+In each part, determine whether the inverse of $\mathbf{A}$ exists. If it exists, find it. 
+
+\begin{enumerate}
+\item $\mathbf{A} = \begin{bmatrix}
+1 & 0\\
+0 & 9
+\end{bmatrix}$
+
+\ans{
+
+We use Gaussian elimination (also known as the Gauss-Jordan method):
+\[
+\left[\begin{array}{cc|cc}
+1 & 0 & 1 & 0\\
+0 & 9 & 0 & 1
+\end{array}\right]
+\overbrace{\Rightarrow}^{R_2 \leftarrow \frac{1}{9} R_2}
+\left[\begin{array}{cc|cc}
+1 & 0 & 1 & 0\\
+0 & 1 & 0 & \frac{1}{9}
+\end{array}\right].
+\]
+
+Therefore, we get $\mathbf{A}^{-1} = \begin{bmatrix}
+1 & 0\\
+0 & \frac{1}{9}
+\end{bmatrix}$.
+
+}
+
+\meta{
+
+\textbf{(5 min)}
+
+}
+
+\item$\mathbf{A} = \begin{bmatrix}
+5 & 4\\
+1 & 1
+\end{bmatrix}$
+
+\ans{
+
+We use Gaussian elimination:
+\begin{align*}
+&\left[\begin{array}{cc|cc}
+5 & 4 & 1 & 0\\
+1 & 1 & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_1 \leftarrow R_2}
+&\left[\begin{array}{cc|cc}
+1 & 1 & 0 & 1\\
+5 & 4 & 1 & 0
+\end{array}\right] \\
+\overbrace{\Rightarrow}^{R_2 \leftarrow -5R_1+R_2}
+&\left[\begin{array}{cc|cc}
+1 & 1 & 0 & 1\\
+0 & -1 & 1 & -5
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_1 \leftarrow R_1 + R_2}
+&\left[\begin{array}{cc|cc}
+1 & 0 & 1 & -4\\
+0 & -1 & 1 & -5
+\end{array}\right] \\
+\overbrace{\Rightarrow}^{R_2 \leftarrow -R_2}
+&\left[\begin{array}{cc|cc}
+1 & 0 & 1 & -4\\
+0 & 1 & -1 & 5
+\end{array}\right]. 
+\end{align*}
+
+Therefore, we get $\mathbf{A}^{-1} = \begin{bmatrix}
+1 & -4\\
+-1 & 5
+\end{bmatrix}$.
+
+}
+
+\meta{
+
+\textbf{(2 min)}
+
+}
+
+
+
+\item(PRACTICE) \\ \\
+$\mathbf{A} = \begin{bmatrix}
+5 & 5 & 15\\
+2 & 2 & 4\\
+1 & 1 & 4
+\end{bmatrix}$
+
+\ans{
+
+We use Gaussian elimination:
+\begin{align*}
+&\left[\begin{array}{ccc|ccc}
+5 & 5 & 15 & 1 & 0 & 0\\
+2 & 2 & 4 & 0 & 1 & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_1 \leftarrow \frac{1}{5} R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+2 & 2 & 4 & 0 & 1 & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]\\
+\overbrace{\Rightarrow}^{R_2 \leftarrow \frac{1}{2} R_2}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+1 & 1 & 2 & 0 & \frac{1}{2} & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_2 \leftarrow R_2 - R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+1 & 1 & 4 & 0 & 0 & 1
+\end{array}\right]\\
+\overbrace{\Rightarrow}^{R_3 \leftarrow R_3 - R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+0 & 0 & 1 & -\frac{1}{5} & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_3 \leftarrow R_3 + R_2}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+0 & 0 & 0 & -\frac{2}{5} & \frac{1}{2} & 1
+\end{array}\right].
+\end{align*}
+
+While row-reducing, we notice that the second column doesn't have a pivot (and that there is also a row of zeros). Therefore, no inverse exists.
+
+}
+
+\meta{
+
+\textbf{(8 min)}
+
+}
+
+\item(PRACTICE) \\ \\
+$\mathbf{A} = \begin{bmatrix}
+5 & 5 & 15\\
+2 & 2 & 4\\
+1 & 0 & 4
+\end{bmatrix}$
+
+\ans{
+
+We use Gaussian elimination:
+\begin{align*}
+&\left[\begin{array}{ccc|ccc}
+5 & 5 & 15 & 1 & 0 & 0\\
+2 & 2 & 4 & 0 & 1 & 0\\
+1 & 0 & 4 & 0 & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_1 \leftarrow \frac{1}{5} R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+2 & 2 & 4 & 0 & 1 & 0\\
+1 & 0 & 4 & 0 & 0 & 1
+\end{array}\right]\\
+\overbrace{\Rightarrow}^{R_2 \leftarrow \frac{1}{2} R_2}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+1 & 1 & 2 & 0 & \frac{1}{2} & 0\\
+1 & 0 & 4 & 0 & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_2 \leftarrow R_2 - R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+1 & 0 & 4 & 0 & 0 & 1
+\end{array}\right]\\
+\overbrace{\Rightarrow}^{R_3 \leftarrow R_3 - R_1}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0\\
+0 & -1 & 1 & -\frac{1}{5} & 0 & 1
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_2 \leftrightarrow R_3}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & -1 & 1 & -\frac{1}{5} & 0 & 1\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0
+\end{array}\right] \\
+\overbrace{\Rightarrow}^{R_2 \leftarrow -R_2}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 1 & -1 & \frac{1}{5} & 0 & -1\\
+0 & 0 & -1 & -\frac{1}{5} & \frac{1}{2} & 0
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_3 \leftarrow -R_3}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 1 & -1 & \frac{1}{5} & 0 & -1\\
+0 & 0 & 1 & \frac{1}{5} & -\frac{1}{2} & 0
+\end{array}\right] \\
+\overbrace{\Rightarrow}^{R_2 \leftarrow R_2+R_3}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 3 & \frac{1}{5} & 0 & 0\\
+0 & 1 & 0 & \frac{2}{5} & -\frac{1}{2} & -1\\
+0 & 0 & 1 & \frac{1}{5} & -\frac{1}{2} & 0
+\end{array}\right]
+&\overbrace{\Rightarrow}^{R_1 \leftarrow R_1-3 R_3}
+&\left[\begin{array}{ccc|ccc}
+1 & 1 & 0 & -\frac{2}{5} & \frac{3}{2} & 0\\
+0 & 1 & 0 & \frac{2}{5} & -\frac{1}{2} & -1\\
+0 & 0 & 1 & \frac{1}{5} & -\frac{1}{2} & 0
+\end{array}\right] \\
+\overbrace{\Rightarrow}^{R_1 \leftarrow R_1-R_2}
+&\left[\begin{array}{ccc|ccc}
+1 & 0 & 0 & -\frac{4}{5} & 2 & 1\\
+0 & 1 & 0 & \frac{2}{5} & -\frac{1}{2} & -1\\
+0 & 0 & 1 & \frac{1}{5} & -\frac{1}{2} & 0
+\end{array}\right].
+\end{align*}
+
+Therefore, we get $\mathbf{A}^{-1} = \begin{bmatrix}
+-\frac{4}{5} & 2 & 1\\
+\frac{2}{5} & -\frac{1}{2} & -1\\
+\frac{1}{5} & -\frac{1}{2} & 0
+\end{bmatrix}$.
+
+}
+
+\meta{
+
+\textbf{(8 min)}
+
+}
+
+\end{enumerate}

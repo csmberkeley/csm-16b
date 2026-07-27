@@ -1,0 +1,67 @@
+\qns{Linear or Nonlinear}
+
+\textbf{Learning Goal:} The goal of this problem is to draw a distinction between linear and non-linear functions.
+
+\meta{
+
+\begin{itemize}
+\item Stress the form $f(x_1, x_2) = a_1x_1 +a_2x_2$,  as it is a more intuitive way of conveying linearity. 
+\item Mention that whatever does not contain the variables ($x_1$ and $x_2$ in this case) is a scalar constant! 
+\item It may be helpful to consider integration,  a linear operation, when determining the linearity of a function.  For instance,  in part (c), we would know to take out the sin() expression and Euler’s number from the integral because they are constants. 
+\end{itemize}
+
+}
+
+
+
+Determine whether the following functions are linear or nonlinear.
+
+\begin{enumerate}
+ %\setlength\itemsep{10em}
+\item [WALK-THROUGH] 
+\[ f(x_1, x_2) = 3x_1 + 4x_2 \]
+
+\ans{
+To check for linearity, check for \textbf{superposition} (additivity) and \textbf{homogeneity} (multiplicative scaling). In other words we must check that: $f( \alpha x_1 + \beta y_1, \alpha x_2 + \beta y_2) = \alpha f(x_1, x_2) + \beta f(y_1, y_2)$, where, $\alpha$ and $\beta$ are scalars. \\
+\begin{align*}
+ f( \alpha x_1 + \beta y_1, \alpha x_2 + \beta y_2) &= 3( \alpha x_1 + \beta y_1) + 4(  \alpha x_2 + \beta y_2) \\ &= \alpha (3x_1 + 4x_2) + \beta (3y_1 + 4y_2) \\ &= \alpha f(x_1, x_2) + \beta f(y_1, y_2) 
+\end{align*}
+So this function is \textbf{linear}.
+Alternatively you can state that this function is linear because it is of the form:
+\[ f(x_1, x_2) = a_1 x_1 + a_2 x_2 \] where $a_1$ and $a_2$ are constants.
+}
+
+\item \[ f(x_1, x_2) = x_{1}^{2}+e^{x_2} \]
+
+\ans{We check again for superposition and homogeneity.
+\begin{align*}
+ f( \alpha x_1 + \beta y_1, \alpha x_2 + \beta y_2) &=  (\alpha x_1 + \beta y_1)^2 +e^{\alpha x_2 + \beta y_2}\\ &=(\alpha x_1)^2+ (\beta y_1)^2 + 2\alpha\beta x_1 y_1+ e^{\alpha x_2}e^{\beta y_2} \\ &\neq \alpha(x_{1}^{2}+e^{x_2})+\beta(y_{1}^{2}+e^{y_2}) \\&= \alpha f(x_1, x_2) + \beta f(y_1, y_2)
+\end{align*}
+Hence this function is \textbf{not linear}.
+}
+
+\item \[ f(x_1, x_2) = \sin(a){x_1} + e^bx_{2}, \] where $a$ and $b$ are constants.
+
+\meta{ Contrast with the part (b). Highlight that sin(a) and exp(b) are simply constants here, despite sin() and exp() being non-linear functions.}
+
+\ans{Check for superposition and homogeneity: 
+\begin{align*}
+ f( \alpha x_1 + \beta y_1, \alpha x_2 + \beta y_2) &= \sin(a)({\alpha x_1 + \beta y_1})+ \exp(b)(\alpha x_2 + \beta y_2) \\ &= \alpha\sin(a)x_1 + \alpha\exp(b)x_2+ \alpha\sin(a)y_1 + \alpha\exp(b)y_2 \\ &= \alpha f(x_1, x_2) + \beta f(y_1, y_2)
+\end{align*}
+Hence this function is \textbf{linear}.
+}
+
+
+\item \[ f(x_1, x_2) = x_2 - x_1 + 3 \]
+
+\meta{Affine, not linear unless constant is 0 (but it's 3 so nonlinear)}
+
+\ans{Check for superposition and homogeneity: 
+\begin{align*}
+ f( \alpha x_1 + \beta y_1, \alpha x_2 + \beta y_2) &= (  \alpha x_2 + \beta y_2) - ( \alpha x_1 + \beta y_1) + 3 \\ &\neq \alpha (x_2 - x_1 + 3) + \beta (y_2 - y_1 + 3) \\ &= \alpha f(x_1, x_2) + \beta f(y_1, y_2) 
+\end{align*}
+This function is \textbf{not linear}; in fact, this is an affine function.\\ 
+}
+
+\end{enumerate}
+%\newpage

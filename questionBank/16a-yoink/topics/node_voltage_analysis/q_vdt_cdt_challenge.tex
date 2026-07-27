@@ -1,0 +1,145 @@
+% Author: Anna Chou
+% email: menghuichou@berkeley.edu
+% CSM SP22 New Question
+
+\qns{Current Divider and Voltage Divider [Challenge]}
+
+\textbf{Learning Goal: } Understand how to use CDT or VDT reversely and the feature of linear circuit.
+
+\meta{Make sure student understand why we can solve the circuits backwards (the power of linearity!). Also, make sure students are comfortable with using CDT/VDT and how to simplify circuits.}
+
+Given $I$ = 64 $A$, find the current $i$ passing through $R_8$. \\
+Parameters: $R_1$ = 12 $\Omega$, $R_2$ = 8 $\Omega$, $R_3$ = 6 $\Omega$, $R_4$ = 4 $\Omega$, $R_5$ = 3 $\Omega$, $R_6$ = 2 $\Omega$, $R_7$ = 1 $\Omega$, $R_8$ = 1 $\Omega$ \\ \\
+Hints: If you try to use a traditional way to solve this, you technically solve the circuit twice (why?). Look at the pattern of resistors' values. Think if you can assume a value for something first and then solve the circuit backwards :))))
+
+\begin{center}
+    
+    \begin{circuitikz}
+    \draw(0,0)
+	to[I_=$I$] ++(0,5)
+	to[short] ++(1,0)
+	to[R, l=$R_1$] ++(1,0)
+ 	to[short] ++(2,0)
+ 	to[R,l=$R_3$] ++(1,0)
+ 	to[short] ++(2,0)
+ 	to[R,l=$R_5$] ++(1,0)
+ 	to[short] ++(2,0)
+ 	to[R,l=$R_7$] ++(1,0)
+ 	to[short] ++(1,0)
+ 	to[short] ++(0,-2)
+ 	to[R,l=$R_8$] ++(0,-1)
+ 	to[short,i=$i$] ++(0,-2)
+ 	to[short] ++(-3,0)
+ 	(9,5)to[short] ++(0,-1)
+ 	to[short] ++(0,-1)
+ 	to[R,l=$R_6$] ++(0,-1)
+ 	to[short] ++(0,-2)
+ 	to[short] ++(-2,0)
+ 	to[short] ++(-1,0)
+ 	(6,5)to[short] ++(0,-2)
+ 	to[R,l=$R_4$] ++(0,-1)
+ 	to[short] ++(0,-2)
+ 	to[short] ++(-3,0)
+	(3,5)to[short] ++(0,-1)
+	to[short] ++(0,-1)
+	to[R,l=$R_2$] ++(0,-1)
+	to[short] ++(0,-2)
+	to[short] ++(-3,0);
+    \end{circuitikz}
+        
+\end{center}
+    
+\ans{
+
+Answer: i = 8A.
+
+The point here is to assume the current i being some values first and solve the circuit backward! Eventually, you will get a total current I based on the value i you assume. After that, since the circuit is linear, we can just scale the i so to meet the real I value.\\
+
+Let assume i = 1A.\\
+
+Since $R_7$ and $R_8$ are in series, the total resistance of that branch is $R_7$ + $R_8$ = 2 $\Omega$. \\
+
+The current i flowing through $R_7$ + $R_8$ can be found by using current divider on the total current flowing through $R_6$ and $R_7 + R_8$ branches. That is $i$ = $R_6$ /[$R_6$ + ($R_7$ +$R_8$)] $i_{6-8}$. With the given values, we find that $i_{6-8}$ is 2A.\\
+
+Since $R_6$ is parallel to $R_{7-8}$, the total resistance $R_{6-8}$ = $R_{7-8}$ * $R_6$/($R_{7-8}$ + $R_6$) = 1$\Omega$.\\
+
+Now the circuit looks like this,
+
+\begin{center}
+    
+    \begin{circuitikz}
+    \draw(0,0)
+	to[I_=$I$] ++(0,5)
+	to[short] ++(1,0)
+	to[R, l=$R_1 \text{=} 12 \Omega$] ++(1,0)
+ 	to[short] ++(2,0)
+ 	to[R,l=$R_3 \text{=} 6 \Omega$] ++(1,0)
+ 	to[short] ++(2,0)
+ 	to[R,l=$R_5 \text{=} 3 \Omega$] ++(1,0)
+ 	to[short] ++(1,0)
+ 	(9,5)to[short] ++(0,-1)
+ 	to[short] ++(0,-1)
+ 	to[R,l=$R_{6-8} \text{=} 1 \Omega$] ++(0,-1)
+ 	to[short,i= $i_{6-8} \text{=} 2A$] ++(0,-2)
+ 	to[short] ++(-2,0)
+ 	to[short] ++(-1,0)
+ 	(6,5)to[short] ++(0,-2)
+ 	to[R,l=$R_4 \text{=} 4 \Omega$] ++(0,-1)
+ 	to[short] ++(0,-2)
+ 	to[short] ++(-3,0)
+	(3,5)to[short] ++(0,-1)
+	to[short] ++(0,-1)
+	to[R,l=$R_2 \text{=} 8 \Omega$] ++(0,-1)
+	to[short] ++(0,-2)
+	to[short] ++(-3,0);
+    \end{circuitikz}
+        
+\end{center}
+
+
+We can do this recursively for the other 2 blocks. 
+
+\begin{center}
+    
+    \begin{circuitikz}
+    \draw(0,0)
+	to[I_=$I$] ++(0,5)
+	to[short] ++(1,0)
+	to[R, l=$R_1 \text{=} 12 \Omega$] ++(1,0)
+ 	to[short] ++(2,0)
+ 	to[R,l=$R_3 \text{=} 6 \Omega$] ++(1,0)
+ 	to[short] ++(1,0)
+ 	(6,5)to[short] ++(0,-2)
+ 	to[R,l=$R_{4-8} \text{=} 2 \Omega$] ++(0,-1)
+ 	to[short,i= $i_{4-8} \text{=} 4A$] ++(0,-2)
+ 	to[short] ++(-3,0)
+	(3,5)to[short] ++(0,-1)
+	to[short] ++(0,-1)
+	to[R,l=$R_2 \text{=} 8 \Omega$] ++(0,-1)
+	to[short] ++(0,-2)
+	to[short] ++(-3,0);
+    \end{circuitikz}
+        
+\end{center}
+
+And then finally the circuit becomes as following.
+\begin{center}
+    
+    \begin{circuitikz}
+    \draw(0,0)
+	to[I_=$I$] ++(0,5)
+	to[short] ++(1,0)
+	to[R, l=$R_1 \text{=} 12 \Omega$] ++(1,0)
+ 	to[short] ++(1,0)
+	(3,5)to[short] ++(0,-1)
+	to[short] ++(0,-1)
+	to[R,l=$R_{2-8} \text{=} 4 \Omega$] ++(0,-1)
+	to[short,i= $i_{2-8} \text{=} 8A$] ++(0,-2)
+	to[short] ++(-3,0);
+    \end{circuitikz}
+        
+\end{center}
+
+
+Eventually, the total current flowing through $R_{2-8}$ is 8A. This current is also equal to the total current I. However, notice that, from the given, I should be 64A not 8A. This means that our assumption for i at the beginning is actually 8 times smaller than the real one. Since the circuit is linear, we can scale i by 8 so to reach 64A for I. Recall that we assume i = 1A at the beginning, with scaling by 8, i should be 8A and this is our final answer.
+}

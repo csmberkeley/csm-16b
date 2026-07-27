@@ -1,0 +1,147 @@
+% Author: Aurelia Wang
+% Author Email: aureliawang@berkeley.edu
+% CSM16A Spring 2023
+
+\qns{Negative Feedback}
+
+\meta{
+\begin{itemize}
+    \item Review the Golden Rules of Op Amps 
+    
+    \item Explain the first Golden Rule that is applicable to every Op Amp ($I_+ = I_- = 0$) because there is no closed loop path for the current to follow. Draw out the equivalent Op Amp circuit that shows no current flowing in and the dependent voltage source to help your explanation of this Golden Rule.
+
+    \item Explain how to check for negative feedback (toggling output and seeing its effects).
+
+    \item Bonus: Review some applications of Op Amps to better help students understand why they are important
+
+\end{itemize}
+}
+
+\vspace{5mm} %5mm vertical space
+
+Are the following circuits in negative feedback? Explain your reasoning.
+
+\begin{enumerate}
+    \item \begin{center}
+    \begin{circuitikz}[american]
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l=$R_f$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) to[R,l_=$R_s$] ++(-2,0)
+		to[sV,v_=$v_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to[V,l_=$V_\text{REF}$] ++(0,-2)
+		node[ground] () {};
+    \end{circuitikz}
+    \end{center}
+
+\ans{
+    To check if a circuit is in negative feedback, first zero out independent voltage sources:
+    \begin{center}
+    \begin{circuitikz}[american]
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[R,l=$R_f$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.-) node[label={[font=\footnotesize]below:$u_-$}] {}
+            to[R,l_=$R_s$, *-] ++(-2,0)   
+		to[short] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) node[label={[font=\footnotesize]left:$u_+$}] {}
+            to[short, *-] ++(0,-2)
+		node[ground] () {};
+    \end{circuitikz}
+    \end{center}
+
+    Now, we need to check how the circuit responds by "wiggling the output". First, let's observe what happens when the output, $v_out$ is increased. We see that $u_-$ is the node inbetween a voltage divider, so \[
+    u_- = \frac{R_{in}}{R_{in} + R_{f}}v_{out}
+    \]
+    Therefore, if $v_{out}$ increases, then $u_-$ increases as well. We know that op-amps are governed by the equation \[
+    v_{out} = A(u_+ - u_-)
+    \]
+    where A is the internal gain of the op-amp (ideal op-amps have a gain of infinity). Make sure you understand this equation! Observe that the equivalent op-amp circuit has an internal dependent voltage source of $Av_x$ where $v_x$ is $u_+ - u_-$. \\
+
+    Now, if $u_-$ increases, and A and $u_+$ remain unchanged, then $(u_+ - u_-)$ decreases, and thus $v_{out} = A(u_+ - u_-)$ decreases. When we wiggled $v_{out}$ up, the circuit responded by decreasing $v_{out}$, which indicates negative feedback. Negative feedback is a good property to have! They help re-adjust to the value of the desired output when the output is too high or too low relative to the target value. \\
+
+    \emph{Concept check: Go through the same process, but test when $v_{out}$ is wiggled down. Does the result of this show negative feedback as well?}
+    
+}
+
+\vspace{10mm} %10mm vertical space
+    \item Suppose that we switched the negative and positive signs on the op-amp. Is this circuit still in negative feedback?
+
+    \ans{
+        If the terminals are swapped, we will now have a voltage divider: \[
+            u_+ = \frac{R_{in}}{R_{in} + R_{f}}v_{out}
+        \]
+        When we wiggle $v_{out}$ to go up, then $u_+$ will now increase. We look to the op-amp internal gain equation once again: $v_{out} = A(u_+ - u_-)$. If $u_+$ increases, and A and $u_-$ remain unchanged, then $(u_+ - u_-)$ increases, and thus $v_{out}$ increases.
+    }
+
+    \vspace{7mm} %7mm vertical space
+
+    \end{enumerate}
+    
+    Let's observe one of the most important op-amp configurations: the unity gain buffer!
+    
+    \begin{enumerate}
+    
+    \item \begin{center}
+    \begin{circuitikz}
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[short] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to[sV,l_=$V_\text{in}$] ++(0,-2)
+		node[ground] () {};
+    \end{circuitikz}
+    \end{center}
+
+    \ans{
+        Like before, let's zero out the independent voltage source to get this circuit (recall that voltage sources become wires and current sources become open circuits):
+        \begin{center}
+        \item \begin{circuitikz}
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(AMP.-) 
+            node[label={[font=\footnotesize]left:$u_-$}] {}
+            to[short, *-] ++(0,1) coordinate (topLeft)
+		to[short] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short,-o] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) 
+            node[label={[font=\footnotesize]above:$u_+$}] {}
+            to[short, *-] ++(0,-2)
+		node[ground] () {};
+    \end{circuitikz}
+    \end{center}
+
+    Like previously, let's wiggle $v_{out}$ up first. We can observe that the negative terminal of the op-amp has the same voltage as $v_{out}$ because they are essentially the same node. Therefore, $u_- = v_{out}$. If $u_-$ increases, and A and $u_+$ remain unchanged, then $(u_+ - u_-)$ decreases, and thus $v_{out} = A(u_+ - u_-)$ decreases. We get an opposite effect: when $v_{out}$ increases, the op=amp brings the output voltage back down.
+    }
+    
+    \vspace{7mm} %7mm vertical space
+
+    \item Knowing the properties of an op-amp, and that the unity gain buffer has a gain of 1, what are some possible uses of unity gain buffers?
+    
+    \vspace{5mm} %7mm vertical space
+    
+    \ans{
+        The unity gain configuration in op-amps is extremely helpful in preventing the loading effect. If we want the output voltage of one circuit to be used as the input voltage of another, it's not as simple as putting a wire between the two. The second circuit may incur a loading effect from the first: if we just put a wire in-between, the wire will carry unwanted current into the second circuit and will change some of its properties. This is where op-amps come in! Op-amp terminals don't allow current to go in (recall the first Golden Rule: $I_- = I_+ = 0$, and thus, $v_{out}$ of the op-amp will give us the wanted voltage, without any of the current from the first circuit. Because this is the \emph{unity gain} buffer, $v_{out} = v_{in}$, and the desired voltage will be preserved completely. 
+
+    }
+    
+    \end{enumerate}

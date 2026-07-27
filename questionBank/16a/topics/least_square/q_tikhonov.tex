@@ -1,0 +1,117 @@
+% Zipeng Lin - yuslzp@berkeley.edu
+\qns{Challenge question: Regularized least square}
+\textbf{Learning goal: learn how to transfer a optimization problem to least
+square, thus preparing for further least square topics}.
+
+\meta{
+\begin{enumerate}
+    \item Make sure to assure students that problems like the last step would not appear
+        on the final if they feel this is too hard. Instead, tell them this
+        would help them understand least square better.
+    \item Try to lead students into thinking how to reform the question into a
+        least square problem by adding rows to $A$ and  $b$. Try to start from
+        the problem (a) and then extend it to other elements.
+    \item If the mentor has a machine learning background, explain what is
+        overfit, what is
+        regularization and how does adding dimension would help regularizing the
+        problem.
+\end{enumerate}
+}
+
+
+
+We propose what we want to solve at the end first: when solving the equation $Ax = b$ with matrix  $A \in R^{n \times n}$ and vector
+$b \in R^{n}$, what we
+really are finding is an  $x$ that minimizes the following equation:
+
+ \[
+     \min_{x \in R^{n}}\norm{Ax - b}_2^2
+\]
+
+and the norm expression is just 
+
+\[
+    \norm{x}_2^2 = x^{\intercal} x
+\]
+
+Now, consider the following problem with $\lambda \ge{} 0$
+
+\[
+    \min_{x \in R^n} \norm{Ax - b}^2_2 + \lambda \norm{x}^2_2
+\]
+
+that is, we want to make $\norm{Ax - b}^2_2$ as small as possible and also  $x$
+itself as small as possible. Give a solution to the problem above by using least
+square.
+
+Now, use the following steps to get a sense on how an approach might possibly
+work.
+
+\begin{enumerate}[label=(\alph*)]
+    \item What would happen if we add an row $\left[ 1, 0, \ldots{}, 0 \right]$ to $A$ and add a element row  $[0]$ 
+        to the element  $b$? Suppose the solution $x$ has the form  $\left[ x_1
+        x_2 \ldots{} x_n\right]^{\intercal}$? (Hint: consider write the
+        expression out and think about the element $x_1$, what do we want this
+        element to be?)
+    \item What rows do we need to add to make $x_i$ to be small ($i$ is an
+        integer that is in  $\left[ 1, n \right]$)?
+    \item (EXTRA CHALLENGE) Treat the original problem as ``wanting to make each element in $x$ to
+        be small``, and treat  $\lambda = 1$. What would the solution be?
+\end{enumerate}
+
+
+
+
+\ans{
+
+    (a) We can write the product out and get 
+
+    \[
+        \min_{x \in R^{n}}(\norm{Ax - b + x_1}_2^2 = \norm{Ax - b}_2^{2} +
+        \norm{x_1}^{2}_2)
+    \]
+
+    Therefore, we try to solve the least square problem while trying to make
+    $x_1$ as small as possible.
+
+    (b) Inspired by the solution in (a), we can add the row $\left[ 0, 0,
+    \ldots{}, 1, 0, \ldots{} \right]$ where the $i$th element is  $1$ to  $A$
+    and add  $\left[ 0 \right]$ to the end of $b$. Notice that adding the
+    different rows to  $A$ and  $0$ to  $b$ are independent, so we can add as
+    many rows like this as we want.
+    
+
+    (EXTRA CHALLENGE'S solution)
+    Expanding what we want to minimize is
+    \[
+        x A^{\intercal} A x + b^{\intercal} b - XA^{\intercal}b - b^{\intercal}
+        A x + \lambda x^{\intercal} x
+    \]
+    which could be treated as
+    \[
+        (X^{\intercal}) (A^{\intercal} A + \lambda I) X + \ldots{}
+    \]
+    which is 
+\[\min_{A' x - b'}\]
+with 
+\[
+    A' = 
+\begin{bmatrix}
+    A \\
+    \sqrt{\lambda I}  \\
+\end{bmatrix}
+B' =
+\begin{bmatrix}
+    b \\
+    0 \\
+\end{bmatrix}
+\]
+and the solution would be 
+\[
+    (A^{\intercal} A + \lambda I)^{-1} A^{\intercal}b
+\]
+       
+}
+
+
+

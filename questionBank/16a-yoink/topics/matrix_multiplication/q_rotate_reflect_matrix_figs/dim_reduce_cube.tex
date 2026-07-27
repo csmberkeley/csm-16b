@@ -1,0 +1,37 @@
+% Author: Dun-Ming Huang
+% Email: dunmingbrandonhuang@berkeley.edu
+% CSM16A Fall 2022
+ %Code references works on Anna Chou's work in EECS 16A CSM Question Bank
+ 
+ \begin{tikzpicture}[x=1cm, y=1cm, z=-0.6cm]
+    % Axes
+    \draw [->] (0,0,0) -- (0,0,4) node [left] {$x$};
+    \draw [->] (0,0,0) -- (3.5,0,0) node [above] {$y$};
+    \draw [->] (0,-2,0) -- (0,0,0) -- (0,2,0) node [above] {$z$};
+    
+    % Ticks
+        \foreach \i in {1,2,3}
+    {
+    \draw (\i,-0.1,0) -- ++ (0,0.2,0);
+    \draw (-0.1,0,\i) -- ++ (0.2,0,0);
+    }
+        \foreach \i in {1, 2}
+    {
+        \draw (-0.1,\i,0) -- ++ (0.2,0,0);
+        \draw (-0.1,-\i,0) -- ++ (0.2,0,0);
+    }
+    % Dashed lines
+    \draw [loosely dashed, draw=red]
+        (0,0,1) -- (1,0,1) -- (1,0,0)
+        (0,1,0) -- (0,1,1) -- (0,0,1)
+        (1,0,0) -- (1,1,0) -- (0,1,0)
+        (1,1,0) -- (1,1,1) -- (0,1,1)
+        (1,1,1) -- (1,0,1)
+        ;
+    \draw [loosely dashed, draw=blue]
+        (3,0,0) -- (3,0,2) -- (0,0,2)
+        ;
+    % Labels
+     \node [below right, label={[font=\small,text=red]30:pre-image}] at (1.5,1,1) {};
+     \node [below right, label={[font=\small,text=blue]30:image}] at (1.5,-1, 1.2) {};
+\end{tikzpicture}
