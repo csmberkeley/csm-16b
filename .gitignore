@@ -276,7 +276,7 @@ TSWLatexianTemp*
 # VSCODE
 .vscode
 
-
+.claude/
 web-search-mcp.js
 claude-remote.sh
 .relay-mcp.json

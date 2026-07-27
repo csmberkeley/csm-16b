@@ -1,0 +1,143 @@
+\documentclass[11pt]{article}
+\usepackage{../fa20/ee16}
+\usepackage{../fa20/markup}
+\usepackage{changepage}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{color,hyperref,listings,enumitem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tkz-euclide}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{physics}
+\usepackage{adjustbox}
+\usepackage{cancel}
+\usepackage{commath}
+\usepackage{mathdots}
+\usepackage{subcaption}
+\usepackage[american,siunitx]{circuitikz}
+\sisetup{per-mode=fraction}
+\DeclareSIUnit \decade {dec}
+\lstset{basicstyle=\ttfamily}
+\newcommand{\fillin}[1]{\underline{\hskip #1}}
+\newcommand{\doublehrule}{\hrule \vskip 0.02in \hrule}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\ws}[1]{#1}
+\newcommand{\sol}[1]{{\color{blue} \textbf{Solutions: } #1}} % solutions in blue
+\newcommand{\meta}[1]{} % no meta in worksheets
+
+\input{../newcommands/newcommands-eg-ie-etc}
+\input{../newcommands/newcommands-labels-refs}
+\input{../newcommands/newcommands-math}
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+
+\begin{document}
+
+% Add your question files here
+%\input{q_your_question}
+
+% Example circuit for testing
+% --- Question 3 ---
+\begin{enumerate}
+
+% --- Question 3 ---
+\item \textbf{\large Multistage Voltage Divider Analysis}
+
+Consider the circuit below.
+Write a symbolic expression for the gain ($A_v = V_{out} / V_{in}$) in terms of circuit elements using inspection analysis.
+You can leave your answer in terms of parallel operators.
+
+\begin{center}
+\begin{circuitikz}[scale=1.25, american]
+    % DC Voltage source
+    \draw (0,2) to[V, v=$V_{in}$] (0,0);
+    
+    % R1
+    \draw (0,2) to[R, l=$R_1$] (2.5,2);
+    
+    % Node Va and R2
+    \draw (2.5,2) node[circ]{} node[above] {$V_a$}
+    to[R, l=$R_2$] (2.5,0);
+    
+    % R3
+    \draw (2.5,2) to[R, l=$R_3$] (5,2);
+    
+    % Node Vout and R4, R5
+    \draw (5,2) {} to[R, l=$R_4$] (5,0);
+    
+    \draw (5,2) -- (6.5,2){} to[R, l=$R_5$] (6.5,0);
+    
+    % Output node
+    \draw (6.5,2) -- (7,2) node[anchor=west] {$V_{out}$} node[ocirc]{};
+    
+    % Connect all grounds to one single bottom node/wire
+    \draw (0,0) -- (6.5,0);
+    \draw (2.5,0) node[ground]{};
+\end{circuitikz}
+\end{center}
+
+\sol{
+    First, combine resistors in parallel.
+    Let's define the parallel combination of $R_4$ and $R_5$ as $R_p$:
+    \[ R_p = R_4 \parallel R_5 \]
+    
+    \begin{center}
+    \begin{circuitikz}[scale=1.0, american]
+        \draw (0,2) to[V, v=$V_{in}$] (0,0);
+        \draw (0,2) to[R, l=$R_1$] (2.5,2) node[circ]{} node[above] {$V_a$};
+        \draw (2.5,2) to[R, l=$R_2$] (2.5,0);
+        \draw (2.5,2) to[R, l=$R_3$] (5,2); 
+        \draw (5,2) -- (5.5,2) node[anchor=west] {$V_{out}$} node[ocirc]{};
+        \draw (5,2) to[R, l=$R_p$] (5,0);
+        \draw (0,0) -- (5,0);
+        \draw (2.5,0) node[ground]{};
+    \end{circuitikz}
+    \end{center}
+    
+    Now, we want to apply a voltage divider to solve for $V_a$.
+    But first, we need to solve for $R_{eq}$, the equivalent resistance from after $R_1$ all the way to ground. 
+    $R_3$ and $R_p$ can be combined in series.
+    Then, it combines with $R_2$ in parallel:
+    \[ R_{eq} = (R_3 + R_p) \parallel R_2 \]
+    
+    Since our new circuit looks like this, we can apply a voltage divider to solve for $V_a$:
+    
+    \begin{center}
+    \begin{circuitikz}[scale=1.0, american]
+        \draw (0,2) to[V, v=$V_{in}$] (0,0);
+        \draw (0,2) to[R, l=$R_1$] (2.5,2) node[circ]{} node[above] {$V_a$};
+        \draw (2.5,2) to[R, l=$R_{eq}$] (2.5,0);
+        \draw (0,0) -- (2.5,0);
+        \draw (2.5,0) node[ground]{};
+    \end{circuitikz}
+    \end{center}
+    \[ V_a = \frac{R_{eq}}{R_{eq} + R_1} V_{in} \]
+    
+    Since we know the voltage at $V_a$, we can apply one more voltage divider to find $V_{out}$:
+
+    \begin{center}
+    \begin{circuitikz}[scale=1.0, american]
+        \draw (0,2) node[anchor=east] {$V_a$} node[circ]{};
+        \draw (0,2) to[R, l=$R_3$] (2.5,2);
+        \draw (2.5,2) to[R, l=$R_p$] (2.5,0);
+        \draw (2.5,2) -- (3,2) node[anchor=west] {$V_{out}$} node[ocirc]{};
+        \draw (2.5,0) node[ground]{};
+    \end{circuitikz}
+    \end{center}
+    
+    \[ V_{out} = \frac{R_p}{R_p + R_3}V_a \]
+    
+    Lastly, we plug in our equation for $V_a$ and solve for $A_v = \frac{V_{out}}{V_{in}}$:
+    \[ V_{out} = \frac{R_p}{R_p + R_3} \left[ \frac{R_{eq}}{R_{eq} + R_1} V_{in} \right] \]
+    \[ \frac{V_{out}}{V_{in}} = \frac{R_p \cdot R_{eq}}{(R_p + R_3)(R_{eq} + R_1)} \]
+    
+    Substitute everything back in to get our final answer:
+    \[ \frac{V_{out}}{V_{in}} = \frac{R_4 \parallel R_5}{R_4 \parallel R_5 + R_3} \cdot \frac{ (R_4 \parallel R_5 + R_3) \parallel R_2}{ (R_4 \parallel R_5 + R_3) \parallel R_2 + R_1} \]
+  }
+
+\end{enumerate}
+\end{document}

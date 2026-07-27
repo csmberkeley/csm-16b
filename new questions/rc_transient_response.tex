@@ -1,0 +1,93 @@
+% Authors: Eric Lind
+% Email: elind1@berkeley.edu
+\qcontributor{Eric Lind}
+
+\qns{RC Transient Response} 
+
+\begin{enumerate}
+
+\qitem Consider the following circuit. Initially, the capacitor is uncharged. At $t = 0$, the switch closes, connecting the voltage source. Find the voltage across the capacitor as a function of time $V_C(t)$ for $t \geq 0$.
+\begin{center}
+\begin{circuitikz}[american, scale=1.0]
+\draw (0,0) node[ground]{}
+    to[V, invert, l=$10\,\mathrm{V}$] (0,3)
+    to[R, l=$2\,\mathrm{k}\Omega$] (3,3)
+    to[short] (3,3);
+\draw (3,3)
+    to[C, l=$1\,\mu\mathrm{F}$] (3,0)
+    to[short] (0,0);
+\end{circuitikz}
+\end{center}
+
+\sol{
+For an RC circuit with initial condition $V_C(0) = 0$, the voltage across the capacitor follows:
+\[
+V_C(t) = V_s(1 - e^{-t/\tau})
+\]
+where $\tau = RC$ is the time constant.
+
+Here, $\tau = 2000 \times 10^{-6} = 2\text{ ms}$.
+
+Therefore:
+\[
+V_C(t) = 10(1 - e^{-t/0.002}) = 10(1 - e^{-500t})\text{ V}
+\]
+
+\ans{$V_C(t) = 10(1 - e^{-500t})\text{ V}$}
+}
+
+\qitem Find the current through the resistor as a function of time $i_R(t)$ for $t \geq 0$.
+
+\sol{
+The current through the resistor (which equals the capacitor current) is:
+\[
+i_R(t) = \frac{V_s - V_C(t)}{R} = \frac{V_s e^{-t/\tau}}{R}
+\]
+
+Substituting values:
+\[
+i_R(t) = \frac{10 e^{-500t}}{2000} = 5e^{-500t}\text{ mA}
+\]
+
+Alternatively, using $i_C = C\frac{dV_C}{dt}$:
+\[
+i_C(t) = 10^{-6} \times 10 \times 500 \times e^{-500t} = 5e^{-500t}\text{ mA}
+\]
+
+\ans{$i_R(t) = 5e^{-500t}\text{ mA}$}
+}
+
+\qitem Find the total energy supplied by the voltage source up to time $t \to \infty$.
+
+\sol{
+The energy supplied by the source is:
+\[
+W_{\text{source}} = \int_0^{\infty} V_s \cdot i_R(t) \, dt
+\]
+
+\[
+W_{\text{source}} = \int_0^{\infty} 10 \times 5 \times 10^{-3} e^{-500t} \, dt
+\]
+
+\[
+= 50 \times 10^{-3} \int_0^{\infty} e^{-500t} \, dt = 50 \times 10^{-3} \times \frac{1}{500}
+\]
+
+\[
+= 100 \times 10^{-6} = 100\,\mu\mathrm{J}
+\]
+
+The energy stored in the capacitor is:
+\[
+W_C = \frac{1}{2}CV_C^2(\infty) = \frac{1}{2} \times 10^{-6} \times 10^2 = 50\,\mu\mathrm{J}
+\]
+
+The energy dissipated in the resistor is:
+\[
+W_R = W_{\text{source}} - W_C = 100 - 50 = 50\,\mu\mathrm{J}
+\]
+
+\ans{$W_{\text{source}} = 100\,\mu\mathrm{J}$, $W_C = 50\,\mu\mathrm{J}$, $W_R = 50\,\mu\mathrm{J}$}
+}
+
+\end{enumerate}

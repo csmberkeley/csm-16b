@@ -1,0 +1,119 @@
+% Authors: Eric Lind
+% Email: elind1@berkeley.edu
+\qcontributor{Eric Lind}
+
+\qns{DC Steady-State}
+ 
+\begin{enumerate}
+
+\qitem Consider the following circuit in DC steady-state. In DC steady-state, capacitors behave as open circuits. Use this fact alongside nodal analysis to find the node voltages $V_1$ and $V_2$, and then find the voltage across each capacitor.
+\begin{center}
+\begin{circuitikz}[american, scale=1.0]
+% Left branch: 12V source
+\draw (0,0) node[ground]{}
+    to[V, invert, l=$12\,\mathrm{V}$] (0,3)
+    to[R, l=$4\,\mathrm{k}\Omega$] (3,3)
+    to[short] (3,3) node[label={above:$V_1$}]{};
+% Middle branch: C1
+\draw (3,3)
+    to[C, l=$C_1$] (3,0)
+    to[short] (0,0);
+% 6k resistor to V2
+\draw (3,3)
+    to[R, l=$6\,\mathrm{k}\Omega$] (6,3)
+    node[label={above:$V_2$}]{};
+% Right capacitor C2
+\draw (6,3)
+    to[C, l=$C_2$] (6,0);
+% Bottom rail
+\draw (0,0) to[short] (3,0);
+\draw (3,0) to[short] (6,0);
+\draw (6,0) to[short] (9,0);
+% VCCS
+\draw (9,0)
+    to[american controlled current source,
+       l_=$\dfrac{V_1}{3000}$] (9,3)
+    to[short] (6,3);
+\end{circuitikz}
+\end{center}
+\textit{Note: The dependent source is a voltage-controlled current source.}
+
+\sol{
+In DC steady-state, capacitors behave as open circuits.
+
+\textbf{KCL at node $V_1$:}
+\[
+\frac{V_1 - 12}{4k} + \frac{V_1 - V_2}{6k} = 0
+\]
+\[
+5V_1 - 2V_2 = 36
+\]
+
+\textbf{KCL at node $V_2$:}
+\[
+\frac{V_2 - V_1}{6k} - \frac{V_1}{3000} = 0
+\Rightarrow V_2 = 3V_1
+\]
+
+Substitute:
+\[
+5V_1 - 2(3V_1) = 36 \Rightarrow V_1 = -36
+\]
+\[
+V_2 = -108
+\]
+
+Voltages across capacitors:
+\[
+V_{C1} = -36,\quad V_{C2} = -108
+\]
+
+\ans{$V_1=-36\text{ V},\quad V_2=-108\text{ V}$}
+}
+
+\qitem Verify your answer by checking KCL at the $V_2$ node.
+
+\sol{
+\[
+I_{6k} = \frac{-108 - (-36)}{6000} = -0.012
+\]
+\[
+I_s = \frac{-36}{3000} = -0.012
+\]
+
+Currents match, so KCL is satisfied.
+}
+
+\qitem Given that $C_1 = 2\,\mu\mathrm{F}$ and $C_2 = 4\,\mu\mathrm{F}$, find the energy stored in each capacitor.
+
+\sol{
+\[
+E = \frac{1}{2}CV^2
+\]
+
+\[
+E_1 = 1.30\text{ mJ},\quad E_2 = 23.3\text{ mJ}
+\]
+
+\ans{$E_1 = 1.30\text{ mJ},\quad E_2 = 23.3\text{ mJ}$}
+}
+
+\qitem At $t = 0$, both sources are open-circuited. Find the initial current through the $4\,\mathrm{k}\Omega$ and $6\,\mathrm{k}\Omega$ resistors at $t = 0^+$.
+
+\sol{
+\[
+V_1(0^+) = -36,\quad V_2(0^+) = -108
+\]
+
+\[
+I_{6k}(0^+) = \frac{72}{6000} = 12\text{ mA}
+\]
+
+\[
+I_{4k}(0^+) = 0
+\]
+
+\ans{$I_{6k}(0^+) = 12\text{ mA},\quad I_{4k}(0^+) = 0$}
+}
+
+\end{enumerate}
