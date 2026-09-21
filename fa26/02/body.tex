@@ -1,0 +1,28 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 2}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+\begin{qunlist}
+\input{\bank/resistor/q_basic_KVL_KCL.tex}
+\newpage
+
+\input{\bank/16a/topics/resistors/q_resistor_network.tex}
+
+\newpage
+\input{\bank/resistor/q_cubic_puzzle.tex}
+\end{qunlist}
+
+\end{document}
