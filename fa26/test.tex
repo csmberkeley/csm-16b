@@ -18,6 +18,8 @@
 \usepackage{cancel}
 \usepackage{commath}
 \usepackage{mathdots}
+\usepackage{subcaption}
+\usepackage{mdframed}
 \usepackage[american,siunitx]{circuitikz}
 \sisetup{per-mode=fraction}
 \sisetup{quotient-mode=fraction}
@@ -30,6 +32,7 @@
 
 \definecolor{blueish}{rgb}{0.7,0.1,.7}
 \newcommand{\sol}[1]{{\color{blue} \textbf{Solutions: } #1}} % solutions in blue
+\newcommand{\ans}[1]{\sol{#1}} % answers behave like solutions
 % \newcommand{\sol}[1]{} % no solution sketches
 \newcommand{\meta}[1]{{\vspace{2pt} \color{blue} \textbf{Meta: } #1}} % for meta in blue
 \newcommand{\ws}[1]{} % worksheet exclusive material

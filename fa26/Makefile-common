@@ -1,51 +1,79 @@
-tex = pdflatex
-ink = inkscape
+# Shared build rules for every worksheet folder in this semester.
+#
+# A worksheet folder (e.g. fa26/04/) only needs two files:
+#   Makefile   -- one line:  include ../Makefile-common
+#   body.tex   -- picks the questions
+# Create one with `make new N=04` from the semester folder.
+#
+# Inside a worksheet folder:
+#   make          build ws/sol/meta PDFs and copy them into build/
+#   make ws       worksheet only (also: make sol, make meta, make test)
+#   make clean    delete generated files
+#
+# Output names come from the folder name, so 04/ always gives ws04.pdf etc.
+# (the ws04.tex/sol04.tex/meta04.tex stubs are only for editors' "build" buttons).
 
-alltex = $(wildcard *.tex)
-probin = $(wildcard prob*.tex)
-prob = $(probin:.tex=.pdf)
-solin = $(wildcard sol*.tex)
-sol = $(solin:.tex=.pdf)
-wsin = $(wildcard ws*.tex)
-ws = $(wsin:.tex=.pdf)
-metain = $(wildcard meta*.tex)
-meta = $(metain:.tex=.pdf)
-testin = $(wildcard test.tex)
-test = $(testin:.tex=.pdf)
+N := $(notdir $(CURDIR))
 
-imagein = $(wildcard figures/*.svg)
-image = $(imagein:.svg=.png)
-latexmaintex = $(wildcard latexmain*.tex)
-latexmainpdf = $(latexmaintex:.tex=.pdf)
+TEX      := pdflatex
+TEXFLAGS := -interaction=nonstopmode -halt-on-error -file-line-error
 
-all: $(image) $(alltex) sol ws meta
-	$(tex) $(solin) $(wsin) $(metain)
-	mkdir -p build
-	cp $(ws) $(sol) $(meta) build
+WS   := ws$(N)
+SOL  := sol$(N)
+META := meta$(N)
 
-%.png : %.svg
-	(type $(ink) && ($(ink) --export-png=$@ --export-dpi=400 $<)) || echo 'Not compiling png'
+images := $(patsubst %.svg,%.png,$(wildcard figures/*.svg))
 
-sol : $(solin) $(alltex) $(image)
-	$(tex) $<
-	$(RM) sol*.log sol*.out sol*.annotations
+# $(call latex,<jobname>,<../X.tex>)
+# Runs pdflatex twice (so references resolve). On failure, prints the first
+# error with its file and line number instead of pdflatex's wall of output.
+define latex
+@echo "==> building $(1).pdf"
+@export max_print_line=1000; \
+  $(TEX) $(TEXFLAGS) -jobname=$(1) $(2) > /dev/null 2>&1 \
+  && $(TEX) $(TEXFLAGS) -jobname=$(1) $(2) > /dev/null 2>&1 \
+  || { echo ""; \
+       echo "*** LaTeX error while building $(1).pdf"; \
+       grep -m1 -E ':[0-9]+: |^! ' $(1).log | sed 's/^/    error: /'; \
+       grep -m1 -E '^l[.][0-9]+ ' $(1).log | sed 's/^l[.]/    at line /'; \
+       echo "    (full log: $(N)/$(1).log)"; \
+       exit 1; }
+-@rm -f $(1).log $(1).out $(1).annotations
+endef
 
-ws : $(wsin) $(alltex) $(image)
-	$(tex) $<
-	$(RM) ws*.log ws*.out ws*.annotations
+.PHONY: all ws sol meta test check clean cleanpdfs
 
-meta : $(metain) $(alltex) $(image)
-	$(tex) $<
-	$(RM) meta*.log meta*.out meta*.annotations
+all: ws sol meta
+	@mkdir -p build
+	@cp $(WS).pdf $(SOL).pdf $(META).pdf build/
+	@echo "done: build/$(WS).pdf build/$(SOL).pdf build/$(META).pdf"
 
-test : $(testin) $(alltex) $(image)
-	$(tex) $<
-	$(RM) test.log test.aux test.out test.annotations
+ws: check $(images)
+	$(call latex,$(WS),../ws.tex)
+
+sol: check $(images)
+	$(call latex,$(SOL),../sol.tex)
+
+meta: check $(images)
+	$(call latex,$(META),../meta.tex)
+
+test: check $(images)
+	$(call latex,test,../test.tex)
+
+check:
+	@test -f body.tex || { \
+	  echo "*** No body.tex in $(CURDIR)"; \
+	  echo "    Create a worksheet with:  cd .. && make new N=$(N)"; \
+	  exit 1; }
+
+%.png: %.svg
+	@command -v inkscape > /dev/null \
+	  && inkscape --export-type=png --export-dpi=400 --export-filename=$@ $< \
+	  || echo "inkscape not found, skipping $<"
 
 clean:
-	- $(RM) *.dvi *.log *.out *.aux *.annotations *.fdb_latexmk *.fls *.synctex.gz 
-	- (cd ..; $(RM) *.dvi *.log *.out *.aux *.annotations *.fdb_latexmk *.fls *.synctex.gz)
-	- $(RM) -r $(ws) $(sol) $(meta) $(test) build
+	-@rm -f *.aux *.log *.out *.annotations *.toc *.fls *.fdb_latexmk *.synctex.gz *.dvi
+	-@rm -rf build $(WS).pdf $(SOL).pdf $(META).pdf test.pdf
 
 cleanpdfs:
-	$(RM) -r $(ws) $(sol) $(meta) $(test) $(latexmainpdf) build
+	-@rm -rf build $(WS).pdf $(SOL).pdf $(META).pdf test.pdf
