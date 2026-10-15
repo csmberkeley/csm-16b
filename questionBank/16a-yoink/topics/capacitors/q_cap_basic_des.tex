@@ -7,9 +7,9 @@
 \textbf{Learning Goal}: Learn of the fundamentals of capacitors and equivalent capacitance.
 
 \meta{
-    \begin{bindenum}
+    \begin{itemize}
         \item Generally, the \textbf{most efficient method of going through these subparts is to introduce the general formula} before attempting to answer. (The subpart more or less guides the students onto such direction)
-    \end{bindenum}
+    \end{itemize}
 }
 
 Capacitor Sword Man is one of the most well known brand for selling swords in the galaxy. Recently, they have came to Earth on a field trip, and picked up some almost broken capacitors and resistors form the floor of Cory Hall to experiment new lightsaber switches. \\
@@ -19,7 +19,7 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
     \item {
         Let us first look at this structure:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//crystal_holder.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/crystal_holder.tex}
         \end{center}
         The colored rings and circles are conductor plates, each with an outer radius of 4cm. Meanwhile, the top conductor plate is a ring whose inner radius is 3cm. \\
         The permittivity of the material they put between the conductor ring and the conductor plate is $10 F/m$. \\
@@ -46,7 +46,7 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
     \item {
         CSM has decided to just use the capacitors they picked up from Cory Floor instead, but they only picked up $1mF$ capacitors. They now use the knowledge of resistors and attempt to see if the following combination produces a capacitor whose equivalent capacitance is different from $1mF$:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//series_cap.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/series_cap.tex}
         \end{center}
         Calculate the equivalent capacitance, and \textbf{in addition}, derive the capacitance formula for capacitors in series.
     
@@ -55,7 +55,7 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
         Mind that when in series, all capacitors have the same current flowing across it. \\
         Therefore, using this configuration as the base of discussion:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//series_cap_sol.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/series_cap_sol.tex}
         \end{center}
         via KCL, we first attain $i_1 = i_2$. \\
         Therefore, provided that for each capacitor, $I_c = C \pdv{V_C}{t}$, we may dictate what follows:
@@ -75,7 +75,7 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
     \item {
         CSM is satisfied with your answer. Then, CSM continues to use the knowledge of resistors, and attempt to see the equivalent capacitance and potential energy that the following configuration produces:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//para_cap.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/para_cap.tex}
         \end{center}
         Calculate the energy of capacitors for them.
         
@@ -83,7 +83,7 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
     \ans{
         Let us first figure out how does equivalent capacitance of parallel capacitors work, by discussing the following configuration:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//para_cap_derive.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/para_cap_derive.tex}
         \end{center}
         In this case, due to the parallel nature of circuit, $V_{C_1} = V_{C_2}$. Therefore, $\pdv{\Sigma V}{t} = \pdv{V_{C_1}}{t} = \pdv{V_{C_2}}{t}$\\
         Meanwhile, the current passing through the overall combination of capacitors can be computed via KCL as $i_1 + i_2$. \\
@@ -106,15 +106,15 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
         CSM notices from your lecture notes that there is something called ``superposition''. He also noticed that he only has two voltage sources, both of which are not of the supply he wants; however, its difference is. \\
         Derive the voltage at the marked node ($V_x$) on the circuit, and verify whether superposition works to solve it:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//cap_supos.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/cap_supos.tex}
         \end{center}
     
     }
     \meta{
-        \begin{bindenum}
+        \begin{itemize}
             \item Generally, superposition applies for circuits with voltage sources and capacitors, under the premise that we do not bother calculating power (since power cannot be calculated with superposition due to its nonlinear nature) as well as have independent sources whose supply is constant, and dependent sources have linear supply. What listed above is a strict constraint, for more see: \href{https://en.wikipedia.org/wiki/Superposition_theorem}{here}.
             \item Having multiple voltage sources makes this question weird. Think of capacitors as elements that receive the same amount of current.
-        \end{bindenum}
+        \end{itemize}
     
     }
     \ans{
@@ -122,7 +122,7 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
         
         Let us first discuss how the capacitive voltage divider:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//cap_volt_div_general.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/cap_volt_div_general.tex}
         \end{center}
         In such a generalized case where the net potential drop across $C_1$ and $C_2$ is $V$, let us name the voltage across $C_1$ as $V_{C_1}$, and that across $C_2$ be $V_{C_2}$. We would realize that:
         \[V = V_{C_1} + V_{C_2}\]
@@ -137,7 +137,7 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
         \end{align*}
         Let us apply this view to the case presented by the prompt:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//cap_supos.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/cap_supos.tex}
         \end{center}
         In this case, the voltage at node $V_x$ would, however, apply with a different logic since the appearance of two voltage sources is odd. Exploiting that every capacitor has the same charge across:
         \begin{align*}
@@ -149,12 +149,12 @@ Cap Sword Man (CSM) has now appeared in your dream to ask you about capacitors.
         Now let us attempt at superposition. Without re-demonstrating the capacitive voltage divider formula:
         \textbf{Keep $V_1$}:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//cap_supo_v1.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/cap_supo_v1.tex}
         \end{center}
         \[V_x = \frac{C_1 V_1}{C_1 + C_2}\]
         \textbf{Keep $V_2$}:
         \begin{center}
-            \input{../../topics/capacitors/q_cap_basic_des//cap_supo_v2.tex}
+            \input{../../questionBank/16a-yoink/topics/capacitors/q_cap_basic_des/cap_supo_v2.tex}
         \end{center}
         \[V_x = \frac{C_2 V_2}{C_1 + C_2}\]
         

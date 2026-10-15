@@ -4,10 +4,10 @@
 \qns{Parallel Capacitors}
 
 \textbf{Learning Goal: }
-\begin{bindenum}
+\begin{itemize}
     \item Teach students how to apply capacitor voltage / current formulas
     \item Teach students how to deal with sinusoidal inputs
-\end{bindenum}
+\end{itemize}
 
 \begin{center}
     \begin{circuitikz}[american]
@@ -27,10 +27,10 @@ Suppose $V_{in}(t)$ = $2sin(x)$ and $C_{1} = 2F, C_{2} = 3F$
     \item {
         Find the current $I_1$ after $2\pi$ seconds
     }
-    \meta{\\
+    \meta{
         This question introduces a straightforward application of the capacitor-current equation
     }
-    \ans{\\
+    \ans{
         We know the formula for the current entering a capacitor is $i_{C}(t) = C \frac{dv(t)}{dt}$ \\
         \\
         Thus, the current enter capacitor $C_1$ after $2\pi$ seconds is: \\
@@ -47,11 +47,11 @@ Suppose $V_{in}(t)$ = $2sin(x)$ and $C_{1} = 2F, C_{2} = 3F$
         Find the current $I_2$ after $3\pi$ seconds
     
     }
-    \meta{\\
+    \meta{
         This question introduces a straightforward application of the capacitor-current equation
 
     }
-    \ans{\\
+    \ans{
         As in the previous question, we know \\
         $i_{2}(3\pi) = C_{2} \frac{dv(3\pi)}{dt}$ \\
         $\frac{dv_{in}(t)}{dt}$ = $2cos(t)$ \\
@@ -64,11 +64,11 @@ Suppose $V_{in}(t)$ = $2sin(x)$ and $C_{1} = 2F, C_{2} = 3F$
         Derive an expression for the equivalent capacitance between $C_1$ and $C_2$ and evaluate the numerical value
     
     }
-    \meta{\\
+    \meta{
         This question asks students to derive the parallel capacitor formula, practicing derivation
 
     }
-    \ans{\\
+    \ans{
         $i_{1}(t) = C_{1} \frac{dv(t)}{dt}$ \\
         $i_{2}(t) = C_{2} \frac{dv(t)}{dt}$ \\
         $i_{t}(t) = i_{1}(t) + i_{2}(t)$ \\
@@ -89,14 +89,13 @@ Suppose $V_{in}(t)$ = $2sin(x)$ and $C_{1} = 2F, C_{2} = 3F$
         \draw (0,0) to (6,0);
         \end{circuitikz}
         \end{center}
-        \\
         What is the voltage across capacitor $C_1$ after 2 seconds. Assume both capacitors are initially uncharged
     }
-    \meta{\\
+    \meta{
         This question introduces the capacitor voltage formula for DC sources, again practicing derivation
 
     }
-    \ans{\\
+    \ans{
         Replacing the capacitors with the equivalent capacitor $C_{eq}$ we have\\
         $i_{t}(t) = C_{eq} \frac{dv(t)}{dt}$ \\
         $\frac{i_{t}(t)}{C_{eq}} = \frac{dv(t)}{dt}$ \\

@@ -41,7 +41,7 @@ Suppose we take two conducting disks of radius $r$ and place them a distance $2r
     \end{align*}
 }
 
-\itemA variable current source is hooked up to the ends of a capacitor as given by the following circuit. The current source emits a current as a function of time given by $i_s(t) = 200 \sin(\frac{\pi t}{1000})$, with $t$ given in seconds. Calculate the charge on the plates of the capacitor after $t_{\text{elapsed}} = 6000$ seconds. \emph{Hint: You do not need to know AC circuits to solve this question (that is 16B material)!} \\
+\item A variable current source is hooked up to the ends of a capacitor as given by the following circuit. The current source emits a current as a function of time given by $i_s(t) = 200 \sin(\frac{\pi t}{1000})$, with $t$ given in seconds. Calculate the charge on the plates of the capacitor after $t_{\text{elapsed}} = 6000$ seconds. \emph{Hint: You do not need to know AC circuits to solve this question (that is 16B material)!} \\
 
 \ans{
 At first glance, this question might seem out of scope -- how are we supposed to calculate the charge over time of the capacitor without either knowing AC circuits or doing complex integrals? \\ \\
@@ -103,7 +103,7 @@ Suppose we have a circuit as given by the following:
 
 Note the arrows of the switches -- At time $t_1$, the first switch opens to disconnect $V_S$ and $C_1$, and at time $t_2$, the second switch closes to connect $C_1$ and $C_2$ as given by the circuit diagram. 
 
-\itemCalculate the total energy in the capacitors before time $t_1$. Assume that $C_2$ starts off as uncharged.
+\item Calculate the total energy in the capacitors before time $t_1$. Assume that $C_2$ starts off as uncharged.
 
 \ans{
 Note that the total energy in the capacitors $E_{tot} = {E_C}_1 + {E_C}_2 = \frac{1}{2}C_1 V_1^2 + \frac{1}{2}C_2 V_2^2$
@@ -134,7 +134,7 @@ $C_2$ is connected to ground and nothing else, so we can disregard it in this ph
 }
 
 
-\itemAfter time $t_2$, calculate the new total energy in the capacitors. \emph{Hint: You may be tempted to say the energy is conserved as a shortcut, but the result may not be what you expect!} 
+\item After time $t_2$, calculate the new total energy in the capacitors. \emph{Hint: You may be tempted to say the energy is conserved as a shortcut, but the result may not be what you expect!} 
 
 \ans{ Before we get into analyzing the new circuit, lets remember what's left over from the previous problem. The energy currently in $C_1$ is $\frac{1}{2}C_1 V_s^2$, and $C_2$ has no energy/is uncharged. Then, the new circuit is given by the following circuit (we just flip the switches from the previous circuit).
 
@@ -179,7 +179,7 @@ Then, we can just apply $E = \frac{1}{2}CV^2$ to both capacitors.
 Note that $C_1 + C_2 > C_1$ as long as $C_2$ has a non-zero capacitance (ie. always), and so this energy is actually less than our energy from before! 
 }
 
-\itemSuppose $C_1 = C_2 = C$. Then, calculate the difference in energy between $t_1$ and $t_2$. (\emph{Optional: Nowhere in this question did we ever talk about resistance or the non-idealness of any element, and we can safely assume this circuit is a closed system. How can the energies at two times be different? Hint: Think about what we're doing when we close the second switch.})
+\item Suppose $C_1 = C_2 = C$. Then, calculate the difference in energy between $t_1$ and $t_2$. (\emph{Optional: Nowhere in this question did we ever talk about resistance or the non-idealness of any element, and we can safely assume this circuit is a closed system. How can the energies at two times be different? Hint: Think about what we're doing when we close the second switch.})
 
 \ans{
 The differnce in energy is given by $E_{tot2} - E{tot1}$. For $C_1 = C_2 = C$, this is 
@@ -197,7 +197,6 @@ The reasoning behind this loss of energy is actually quite subtle. It turns out 
 \meta{
 The computation for this problem is not too bad, but the important part is to emphasize the intuition behind the "paradox" that's created here to give students a better understanding of capacitor workings. Ensure they understand the key issues at play -- connecting two different voltages onto the same node, and the assumption of "idealness" that isn't actually possible. 
 }
- \\ \\ 
 
 \textbf{Dielectric Limits} \\
 The parameter $\epsilon$ is called the "dielectric constant" of the capacitor and gives the maximum energy a certain medium (ie. air) can store in the form of an electric field. If the voltage in a region gets too big, however, a phenomenon known as "dielectric breakdown" occurs -- the space can no longer carry the huge electric field and breaks down into a pure conductor. \\ \\ 
@@ -215,7 +214,7 @@ Useful values:
     \item 1 MV = $1 \times 10^6 V$
 \end{enumerate}
 
-\itemSuppose a manufacturer of parallel plate capacitors designs square plate-capacitors with side-length 5 cm and separation distance 2 cm.  If the space between the plates is filled with air, \textbf{calculate the maximum voltage the capacitor can be connected to before reaching dielectric breakdown, and the charge that this capacitor can support at that maximum voltage}. \emph{Hint: How does the maximum voltage correspond to the dielectric breakdown, and how does this translate into calculation?}
+\item Suppose a manufacturer of parallel plate capacitors designs square plate-capacitors with side-length 5 cm and separation distance 2 cm.  If the space between the plates is filled with air, \textbf{calculate the maximum voltage the capacitor can be connected to before reaching dielectric breakdown, and the charge that this capacitor can support at that maximum voltage}. \emph{Hint: How does the maximum voltage correspond to the dielectric breakdown, and how does this translate into calculation?}
 
 \ans{ 
 We can break down (no pun intended!) the calculations for this problem into three parts. 
@@ -242,7 +241,7 @@ where $1 pF = 10^{-12} F$. This part of the question is mostly just plugging in 
 The calculations in this question are not really new and are just review of how to do capacitor problems. The only addition is the concept of dielectric breakdown, which the students should understand on a high-level without getting into the details of electromagnetism -- that different mediums have different capacities of holding electric field energy, which affect the functioning of capacitors. 
 }
 
-\itemNow, all other factors constant, suppose the space between the capacitor plates is replaced with teflon. Calculate the new maximum voltage the capacitor can be connected to before reaching dielectric breakdown, and interpret your result. \\
+\item Now, all other factors constant, suppose the space between the capacitor plates is replaced with teflon. Calculate the new maximum voltage the capacitor can be connected to before reaching dielectric breakdown, and interpret your result. \\
 \ans{
 We follow the exact same logic as in the previous part. Firstly, 
 \begin{align*}
@@ -265,7 +264,7 @@ Note that this capacitor can support more than 10 times the charge of our previo
 
 }
 
-\item(Optional) Suppose we had a pure insulator (no charge can move through it) and a pure conductor (charges move completely freely through it). Using the concepts from the previous part, calculate the dielectric constant $\epsilon$ for both materials. 
+\item (Optional) Suppose we had a pure insulator (no charge can move through it) and a pure conductor (charges move completely freely through it). Using the concepts from the previous part, calculate the dielectric constant $\epsilon$ for both materials. 
 
 \ans{
 This question is slightly tricky without a background in E\&M, but we can try to logic our way through. Lets start with the conductor as it's slightly more intuitive, and then move on to the insulator. \\ \\
