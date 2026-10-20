@@ -1,0 +1,35 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 7}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+% Add one \input line per question (files live in questionBank/), with
+% \newpage between questions. Delete the placeholder \item below once you do.
+% Example:
+%   \input{\bank/resistor/q_voltage_divider.tex}
+%   \newpage
+%   \input{\bank/resistor/q_supernode.tex}
+\begin{qunlist}
+    \input{\bank/phasors/phasor_impedance_basics.tex}
+    \newpage
+    \input{\bank/phasors/phasor_analysis.tex}
+    \newpage
+    \input{\bank/phasors/q3.tex}
+\end{qunlist}
+
+\newpage
+\null
+
+\end{document}
