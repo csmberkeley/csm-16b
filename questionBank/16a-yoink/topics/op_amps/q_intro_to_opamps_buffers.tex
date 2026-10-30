@@ -12,7 +12,7 @@
 Now we will revisit a problem that you might have seen before, with our new knowledge of op-amps. We have access to a circuit inside a 'black box' as shown below, with two terminal coming out of it.
 
 \begin{enumerate}
-\itemWe need a voltage of $6 \text{V}$ power a light bulb with resistance $R_L$. Design $R_1$ and $R_2$ inside the black box so that the voltage across $R_2$ is exactly equal to this required voltage \textbf{when the bulb is not connected}; i.e. $V_{R_2} = V_{out} = 6 \text{V}$. 
+\item We need a voltage of $6 \text{V}$ power a light bulb with resistance $R_L$. Design $R_1$ and $R_2$ inside the black box so that the voltage across $R_2$ is exactly equal to this required voltage \textbf{when the bulb is not connected}; i.e. $V_{R_2} = V_{out} = 6 \text{V}$. 
 
 \begin{center}
     \begin{circuitikz}[scale=0.8]
@@ -55,7 +55,7 @@ If we set $V_{R_2}=6 \si{\volt}$, we get
 For example, we can choose $R_1=R_2 =1\si{\kilo\ohm}$.
 }
 
-\itemNow let us connect the bulb $R_L$ across $R_2$. What is the voltage across $R_1$, $R_2$ and $R_L$ when the bulb is connected when $R_L=R_2$? Use the values of $R_1$ and $R_2$ from the last part. Will the light bulb turn on?
+\item Now let us connect the bulb $R_L$ across $R_2$. What is the voltage across $R_1$, $R_2$ and $R_L$ when the bulb is connected when $R_L=R_2$? Use the values of $R_1$ and $R_2$ from the last part. Will the light bulb turn on?
 What happens if $R_L=2R_2$?
 
 \ans{
@@ -100,7 +100,7 @@ Although, $V_{out}$ is now closer to $6 \si{\volt}$, the bulb will still not tur
 
 }
 
-\itemUsing your knowledge of op-amps, how could you resolve this issue of $V_{out}$ changing based on the value of $R_L$? Think about how you might use an op-amp buffer. 
+\item Using your knowledge of op-amps, how could you resolve this issue of $V_{out}$ changing based on the value of $R_L$? Think about how you might use an op-amp buffer. 
 
 \ans{
 We can introduce a 'buffer' op-amp as shown below:
