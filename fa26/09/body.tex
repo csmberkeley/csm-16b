@@ -1,0 +1,34 @@
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\def\title{Worksheet 9}
+
+\newcommand{\qitem}{\qpart\item}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} % change default enum format to (a)
+\renewcommand{\theenumi}{(\alph{enumi})} % fix reference format accordingly.
+\renewcommand{\labelenumii}{\roman{enumii}.} % second level labels.
+\renewcommand{\theenumii}{\roman{enumii}.}
+
+\maketitle
+
+\vspace{0.5em}
+
+% Add one \input line per question (files live in questionBank/), with
+% \newpage between questions. Delete the placeholder \item below once you do.
+% Example:
+%   \input{\bank/resistor/q_voltage_divider.tex}
+%   \newpage
+%   \input{\bank/resistor/q_supernode.tex}
+\begin{qunlist}
+    \input{\bank/16a-yoink/topics/op_amps/q_negative_feedback.tex}
+    \newpage
+    \input{\bank/16a-yoink/topics/op_amps/q_non_inv_summer.tex}
+    \newpage
+    \input{\bank/16a-yoink/topics/op_amps/q_multistage_opamp.tex}
+    \newpage
+    \input{\bank/16a-yoink/topics/midterm_two_review/q_m2_design_op_amp_a.tex}
+\end{qunlist}
+
+\end{document}
